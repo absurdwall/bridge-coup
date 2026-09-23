@@ -1,6 +1,6 @@
 import Foundation
 
-public struct DeclarerPlanAnalysis: Equatable, Identifiable, Sendable {
+public struct DeclarerPlanAnalysis: Codable, Equatable, Identifiable, Sendable {
     public let id: UUID
     public let requestID: UUID
     public let informationVersion: Int
@@ -14,14 +14,14 @@ public struct DeclarerPlanAnalysis: Equatable, Identifiable, Sendable {
     }
 }
 
-public enum DeclarerFollowUpStatus: Equatable, Sendable {
+public enum DeclarerFollowUpStatus: Codable, Equatable, Sendable {
     case sending
     case answered(DeclarerPlanResponse)
     case failed(String)
     case outdated
 }
 
-public struct DeclarerFollowUpExchange: Equatable, Identifiable, Sendable {
+public struct DeclarerFollowUpExchange: Codable, Equatable, Identifiable, Sendable {
     /// Stable across retries so one question has one effective answer in the review history.
     public let id: UUID
     public let informationVersion: Int

@@ -2,6 +2,7 @@ import SwiftUI
 import BridgeTeacherCore
 
 struct BridgeTeacherWorkspaceShell: View {
+    @StateObject private var model = BridgeTeacherApplicationModel()
     @State private var isVerificationPresented = false
 
     var body: some View {
@@ -21,17 +22,18 @@ struct BridgeTeacherWorkspaceShell: View {
             .padding(.horizontal, 32)
             .padding(.top, 8)
 
-            BridgeTeacherWorkspaceView()
+            BridgeTeacherWorkspaceView(model: model)
         }
         .sheet(isPresented: $isVerificationPresented) {
-            DoubleDummyVerificationView()
+            DoubleDummyVerificationView(model: model)
                 .frame(minWidth: 1120, minHeight: 760)
         }
     }
 }
 
 private struct DoubleDummyVerificationView: View {
-    @StateObject private var workflow: DoubleDummyVerificationWorkflow
+    @ObservedObject private var workflow: DoubleDummyVerificationWorkflow
+    private let model: BridgeTeacherApplicationModel
     @Environment(\.dismiss) private var dismiss
     private let suitColumns = [
         GridItem(.flexible(), spacing: 10),
@@ -40,14 +42,9 @@ private struct DoubleDummyVerificationView: View {
         GridItem(.flexible(), spacing: 10),
     ]
 
-    init() {
-        let helperURL = Bundle.main.bundleURL
-            .appendingPathComponent("Contents", isDirectory: true)
-            .appendingPathComponent("Helpers", isDirectory: true)
-            .appendingPathComponent("bridge-dds", isDirectory: false)
-        _workflow = StateObject(wrappedValue: DoubleDummyVerificationWorkflow(
-            solver: BundledDDSSolver(executableURL: helperURL)
-        ))
+    init(model: BridgeTeacherApplicationModel) {
+        self.model = model
+        _workflow = ObservedObject(wrappedValue: model.doubleDummyWorkflow)
     }
 
     var body: some View {
@@ -155,7 +152,7 @@ private struct DoubleDummyVerificationView: View {
                     .foregroundStyle(VerificationPalette.muted)
                 Spacer()
                 Button {
-                    Task { await workflow.verify() }
+                    Task { await model.verifyDoubleDummy() }
                 } label: {
                     HStack(spacing: 7) {
                         if workflow.state == .solving {
@@ -391,8 +388,8 @@ private struct DoubleDummyVerificationView: View {
         draft.hands[.east] = [.spades: "-", .hearts: "AKQJT", .diamonds: "AKQJ", .clubs: "AKQJ"]
         draft.hands[.south] = [.spades: "-", .hearts: "98765", .diamonds: "T987", .clubs: "T987"]
         draft.hands[.west] = [.spades: "-", .hearts: "432", .diamonds: "65432", .clubs: "65432"]
-        workflow.updateDraft(draft)
-        await workflow.verify()
+        model.updateDoubleDummyDraft(draft)
+        await model.verifyDoubleDummy()
     }
 
     private func binding<Value: Equatable>(for keyPath: WritableKeyPath<DoubleDummyVerificationDraft, Value>) -> Binding<Value> {
@@ -401,7 +398,7 @@ private struct DoubleDummyVerificationView: View {
             set: { value in
                 var draft = workflow.draft
                 draft[keyPath: keyPath] = value
-                workflow.updateDraft(draft)
+                model.updateDoubleDummyDraft(draft)
             }
         )
     }
@@ -412,7 +409,7 @@ private struct DoubleDummyVerificationView: View {
             set: { value in
                 var draft = workflow.draft
                 draft[keyPath: keyPath] = value
-                workflow.updateDraft(draft)
+                model.updateDoubleDummyDraft(draft)
             }
         )
     }
@@ -423,7 +420,7 @@ private struct DoubleDummyVerificationView: View {
             set: { rawValue in
                 var draft = workflow.draft
                 draft[keyPath: keyPath] = rawValue.isEmpty ? nil : Int(rawValue)
-                workflow.updateDraft(draft)
+                model.updateDoubleDummyDraft(draft)
             }
         )
     }
@@ -436,7 +433,7 @@ private struct DoubleDummyVerificationView: View {
                 var holdings = draft.hands[seat] ?? [:]
                 holdings[suit] = value
                 draft.hands[seat] = holdings
-                workflow.updateDraft(draft)
+                model.updateDoubleDummyDraft(draft)
             }
         )
     }
