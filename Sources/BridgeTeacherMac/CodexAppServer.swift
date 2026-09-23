@@ -282,6 +282,10 @@ actor CodexTeachingService: DeclarerTeachingRuntime {
         if code == "unauthorized" {
             return PlanRuntimeError.chatGPTSignInRequired
         }
+        return mapMessage(message)
+    }
+
+    private static func mapMessage(_ message: String) -> Error {
         let lowered = message.lowercased()
         if ["usage", "quota", "rate limit", "capacity", "too many requests"].contains(where: lowered.contains) {
             return PlanRuntimeError.usageLimited(message)
@@ -296,14 +300,7 @@ actor CodexTeachingService: DeclarerTeachingRuntime {
         if let setup = error as? CodexRuntimeSetupError { return setup }
         if let runtime = error as? PlanRuntimeError { return runtime }
         if let rpc = error as? CodexRPCError {
-            let lowered = rpc.message.lowercased()
-            if ["usage", "quota", "rate limit", "capacity", "too many requests"].contains(where: lowered.contains) {
-                return PlanRuntimeError.usageLimited(rpc.message)
-            }
-            if ["unauthorized", "authentication", "sign in", "login"].contains(where: lowered.contains) {
-                return PlanRuntimeError.chatGPTSignInRequired
-            }
-            return PlanRuntimeError.requestFailed(rpc.message)
+            return mapMessage(rpc.message)
         }
         if error is CodexTransportError {
             return PlanRuntimeError.temporarilyUnavailable
