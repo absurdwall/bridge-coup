@@ -208,7 +208,6 @@ final class BridgeTeacherApplicationModel: ObservableObject {
     func setTeachingMode(_ mode: TeachingMode) {
         guard teachingMode != mode else { return }
         teachingMode = mode
-        keyPlayWorkflow.invalidate()
         reviewSessionStatus = "有尚未保存的更改"
     }
 

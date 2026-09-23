@@ -23,7 +23,7 @@ public final class KeyPlayAnalysisWorkflow: ObservableObject {
         invalidate()
     }
 
-    /// Invalidates this mode's result when shared hand material or the selected mode changes.
+    /// Invalidates this mode's result when shared hand material or its analysis node changes.
     public func invalidate() {
         revision += 1
         if result != nil {
