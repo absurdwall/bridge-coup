@@ -118,11 +118,8 @@ public final class DeclarerPlanWorkflow: ObservableObject {
         self.draft = draft
         informationVersion += 1
         planOperationRevision += 1
-        followUpOperationRevision += 1
+        invalidatePendingFollowUps()
         failedPlanRequest = nil
-        for index in followUpExchanges.indices where followUpExchanges[index].status == .sending {
-            followUpExchanges[index].status = .outdated
-        }
         if state == .generating {
             state = .idle
         }
@@ -159,10 +156,7 @@ public final class DeclarerPlanWorkflow: ObservableObject {
                 informationVersion: request.informationVersion,
                 response: response
             )
-            followUpOperationRevision += 1
-            for index in followUpExchanges.indices where followUpExchanges[index].status == .sending {
-                followUpExchanges[index].status = .outdated
-            }
+            invalidatePendingFollowUps()
             planAnalyses.append(analysis)
             currentPlanID = analysis.id
             failedPlanRequest = nil
@@ -215,9 +209,7 @@ public final class DeclarerPlanWorkflow: ObservableObject {
         guard canFollowUp,
               let plan = currentPlan,
               let index = followUpExchanges.firstIndex(where: { $0.id == exchangeID }),
-              followUpExchanges[index].planID == plan.id,
-              followUpExchanges[index].informationVersion == informationVersion,
-              isFailed(followUpExchanges[index].status) else { return }
+              isRetryable(followUpExchanges[index], for: plan) else { return }
         followUpExchanges[index].status = .sending
         await runFollowUp(exchangeID: exchangeID, plan: plan)
     }
@@ -232,10 +224,20 @@ public final class DeclarerPlanWorkflow: ObservableObject {
 
     public func canRetry(_ exchange: DeclarerFollowUpExchange) -> Bool {
         guard let plan = currentPlan else { return false }
-        return exchange.planID == plan.id
+        return isRetryable(exchange, for: plan) && canFollowUp
+    }
+
+    private func invalidatePendingFollowUps() {
+        followUpOperationRevision += 1
+        for index in followUpExchanges.indices where followUpExchanges[index].status == .sending {
+            followUpExchanges[index].status = .outdated
+        }
+    }
+
+    private func isRetryable(_ exchange: DeclarerFollowUpExchange, for plan: DeclarerPlanAnalysis) -> Bool {
+        exchange.planID == plan.id
             && exchange.informationVersion == informationVersion
             && isFailed(exchange.status)
-            && canFollowUp
     }
 
     private func runFollowUp(exchangeID: UUID, plan: DeclarerPlanAnalysis) async {
