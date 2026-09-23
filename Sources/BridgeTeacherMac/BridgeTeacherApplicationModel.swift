@@ -44,6 +44,7 @@ enum CodexConnectionStatus: Equatable {
 @MainActor
 final class BridgeTeacherApplicationModel: ObservableObject {
     let workflow: DeclarerPlanWorkflow
+    let keyPlayWorkflow: KeyPlayAnalysisWorkflow
 
     @Published private(set) var connectionStatus: CodexConnectionStatus = .checking
     @Published private(set) var isConnecting = false
@@ -57,6 +58,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
         let runtimeService = CodexTeachingService()
         service = runtimeService
         workflow = DeclarerPlanWorkflow(runtime: runtimeService)
+        keyPlayWorkflow = KeyPlayAnalysisWorkflow(runtime: runtimeService)
     }
 
     func bootstrap() async {
@@ -116,6 +118,25 @@ final class BridgeTeacherApplicationModel: ObservableObject {
 
     func generatePlan() async {
         await workflow.generatePlan()
+    }
+
+    func updateReviewDraft(_ draft: DeclarerPlanDraft) {
+        guard draft != workflow.draft else { return }
+        workflow.updateDraft(draft)
+        keyPlayWorkflow.invalidate()
+    }
+
+    func updateKeyPlayDraft(_ draft: KeyPlayAnalysisDraft) {
+        keyPlayWorkflow.updateDraft(draft)
+    }
+
+    func generate(mode: TeachingMode) async {
+        switch mode {
+        case .declarerPlan:
+            await workflow.generatePlan()
+        case .keyPlayAnalysis:
+            await keyPlayWorkflow.generate(from: workflow.draft)
+        }
     }
 
     private func useRuntime(_ url: URL, saveSelection: Bool) async {
