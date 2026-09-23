@@ -101,6 +101,8 @@ public struct DeclarerPlanDraft: Equatable, Sendable {
 }
 
 public struct DeclarerPlanRequest: Equatable, Sendable {
+    public let requestID: UUID
+    public let informationVersion: Int
     public let declarerSeat: Seat
     public let contractLevel: Int
     public let contractStrain: ContractStrain
@@ -113,6 +115,8 @@ public struct DeclarerPlanRequest: Equatable, Sendable {
     public let prompt: String
 
     public init(
+        requestID: UUID = UUID(),
+        informationVersion: Int = 0,
         declarerSeat: Seat,
         contractLevel: Int,
         contractStrain: ContractStrain,
@@ -124,6 +128,8 @@ public struct DeclarerPlanRequest: Equatable, Sendable {
         unknownSeats: [Seat],
         prompt: String
     ) {
+        self.requestID = requestID
+        self.informationVersion = informationVersion
         self.declarerSeat = declarerSeat
         self.contractLevel = contractLevel
         self.contractStrain = contractStrain
@@ -142,6 +148,7 @@ public enum DeclarerPlanInputError: Error, Equatable, LocalizedError, Sendable {
     case invalidContractLevel
     case noDeclarerCards
     case emptyQuestion
+    case emptyFollowUpQuestion
     case invalidHolding(seat: Seat, suit: Suit, value: String)
     case duplicateCard(String)
     case tooManyKnownCards(seat: Seat, count: Int)
@@ -156,6 +163,8 @@ public enum DeclarerPlanInputError: Error, Equatable, LocalizedError, Sendable {
             "请至少录入庄家一张当时可见的牌；空白手牌会保持未知。"
         case .emptyQuestion:
             "请写下当前想复盘的问题。"
+        case .emptyFollowUpQuestion:
+            "请写下想继续追问的问题。"
         case let .invalidHolding(seat, suit, value):
             "\(seat.chineseName)\(suit.symbol) 输入“\(value)”无法识别。请使用 A K Q J 10 及 2 到 9；“-”表示已确认缺门。"
         case let .duplicateCard(card):
@@ -167,7 +176,11 @@ public enum DeclarerPlanInputError: Error, Equatable, LocalizedError, Sendable {
 }
 
 public enum DeclarerPlanRequestBuilder {
-    public static func build(from draft: DeclarerPlanDraft) throws -> DeclarerPlanRequest {
+    public static func build(
+        from draft: DeclarerPlanDraft,
+        informationVersion: Int = 0,
+        requestID: UUID = UUID()
+    ) throws -> DeclarerPlanRequest {
         guard let level = draft.contractLevel, let strain = draft.contractStrain else {
             throw DeclarerPlanInputError.missingContract
         }
@@ -201,6 +214,8 @@ public enum DeclarerPlanRequestBuilder {
         )
 
         return DeclarerPlanRequest(
+            requestID: requestID,
+            informationVersion: informationVersion,
             declarerSeat: draft.declarerSeat,
             contractLevel: level,
             contractStrain: strain,

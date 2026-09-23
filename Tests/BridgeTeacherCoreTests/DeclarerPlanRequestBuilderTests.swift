@@ -57,4 +57,63 @@ final class DeclarerPlanRequestBuilderTests: XCTestCase {
         XCTAssertTrue(request.prompt.contains("♠缺门（已确认）"))
         XCTAssertTrue(request.prompt.contains("♦未知"))
     }
+
+    func testFollowUpKeepsCurrentPlanAndSeparatesHypothesesFromConfirmedInformation() throws {
+        var draft = DeclarerPlanDraft()
+        draft.contractLevel = 4
+        draft.contractStrain = .hearts
+        draft.hands[.south, default: [:]][.spades] = "AKQ2"
+        draft.question = "请为这副牌制定做庄计划。"
+        let context = try DeclarerPlanRequestBuilder.build(from: draft, informationVersion: 7)
+        let plan = DeclarerPlanAnalysis(
+            id: UUID(),
+            requestID: UUID(),
+            informationVersion: 7,
+            response: DeclarerPlanResponse(text: "先兑现黑桃顶张，再保留进手。")
+        )
+        let priorAnswer = DeclarerFollowUpExchange(
+            id: UUID(),
+            informationVersion: 7,
+            planID: plan.id,
+            question: "为什么先处理黑桃？",
+            assumptions: nil,
+            status: .answered(DeclarerPlanResponse(text: "这样可以先检查黑桃分布。"))
+        )
+        let staleAnswer = DeclarerFollowUpExchange(
+            informationVersion: 6,
+            planID: UUID(),
+            question: "已经不相关的旧问题。",
+            assumptions: nil,
+            status: .answered(DeclarerPlanResponse(text: "已失效的旧回答。"))
+        )
+        let unansweredExchange = DeclarerFollowUpExchange(
+            informationVersion: 7,
+            planID: plan.id,
+            question: "尚未完成的追问。",
+            assumptions: nil,
+            status: .sending
+        )
+
+        let followUp = try DeclarerFollowUpRequestBuilder.build(
+            context: context,
+            currentPlan: plan,
+            priorExchanges: [priorAnswer, staleAnswer, unansweredExchange],
+            question: "如果东家有四张黑桃呢？",
+            assumptions: "假设东家有四张黑桃（尚未确认）",
+            requestID: UUID()
+        )
+
+        XCTAssertEqual(followUp.informationVersion, 7)
+        XCTAssertEqual(followUp.context.visibleHands.map(\.seat), [.south])
+        XCTAssertEqual(followUp.context.unknownSeats, [.north, .east, .west])
+        XCTAssertFalse(context.prompt.contains("假设东家有四张黑桃"))
+        XCTAssertTrue(followUp.prompt.contains("先兑现黑桃顶张，再保留进手。"))
+        XCTAssertTrue(followUp.prompt.contains("为什么先处理黑桃？"))
+        XCTAssertTrue(followUp.prompt.contains("这样可以先检查黑桃分布。"))
+        XCTAssertFalse(followUp.prompt.contains("已失效的旧回答。"))
+        XCTAssertFalse(followUp.prompt.contains("尚未完成的追问。"))
+        XCTAssertTrue(followUp.prompt.contains("本次条件假设（不是已确认事实）"))
+        XCTAssertTrue(followUp.prompt.contains("假设东家有四张黑桃（尚未确认）"))
+        XCTAssertTrue(followUp.prompt.contains("东家：未知"))
+    }
 }

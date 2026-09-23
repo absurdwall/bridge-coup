@@ -126,6 +126,14 @@ actor CodexTeachingService: DeclarerTeachingRuntime {
     }
 
     func generatePlan(for request: DeclarerPlanRequest) async throws -> DeclarerPlanResponse {
+        try await generateTemporaryReply(prompt: request.prompt)
+    }
+
+    func respondToFollowUp(_ request: DeclarerFollowUpRequest) async throws -> DeclarerPlanResponse {
+        try await generateTemporaryReply(prompt: request.prompt)
+    }
+
+    private func generateTemporaryReply(prompt: String) async throws -> DeclarerPlanResponse {
         let server = try requireClient()
         do {
             guard try await isChatGPTSignedIn() else {
@@ -140,7 +148,7 @@ actor CodexTeachingService: DeclarerTeachingRuntime {
                 "approvalPolicy": "never",
                 "ephemeral": true,
                 "serviceName": "Bridge Teacher",
-                "developerInstructions": "本线程只用于桥牌做庄教学。只依据本次用户消息明确提供的决策时信息回答。不得访问文件、执行命令、调用搜索、MCP 或其他工具；不得推断未知牌为已知牌。",
+                "developerInstructions": "本线程只用于桥牌做庄教学。只依据用户消息明确提供的决策时信息回答。不得访问文件、执行命令、调用搜索、MCP 或其他工具；不得推断未知牌为已知牌。对标注为条件假设的内容，只能在该条件成立时进行条件讨论，不能将其写成已确认牌面或事实。",
             ])
             guard let thread = threadResponse["thread"] as? [String: Any],
                   let threadID = thread["id"] as? String else {
@@ -150,7 +158,7 @@ actor CodexTeachingService: DeclarerTeachingRuntime {
 
             let turnResponse = try await server.request("turn/start", params: [
                 "threadId": threadID,
-                "input": [["type": "text", "text": request.prompt]],
+                "input": [["type": "text", "text": prompt]],
             ])
             guard let startedTurn = turnResponse["turn"] as? [String: Any],
                   let turnID = startedTurn["id"] as? String else {

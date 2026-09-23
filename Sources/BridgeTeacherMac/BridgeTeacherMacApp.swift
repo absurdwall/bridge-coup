@@ -330,43 +330,30 @@ private struct TeachingPanel: View {
             Divider().overlay(BridgePalette.border).padding(.top, 16)
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
-                    if workflow.resultIsOutdated {
-                        Label("输入已改变；下面的计划对应修改前的信息。", systemImage: "arrow.trianglehead.2.clockwise")
-                            .font(.system(size: 12, weight: .medium))
-                            .foregroundStyle(BridgePalette.warning)
-                            .padding(12)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(BridgePalette.warning.opacity(0.08), in: RoundedRectangle(cornerRadius: 10))
-                    }
-
-                    switch workflow.state {
-                    case .idle:
-                        emptyState
-                    case let .invalid(message):
-                        failureState(title: "请先核对输入", message: message, canRetry: false)
-                    case .generating:
-                        VStack(alignment: .leading, spacing: 12) {
-                            ProgressView()
-                                .controlSize(.regular)
-                                .tint(BridgePalette.green)
-                            Text("正在通过 Codex 请求真实教学响应…")
-                                .font(.system(size: 15, weight: .medium))
-                                .foregroundStyle(BridgePalette.ink)
-                            Text("此请求只包含左侧明确录入的可见牌和补充事实。")
-                                .font(.system(size: 12))
-                                .foregroundStyle(BridgePalette.muted)
-                        }
-                        .padding(.top, 26)
-                    case .succeeded:
-                        if let result = workflow.result {
-                            response(result)
-                        } else {
+                    if workflow.planAnalyses.isEmpty {
+                        switch workflow.state {
+                        case .idle, .succeeded:
                             emptyState
+                        case let .invalid(message):
+                            failureState(title: "请先核对输入", message: message, canRetry: false)
+                        case .generating:
+                            generatingState
+                        case let .failed(message):
+                            failureState(title: "这次没有生成计划", message: message, canRetry: model.connectionStatus.isSignedIn)
                         }
-                    case let .failed(message):
-                        failureState(title: "这次没有生成计划", message: message, canRetry: model.connectionStatus.isSignedIn)
-                        if let result = workflow.result {
-                            response(result)
+                    } else {
+                        switch workflow.state {
+                        case .generating:
+                            generatingState
+                        case let .invalid(message):
+                            failureState(title: "请先核对输入", message: message, canRetry: false)
+                        case let .failed(message):
+                            failureState(title: "这次没有生成计划", message: message, canRetry: model.connectionStatus.isSignedIn)
+                        case .idle, .succeeded:
+                            EmptyView()
+                        }
+                        ForEach(Array(workflow.planAnalyses.reversed())) { analysis in
+                            planSection(analysis)
                         }
                     }
                 }
@@ -374,10 +361,158 @@ private struct TeachingPanel: View {
                 .padding(.top, 18)
                 .padding(.bottom, 12)
             }
+            followUpComposer
         }
         .padding(20)
         .background(.white, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
+    }
+
+    private var generatingState: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            ProgressView()
+                .controlSize(.regular)
+                .tint(BridgePalette.green)
+            Text("正在通过 Codex 请求真实教学响应…")
+                .font(.system(size: 15, weight: .medium))
+                .foregroundStyle(BridgePalette.ink)
+            Text("此请求只包含左侧明确录入的可见牌和补充事实。")
+                .font(.system(size: 12))
+                .foregroundStyle(BridgePalette.muted)
+        }
+        .padding(.top, 12)
+    }
+
+    private func planSection(_ analysis: DeclarerPlanAnalysis) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Text(analysis.id == workflow.planAnalyses.last?.id ? "做庄计划" : "历史计划")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(BridgePalette.ink)
+                Spacer()
+                if workflow.isOutdated(analysis) {
+                    Label("基于旧信息 · 已过期", systemImage: "arrow.trianglehead.2.clockwise")
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundStyle(BridgePalette.warning)
+                } else if analysis.id != workflow.planAnalyses.last?.id {
+                    Text("较早的计划")
+                        .font(.system(size: 10))
+                        .foregroundStyle(BridgePalette.muted)
+                }
+            }
+            response(analysis.response)
+            ForEach(workflow.followUpExchanges.filter { $0.planID == analysis.id }) { exchange in
+                followUpCard(exchange)
+            }
+        }
+    }
+
+    private func followUpCard(_ exchange: DeclarerFollowUpExchange) -> some View {
+        VStack(alignment: .leading, spacing: 9) {
+            HStack {
+                Text("追问")
+                    .font(.system(size: 11, weight: .semibold))
+                    .foregroundStyle(BridgePalette.green)
+                Spacer()
+                if workflow.isOutdated(exchange) {
+                    Text("旧信息版本 · 已过期")
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundStyle(BridgePalette.warning)
+                }
+            }
+            Text(exchange.question)
+                .font(.system(size: 13, weight: .medium))
+                .foregroundStyle(BridgePalette.ink)
+            if let assumptions = exchange.assumptions {
+                Text("条件假设（未确认）：\(assumptions)")
+                    .font(.system(size: 11))
+                    .foregroundStyle(BridgePalette.muted)
+            }
+
+            switch exchange.status {
+            case .sending:
+                HStack(spacing: 8) {
+                    ProgressView().controlSize(.small)
+                    Text("正在生成追问回答…")
+                        .font(.system(size: 12))
+                        .foregroundStyle(BridgePalette.muted)
+                }
+            case let .answered(answer):
+                Text(answer.text)
+                    .font(.system(size: 13))
+                    .lineSpacing(4)
+                    .foregroundStyle(BridgePalette.ink)
+                    .textSelection(.enabled)
+            case let .failed(message):
+                Text(message)
+                    .font(.system(size: 12))
+                    .foregroundStyle(BridgePalette.warning)
+                    .textSelection(.enabled)
+                if workflow.canRetry(exchange), model.connectionStatus.isSignedIn {
+                    Button("重试这条追问") {
+                        Task { await workflow.retryFollowUp(exchange.id) }
+                    }
+                    .buttonStyle(.bordered)
+                    .tint(BridgePalette.green)
+                }
+            case .outdated:
+                Text("信息修正前的请求已作废。重新生成计划后，可围绕新计划再次追问。")
+                    .font(.system(size: 12))
+                    .foregroundStyle(BridgePalette.muted)
+            }
+        }
+        .padding(13)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(.white, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
+    }
+
+    private var followUpComposer: some View {
+        Group {
+            if workflow.result != nil {
+                Divider().overlay(BridgePalette.border).padding(.vertical, 12)
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("围绕当前计划追问")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(BridgePalette.ink)
+                    HStack(alignment: .bottom, spacing: 8) {
+                        VStack(spacing: 7) {
+                            TextField("追问当前计划的理由或路线…", text: followUpQuestionBinding, axis: .vertical)
+                                .lineLimit(1...3)
+                                .textFieldStyle(.roundedBorder)
+                                .accessibilityIdentifier("follow-up-question")
+                            TextField("条件假设（可选；不会记作已确认事实）", text: followUpAssumptionsBinding, axis: .vertical)
+                                .lineLimit(1...2)
+                                .textFieldStyle(.roundedBorder)
+                                .accessibilityIdentifier("follow-up-assumptions")
+                        }
+                        Button {
+                            Task { await workflow.sendFollowUp() }
+                        } label: {
+                            Label("发送", systemImage: "arrow.up.circle.fill")
+                                .labelStyle(.titleAndIcon)
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .tint(BridgePalette.green)
+                        .disabled(!model.connectionStatus.isSignedIn || !workflow.canFollowUp || followUpQuestionBinding.wrappedValue.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                        .accessibilityIdentifier("send-follow-up")
+                    }
+                    if workflow.resultIsOutdated {
+                        Label("信息已修正；先重新生成做庄计划，再继续追问。", systemImage: "arrow.trianglehead.2.clockwise")
+                            .font(.system(size: 11, weight: .medium))
+                            .foregroundStyle(BridgePalette.warning)
+                    }
+                }
+            }
+        }
+    }
+
+    private var followUpQuestionBinding: Binding<String> {
+        Binding(get: { workflow.followUpQuestion }, set: workflow.setFollowUpQuestion)
+    }
+
+    private var followUpAssumptionsBinding: Binding<String> {
+        Binding(get: { workflow.followUpAssumptions }, set: workflow.setFollowUpAssumptions)
     }
 
     private var emptyState: some View {
