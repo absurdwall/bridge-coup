@@ -117,6 +117,42 @@ final class DeclarerPlanWorkflowTests: XCTestCase {
         XCTAssertFalse(requests[1].prompt.contains("为什么保留西家的牌型为未知？"))
     }
 
+    func testReplacementPlanExpiresInFlightFollowUpAndAllowsNextQuestion() async throws {
+        var draft = DeclarerPlanDraft()
+        draft.contractLevel = 3
+        draft.contractStrain = .noTrump
+        draft.hands[.south, default: [:]][.spades] = "AKQ2"
+        let runtime = DelayedFollowUpRuntime()
+        let workflow = DeclarerPlanWorkflow(draft: draft, runtime: runtime)
+
+        await workflow.generatePlan()
+        let firstPlan = try XCTUnwrap(workflow.planAnalyses.last)
+        workflow.setFollowUpQuestion("为什么保留西家的牌型为未知？")
+        let followUpTask = Task { await workflow.sendFollowUp() }
+        await runtime.waitForFirstFollowUp()
+
+        await workflow.generatePlan()
+        let replacementPlan = try XCTUnwrap(workflow.planAnalyses.last)
+        XCTAssertNotEqual(replacementPlan.id, firstPlan.id)
+
+        await runtime.completeFirstFollowUp()
+        await followUpTask.value
+
+        XCTAssertEqual(workflow.followUpExchanges.first?.status, .outdated)
+        XCTAssertFalse(workflow.isSendingFollowUp)
+        XCTAssertTrue(workflow.canFollowUp)
+
+        workflow.setFollowUpQuestion("请结合新计划继续解释。")
+        await workflow.sendFollowUp()
+
+        let requests = await runtime.followUpRequests()
+        XCTAssertEqual(requests.count, 2)
+        if requests.count > 1 {
+            XCTAssertEqual(requests[1].planID, replacementPlan.id)
+        }
+        XCTAssertEqual(workflow.followUpExchanges.count, 2)
+    }
+
     func testLatePlanResponseCannotReplaceAnalysisForCorrectedInformation() async throws {
         var draft = DeclarerPlanDraft()
         draft.contractLevel = 4

@@ -159,6 +159,10 @@ public final class DeclarerPlanWorkflow: ObservableObject {
                 informationVersion: request.informationVersion,
                 response: response
             )
+            followUpOperationRevision += 1
+            for index in followUpExchanges.indices where followUpExchanges[index].status == .sending {
+                followUpExchanges[index].status = .outdated
+            }
             planAnalyses.append(analysis)
             currentPlanID = analysis.id
             failedPlanRequest = nil
