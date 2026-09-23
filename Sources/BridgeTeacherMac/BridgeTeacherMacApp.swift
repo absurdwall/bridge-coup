@@ -14,16 +14,27 @@ struct BridgeTeacherMacApp: App {
 
 struct BridgeTeacherWorkspaceView: View {
     @StateObject private var model = BridgeTeacherApplicationModel()
+    @State private var teachingMode: TeachingMode = .declarerPlan
 
     var body: some View {
         VStack(spacing: 18) {
             header
 
             HStack(alignment: .top, spacing: 18) {
-                DeclarerEntryPanel(model: model, workflow: model.workflow)
+                DeclarerEntryPanel(
+                    model: model,
+                    workflow: model.workflow,
+                    keyPlayWorkflow: model.keyPlayWorkflow,
+                    mode: teachingModeBinding
+                )
                     .frame(minWidth: 560, maxWidth: 600, maxHeight: .infinity)
-                TeachingPanel(model: model, workflow: model.workflow)
-                    .frame(minWidth: 500, maxWidth: .infinity, maxHeight: .infinity)
+                if teachingMode == .declarerPlan {
+                    TeachingPanel(model: model, workflow: model.workflow)
+                        .frame(minWidth: 500, maxWidth: .infinity, maxHeight: .infinity)
+                } else {
+                    KeyPlayTeachingPanel(model: model, workflow: model.keyPlayWorkflow)
+                        .frame(minWidth: 500, maxWidth: .infinity, maxHeight: .infinity)
+                }
             }
         }
         .padding(24)
@@ -33,13 +44,24 @@ struct BridgeTeacherWorkspaceView: View {
         .task { await model.bootstrap() }
     }
 
+    private var teachingModeBinding: Binding<TeachingMode> {
+        Binding(
+            get: { teachingMode },
+            set: { newMode in
+                guard teachingMode != newMode else { return }
+                teachingMode = newMode
+                model.keyPlayWorkflow.invalidate()
+            }
+        )
+    }
+
     private var header: some View {
         HStack(spacing: 16) {
             VStack(alignment: .leading, spacing: 3) {
                 Text("桥牌复盘")
                     .font(.system(size: 24, weight: .semibold, design: .rounded))
                     .foregroundStyle(BridgePalette.ink)
-                Text("做庄计划 · 决策时信息 · IMP")
+                Text("\(teachingMode.title) · 决策时信息 · IMP")
                     .font(.system(size: 13))
                     .foregroundStyle(BridgePalette.muted)
             }
@@ -94,18 +116,26 @@ struct BridgeTeacherWorkspaceView: View {
 private struct DeclarerEntryPanel: View {
     @ObservedObject var model: BridgeTeacherApplicationModel
     @ObservedObject var workflow: DeclarerPlanWorkflow
+    @ObservedObject var keyPlayWorkflow: KeyPlayAnalysisWorkflow
+    @Binding var mode: TeachingMode
 
     private let seatColumns = [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)]
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            panelHeading("牌面与问题", subtitle: "只录入你在这个决策点已经看到的内容。")
+            panelHeading("牌面与问题", subtitle: "两种教学共用这份已确认的牌面。")
+            modePicker
+                .padding(.top, 14)
             ScrollView {
                 VStack(alignment: .leading, spacing: 18) {
                     contractFields
                     visibleHands
-                    contextFields
-                    if let warning = handWarning {
+                    if mode == .declarerPlan {
+                        contextFields
+                    } else {
+                        keyPlayFields
+                    }
+                    if let warning = inputWarning {
                         Label(warning, systemImage: "exclamationmark.triangle.fill")
                             .font(.system(size: 12, weight: .medium))
                             .foregroundStyle(BridgePalette.warning)
@@ -124,15 +154,15 @@ private struct DeclarerEntryPanel: View {
                     .foregroundStyle(BridgePalette.muted)
                 Spacer()
                 Button {
-                    Task { await model.generatePlan() }
+                    Task { await model.generate(mode: mode) }
                 } label: {
                     HStack(spacing: 8) {
-                        if workflow.state == .generating {
+                        if activeGenerationState == .generating {
                             ProgressView().controlSize(.small)
                         } else {
                             Image(systemName: "sparkles")
                         }
-                        Text(workflow.state == .generating ? "正在生成…" : "生成做庄计划")
+                        Text(activeGenerationState == .generating ? "正在生成…" : mode == .declarerPlan ? "生成做庄计划" : "分析这一步")
                     }
                     .font(.system(size: 14, weight: .semibold))
                     .frame(minWidth: 170)
@@ -140,13 +170,26 @@ private struct DeclarerEntryPanel: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(BridgePalette.green)
-                .disabled(!model.connectionStatus.isSignedIn || workflow.state == .generating)
-                .accessibilityIdentifier("generate-declarer-plan")
+                .disabled(!model.connectionStatus.isSignedIn || activeGenerationState == .generating)
+                .accessibilityIdentifier(mode == .declarerPlan ? "generate-declarer-plan" : "generate-key-play-analysis")
             }
         }
         .padding(20)
         .background(.white, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
+    }
+
+    private var modePicker: some View {
+        Picker("教学模式", selection: $mode) {
+            Text("做庄计划").tag(TeachingMode.declarerPlan)
+            Text("分析这一步").tag(TeachingMode.keyPlayAnalysis)
+        }
+        .pickerStyle(.segmented)
+        .accessibilityIdentifier("teaching-mode")
+    }
+
+    private var activeGenerationState: PlanGenerationState {
+        mode == .declarerPlan ? workflow.state : keyPlayWorkflow.state
     }
 
     private var contractFields: some View {
@@ -188,7 +231,7 @@ private struct DeclarerEntryPanel: View {
     private var visibleHands: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .firstTextBaseline) {
-                Text("当时可见手牌")
+                Text(mode == .declarerPlan ? "当时可见手牌" : "决策时剩余可见手牌")
                     .font(.system(size: 13, weight: .semibold))
                     .foregroundStyle(BridgePalette.ink)
                 Spacer()
@@ -201,6 +244,7 @@ private struct DeclarerEntryPanel: View {
                     HandEntryCard(
                         seat: seat,
                         isDeclarer: workflow.draft.declarerSeat == seat,
+                        isActingSeat: mode == .keyPlayAnalysis && keyPlayWorkflow.draft.actingSeat == seat,
                         binding: { seat, suit in holdingBinding(seat: seat, suit: suit) }
                     )
                 }
@@ -214,19 +258,30 @@ private struct DeclarerEntryPanel: View {
 
     private var contextFields: some View {
         VStack(alignment: .leading, spacing: 11) {
-            Text("补充决策时信息")
+            decisionTimeFactsField
+            Text("条件假设请写在右侧追问框；不会添加到已确认牌面。")
+                .font(.system(size: 10))
+                .foregroundStyle(BridgePalette.muted)
+            TextField("你最想弄清楚什么？", text: draftBinding(for: \.question))
+                .textFieldStyle(.roundedBorder)
+        }
+    }
+
+    private var decisionTimeFactsField: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("补充当时已确认的事实")
                 .font(.system(size: 13, weight: .semibold))
                 .foregroundStyle(BridgePalette.ink)
             TextEditor(text: draftBinding(for: \.otherDecisionTimeFacts))
                 .font(.system(size: 12))
                 .scrollContentBackground(.hidden)
                 .padding(7)
-                .frame(minHeight: 82)
+                .frame(minHeight: 76)
                 .background(BridgePalette.soft, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
                 .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
                 .overlay(alignment: .topLeading) {
                     if workflow.draft.otherDecisionTimeFacts.isEmpty {
-                        Text("叫牌、已经发生的出牌或其他影响这一步判断的事实…")
+                        Text("当时已确认的叫牌、已出牌或其他影响判断的事实…")
                             .font(.system(size: 12))
                             .foregroundStyle(BridgePalette.muted.opacity(0.75))
                             .padding(.horizontal, 13)
@@ -234,8 +289,71 @@ private struct DeclarerEntryPanel: View {
                             .allowsHitTesting(false)
                     }
                 }
-            TextField("你最想弄清楚什么？", text: draftBinding(for: \.question))
+        }
+    }
+
+    private var keyPlayFields: some View {
+        VStack(alignment: .leading, spacing: 11) {
+            decisionTimeFactsField
+            Text("关键出牌时点")
+                .font(.system(size: 13, weight: .semibold))
+                .foregroundStyle(BridgePalette.ink)
+            TextField("分析时点（例如：第七墩，庄家在第三家）", text: keyPlayBinding(for: \.analysisPoint))
                 .textFieldStyle(.roundedBorder)
+            Picker("轮到谁行动", selection: keyPlayBinding(for: \.actingSeat)) {
+                Text("未确认").tag(Seat?.none)
+                ForEach(Seat.allCases, id: \.self) { seat in
+                    Text(seat.chineseName).tag(Optional(seat))
+                }
+            }
+            .pickerStyle(.menu)
+            .frame(maxWidth: 190, alignment: .leading)
+            Picker("当前墩状态", selection: currentTrickStateBinding) {
+                ForEach(CurrentTrickState.allCases, id: \.self) { state in
+                    Text(state.title).tag(state)
+                }
+            }
+            .pickerStyle(.segmented)
+            if keyPlayWorkflow.draft.currentTrickState == .cardsRecorded {
+                TextField("本墩已出牌（按先后，如 ♥K、♥3、♥5）", text: keyPlayBinding(for: \.currentTrickCards))
+                    .textFieldStyle(.roundedBorder)
+            }
+            TextField("想比较的候选牌（可选，如 ♥A、♥4、♥8）", text: keyPlayBinding(for: \.candidatePlays))
+                .textFieldStyle(.roundedBorder)
+                .accessibilityIdentifier("key-play-candidates")
+            TextField("此前相关出牌历史（仅录入当时已发生的内容）", text: keyPlayBinding(for: \.relevantPlayHistory), axis: .vertical)
+                .lineLimit(2...4)
+                .textFieldStyle(.roundedBorder)
+                .accessibilityIdentifier("key-play-history")
+            TextField("这一步最想弄清楚什么？", text: keyPlayBinding(for: \.question))
+                .textFieldStyle(.roundedBorder)
+            Text("缺少会改变判断的时点或出牌记录时，分析会明确要求补充；未确认的手牌仍保持未知。")
+                .font(.system(size: 10))
+                .foregroundStyle(BridgePalette.muted)
+        }
+    }
+
+    private var currentTrickStateBinding: Binding<CurrentTrickState> {
+        Binding(
+            get: { keyPlayWorkflow.draft.currentTrickState },
+            set: { newState in
+                var draft = keyPlayWorkflow.draft
+                draft.currentTrickState = newState
+                if newState != .cardsRecorded {
+                    draft.currentTrickCards = ""
+                }
+                model.updateKeyPlayDraft(draft)
+            }
+        )
+    }
+
+    private var inputWarning: String? {
+        if mode == .declarerPlan { return handWarning }
+        do {
+            _ = try KeyPlayAnalysisRequestBuilder.build(from: workflow.draft, node: keyPlayWorkflow.draft)
+            return nil
+        } catch {
+            return error.localizedDescription
         }
     }
 
@@ -258,7 +376,7 @@ private struct DeclarerEntryPanel: View {
             set: { newValue in
                 var draft = workflow.draft
                 draft[keyPath: keyPath] = newValue
-                workflow.updateDraft(draft)
+                model.updateReviewDraft(draft)
             }
         )
     }
@@ -269,7 +387,18 @@ private struct DeclarerEntryPanel: View {
             set: { value in
                 var draft = workflow.draft
                 draft.hands[seat, default: [:]][suit] = value
-                workflow.updateDraft(draft)
+                model.updateReviewDraft(draft)
+            }
+        )
+    }
+
+    private func keyPlayBinding<Value>(for keyPath: WritableKeyPath<KeyPlayAnalysisDraft, Value>) -> Binding<Value> {
+        Binding(
+            get: { keyPlayWorkflow.draft[keyPath: keyPath] },
+            set: { newValue in
+                var draft = keyPlayWorkflow.draft
+                draft[keyPath: keyPath] = newValue
+                model.updateKeyPlayDraft(draft)
             }
         )
     }
@@ -278,6 +407,7 @@ private struct DeclarerEntryPanel: View {
 private struct HandEntryCard: View {
     let seat: Seat
     let isDeclarer: Bool
+    let isActingSeat: Bool
     let binding: (Seat, Suit) -> Binding<String>
 
     var body: some View {
@@ -293,6 +423,14 @@ private struct HandEntryCard: View {
                         .padding(.horizontal, 6)
                         .padding(.vertical, 3)
                         .background(BridgePalette.green.opacity(0.1), in: Capsule())
+                }
+                if isActingSeat {
+                    Text("行动")
+                        .font(.system(size: 9, weight: .semibold))
+                        .foregroundStyle(BridgePalette.ink)
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 3)
+                        .background(BridgePalette.border.opacity(0.55), in: Capsule())
                 }
             }
             HStack(spacing: 4) {
@@ -598,6 +736,155 @@ private struct TeachingPanel: View {
                 .foregroundStyle(BridgePalette.muted)
             if canRetry {
                 Button("重试") { Task { await model.generatePlan() } }
+                    .buttonStyle(.bordered)
+                    .tint(BridgePalette.green)
+                    .padding(.top, 2)
+            } else if case .failed = model.connectionStatus {
+                Button("检查 ChatGPT 登录") { Task { await model.checkLogin() } }
+                    .buttonStyle(.bordered)
+                    .padding(.top, 2)
+            }
+        }
+        .padding(15)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(BridgePalette.warning.opacity(0.06), in: RoundedRectangle(cornerRadius: 13, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 13, style: .continuous).stroke(BridgePalette.warning.opacity(0.17), lineWidth: 1))
+    }
+}
+
+private struct KeyPlayTeachingPanel: View {
+    @ObservedObject var model: BridgeTeacherApplicationModel
+    @ObservedObject var workflow: KeyPlayAnalysisWorkflow
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            panelHeading("关键出牌分析", subtitle: "只分析当前这一步；与整副做庄计划分开。")
+            Divider().overlay(BridgePalette.border).padding(.top, 16)
+            ScrollView {
+                VStack(alignment: .leading, spacing: 16) {
+                    if workflow.resultIsOutdated {
+                        Label("分析时点或共用牌面已改变；旧讲解不适用于当前输入。", systemImage: "arrow.trianglehead.2.clockwise")
+                            .font(.system(size: 12, weight: .medium))
+                            .foregroundStyle(BridgePalette.warning)
+                            .padding(12)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(BridgePalette.warning.opacity(0.08), in: RoundedRectangle(cornerRadius: 10))
+                    }
+
+                    switch workflow.state {
+                    case .idle:
+                        if let result = workflow.result {
+                            response(result)
+                        } else {
+                            emptyState
+                        }
+                    case let .invalid(message):
+                        failureState(title: "请先核对关键节点", message: message, canRetry: false)
+                        if let result = workflow.result { response(result) }
+                    case .generating:
+                        generatingState
+                        if let result = workflow.result { response(result) }
+                    case .succeeded:
+                        if let result = workflow.result { response(result) } else { emptyState }
+                    case let .failed(message):
+                        failureState(title: "这次没有生成关键出牌分析", message: message, canRetry: model.connectionStatus.isSignedIn)
+                        if let result = workflow.result { response(result) }
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.top, 18)
+                .padding(.bottom, 12)
+            }
+        }
+        .padding(20)
+        .background(.white, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
+    }
+
+    private var emptyState: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Image(systemName: "point.topleft.down.to.point.bottomright.curvepath")
+                .font(.system(size: 24, weight: .light))
+                .foregroundStyle(BridgePalette.green)
+                .padding(12)
+                .background(BridgePalette.green.opacity(0.08), in: RoundedRectangle(cornerRadius: 12))
+            Text("这一步的讲解会显示在这里")
+                .font(.system(size: 17, weight: .semibold))
+                .foregroundStyle(BridgePalette.ink)
+            Text("确认分析时点、轮到谁行动、本墩已出牌和剩余可见手牌。可列出你想比较的牌；若信息不足以判断合法性，先补充当前节点。")
+                .font(.system(size: 13))
+                .foregroundStyle(BridgePalette.muted)
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: 470, alignment: .leading)
+        }
+        .padding(.top, 14)
+    }
+
+    private var generatingState: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            ProgressView()
+                .controlSize(.regular)
+                .tint(BridgePalette.green)
+            Text("正在通过 Codex 分析当前出牌节点…")
+                .font(.system(size: 15, weight: .medium))
+                .foregroundStyle(BridgePalette.ink)
+            Text("请求仅包含共享的已确认牌面、本节点和决策时历史；未知信息不会补造。")
+                .font(.system(size: 12))
+                .foregroundStyle(BridgePalette.muted)
+        }
+        .padding(.top, 12)
+    }
+
+    private func response(_ result: DeclarerPlanResponse) -> some View {
+        VStack(alignment: .leading, spacing: 13) {
+            HStack(spacing: 8) {
+                Image(systemName: "checkmark.circle.fill")
+                    .foregroundStyle(BridgePalette.green)
+                Text("Codex 实时响应 · 教学推理，未经 DDS 核验")
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundStyle(BridgePalette.ink)
+                if let modelName = result.model, !modelName.isEmpty {
+                    Text(modelName)
+                        .font(.system(size: 10, weight: .medium, design: .monospaced))
+                        .foregroundStyle(BridgePalette.muted)
+                        .padding(.horizontal, 7)
+                        .padding(.vertical, 4)
+                        .background(BridgePalette.soft, in: Capsule())
+                }
+            }
+            Text(result.text)
+                .font(.system(size: 14))
+                .lineSpacing(5)
+                .foregroundStyle(BridgePalette.ink)
+                .textSelection(.enabled)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            if let runtimeVersion = result.runtimeVersion {
+                Text("Codex CLI \(runtimeVersion) · ChatGPT 登录")
+                    .font(.system(size: 10))
+                    .foregroundStyle(BridgePalette.muted)
+            }
+        }
+        .padding(16)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(BridgePalette.soft.opacity(0.68), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
+    }
+
+    private func failureState(title: String, message: String, canRetry: Bool) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Label(title, systemImage: "exclamationmark.circle.fill")
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundStyle(BridgePalette.warning)
+            Text(message)
+                .font(.system(size: 13))
+                .foregroundStyle(BridgePalette.ink)
+                .textSelection(.enabled)
+                .fixedSize(horizontal: false, vertical: true)
+            Text("节点和牌面仍保留在左侧。补充缺失信息后可以重新分析。")
+                .font(.system(size: 11))
+                .foregroundStyle(BridgePalette.muted)
+            if canRetry {
+                Button("重试") { Task { await model.generate(mode: .keyPlayAnalysis) } }
                     .buttonStyle(.bordered)
                     .tint(BridgePalette.green)
                     .padding(.top, 2)
