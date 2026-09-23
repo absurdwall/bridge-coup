@@ -179,5 +179,9 @@ private actor CapturingKeyPlayRuntime: DeclarerTeachingRuntime {
         return DeclarerPlanResponse(text: "先比较拿 A 和忍让的后续交通。", model: "test-model")
     }
 
+    func respondToFollowUp(_ request: DeclarerFollowUpRequest) async throws -> DeclarerPlanResponse {
+        DeclarerPlanResponse(text: "已基于同版本信息回答。", model: "test-model")
+    }
+
     func requests() -> [DeclarerPlanRequest] { sent }
 }

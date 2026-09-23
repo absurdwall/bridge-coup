@@ -13,8 +13,12 @@ struct BridgeTeacherMacApp: App {
 }
 
 struct BridgeTeacherWorkspaceView: View {
-    @StateObject private var model = BridgeTeacherApplicationModel()
-    @State private var teachingMode: TeachingMode = .declarerPlan
+    @ObservedObject var model: BridgeTeacherApplicationModel
+    @State private var isShowingSavedReviews = false
+
+    init(model: BridgeTeacherApplicationModel) {
+        self.model = model
+    }
 
     var body: some View {
         VStack(spacing: 18) {
@@ -25,10 +29,11 @@ struct BridgeTeacherWorkspaceView: View {
                     model: model,
                     workflow: model.workflow,
                     keyPlayWorkflow: model.keyPlayWorkflow,
+                    screenshotWorkflow: model.screenshotWorkflow,
                     mode: teachingModeBinding
                 )
                     .frame(minWidth: 560, maxWidth: 600, maxHeight: .infinity)
-                if teachingMode == .declarerPlan {
+                if model.teachingMode == .declarerPlan {
                     TeachingPanel(model: model, workflow: model.workflow)
                         .frame(minWidth: 500, maxWidth: .infinity, maxHeight: .infinity)
                 } else {
@@ -42,16 +47,23 @@ struct BridgeTeacherWorkspaceView: View {
         .background(BridgePalette.canvas.ignoresSafeArea())
         .preferredColorScheme(.light)
         .task { await model.bootstrap() }
+        .sheet(isPresented: $isShowingSavedReviews) {
+            SavedReviewSessionsView(model: model)
+                .frame(minWidth: 540, minHeight: 420)
+        }
+        .alert(item: $model.reviewSessionAlert) { alert in
+            Alert(
+                title: Text(alert.title),
+                message: Text(alert.message),
+                dismissButton: .default(Text("好"))
+            )
+        }
     }
 
     private var teachingModeBinding: Binding<TeachingMode> {
         Binding(
-            get: { teachingMode },
-            set: { newMode in
-                guard teachingMode != newMode else { return }
-                teachingMode = newMode
-                model.keyPlayWorkflow.invalidate()
-            }
+            get: { model.teachingMode },
+            set: { model.setTeachingMode($0) }
         )
     }
 
@@ -61,12 +73,30 @@ struct BridgeTeacherWorkspaceView: View {
                 Text("桥牌复盘")
                     .font(.system(size: 24, weight: .semibold, design: .rounded))
                     .foregroundStyle(BridgePalette.ink)
-                Text("\(teachingMode.title) · 决策时信息 · IMP")
+                Text("\(model.teachingMode.title) · 决策时信息 · IMP")
                     .font(.system(size: 13))
                     .foregroundStyle(BridgePalette.muted)
+                if !model.reviewSessionStatus.isEmpty {
+                    Text(model.reviewSessionStatus)
+                        .font(.system(size: 11, weight: .medium))
+                        .foregroundStyle(BridgePalette.green)
+                        .lineLimit(1)
+                        .accessibilityIdentifier("review-session-status")
+                }
             }
             Spacer()
             HStack(spacing: 9) {
+                Button("保存复盘") { model.saveReview() }
+                    .controlSize(.small)
+                    .accessibilityIdentifier("save-review-session")
+                Button("打开复盘") {
+                    if model.refreshSavedReviewSessions() {
+                        isShowingSavedReviews = true
+                    }
+                }
+                .controlSize(.small)
+                .accessibilityIdentifier("open-review-session")
+
                 Circle()
                     .fill(model.connectionStatus.isSignedIn ? BridgePalette.green : BridgePalette.amber)
                     .frame(width: 8, height: 8)
@@ -113,11 +143,71 @@ struct BridgeTeacherWorkspaceView: View {
     }
 }
 
+private struct SavedReviewSessionsView: View {
+    @ObservedObject var model: BridgeTeacherApplicationModel
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("本机复盘")
+                        .font(.system(size: 20, weight: .semibold, design: .rounded))
+                    Text("记录与原始截图只保存在这台 Mac。")
+                        .font(.system(size: 12))
+                        .foregroundStyle(BridgePalette.muted)
+                }
+                Spacer()
+                Button("完成") { dismiss() }
+            }
+
+            if let alert = model.reviewSessionAlert {
+                Label(alert.message, systemImage: "exclamationmark.triangle.fill")
+                    .font(.system(size: 12))
+                    .foregroundStyle(BridgePalette.warning)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            if model.savedReviewSessions.isEmpty {
+                ContentUnavailableView(
+                    "还没有保存的复盘",
+                    systemImage: "tray",
+                    description: Text("完成一次牌局复盘后，选择“保存复盘”。")
+                )
+            } else {
+                List(model.savedReviewSessions) { session in
+                    HStack(spacing: 12) {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(session.title)
+                                .font(.system(size: 13, weight: .semibold))
+                            Text("\(session.teachingMode.title) · \(session.createdAt.formatted(date: .abbreviated, time: .shortened))")
+                                .font(.system(size: 11))
+                                .foregroundStyle(BridgePalette.muted)
+                        }
+                        Spacer()
+                        Button("打开") {
+                            if model.openReview(id: session.id) { dismiss() }
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .tint(BridgePalette.green)
+                    }
+                    .padding(.vertical, 4)
+                }
+                .listStyle(.inset)
+            }
+        }
+        .padding(20)
+        .background(BridgePalette.canvas)
+    }
+}
+
 private struct DeclarerEntryPanel: View {
     @ObservedObject var model: BridgeTeacherApplicationModel
     @ObservedObject var workflow: DeclarerPlanWorkflow
     @ObservedObject var keyPlayWorkflow: KeyPlayAnalysisWorkflow
+    @ObservedObject var screenshotWorkflow: ScreenshotReviewWorkflow
     @Binding var mode: TeachingMode
+    @State private var isShowingScreenshotPreview = false
 
     private let seatColumns = [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)]
 
@@ -128,6 +218,7 @@ private struct DeclarerEntryPanel: View {
                 .padding(.top, 14)
             ScrollView {
                 VStack(alignment: .leading, spacing: 18) {
+                    screenshotReview
                     contractFields
                     visibleHands
                     if mode == .declarerPlan {
@@ -135,6 +226,7 @@ private struct DeclarerEntryPanel: View {
                     } else {
                         keyPlayFields
                     }
+                    screenshotDecisionTimeConfirmation
                     if let warning = inputWarning {
                         Label(warning, systemImage: "exclamationmark.triangle.fill")
                             .font(.system(size: 12, weight: .medium))
@@ -170,13 +262,23 @@ private struct DeclarerEntryPanel: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(BridgePalette.green)
-                .disabled(!model.connectionStatus.isSignedIn || activeGenerationState == .generating)
+                .disabled(
+                    !model.connectionStatus.isSignedIn
+                        || activeGenerationState == .generating
+                        || (screenshotWorkflow.screenshotURL != nil && !workflow.draft.decisionTimeConfirmed)
+                )
                 .accessibilityIdentifier(mode == .declarerPlan ? "generate-declarer-plan" : "generate-key-play-analysis")
             }
         }
         .padding(20)
         .background(.white, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
+        .sheet(isPresented: $isShowingScreenshotPreview) {
+            if let screenshotURL = screenshotWorkflow.screenshotURL {
+                ScreenshotImagePreview(url: screenshotURL)
+                    .frame(minWidth: 720, minHeight: 680)
+            }
+        }
     }
 
     private var modePicker: some View {
@@ -192,15 +294,120 @@ private struct DeclarerEntryPanel: View {
         mode == .declarerPlan ? workflow.state : keyPlayWorkflow.state
     }
 
+    private var screenshotReview: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(alignment: .center, spacing: 12) {
+                Group {
+                    if let screenshotURL = screenshotWorkflow.screenshotURL,
+                       let image = NSImage(contentsOf: screenshotURL) {
+                        Image(nsImage: image)
+                            .resizable()
+                            .scaledToFit()
+                    } else {
+                        Image(systemName: "photo")
+                            .font(.system(size: 25, weight: .light))
+                            .foregroundStyle(BridgePalette.muted)
+                    }
+                }
+                .frame(width: 76, height: 104)
+                .background(BridgePalette.soft, in: RoundedRectangle(cornerRadius: 9))
+                .clipShape(RoundedRectangle(cornerRadius: 9))
+                .overlay(RoundedRectangle(cornerRadius: 9).stroke(BridgePalette.border, lineWidth: 1))
+
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("截图识别")
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundStyle(BridgePalette.ink)
+                    Text(screenshotWorkflow.screenshotFilename ?? "导入一张牌局截图")
+                        .font(.system(size: 11))
+                        .foregroundStyle(BridgePalette.muted)
+                        .lineLimit(1)
+                    HStack(spacing: 8) {
+                        Button(screenshotWorkflow.screenshotURL == nil ? "导入截图" : "更换截图") {
+                            model.chooseScreenshot()
+                        }
+                        if screenshotWorkflow.screenshotURL != nil {
+                            Button("查看原图") { isShowingScreenshotPreview = true }
+                            Button {
+                                Task { await model.recognizeScreenshot() }
+                            } label: {
+                                if screenshotWorkflow.state == .recognizing {
+                                    ProgressView().controlSize(.small)
+                                }
+                                Text(screenshotPresentation.buttonTitle)
+                            }
+                            .disabled(!model.connectionStatus.isSignedIn || screenshotWorkflow.state == .recognizing)
+                        }
+                    }
+                }
+                Spacer(minLength: 0)
+            }
+
+            Text(screenshotPresentation.message)
+                .font(.system(size: 11, weight: .medium))
+                .foregroundStyle(screenshotPresentation.isFailure ? BridgePalette.warning : BridgePalette.muted)
+                .fixedSize(horizontal: false, vertical: true)
+
+            if let candidate = screenshotWorkflow.candidate, !candidate.notes.isEmpty {
+                VStack(alignment: .leading, spacing: 5) {
+                    ForEach(Array(candidate.notes.enumerated()), id: \.offset) { _, note in
+                        Label("\(noteKindLabel(note.kind)) · \(note.field)：\(note.message)", systemImage: "eye.trianglebadge.exclamationmark")
+                            .font(.system(size: 11))
+                            .foregroundStyle(BridgePalette.warning)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
+            }
+        }
+        .padding(12)
+        .background(BridgePalette.soft.opacity(0.75), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
+    }
+
+    private func noteKindLabel(_ kind: ScreenshotRecognitionNoteKind) -> String {
+        switch kind {
+        case .notShown: "截图未显示"
+        case .visibleButUnclear: "可见但不清晰"
+        case .ambiguous: "识别有歧义"
+        }
+    }
+
+    private var screenshotPresentation: ScreenshotRecognitionPresentation {
+        ScreenshotRecognitionPresentation(
+            state: screenshotWorkflow.state,
+            model: screenshotWorkflow.recognitionResponse?.model ?? "Codex"
+        )
+    }
+
+    private var screenshotDecisionTimeConfirmation: some View {
+        Group {
+            if screenshotWorkflow.screenshotURL != nil {
+                VStack(alignment: .leading, spacing: 6) {
+                    Toggle(isOn: draftBinding(for: \.decisionTimeConfirmed)) {
+                        Text("我已核对：勾选的手牌、定约、做庄人、首攻和补充事实，都是这个决策点当时可得的信息。")
+                            .font(.system(size: 11, weight: .medium))
+                            .foregroundStyle(BridgePalette.ink)
+                    }
+                    .toggleStyle(.checkbox)
+                    Text("必须先逐家选择当时可见的手牌。未勾选的截图牌面不会进入计划或关键出牌分析。")
+                        .font(.system(size: 10))
+                        .foregroundStyle(BridgePalette.muted)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            }
+        }
+    }
+
     private var contractFields: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("定约背景")
                 .font(.system(size: 13, weight: .semibold))
                 .foregroundStyle(BridgePalette.ink)
             HStack(spacing: 12) {
-                Picker("庄家", selection: draftBinding(for: \.declarerSeat)) {
+                Picker("做庄人", selection: draftBinding(for: \.declarerSeat)) {
+                    Text("未知").tag(Seat?.none)
                     ForEach(Seat.allCases, id: \.self) { seat in
-                        Text(seat.chineseName).tag(seat)
+                        Text(seat.chineseName).tag(Optional(seat))
                     }
                 }
                 .frame(maxWidth: 150)
@@ -231,11 +438,13 @@ private struct DeclarerEntryPanel: View {
     private var visibleHands: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .firstTextBaseline) {
-                Text(mode == .declarerPlan ? "当时可见手牌" : "决策时剩余可见手牌")
+                Text(screenshotWorkflow.screenshotURL == nil
+                     ? (mode == .declarerPlan ? "当时可见手牌" : "决策时剩余可见手牌")
+                     : "识别候选手牌")
                     .font(.system(size: 13, weight: .semibold))
                     .foregroundStyle(BridgePalette.ink)
                 Spacer()
-                Text("留空 = 未知")
+                Text(screenshotWorkflow.screenshotURL == nil ? "留空 = 未知" : "仅勾选后加入分析")
                     .font(.system(size: 11))
                     .foregroundStyle(BridgePalette.muted)
             }
@@ -245,11 +454,16 @@ private struct DeclarerEntryPanel: View {
                         seat: seat,
                         isDeclarer: workflow.draft.declarerSeat == seat,
                         isActingSeat: mode == .keyPlayAnalysis && keyPlayWorkflow.draft.actingSeat == seat,
-                        binding: { seat, suit in holdingBinding(seat: seat, suit: suit) }
+                        screenshotReviewMode: screenshotWorkflow.screenshotURL != nil,
+                        isDecisionTimeVisible: workflow.draft.decisionTimeVisibleSeats?.contains(seat) ?? true,
+                        binding: { seat, suit in holdingBinding(seat: seat, suit: suit) },
+                        onVisibilityChange: { isVisible in setDecisionTimeVisibility(seat, isVisible: isVisible) }
                     )
                 }
             }
-            Text("按花色录入已知牌：A K Q J 10 和 2–9。输入 “-” 表示已确认缺门。")
+            Text(screenshotWorkflow.screenshotURL == nil
+                 ? "按花色录入已知牌：A K Q J 10 和 2–9。输入 “-” 表示已确认缺门。"
+                 : "按花色校正候选牌：A K Q J 10 和 2–9。截图里的全部牌不会自动发给教学模型。")
                 .font(.system(size: 11))
                 .foregroundStyle(BridgePalette.muted)
                 .fixedSize(horizontal: false, vertical: true)
@@ -392,6 +606,22 @@ private struct DeclarerEntryPanel: View {
         )
     }
 
+    private func setDecisionTimeVisibility(_ seat: Seat, isVisible: Bool) {
+        var draft = workflow.draft
+        var visibleSeats = draft.decisionTimeVisibleSeats ?? Set(
+            Seat.allCases.filter { candidateSeat in
+                draft.hands[candidateSeat]?.values.contains(where: { !$0.isEmpty }) ?? false
+            }
+        )
+        if isVisible {
+            visibleSeats.insert(seat)
+        } else {
+            visibleSeats.remove(seat)
+        }
+        draft.decisionTimeVisibleSeats = visibleSeats
+        model.updateReviewDraft(draft)
+    }
+
     private func keyPlayBinding<Value>(for keyPath: WritableKeyPath<KeyPlayAnalysisDraft, Value>) -> Binding<Value> {
         Binding(
             get: { keyPlayWorkflow.draft[keyPath: keyPath] },
@@ -408,7 +638,10 @@ private struct HandEntryCard: View {
     let seat: Seat
     let isDeclarer: Bool
     let isActingSeat: Bool
+    let screenshotReviewMode: Bool
+    let isDecisionTimeVisible: Bool
     let binding: (Seat, Suit) -> Binding<String>
+    let onVisibilityChange: (Bool) -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -431,6 +664,16 @@ private struct HandEntryCard: View {
                         .padding(.horizontal, 6)
                         .padding(.vertical, 3)
                         .background(BridgePalette.border.opacity(0.55), in: Capsule())
+                }
+                Spacer(minLength: 0)
+                if screenshotReviewMode {
+                    Toggle("当时可见", isOn: Binding(
+                        get: { isDecisionTimeVisible },
+                        set: onVisibilityChange
+                    ))
+                    .toggleStyle(.checkbox)
+                    .font(.system(size: 9, weight: .medium))
+                    .accessibilityLabel("\(seat.chineseName) 在当前决策时可见")
                 }
             }
             HStack(spacing: 4) {
@@ -455,6 +698,69 @@ private struct HandEntryCard: View {
         .padding(10)
         .background(BridgePalette.soft.opacity(0.78), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
+    }
+}
+
+private struct ScreenshotImagePreview: View {
+    @Environment(\.dismiss) private var dismiss
+    let url: URL
+
+    var body: some View {
+        VStack(spacing: 0) {
+            HStack {
+                Text("原始截图")
+                    .font(.system(size: 15, weight: .semibold))
+                Spacer()
+                Button("关闭") { dismiss() }
+            }
+            .padding(14)
+            .background(.regularMaterial)
+            if let image = NSImage(contentsOf: url) {
+                ScrollView([.horizontal, .vertical]) {
+                    Image(nsImage: image)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: 1100, maxHeight: 1800)
+                        .padding(14)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(BridgePalette.canvas)
+            } else {
+                ContentUnavailableView("无法显示截图", systemImage: "photo.badge.exclamationmark")
+            }
+        }
+        .preferredColorScheme(.light)
+    }
+}
+
+private struct ScreenshotRecognitionPresentation {
+    let message: String
+    let buttonTitle: String
+    let isFailure: Bool
+
+    init(state: ScreenshotRecognitionState, model: String) {
+        switch state {
+        case .idle:
+            message = "原图和识别候选分开保存；计划只会使用你勾选并确认的决策时信息。"
+            buttonTitle = "识别截图"
+            isFailure = false
+        case .recognizing:
+            message = "正在通过独立 Codex 会话读取截图。识别会查看整张图，但不会自动决定哪些信息在当时可见。"
+            buttonTitle = "识别截图"
+            isFailure = false
+        case .succeeded:
+            message = "\(model) 的识别候选已填入左侧表单，请对照原图校正后再确认。"
+            buttonTitle = "识别截图"
+            isFailure = false
+        case .stale:
+            message = "识别期间牌面已改变；迟到的结果已丢弃。确认当前输入后可重新识别。"
+            buttonTitle = "重试识别"
+            isFailure = false
+        case let .failed(errorMessage):
+            message = "截图识别失败：\(errorMessage) 输入仍保留，可重试。"
+            buttonTitle = "重试识别"
+            isFailure = true
+        }
     }
 }
 
@@ -592,7 +898,7 @@ private struct TeachingPanel: View {
                     .textSelection(.enabled)
                 if workflow.canRetry(exchange), model.connectionStatus.isSignedIn {
                     Button("重试这条追问") {
-                        Task { await workflow.retryFollowUp(exchange.id) }
+                        Task { await model.retryFollowUp(exchange.id) }
                     }
                     .buttonStyle(.bordered)
                     .tint(BridgePalette.green)
@@ -631,7 +937,7 @@ private struct TeachingPanel: View {
                                 .accessibilityIdentifier("follow-up-assumptions")
                         }
                         Button {
-                            Task { await workflow.sendFollowUp() }
+                            Task { await model.sendFollowUp() }
                         } label: {
                             Label("发送", systemImage: "arrow.up.circle.fill")
                                 .labelStyle(.titleAndIcon)
@@ -652,11 +958,11 @@ private struct TeachingPanel: View {
     }
 
     private var followUpQuestionBinding: Binding<String> {
-        Binding(get: { workflow.followUpQuestion }, set: workflow.setFollowUpQuestion)
+        Binding(get: { workflow.followUpQuestion }, set: model.setFollowUpQuestion)
     }
 
     private var followUpAssumptionsBinding: Binding<String> {
-        Binding(get: { workflow.followUpAssumptions }, set: workflow.setFollowUpAssumptions)
+        Binding(get: { workflow.followUpAssumptions }, set: model.setFollowUpAssumptions)
     }
 
     private var emptyState: some View {

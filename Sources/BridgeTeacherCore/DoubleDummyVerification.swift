@@ -1,7 +1,7 @@
 import Combine
 import Foundation
 
-public struct DoubleDummyCard: Equatable, Hashable, Sendable, CustomStringConvertible {
+public struct DoubleDummyCard: Codable, Equatable, Hashable, Sendable, CustomStringConvertible {
     public let suit: Suit
     public let rank: CardRank
 
@@ -13,7 +13,7 @@ public struct DoubleDummyCard: Equatable, Hashable, Sendable, CustomStringConver
     public var description: String { "\(suit.symbol)\(rank.rawValue)" }
 }
 
-public struct DoubleDummyVerificationDraft: Equatable, Sendable {
+public struct DoubleDummyVerificationDraft: Codable, Equatable, Sendable {
     public var trump: ContractStrain?
     public var trickLeader: Seat = .north
     /// Cards already played to the current trick, in play order, such as "♠2 ♥K".
@@ -324,7 +324,7 @@ public struct DoubleDummyEngineMove: Equatable, Sendable {
     }
 }
 
-public struct DoubleDummyCardComparison: Equatable, Sendable {
+public struct DoubleDummyCardComparison: Codable, Equatable, Sendable {
     public let cards: [DoubleDummyCard]
     public let tricksForSideToPlay: Int
     public let remainingTricksByDeclarer: Int?
@@ -333,7 +333,7 @@ public struct DoubleDummyCardComparison: Equatable, Sendable {
     public let contractDelta: Int?
 }
 
-public struct DoubleDummyVerificationResult: Equatable, Sendable {
+public struct DoubleDummyVerificationResult: Codable, Equatable, Sendable {
     public let solverVersion: String
     public let remainingTricks: Int
     public let actingSeat: Seat
@@ -525,7 +525,7 @@ private struct DDSSolverMove: Decodable {
     let tricks: Int
 }
 
-public enum DoubleDummyVerificationState: Equatable, Sendable {
+public enum DoubleDummyVerificationState: Codable, Equatable, Sendable {
     case unverified
     case insufficient(String)
     case solving
@@ -544,9 +544,28 @@ public final class DoubleDummyVerificationWorkflow: ObservableObject {
     private let solver: any DoubleDummySolving
     private var revision = 0
 
+    public func makeArchive() -> DoubleDummyVerificationWorkflowArchive {
+        DoubleDummyVerificationWorkflowArchive(
+            draft: draft,
+            state: state,
+            result: result,
+            hasOutdatedResult: hasOutdatedResult
+        )
+    }
+
     public init(draft: DoubleDummyVerificationDraft = DoubleDummyVerificationDraft(), solver: any DoubleDummySolving) {
         self.draft = draft
         self.solver = solver
+    }
+
+    public func restore(from archive: DoubleDummyVerificationWorkflowArchive) {
+        draft = archive.draft
+        state = archive.state == .solving
+            ? (archive.hasOutdatedResult ? .outdated : .failed("应用关闭前 DDS 核验尚未完成，请重新运行。"))
+            : archive.state
+        result = archive.result
+        hasOutdatedResult = archive.hasOutdatedResult
+        revision += 1
     }
 
     public func updateDraft(_ draft: DoubleDummyVerificationDraft) {

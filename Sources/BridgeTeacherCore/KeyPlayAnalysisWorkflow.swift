@@ -7,6 +7,7 @@ public final class KeyPlayAnalysisWorkflow: ObservableObject {
     @Published public private(set) var state: PlanGenerationState = .idle
     @Published public private(set) var result: DeclarerPlanResponse?
     @Published public private(set) var resultIsOutdated = false
+    @Published public private(set) var resultInformationVersion: Int?
 
     private let runtime: any DeclarerTeachingRuntime
     private var revision = 0
@@ -33,7 +34,30 @@ public final class KeyPlayAnalysisWorkflow: ObservableObject {
         }
     }
 
-    public func generate(from review: DeclarerPlanDraft) async {
+    public func makeArchive() -> KeyPlayAnalysisWorkflowArchive {
+        KeyPlayAnalysisWorkflowArchive(
+            draft: draft,
+            state: state,
+            result: result,
+            resultIsOutdated: resultIsOutdated,
+            resultInformationVersion: resultInformationVersion
+        )
+    }
+
+    public func restore(from archive: KeyPlayAnalysisWorkflowArchive, currentInformationVersion: Int? = nil) {
+        draft = archive.draft
+        state = archive.state == .generating ? .idle : archive.state
+        result = archive.result
+        resultIsOutdated = archive.resultIsOutdated
+            || (archive.result != nil
+                && archive.resultInformationVersion != nil
+                && currentInformationVersion != nil
+                && archive.resultInformationVersion != currentInformationVersion)
+        resultInformationVersion = archive.resultInformationVersion
+        revision += 1
+    }
+
+    public func generate(from review: DeclarerPlanDraft, informationVersion: Int = 0) async {
         let request: DeclarerPlanRequest
         do {
             request = try KeyPlayAnalysisRequestBuilder.build(
@@ -54,6 +78,7 @@ public final class KeyPlayAnalysisWorkflow: ObservableObject {
             guard revision == requestRevision else { return }
             result = response
             resultIsOutdated = false
+            resultInformationVersion = informationVersion
             state = .succeeded
         } catch {
             guard revision == requestRevision else { return }

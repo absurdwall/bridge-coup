@@ -1,7 +1,7 @@
 import Combine
 import Foundation
 
-public struct DeclarerPlanResponse: Equatable, Sendable {
+public struct DeclarerPlanResponse: Codable, Equatable, Sendable {
     public let text: String
     public let model: String?
     public let runtimeVersion: String?
@@ -18,7 +18,7 @@ public protocol DeclarerTeachingRuntime: Sendable {
     func respondToFollowUp(_ request: DeclarerFollowUpRequest) async throws -> DeclarerPlanResponse
 }
 
-public enum PlanGenerationState: Equatable, Sendable {
+public enum PlanGenerationState: Codable, Equatable, Sendable {
     case idle
     case invalid(String)
     case generating
@@ -94,6 +94,19 @@ public final class DeclarerPlanWorkflow: ObservableObject {
         followUpExchanges.contains { $0.status == .sending }
     }
 
+    public func makeArchive() -> DeclarerPlanWorkflowArchive {
+        DeclarerPlanWorkflowArchive(
+            draft: draft,
+            state: state,
+            informationVersion: informationVersion,
+            planAnalyses: planAnalyses,
+            currentPlanID: currentPlanID,
+            followUpExchanges: followUpExchanges,
+            followUpQuestion: followUpQuestion,
+            followUpAssumptions: followUpAssumptions
+        )
+    }
+
     public var canFollowUp: Bool {
         guard let plan = currentPlan,
               plan.informationVersion == informationVersion,
@@ -116,6 +129,16 @@ public final class DeclarerPlanWorkflow: ObservableObject {
     public func updateDraft(_ draft: DeclarerPlanDraft) {
         guard draft != self.draft else { return }
         self.draft = draft
+        informationVersion += 1
+        planOperationRevision += 1
+        invalidatePendingFollowUps()
+        failedPlanRequest = nil
+        if state == .generating {
+            state = .idle
+        }
+    }
+
+    public func markCurrentResultOutdated() {
         informationVersion += 1
         planOperationRevision += 1
         invalidatePendingFollowUps()
@@ -220,6 +243,26 @@ public final class DeclarerPlanWorkflow: ObservableObject {
 
     public func isOutdated(_ exchange: DeclarerFollowUpExchange) -> Bool {
         exchange.informationVersion != informationVersion || exchange.planID != currentPlanID
+    }
+
+    public func restore(from archive: DeclarerPlanWorkflowArchive) {
+        draft = archive.draft
+        state = archive.state == .generating ? .idle : archive.state
+        informationVersion = archive.informationVersion
+        planAnalyses = archive.planAnalyses
+        currentPlanID = archive.currentPlanID
+        followUpExchanges = archive.followUpExchanges.map { exchange in
+            var restored = exchange
+            if restored.status == .sending {
+                restored.status = .failed("应用关闭前这次追问尚未完成，可以重新发送。")
+            }
+            return restored
+        }
+        followUpQuestion = archive.followUpQuestion
+        followUpAssumptions = archive.followUpAssumptions
+        failedPlanRequest = nil
+        planOperationRevision += 1
+        followUpOperationRevision += 1
     }
 
     public func canRetry(_ exchange: DeclarerFollowUpExchange) -> Bool {
