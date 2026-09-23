@@ -15,6 +15,7 @@ public struct DeclarerPlanResponse: Equatable, Sendable {
 
 public protocol DeclarerTeachingRuntime: Sendable {
     func generatePlan(for request: DeclarerPlanRequest) async throws -> DeclarerPlanResponse
+    func respondToFollowUp(_ request: DeclarerFollowUpRequest) async throws -> DeclarerPlanResponse
 }
 
 public enum PlanGenerationState: Equatable, Sendable {
@@ -70,11 +71,42 @@ public enum PlanRuntimeError: Error, Equatable, LocalizedError, Sendable {
 public final class DeclarerPlanWorkflow: ObservableObject {
     @Published public private(set) var draft: DeclarerPlanDraft
     @Published public private(set) var state: PlanGenerationState = .idle
-    @Published public private(set) var result: DeclarerPlanResponse?
-    @Published public private(set) var resultIsOutdated = false
+    @Published public private(set) var informationVersion = 0
+    @Published public private(set) var planAnalyses: [DeclarerPlanAnalysis] = []
+    @Published public private(set) var followUpExchanges: [DeclarerFollowUpExchange] = []
+    @Published public private(set) var followUpQuestion = ""
+    @Published public private(set) var followUpAssumptions = ""
 
     private let runtime: any DeclarerTeachingRuntime
-    private var revision = 0
+    private var currentPlanID: UUID?
+    private var failedPlanRequest: DeclarerPlanRequest?
+    private var planOperationRevision = 0
+    private var followUpOperationRevision = 0
+
+    public var result: DeclarerPlanResponse? { planAnalyses.last?.response }
+
+    public var resultIsOutdated: Bool {
+        guard let latest = planAnalyses.last else { return false }
+        return latest.informationVersion != informationVersion
+    }
+
+    public var isSendingFollowUp: Bool {
+        followUpExchanges.contains { $0.status == .sending }
+    }
+
+    public var canFollowUp: Bool {
+        guard let plan = currentPlan,
+              plan.informationVersion == informationVersion,
+              !resultIsOutdated,
+              state != .generating,
+              !isSendingFollowUp else { return false }
+        return true
+    }
+
+    private var currentPlan: DeclarerPlanAnalysis? {
+        guard let currentPlanID else { return nil }
+        return planAnalyses.last(where: { $0.id == currentPlanID })
+    }
 
     public init(draft: DeclarerPlanDraft = DeclarerPlanDraft(), runtime: any DeclarerTeachingRuntime) {
         self.draft = draft
@@ -84,9 +116,12 @@ public final class DeclarerPlanWorkflow: ObservableObject {
     public func updateDraft(_ draft: DeclarerPlanDraft) {
         guard draft != self.draft else { return }
         self.draft = draft
-        revision += 1
-        if result != nil {
-            resultIsOutdated = true
+        informationVersion += 1
+        planOperationRevision += 1
+        followUpOperationRevision += 1
+        failedPlanRequest = nil
+        for index in followUpExchanges.indices where followUpExchanges[index].status == .sending {
+            followUpExchanges[index].status = .outdated
         }
         if state == .generating {
             state = .idle
@@ -94,30 +129,164 @@ public final class DeclarerPlanWorkflow: ObservableObject {
     }
 
     public func generatePlan() async {
+        guard state != .generating else { return }
         let request: DeclarerPlanRequest
-        do {
-            request = try DeclarerPlanRequestBuilder.build(from: draft)
-        } catch let error as DeclarerPlanInputError {
-            state = .invalid(error.localizedDescription)
-            return
-        } catch {
-            state = .invalid(error.localizedDescription)
-            return
+        if let failedPlanRequest, failedPlanRequest.informationVersion == informationVersion, case .failed = state {
+            request = failedPlanRequest
+        } else {
+            do {
+                request = try DeclarerPlanRequestBuilder.build(
+                    from: draft,
+                    informationVersion: informationVersion
+                )
+            } catch {
+                state = .invalid(error.localizedDescription)
+                return
+            }
         }
 
-        revision += 1
-        let requestRevision = revision
+        planOperationRevision += 1
+        let operationRevision = planOperationRevision
+        let requestedVersion = informationVersion
         state = .generating
 
         do {
             let response = try await runtime.generatePlan(for: request)
-            guard revision == requestRevision else { return }
-            result = response
-            resultIsOutdated = false
+            guard planOperationRevision == operationRevision,
+                  informationVersion == requestedVersion else { return }
+            let analysis = DeclarerPlanAnalysis(
+                requestID: request.requestID,
+                informationVersion: request.informationVersion,
+                response: response
+            )
+            planAnalyses.append(analysis)
+            currentPlanID = analysis.id
+            failedPlanRequest = nil
             state = .succeeded
         } catch {
-            guard revision == requestRevision else { return }
+            guard planOperationRevision == operationRevision,
+                  informationVersion == requestedVersion else { return }
+            failedPlanRequest = request
             state = .failed(error.localizedDescription)
         }
+    }
+
+    public func setFollowUpQuestion(_ question: String) {
+        followUpQuestion = question
+    }
+
+    public func setFollowUpAssumptions(_ assumptions: String) {
+        followUpAssumptions = assumptions
+    }
+
+    public func sendFollowUp() async {
+        guard canFollowUp,
+              let plan = currentPlan else { return }
+        let question = followUpQuestion.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !question.isEmpty else { return }
+        let assumptions = followUpAssumptions.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        if followUpExchanges.contains(where: { exchange in
+            exchange.planID == plan.id
+                && exchange.informationVersion == informationVersion
+                && exchange.question == question
+                && exchange.assumptions == (assumptions.isEmpty ? nil : assumptions)
+                && isFailed(exchange.status)
+        }) {
+            return
+        }
+
+        let exchange = DeclarerFollowUpExchange(
+            informationVersion: informationVersion,
+            planID: plan.id,
+            question: question,
+            assumptions: assumptions.isEmpty ? nil : assumptions,
+            status: .sending
+        )
+        followUpExchanges.append(exchange)
+        await runFollowUp(exchangeID: exchange.id, plan: plan)
+    }
+
+    public func retryFollowUp(_ exchangeID: UUID) async {
+        guard canFollowUp,
+              let plan = currentPlan,
+              let index = followUpExchanges.firstIndex(where: { $0.id == exchangeID }),
+              followUpExchanges[index].planID == plan.id,
+              followUpExchanges[index].informationVersion == informationVersion,
+              isFailed(followUpExchanges[index].status) else { return }
+        followUpExchanges[index].status = .sending
+        await runFollowUp(exchangeID: exchangeID, plan: plan)
+    }
+
+    public func isOutdated(_ plan: DeclarerPlanAnalysis) -> Bool {
+        plan.informationVersion != informationVersion
+    }
+
+    public func isOutdated(_ exchange: DeclarerFollowUpExchange) -> Bool {
+        exchange.informationVersion != informationVersion || exchange.planID != currentPlanID
+    }
+
+    public func canRetry(_ exchange: DeclarerFollowUpExchange) -> Bool {
+        guard let plan = currentPlan else { return false }
+        return exchange.planID == plan.id
+            && exchange.informationVersion == informationVersion
+            && isFailed(exchange.status)
+            && canFollowUp
+    }
+
+    private func runFollowUp(exchangeID: UUID, plan: DeclarerPlanAnalysis) async {
+        guard let index = followUpExchanges.firstIndex(where: { $0.id == exchangeID }) else { return }
+        let exchange = followUpExchanges[index]
+        let context: DeclarerPlanRequest
+        let request: DeclarerFollowUpRequest
+        do {
+            context = try DeclarerPlanRequestBuilder.build(
+                from: draft,
+                informationVersion: informationVersion,
+                requestID: plan.requestID
+            )
+            let previous = Array(followUpExchanges[..<index])
+            request = try DeclarerFollowUpRequestBuilder.build(
+                context: context,
+                currentPlan: plan,
+                priorExchanges: previous,
+                question: exchange.question,
+                assumptions: exchange.assumptions ?? "",
+                requestID: exchange.id
+            )
+        } catch {
+            followUpExchanges[index].status = .failed(error.localizedDescription)
+            return
+        }
+
+        followUpOperationRevision += 1
+        let operationRevision = followUpOperationRevision
+        let requestedVersion = informationVersion
+        do {
+            let response = try await runtime.respondToFollowUp(request)
+            guard followUpOperationRevision == operationRevision,
+                  informationVersion == requestedVersion,
+                  currentPlanID == plan.id,
+                  let currentIndex = followUpExchanges.firstIndex(where: { $0.id == exchangeID }),
+                  followUpExchanges[currentIndex].status == .sending else { return }
+            followUpExchanges[currentIndex].status = .answered(response)
+            if followUpQuestion.trimmingCharacters(in: .whitespacesAndNewlines) == exchange.question,
+               followUpAssumptions.trimmingCharacters(in: .whitespacesAndNewlines) == (exchange.assumptions ?? "") {
+                followUpQuestion = ""
+                followUpAssumptions = ""
+            }
+        } catch {
+            guard followUpOperationRevision == operationRevision,
+                  informationVersion == requestedVersion,
+                  currentPlanID == plan.id,
+                  let currentIndex = followUpExchanges.firstIndex(where: { $0.id == exchangeID }),
+                  followUpExchanges[currentIndex].status == .sending else { return }
+            followUpExchanges[currentIndex].status = .failed(error.localizedDescription)
+        }
+    }
+
+    private func isFailed(_ status: DeclarerFollowUpStatus) -> Bool {
+        if case .failed = status { return true }
+        return false
     }
 }
