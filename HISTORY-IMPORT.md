@@ -1,0 +1,23 @@
+# Standalone repository history
+
+This repository was extracted from a larger Git monorepo into an empty GitHub repository. The active Bridge history was retained as a project-only chain: paths were moved from `bridge/` to the repository root, and commit hashes were rewritten to remove monorepo ancestry. Commit subjects, author attribution, and chronology were retained for the nine Bridge commits below.
+
+| Source commit | Standalone commit | Subject |
+| --- | --- | --- |
+| `a07d32a` | `80d75f6` | feat(bridge): add native declarer plan slice |
+| `29b9691` | `6c88e24` | refactor(bridge): share runtime error mapping |
+| `c181588` | `407b83f` | feat(bridge): add versioned follow-up corrections |
+| `87fff04` | `33dbc45` | fix(bridge): expire superseded follow-ups |
+| `4b1b203` | `0b525e2` | fix(bridge): clarify stale follow-up history |
+| `029c568` | `12b12d3` | feat(bridge): add key-play analysis mode |
+| `c5ee560` | `d83b89f` | feat(bridge): add double-dummy verification |
+| `b4d88e0` | `da2e418` | feat(bridge): save and reopen local reviews |
+| `c4c25ca` | `5510ec8` | fix(bridge): preserve key-play results across modes |
+
+The current source tree at `c4c25ca`, plus the Bridge-specific untracked design, specification, ticket, evidence, and feedback files, was exported as a new snapshot commit after these history commits. One non-Bridge source commit and all unrelated monorepo files and history were excluded.
+
+The visual prototype from source commit `b27def74a42385989fea48f31ad8aa4ed443ac8a` is preserved as a snapshot on the separate `archive/bridge-ui-prototype` branch. Its monorepo ancestry is not included, and its files are absent from `main`.
+
+A superseded screenshot-workflow commit `81d014a` was found as an unreferenced object from a cleaned temporary branch. It was not imported: the current source tree contains the later screenshot workflow and evidence through `b4d88e0` (standalone `da2e418`).
+
+The publication excludes `.build/` outputs and caches, credentials, tokens, and unrelated user files. The source and destination were not modified to create a nested repository or change the original monorepo remote.
