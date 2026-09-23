@@ -415,7 +415,11 @@ private struct TeachingPanel: View {
                     .foregroundStyle(BridgePalette.green)
                 Spacer()
                 if workflow.isOutdated(exchange) {
-                    Text("旧信息版本 · 已过期")
+                    Text(
+                        exchange.informationVersion == workflow.informationVersion
+                            ? "依赖旧计划 · 已过期"
+                            : "基于旧信息 · 已过期"
+                    )
                         .font(.system(size: 10, weight: .medium))
                         .foregroundStyle(BridgePalette.warning)
                 }
@@ -456,7 +460,9 @@ private struct TeachingPanel: View {
                     .tint(BridgePalette.green)
                 }
             case .outdated:
-                Text("信息修正前的请求已作废。重新生成计划后，可围绕新计划再次追问。")
+                Text(exchange.informationVersion == workflow.informationVersion
+                    ? "计划已被替代；原回答保留在历史中。可围绕新计划再次追问。"
+                    : "信息已修正；原请求已作废。重新生成计划后，可围绕新计划再次追问。")
                     .font(.system(size: 12))
                     .foregroundStyle(BridgePalette.muted)
             }
