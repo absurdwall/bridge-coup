@@ -5,7 +5,7 @@ import BridgeTeacherCore
 struct BridgeTeacherMacApp: App {
     var body: some Scene {
         WindowGroup {
-            BridgeTeacherWorkspaceView()
+            BridgeTeacherWorkspaceShell()
         }
         .windowResizability(.contentSize)
         .defaultSize(width: 1320, height: 900)

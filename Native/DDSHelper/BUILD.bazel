@@ -1,0 +1,7 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary")
+
+cc_binary(
+    name = "bridge_teacher_dds",
+    srcs = ["bridge_teacher_dds.cpp"],
+    deps = ["//library/src:dds"],
+)

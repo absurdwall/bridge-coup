@@ -4,6 +4,7 @@ set -euo pipefail
 APP_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$APP_ROOT"
 
+"$APP_ROOT/Scripts/build-dds-helper.sh"
 swift build --configuration release
 
 APP_BUNDLE="$APP_ROOT/.build/macos/BridgeTeacher.app"
@@ -12,8 +13,12 @@ MACOS_DIR="$CONTENTS_DIR/MacOS"
 RESOURCES_DIR="$CONTENTS_DIR/Resources"
 rm -rf "$APP_BUNDLE"
 mkdir -p "$MACOS_DIR" "$RESOURCES_DIR"
+mkdir -p "$CONTENTS_DIR/Helpers"
 cp "$APP_ROOT/.build/release/BridgeTeacherMac" "$MACOS_DIR/BridgeTeacherMac"
+cp "$APP_ROOT/.build/dds/bridge-dds" "$CONTENTS_DIR/Helpers/bridge-dds"
+cp "$APP_ROOT/.build/dds-source-v3.0.0/LICENSE" "$RESOURCES_DIR/DDS-LICENSE.txt"
 chmod 755 "$MACOS_DIR/BridgeTeacherMac"
+chmod 755 "$CONTENTS_DIR/Helpers/bridge-dds"
 
 cat > "$CONTENTS_DIR/Info.plist" <<'PLIST'
 <?xml version="1.0" encoding="UTF-8"?>
