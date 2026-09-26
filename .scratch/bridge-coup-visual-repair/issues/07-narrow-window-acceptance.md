@@ -4,17 +4,16 @@
 
 **Blocked by:** None
 
-**Status:** complete
+**Status:** partial — provenance of the pre-install official-session Save is unresolved
 
-- [x] Check the accepted 1320 pt start width, an intermediate width, the 1180 pt minimum, and a below-minimum boundary.
-- [x] Check the deal/workspace layout and Save, Open, and Settings access.
-- [x] Use only synthetic content in retained content-bearing screenshots.
-- [x] Record the below-minimum crop without fixing it in this ticket.
+- [x] Check the accepted 1320 pt start width, an intermediate width, the declared 1180 pt minimum, and below-minimum boundaries.
+- [x] Check deal/workspace visibility and Save, Open, and Settings access at the measured widths.
+- [x] Measure the isolated Release copy's mouse-resize minimum at 90×900 pt with a synthetic review; retain the visible crop.
+- [x] Record that the deal, teaching pane, and header actions are cropped or offscreen at 90 pt. Content outside the viewport was not assessed for overlap, overflow, or readability.
+- [ ] Confirm that every state-mutating step used only a synthetic fixture. Before installation, Save was invoked in the official app without verifying the active session's fixture provenance.
 
 ## Acceptance evidence — 2026-09-26
 
-The isolated, sandboxed final Release QA copy with a synthetic fixture was checked at 1320, 1240, 1180, and 1101 pt. At 1240 pt both columns and the deal remained in frame, text wrapped, and Save, Open, and Settings stayed visible; no 1240 pt screenshot was retained in this export. The official installed app itself was directly measured at 1320, 1180, and 1101 pt. Save, Open, and Settings remained in the accessibility tree at each official-app width, and the installed window position and size were restored after the check.
+The sanitized [acceptance report](../evidence/narrow-window-acceptance-2026-09-26.md) records the installed Release measurements, the isolated 90 pt probe, the synthetic screenshot, and all limitations. The below-minimum crop is report-only; no layout change was made. The same probe is complete and does not need to be repeated.
 
-The content-bearing [1320 pt](../evidence/narrow-window-2026-09-26/final-release-default.png), [1180 pt](../evidence/narrow-window-2026-09-26/width-1180pt.png), and [1101 pt boundary](../evidence/narrow-window-2026-09-26/width-1101pt-boundary.png) screenshots came from an isolated Release QA copy with a synthetic fixture. The 1101 pt image shows the teaching pane's right edge cropped below the declared 1180 pt minimum. This remains a report-only finding; no layout change was made.
-
-See the [packaged acceptance summary](../evidence/acceptance-summary-2026-09-26.md). No private saved review was included in the screenshots or public report.
+The ticket remains partial only because the pre-install Save provenance was not verified. No saved-review data will be opened or inspected to resolve that gap.
