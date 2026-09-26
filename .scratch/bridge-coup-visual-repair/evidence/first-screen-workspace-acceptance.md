@@ -7,7 +7,7 @@
 - [02 · App 同牌例空分析](first-screen-workspace/02-app-same-deal-empty-analysis.png)：app 中录入与 Prototype A 相同的 3NT、南家、♠K 牌例和已知手牌；教学区仍为空，未把原型固定文案带入 app。
 - [03 · App 已有内容布局夹具](first-screen-workspace/03-app-analysis-test-fixture.png)：隔离的临时测试会话，用明确标识的布局夹具展示分层教学内容与追问入口。界面标出“非真实模型响应”和“未保存”；没有调用 Codex 或求解器，也没有保存复盘。
 
-Prototype A 的来源是已打开的原型页面截图，仅裁出网页内容区域以去掉浏览器工具栏。App 截图来自独立临时 `.app` 包和 bundle ID，不替换或写入已运行的用户 app。空状态及同牌例截图使用 `/tmp/bridge-coup-issue02-acceptance/Bridge Coup QA.app`（bundle ID `app.tortillaflat.bridge-teacher.issue02qa`）；内容布局截图使用 `/tmp/bridge-coup-issue02-fixture-run/Bridge Coup Fixture.app`（bundle ID `app.tortillaflat.bridge-teacher.issue02fixture`）。截图时内容视口为 1320×900 pt。所有临时测试数据仅在测试会话中，未写入用户保存数据。
+Prototype A 的来源是已打开的原型页面截图，仅裁出网页内容区域以去掉浏览器工具栏。App 截图来自独立临时 `.app` 包和隔离数据目录，不替换或写入用户正在运行的正式 app；内容布局图使用明确标注的 synthetic fixture。截图时内容视口为 1320×900 pt。未选择用户文件或修改用户保存数据。
 
 ## 手工检查
 
