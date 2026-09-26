@@ -88,4 +88,8 @@ The following Bridge-only source commits were exported as a sanitized documentat
 
 The same snapshot removes the screenshot-derived recognition record from the current public tree and removes its live links. Earlier commits are unchanged; no Git history rewrite was performed. The standalone snapshot commit is recorded by the immediately following metadata commit.
 
+| Standalone snapshot commit | Source commits |
+| --- | --- |
+| `8644cfbb92bb96352c96e4c3a16007979c5ce9f4` | `bd2ceaad0413afdb2dfb1f9a599ffff3b79c70a5`, `c0a30a921773cd433fb0529f9456b250618f36d4`, `f75ced063fc8bd959795889f433d8d91c2fbf545` |
+
 Before export, the remaining source artifacts were compared with standalone `main`. The scratch index, first-version feedback and issues 01, 05 and 06, plus `CONTEXT.md`, already matched. The standalone first-version index/spec and root design documents contain newer or sanitized material and were retained. The prototype source remains on `archive/bridge-ui-prototype`; it was not duplicated onto `main`. The already-published contract-grid issue was preserved, with its related refinement index and historical report added in this snapshot.
