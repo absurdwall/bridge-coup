@@ -297,7 +297,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
         var updated = modelSettings
         guard updated.selectModel(family) else { return }
         modelSettings = updated
-        saveValidModelSelection(updated.selection)
+        saveExplicitModelSelection(updated.selection)
         Task { await applyServiceSelection(updated.selection) }
     }
 
@@ -305,7 +305,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
         var updated = modelSettings
         guard updated.selectEffort(effort) else { return }
         modelSettings = updated
-        saveValidModelSelection(updated.selection)
+        saveExplicitModelSelection(updated.selection)
         Task { await applyServiceSelection(updated.selection) }
     }
 
@@ -321,9 +321,6 @@ final class BridgeTeacherApplicationModel: ObservableObject {
             modelSettings = CodexModelSettingsState(runtimeModels: runtimeModels, savedSelection: savedSelection)
             try await service.setRequestSelection(modelSettings.selection)
             modelCatalogStatus = "模型标识、effort 与输入能力来自当前 Codex runtime。"
-            if savedSelection == nil, let selection = modelSettings.selection {
-                saveValidModelSelection(selection)
-            }
         } catch {
             modelSettings = CodexModelSettingsState(runtimeModels: [])
             try? await service.setRequestSelection(nil)
@@ -443,7 +440,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
         modelSelectionPreferences.load()
     }
 
-    private func saveValidModelSelection(_ selection: CodexModelSelection?) {
+    private func saveExplicitModelSelection(_ selection: CodexModelSelection?) {
         guard let selection else { return }
         modelSelectionPreferences.save(selection)
     }
