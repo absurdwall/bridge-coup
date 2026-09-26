@@ -1,0 +1,75 @@
+{
+  "capturedAt": "2026-09-26",
+  "app": {
+    "bundleIdentifier": "app.tortillaflat.bridge-teacher",
+    "version": "0.1.0",
+    "build": "1",
+    "executableSHA256": "4ea83d6e63edd9e4698ace702b38caf4fdcc36cae9aa12606c1ccd0d76f91409",
+    "sourceCommit": "c7df42b14f60a453a97e4b416600bfb1f8480a2d"
+  },
+  "runtimeVersion": "codex-cli 0.156.1",
+  "request": {
+    "method": "model/list",
+    "includeHidden": false,
+    "limit": 100,
+    "pageCount": 1,
+    "modelCount": 7
+  },
+  "readOnlyBoundary": {
+    "methods": ["initialize", "account/read", "model/list"],
+    "threadStart": false,
+    "turnStart": false,
+    "savedReviewOpened": false
+  },
+  "models": [
+    {
+      "id": "gpt-5.5",
+      "displayName": "GPT-5.5",
+      "supportedEfforts": ["low", "medium", "high", "xhigh"],
+      "defaultEffort": "medium",
+      "inputModalities": ["text", "image"]
+    },
+    {
+      "id": "gpt-5.6-luna",
+      "displayName": "GPT-5.6-Luna",
+      "supportedEfforts": ["low", "medium", "high", "xhigh", "max"],
+      "defaultEffort": "medium",
+      "inputModalities": ["text", "image"]
+    },
+    {
+      "id": "gpt-5.6-sol",
+      "displayName": "GPT-5.6-Sol",
+      "supportedEfforts": ["low", "medium", "high", "xhigh", "max", "ultra"],
+      "defaultEffort": "low",
+      "inputModalities": ["text", "image"]
+    },
+    {
+      "id": "gpt-5.6-terra",
+      "displayName": "GPT-5.6-Terra",
+      "supportedEfforts": ["low", "medium", "high", "xhigh", "max", "ultra"],
+      "defaultEffort": "medium",
+      "inputModalities": ["text", "image"]
+    },
+    {
+      "id": "gpt-6-astra",
+      "displayName": "GPT-6-Astra",
+      "supportedEfforts": ["low", "medium", "high", "xhigh", "max", "ultra"],
+      "defaultEffort": "medium",
+      "inputModalities": ["text", "image"]
+    },
+    {
+      "id": "gpt-6-luna",
+      "displayName": "GPT-6-Luna",
+      "supportedEfforts": ["low", "medium", "high", "xhigh", "max"],
+      "defaultEffort": "medium",
+      "inputModalities": ["text", "image"]
+    },
+    {
+      "id": "gpt-6-sol",
+      "displayName": "GPT-6-Sol",
+      "supportedEfforts": ["low", "medium", "high", "xhigh", "max", "ultra"],
+      "defaultEffort": "medium",
+      "inputModalities": ["text", "image"]
+    }
+  ]
+}
