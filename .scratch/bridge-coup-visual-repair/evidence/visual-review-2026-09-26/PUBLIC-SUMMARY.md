@@ -9,9 +9,9 @@ The screenshot-led review used an isolated release build based on source commit 
 ## Findings
 
 - The A-style table, four separate seat cards, first-screen teaching area, in-place edit entry, and compact header were present in the reviewed build.
-- The app table appeared larger than the prototype reference while keeping the four seats and contract visible together. Ticket 06 tracks a proportion/readability follow-up.
+- The app table appeared larger than the prototype reference while keeping the four seats and contract visible together. This remains an unresolved design question, recorded in the [design memo](../../design-memos/future-table-and-window-design.md).
 - A saved-analysis view exposed a Markdown rendering issue. The actual review content and its screenshot are intentionally omitted; ticket 05 tracks the generic formatting defect.
-- The isolated review runtime was below the app's minimum supported version, so model selection and preference behavior were not accepted from that run. The current installed-app check is summarized separately in `../installed-app-setup-2026-09-26/INSTALLATION-SUMMARY.md`; ticket 08 tracks model-catalog diagnosis.
+- The isolated review runtime was below the app's minimum supported version, so model selection and preference behavior were not accepted from that run. The current installed-app check is summarized separately in `../installed-app-setup-2026-09-26/INSTALLATION-SUMMARY.md`; ticket 08's final runtime and preference checks are recorded in the [live catalog follow-up](../08-runtime-model-catalog-live-2026-09-26.md).
 - Narrow-window behavior and assistive-technology behavior were not established by this review. Ticket 07 tracks packaged-app width acceptance.
 
 ## Safe visual references

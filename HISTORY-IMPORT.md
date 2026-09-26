@@ -65,3 +65,13 @@ The companion acceptance snapshot is sanitized and contains only Bridge project 
 | `4ea6b7070f8f6c4e520963d762e28dee8ecfd508` | `b6e5723992251a6724da4415a64fb0da147da9ef` | docs(bridge): record final installed acceptance |
 
 This standalone-only metadata commit records the mapping for the preceding public acceptance snapshot. It adds no project content.
+
+## Visual-repair closeout documentation snapshot
+
+The following documentation-only snapshot reflects the canonical Bridge files after the listed source commits. It exports the corrected partial status for issue 07, sanitized narrow-window evidence and its synthetic screenshot, the final runtime catalog notes, and the design memo. It contains no product-code changes, local filesystem paths, saved-review content, or credentials.
+
+| Source monorepo commits | Standalone snapshot commit | Subject |
+| --- | --- | --- |
+| `cce26848dc617559ec57f1eca0311adb164d8f58`, `764263aa97759583bd45ac9bd95cb5df1066b505` | `61b3241fcf0388ab2baba38aeed68f96387002f8` | docs: prepare sanitized visual closeout export |
+
+The snapshot preserves the retired Ticket 06 state and confirms that no Ticket 09 or 10 was added.
