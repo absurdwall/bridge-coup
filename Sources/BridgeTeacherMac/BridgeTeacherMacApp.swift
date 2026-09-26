@@ -209,8 +209,6 @@ private struct DeclarerEntryPanel: View {
     @Binding var mode: TeachingMode
     @State private var isShowingScreenshotPreview = false
 
-    private let seatColumns = [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)]
-
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             panelHeading("牌面与问题", subtitle: "两种教学共用这份已确认的牌面。")
@@ -448,22 +446,23 @@ private struct DeclarerEntryPanel: View {
                     .font(.system(size: 11))
                     .foregroundStyle(BridgePalette.muted)
             }
-            LazyVGrid(columns: seatColumns, spacing: 12) {
-                ForEach(Seat.allCases, id: \.self) { seat in
-                    HandEntryCard(
-                        seat: seat,
-                        isDeclarer: workflow.draft.declarerSeat == seat,
-                        isActingSeat: mode == .keyPlayAnalysis && keyPlayWorkflow.draft.actingSeat == seat,
-                        screenshotReviewMode: screenshotWorkflow.screenshotURL != nil,
-                        isDecisionTimeVisible: workflow.draft.decisionTimeVisibleSeats?.contains(seat) ?? true,
-                        binding: { seat, suit in holdingBinding(seat: seat, suit: suit) },
-                        onVisibilityChange: { isVisible in setDecisionTimeVisibility(seat, isVisible: isVisible) }
-                    )
-                }
-            }
+            BridgeDealTable(
+                declarerSeat: workflow.draft.declarerSeat,
+                contractLevel: workflow.draft.contractLevel,
+                contractStrain: workflow.draft.contractStrain,
+                openingLead: workflow.draft.openingLead,
+                actingSeat: mode == .keyPlayAnalysis ? keyPlayWorkflow.draft.actingSeat : nil,
+                screenshotReviewMode: screenshotWorkflow.screenshotURL != nil,
+                isDecisionTimeVisible: { seat in
+                    workflow.draft.decisionTimeVisibleSeats?.contains(seat) ?? true
+                },
+                holding: { seat, suit in workflow.draft.hands[seat]?[suit] ?? "" },
+                onCommit: commitHolding,
+                onVisibilityChange: setDecisionTimeVisibility
+            )
             Text(screenshotWorkflow.screenshotURL == nil
-                 ? "按花色录入已知牌：A K Q J 10 和 2–9。输入 “-” 表示已确认缺门。"
-                 : "按花色校正候选牌：A K Q J 10 和 2–9。截图里的全部牌不会自动发给教学模型。")
+                 ? "点按花色行编辑 · 留空 = 未知 · “-” = 已确认缺门"
+                 : "点按花色行校正候选 · 仅勾选的手牌加入分析")
                 .font(.system(size: 11))
                 .foregroundStyle(BridgePalette.muted)
                 .fixedSize(horizontal: false, vertical: true)
@@ -606,6 +605,27 @@ private struct DeclarerEntryPanel: View {
         )
     }
 
+    private func commitHolding(seat: Seat, suit: Suit, value: String) -> String? {
+        var draft = workflow.draft
+        let normalized = value.trimmingCharacters(in: .whitespacesAndNewlines)
+        if normalized.isEmpty {
+            draft.hands[seat]?.removeValue(forKey: suit)
+            if draft.hands[seat]?.isEmpty == true {
+                draft.hands.removeValue(forKey: seat)
+            }
+        } else {
+            draft.hands[seat, default: [:]][suit] = normalized
+        }
+
+        do {
+            _ = try DeclarerPlanRequestBuilder.visibleHands(in: draft)
+            model.updateReviewDraft(draft)
+            return nil
+        } catch {
+            return error.localizedDescription
+        }
+    }
+
     private func setDecisionTimeVisibility(_ seat: Seat, isVisible: Bool) {
         var draft = workflow.draft
         var visibleSeats = draft.decisionTimeVisibleSeats ?? Set(
@@ -634,36 +654,114 @@ private struct DeclarerEntryPanel: View {
     }
 }
 
+private struct BridgeDealTable: View {
+    let declarerSeat: Seat?
+    let contractLevel: Int?
+    let contractStrain: ContractStrain?
+    let openingLead: String
+    let actingSeat: Seat?
+    let screenshotReviewMode: Bool
+    let isDecisionTimeVisible: (Seat) -> Bool
+    let holding: (Seat, Suit) -> String
+    let onCommit: (Seat, Suit, String) -> String?
+    let onVisibilityChange: (Seat, Bool) -> Void
+
+    var body: some View {
+        VStack(spacing: 8) {
+            seatCard(.north)
+            HStack(spacing: 8) {
+                seatCard(.west)
+                contractCard
+                seatCard(.east)
+            }
+            seatCard(.south)
+        }
+        .padding(8)
+        .background(Color(red: 0.92, green: 0.95, blue: 0.92), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
+        .frame(maxWidth: .infinity)
+        .accessibilityIdentifier("bridge-deal-table")
+    }
+
+    private func seatCard(_ seat: Seat) -> some View {
+        HandEntryCard(
+            seat: seat,
+            isDeclarer: declarerSeat == seat,
+            isActingSeat: actingSeat == seat,
+            screenshotReviewMode: screenshotReviewMode,
+            isDecisionTimeVisible: isDecisionTimeVisible(seat),
+            holding: { holding(seat, $0) },
+            onCommit: { suit, value in onCommit(seat, suit, value) },
+            onVisibilityChange: { onVisibilityChange(seat, $0) }
+        )
+        .frame(width: 136)
+        .frame(minHeight: 82)
+    }
+
+    private var contractCard: some View {
+        let contract = contractLevel.flatMap { level in
+            contractStrain.map { "\(level)\($0.symbol)" }
+        } ?? "未定约"
+        let lead = openingLead.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        return VStack(spacing: 3) {
+            Text(contract)
+                .font(.system(size: 16, weight: .bold, design: .rounded))
+                .foregroundStyle(contractColor)
+                .lineLimit(1)
+                .minimumScaleFactor(0.75)
+            Text(declarerSeat?.chineseName ?? "庄家未定")
+                .font(.system(size: 9, weight: .medium))
+                .foregroundStyle(BridgePalette.ink)
+                .lineLimit(1)
+            Text(lead.isEmpty ? "首攻未提供" : "首攻 \(lead)")
+                .font(.system(size: 8))
+                .foregroundStyle(BridgePalette.muted)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
+        }
+        .frame(width: 84, height: 82)
+        .background(.white.opacity(0.84), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
+        .accessibilityElement(children: .combine)
+        .accessibilityIdentifier("deal-table-contract")
+    }
+
+    private var contractColor: Color {
+        switch contractStrain {
+        case .hearts, .diamonds: BridgePalette.red
+        case .spades, .clubs, .noTrump, .none: BridgePalette.green
+        }
+    }
+}
+
 private struct HandEntryCard: View {
     let seat: Seat
     let isDeclarer: Bool
     let isActingSeat: Bool
     let screenshotReviewMode: Bool
     let isDecisionTimeVisible: Bool
-    let binding: (Seat, Suit) -> Binding<String>
+    let holding: (Suit) -> String
+    let onCommit: (Suit, String) -> String?
     let onVisibilityChange: (Bool) -> Void
+    @State private var editingSuit: Suit?
+    @State private var editValue = ""
+    @State private var editError: String?
+    @FocusState private var editorIsFocused: Bool
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack(spacing: 6) {
+        VStack(alignment: .leading, spacing: 2) {
+            HStack(spacing: 3) {
+                Text(compassLetter)
+                    .font(.system(size: 10, weight: .bold, design: .rounded))
+                    .foregroundStyle(BridgePalette.muted)
                 Text(seat.chineseName)
-                    .font(.system(size: 12, weight: .semibold))
+                    .font(.system(size: 10, weight: .semibold))
                     .foregroundStyle(BridgePalette.ink)
                 if isDeclarer {
-                    Text("庄家")
-                        .font(.system(size: 9, weight: .semibold))
-                        .foregroundStyle(BridgePalette.green)
-                        .padding(.horizontal, 6)
-                        .padding(.vertical, 3)
-                        .background(BridgePalette.green.opacity(0.1), in: Capsule())
-                }
-                if isActingSeat {
-                    Text("行动")
-                        .font(.system(size: 9, weight: .semibold))
-                        .foregroundStyle(BridgePalette.ink)
-                        .padding(.horizontal, 6)
-                        .padding(.vertical, 3)
-                        .background(BridgePalette.border.opacity(0.55), in: Capsule())
+                    roleBadge("庄", tint: BridgePalette.green)
+                } else if isActingSeat {
+                    roleBadge("行动", tint: BridgePalette.ink)
                 }
                 Spacer(minLength: 0)
                 if screenshotReviewMode {
@@ -671,33 +769,140 @@ private struct HandEntryCard: View {
                         get: { isDecisionTimeVisible },
                         set: onVisibilityChange
                     ))
+                    .labelsHidden()
                     .toggleStyle(.checkbox)
-                    .font(.system(size: 9, weight: .medium))
+                    .controlSize(.mini)
+                    .help("当时可见")
                     .accessibilityLabel("\(seat.chineseName) 在当前决策时可见")
                 }
             }
-            HStack(spacing: 4) {
-                ForEach(Suit.allCases, id: \.self) { suit in
-                    VStack(spacing: 3) {
-                        Text(suit.symbol)
-                            .font(.system(size: 12, weight: .semibold))
-                            .foregroundStyle(suit == .hearts || suit == .diamonds ? BridgePalette.red : BridgePalette.ink)
-                        TextField("·", text: binding(seat, suit))
-                            .font(.system(size: 11, design: .monospaced))
-                            .textFieldStyle(.plain)
-                            .multilineTextAlignment(.center)
-                            .frame(width: 48, height: 25)
-                            .background(.white, in: RoundedRectangle(cornerRadius: 6))
-                            .overlay(RoundedRectangle(cornerRadius: 6).stroke(BridgePalette.border, lineWidth: 1))
-                            .accessibilityLabel("\(seat.chineseName) \(suit.chineseName) 已知牌")
-                    }
-                }
+            ForEach(Suit.allCases, id: \.self) { suit in
+                holdingRow(suit)
             }
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(10)
-        .background(BridgePalette.soft.opacity(0.78), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
-        .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
+        .padding(.horizontal, 7)
+        .padding(.vertical, 5)
+        .background(.white, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
+        .onChange(of: editorIsFocused) { _, isFocused in
+            if !isFocused, editingSuit != nil {
+                cancelEditing()
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func holdingRow(_ suit: Suit) -> some View {
+        if editingSuit == suit {
+            VStack(alignment: .leading, spacing: 1) {
+                HStack(spacing: 4) {
+                    suitSymbol(suit)
+                    TextField("牌点", text: $editValue)
+                        .font(.system(size: 10, weight: .medium, design: .monospaced))
+                        .textFieldStyle(.plain)
+                        .focused($editorIsFocused)
+                        .accessibilityLabel("\(seat.chineseName) \(suit.chineseName) 编辑")
+                        .accessibilityIdentifier("hand-edit-\(seat.rawValue)-\(suit.rawValue)")
+                        .onSubmit(commitEditing)
+                        .onKeyPress(.escape) {
+                            cancelEditing()
+                            return .handled
+                        }
+                        .padding(.horizontal, 4)
+                        .frame(minHeight: 18)
+                        .background(BridgePalette.soft, in: RoundedRectangle(cornerRadius: 4))
+                        .overlay(RoundedRectangle(cornerRadius: 4).stroke(BridgePalette.green.opacity(0.55), lineWidth: 1))
+                }
+                Text(editError ?? "Enter 保存 · Esc 取消 · - 空门")
+                    .font(.system(size: 8, weight: editError == nil ? .regular : .medium))
+                    .foregroundStyle(editError == nil ? BridgePalette.muted : BridgePalette.warning)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.75)
+                    .accessibilityIdentifier(editError == nil ? "hand-edit-hint" : "hand-edit-error")
+            }
+        } else {
+            Button {
+                beginEditing(suit)
+            } label: {
+                HStack(spacing: 5) {
+                    suitSymbol(suit)
+                    Text(displayHolding(holding(suit)))
+                        .font(.system(size: 10, weight: .medium, design: .monospaced))
+                        .foregroundStyle(holdingColor(holding(suit)))
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.72)
+                    Spacer(minLength: 0)
+                }
+                .frame(maxWidth: .infinity, minHeight: 13, alignment: .leading)
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel("编辑\(seat.chineseName)\(suit.chineseName)；\(displayHolding(holding(suit)))")
+            .accessibilityIdentifier("hand-row-\(seat.rawValue)-\(suit.rawValue)")
+        }
+    }
+
+    private func suitSymbol(_ suit: Suit) -> some View {
+        Text(suit.symbol)
+            .font(.system(size: 10, weight: .semibold))
+            .foregroundStyle(suit == .hearts || suit == .diamonds ? BridgePalette.red : BridgePalette.ink)
+            .frame(width: 13, alignment: .leading)
+    }
+
+    private func roleBadge(_ title: String, tint: Color) -> some View {
+        Text(title)
+            .font(.system(size: 7, weight: .semibold))
+            .foregroundStyle(tint)
+            .padding(.horizontal, 3)
+            .padding(.vertical, 1)
+            .background(tint.opacity(0.1), in: Capsule())
+    }
+
+    private var compassLetter: String {
+        switch seat {
+        case .north: "N"
+        case .east: "E"
+        case .south: "S"
+        case .west: "W"
+        }
+    }
+
+    private func displayHolding(_ raw: String) -> String {
+        let cleaned = raw.uppercased().filter { !$0.isWhitespace && $0 != "," && $0 != ";" }
+        if cleaned.isEmpty { return "未知" }
+        if cleaned == "-" || cleaned == "—" || cleaned == "VOID" { return "— 已确认空门" }
+        return cleaned.replacingOccurrences(of: "T", with: "10")
+    }
+
+    private func holdingColor(_ raw: String) -> Color {
+        displayHolding(raw) == "未知" || displayHolding(raw).contains("已确认空门")
+            ? BridgePalette.muted
+            : BridgePalette.ink
+    }
+
+    private func beginEditing(_ suit: Suit) {
+        editValue = holding(suit)
+        editError = nil
+        editingSuit = suit
+        editorIsFocused = true
+    }
+
+    private func commitEditing() {
+        guard let suit = editingSuit else { return }
+        if let error = onCommit(suit, editValue) {
+            editError = error
+            editorIsFocused = true
+        } else {
+            editingSuit = nil
+            editError = nil
+            editorIsFocused = false
+        }
+    }
+
+    private func cancelEditing() {
+        editingSuit = nil
+        editError = nil
+        editorIsFocused = false
     }
 }
 
