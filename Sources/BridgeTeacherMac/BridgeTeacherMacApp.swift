@@ -23,19 +23,22 @@ struct BridgeTeacherWorkspaceView: View {
     }
 
     var body: some View {
-        ScrollView(.vertical) {
+        GeometryReader { geometry in
+            let panelHeight = max(320, geometry.size.height - 160)
             VStack(spacing: 18) {
                 header
 
                 HStack(alignment: .top, spacing: 18) {
-                    DeclarerEntryPanel(
-                        model: model,
-                        workflow: model.workflow,
-                        keyPlayWorkflow: model.keyPlayWorkflow,
-                        screenshotWorkflow: model.screenshotWorkflow,
-                        mode: teachingModeBinding
-                    )
+                    ScrollView(.vertical) {
+                        DeclarerEntryPanel(
+                            model: model,
+                            workflow: model.workflow,
+                            keyPlayWorkflow: model.keyPlayWorkflow,
+                            screenshotWorkflow: model.screenshotWorkflow,
+                            mode: teachingModeBinding
+                        )
                         .frame(minWidth: 560, maxWidth: 600)
+                    }
                     if model.teachingMode == .declarerPlan {
                         TeachingPanel(model: model, workflow: model.workflow)
                             .frame(minWidth: 500, maxWidth: .infinity)
@@ -44,11 +47,12 @@ struct BridgeTeacherWorkspaceView: View {
                             .frame(minWidth: 500, maxWidth: .infinity)
                     }
                 }
+                .frame(height: panelHeight, alignment: .top)
             }
             .padding(24)
-            .frame(minWidth: 1180, alignment: .top)
+            .frame(minWidth: 1180, minHeight: 650, alignment: .top)
+            .accessibilityIdentifier("bridge-coup-workspace")
         }
-        .accessibilityIdentifier("bridge-coup-workspace")
         .background(BridgePalette.canvas.ignoresSafeArea())
         .preferredColorScheme(.light)
         .task { await model.bootstrap() }
@@ -1542,39 +1546,43 @@ private struct TeachingPanel: View {
         VStack(alignment: .leading, spacing: 0) {
             panelHeading("做庄教学", subtitle: "基于本次输入的决策时信息生成。")
             Divider().overlay(BridgePalette.border).padding(.top, 16)
-            VStack(alignment: .leading, spacing: 16) {
-                if workflow.planAnalyses.isEmpty {
-                    switch workflow.state {
-                    case .idle, .succeeded:
-                        emptyState
-                    case let .invalid(message):
-                        failureState(title: "请先核对输入", message: message, canRetry: false)
-                    case .generating:
-                        generatingState
-                    case let .failed(message):
-                        failureState(title: "这次没有生成计划", message: message, canRetry: model.canSendModelRequests)
+            ScrollView(.vertical) {
+                VStack(alignment: .leading, spacing: 16) {
+                    if workflow.planAnalyses.isEmpty {
+                        switch workflow.state {
+                        case .idle, .succeeded:
+                            emptyState
+                        case let .invalid(message):
+                            failureState(title: "请先核对输入", message: message, canRetry: false)
+                        case .generating:
+                            generatingState
+                        case let .failed(message):
+                            failureState(title: "这次没有生成计划", message: message, canRetry: model.canSendModelRequests)
+                        }
+                    } else {
+                        switch workflow.state {
+                        case .generating:
+                            generatingState
+                        case let .invalid(message):
+                            failureState(title: "请先核对输入", message: message, canRetry: false)
+                        case let .failed(message):
+                            failureState(title: "这次没有生成计划", message: message, canRetry: model.canSendModelRequests)
+                        case .idle, .succeeded:
+                            EmptyView()
+                        }
+                        ForEach(Array(workflow.planAnalyses.reversed())) { analysis in
+                            planSection(analysis)
+                        }
                     }
-                } else {
-                    switch workflow.state {
-                    case .generating:
-                        generatingState
-                    case let .invalid(message):
-                        failureState(title: "请先核对输入", message: message, canRetry: false)
-                    case let .failed(message):
-                        failureState(title: "这次没有生成计划", message: message, canRetry: model.canSendModelRequests)
-                    case .idle, .succeeded:
-                        EmptyView()
-                    }
-                    ForEach(Array(workflow.planAnalyses.reversed())) { analysis in
-                        planSection(analysis)
-                    }
+                    followUpComposer
                 }
-            }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 18)
                 .padding(.bottom, 12)
-            followUpComposer
+            }
+            .frame(maxHeight: .infinity, alignment: .top)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .padding(20)
         .background(.white, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
@@ -1654,11 +1662,7 @@ private struct TeachingPanel: View {
                         .foregroundStyle(BridgePalette.muted)
                 }
             case let .answered(answer):
-                Text(answer.text)
-                    .font(.system(size: 13))
-                    .lineSpacing(4)
-                    .foregroundStyle(BridgePalette.ink)
-                    .textSelection(.enabled)
+                AnalysisMarkdownView(source: answer.text)
                 CodexRequestProvenanceLine(
                     model: answer.model,
                     requestedModel: answer.requestedModel,
@@ -1779,12 +1783,7 @@ private struct TeachingPanel: View {
                         .background(BridgePalette.soft, in: Capsule())
                 }
             }
-            Text(result.text)
-                .font(.system(size: 14))
-                .lineSpacing(5)
-                .foregroundStyle(BridgePalette.ink)
-                .textSelection(.enabled)
-                .frame(maxWidth: .infinity, alignment: .leading)
+            AnalysisMarkdownView(source: result.text)
             CodexRequestProvenanceLine(
                 model: result.model,
                 requestedModel: result.requestedModel,
@@ -1838,40 +1837,44 @@ private struct KeyPlayTeachingPanel: View {
         VStack(alignment: .leading, spacing: 0) {
             panelHeading("关键出牌分析", subtitle: "只分析当前这一步；与整副做庄计划分开。")
             Divider().overlay(BridgePalette.border).padding(.top, 16)
-            VStack(alignment: .leading, spacing: 16) {
-                if workflow.resultIsOutdated {
-                    Label("分析时点或共用牌面已改变；旧讲解不适用于当前输入。", systemImage: "arrow.trianglehead.2.clockwise")
-                        .font(.system(size: 12, weight: .medium))
-                        .foregroundStyle(BridgePalette.warning)
-                        .padding(12)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(BridgePalette.warning.opacity(0.08), in: RoundedRectangle(cornerRadius: 10))
-                }
-
-                switch workflow.state {
-                case .idle:
-                    if let result = workflow.result {
-                        response(result)
-                    } else {
-                        emptyState
+            ScrollView(.vertical) {
+                VStack(alignment: .leading, spacing: 16) {
+                    if workflow.resultIsOutdated {
+                        Label("分析时点或共用牌面已改变；旧讲解不适用于当前输入。", systemImage: "arrow.trianglehead.2.clockwise")
+                            .font(.system(size: 12, weight: .medium))
+                            .foregroundStyle(BridgePalette.warning)
+                            .padding(12)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(BridgePalette.warning.opacity(0.08), in: RoundedRectangle(cornerRadius: 10))
                     }
-                case let .invalid(message):
-                    failureState(title: "请先核对关键节点", message: message, canRetry: false)
-                    if let result = workflow.result { response(result) }
-                case .generating:
-                    generatingState
-                    if let result = workflow.result { response(result) }
-                case .succeeded:
-                    if let result = workflow.result { response(result) } else { emptyState }
-                case let .failed(message):
-                    failureState(title: "这次没有生成关键出牌分析", message: message, canRetry: model.canSendModelRequests)
-                    if let result = workflow.result { response(result) }
+
+                    switch workflow.state {
+                    case .idle:
+                        if let result = workflow.result {
+                            response(result)
+                        } else {
+                            emptyState
+                        }
+                    case let .invalid(message):
+                        failureState(title: "请先核对关键节点", message: message, canRetry: false)
+                        if let result = workflow.result { response(result) }
+                    case .generating:
+                        generatingState
+                        if let result = workflow.result { response(result) }
+                    case .succeeded:
+                        if let result = workflow.result { response(result) } else { emptyState }
+                    case let .failed(message):
+                        failureState(title: "这次没有生成关键出牌分析", message: message, canRetry: model.canSendModelRequests)
+                        if let result = workflow.result { response(result) }
+                    }
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.top, 18)
+                .padding(.bottom, 12)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.top, 18)
-            .padding(.bottom, 12)
+            .frame(maxHeight: .infinity, alignment: .top)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .padding(20)
         .background(.white, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
@@ -1928,12 +1931,7 @@ private struct KeyPlayTeachingPanel: View {
                         .background(BridgePalette.soft, in: Capsule())
                 }
             }
-            Text(result.text)
-                .font(.system(size: 14))
-                .lineSpacing(5)
-                .foregroundStyle(BridgePalette.ink)
-                .textSelection(.enabled)
-                .frame(maxWidth: .infinity, alignment: .leading)
+            AnalysisMarkdownView(source: result.text)
             CodexRequestProvenanceLine(
                 model: result.model,
                 requestedModel: result.requestedModel,
@@ -1989,7 +1987,7 @@ private func panelHeading(_ title: String, subtitle: String) -> some View {
     }
 }
 
-private enum BridgePalette {
+enum BridgePalette {
     static let canvas = Color(red: 0.952, green: 0.964, blue: 0.951)
     static let soft = Color(red: 0.967, green: 0.972, blue: 0.961)
     static let border = Color(red: 0.874, green: 0.894, blue: 0.864)
