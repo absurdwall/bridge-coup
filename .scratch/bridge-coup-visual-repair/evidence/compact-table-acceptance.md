@@ -6,8 +6,9 @@ Date: 2026-09-25
 
 - Built the real `.build/macos/BridgeTeacher.app` with `Scripts/build-macos-app.sh` after the SwiftUI change.
 - Opened the approved prototype worktree at `prototype/bridge-coup-next/` with variant A selected.
-- Captured the app and prototype directly from their visible windows, then cropped the prototype capture to the page viewport. `03-app-vs-prototype.png` places those source captures side by side at a matching content width.
-- The app window was about 1320×900 points; the prototype browser window was about 1246×846 points, with a 1246×692-point page viewport after browser chrome. Both show the same sample:
+- Captured both directly from their visible windows and cropped to the content areas, excluding window chrome. `03-app-vs-prototype.png` places the unscaled crops side by side.
+- The packaged app window was 1249×858 points, with a 1249×790-point content view. The prototype browser window was 1247×862 points, with a 1247×759-point page viewport. The widths differ by 2 points and the heights by 31 points (about 4%).
+- Both show the same sample:
   - 3NT, South declarer, ♠K opening lead.
   - North: ♠852 ♥74 ♦AKQJ10 ♣862.
   - South: ♠A93 ♥AK5 ♦742 ♣A953.
