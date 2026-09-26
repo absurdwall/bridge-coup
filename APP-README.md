@@ -1,4 +1,4 @@
-# 桥牌教学 Mac 应用
+# Bridge Coup Mac 应用
 
 ## 已实现范围
 
@@ -15,8 +15,9 @@
 - runtime 缺失、版本过低、登录未完成、额度限制、超时和请求失败会显示错误；输入会保留，失败后可重试。
 - 可导入本地截图并查看原图。识别会填写可编辑的牌面、定约、做庄人、首攻、叫牌与屏幕明确给出的叫牌解释；未显示、可见但不清晰、识别有歧义会分开标记。
 - 截图牌面默认不进入计划。牌手须逐家勾选在所选决策点可见的手牌并确认；识别失败或迟到响应不会覆盖新截图和修正，重复牌和单手超过 13 张会在发送前拦截。
+- 复盘与截图可保存在本机并重新打开；独立的事后核验面板使用随应用提供的 DDS，不把核验结果加入教学请求。
 
-双明手核验及复盘保存/重新打开已进入当前实现；各票据的证据与未完成验收边界见 `.scratch/bridge-teaching-v1/README.md`。
+本项目各轮实现与验收边界见 `.scratch/bridge-teaching-v1/README.md`；本轮视觉修复状态见 `.scratch/bridge-coup-visual-repair/README.md`。
 
 ## 技术栈与已验证 runtime
 
@@ -26,6 +27,12 @@
 - 登录使用 app-server 的 ChatGPT `account/login/start` 浏览器流程。应用把 `CODEX_HOME` 指向 `~/Library/Application Support/Bridge Teacher/Codex Home`，由 Codex runtime 自行保存其登录状态；首次使用需要在本应用中登录一次。
 
 官方协议文档：[Codex App Server](https://learn.chatgpt.com/docs/app-server)。该文档说明 app-server 支持本地 stdio JSONL，并提供 ChatGPT 登录与线程/回合 API。WebSocket 传输标为 experimental，因此本应用使用 stdio。
+
+## 品牌资源和兼容性
+
+- Dock / Finder 图标及界面图标使用 `AppResources/BridgeCoupLogo.png`；该文件与手选的原始叠牌图逐字节一致。构建脚本只生成 macOS 所需尺寸，不改变构图或配色。
+- 界面字标使用独立透明图片 `AppResources/BridgeCoupWordmark.png`，没有把长字样并入 Dock 图标，也没有用系统字体重绘。
+- 应用显示名为 Bridge Coup；bundle identifier 仍是 `app.tortillaflat.bridge-teacher`。复盘、Codex 登录和偏好继续使用 `~/Library/Application Support/Bridge Teacher/`，更新不会创建空白的新数据目录。
 
 ## 安装和启动
 
@@ -40,7 +47,7 @@ npm install --global @openai/codex@0.156.1
 ```sh
 swift test
 ./Scripts/build-macos-app.sh
-open .build/macos/BridgeTeacher.app
+open ".build/macos/Bridge Coup.app"
 ```
 
 如果应用没有自动找到 Codex CLI，在应用顶部点“选择 Codex”，选取 `codex` 可执行文件。首次打开应用后，点“连接 ChatGPT”，在系统浏览器完成登录，再点“检查登录”。完成连接后可以录入当时可见的牌并生成计划。

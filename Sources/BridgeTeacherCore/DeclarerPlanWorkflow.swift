@@ -5,11 +5,21 @@ public struct DeclarerPlanResponse: Codable, Equatable, Sendable {
     public let text: String
     public let model: String?
     public let runtimeVersion: String?
+    public let requestedModel: String?
+    public let reasoningEffort: String?
 
-    public init(text: String, model: String? = nil, runtimeVersion: String? = nil) {
+    public init(
+        text: String,
+        model: String? = nil,
+        runtimeVersion: String? = nil,
+        requestedModel: String? = nil,
+        reasoningEffort: String? = nil
+    ) {
         self.text = text
         self.model = model
         self.runtimeVersion = runtimeVersion
+        self.requestedModel = requestedModel
+        self.reasoningEffort = reasoningEffort
     }
 }
 

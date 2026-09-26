@@ -110,11 +110,21 @@ public struct ScreenshotRecognitionResponse: Codable, Equatable, Sendable {
     public let candidate: ScreenshotRecognitionCandidate
     public let model: String?
     public let runtimeVersion: String?
+    public let requestedModel: String?
+    public let reasoningEffort: String?
 
-    public init(candidate: ScreenshotRecognitionCandidate, model: String? = nil, runtimeVersion: String? = nil) {
+    public init(
+        candidate: ScreenshotRecognitionCandidate,
+        model: String? = nil,
+        runtimeVersion: String? = nil,
+        requestedModel: String? = nil,
+        reasoningEffort: String? = nil
+    ) {
         self.candidate = candidate
         self.model = model
         self.runtimeVersion = runtimeVersion
+        self.requestedModel = requestedModel
+        self.reasoningEffort = reasoningEffort
     }
 }
 
