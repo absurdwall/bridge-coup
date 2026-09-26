@@ -19,7 +19,7 @@ Synthetic headings, paragraphs, emphasis, a numbered list, inline code, and a ta
 
 ### 07 — Narrow window
 
-The installed app accepted 1320, 1180, and 1101 pt widths, and Save, Open, and Settings remained in the accessibility tree. The content screenshots are from the isolated Release QA copy and show only a synthetic review: [1320 pt](../evidence/narrow-window-2026-09-26/final-release-default.png), [1180 pt](../evidence/narrow-window-2026-09-26/width-1180pt.png), and [1101 pt](../evidence/narrow-window-2026-09-26/width-1101pt-boundary.png). The below-minimum 1101 pt view crops the teaching panel's right edge; that finding is recorded but not fixed here.
+The installed app accepted 1320, 1180, and 1101 pt widths, and Save, Open, and Settings remained in the accessibility tree. The isolated final Release QA copy with a synthetic fixture was also checked at 1240 pt: both columns and the deal stayed in frame, text wrapped, and the header actions remained visible. Content screenshots are from that QA copy: [1320 pt](../evidence/narrow-window-2026-09-26/final-release-default.png), [1180 pt](../evidence/narrow-window-2026-09-26/width-1180pt.png), and [1101 pt boundary](../evidence/narrow-window-2026-09-26/width-1101pt-boundary.png). No 1240 pt screenshot was retained in this export. The below-minimum 1101 pt view crops the teaching panel's right edge; that finding is recorded but not fixed here.
 
 ### 08 — Runtime catalog
 
