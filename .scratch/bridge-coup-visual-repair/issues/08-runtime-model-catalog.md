@@ -16,4 +16,4 @@
 
 The installed app reported `0.1.0` build `1` and `codex-cli 0.156.1`. The live catalog contains GPT-6 Astra, Sol, and Luna plus GPT-5.6 entries; the settings panel made the three GPT-6 families available and identified GPT-5.6 Luna/Sol as filtered lookalikes. The current model-only catalog page is in [the JSON evidence](../evidence/08-runtime-model-catalog-live-2026-09-26.json).
 
-The starting selection was Astra · Medium. Luna · High persisted across a relaunch. Astra · Medium was restored and also survived a relaunch. No `thread/start` or `turn/start` call was made. See the [runtime and persistence report](../evidence/08-runtime-model-catalog-live-2026-09-26.md).
+The starting selection was Astra · Medium. Luna · High persisted across a relaunch. Astra · Medium was restored and also survived a relaunch. On a later user-directed follow-up, the installed app was set to Luna · Medium and showed that choice again after a graceful relaunch. No `thread/start` or `turn/start` call was made. See the [runtime and persistence report](../evidence/08-runtime-model-catalog-live-2026-09-26.md).
