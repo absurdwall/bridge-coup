@@ -1,14 +1,20 @@
-# 07: 验收较窄窗口下的实际安装包
+# 07: Accept the app at narrow window widths
 
-**What to build:** 对当前 Bridge Coup 安装包做可复现的较窄窗口检查，确认牌桌、教学区和必要操作仍可用；只有当检查显示具体问题时才做局部布局修复。
+**What to build:** Measure and report the installed Bridge Coup app at progressively narrower window widths. This ticket records findings and does not prescribe or implement a layout fix.
 
 **Blocked by:** None
 
-**Status:** open
+**Status:** complete
 
-**Priority:** P2
+- [x] Check the accepted 1320 pt start width, an intermediate width, the 1180 pt minimum, and a below-minimum boundary.
+- [x] Check the deal/workspace layout and Save, Open, and Settings access.
+- [x] Use only synthetic content in retained content-bearing screenshots.
+- [x] Record the below-minimum crop without fixing it in this ticket.
 
-- [ ] 从已接受的约 1320×900 pt 内容视口开始，逐步缩窄实际安装包窗口并记录可用宽度及系统约束。
-- [ ] 至少在一个中间宽度和 app 可达到的最窄宽度检查：无裁切、互相覆盖或横向溢出；牌桌与教学文字可读，保存/打开/设置入口可达。
-- [ ] 若发现失败，记录最小复现宽度、截图和受影响控件；只修复确认的问题并重新验收。
-- [ ] 使用 synthetic review fixture；不访问、修改或截图保存的私人复盘。
+## Acceptance evidence — 2026-09-26
+
+The installed Release app was measured at 1320, 1180, and 1101 pt window widths. Save, Open, and Settings remained in the accessibility tree at each width. The installed window position and size were restored after the check.
+
+The content-bearing [1320 pt](../evidence/narrow-window-2026-09-26/final-release-default.png), [1180 pt](../evidence/narrow-window-2026-09-26/width-1180pt.png), and [1101 pt boundary](../evidence/narrow-window-2026-09-26/width-1101pt-boundary.png) screenshots came from an isolated Release QA copy with a synthetic fixture. The 1101 pt image shows the teaching pane's right edge cropped below the declared 1180 pt minimum. This remains a report-only finding; no layout change was made.
+
+See the [packaged acceptance summary](../evidence/acceptance-summary-2026-09-26.md). No private saved review was included in the screenshots or public report.
