@@ -240,7 +240,7 @@ private struct CodexModelSettingsPopover: View {
                                             .lineLimit(2)
                                             .fixedSize(horizontal: false, vertical: true)
                                     } else if !option.excludedRuntimeModelIdentifiers.isEmpty {
-                                        Text("已过滤非 GPT-6 项：\(option.excludedRuntimeModelIdentifiers.joined(separator: "、"))")
+                                        Text("已过滤相似目录项：\(option.excludedRuntimeModelIdentifiers.joined(separator: "、"))")
                                             .font(.system(size: 8))
                                             .foregroundStyle(BridgePalette.muted)
                                             .lineLimit(2)
