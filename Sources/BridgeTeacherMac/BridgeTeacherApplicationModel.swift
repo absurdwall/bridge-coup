@@ -3,6 +3,17 @@ import BridgeTeacherCore
 import Combine
 import Foundation
 
+struct ContractChoice: Equatable {
+    let level: Int
+    let strain: ContractStrain
+}
+
+enum ContractSelectionAction {
+    case select(ContractChoice)
+    case clear
+    case cancel
+}
+
 enum CodexConnectionStatus: Equatable {
     case checking
     case runtimeMissing
@@ -211,11 +222,21 @@ final class BridgeTeacherApplicationModel: ObservableObject {
         reviewSessionStatus = "有尚未保存的更改"
     }
 
-    func selectContract(level: Int, strain: ContractStrain) {
-        var draft = workflow.draft
-        draft.contractLevel = level
-        draft.contractStrain = strain
-        updateReviewDraft(draft)
+    func handleContractSelectionAction(_ action: ContractSelectionAction) {
+        switch action {
+        case let .select(contract):
+            var draft = workflow.draft
+            draft.contractLevel = contract.level
+            draft.contractStrain = contract.strain
+            updateReviewDraft(draft)
+        case .clear:
+            var draft = workflow.draft
+            draft.contractLevel = nil
+            draft.contractStrain = nil
+            updateReviewDraft(draft)
+        case .cancel:
+            break
+        }
     }
 
     func updateKeyPlayDraft(_ draft: KeyPlayAnalysisDraft) {
