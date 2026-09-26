@@ -12,5 +12,6 @@ let package = Package(
         .target(name: "BridgeTeacherCore"),
         .executableTarget(name: "BridgeTeacherMac", dependencies: ["BridgeTeacherCore"]),
         .testTarget(name: "BridgeTeacherCoreTests", dependencies: ["BridgeTeacherCore"]),
+        .testTarget(name: "BridgeTeacherMacTests", dependencies: ["BridgeTeacherMac", "BridgeTeacherCore"]),
     ]
 )

@@ -1,10 +1,11 @@
+import AppKit
 import SwiftUI
 import BridgeTeacherCore
 
 @main
 struct BridgeTeacherMacApp: App {
     var body: some Scene {
-        WindowGroup {
+        WindowGroup("Bridge Coup") {
             BridgeTeacherWorkspaceShell()
         }
         .windowResizability(.contentSize)
@@ -15,6 +16,7 @@ struct BridgeTeacherMacApp: App {
 struct BridgeTeacherWorkspaceView: View {
     @ObservedObject var model: BridgeTeacherApplicationModel
     @State private var isShowingSavedReviews = false
+    @State private var isShowingModelSettings = false
 
     init(model: BridgeTeacherApplicationModel) {
         self.model = model
@@ -71,77 +73,336 @@ struct BridgeTeacherWorkspaceView: View {
     }
 
     private var header: some View {
-        HStack(spacing: 16) {
+        HStack(spacing: 14) {
+            brandLockup
+
             VStack(alignment: .leading, spacing: 3) {
-                Text("桥牌复盘")
-                    .font(.system(size: 24, weight: .semibold, design: .rounded))
-                    .foregroundStyle(BridgePalette.ink)
                 Text("\(model.teachingMode.title) · 决策时信息 · IMP")
-                    .font(.system(size: 13))
+                    .font(.system(size: 12, weight: .medium))
                     .foregroundStyle(BridgePalette.muted)
+                    .lineLimit(1)
                 if !model.reviewSessionStatus.isEmpty {
                     Text(model.reviewSessionStatus)
-                        .font(.system(size: 11, weight: .medium))
+                        .font(.system(size: 10, weight: .medium))
                         .foregroundStyle(BridgePalette.green)
                         .lineLimit(1)
                         .accessibilityIdentifier("review-session-status")
                 }
             }
-            Spacer()
-            HStack(spacing: 9) {
-                Button("保存复盘") { model.saveReview() }
-                    .controlSize(.small)
-                    .accessibilityIdentifier("save-review-session")
-                Button("打开复盘") {
+
+            Spacer(minLength: 8)
+
+            HStack(spacing: 7) {
+                Button {
+                    model.saveReview()
+                } label: {
+                    Label("保存", systemImage: "square.and.arrow.down")
+                }
+                .controlSize(.small)
+                .buttonStyle(.borderless)
+                .accessibilityIdentifier("save-review-session")
+
+                Button {
                     if model.refreshSavedReviewSessions() {
                         isShowingSavedReviews = true
                     }
+                } label: {
+                    Label("打开", systemImage: "folder")
                 }
                 .controlSize(.small)
+                .buttonStyle(.borderless)
                 .accessibilityIdentifier("open-review-session")
 
+                Button {
+                    isShowingModelSettings = true
+                } label: {
+                    HStack(spacing: 8) {
+                        Circle()
+                            .fill(model.connectionStatus.isSignedIn ? BridgePalette.green : BridgePalette.amber)
+                            .frame(width: 7, height: 7)
+                        VStack(alignment: .leading, spacing: 1) {
+                            Text(model.modelSelectionSummary)
+                                .font(.system(size: 11, weight: .semibold))
+                                .foregroundStyle(BridgePalette.ink)
+                            Text("模型与连接")
+                                .font(.system(size: 9))
+                                .foregroundStyle(BridgePalette.muted)
+                        }
+                        Image(systemName: "slider.horizontal.3")
+                            .font(.system(size: 11, weight: .medium))
+                            .foregroundStyle(BridgePalette.green)
+                    }
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 6)
+                    .background(.white, in: RoundedRectangle(cornerRadius: 11, style: .continuous))
+                    .overlay(RoundedRectangle(cornerRadius: 11).stroke(BridgePalette.border, lineWidth: 1))
+                }
+                .buttonStyle(.plain)
+                .accessibilityIdentifier("model-effort-settings")
+                .accessibilityLabel("\(model.modelSelectionSummary) · \(model.connectionStatus.message)")
+                .popover(isPresented: $isShowingModelSettings, arrowEdge: .top) {
+                    CodexModelSettingsPopover(model: model)
+                }
+                .padding(.trailing, 80)
+            }
+        }
+        .padding(.horizontal, 14)
+        .padding(.vertical, 9)
+        .background(.white.opacity(0.84), in: RoundedRectangle(cornerRadius: 17, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 17).stroke(BridgePalette.border, lineWidth: 1))
+    }
+
+    @ViewBuilder
+    private var brandLockup: some View {
+        let resources = Bundle.main.resourceURL
+        HStack(spacing: 9) {
+            if let logoURL = resources?.appendingPathComponent("BridgeCoupLogo.png"),
+               let logo = NSImage(contentsOf: logoURL) {
+                Image(nsImage: logo)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 43, height: 43)
+                    .accessibilityLabel("Bridge Coup stacked-card logo")
+            }
+            if let wordmarkURL = resources?.appendingPathComponent("BridgeCoupWordmark.png"),
+               let wordmark = NSImage(contentsOf: wordmarkURL) {
+                Image(nsImage: wordmark)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 136, height: 31, alignment: .leading)
+                    .accessibilityLabel("Bridge Coup wordmark")
+            } else {
+                Text("Bridge Coup")
+                    .font(.system(size: 18, weight: .semibold, design: .serif))
+                    .foregroundStyle(BridgePalette.ink)
+            }
+        }
+        .accessibilityElement(children: .combine)
+        .accessibilityIdentifier("bridge-coup-brand-lockup")
+    }
+}
+
+private struct CodexModelSettingsPopover: View {
+    @ObservedObject var model: BridgeTeacherApplicationModel
+    @Environment(\.dismiss) private var dismiss
+    @State private var isConnectionExpanded = false
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 8) {
+                HStack(alignment: .center) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("模型与思考深度")
+                            .font(.system(size: 15, weight: .semibold, design: .rounded))
+                            .foregroundStyle(BridgePalette.ink)
+                        Text("选项以当前 Codex runtime 能力为准")
+                            .font(.system(size: 10))
+                            .foregroundStyle(BridgePalette.muted)
+                    }
+                    Spacer(minLength: 6)
+                    Button("完成") { dismiss() }
+                        .controlSize(.small)
+                        .accessibilityIdentifier("close-model-settings")
+                }
+
+                Text(model.modelCatalogStatus)
+                    .font(.system(size: 10))
+                    .foregroundStyle(BridgePalette.muted)
+                    .lineLimit(2)
+                    .fixedSize(horizontal: false, vertical: true)
+
+                VStack(spacing: 4) {
+                    ForEach(CodexModelFamily.allCases, id: \.self) { family in
+                        let option = model.modelSettings.option(for: family)
+                        Button {
+                            model.selectModel(family)
+                        } label: {
+                            HStack(spacing: 8) {
+                                Image(systemName: model.modelSettings.selectedFamily == family ? "largecircle.fill.circle" : "circle")
+                                    .foregroundStyle(model.modelSettings.selectedFamily == family ? BridgePalette.green : BridgePalette.muted)
+                                VStack(alignment: .leading, spacing: 1) {
+                                    Text(family.title)
+                                        .font(.system(size: 11, weight: .semibold))
+                                        .foregroundStyle(BridgePalette.ink)
+                                    Text(modelIdentifierLabel(for: option))
+                                        .font(.system(size: 9, design: .monospaced))
+                                        .foregroundStyle(option.isAvailable ? BridgePalette.muted : BridgePalette.warning)
+                                        .lineLimit(1)
+                                        .truncationMode(.middle)
+                                }
+                                Spacer(minLength: 3)
+                                Text(option.isAvailable ? "可用" : "不可用")
+                                    .font(.system(size: 9, weight: .medium))
+                                    .foregroundStyle(option.isAvailable ? BridgePalette.green : BridgePalette.warning)
+                            }
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 5)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(
+                                model.modelSettings.selectedFamily == family ? BridgePalette.green.opacity(0.07) : .clear,
+                                in: RoundedRectangle(cornerRadius: 8)
+                            )
+                        }
+                        .buttonStyle(.plain)
+                        .disabled(!option.isAvailable)
+                        .accessibilityIdentifier("model-choice-\(family.rawValue)")
+                    }
+                }
+
+                if let family = model.modelSettings.selectedFamily {
+                    let option = model.modelSettings.option(for: family)
+                    Divider().overlay(BridgePalette.border)
+                    Text("Thinking effort · \(option.runtimeModelIdentifier ?? family.title)")
+                        .font(.system(size: 10, weight: .semibold))
+                        .foregroundStyle(BridgePalette.ink)
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 61), alignment: .leading)], alignment: .leading, spacing: 5) {
+                        ForEach(option.supportedEfforts, id: \.self) { effort in
+                            Button {
+                                model.selectEffort(effort)
+                            } label: {
+                                Text(effort.title)
+                                    .font(.system(size: 9, weight: .medium))
+                                    .padding(.horizontal, 7)
+                                    .padding(.vertical, 4)
+                                    .background(
+                                        model.modelSettings.selection?.effort == effort ? BridgePalette.green.opacity(0.12) : BridgePalette.soft,
+                                        in: Capsule()
+                                    )
+                                    .foregroundStyle(model.modelSettings.selection?.effort == effort ? BridgePalette.green : BridgePalette.ink)
+                            }
+                            .buttonStyle(.plain)
+                            .accessibilityIdentifier("effort-choice-\(effort.rawValue)")
+                        }
+                    }
+                    if option.supportedEfforts.isEmpty {
+                        Text(option.unavailableReason ?? "该模型没有可选择的思考深度。")
+                            .font(.system(size: 9))
+                            .foregroundStyle(BridgePalette.warning)
+                    }
+                }
+
+                if let notice = model.modelSettings.notice {
+                    HStack(alignment: .top, spacing: 6) {
+                        Image(systemName: "info.circle")
+                            .font(.system(size: 9, weight: .medium))
+                            .foregroundStyle(BridgePalette.warning)
+                            .padding(.top, 1)
+                        Text(notice)
+                            .font(.system(size: 9, weight: .medium))
+                            .foregroundStyle(BridgePalette.warning)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+
+                if let screenshotMessage = model.screenshotCapabilityMessage {
+                    Text(screenshotMessage)
+                        .font(.system(size: 9))
+                        .foregroundStyle(BridgePalette.muted)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+
+                connectionDisclosure
+            }
+            .padding(12)
+        }
+        .frame(width: 326, height: 354)
+        .background(BridgePalette.canvas)
+    }
+
+    private var connectionDisclosure: some View {
+        DisclosureGroup(isExpanded: $isConnectionExpanded) {
+            VStack(alignment: .leading, spacing: 7) {
+                Text(model.connectionStatus.message)
+                    .font(.system(size: 10))
+                    .foregroundStyle(BridgePalette.muted)
+                    .fixedSize(horizontal: false, vertical: true)
+
+                if let runtimePath = model.runtimePath {
+                    Text(URL(fileURLWithPath: runtimePath).lastPathComponent)
+                        .font(.system(size: 9, design: .monospaced))
+                        .foregroundStyle(BridgePalette.muted)
+                        .lineLimit(1)
+                }
+
+                HStack(spacing: 6) {
+                    Button("选择 Codex runtime") { model.chooseRuntime() }
+                        .controlSize(.small)
+                    if model.connectionStatus.isSignedIn {
+                        Button("检查连接") { Task { await model.checkLogin() } }
+                            .controlSize(.small)
+                            .disabled(model.isConnecting)
+                        Button("重新登录") { Task { await model.connectToChatGPT() } }
+                            .controlSize(.small)
+                            .disabled(model.isStartingLogin)
+                    } else if case .awaitingLogin = model.connectionStatus {
+                        Button("检查连接") { Task { await model.checkLogin() } }
+                            .controlSize(.small)
+                            .disabled(model.isConnecting)
+                        Button("重开登录") { Task { await model.connectToChatGPT() } }
+                            .controlSize(.small)
+                            .disabled(model.isStartingLogin)
+                    } else if model.connectionStatus.runtimeVersion != nil {
+                        Button("连接 ChatGPT") { Task { await model.connectToChatGPT() } }
+                            .controlSize(.small)
+                            .disabled(model.isStartingLogin)
+                    }
+                }
+
+                Button("刷新模型能力") { Task { await model.refreshModelSettings() } }
+                    .font(.system(size: 10))
+                    .disabled(!model.connectionStatus.isSignedIn)
+                    .accessibilityIdentifier("refresh-model-capabilities")
+            }
+            .padding(.top, 6)
+        } label: {
+            HStack(spacing: 6) {
                 Circle()
                     .fill(model.connectionStatus.isSignedIn ? BridgePalette.green : BridgePalette.amber)
-                    .frame(width: 8, height: 8)
-                Text(model.connectionStatus.message)
-                    .font(.system(size: 12, weight: .medium))
+                    .frame(width: 7, height: 7)
+                Text("连接状态")
+                    .font(.system(size: 10, weight: .medium))
                     .foregroundStyle(BridgePalette.ink)
+                Spacer(minLength: 2)
+                Text(model.connectionStatus.message)
+                    .font(.system(size: 9))
+                    .foregroundStyle(BridgePalette.muted)
                     .lineLimit(1)
-                    .frame(maxWidth: 360, alignment: .leading)
-
-                if model.connectionStatus.isSignedIn {
-                    Button("检查登录") {
-                        Task { await model.checkLogin() }
-                    }
-                    .disabled(model.isConnecting)
-                    Button("重新登录") {
-                        Task { await model.connectToChatGPT() }
-                    }
-                    .disabled(model.isStartingLogin)
-                } else if case .awaitingLogin = model.connectionStatus {
-                    Button("检查登录") {
-                        Task { await model.checkLogin() }
-                    }
-                    .disabled(model.isConnecting)
-                    Button("重开登录") {
-                        Task { await model.connectToChatGPT() }
-                    }
-                    .disabled(model.isStartingLogin)
-                } else if model.connectionStatus.runtimeVersion != nil {
-                    Button("连接 ChatGPT") {
-                        Task { await model.connectToChatGPT() }
-                    }
-                    .disabled(model.isStartingLogin)
-                }
-
-                Button("选择 Codex") {
-                    model.chooseRuntime()
-                }
+                    .truncationMode(.middle)
             }
-            .padding(.horizontal, 13)
-            .padding(.vertical, 10)
-            .background(.white.opacity(0.82), in: Capsule())
-            .overlay(Capsule().stroke(BridgePalette.border, lineWidth: 1))
+        }
+        .accessibilityIdentifier("codex-connection-details")
+    }
+
+    private func modelIdentifierLabel(for option: CodexModelOption) -> String {
+        if !option.runtimeModelIdentifiers.isEmpty {
+            return option.runtimeModelIdentifiers.joined(separator: " · ")
+        }
+        return option.unavailableReason ?? "尚未验证"
+    }
+}
+
+private struct CodexRequestProvenanceLine: View {
+    let model: String?
+    let requestedModel: String?
+    let effort: String?
+
+    private var summary: String? {
+        let requested = requestedModel ?? model
+        guard let requested, !requested.isEmpty else { return nil }
+        let effective = model.map { $0 == requested ? requested : "\(requested) → \($0)" } ?? requested
+        guard let effort, !effort.isEmpty else { return effective }
+        let effortTitle = CodexReasoningEffort(rawValue: effort)?.title ?? effort
+        return "\(effective) · \(effortTitle)"
+    }
+
+    var body: some View {
+        if let summary {
+            Text("本次请求：\(summary)")
+                .font(.system(size: 9, weight: .medium, design: .monospaced))
+                .foregroundStyle(BridgePalette.muted)
+                .textSelection(.enabled)
+                .accessibilityIdentifier("request-model-effort-provenance")
         }
     }
 }
@@ -289,7 +550,7 @@ private struct DeclarerEntryPanel: View {
                 .buttonStyle(.borderedProminent)
                 .tint(BridgePalette.green)
                 .disabled(
-                    !model.connectionStatus.isSignedIn
+                    !model.canSendModelRequests
                         || activeGenerationState == .generating
                         || (screenshotWorkflow.screenshotURL != nil && !workflow.draft.decisionTimeConfirmed)
                 )
@@ -401,7 +662,11 @@ private struct DeclarerEntryPanel: View {
                                 }
                                 Text(screenshotPresentation.buttonTitle)
                             }
-                            .disabled(!model.connectionStatus.isSignedIn || screenshotWorkflow.state == .recognizing)
+                            .disabled(
+                                !model.canSendModelRequests
+                                    || !model.modelSettings.canRecognizeImages
+                                    || screenshotWorkflow.state == .recognizing
+                            )
                         }
                     }
                 }
@@ -412,6 +677,21 @@ private struct DeclarerEntryPanel: View {
                 .font(.system(size: 11, weight: .medium))
                 .foregroundStyle(screenshotPresentation.isFailure ? BridgePalette.warning : BridgePalette.muted)
                 .fixedSize(horizontal: false, vertical: true)
+
+            if screenshotWorkflow.screenshotURL != nil,
+               let screenshotCapabilityMessage = model.screenshotCapabilityMessage {
+                Text(screenshotCapabilityMessage)
+                    .font(.system(size: 10))
+                    .foregroundStyle(BridgePalette.warning)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            if let recognition = screenshotWorkflow.recognitionResponse {
+                CodexRequestProvenanceLine(
+                    model: recognition.model,
+                    requestedModel: recognition.requestedModel,
+                    effort: recognition.reasoningEffort
+                )
+            }
 
             if let candidate = screenshotWorkflow.candidate, !candidate.notes.isEmpty {
                 VStack(alignment: .leading, spacing: 5) {
@@ -1043,7 +1323,7 @@ private struct TeachingPanel: View {
                     case .generating:
                         generatingState
                     case let .failed(message):
-                        failureState(title: "这次没有生成计划", message: message, canRetry: model.connectionStatus.isSignedIn)
+                        failureState(title: "这次没有生成计划", message: message, canRetry: model.canSendModelRequests)
                     }
                 } else {
                     switch workflow.state {
@@ -1052,7 +1332,7 @@ private struct TeachingPanel: View {
                     case let .invalid(message):
                         failureState(title: "请先核对输入", message: message, canRetry: false)
                     case let .failed(message):
-                        failureState(title: "这次没有生成计划", message: message, canRetry: model.connectionStatus.isSignedIn)
+                        failureState(title: "这次没有生成计划", message: message, canRetry: model.canSendModelRequests)
                     case .idle, .succeeded:
                         EmptyView()
                     }
@@ -1150,12 +1430,17 @@ private struct TeachingPanel: View {
                     .lineSpacing(4)
                     .foregroundStyle(BridgePalette.ink)
                     .textSelection(.enabled)
+                CodexRequestProvenanceLine(
+                    model: answer.model,
+                    requestedModel: answer.requestedModel,
+                    effort: answer.reasoningEffort
+                )
             case let .failed(message):
                 Text(message)
                     .font(.system(size: 12))
                     .foregroundStyle(BridgePalette.warning)
                     .textSelection(.enabled)
-                if workflow.canRetry(exchange), model.connectionStatus.isSignedIn {
+                if workflow.canRetry(exchange), model.canSendModelRequests {
                     Button("重试这条追问") {
                         Task { await model.retryFollowUp(exchange.id) }
                     }
@@ -1203,7 +1488,7 @@ private struct TeachingPanel: View {
                         }
                         .buttonStyle(.borderedProminent)
                         .tint(BridgePalette.green)
-                        .disabled(!model.connectionStatus.isSignedIn || !workflow.canFollowUp || followUpQuestionBinding.wrappedValue.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                        .disabled(!model.canSendModelRequests || !workflow.canFollowUp || followUpQuestionBinding.wrappedValue.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                         .accessibilityIdentifier("send-follow-up")
                     }
                     if workflow.resultIsOutdated {
@@ -1239,12 +1524,10 @@ private struct TeachingPanel: View {
                 .foregroundStyle(BridgePalette.muted)
                 .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: 470, alignment: .leading)
-            if case .runtimeMissing = model.connectionStatus {
-                Button("选择 Codex runtime") { model.chooseRuntime() }
-                    .padding(.top, 5)
-            } else if case .needsLogin = model.connectionStatus {
-                Button("连接 ChatGPT") { Task { await model.connectToChatGPT() } }
-                    .padding(.top, 5)
+            if !model.canSendModelRequests {
+                Label("请从顶栏打开模型与连接设置。", systemImage: "slider.horizontal.3")
+                    .font(.system(size: 11, weight: .medium))
+                    .foregroundStyle(BridgePalette.muted)
             }
         }
         .padding(.top, 14)
@@ -1273,6 +1556,11 @@ private struct TeachingPanel: View {
                 .foregroundStyle(BridgePalette.ink)
                 .textSelection(.enabled)
                 .frame(maxWidth: .infinity, alignment: .leading)
+            CodexRequestProvenanceLine(
+                model: result.model,
+                requestedModel: result.requestedModel,
+                effort: result.reasoningEffort
+            )
             if let runtimeVersion = result.runtimeVersion {
                 Text("Codex CLI \(runtimeVersion) · ChatGPT 登录")
                     .font(.system(size: 10))
@@ -1303,10 +1591,6 @@ private struct TeachingPanel: View {
                 Button("重试") { Task { await model.generatePlan() } }
                     .buttonStyle(.bordered)
                     .tint(BridgePalette.green)
-                    .padding(.top, 2)
-            } else if case .failed = model.connectionStatus {
-                Button("检查 ChatGPT 登录") { Task { await model.checkLogin() } }
-                    .buttonStyle(.bordered)
                     .padding(.top, 2)
             }
         }
@@ -1351,7 +1635,7 @@ private struct KeyPlayTeachingPanel: View {
                 case .succeeded:
                     if let result = workflow.result { response(result) } else { emptyState }
                 case let .failed(message):
-                    failureState(title: "这次没有生成关键出牌分析", message: message, canRetry: model.connectionStatus.isSignedIn)
+                    failureState(title: "这次没有生成关键出牌分析", message: message, canRetry: model.canSendModelRequests)
                     if let result = workflow.result { response(result) }
                 }
             }
@@ -1421,6 +1705,11 @@ private struct KeyPlayTeachingPanel: View {
                 .foregroundStyle(BridgePalette.ink)
                 .textSelection(.enabled)
                 .frame(maxWidth: .infinity, alignment: .leading)
+            CodexRequestProvenanceLine(
+                model: result.model,
+                requestedModel: result.requestedModel,
+                effort: result.reasoningEffort
+            )
             if let runtimeVersion = result.runtimeVersion {
                 Text("Codex CLI \(runtimeVersion) · ChatGPT 登录")
                     .font(.system(size: 10))
@@ -1450,10 +1739,6 @@ private struct KeyPlayTeachingPanel: View {
                 Button("重试") { Task { await model.generate(mode: .keyPlayAnalysis) } }
                     .buttonStyle(.bordered)
                     .tint(BridgePalette.green)
-                    .padding(.top, 2)
-            } else if case .failed = model.connectionStatus {
-                Button("检查 ChatGPT 登录") { Task { await model.checkLogin() } }
-                    .buttonStyle(.bordered)
                     .padding(.top, 2)
             }
         }
