@@ -21,7 +21,7 @@
 
 来源：用户最新要求建立 review → 报告回传 → 规划 tickets 的闭环。本票不要根据源码或自动化测试代替实际视觉对照。
 
-[审查报告](../../bridge-coup-refinement/evidence/visual-audit-2026-09-25/REPORT.md)；[已认可的精修规格](../../bridge-coup-refinement/spec.md)。
+项目级设计记录：[DESIGN.md](../../../DESIGN.md)；视觉复核安全摘要见下方公开摘要。
 
 报告审查的是打包构建 ddca013，而非已安装 Finder 版本。本票须确认开始时的实际代码/构建，不能假定报告截图代表最新状态。三张修复均属于恢复认可原型，不重新开启设计。
 
