@@ -19,7 +19,7 @@
 
 来源：报告第一项 P1；保留已符合要求的四向位置与牌点规则。
 
-[审查报告](../../bridge-coup-refinement/evidence/visual-audit-2026-09-25/REPORT.md)；[已认可的精修规格](../../bridge-coup-refinement/spec.md)。
+项目级设计记录：[DESIGN.md](../../../DESIGN.md)。
 
 报告审查的是打包构建 ddca013，而非已安装 Finder 版本。本票须确认开始时的实际代码/构建，不能假定报告截图代表最新状态。三张修复均属于恢复认可原型，不重新开启设计。
 
