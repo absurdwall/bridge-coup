@@ -61,15 +61,34 @@ final class CodexModelSettingsTests: XCTestCase {
         XCTAssertNotNil(settings.notice)
     }
 
-    func testAmbiguousFamilyShowsEveryRuntimeIdentifierWithoutSelectingOne() {
+    func testAmbiguousDuplicateRuntimeIdentifiersDoNotSelectOne() {
         let settings = CodexModelSettingsState(runtimeModels: [
-            model("gpt-6-luna-mini", efforts: [.low, .medium], default: .medium),
+            model("gpt-6-luna", efforts: [.low, .medium], default: .medium),
             model("gpt-6-luna", efforts: [.low, .medium], default: .medium),
         ])
 
         let luna = settings.option(for: .luna)
         XCTAssertFalse(luna.isAvailable)
-        XCTAssertEqual(luna.runtimeModelIdentifiers, ["gpt-6-luna", "gpt-6-luna-mini"])
+        XCTAssertEqual(luna.runtimeModelIdentifiers, ["gpt-6-luna", "gpt-6-luna"])
+        XCTAssertNil(settings.selection)
+    }
+
+    func testOnlyCanonicalGPT6FamilyIdentifiersAreAccepted() {
+        let variants: [(CodexModelFamily, String)] = [
+            (.luna, "gpt-6-luna-mini"),
+            (.sol, "gpt-6-sol-preview"),
+            (.astra, "gpt-6-astra-thinking"),
+        ]
+        let settings = CodexModelSettingsState(runtimeModels: variants.map { family, identifier in
+            model(identifier, efforts: [.low, .medium], default: .medium, displayName: "GPT-6 \(family.title)")
+        })
+
+        for (family, identifier) in variants {
+            let option = settings.option(for: family)
+            XCTAssertFalse(option.isAvailable)
+            XCTAssertTrue(option.runtimeModelIdentifiers.isEmpty)
+            XCTAssertEqual(option.excludedRuntimeModelIdentifiers, [identifier])
+        }
         XCTAssertNil(settings.selection)
     }
 
@@ -85,16 +104,18 @@ final class CodexModelSettingsTests: XCTestCase {
             XCTAssertFalse(option.isAvailable)
             XCTAssertTrue(option.runtimeModelIdentifiers.isEmpty)
             XCTAssertEqual(option.excludedRuntimeModelIdentifiers, ["gpt-5.6-\(family.rawValue)"])
-            XCTAssertTrue(option.unavailableReason?.contains("未找到 GPT-6") == true)
+            XCTAssertTrue(option.unavailableReason?.contains("未找到可接受的 GPT-6") == true)
         }
         XCTAssertNil(settings.selection)
     }
 
     func testGPT6SelectionIgnoresSameFamilyGPT56Entries() {
-        let settings = CodexModelSettingsState(runtimeModels: runtimeModels())
+        var models = runtimeModels()
+        models.append(model("gpt-6-luna-mini", efforts: [.low, .medium], default: .medium))
+        let settings = CodexModelSettingsState(runtimeModels: models)
 
         XCTAssertEqual(settings.option(for: .luna).runtimeModelIdentifier, "gpt-6-luna")
-        XCTAssertEqual(settings.option(for: .luna).excludedRuntimeModelIdentifiers, ["gpt-5.6-luna"])
+        XCTAssertEqual(settings.option(for: .luna).excludedRuntimeModelIdentifiers, ["gpt-5.6-luna", "gpt-6-luna-mini"])
         XCTAssertEqual(settings.option(for: .sol).runtimeModelIdentifier, "gpt-6-sol")
         XCTAssertEqual(settings.option(for: .sol).excludedRuntimeModelIdentifiers, ["gpt-5.6-sol"])
         XCTAssertEqual(settings.option(for: .astra).runtimeModelIdentifier, "gpt-6-astra")

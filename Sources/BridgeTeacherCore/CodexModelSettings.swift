@@ -238,7 +238,7 @@ public struct CodexModelSettingsState: Equatable, Sendable {
                 if matches.isEmpty, excluded.isEmpty {
                     reason = "当前 Codex runtime 未返回 GPT-6 \(family.title)。"
                 } else if matches.isEmpty {
-                    reason = "未找到 GPT-6 \(family.title) 标识；已排除相似目录项。"
+                    reason = "未找到可接受的 GPT-6 \(family.title) 标识；已排除相似目录项。"
                 } else {
                     reason = "当前 Codex runtime 返回多个 GPT-6 \(family.title) 标识，无法安全选择。"
                 }
@@ -278,9 +278,7 @@ public struct CodexModelSettingsState: Equatable, Sendable {
     }
 
     private static func matchesGPT6Family(_ model: CodexRuntimeModelCapability, family: CodexModelFamily) -> Bool {
-        let tokens = identifierTokens(model.modelIdentifier)
-        guard tokens.count >= 3, tokens[0] == "gpt", tokens[1] == "6" else { return false }
-        return tokens.dropFirst(2).contains(family.rawValue)
+        model.modelIdentifier == "gpt-6-\(family.rawValue)"
     }
 
     private static func identifierTokens(_ value: String) -> [String] {
