@@ -194,10 +194,28 @@ final class BridgeTeacherApplicationModel: ObservableObject {
     }
 
     func updateReviewDraft(_ draft: DeclarerPlanDraft) {
-        guard draft != workflow.draft else { return }
+        let previousDraft = workflow.draft
+        guard draft != previousDraft else { return }
+        workflow.updateDraft(draft)
         screenshotWorkflow.updateDraft(draft)
         keyPlayWorkflow.invalidate()
+        if previousDraft.declarerSeat != draft.declarerSeat
+            || previousDraft.contractLevel != draft.contractLevel
+            || previousDraft.contractStrain != draft.contractStrain {
+            var doubleDummyDraft = doubleDummyWorkflow.draft
+            doubleDummyDraft.declarerSeat = draft.declarerSeat
+            doubleDummyDraft.contractLevel = draft.contractLevel
+            doubleDummyDraft.trump = draft.contractStrain
+            doubleDummyWorkflow.updateDraft(doubleDummyDraft)
+        }
         reviewSessionStatus = "有尚未保存的更改"
+    }
+
+    func selectContract(level: Int, strain: ContractStrain) {
+        var draft = workflow.draft
+        draft.contractLevel = level
+        draft.contractStrain = strain
+        updateReviewDraft(draft)
     }
 
     func updateKeyPlayDraft(_ draft: KeyPlayAnalysisDraft) {
