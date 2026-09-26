@@ -233,6 +233,19 @@ private struct CodexModelSettingsPopover: View {
                                         .foregroundStyle(option.isAvailable ? BridgePalette.muted : BridgePalette.warning)
                                         .lineLimit(1)
                                         .truncationMode(.middle)
+                                    if let reason = option.unavailableReason {
+                                        Text(reason)
+                                            .font(.system(size: 8))
+                                            .foregroundStyle(BridgePalette.warning)
+                                            .lineLimit(2)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    } else if !option.excludedRuntimeModelIdentifiers.isEmpty {
+                                        Text("已过滤非 GPT-6 项：\(option.excludedRuntimeModelIdentifiers.joined(separator: "、"))")
+                                            .font(.system(size: 8))
+                                            .foregroundStyle(BridgePalette.muted)
+                                            .lineLimit(2)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    }
                                 }
                                 Spacer(minLength: 3)
                                 Text(option.isAvailable ? "可用" : "不可用")
@@ -381,6 +394,9 @@ private struct CodexModelSettingsPopover: View {
     private func modelIdentifierLabel(for option: CodexModelOption) -> String {
         if !option.runtimeModelIdentifiers.isEmpty {
             return option.runtimeModelIdentifiers.joined(separator: " · ")
+        }
+        if !option.excludedRuntimeModelIdentifiers.isEmpty {
+            return option.excludedRuntimeModelIdentifiers.joined(separator: " · ")
         }
         return option.unavailableReason ?? "尚未验证"
     }

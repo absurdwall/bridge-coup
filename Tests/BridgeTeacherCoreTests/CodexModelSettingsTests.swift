@@ -17,10 +17,12 @@ final class CodexModelSettingsTests: XCTestCase {
     func testEffortsAreFilteredByRuntimeSupportAndProductPolicy() {
         let settings = CodexModelSettingsState(runtimeModels: runtimeModels())
 
-        XCTAssertEqual(settings.option(for: .luna).supportedEfforts, [.low, .medium, .high, .max])
-        XCTAssertEqual(settings.option(for: .sol).supportedEfforts, [.low, .medium, .high])
-        XCTAssertEqual(settings.option(for: .astra).supportedEfforts, [.medium, .high, .xhigh])
+        XCTAssertEqual(settings.option(for: .luna).supportedEfforts, [.low, .medium, .high, .xhigh, .max])
+        XCTAssertEqual(settings.option(for: .sol).supportedEfforts, [.low, .medium, .high, .xhigh])
+        XCTAssertEqual(settings.option(for: .astra).supportedEfforts, [.low, .medium, .high, .xhigh])
         XCTAssertFalse(settings.option(for: .astra).supportedEfforts.contains(.max))
+        XCTAssertFalse(settings.option(for: .sol).supportedEfforts.contains(.max))
+        XCTAssertFalse(settings.option(for: .astra).supportedEfforts.contains(.ultra))
         XCTAssertFalse(settings.option(for: .luna).supportedEfforts.contains(.ultra))
     }
 
@@ -37,6 +39,12 @@ final class CodexModelSettingsTests: XCTestCase {
         XCTAssertNil(settings.notice)
 
         XCTAssertTrue(settings.selectEffort(.xhigh))
+        XCTAssertTrue(settings.selectModel(.sol))
+        XCTAssertEqual(settings.selection?.effort, .xhigh)
+        XCTAssertNil(settings.notice)
+
+        XCTAssertTrue(settings.selectModel(.luna))
+        XCTAssertTrue(settings.selectEffort(.max))
         XCTAssertTrue(settings.selectModel(.sol))
         XCTAssertEqual(settings.selection?.effort, .medium)
         XCTAssertTrue(settings.notice?.contains("Medium") == true)
@@ -63,6 +71,36 @@ final class CodexModelSettingsTests: XCTestCase {
         XCTAssertFalse(luna.isAvailable)
         XCTAssertEqual(luna.runtimeModelIdentifiers, ["gpt-6-luna", "gpt-6-luna-mini"])
         XCTAssertNil(settings.selection)
+    }
+
+    func testOnlyGPT56FamilyEntriesAreExcludedAndExplainWhyUnavailable() {
+        let settings = CodexModelSettingsState(runtimeModels: [
+            model("gpt-5.6-luna", efforts: [.low, .medium], default: .medium, displayName: "GPT-5.6 Luna"),
+            model("gpt-5.6-sol", efforts: [.low, .medium], default: .medium, displayName: "GPT-5.6 Sol"),
+            model("gpt-5.6-astra", efforts: [.low, .medium], default: .medium, displayName: "GPT-5.6 Astra"),
+        ])
+
+        for family in CodexModelFamily.allCases {
+            let option = settings.option(for: family)
+            XCTAssertFalse(option.isAvailable)
+            XCTAssertTrue(option.runtimeModelIdentifiers.isEmpty)
+            XCTAssertEqual(option.excludedRuntimeModelIdentifiers, ["gpt-5.6-\(family.rawValue)"])
+            XCTAssertTrue(option.unavailableReason?.contains("未找到 GPT-6") == true)
+        }
+        XCTAssertNil(settings.selection)
+    }
+
+    func testGPT6SelectionIgnoresSameFamilyGPT56Entries() {
+        let settings = CodexModelSettingsState(runtimeModels: runtimeModels())
+
+        XCTAssertEqual(settings.option(for: .luna).runtimeModelIdentifier, "gpt-6-luna")
+        XCTAssertEqual(settings.option(for: .luna).excludedRuntimeModelIdentifiers, ["gpt-5.6-luna"])
+        XCTAssertEqual(settings.option(for: .sol).runtimeModelIdentifier, "gpt-6-sol")
+        XCTAssertEqual(settings.option(for: .sol).excludedRuntimeModelIdentifiers, ["gpt-5.6-sol"])
+        XCTAssertEqual(settings.option(for: .astra).runtimeModelIdentifier, "gpt-6-astra")
+        XCTAssertEqual(settings.option(for: .astra).excludedRuntimeModelIdentifiers, ["gpt-5.6-astra"])
+        XCTAssertEqual(settings.selection?.modelIdentifier, "gpt-6-luna")
+        XCTAssertEqual(settings.selection?.effort, .medium)
     }
 
     func testModelSwitchFallsBackToRuntimeDefaultThenBlocksWhenNoLegalPairExists() {
@@ -125,9 +163,12 @@ final class CodexModelSettingsTests: XCTestCase {
 
     private func runtimeModels() -> [CodexRuntimeModelCapability] {
         [
-            model("gpt-6-luna", efforts: [.low, .medium, .high, .max, .ultra], default: .medium, modalities: [.text, .image]),
-            model("gpt-6-sol", efforts: [.low, .medium, .high], default: .medium, modalities: [.text, .image]),
-            model("gpt-6-astra", efforts: [.medium, .high, .xhigh, .max], default: .high),
+            model("gpt-5.6-luna", efforts: [.low, .medium], default: .medium, displayName: "GPT-5.6 Luna"),
+            model("gpt-5.6-sol", efforts: [.low, .medium], default: .medium, displayName: "GPT-5.6 Sol"),
+            model("gpt-5.6-astra", efforts: [.low, .medium], default: .medium, displayName: "GPT-5.6 Astra"),
+            model("gpt-6-luna", efforts: [.low, .medium, .high, .xhigh, .max, .ultra], default: .medium, modalities: [.text, .image]),
+            model("gpt-6-sol", efforts: [.low, .medium, .high, .xhigh, .max, .ultra], default: .medium, modalities: [.text, .image]),
+            model("gpt-6-astra", efforts: [.low, .medium, .high, .xhigh, .max, .ultra], default: .medium),
         ]
     }
 
@@ -135,12 +176,12 @@ final class CodexModelSettingsTests: XCTestCase {
         _ identifier: String,
         efforts: [CodexReasoningEffort],
         default defaultEffort: CodexReasoningEffort?,
-        modalities: Set<CodexInputModality> = [.text]
+        modalities: Set<CodexInputModality> = [.text],
+        displayName: String? = nil
     ) -> CodexRuntimeModelCapability {
-        let displayName = "GPT-6 " + identifier.split(separator: "-").last!.capitalized
         return CodexRuntimeModelCapability(
             modelIdentifier: identifier,
-            displayName: displayName,
+            displayName: displayName ?? "GPT-6 " + identifier.split(separator: "-").last!.capitalized,
             supportedEfforts: efforts,
             defaultEffort: defaultEffort,
             inputModalities: modalities
