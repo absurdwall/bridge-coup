@@ -87,6 +87,8 @@ final class DeclarerPlanWorkflowTests: XCTestCase {
         await runtime.waitForFirstFollowUp()
 
         var correctedDraft = workflow.draft
+        correctedDraft.contractLevel = 4
+        correctedDraft.contractStrain = .spades
         correctedDraft.otherDecisionTimeFacts = "修正：首攻实际是 ♥5。"
         workflow.updateDraft(correctedDraft)
 
@@ -112,6 +114,8 @@ final class DeclarerPlanWorkflowTests: XCTestCase {
         let requests = await runtime.followUpRequests()
         XCTAssertEqual(requests.count, 2)
         XCTAssertEqual(requests[1].informationVersion, newPlan.informationVersion)
+        XCTAssertEqual(requests[1].context.contractLevel, 4)
+        XCTAssertEqual(requests[1].context.contractStrain, .spades)
         XCTAssertEqual(requests[1].priorExchanges, [])
         XCTAssertTrue(requests[1].context.prompt.contains("修正：首攻实际是 ♥5。"))
         XCTAssertFalse(requests[1].prompt.contains("为什么保留西家的牌型为未知？"))
@@ -164,6 +168,8 @@ final class DeclarerPlanWorkflowTests: XCTestCase {
         await runtime.waitForFirstPlan()
 
         var correctedDraft = workflow.draft
+        correctedDraft.contractLevel = 3
+        correctedDraft.contractStrain = .noTrump
         correctedDraft.otherDecisionTimeFacts = "修正：明手是北家。"
         workflow.updateDraft(correctedDraft)
         await workflow.generatePlan()
@@ -176,6 +182,10 @@ final class DeclarerPlanWorkflowTests: XCTestCase {
         XCTAssertEqual(workflow.result?.text, "新信息版本的计划。")
         XCTAssertEqual(workflow.planAnalyses.count, 1)
         XCTAssertEqual(workflow.planAnalyses.last?.informationVersion, workflow.informationVersion)
+        let requests = await runtime.planRequests()
+        XCTAssertEqual(requests.count, 2)
+        XCTAssertEqual(requests[1].contractLevel, 3)
+        XCTAssertEqual(requests[1].contractStrain, .noTrump)
     }
 }
 
@@ -252,14 +262,14 @@ private actor DelayedFollowUpRuntime: DeclarerTeachingRuntime {
 }
 
 private actor DelayedPlanRuntime: DeclarerTeachingRuntime {
-    private var planRequests: [DeclarerPlanRequest] = []
+    private var sentPlanRequests: [DeclarerPlanRequest] = []
     private var firstPlanContinuation: CheckedContinuation<DeclarerPlanResponse, Error>?
     private var firstPlanStarted = false
     private var firstPlanWaiter: CheckedContinuation<Void, Never>?
 
     func generatePlan(for request: DeclarerPlanRequest) async throws -> DeclarerPlanResponse {
-        planRequests.append(request)
-        guard planRequests.count == 1 else {
+        sentPlanRequests.append(request)
+        guard sentPlanRequests.count == 1 else {
             return DeclarerPlanResponse(text: "新信息版本的计划。", model: "test-model")
         }
         firstPlanStarted = true
@@ -276,6 +286,8 @@ private actor DelayedPlanRuntime: DeclarerTeachingRuntime {
         guard !firstPlanStarted else { return }
         await withCheckedContinuation { firstPlanWaiter = $0 }
     }
+
+    func planRequests() -> [DeclarerPlanRequest] { sentPlanRequests }
 
     func completeFirstPlan() {
         firstPlanContinuation?.resume(returning: DeclarerPlanResponse(text: "迟到的旧版本计划。", model: "test-model"))

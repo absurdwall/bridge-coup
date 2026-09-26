@@ -474,6 +474,11 @@ private struct DeclarerEntryPanel: View {
     @State private var isShowingScreenshotPreview = false
     @State private var isScreenshotDetailsExpanded = false
     @State private var isContextExpanded = false
+    @State private var isShowingContractGrid = false
+    @FocusState private var isContractPickerFocused: Bool
+    @FocusState private var focusedContractOption: String?
+
+    private let contractGridStrains: [ContractStrain] = [.clubs, .diamonds, .hearts, .spades, .noTrump]
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -571,6 +576,12 @@ private struct DeclarerEntryPanel: View {
         }
         .onChange(of: keyPlayWorkflow.draft.relevantPlayHistory) { _, history in
             if !history.isEmpty { isContextExpanded = true }
+        }
+        .onChange(of: isShowingContractGrid) { _, isShowing in
+            if !isShowing {
+                focusedContractOption = nil
+                isContractPickerFocused = true
+            }
         }
         .padding(20)
         .background(.white, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
@@ -756,20 +767,31 @@ private struct DeclarerEntryPanel: View {
                     }
                 }
                 .frame(maxWidth: 150)
-                Picker("阶数", selection: draftBinding(for: \.contractLevel)) {
-                    Text("选择").tag(Int?.none)
-                    ForEach(1...7, id: \.self) { level in
-                        Text("\(level) 阶").tag(Optional(level))
+                Button {
+                    isShowingContractGrid = true
+                } label: {
+                    HStack(spacing: 8) {
+                        Text("定约")
+                            .foregroundStyle(BridgePalette.muted)
+                        Text(selectedContractTitle)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(selectedContractColor)
+                        Spacer(minLength: 4)
+                        Image(systemName: "chevron.down")
+                            .font(.system(size: 10, weight: .semibold))
+                            .foregroundStyle(BridgePalette.muted)
                     }
+                    .frame(maxWidth: .infinity, minHeight: 24, alignment: .leading)
+                    .contentShape(Rectangle())
                 }
-                .frame(maxWidth: 125)
-                Picker("将牌", selection: draftBinding(for: \.contractStrain)) {
-                    Text("选择").tag(ContractStrain?.none)
-                    ForEach(ContractStrain.allCases, id: \.self) { strain in
-                        Text(strain.symbol).tag(Optional(strain))
-                    }
+                .buttonStyle(.bordered)
+                .frame(maxWidth: 250)
+                .focused($isContractPickerFocused)
+                .accessibilityIdentifier("contract-grid-picker")
+                .accessibilityLabel("定约：\(selectedContractTitle)，打开完整叫品表")
+                .popover(isPresented: $isShowingContractGrid, arrowEdge: .bottom) {
+                    contractGrid
                 }
-                .frame(maxWidth: 100)
             }
             .labelsHidden()
             .pickerStyle(.menu)
@@ -778,6 +800,116 @@ private struct DeclarerEntryPanel: View {
         }
         .padding(14)
         .background(BridgePalette.soft, in: RoundedRectangle(cornerRadius: 15, style: .continuous))
+    }
+
+    private var contractGrid: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("选择定约")
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundStyle(BridgePalette.ink)
+                    Text("点选一个阶数与花色组合")
+                        .font(.system(size: 10))
+                        .foregroundStyle(BridgePalette.muted)
+                }
+                Spacer()
+                Button("取消") { isShowingContractGrid = false }
+                    .buttonStyle(.plain)
+                    .foregroundStyle(BridgePalette.muted)
+                    .accessibilityIdentifier("cancel-contract-selection")
+            }
+
+            Grid(horizontalSpacing: 6, verticalSpacing: 5) {
+                GridRow {
+                    Text("")
+                        .frame(width: 24, height: 26)
+                        .accessibilityHidden(true)
+                    ForEach(contractGridStrains, id: \.self) { strain in
+                        Text(strain.symbol)
+                            .font(.system(size: 12, weight: .semibold))
+                            .foregroundStyle(contractColor(for: strain))
+                            .frame(width: 52, height: 26)
+                            .accessibilityLabel(strain.symbol == "NT" ? "无将" : strain.symbol)
+                    }
+                }
+
+                ForEach(1...7, id: \.self) { level in
+                    GridRow {
+                        Text("\(level)")
+                            .font(.system(size: 12, weight: .semibold, design: .rounded))
+                            .foregroundStyle(BridgePalette.muted)
+                            .frame(width: 24, height: 36)
+                        ForEach(contractGridStrains, id: \.self) { strain in
+                            contractOption(level: level, strain: strain)
+                        }
+                    }
+                }
+            }
+            .focusSection()
+        }
+        .padding(14)
+        .frame(width: 344)
+        .background(.white)
+        .onAppear {
+            focusedContractOption = selectedContractFocusIdentifier
+                ?? contractOptionIdentifier(level: 1, strain: .clubs)
+        }
+    }
+
+    private func contractOption(level: Int, strain: ContractStrain) -> some View {
+        let isSelected = workflow.draft.contractLevel == level && workflow.draft.contractStrain == strain
+        let optionIdentifier = contractOptionIdentifier(level: level, strain: strain)
+        let isFocused = focusedContractOption == optionIdentifier
+        return Button {
+            model.selectContract(level: level, strain: strain)
+            isShowingContractGrid = false
+        } label: {
+            Text("\(level)\(strain.symbol)")
+                .font(.system(size: 12, weight: .semibold, design: .rounded))
+                .foregroundStyle(isSelected ? .white : contractColor(for: strain))
+                .frame(width: 52, height: 36)
+                .background(isSelected ? BridgePalette.green : BridgePalette.soft, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                        .stroke(isFocused ? BridgePalette.amber : isSelected ? BridgePalette.green : BridgePalette.border, lineWidth: isFocused ? 2 : 1)
+                )
+        }
+        .buttonStyle(.plain)
+        .focusable()
+        .focused($focusedContractOption, equals: optionIdentifier)
+        .accessibilityIdentifier(optionIdentifier)
+        .accessibilityLabel("\(level)\(strain.symbol) 定约")
+        .accessibilityValue(isSelected ? "当前选择" : "未选择")
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
+    }
+
+    private var selectedContractTitle: String {
+        guard let level = workflow.draft.contractLevel,
+              let strain = workflow.draft.contractStrain else { return "选择定约" }
+        return "\(level)\(strain.symbol)"
+    }
+
+    private var selectedContractColor: Color {
+        guard let strain = workflow.draft.contractStrain else { return BridgePalette.muted }
+        return contractColor(for: strain)
+    }
+
+    private var selectedContractFocusIdentifier: String? {
+        guard let level = workflow.draft.contractLevel,
+              let strain = workflow.draft.contractStrain else { return nil }
+        return contractOptionIdentifier(level: level, strain: strain)
+    }
+
+    private func contractOptionIdentifier(level: Int, strain: ContractStrain) -> String {
+        "contract-option-\(level)-\(strain.rawValue)"
+    }
+
+    private func contractColor(for strain: ContractStrain) -> Color {
+        switch strain {
+        case .hearts, .diamonds: BridgePalette.red
+        case .spades, .clubs, .noTrump: BridgePalette.ink
+        }
     }
 
     private var visibleHands: some View {
