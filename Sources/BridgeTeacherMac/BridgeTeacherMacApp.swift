@@ -21,29 +21,32 @@ struct BridgeTeacherWorkspaceView: View {
     }
 
     var body: some View {
-        VStack(spacing: 18) {
-            header
+        ScrollView(.vertical) {
+            VStack(spacing: 18) {
+                header
 
-            HStack(alignment: .top, spacing: 18) {
-                DeclarerEntryPanel(
-                    model: model,
-                    workflow: model.workflow,
-                    keyPlayWorkflow: model.keyPlayWorkflow,
-                    screenshotWorkflow: model.screenshotWorkflow,
-                    mode: teachingModeBinding
-                )
-                    .frame(minWidth: 560, maxWidth: 600, maxHeight: .infinity)
-                if model.teachingMode == .declarerPlan {
-                    TeachingPanel(model: model, workflow: model.workflow)
-                        .frame(minWidth: 500, maxWidth: .infinity, maxHeight: .infinity)
-                } else {
-                    KeyPlayTeachingPanel(model: model, workflow: model.keyPlayWorkflow)
-                        .frame(minWidth: 500, maxWidth: .infinity, maxHeight: .infinity)
+                HStack(alignment: .top, spacing: 18) {
+                    DeclarerEntryPanel(
+                        model: model,
+                        workflow: model.workflow,
+                        keyPlayWorkflow: model.keyPlayWorkflow,
+                        screenshotWorkflow: model.screenshotWorkflow,
+                        mode: teachingModeBinding
+                    )
+                        .frame(minWidth: 560, maxWidth: 600)
+                    if model.teachingMode == .declarerPlan {
+                        TeachingPanel(model: model, workflow: model.workflow)
+                            .frame(minWidth: 500, maxWidth: .infinity)
+                    } else {
+                        KeyPlayTeachingPanel(model: model, workflow: model.keyPlayWorkflow)
+                            .frame(minWidth: 500, maxWidth: .infinity)
+                    }
                 }
             }
+            .padding(24)
+            .frame(minWidth: 1180, alignment: .top)
         }
-        .padding(24)
-        .frame(minWidth: 1180, minHeight: 790)
+        .accessibilityIdentifier("bridge-coup-workspace")
         .background(BridgePalette.canvas.ignoresSafeArea())
         .preferredColorScheme(.light)
         .task { await model.bootstrap() }
@@ -208,34 +211,59 @@ private struct DeclarerEntryPanel: View {
     @ObservedObject var screenshotWorkflow: ScreenshotReviewWorkflow
     @Binding var mode: TeachingMode
     @State private var isShowingScreenshotPreview = false
+    @State private var isScreenshotDetailsExpanded = false
+    @State private var isContextExpanded = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             panelHeading("牌面与问题", subtitle: "两种教学共用这份已确认的牌面。")
             modePicker
                 .padding(.top, 14)
-            ScrollView {
-                VStack(alignment: .leading, spacing: 18) {
-                    screenshotReview
-                    contractFields
-                    visibleHands
-                    if mode == .declarerPlan {
-                        contextFields
-                    } else {
-                        keyPlayFields
+            VStack(alignment: .leading, spacing: 14) {
+                screenshotImportRow
+                DisclosureGroup(isExpanded: $isScreenshotDetailsExpanded) {
+                    VStack(alignment: .leading, spacing: 10) {
+                        screenshotReview
+                        screenshotDecisionTimeConfirmation
                     }
-                    screenshotDecisionTimeConfirmation
-                    if let warning = inputWarning {
-                        Label(warning, systemImage: "exclamationmark.triangle.fill")
-                            .font(.system(size: 12, weight: .medium))
-                            .foregroundStyle(BridgePalette.warning)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .accessibilityIdentifier("hand-validation-warning")
-                    }
+                    .padding(.top, 8)
+                } label: {
+                    Label(screenshotDetailsTitle, systemImage: "viewfinder")
+                        .font(.system(size: 12, weight: .medium))
+                        .foregroundStyle(BridgePalette.ink)
+                        .lineLimit(1)
+                        .truncationMode(.middle)
                 }
-                .padding(.top, 18)
-                .padding(.bottom, 8)
+                .accessibilityIdentifier("screenshot-review-details")
+
+                contractFields
+                visibleHands
+
+                DisclosureGroup(isExpanded: $isContextExpanded) {
+                    Group {
+                        if mode == .declarerPlan {
+                            contextFields
+                        } else {
+                            keyPlayFields
+                        }
+                    }
+                    .padding(.top, 8)
+                } label: {
+                    Label(contextDisclosureTitle, systemImage: "text.alignleft")
+                        .font(.system(size: 12, weight: .medium))
+                        .foregroundStyle(BridgePalette.ink)
+                }
+                .accessibilityIdentifier("review-context-details")
+
+                if let warning = inputWarning {
+                    Label(warning, systemImage: "exclamationmark.triangle.fill")
+                        .font(.system(size: 12, weight: .medium))
+                        .foregroundStyle(BridgePalette.warning)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .accessibilityIdentifier("hand-validation-warning")
+                }
             }
+            .padding(.top, 14)
 
             Divider().overlay(BridgePalette.border).padding(.vertical, 14)
             HStack {
@@ -268,6 +296,21 @@ private struct DeclarerEntryPanel: View {
                 .accessibilityIdentifier(mode == .declarerPlan ? "generate-declarer-plan" : "generate-key-play-analysis")
             }
         }
+        .onChange(of: screenshotWorkflow.screenshotURL) { _, url in
+            if url != nil { isScreenshotDetailsExpanded = true }
+        }
+        .onChange(of: workflow.draft.otherDecisionTimeFacts) { _, facts in
+            if !facts.isEmpty { isContextExpanded = true }
+        }
+        .onChange(of: workflow.draft.question) { _, question in
+            if !question.isEmpty { isContextExpanded = true }
+        }
+        .onChange(of: keyPlayWorkflow.draft.analysisPoint) { _, analysisPoint in
+            if !analysisPoint.isEmpty { isContextExpanded = true }
+        }
+        .onChange(of: keyPlayWorkflow.draft.relevantPlayHistory) { _, history in
+            if !history.isEmpty { isContextExpanded = true }
+        }
         .padding(20)
         .background(.white, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
@@ -290,6 +333,33 @@ private struct DeclarerEntryPanel: View {
 
     private var activeGenerationState: PlanGenerationState {
         mode == .declarerPlan ? workflow.state : keyPlayWorkflow.state
+    }
+
+    private var screenshotDetailsTitle: String {
+        guard let filename = screenshotWorkflow.screenshotFilename else { return "截图识别与核对" }
+        return "截图识别与核对 · \(filename)"
+    }
+
+    private var contextDisclosureTitle: String {
+        mode == .declarerPlan ? "复盘背景与补充事实" : "分析时点与补充事实"
+    }
+
+    private var screenshotImportRow: some View {
+        HStack(spacing: 9) {
+            Button(screenshotWorkflow.screenshotURL == nil ? "导入截图" : "更换截图") {
+                model.chooseScreenshot()
+            }
+            .controlSize(.small)
+            .accessibilityIdentifier("import-review-screenshot")
+
+            Text(screenshotWorkflow.screenshotFilename ?? "截图可选；也可以直接录入牌面")
+                .font(.system(size: 11))
+                .foregroundStyle(BridgePalette.muted)
+                .lineLimit(1)
+                .truncationMode(.middle)
+
+            Spacer(minLength: 0)
+        }
     }
 
     private var screenshotReview: some View {
@@ -321,9 +391,6 @@ private struct DeclarerEntryPanel: View {
                         .foregroundStyle(BridgePalette.muted)
                         .lineLimit(1)
                     HStack(spacing: 8) {
-                        Button(screenshotWorkflow.screenshotURL == nil ? "导入截图" : "更换截图") {
-                            model.chooseScreenshot()
-                        }
                         if screenshotWorkflow.screenshotURL != nil {
                             Button("查看原图") { isShowingScreenshotPreview = true }
                             Button {
@@ -966,39 +1033,37 @@ private struct TeachingPanel: View {
         VStack(alignment: .leading, spacing: 0) {
             panelHeading("做庄教学", subtitle: "基于本次输入的决策时信息生成。")
             Divider().overlay(BridgePalette.border).padding(.top, 16)
-            ScrollView {
-                VStack(alignment: .leading, spacing: 16) {
-                    if workflow.planAnalyses.isEmpty {
-                        switch workflow.state {
-                        case .idle, .succeeded:
-                            emptyState
-                        case let .invalid(message):
-                            failureState(title: "请先核对输入", message: message, canRetry: false)
-                        case .generating:
-                            generatingState
-                        case let .failed(message):
-                            failureState(title: "这次没有生成计划", message: message, canRetry: model.connectionStatus.isSignedIn)
-                        }
-                    } else {
-                        switch workflow.state {
-                        case .generating:
-                            generatingState
-                        case let .invalid(message):
-                            failureState(title: "请先核对输入", message: message, canRetry: false)
-                        case let .failed(message):
-                            failureState(title: "这次没有生成计划", message: message, canRetry: model.connectionStatus.isSignedIn)
-                        case .idle, .succeeded:
-                            EmptyView()
-                        }
-                        ForEach(Array(workflow.planAnalyses.reversed())) { analysis in
-                            planSection(analysis)
-                        }
+            VStack(alignment: .leading, spacing: 16) {
+                if workflow.planAnalyses.isEmpty {
+                    switch workflow.state {
+                    case .idle, .succeeded:
+                        emptyState
+                    case let .invalid(message):
+                        failureState(title: "请先核对输入", message: message, canRetry: false)
+                    case .generating:
+                        generatingState
+                    case let .failed(message):
+                        failureState(title: "这次没有生成计划", message: message, canRetry: model.connectionStatus.isSignedIn)
+                    }
+                } else {
+                    switch workflow.state {
+                    case .generating:
+                        generatingState
+                    case let .invalid(message):
+                        failureState(title: "请先核对输入", message: message, canRetry: false)
+                    case let .failed(message):
+                        failureState(title: "这次没有生成计划", message: message, canRetry: model.connectionStatus.isSignedIn)
+                    case .idle, .succeeded:
+                        EmptyView()
+                    }
+                    ForEach(Array(workflow.planAnalyses.reversed())) { analysis in
+                        planSection(analysis)
                     }
                 }
+            }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 18)
                 .padding(.bottom, 12)
-            }
             followUpComposer
         }
         .padding(20)
@@ -1260,41 +1325,39 @@ private struct KeyPlayTeachingPanel: View {
         VStack(alignment: .leading, spacing: 0) {
             panelHeading("关键出牌分析", subtitle: "只分析当前这一步；与整副做庄计划分开。")
             Divider().overlay(BridgePalette.border).padding(.top, 16)
-            ScrollView {
-                VStack(alignment: .leading, spacing: 16) {
-                    if workflow.resultIsOutdated {
-                        Label("分析时点或共用牌面已改变；旧讲解不适用于当前输入。", systemImage: "arrow.trianglehead.2.clockwise")
-                            .font(.system(size: 12, weight: .medium))
-                            .foregroundStyle(BridgePalette.warning)
-                            .padding(12)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(BridgePalette.warning.opacity(0.08), in: RoundedRectangle(cornerRadius: 10))
-                    }
-
-                    switch workflow.state {
-                    case .idle:
-                        if let result = workflow.result {
-                            response(result)
-                        } else {
-                            emptyState
-                        }
-                    case let .invalid(message):
-                        failureState(title: "请先核对关键节点", message: message, canRetry: false)
-                        if let result = workflow.result { response(result) }
-                    case .generating:
-                        generatingState
-                        if let result = workflow.result { response(result) }
-                    case .succeeded:
-                        if let result = workflow.result { response(result) } else { emptyState }
-                    case let .failed(message):
-                        failureState(title: "这次没有生成关键出牌分析", message: message, canRetry: model.connectionStatus.isSignedIn)
-                        if let result = workflow.result { response(result) }
-                    }
+            VStack(alignment: .leading, spacing: 16) {
+                if workflow.resultIsOutdated {
+                    Label("分析时点或共用牌面已改变；旧讲解不适用于当前输入。", systemImage: "arrow.trianglehead.2.clockwise")
+                        .font(.system(size: 12, weight: .medium))
+                        .foregroundStyle(BridgePalette.warning)
+                        .padding(12)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(BridgePalette.warning.opacity(0.08), in: RoundedRectangle(cornerRadius: 10))
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.top, 18)
-                .padding(.bottom, 12)
+
+                switch workflow.state {
+                case .idle:
+                    if let result = workflow.result {
+                        response(result)
+                    } else {
+                        emptyState
+                    }
+                case let .invalid(message):
+                    failureState(title: "请先核对关键节点", message: message, canRetry: false)
+                    if let result = workflow.result { response(result) }
+                case .generating:
+                    generatingState
+                    if let result = workflow.result { response(result) }
+                case .succeeded:
+                    if let result = workflow.result { response(result) } else { emptyState }
+                case let .failed(message):
+                    failureState(title: "这次没有生成关键出牌分析", message: message, canRetry: model.connectionStatus.isSignedIn)
+                    if let result = workflow.result { response(result) }
+                }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.top, 18)
+            .padding(.bottom, 12)
         }
         .padding(20)
         .background(.white, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
