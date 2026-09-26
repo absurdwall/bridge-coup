@@ -8,13 +8,13 @@
 
 ## 实际 Mac 应用
 
-- 用 `./Scripts/build-macos-app.sh` 构建 Release Mac 应用；构建成功。输出为 `.build/macos/BridgeTeacher.app`，版本 `0.1.0`。验收时启动隔离副本 `/private/tmp/bridge-ticket07-acceptance-fixed/BridgeTeacher.app`，bundle ID `app.tortillaflat.bridge-teacher.ticket07-acceptance-fixed`，并通过 `codesign --verify --deep --strict`。
+- 用 `./Scripts/build-macos-app.sh` 构建 Release Mac 应用；构建成功。输出为 `.build/macos/BridgeTeacher.app`，版本 `0.1.0`。验收时启动隔离副本并通过 `codesign --verify --deep --strict`。
 - 在 macOS 26.5.1、Apple silicon 上通过实际 SwiftUI 窗口操作；未用浏览器或界面模拟替代。运行时显示 ChatGPT 已连接，Codex CLI `0.156.1`，教学回复由 `gpt-6-astra` 生成。
 - 修改前，切换教学模式会调用 `keyPlayWorkflow.invalidate()`，导致并未更改的 key-play 讲解变旧。现在仅共享牌面或 key-play 节点变化才让它过期；模式切换保留两种独立结果。`swift test`：38 项通过、0 失败；Mac Release 构建通过。
 
 ## 真实截图识别边界
 
-四张用户界面截图已在真实 Mac 应用中导入并完成实时 OCR。识别候选、叫牌解释和图像歧义见[截图识别记录](02-screenshot-review-demo.md)。样本包含局部手牌、牌背、桌面出牌、叫牌和叫牌解释；识别遵循“截图候选不等于决策时确认牌面”。
+四张用户界面截图曾在真实 Mac 应用中导入并完成实时 OCR。截图候选、叫牌解释和图像歧义属于受限识别材料，未随本仓库公开；识别遵循“截图候选不等于决策时确认牌面”。牌手校正后生成计划的闭环仍未验收。
 
 本次没有把任一截图改造成有玩家确认的完整做牌时点，也没有从截图生成可作为真实牌局结论的计划。庄家、最终定约、座位映射、首攻或当时可见手牌仍有需要牌手确认的内容。用户说明这些是不同界面的示例；合成牌例只用于隔离验证分析和保存流程。真实截图导入→核对/补回漏牌 A→计划→追问→修正并重分析仍是 Ticket 07 缺口。
 
