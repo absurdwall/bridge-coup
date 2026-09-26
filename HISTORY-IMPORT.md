@@ -34,7 +34,7 @@ The Bridge-only commit sequence below extends `main` after the published `c4c25c
 | `8b73fca918d07b81162cba6a84f8d4e2d7f4925e` | `102d33d373fff3cf2550ef6f3edbcac549c2079f` | feat(bridge): add compact Bridge Coup settings header |
 | `6b6721805eadec1f7ebf0f57241162cf613a1a16` | `0bc8183f89370129b9f60e2bbe8b2c16e4b15b28` | docs(bridge): complete Bridge Coup visual review (private artifacts filtered) |
 
-For source commit `6b67218`, the full visual-review report and screenshots 05–07 were not imported because they contain or may retain private saved-review state. The public tree contains only the prototype, empty-state, synthetic matched-deal, and prototype-settings captures 01–04, plus a text-only public summary and a text-only install summary. The published issue links were adjusted to the project-level `DESIGN.md`; local filesystem paths in acceptance notes were removed. No `.build/` outputs, credentials, unrelated files, or monorepo ancestry were included. The local closeout commit follows this imported sequence.
+For source commit `6b67218`, the full visual-review report and screenshots 05–07 were not imported because they contain or may retain private saved-review state. The public tree contains only the prototype, empty-state, synthetic matched-deal, and prototype-settings captures 01–04, plus a text-only public summary and a text-only install summary. The published issue links were adjusted to the project-level `DESIGN.md`, ticket 04 links only to the public summary, and local filesystem paths in acceptance notes were removed. No `.build/` outputs, credentials, unrelated files, or monorepo ancestry were included. The local closeout commit follows this imported sequence.
 
 ## Local closeout mapping
 
