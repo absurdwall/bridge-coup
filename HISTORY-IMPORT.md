@@ -57,3 +57,11 @@ These Bridge-only source commits are rebased onto the live standalone `main` aft
 | `1c00b20b864f97470f57a2f586583864c9df5235` | `8fd95237b60bb2df9c437b8b5cca44b3a9e2c3e0` | fix(bridge): restrict model IDs to supported families |
 
 The companion acceptance snapshot is sanitized and contains only Bridge project files, ticket status, model-capability fields, and synthetic screenshots. It excludes local install paths, saved-review data, credentials, and unrelated monorepo files. Its mapping is recorded in the following standalone-only metadata commit.
+
+## Installed acceptance snapshot mapping
+
+| Source monorepo commit | Standalone commit | Subject |
+| --- | --- | --- |
+| `4ea6b7070f8f6c4e520963d762e28dee8ecfd508` | `b6e5723992251a6724da4415a64fb0da147da9ef` | docs(bridge): record final installed acceptance |
+
+This standalone-only metadata commit records the mapping for the preceding public acceptance snapshot. It adds no project content.
