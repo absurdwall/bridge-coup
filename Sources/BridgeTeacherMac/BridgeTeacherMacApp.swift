@@ -594,17 +594,6 @@ private struct DeclarerEntryPanel: View {
         )
     }
 
-    private func holdingBinding(seat: Seat, suit: Suit) -> Binding<String> {
-        Binding(
-            get: { workflow.draft.hands[seat]?[suit] ?? "" },
-            set: { value in
-                var draft = workflow.draft
-                draft.hands[seat, default: [:]][suit] = value
-                model.updateReviewDraft(draft)
-            }
-        )
-    }
-
     private func commitHolding(seat: Seat, suit: Suit, value: String) -> String? {
         var draft = workflow.draft
         let normalized = value.trimmingCharacters(in: .whitespacesAndNewlines)
