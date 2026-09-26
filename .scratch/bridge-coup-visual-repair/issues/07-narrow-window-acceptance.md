@@ -13,7 +13,7 @@
 
 ## Acceptance evidence — 2026-09-26
 
-The installed Release app was measured at 1320, 1180, and 1101 pt window widths. Save, Open, and Settings remained in the accessibility tree at each width. The installed window position and size were restored after the check.
+The isolated, sandboxed final Release QA copy with a synthetic fixture was checked at 1320, 1240, 1180, and 1101 pt. At 1240 pt both columns and the deal remained in frame, text wrapped, and Save, Open, and Settings stayed visible; no 1240 pt screenshot was retained in this export. The official installed app itself was directly measured at 1320, 1180, and 1101 pt. Save, Open, and Settings remained in the accessibility tree at each official-app width, and the installed window position and size were restored after the check.
 
 The content-bearing [1320 pt](../evidence/narrow-window-2026-09-26/final-release-default.png), [1180 pt](../evidence/narrow-window-2026-09-26/width-1180pt.png), and [1101 pt boundary](../evidence/narrow-window-2026-09-26/width-1101pt-boundary.png) screenshots came from an isolated Release QA copy with a synthetic fixture. The 1101 pt image shows the teaching pane's right edge cropped below the declared 1180 pt minimum. This remains a report-only finding; no layout change was made.
 
