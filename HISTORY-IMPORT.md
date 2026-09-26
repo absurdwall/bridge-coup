@@ -35,3 +35,11 @@ The Bridge-only commit sequence below extends `main` after the published `c4c25c
 | `6b6721805eadec1f7ebf0f57241162cf613a1a16` | `0bc8183f89370129b9f60e2bbe8b2c16e4b15b28` | docs(bridge): complete Bridge Coup visual review (private artifacts filtered) |
 
 For source commit `6b67218`, the full visual-review report and screenshots 05–07 were not imported because they contain or may retain private saved-review state. The public tree contains only the prototype, empty-state, synthetic matched-deal, and prototype-settings captures 01–04, plus a text-only public summary and a text-only install summary. The published issue links were adjusted to the project-level `DESIGN.md`. No `.build/` outputs, credentials, unrelated files, or monorepo ancestry were included. The local closeout commit follows this imported sequence.
+
+## Local closeout mapping
+
+| Source monorepo commit | Standalone commit | Subject |
+| --- | --- | --- |
+| `f0b30bedce211828b6f7ab4319bfc547b4457e5f` | `0e7e8a87c1425b3c5b493d078e8edf782bcb8251` | docs(bridge): close visual repair cycle and queue follow-ups |
+
+This mapping is recorded in a standalone-only metadata commit because a Git commit cannot contain its own hash. The metadata commit adds no project content.
