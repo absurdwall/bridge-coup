@@ -23,19 +23,22 @@ struct BridgeTeacherWorkspaceView: View {
     }
 
     var body: some View {
-        ScrollView(.vertical) {
+        GeometryReader { geometry in
+            let panelHeight = max(320, geometry.size.height - 160)
             VStack(spacing: 18) {
                 header
 
                 HStack(alignment: .top, spacing: 18) {
-                    DeclarerEntryPanel(
-                        model: model,
-                        workflow: model.workflow,
-                        keyPlayWorkflow: model.keyPlayWorkflow,
-                        screenshotWorkflow: model.screenshotWorkflow,
-                        mode: teachingModeBinding
-                    )
+                    ScrollView(.vertical) {
+                        DeclarerEntryPanel(
+                            model: model,
+                            workflow: model.workflow,
+                            keyPlayWorkflow: model.keyPlayWorkflow,
+                            screenshotWorkflow: model.screenshotWorkflow,
+                            mode: teachingModeBinding
+                        )
                         .frame(minWidth: 560, maxWidth: 600)
+                    }
                     if model.teachingMode == .declarerPlan {
                         TeachingPanel(model: model, workflow: model.workflow)
                             .frame(minWidth: 500, maxWidth: .infinity)
@@ -44,11 +47,12 @@ struct BridgeTeacherWorkspaceView: View {
                             .frame(minWidth: 500, maxWidth: .infinity)
                     }
                 }
+                .frame(height: panelHeight, alignment: .top)
             }
             .padding(24)
-            .frame(minWidth: 1180, alignment: .top)
+            .frame(minWidth: 1180, minHeight: 650, alignment: .top)
+            .accessibilityIdentifier("bridge-coup-workspace")
         }
-        .accessibilityIdentifier("bridge-coup-workspace")
         .background(BridgePalette.canvas.ignoresSafeArea())
         .preferredColorScheme(.light)
         .task { await model.bootstrap() }
@@ -229,6 +233,19 @@ private struct CodexModelSettingsPopover: View {
                                         .foregroundStyle(option.isAvailable ? BridgePalette.muted : BridgePalette.warning)
                                         .lineLimit(1)
                                         .truncationMode(.middle)
+                                    if let reason = option.unavailableReason {
+                                        Text(reason)
+                                            .font(.system(size: 8))
+                                            .foregroundStyle(BridgePalette.warning)
+                                            .lineLimit(2)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    } else if !option.excludedRuntimeModelIdentifiers.isEmpty {
+                                        Text("已过滤相似目录项：\(option.excludedRuntimeModelIdentifiers.joined(separator: "、"))")
+                                            .font(.system(size: 8))
+                                            .foregroundStyle(BridgePalette.muted)
+                                            .lineLimit(2)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    }
                                 }
                                 Spacer(minLength: 3)
                                 Text(option.isAvailable ? "可用" : "不可用")
@@ -378,6 +395,9 @@ private struct CodexModelSettingsPopover: View {
         if !option.runtimeModelIdentifiers.isEmpty {
             return option.runtimeModelIdentifiers.joined(separator: " · ")
         }
+        if !option.excludedRuntimeModelIdentifiers.isEmpty {
+            return option.excludedRuntimeModelIdentifiers.joined(separator: " · ")
+        }
         return option.unavailableReason ?? "尚未验证"
     }
 }
@@ -474,6 +494,9 @@ private struct DeclarerEntryPanel: View {
     @State private var isShowingScreenshotPreview = false
     @State private var isScreenshotDetailsExpanded = false
     @State private var isContextExpanded = false
+    @State private var isShowingContractGrid = false
+    @State private var isShowingTableContractGrid = false
+    @FocusState private var isContractPickerFocused: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -541,7 +564,7 @@ private struct DeclarerEntryPanel: View {
                         } else {
                             Image(systemName: "sparkles")
                         }
-                        Text(activeGenerationState == .generating ? "正在生成…" : mode == .declarerPlan ? "生成做庄计划" : "分析这一步")
+                        Text(generationButtonTitle)
                     }
                     .font(.system(size: 14, weight: .semibold))
                     .frame(minWidth: 170)
@@ -571,6 +594,11 @@ private struct DeclarerEntryPanel: View {
         }
         .onChange(of: keyPlayWorkflow.draft.relevantPlayHistory) { _, history in
             if !history.isEmpty { isContextExpanded = true }
+        }
+        .onChange(of: isShowingContractGrid) { _, isShowing in
+            if !isShowing {
+                isContractPickerFocused = true
+            }
         }
         .padding(20)
         .background(.white, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
@@ -756,20 +784,31 @@ private struct DeclarerEntryPanel: View {
                     }
                 }
                 .frame(maxWidth: 150)
-                Picker("阶数", selection: draftBinding(for: \.contractLevel)) {
-                    Text("选择").tag(Int?.none)
-                    ForEach(1...7, id: \.self) { level in
-                        Text("\(level) 阶").tag(Optional(level))
+                Button {
+                    isShowingContractGrid = true
+                } label: {
+                    HStack(spacing: 8) {
+                        Text("定约")
+                            .foregroundStyle(BridgePalette.muted)
+                        Text(selectedContractTitle)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(selectedContractColor)
+                        Spacer(minLength: 4)
+                        Image(systemName: "chevron.down")
+                            .font(.system(size: 10, weight: .semibold))
+                            .foregroundStyle(BridgePalette.muted)
                     }
+                    .frame(maxWidth: .infinity, minHeight: 24, alignment: .leading)
+                    .contentShape(Rectangle())
                 }
-                .frame(maxWidth: 125)
-                Picker("将牌", selection: draftBinding(for: \.contractStrain)) {
-                    Text("选择").tag(ContractStrain?.none)
-                    ForEach(ContractStrain.allCases, id: \.self) { strain in
-                        Text(strain.symbol).tag(Optional(strain))
-                    }
+                .buttonStyle(.bordered)
+                .frame(maxWidth: 250)
+                .focused($isContractPickerFocused)
+                .accessibilityIdentifier("contract-grid-picker")
+                .accessibilityLabel("定约：\(selectedContractTitle)，打开完整叫品表")
+                .popover(isPresented: $isShowingContractGrid, arrowEdge: .bottom) {
+                    contractSelectionGrid(isShowing: $isShowingContractGrid)
                 }
-                .frame(maxWidth: 100)
             }
             .labelsHidden()
             .pickerStyle(.menu)
@@ -778,6 +817,45 @@ private struct DeclarerEntryPanel: View {
         }
         .padding(14)
         .background(BridgePalette.soft, in: RoundedRectangle(cornerRadius: 15, style: .continuous))
+    }
+
+    private func contractSelectionGrid(isShowing: Binding<Bool>) -> some View {
+        ContractSelectionGrid(
+            selectedContract: selectedContractChoice,
+            onSelect: { contract in
+                model.handleContractSelectionAction(.select(contract))
+                isShowing.wrappedValue = false
+            },
+            onClear: {
+                model.handleContractSelectionAction(.clear)
+                isShowing.wrappedValue = false
+            },
+            onCancel: {
+                model.handleContractSelectionAction(.cancel)
+                isShowing.wrappedValue = false
+            }
+        )
+    }
+
+    private var selectedContractChoice: ContractChoice? {
+        guard let level = workflow.draft.contractLevel,
+              let strain = workflow.draft.contractStrain else { return nil }
+        return ContractChoice(level: level, strain: strain)
+    }
+
+    private var selectedContractTitle: String {
+        guard let contract = selectedContractChoice else { return "选择定约" }
+        return "\(contract.level)\(contract.strain.symbol)"
+    }
+
+    private var selectedContractColor: Color {
+        guard let contract = selectedContractChoice else { return BridgePalette.muted }
+        return BridgePalette.contractColor(for: contract.strain)
+    }
+
+    private var generationButtonTitle: String {
+        if activeGenerationState == .generating { return "正在生成…" }
+        return mode == .declarerPlan ? "生成做庄计划" : "分析这一步"
     }
 
     private var visibleHands: some View {
@@ -798,6 +876,7 @@ private struct DeclarerEntryPanel: View {
                 contractLevel: workflow.draft.contractLevel,
                 contractStrain: workflow.draft.contractStrain,
                 openingLead: workflow.draft.openingLead,
+                isShowingContractGrid: $isShowingTableContractGrid,
                 actingSeat: mode == .keyPlayAnalysis ? keyPlayWorkflow.draft.actingSeat : nil,
                 screenshotReviewMode: screenshotWorkflow.screenshotURL != nil,
                 isDecisionTimeVisible: { seat in
@@ -805,7 +884,16 @@ private struct DeclarerEntryPanel: View {
                 },
                 holding: { seat, suit in workflow.draft.hands[seat]?[suit] ?? "" },
                 onCommit: commitHolding,
-                onVisibilityChange: setDecisionTimeVisibility
+                onVisibilityChange: setDecisionTimeVisibility,
+                onSelectContract: { contract in
+                    model.handleContractSelectionAction(.select(contract))
+                    isShowingTableContractGrid = false
+                },
+                onClearContract: {
+                    model.handleContractSelectionAction(.clear)
+                    isShowingTableContractGrid = false
+                },
+                onCancelContract: { model.handleContractSelectionAction(.cancel) }
             )
             Text(screenshotWorkflow.screenshotURL == nil
                  ? "点按花色行编辑 · 留空 = 未知 · “-” = 已确认缺门"
@@ -990,17 +1078,158 @@ private struct DeclarerEntryPanel: View {
     }
 }
 
+private struct ContractSelectionGrid: View {
+    let selectedContract: ContractChoice?
+    let onSelect: (ContractChoice) -> Void
+    let onClear: () -> Void
+    let onCancel: () -> Void
+
+    @FocusState private var focusedContractOption: String?
+
+    private let strains: [ContractStrain] = [.clubs, .diamonds, .hearts, .spades, .noTrump]
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("选择定约")
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundStyle(BridgePalette.ink)
+                    Text("点选一个阶数与花色组合")
+                        .font(.system(size: 10))
+                        .foregroundStyle(BridgePalette.muted)
+                }
+                Spacer()
+                if selectedContract != nil {
+                    Button("清除定约", action: onClear)
+                        .buttonStyle(.plain)
+                        .foregroundStyle(BridgePalette.muted)
+                        .accessibilityIdentifier("clear-contract-selection")
+                }
+                Button("取消", action: onCancel)
+                    .buttonStyle(.plain)
+                    .foregroundStyle(BridgePalette.muted)
+                    .accessibilityIdentifier("cancel-contract-selection")
+            }
+
+            Grid(horizontalSpacing: 6, verticalSpacing: 5) {
+                GridRow {
+                    Text("")
+                        .frame(width: 24, height: 26)
+                        .accessibilityHidden(true)
+                    ForEach(strains, id: \.self) { strain in
+                        Text(strain.symbol)
+                            .font(.system(size: 12, weight: .semibold))
+                            .foregroundStyle(BridgePalette.contractColor(for: strain))
+                            .frame(width: 52, height: 26)
+                            .accessibilityLabel(strain.symbol == "NT" ? "无将" : strain.symbol)
+                    }
+                }
+
+                ForEach(1...7, id: \.self) { level in
+                    GridRow {
+                        Text("\(level)")
+                            .font(.system(size: 12, weight: .semibold, design: .rounded))
+                            .foregroundStyle(BridgePalette.muted)
+                            .frame(width: 24, height: 36)
+                        ForEach(strains, id: \.self) { strain in
+                            contractOption(level: level, strain: strain)
+                        }
+                    }
+                }
+            }
+            .focusSection()
+        }
+        .padding(14)
+        .frame(width: 344)
+        .background(.white)
+        .onAppear {
+            focusedContractOption = selectedContractFocusIdentifier
+                ?? contractOptionIdentifier(level: 1, strain: .clubs)
+        }
+    }
+
+    private func contractOption(level: Int, strain: ContractStrain) -> some View {
+        let isSelected = selectedContract == ContractChoice(level: level, strain: strain)
+        let optionIdentifier = contractOptionIdentifier(level: level, strain: strain)
+        let isFocused = focusedContractOption == optionIdentifier
+        return Button {
+            onSelect(ContractChoice(level: level, strain: strain))
+        } label: {
+            Text("\(level)\(strain.symbol)")
+                .font(.system(size: 12, weight: .semibold, design: .rounded))
+                .foregroundStyle(isSelected ? .white : BridgePalette.contractColor(for: strain))
+                .frame(width: 52, height: 36)
+                .background(isSelected ? BridgePalette.green : BridgePalette.soft, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                        .stroke(isFocused ? BridgePalette.amber : isSelected ? BridgePalette.green : BridgePalette.border, lineWidth: isFocused ? 2 : 1)
+                )
+        }
+        .buttonStyle(.plain)
+        .focusable()
+        .focused($focusedContractOption, equals: optionIdentifier)
+        .onKeyPress(.return) {
+            onSelect(ContractChoice(level: level, strain: strain))
+            return .handled
+        }
+        .onKeyPress(.space) {
+            onSelect(ContractChoice(level: level, strain: strain))
+            return .handled
+        }
+        .onMoveCommand { direction in
+            moveFocus(fromLevel: level, strain: strain, direction: direction)
+        }
+        .accessibilityIdentifier(optionIdentifier)
+        .accessibilityLabel("\(level)\(strain.symbol) 定约")
+        .accessibilityValue(isSelected ? "当前选择" : "未选择")
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
+    }
+
+    private var selectedContractFocusIdentifier: String? {
+        guard let selectedContract else { return nil }
+        return contractOptionIdentifier(level: selectedContract.level, strain: selectedContract.strain)
+    }
+
+    private func moveFocus(fromLevel level: Int, strain: ContractStrain, direction: MoveCommandDirection) {
+        var nextLevel = level
+        var nextColumn = strains.firstIndex(of: strain) ?? 0
+        switch direction {
+        case .left:
+            nextColumn = max(0, nextColumn - 1)
+        case .right:
+            nextColumn = min(strains.count - 1, nextColumn + 1)
+        case .up:
+            nextLevel = max(1, nextLevel - 1)
+        case .down:
+            nextLevel = min(7, nextLevel + 1)
+        @unknown default:
+            return
+        }
+        focusedContractOption = contractOptionIdentifier(level: nextLevel, strain: strains[nextColumn])
+    }
+
+    private func contractOptionIdentifier(level: Int, strain: ContractStrain) -> String {
+        "contract-option-\(level)-\(strain.rawValue)"
+    }
+
+}
+
 private struct BridgeDealTable: View {
     let declarerSeat: Seat?
     let contractLevel: Int?
     let contractStrain: ContractStrain?
     let openingLead: String
+    @Binding var isShowingContractGrid: Bool
     let actingSeat: Seat?
     let screenshotReviewMode: Bool
     let isDecisionTimeVisible: (Seat) -> Bool
     let holding: (Seat, Suit) -> String
     let onCommit: (Seat, Suit, String) -> String?
     let onVisibilityChange: (Seat, Bool) -> Void
+    let onSelectContract: (ContractChoice) -> Void
+    let onClearContract: () -> Void
+    let onCancelContract: () -> Void
 
     var body: some View {
         VStack(spacing: 8) {
@@ -1040,27 +1269,47 @@ private struct BridgeDealTable: View {
         } ?? "未定约"
         let lead = openingLead.trimmingCharacters(in: .whitespacesAndNewlines)
 
-        return VStack(spacing: 3) {
-            Text(contract)
-                .font(.system(size: 16, weight: .bold, design: .rounded))
-                .foregroundStyle(contractColor)
-                .lineLimit(1)
-                .minimumScaleFactor(0.75)
-            Text(declarerSeat?.chineseName ?? "庄家未定")
-                .font(.system(size: 9, weight: .medium))
-                .foregroundStyle(BridgePalette.ink)
-                .lineLimit(1)
-            Text(lead.isEmpty ? "首攻未提供" : "首攻 \(lead)")
-                .font(.system(size: 8))
-                .foregroundStyle(BridgePalette.muted)
-                .lineLimit(1)
-                .minimumScaleFactor(0.7)
+        return Button {
+            isShowingContractGrid = true
+        } label: {
+            VStack(spacing: 3) {
+                Text(contract)
+                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                    .foregroundStyle(contractColor)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.75)
+                Text(declarerSeat?.chineseName ?? "庄家未定")
+                    .font(.system(size: 9, weight: .medium))
+                    .foregroundStyle(BridgePalette.ink)
+                    .lineLimit(1)
+                Text(lead.isEmpty ? "首攻未提供" : "首攻 \(lead)")
+                    .font(.system(size: 8))
+                    .foregroundStyle(BridgePalette.muted)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
+            }
+            .frame(width: 84, height: 82)
+            .background(.white.opacity(0.84), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
+            .contentShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
         }
-        .frame(width: 84, height: 82)
-        .background(.white.opacity(0.84), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
-        .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
-        .accessibilityElement(children: .combine)
+        .buttonStyle(.plain)
+        .accessibilityLabel("桌心定约：\(contract)，\(declarerSeat?.chineseName ?? "庄家未定")，\(lead.isEmpty ? "首攻未提供" : "首攻 \(lead)")")
+        .accessibilityHint("打开完整叫品表")
         .accessibilityIdentifier("deal-table-contract")
+        .popover(isPresented: $isShowingContractGrid, arrowEdge: .bottom) {
+            ContractSelectionGrid(
+                selectedContract: contractLevel.flatMap { level in
+                    contractStrain.map { ContractChoice(level: level, strain: $0) }
+                },
+                onSelect: onSelectContract,
+                onClear: onClearContract,
+                onCancel: {
+                    onCancelContract()
+                    isShowingContractGrid = false
+                }
+            )
+        }
     }
 
     private var contractColor: Color {
@@ -1313,39 +1562,43 @@ private struct TeachingPanel: View {
         VStack(alignment: .leading, spacing: 0) {
             panelHeading("做庄教学", subtitle: "基于本次输入的决策时信息生成。")
             Divider().overlay(BridgePalette.border).padding(.top, 16)
-            VStack(alignment: .leading, spacing: 16) {
-                if workflow.planAnalyses.isEmpty {
-                    switch workflow.state {
-                    case .idle, .succeeded:
-                        emptyState
-                    case let .invalid(message):
-                        failureState(title: "请先核对输入", message: message, canRetry: false)
-                    case .generating:
-                        generatingState
-                    case let .failed(message):
-                        failureState(title: "这次没有生成计划", message: message, canRetry: model.canSendModelRequests)
+            ScrollView(.vertical) {
+                VStack(alignment: .leading, spacing: 16) {
+                    if workflow.planAnalyses.isEmpty {
+                        switch workflow.state {
+                        case .idle, .succeeded:
+                            emptyState
+                        case let .invalid(message):
+                            failureState(title: "请先核对输入", message: message, canRetry: false)
+                        case .generating:
+                            generatingState
+                        case let .failed(message):
+                            failureState(title: "这次没有生成计划", message: message, canRetry: model.canSendModelRequests)
+                        }
+                    } else {
+                        switch workflow.state {
+                        case .generating:
+                            generatingState
+                        case let .invalid(message):
+                            failureState(title: "请先核对输入", message: message, canRetry: false)
+                        case let .failed(message):
+                            failureState(title: "这次没有生成计划", message: message, canRetry: model.canSendModelRequests)
+                        case .idle, .succeeded:
+                            EmptyView()
+                        }
+                        ForEach(Array(workflow.planAnalyses.reversed())) { analysis in
+                            planSection(analysis)
+                        }
                     }
-                } else {
-                    switch workflow.state {
-                    case .generating:
-                        generatingState
-                    case let .invalid(message):
-                        failureState(title: "请先核对输入", message: message, canRetry: false)
-                    case let .failed(message):
-                        failureState(title: "这次没有生成计划", message: message, canRetry: model.canSendModelRequests)
-                    case .idle, .succeeded:
-                        EmptyView()
-                    }
-                    ForEach(Array(workflow.planAnalyses.reversed())) { analysis in
-                        planSection(analysis)
-                    }
+                    followUpComposer
                 }
-            }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 18)
                 .padding(.bottom, 12)
-            followUpComposer
+            }
+            .frame(maxHeight: .infinity, alignment: .top)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .padding(20)
         .background(.white, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
@@ -1425,11 +1678,7 @@ private struct TeachingPanel: View {
                         .foregroundStyle(BridgePalette.muted)
                 }
             case let .answered(answer):
-                Text(answer.text)
-                    .font(.system(size: 13))
-                    .lineSpacing(4)
-                    .foregroundStyle(BridgePalette.ink)
-                    .textSelection(.enabled)
+                AnalysisMarkdownView(source: answer.text)
                 CodexRequestProvenanceLine(
                     model: answer.model,
                     requestedModel: answer.requestedModel,
@@ -1550,12 +1799,7 @@ private struct TeachingPanel: View {
                         .background(BridgePalette.soft, in: Capsule())
                 }
             }
-            Text(result.text)
-                .font(.system(size: 14))
-                .lineSpacing(5)
-                .foregroundStyle(BridgePalette.ink)
-                .textSelection(.enabled)
-                .frame(maxWidth: .infinity, alignment: .leading)
+            AnalysisMarkdownView(source: result.text)
             CodexRequestProvenanceLine(
                 model: result.model,
                 requestedModel: result.requestedModel,
@@ -1609,40 +1853,44 @@ private struct KeyPlayTeachingPanel: View {
         VStack(alignment: .leading, spacing: 0) {
             panelHeading("关键出牌分析", subtitle: "只分析当前这一步；与整副做庄计划分开。")
             Divider().overlay(BridgePalette.border).padding(.top, 16)
-            VStack(alignment: .leading, spacing: 16) {
-                if workflow.resultIsOutdated {
-                    Label("分析时点或共用牌面已改变；旧讲解不适用于当前输入。", systemImage: "arrow.trianglehead.2.clockwise")
-                        .font(.system(size: 12, weight: .medium))
-                        .foregroundStyle(BridgePalette.warning)
-                        .padding(12)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(BridgePalette.warning.opacity(0.08), in: RoundedRectangle(cornerRadius: 10))
-                }
-
-                switch workflow.state {
-                case .idle:
-                    if let result = workflow.result {
-                        response(result)
-                    } else {
-                        emptyState
+            ScrollView(.vertical) {
+                VStack(alignment: .leading, spacing: 16) {
+                    if workflow.resultIsOutdated {
+                        Label("分析时点或共用牌面已改变；旧讲解不适用于当前输入。", systemImage: "arrow.trianglehead.2.clockwise")
+                            .font(.system(size: 12, weight: .medium))
+                            .foregroundStyle(BridgePalette.warning)
+                            .padding(12)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(BridgePalette.warning.opacity(0.08), in: RoundedRectangle(cornerRadius: 10))
                     }
-                case let .invalid(message):
-                    failureState(title: "请先核对关键节点", message: message, canRetry: false)
-                    if let result = workflow.result { response(result) }
-                case .generating:
-                    generatingState
-                    if let result = workflow.result { response(result) }
-                case .succeeded:
-                    if let result = workflow.result { response(result) } else { emptyState }
-                case let .failed(message):
-                    failureState(title: "这次没有生成关键出牌分析", message: message, canRetry: model.canSendModelRequests)
-                    if let result = workflow.result { response(result) }
+
+                    switch workflow.state {
+                    case .idle:
+                        if let result = workflow.result {
+                            response(result)
+                        } else {
+                            emptyState
+                        }
+                    case let .invalid(message):
+                        failureState(title: "请先核对关键节点", message: message, canRetry: false)
+                        if let result = workflow.result { response(result) }
+                    case .generating:
+                        generatingState
+                        if let result = workflow.result { response(result) }
+                    case .succeeded:
+                        if let result = workflow.result { response(result) } else { emptyState }
+                    case let .failed(message):
+                        failureState(title: "这次没有生成关键出牌分析", message: message, canRetry: model.canSendModelRequests)
+                        if let result = workflow.result { response(result) }
+                    }
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.top, 18)
+                .padding(.bottom, 12)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.top, 18)
-            .padding(.bottom, 12)
+            .frame(maxHeight: .infinity, alignment: .top)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .padding(20)
         .background(.white, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
@@ -1699,12 +1947,7 @@ private struct KeyPlayTeachingPanel: View {
                         .background(BridgePalette.soft, in: Capsule())
                 }
             }
-            Text(result.text)
-                .font(.system(size: 14))
-                .lineSpacing(5)
-                .foregroundStyle(BridgePalette.ink)
-                .textSelection(.enabled)
-                .frame(maxWidth: .infinity, alignment: .leading)
+            AnalysisMarkdownView(source: result.text)
             CodexRequestProvenanceLine(
                 model: result.model,
                 requestedModel: result.requestedModel,
@@ -1760,7 +2003,7 @@ private func panelHeading(_ title: String, subtitle: String) -> some View {
     }
 }
 
-private enum BridgePalette {
+enum BridgePalette {
     static let canvas = Color(red: 0.952, green: 0.964, blue: 0.951)
     static let soft = Color(red: 0.967, green: 0.972, blue: 0.961)
     static let border = Color(red: 0.874, green: 0.894, blue: 0.864)
@@ -1770,4 +2013,11 @@ private enum BridgePalette {
     static let red = Color(red: 0.70, green: 0.24, blue: 0.23)
     static let amber = Color(red: 0.77, green: 0.52, blue: 0.14)
     static let warning = Color(red: 0.67, green: 0.39, blue: 0.11)
+
+    static func contractColor(for strain: ContractStrain) -> Color {
+        switch strain {
+        case .hearts, .diamonds: red
+        case .spades, .clubs, .noTrump: ink
+        }
+    }
 }

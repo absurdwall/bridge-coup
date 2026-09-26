@@ -43,3 +43,25 @@ For source commit `6b67218`, the full visual-review report and screenshots 05–
 | `f0b30bedce211828b6f7ab4319bfc547b4457e5f` | `0e7e8a87c1425b3c5b493d078e8edf782bcb8251` | docs(bridge): close visual repair cycle and queue follow-ups |
 
 This mapping is recorded in a standalone-only metadata commit because a Git commit cannot contain its own hash. The metadata commit adds no project content.
+
+## Contract grid, Markdown, and runtime catalog follow-up
+
+These Bridge-only source commits are rebased onto the live standalone `main` after commit `5d5fa8f`. The `bridge/` prefix was removed, while source author metadata, subjects, and chronology were retained.
+
+| Source monorepo commit | Standalone commit | Subject |
+| --- | --- | --- |
+| `0678ec2278d80288ac2448aa0886f0dba9c2184e` | `cf89295e777b2a5a9655fd852f52b1b9c2777a55` | feat(bridge): add atomic contract selection grid |
+| `1c6c864092dc84bf0aecba46f0638bd710e3e316` | `d773043a0509cbd83d41cb63c49b12229a4233e9` | fix(bridge): complete contract grid access and reset |
+| `e7421de071f8716d722bad638b06f806e8a43811` | `f9fd76d9fe6f135814c44c8f03e1eeb9a6153d2f` | feat(bridge): render saved analysis markdown |
+| `4a7c6a42930e198040523bec6ad5f00ec7bdbde2` | `ad77630b13b4ee6ba17e09934815314087bb6abe` | fix(bridge): filter runtime to GPT-6 models |
+| `1c00b20b864f97470f57a2f586583864c9df5235` | `8fd95237b60bb2df9c437b8b5cca44b3a9e2c3e0` | fix(bridge): restrict model IDs to supported families |
+
+The companion acceptance snapshot is sanitized and contains only Bridge project files, ticket status, model-capability fields, and synthetic screenshots. It excludes local install paths, saved-review data, credentials, and unrelated monorepo files. Its mapping is recorded in the following standalone-only metadata commit.
+
+## Installed acceptance snapshot mapping
+
+| Source monorepo commit | Standalone commit | Subject |
+| --- | --- | --- |
+| `4ea6b7070f8f6c4e520963d762e28dee8ecfd508` | `b6e5723992251a6724da4415a64fb0da147da9ef` | docs(bridge): record final installed acceptance |
+
+This standalone-only metadata commit records the mapping for the preceding public acceptance snapshot. It adds no project content.

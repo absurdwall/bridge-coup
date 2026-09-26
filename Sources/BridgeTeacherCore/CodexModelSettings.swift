@@ -89,6 +89,7 @@ public struct CodexModelSelection: Codable, Equatable, Sendable {
 public struct CodexModelOption: Equatable, Sendable {
     public let family: CodexModelFamily
     public let runtimeModelIdentifiers: [String]
+    public let excludedRuntimeModelIdentifiers: [String]
     public let runtimeDisplayName: String?
     public let supportedEfforts: [CodexReasoningEffort]
     public let defaultEffort: CodexReasoningEffort?
@@ -106,6 +107,7 @@ public struct CodexModelOption: Equatable, Sendable {
     fileprivate init(
         family: CodexModelFamily,
         runtimeModelIdentifiers: [String],
+        excludedRuntimeModelIdentifiers: [String],
         runtimeDisplayName: String?,
         supportedEfforts: [CodexReasoningEffort],
         defaultEffort: CodexReasoningEffort?,
@@ -114,6 +116,7 @@ public struct CodexModelOption: Equatable, Sendable {
     ) {
         self.family = family
         self.runtimeModelIdentifiers = runtimeModelIdentifiers
+        self.excludedRuntimeModelIdentifiers = excludedRuntimeModelIdentifiers
         self.runtimeDisplayName = runtimeDisplayName
         self.supportedEfforts = supportedEfforts
         self.defaultEffort = defaultEffort
@@ -227,14 +230,22 @@ public struct CodexModelSettingsState: Equatable, Sendable {
         from runtimeModels: [CodexRuntimeModelCapability]
     ) -> [CodexModelFamily: CodexModelOption] {
         Dictionary(uniqueKeysWithValues: CodexModelFamily.allCases.map { family in
-            let matches = runtimeModels.filter { matchesFamily($0, family: family) }
+            let familyCandidates = runtimeModels.filter { mentionsFamily($0, family: family) }
+            let matches = familyCandidates.filter { matchesGPT6Family($0, family: family) }
+            let excluded = familyCandidates.filter { !matchesGPT6Family($0, family: family) }
             guard matches.count == 1, let model = matches.first else {
-                let reason = matches.isEmpty
-                    ? "当前运行时未返回此模型"
-                    : "当前运行时返回了多个匹配模型，无法安全选择"
+                let reason: String
+                if matches.isEmpty, excluded.isEmpty {
+                    reason = "当前 Codex runtime 未返回 GPT-6 \(family.title)。"
+                } else if matches.isEmpty {
+                    reason = "未找到可接受的 GPT-6 \(family.title) 标识；已排除相似目录项。"
+                } else {
+                    reason = "当前 Codex runtime 返回多个 GPT-6 \(family.title) 标识，无法安全选择。"
+                }
                 return (family, CodexModelOption(
                     family: family,
-                    runtimeModelIdentifiers: Array(Set(matches.map(\.modelIdentifier))).sorted(),
+                    runtimeModelIdentifiers: matches.map(\.modelIdentifier).sorted(),
+                    excludedRuntimeModelIdentifiers: Array(Set(excluded.map(\.modelIdentifier))).sorted(),
                     runtimeDisplayName: nil,
                     supportedEfforts: [],
                     defaultEffort: nil,
@@ -250,6 +261,7 @@ public struct CodexModelSettingsState: Equatable, Sendable {
             return (family, CodexModelOption(
                 family: family,
                 runtimeModelIdentifiers: [model.modelIdentifier],
+                excludedRuntimeModelIdentifiers: Array(Set(excluded.map(\.modelIdentifier))).sorted(),
                 runtimeDisplayName: model.displayName,
                 supportedEfforts: allowedEfforts,
                 defaultEffort: model.defaultEffort,
@@ -259,9 +271,19 @@ public struct CodexModelSettingsState: Equatable, Sendable {
         })
     }
 
-    private static func matchesFamily(_ model: CodexRuntimeModelCapability, family: CodexModelFamily) -> Bool {
-        [model.modelIdentifier, model.displayName]
-            .flatMap { $0.lowercased().split(whereSeparator: { !$0.isLetter && !$0.isNumber }) }
-            .contains { $0 == Substring(family.rawValue) }
+    private static func mentionsFamily(_ model: CodexRuntimeModelCapability, family: CodexModelFamily) -> Bool {
+        [model.modelIdentifier, model.displayName].contains { value in
+            identifierTokens(value).contains(family.rawValue)
+        }
+    }
+
+    private static func matchesGPT6Family(_ model: CodexRuntimeModelCapability, family: CodexModelFamily) -> Bool {
+        model.modelIdentifier == "gpt-6-\(family.rawValue)"
+    }
+
+    private static func identifierTokens(_ value: String) -> [String] {
+        value.lowercased()
+            .split(whereSeparator: { !$0.isLetter && !$0.isNumber })
+            .map(String.init)
     }
 }

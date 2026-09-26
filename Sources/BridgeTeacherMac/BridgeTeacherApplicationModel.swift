@@ -3,6 +3,17 @@ import BridgeTeacherCore
 import Combine
 import Foundation
 
+struct ContractChoice: Equatable {
+    let level: Int
+    let strain: ContractStrain
+}
+
+enum ContractSelectionAction {
+    case select(ContractChoice)
+    case clear
+    case cancel
+}
+
 enum CodexConnectionStatus: Equatable {
     case checking
     case runtimeMissing
@@ -194,10 +205,38 @@ final class BridgeTeacherApplicationModel: ObservableObject {
     }
 
     func updateReviewDraft(_ draft: DeclarerPlanDraft) {
-        guard draft != workflow.draft else { return }
+        let previousDraft = workflow.draft
+        guard draft != previousDraft else { return }
+        workflow.updateDraft(draft)
         screenshotWorkflow.updateDraft(draft)
         keyPlayWorkflow.invalidate()
+        if previousDraft.declarerSeat != draft.declarerSeat
+            || previousDraft.contractLevel != draft.contractLevel
+            || previousDraft.contractStrain != draft.contractStrain {
+            var doubleDummyDraft = doubleDummyWorkflow.draft
+            doubleDummyDraft.declarerSeat = draft.declarerSeat
+            doubleDummyDraft.contractLevel = draft.contractLevel
+            doubleDummyDraft.trump = draft.contractStrain
+            doubleDummyWorkflow.updateDraft(doubleDummyDraft)
+        }
         reviewSessionStatus = "有尚未保存的更改"
+    }
+
+    func handleContractSelectionAction(_ action: ContractSelectionAction) {
+        switch action {
+        case let .select(contract):
+            var draft = workflow.draft
+            draft.contractLevel = contract.level
+            draft.contractStrain = contract.strain
+            updateReviewDraft(draft)
+        case .clear:
+            var draft = workflow.draft
+            draft.contractLevel = nil
+            draft.contractStrain = nil
+            updateReviewDraft(draft)
+        case .cancel:
+            break
+        }
     }
 
     func updateKeyPlayDraft(_ draft: KeyPlayAnalysisDraft) {
@@ -258,7 +297,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
         var updated = modelSettings
         guard updated.selectModel(family) else { return }
         modelSettings = updated
-        saveValidModelSelection(updated.selection)
+        saveExplicitModelSelection(updated.selection)
         Task { await applyServiceSelection(updated.selection) }
     }
 
@@ -266,7 +305,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
         var updated = modelSettings
         guard updated.selectEffort(effort) else { return }
         modelSettings = updated
-        saveValidModelSelection(updated.selection)
+        saveExplicitModelSelection(updated.selection)
         Task { await applyServiceSelection(updated.selection) }
     }
 
@@ -282,9 +321,6 @@ final class BridgeTeacherApplicationModel: ObservableObject {
             modelSettings = CodexModelSettingsState(runtimeModels: runtimeModels, savedSelection: savedSelection)
             try await service.setRequestSelection(modelSettings.selection)
             modelCatalogStatus = "模型标识、effort 与输入能力来自当前 Codex runtime。"
-            if savedSelection == nil, let selection = modelSettings.selection {
-                saveValidModelSelection(selection)
-            }
         } catch {
             modelSettings = CodexModelSettingsState(runtimeModels: [])
             try? await service.setRequestSelection(nil)
@@ -404,7 +440,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
         modelSelectionPreferences.load()
     }
 
-    private func saveValidModelSelection(_ selection: CodexModelSelection?) {
+    private func saveExplicitModelSelection(_ selection: CodexModelSelection?) {
         guard let selection else { return }
         modelSelectionPreferences.save(selection)
     }
