@@ -75,3 +75,17 @@ The following documentation-only snapshot reflects the canonical Bridge files af
 | `cce26848dc617559ec57f1eca0311adb164d8f58`, `764263aa97759583bd45ac9bd95cb5df1066b505` | `61b3241fcf0388ab2baba38aeed68f96387002f8` | docs: prepare sanitized visual closeout export |
 
 The snapshot preserves the retired Ticket 06 state and confirms that no Ticket 09 or 10 was added.
+
+## Bridge Coup refinement planning and screenshot-record removal
+
+The following Bridge-only source commits were exported as a sanitized documentation snapshot. The export adds the refinement spec, approved ticket index and tickets not already present on standalone `main`, plus a historical visual-audit report and its synthetic app screenshots. It contains no product-code changes.
+
+| Source monorepo commit | Subject |
+| --- | --- |
+| `bd2ceaad0413afdb2dfb1f9a599ffff3b79c70a5` | docs(bridge): preserve planning and prototype artifacts |
+| `c0a30a921773cd433fb0529f9456b250618f36d4` | docs(bridge): remove private screenshot-derived example |
+| `f75ced063fc8bd959795889f433d8d91c2fbf545` | docs(bridge): record closeout dispatch boundary |
+
+The same snapshot removes the screenshot-derived recognition record from the current public tree and removes its live links. Earlier commits are unchanged; no Git history rewrite was performed. The standalone snapshot commit is recorded by the immediately following metadata commit.
+
+Before export, the remaining source artifacts were compared with standalone `main`. The scratch index, first-version feedback and issues 01, 05 and 06, plus `CONTEXT.md`, already matched. The standalone first-version index/spec and root design documents contain newer or sanitized material and were retained. The prototype source remains on `archive/bridge-ui-prototype`; it was not duplicated onto `main`. The already-published contract-grid issue was preserved, with its related refinement index and historical report added in this snapshot.

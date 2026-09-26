@@ -31,7 +31,7 @@ A「并排工作台」已获用户选定。三版原型快照保存在独立归�
 | Ticket | 当前实现与证据 | 已知状态 / 缺口 |
 | --- | --- | --- |
 | 01 | `80d75f6`；[演示记录](evidence/01-mac-declarer-plan-demo.md) | 实际 Mac app 经 Codex runtime 生成过计划；牌例为临时构造，不是用户实战牌。原 issue 仍写 `ready-for-agent`，状态未跟进。 |
-| 02 | 截图工作流与测试在 `da2e418`；[4 张截图识别记录](evidence/02-screenshot-review-demo.md) | 四张真实截图已做识别并记录差异；尚未由牌手确认截图时点/可见信息后，纠正牌面并生成计划。`in-progress`。 |
+| 02 | 截图工作流与测试在 `da2e418` | 四张真实截图曾用于识别接入检查；识别详情不纳入公开仓库。尚未由牌手确认截图时点/可见信息后，纠正牌面并生成计划。`in-progress`。 |
 | 03 | `407b83f`、`33dbc45`、`0b525e2`；[演示记录](evidence/03-follow-up-corrections-demo.md) | 合成牌例的计划、追问与修正后重分析已记录；issue 为 `complete`。 |
 | 04 | `d83b89f`；[DDS 演示记录](evidence/04-double-dummy-demo.md) | 本机 DDS 构建、Mac app 演示和定向检查有记录；issue 为 `done`。 |
 | 05 | 实现在 `12b12d3`；关键出牌实机演示记录于 [07 验收](evidence/07-mac-acceptance.md) | 已用合成牌例演示关键出牌分析；issue 仍为 `ready-for-agent`，需核对并更新状态。 |
