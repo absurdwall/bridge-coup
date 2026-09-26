@@ -23,7 +23,7 @@ The installed app accepted 1320, 1180, and 1101 pt widths, and Save, Open, and S
 
 ### 08 — Runtime catalog
 
-The current `codex-cli 0.156.1` catalog and installed UI expose GPT-6 Astra, Sol, and Luna. GPT-5.6 Luna/Sol lookalikes are filtered. The installed app accepted Luna · High, restored it after relaunch, then returned to Astra · Medium and restored that preference after another relaunch. The live model-only record and effort policy are documented [here](08-runtime-model-catalog-live-2026-09-26.md) and [here](08-runtime-model-catalog-live-2026-09-26.json).
+The current `codex-cli 0.156.1` catalog and installed UI expose GPT-6 Astra, Sol, and Luna. GPT-5.6 Luna/Sol lookalikes are filtered. The installed app accepted Luna · High and restored it after relaunch, then restored Astra · Medium after another relaunch. At finalization, it was set to Luna · Medium and showed that preference again after graceful relaunch. The live model-only record and effort policy are documented [here](08-runtime-model-catalog-live-2026-09-26.md) and [here](08-runtime-model-catalog-live-2026-09-26.json).
 
 ## Verification boundary
 

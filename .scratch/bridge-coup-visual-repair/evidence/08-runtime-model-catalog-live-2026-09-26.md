@@ -25,4 +25,11 @@ All three GPT-6 entries report text and image input. Product rules remove Ultra 
 - I restored Astra · Medium. After a second relaunch, the UI and preference both showed `family=astra`, `modelIdentifier=gpt-6-astra`, and `effort=medium`.
 - No teaching request was issued. Existing focused regression tests cover request model/effort mapping and preference validation. The full standalone `swift test` run passed 67 tests with 3 skipped and 0 failures; prior focused runs passed 43 tests total.
 
+## Final preference follow-up — 2026-09-26
+
+- After the selection/restore checks above, the user requested Luna · Medium as the final installed-app selection. I selected Luna and Medium in the official app's model settings.
+- The workspace was empty; no saved-review row was opened and no save prompt appeared. The app quit gracefully.
+- After relaunch, the official app's workspace button showed Luna · Medium, ChatGPT connected, and `codex-cli 0.156.1`. The app inventory showed only one Bridge Coup instance running.
+- No teaching request, solver run, or content-bearing screenshot was produced.
+
 No saved-review row was opened during this check. The older catalog note and JSON in this folder describe a prior app session and are retained only as historical context; this follow-up is the final installed-build evidence.
