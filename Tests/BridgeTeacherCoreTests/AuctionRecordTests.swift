@@ -112,6 +112,31 @@ final class AuctionRecordTests: XCTestCase {
         XCTAssertFalse(record.promptDescription.contains("第2次行动"))
     }
 
+    func testOnlyConflictingSeatsInCompleteSequencesAreRejected() {
+        let startingSeatConflict = AuctionRecord(
+            startingSeat: .east,
+            entries: [AuctionEntry(seat: .north, call: .pass)]
+        )
+        XCTAssertTrue(startingSeatConflict.hasInconsistentCompleteSequenceSeats)
+
+        let turnOrderConflict = AuctionRecord(entries: [
+            AuctionEntry(seat: .north, call: .pass),
+            AuctionEntry(seat: .south, call: .bid(level: 1, strain: .clubs)),
+        ])
+        XCTAssertTrue(turnOrderConflict.hasInconsistentCompleteSequenceSeats)
+
+        let consistentKnownExcerpt = AuctionRecord(entries: [
+            AuctionEntry(call: .unknown),
+            AuctionEntry(seat: .east, call: .pass),
+            AuctionEntry(seat: .south, call: .unknown),
+        ])
+        XCTAssertFalse(consistentKnownExcerpt.hasInconsistentCompleteSequenceSeats)
+
+        var partialExcerpt = startingSeatConflict
+        partialExcerpt.isPartial = true
+        XCTAssertFalse(partialExcerpt.hasInconsistentCompleteSequenceSeats)
+    }
+
     func testPartialCompleteRoundTripRestoresSequenceDerivedSeatsForTableAndRequest() throws {
         var record = AuctionRecord(
             startingSeat: .north,

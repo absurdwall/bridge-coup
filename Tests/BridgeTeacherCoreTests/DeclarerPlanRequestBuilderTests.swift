@@ -84,6 +84,7 @@ final class DeclarerPlanRequestBuilderTests: XCTestCase {
         XCTAssertTrue(request.prompt.contains("第2次行动（南家）：未知叫品"))
         XCTAssertTrue(request.prompt.contains("第3次行动（西家）：1♥"))
         XCTAssertTrue(request.prompt.contains("Pass 只表示明确录入的 Pass"))
+        XCTAssertTrue(request.prompt.contains(AuctionCall.promptSemanticsInstruction))
 
         let rows = try XCTUnwrap(draft.auction?.layoutRows)
         XCTAssertEqual(rows.count, 1)
@@ -161,6 +162,33 @@ final class DeclarerPlanRequestBuilderTests: XCTestCase {
         let noAuctionRequest = try DeclarerPlanRequestBuilder.build(from: noAuctionDraft)
         XCTAssertEqual(noAuctionRequest.auction?.kind, .noAuction)
         XCTAssertTrue(noAuctionRequest.prompt.contains("用户已确认本局无叫牌"))
+    }
+
+    func testCompleteAuctionSeatConflictBlocksPlanRequestButPartialExcerptRemainsUsable() throws {
+        var draft = DeclarerPlanDraft()
+        draft.contractLevel = 3
+        draft.contractStrain = .hearts
+        draft.declarerSeat = .south
+        draft.question = "请制定做庄计划。"
+        draft.hands[.south, default: [:]][.spades] = "A2"
+
+        let conflictingAuction = AuctionRecord(
+            startingSeat: .east,
+            entries: [AuctionEntry(seat: .north, call: .pass)]
+        )
+        draft.auction = conflictingAuction
+
+        XCTAssertThrowsError(try DeclarerPlanRequestBuilder.build(from: draft)) { error in
+            XCTAssertEqual(error as? DeclarerPlanInputError, .conflictingAuctionSeats)
+            XCTAssertTrue(error.localizedDescription.contains("起始座位或行动顺序冲突"))
+        }
+
+        draft.auction = AuctionRecord(
+            startingSeat: .east,
+            entries: [AuctionEntry(seat: .north, call: .pass)],
+            isPartial: true
+        )
+        XCTAssertNoThrow(try DeclarerPlanRequestBuilder.build(from: draft))
     }
 
     func testOpeningLeadShortcutsNormalizeInTeachingRequest() throws {

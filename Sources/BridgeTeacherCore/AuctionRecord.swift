@@ -27,13 +27,52 @@ public enum AuctionCall: Codable, Equatable, Sendable {
     case redouble
     case unknown
 
-    public var displayText: String {
+    /// Shared wording for analysis requests so both teaching modes preserve
+    /// the distinction between an unknown call and an explicitly entered pass.
+    public static let promptSemanticsInstruction =
+        "叫牌中的未知叫品表示该次行动确实发生但叫品未确认；Pass 只表示明确录入的 Pass。"
+
+    public var display: AuctionCallDisplay {
         switch self {
-        case let .bid(level, strain): "\(level)\(strain.symbol)"
-        case .pass: "Pass"
-        case .double: "X"
-        case .redouble: "XX"
-        case .unknown: "未知叫品"
+        case let .bid(level, strain):
+            AuctionCallDisplay(text: "\(level)\(strain.symbol)", tone: strain.auctionCallDisplayTone)
+        case .pass:
+            AuctionCallDisplay(text: "Pass", tone: .pass)
+        case .double:
+            AuctionCallDisplay(text: "X", tone: .neutral)
+        case .redouble:
+            AuctionCallDisplay(text: "XX", tone: .neutral)
+        case .unknown:
+            AuctionCallDisplay(text: "未知叫品", tone: .neutral)
+        }
+    }
+
+    public var displayText: String { display.text }
+}
+
+public enum AuctionCallDisplayTone: Equatable, Sendable {
+    case neutral
+    case pass
+    case clubs
+    case diamonds
+    case hearts
+    case spades
+    case noTrump
+}
+
+public struct AuctionCallDisplay: Equatable, Sendable {
+    public let text: String
+    public let tone: AuctionCallDisplayTone
+}
+
+private extension ContractStrain {
+    var auctionCallDisplayTone: AuctionCallDisplayTone {
+        switch self {
+        case .clubs: .clubs
+        case .diamonds: .diamonds
+        case .hearts: .hearts
+        case .spades: .spades
+        case .noTrump: .noTrump
         }
     }
 }
@@ -201,6 +240,34 @@ public struct AuctionRecord: Codable, Equatable, Sendable {
         }
     }
 
+    /// True when known seats cannot describe one contiguous complete auction.
+    /// Partial excerpts are exempt because omitted actions break sequence-based
+    /// seat inference. With no selected start, the earliest confirmed seat is
+    /// used only as an anchor for checking the other confirmed entries.
+    public var hasInconsistentCompleteSequenceSeats: Bool {
+        guard kind == .calls, !isPartial else { return false }
+
+        let anchor: (index: Int, seat: Seat)
+        if let startingSeat {
+            anchor = (0, startingSeat)
+        } else if let index = entries.firstIndex(where: { $0.seat != nil }),
+                  let seat = entries[index].seat {
+            anchor = (index, seat)
+        } else {
+            return false
+        }
+
+        guard let anchorColumn = Seat.allCases.firstIndex(of: anchor.seat) else { return false }
+        for (index, entry) in entries.enumerated() {
+            guard let confirmedSeat = entry.seat else { continue }
+            guard index >= anchor.index else { continue }
+            let offset = (index - anchor.index) % Seat.allCases.count
+            let expectedSeat = Seat.allCases[(anchorColumn + offset) % Seat.allCases.count]
+            if confirmedSeat != expectedSeat { return true }
+        }
+        return false
+    }
+
     /// Inserts one occurrence without changing the identity of existing calls.
     @discardableResult
     public mutating func insertEntry(_ entry: AuctionEntry, at index: Int) -> Bool {
@@ -324,19 +391,10 @@ public struct AuctionRecord: Codable, Equatable, Sendable {
                 return AuctionLayoutRow(cells: cells)
             }
         }
-        guard let firstSeat = entries.first?.seat ?? startingSeat,
+        guard !hasInconsistentCompleteSequenceSeats,
+              let firstSeat = entries.first?.seat ?? startingSeat,
               let firstColumn = Seat.allCases.firstIndex(of: firstSeat) else {
             return nil
-        }
-        if let startingSeat, let firstEntrySeat = entries.first?.seat,
-           firstEntrySeat != startingSeat {
-            return nil
-        }
-        for (index, entry) in entries.enumerated() {
-            if let confirmedSeat = entry.seat,
-               confirmedSeat != sequenceSeat(at: index) {
-                return nil
-            }
         }
 
         let occupiedLength = firstColumn + entries.count

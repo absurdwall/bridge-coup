@@ -38,12 +38,31 @@ final class KeyPlayAnalysisTests: XCTestCase {
         XCTAssertTrue(request.prompt.contains("比较现在拿红心 A 与忍让的目的"))
         XCTAssertTrue(request.prompt.contains("东家：未知"))
         XCTAssertTrue(request.prompt.contains("不得把未提供的出牌过程当作事实"))
+        XCTAssertTrue(request.prompt.contains(AuctionCall.promptSemanticsInstruction))
         XCTAssertEqual(request.vulnerability, .both)
         XCTAssertEqual(request.auction, review.auction)
         XCTAssertTrue(request.prompt.contains("局况：双方有局"))
         XCTAssertTrue(request.prompt.contains("第3次行动（北家）：未知叫品"))
         XCTAssertFalse(request.prompt.contains("后来"))
         XCTAssertEqual(request.scoring, "IMP")
+    }
+
+    func testCompleteAuctionSeatConflictBlocksKeyPlayRequest() {
+        var review = DeclarerPlanDraft()
+        review.contractLevel = 3
+        review.contractStrain = .noTrump
+        review.declarerSeat = .south
+        review.hands[.south, default: [:]][.spades] = "A2"
+        review.auction = AuctionRecord(
+            startingSeat: .east,
+            entries: [AuctionEntry(seat: .north, call: .pass)]
+        )
+
+        XCTAssertThrowsError(
+            try KeyPlayAnalysisRequestBuilder.build(from: review, node: KeyPlayAnalysisDraft())
+        ) { error in
+            XCTAssertEqual(error as? DeclarerPlanInputError, .conflictingAuctionSeats)
+        }
     }
 
     func testKeyPlayRequestCarriesOccurrenceScopedUserMeaningNote() throws {
