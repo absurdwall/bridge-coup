@@ -496,6 +496,7 @@ private struct DeclarerEntryPanel: View {
     @State private var isContextExpanded = false
     @State private var isShowingContractGrid = false
     @State private var isShowingTableContractGrid = false
+    @State private var isDoubleDummyVerificationExpanded = false
     @FocusState private var isContractPickerFocused: Bool
 
     var body: some View {
@@ -579,6 +580,30 @@ private struct DeclarerEntryPanel: View {
                 )
                 .accessibilityIdentifier(mode == .declarerPlan ? "generate-declarer-plan" : "generate-key-play-analysis")
             }
+
+            DisclosureGroup(isExpanded: $isDoubleDummyVerificationExpanded) {
+                DoubleDummyVerificationView(model: model) {
+                    isDoubleDummyVerificationExpanded = false
+                }
+                    .padding(.top, 10)
+            } label: {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("事后双明手核验")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(BridgePalette.ink)
+                        .accessibilityIdentifier("open-double-dummy-verification")
+                    Text("按需录入完整牌局并运行 DDS；核验结果不会进入教学请求。")
+                        .font(.system(size: 10))
+                        .foregroundStyle(BridgePalette.muted)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .contentShape(Rectangle())
+            }
+            .padding(12)
+            .background(BridgePalette.soft.opacity(0.6), in: RoundedRectangle(cornerRadius: 13, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: 13).stroke(BridgePalette.border, lineWidth: 1))
+            .padding(.top, 12)
         }
         .onChange(of: screenshotWorkflow.screenshotURL) { _, url in
             if url != nil { isScreenshotDetailsExpanded = true }
