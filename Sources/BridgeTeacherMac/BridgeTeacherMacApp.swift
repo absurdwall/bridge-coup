@@ -497,6 +497,8 @@ private struct DeclarerEntryPanel: View {
     @State private var isShowingContractGrid = false
     @State private var isShowingTableContractGrid = false
     @State private var isDoubleDummyVerificationExpanded = false
+    @State private var newAuctionBidLevel = 1
+    @State private var newAuctionBidStrain: ContractStrain = .clubs
     @FocusState private var isContractPickerFocused: Bool
 
     var body: some View {
@@ -522,6 +524,7 @@ private struct DeclarerEntryPanel: View {
                 .accessibilityIdentifier("screenshot-review-details")
 
                 contractFields
+                auctionFields
                 visibleHands
 
                 DisclosureGroup(isExpanded: $isContextExpanded) {
@@ -850,6 +853,350 @@ private struct DeclarerEntryPanel: View {
         }
         .padding(14)
         .background(BridgePalette.soft, in: RoundedRectangle(cornerRadius: 15, style: .continuous))
+    }
+
+    private var auctionFields: some View {
+        VStack(alignment: .leading, spacing: 9) {
+            HStack {
+                Text("叫牌与局况")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(BridgePalette.ink)
+                Spacer()
+                Text("未知资料可以留空")
+                    .font(.system(size: 10))
+                    .foregroundStyle(BridgePalette.muted)
+            }
+
+            HStack(spacing: 10) {
+                Picker("局况", selection: draftBinding(for: \.vulnerability)) {
+                    Text("局况未知").tag(Vulnerability?.none)
+                    ForEach(Vulnerability.allCases, id: \.self) { vulnerability in
+                        Text(vulnerability.chineseDescription).tag(Optional(vulnerability))
+                    }
+                }
+                .pickerStyle(.menu)
+                .frame(maxWidth: 145, alignment: .leading)
+                .accessibilityIdentifier("auction-vulnerability")
+
+                Picker("首个行动位置", selection: auctionStartingSeatBinding) {
+                    Text("位置未知").tag(Seat?.none)
+                    ForEach(Seat.allCases, id: \.self) { seat in
+                        Text(seat.chineseName).tag(Optional(seat))
+                    }
+                }
+                .pickerStyle(.menu)
+                .frame(maxWidth: 150, alignment: .leading)
+                .disabled(workflow.draft.auction?.kind == .noAuction)
+                .accessibilityIdentifier("auction-starting-seat")
+            }
+            .font(.system(size: 11, weight: .regular))
+
+            auctionRecordEditor
+        }
+        .padding(12)
+        .background(BridgePalette.soft, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+    }
+
+    @ViewBuilder
+    private var auctionRecordEditor: some View {
+        if let record = workflow.draft.auction {
+            if record.kind == .noAuction {
+                HStack(spacing: 8) {
+                    Label("已确认本局无叫牌", systemImage: "minus.circle")
+                        .font(.system(size: 11, weight: .medium))
+                        .foregroundStyle(BridgePalette.muted)
+                    Spacer()
+                    Button("改为录入叫牌") {
+                        setAuction(AuctionRecord())
+                    }
+                    .buttonStyle(.borderless)
+                    .font(.system(size: 11, weight: .medium))
+                    .accessibilityIdentifier("start-auction-entry")
+                }
+            } else {
+                if record.entries.isEmpty {
+                    HStack(spacing: 8) {
+                        Text("空白记录：尚无已确认叫品。可直接生成计划，或继续录入。")
+                            .font(.system(size: 10))
+                            .foregroundStyle(BridgePalette.muted)
+                            .fixedSize(horizontal: false, vertical: true)
+                        Spacer(minLength: 4)
+                        Button("确认无叫牌") {
+                            setAuction(AuctionRecord(kind: .noAuction))
+                        }
+                        .buttonStyle(.borderless)
+                        .font(.system(size: 10, weight: .medium))
+                        .accessibilityIdentifier("confirm-no-auction")
+                    }
+                } else {
+                    Text("已录入 \(record.entries.count) 次行动；可保留部分叫牌记录。")
+                        .font(.system(size: 10))
+                        .foregroundStyle(BridgePalette.muted)
+                        .accessibilityIdentifier("auction-entry-count")
+                }
+
+                if !record.entries.isEmpty {
+                    auctionTable(record)
+                }
+                auctionAddControls
+                HStack {
+                    Spacer()
+                    Button("清除叫牌记录") {
+                        setAuction(nil)
+                    }
+                    .buttonStyle(.borderless)
+                    .font(.system(size: 10, weight: .medium))
+                    .foregroundStyle(BridgePalette.muted)
+                    .accessibilityIdentifier("clear-auction-record")
+                }
+            }
+        } else {
+            HStack(spacing: 8) {
+                Text("未提供叫牌记录；仍可录入局况和生成计划。")
+                    .font(.system(size: 10))
+                    .foregroundStyle(BridgePalette.muted)
+                    .fixedSize(horizontal: false, vertical: true)
+                Spacer(minLength: 4)
+                Button("录入叫牌") {
+                    setAuction(AuctionRecord())
+                }
+                .buttonStyle(.borderless)
+                .font(.system(size: 10, weight: .medium))
+                .accessibilityIdentifier("start-auction-entry")
+                Button("无叫牌") {
+                    setAuction(AuctionRecord(kind: .noAuction))
+                }
+                .buttonStyle(.borderless)
+                .font(.system(size: 10, weight: .medium))
+                .accessibilityIdentifier("confirm-no-auction")
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func auctionTable(_ record: AuctionRecord) -> some View {
+        if let rows = record.layoutRows {
+            VStack(spacing: 4) {
+                HStack(spacing: 5) {
+                    ForEach(Seat.allCases, id: \.self) { seat in
+                        Text(shortSeatName(seat))
+                            .font(.system(size: 10, weight: .medium))
+                            .foregroundStyle(BridgePalette.muted)
+                            .frame(maxWidth: .infinity)
+                    }
+                }
+                ForEach(Array(rows.enumerated()), id: \.offset) { rowIndex, row in
+                    HStack(spacing: 5) {
+                        ForEach(Seat.allCases, id: \.self) { seat in
+                            switch row[seat] {
+                            case .layoutBlank:
+                                Color.clear
+                                    .frame(maxWidth: .infinity, minHeight: 30)
+                            case .entry:
+                                if let entryIndex = auctionEntryIndex(row: rowIndex, seat: seat, record: record),
+                                   record.entries.indices.contains(entryIndex) {
+                                    auctionCallMenu(at: entryIndex, entry: record.entries[entryIndex])
+                                        .frame(maxWidth: .infinity, minHeight: 30)
+                                        .background(.white, in: RoundedRectangle(cornerRadius: 7, style: .continuous))
+                                        .overlay(RoundedRectangle(cornerRadius: 7, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
+                                } else {
+                                    Color.clear
+                                        .frame(maxWidth: .infinity, minHeight: 30)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .accessibilityIdentifier("auction-round-table")
+        } else {
+            VStack(alignment: .leading, spacing: 6) {
+                Label(
+                    record.startingSeat == nil
+                        ? "叫品座位未确认；不默认北家。"
+                        : "起始位置与已确认叫品座位不一致；已保留原归属，请逐项核对。",
+                    systemImage: "exclamationmark.circle"
+                )
+                .font(.system(size: 10))
+                .foregroundStyle(BridgePalette.warning)
+                auctionEntrySeatList(record)
+            }
+            .accessibilityIdentifier("auction-seat-review")
+        }
+    }
+
+    private func auctionEntrySeatList(_ record: AuctionRecord) -> some View {
+        VStack(spacing: 4) {
+            ForEach(record.entries.indices, id: \.self) { index in
+                HStack(spacing: 6) {
+                    Text("\(index + 1)")
+                        .font(.system(size: 10, weight: .medium, design: .rounded))
+                        .foregroundStyle(BridgePalette.muted)
+                        .frame(width: 18, alignment: .trailing)
+                    Picker("第\(index + 1)次行动位置", selection: auctionEntrySeatBinding(at: index)) {
+                        Text("未知位置").tag(Seat?.none)
+                        ForEach(Seat.allCases, id: \.self) { seat in
+                            Text(seat.chineseName).tag(Optional(seat))
+                        }
+                    }
+                    .pickerStyle(.menu)
+                    .frame(width: 118, alignment: .leading)
+                    .accessibilityIdentifier("auction-entry-seat-\(index)")
+                    auctionCallMenu(at: index, entry: record.entries[index])
+                    Spacer(minLength: 0)
+                }
+            }
+        }
+    }
+
+    private var auctionAddControls: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            HStack(spacing: 5) {
+                Text("定约")
+                    .foregroundStyle(BridgePalette.muted)
+                Picker("定约叫品阶数", selection: $newAuctionBidLevel) {
+                    ForEach(1...7, id: \.self) { level in
+                        Text("\(level)阶").tag(level)
+                    }
+                }
+                .pickerStyle(.menu)
+                .labelsHidden()
+                .frame(width: 66)
+                Picker("定约叫品花色", selection: $newAuctionBidStrain) {
+                    ForEach(ContractStrain.allCases, id: \.self) { strain in
+                        Text(strain.symbol).tag(strain)
+                    }
+                }
+                .pickerStyle(.menu)
+                .labelsHidden()
+                .frame(width: 54)
+                Text("预览：\(newAuctionBidLevel)\(newAuctionBidStrain.symbol)")
+                    .foregroundStyle(BridgePalette.muted)
+                Button("添加叫品") {
+                    appendAuctionCall(.bid(level: newAuctionBidLevel, strain: newAuctionBidStrain))
+                }
+                .accessibilityIdentifier("add-auction-bid")
+                Spacer(minLength: 0)
+            }
+            .font(.system(size: 10, weight: .medium))
+            HStack(spacing: 5) {
+                Button("Pass") { appendAuctionCall(.pass) }
+                    .accessibilityIdentifier("add-auction-pass")
+                Button("加倍") { appendAuctionCall(.double) }
+                    .accessibilityIdentifier("add-auction-double")
+                Button("再加倍") { appendAuctionCall(.redouble) }
+                    .accessibilityIdentifier("add-auction-redouble")
+                Button("未知叫品") { appendAuctionCall(.unknown) }
+                    .accessibilityIdentifier("add-auction-unknown")
+                Spacer(minLength: 0)
+            }
+            .font(.system(size: 10, weight: .medium))
+            .buttonStyle(.bordered)
+        }
+    }
+
+    private func auctionCallMenu(at index: Int, entry: AuctionEntry) -> some View {
+        Menu {
+            Section("特殊叫品") {
+                Button("Pass") { updateAuctionCall(at: index, to: .pass) }
+                Button("加倍 X") { updateAuctionCall(at: index, to: .double) }
+                Button("再加倍 XX") { updateAuctionCall(at: index, to: .redouble) }
+                Button("未知叫品") { updateAuctionCall(at: index, to: .unknown) }
+            }
+            Menu("定约叫品") {
+                ForEach(1...7, id: \.self) { level in
+                    Menu("\(level)阶") {
+                        ForEach(ContractStrain.allCases, id: \.self) { strain in
+                            Button("\(level)\(strain.symbol)") {
+                                updateAuctionCall(at: index, to: .bid(level: level, strain: strain))
+                            }
+                        }
+                    }
+                }
+            }
+        } label: {
+            Text(entry.call.displayText)
+                .font(.system(size: 11, weight: .semibold))
+                .foregroundStyle(BridgePalette.ink)
+                .lineLimit(1)
+                .frame(maxWidth: .infinity, minHeight: 28)
+                .contentShape(Rectangle())
+        }
+        .menuStyle(.borderlessButton)
+        .accessibilityIdentifier("auction-call-\(index)")
+        .accessibilityLabel("第\(index + 1)次行动，\(entry.seat?.chineseName ?? "位置未知")，修正叫品；当前\(entry.call.displayText)")
+    }
+
+    private var auctionStartingSeatBinding: Binding<Seat?> {
+        Binding(
+            get: { workflow.draft.auction?.startingSeat },
+            set: { newSeat in
+                var record = workflow.draft.auction ?? AuctionRecord()
+                let previousStartingSeat = record.startingSeat
+                record.startingSeat = newSeat
+                if previousStartingSeat == nil, newSeat != nil {
+                    for index in record.entries.indices where record.entries[index].seat == nil {
+                        record.entries[index].seat = record.sequenceSeat(at: index)
+                    }
+                }
+                setAuction(record)
+            }
+        )
+    }
+
+    private func auctionEntrySeatBinding(at index: Int) -> Binding<Seat?> {
+        Binding(
+            get: {
+                guard let entries = workflow.draft.auction?.entries,
+                      entries.indices.contains(index) else { return nil }
+                return entries[index].seat
+            },
+            set: { newSeat in
+                guard var record = workflow.draft.auction,
+                      record.entries.indices.contains(index) else { return }
+                record.entries[index].seat = newSeat
+                setAuction(record)
+            }
+        )
+    }
+
+    private func appendAuctionCall(_ call: AuctionCall) {
+        var record = workflow.draft.auction ?? AuctionRecord()
+        guard record.kind == .calls else { return }
+        let seat = record.sequenceSeat(at: record.entries.count)
+        record.entries.append(AuctionEntry(seat: seat, call: call))
+        setAuction(record)
+    }
+
+    private func updateAuctionCall(at index: Int, to call: AuctionCall) {
+        guard var record = workflow.draft.auction,
+              record.entries.indices.contains(index) else { return }
+        record.entries[index].call = call
+        setAuction(record)
+    }
+
+    private func setAuction(_ auction: AuctionRecord?) {
+        var draft = workflow.draft
+        draft.auction = auction
+        model.updateReviewDraft(draft)
+    }
+
+    private func auctionEntryIndex(row: Int, seat: Seat, record: AuctionRecord) -> Int? {
+        guard let firstSeat = record.entries.first?.seat ?? record.startingSeat,
+              let firstColumn = Seat.allCases.firstIndex(of: firstSeat),
+              let column = Seat.allCases.firstIndex(of: seat) else { return nil }
+        let absolutePosition = row * Seat.allCases.count + column
+        let entryIndex = absolutePosition - firstColumn
+        return record.entries.indices.contains(entryIndex) ? entryIndex : nil
+    }
+
+    private func shortSeatName(_ seat: Seat) -> String {
+        switch seat {
+        case .north: "北家"
+        case .east: "东家"
+        case .south: "南家"
+        case .west: "西家"
+        }
     }
 
     private func contractSelectionGrid(isShowing: Binding<Bool>) -> some View {

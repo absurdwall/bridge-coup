@@ -82,6 +82,56 @@ final class ReviewSessionArchiveTests: XCTestCase {
         XCTAssertTrue(request.prompt.contains("首攻（用户提供）：♠2"))
     }
 
+    func testArchiveWithPreKindAuctionRecordDefaultsToCallsAndKeepsConfirmedOwners() throws {
+        var draft = DeclarerPlanDraft()
+        draft.auction = AuctionRecord(
+            startingSeat: .west,
+            entries: [
+                AuctionEntry(seat: .west, call: .pass),
+                AuctionEntry(seat: .north, call: .bid(level: 1, strain: .clubs)),
+            ]
+        )
+        let encoded = try JSONEncoder().encode(workflowArchive(draft: draft))
+        var object = try XCTUnwrap(JSONSerialization.jsonObject(with: encoded) as? [String: Any])
+        var storedDraft = try XCTUnwrap(object["draft"] as? [String: Any])
+        var storedAuction = try XCTUnwrap(storedDraft["auction"] as? [String: Any])
+        storedAuction.removeValue(forKey: "kind")
+        storedDraft["auction"] = storedAuction
+        object["draft"] = storedDraft
+        let previousSchemaData = try JSONSerialization.data(withJSONObject: object)
+
+        let reopened = try JSONDecoder().decode(DeclarerPlanWorkflowArchive.self, from: previousSchemaData)
+
+        XCTAssertEqual(reopened.draft.auction?.kind, .calls)
+        XCTAssertEqual(reopened.draft.auction?.startingSeat, .west)
+        XCTAssertEqual(reopened.draft.auction?.entries.map(\.seat), [.west, .north])
+        XCTAssertEqual(reopened.draft.auction?.entries.map(\.call), [.pass, .bid(level: 1, strain: .clubs)])
+    }
+
+    func testConfirmedNoAuctionStateSurvivesArchiveRoundTrip() throws {
+        var draft = DeclarerPlanDraft()
+        draft.auction = AuctionRecord(kind: .noAuction)
+
+        let encoded = try JSONEncoder().encode(workflowArchive(draft: draft))
+        let reopened = try JSONDecoder().decode(DeclarerPlanWorkflowArchive.self, from: encoded)
+
+        XCTAssertEqual(reopened.draft.auction, AuctionRecord(kind: .noAuction))
+        XCTAssertEqual(reopened.draft.auction?.layoutRows, [])
+    }
+
+    private func workflowArchive(draft: DeclarerPlanDraft) -> DeclarerPlanWorkflowArchive {
+        DeclarerPlanWorkflowArchive(
+            draft: draft,
+            state: .idle,
+            informationVersion: 0,
+            planAnalyses: [],
+            currentPlanID: nil,
+            followUpExchanges: [],
+            followUpQuestion: "",
+            followUpAssumptions: ""
+        )
+    }
+
     @MainActor
     func testReopenedInFlightPlanAndFollowUpReturnToRetryableState() throws {
         var draft = DeclarerPlanDraft()

@@ -125,6 +125,22 @@ final class DeclarerPlanRequestBuilderTests: XCTestCase {
             entries: [AuctionEntry(seat: .north, call: .pass)]
         )
         XCTAssertNil(correctedButUnreconciled.layoutRows, "a correction must not silently move a confirmed call to a different seat")
+
+        var correctedOpeningSeat = AuctionRecord(
+            startingSeat: .west,
+            entries: [
+                AuctionEntry(seat: .west, call: .pass),
+                AuctionEntry(seat: .north, call: .bid(level: 1, strain: .hearts)),
+            ]
+        )
+        let savedOwners = correctedOpeningSeat.entries.map(\.seat)
+        correctedOpeningSeat.startingSeat = .east
+        XCTAssertEqual(correctedOpeningSeat.entries.map(\.seat), savedOwners)
+        XCTAssertNil(correctedOpeningSeat.layoutRows)
+
+        let noAuction = AuctionRecord(kind: .noAuction)
+        XCTAssertEqual(noAuction.layoutRows, [])
+        XCTAssertTrue(noAuction.promptDescription.contains("已确认本局无叫牌"))
     }
 
     func testOmittedAuctionAndVulnerabilityStayUnknownWithoutBlockingPlanRequest() throws {
@@ -139,6 +155,12 @@ final class DeclarerPlanRequestBuilderTests: XCTestCase {
         XCTAssertNil(request.vulnerability)
         XCTAssertTrue(request.prompt.contains("局况：未提供；保持未知"))
         XCTAssertTrue(request.prompt.contains("叫牌记录：未提供；这不代表无叫牌"))
+
+        var noAuctionDraft = draft
+        noAuctionDraft.auction = AuctionRecord(kind: .noAuction)
+        let noAuctionRequest = try DeclarerPlanRequestBuilder.build(from: noAuctionDraft)
+        XCTAssertEqual(noAuctionRequest.auction?.kind, .noAuction)
+        XCTAssertTrue(noAuctionRequest.prompt.contains("用户已确认本局无叫牌"))
     }
 
     func testOpeningLeadShortcutsNormalizeInTeachingRequest() throws {
