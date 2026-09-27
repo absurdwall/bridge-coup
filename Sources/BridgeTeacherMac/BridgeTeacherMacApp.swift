@@ -621,7 +621,11 @@ private struct DeclarerEntryPanel: View {
             if !history.isEmpty { isContextExpanded = true }
         }
         .onChange(of: isShowingContractGrid) { _, isShowing in
-            if !isShowing {
+            if isShowing {
+                // Release focus from the popover's anchor while the grid owns
+                // keyboard navigation; restore it only after the popover closes.
+                isContractPickerFocused = false
+            } else {
                 isContractPickerFocused = true
             }
         }
@@ -1230,7 +1234,8 @@ private struct ContractSelectionGrid: View {
     let onClear: () -> Void
     let onCancel: () -> Void
 
-    @FocusState private var focusedContractOption: String?
+    @FocusState private var isContractGridFocused: Bool
+    @State private var focusedContractChoice: ContractChoice?
 
     private let strains: [ContractStrain] = [.clubs, .diamonds, .hearts, .spades, .noTrump]
 
@@ -1284,21 +1289,48 @@ private struct ContractSelectionGrid: View {
                     }
                 }
             }
-            .focusSection()
         }
         .padding(14)
         .frame(width: 344)
         .background(.white)
+        .focusable()
+        .focusEffectDisabled()
+        .focused($isContractGridFocused)
+        .defaultFocus($isContractGridFocused, true)
         .onAppear {
-            focusedContractOption = selectedContractFocusIdentifier
-                ?? contractOptionIdentifier(level: 1, strain: .clubs)
+            focusedContractChoice = selectedContract ?? ContractChoice(level: 1, strain: .clubs)
+        }
+        .onKeyPress(.leftArrow) {
+            moveFocus(.left)
+            return .handled
+        }
+        .onKeyPress(.rightArrow) {
+            moveFocus(.right)
+            return .handled
+        }
+        .onKeyPress(.upArrow) {
+            moveFocus(.up)
+            return .handled
+        }
+        .onKeyPress(.downArrow) {
+            moveFocus(.down)
+            return .handled
+        }
+        .onKeyPress(.return) {
+            selectFocusedContract()
+            return .handled
+        }
+        .onKeyPress(.space) {
+            selectFocusedContract()
+            return .handled
         }
     }
 
     private func contractOption(level: Int, strain: ContractStrain) -> some View {
         let isSelected = selectedContract == ContractChoice(level: level, strain: strain)
         let optionIdentifier = contractOptionIdentifier(level: level, strain: strain)
-        let isFocused = focusedContractOption == optionIdentifier
+        let isFocused = (focusedContractChoice ?? selectedContract ?? ContractChoice(level: 1, strain: .clubs))
+            == ContractChoice(level: level, strain: strain)
         return Button {
             onSelect(ContractChoice(level: level, strain: strain))
         } label: {
@@ -1316,70 +1348,21 @@ private struct ContractSelectionGrid: View {
                 )
         }
         .buttonStyle(.plain)
-        .focusable()
-        .focusEffectDisabled()
-        .focused($focusedContractOption, equals: optionIdentifier)
-        .onKeyPress(.leftArrow) {
-            moveFocus(fromLevel: level, strain: strain, direction: .left)
-            return .handled
-        }
-        .onKeyPress(.rightArrow) {
-            moveFocus(fromLevel: level, strain: strain, direction: .right)
-            return .handled
-        }
-        .onKeyPress(.upArrow) {
-            moveFocus(fromLevel: level, strain: strain, direction: .up)
-            return .handled
-        }
-        .onKeyPress(.downArrow) {
-            moveFocus(fromLevel: level, strain: strain, direction: .down)
-            return .handled
-        }
-        .onKeyPress(.return) {
-            onSelect(ContractChoice(level: level, strain: strain))
-            return .handled
-        }
-        .onKeyPress(.space) {
-            onSelect(ContractChoice(level: level, strain: strain))
-            return .handled
-        }
-        .onMoveCommand { direction in
-            moveFocusForCommand(fromLevel: level, strain: strain, direction: direction)
-        }
+        .focusable(false)
         .accessibilityIdentifier(optionIdentifier)
         .accessibilityLabel("\(level)\(strain.symbol) 定约")
         .accessibilityValue(isSelected ? "当前选择" : "未选择")
         .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 
-    private var selectedContractFocusIdentifier: String? {
-        guard let selectedContract else { return nil }
-        return contractOptionIdentifier(level: selectedContract.level, strain: selectedContract.strain)
+    private func moveFocus(_ direction: ContractGridNavigation.Direction) {
+        let current = focusedContractChoice ?? selectedContract ?? ContractChoice(level: 1, strain: .clubs)
+        focusedContractChoice = ContractGridNavigation.destination(from: current, direction: direction)
     }
 
-    private func moveFocusForCommand(fromLevel level: Int, strain: ContractStrain, direction: MoveCommandDirection) {
-        let navigationDirection: ContractGridNavigation.Direction
-        switch direction {
-        case .left:
-            navigationDirection = .left
-        case .right:
-            navigationDirection = .right
-        case .up:
-            navigationDirection = .up
-        case .down:
-            navigationDirection = .down
-        @unknown default:
-            return
-        }
-        moveFocus(fromLevel: level, strain: strain, direction: navigationDirection)
-    }
-
-    private func moveFocus(fromLevel level: Int, strain: ContractStrain, direction: ContractGridNavigation.Direction) {
-        let destination = ContractGridNavigation.destination(
-            from: ContractChoice(level: level, strain: strain),
-            direction: direction
-        )
-        focusedContractOption = contractOptionIdentifier(level: destination.level, strain: destination.strain)
+    private func selectFocusedContract() {
+        let contract = focusedContractChoice ?? selectedContract ?? ContractChoice(level: 1, strain: .clubs)
+        onSelect(contract)
     }
 
     private func contractOptionIdentifier(level: Int, strain: ContractStrain) -> String {
