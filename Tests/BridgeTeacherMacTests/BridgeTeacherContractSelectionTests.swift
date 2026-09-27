@@ -4,6 +4,41 @@ import BridgeTeacherCore
 
 @MainActor
 final class BridgeTeacherContractSelectionTests: XCTestCase {
+    func testContractGridNavigationMovesOneCellAndClampsAtGridEdges() {
+        XCTAssertEqual(
+            ContractGridNavigation.destination(from: ContractChoice(level: 1, strain: .clubs), direction: .right),
+            ContractChoice(level: 1, strain: .diamonds)
+        )
+        XCTAssertEqual(
+            ContractGridNavigation.destination(from: ContractChoice(level: 4, strain: .diamonds), direction: .left),
+            ContractChoice(level: 4, strain: .clubs)
+        )
+        XCTAssertEqual(
+            ContractGridNavigation.destination(from: ContractChoice(level: 3, strain: .hearts), direction: .up),
+            ContractChoice(level: 2, strain: .hearts)
+        )
+        XCTAssertEqual(
+            ContractGridNavigation.destination(from: ContractChoice(level: 3, strain: .hearts), direction: .down),
+            ContractChoice(level: 4, strain: .hearts)
+        )
+        XCTAssertEqual(
+            ContractGridNavigation.destination(from: ContractChoice(level: 1, strain: .clubs), direction: .left),
+            ContractChoice(level: 1, strain: .clubs)
+        )
+        XCTAssertEqual(
+            ContractGridNavigation.destination(from: ContractChoice(level: 7, strain: .noTrump), direction: .right),
+            ContractChoice(level: 7, strain: .noTrump)
+        )
+        XCTAssertEqual(
+            ContractGridNavigation.destination(from: ContractChoice(level: 1, strain: .spades), direction: .up),
+            ContractChoice(level: 1, strain: .spades)
+        )
+        XCTAssertEqual(
+            ContractGridNavigation.destination(from: ContractChoice(level: 7, strain: .noTrump), direction: .down),
+            ContractChoice(level: 7, strain: .noTrump)
+        )
+    }
+
     func testSelectingContractUpdatesReviewAndDoubleDummyContextAtomically() {
         let model = BridgeTeacherApplicationModel()
         var doubleDummyDraft = model.doubleDummyWorkflow.draft
