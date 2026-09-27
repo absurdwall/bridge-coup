@@ -11,7 +11,7 @@ The partial-transcript review fix was tested on ticket branch parent `08b4b8c773
 - Launched that exact QA bundle by app path. In the expanded editor, set the full-auction starting seat to West, marked a manual record as partial, then added `1♣` and `Pass`. The UI showed the partial-excerpt warning and “记录项 1 位置 / 记录项 2 位置,” both “未知位置”; it did not assign West/North from the starting seat or item index and did not insert omitted calls. No save or live request was made. Core and Mac tests separately verify sparse rows when all partial seats are explicit.
 - The isolated package and temporary review store were removed after the check; the standard app and store were not used.
 
-Remaining scope is unchanged: live service evidence below is synthetic-only, and this manual follow-up did not force a runtime late-response race or evaluate teaching quality on a real game.
+The service/schema request and plan below use synthetic data. A later real-game screenshot check is recorded below; it did not confirm the candidate or start a teaching request. This manual follow-up did not force a runtime late-response race or evaluate teaching quality on a real game.
 
 ## Application-model retry-order follow-up
 
@@ -24,11 +24,14 @@ On top of `b565d41c469f2c9d70d1242344d0b3b64cefbbf8`, `BridgeTeacherApplicationM
 
 ## Contract-grid keyboard navigation follow-up
 
-The contract picker now handles physical left/right/up/down arrow keys explicitly and returns `.handled` after moving its focused option, so arrow input does not dismiss the picker. Movement uses a pure grid-navigation helper, clamps at the first/last row and column, and preserves the existing Return/Space confirmation handlers.
+The contract picker now routes arrow keys through one focusable grid container and keeps a separate highlighted contract choice. Its buttons remain mouse-selectable but no longer compete with arrow input for native per-button focus. Opening the picker releases focus from the anchor and restores it after the picker closes. Return and Space confirm the highlighted choice.
 
 - Focused `swift test --filter BridgeTeacherContractSelectionTests/testContractGridNavigationMovesOneCellAndClampsAtGridEdges`: **1 test, 0 failures**; covers all four directions and edge clamping.
-- Full `swift test`: **108 tests, 0 failures, 3 DDS-helper-dependent skips**.
-- Keyboard interaction has **not yet been rechecked in a packaged app**. The integration/package check is pending cherry-pick; this pure-navigation test does not establish physical key delivery or picker retention in SwiftUI.
+- Full `swift test` after the navigation change: **108 tests, 0 failures, 3 DDS-helper-dependent skips**.
+- Packaged check: QA-only source copy matching this follow-up commit (`f09f5d6804d256722d34d823b77fbd9322de24b2`, based on `65b9d5e`), version `0.4.0` build `11.7`, unique bundle `app.absurdwall.bridge-coup.issue11-grid-foregrounded-117`, review store `/tmp/bridge-coup-contract-grid-probe-20260927/reviews-anchor-release`; ad-hoc codesign strict verification passed. The bundled DDS helper SHA-256 was `1f3e859bcb80a55af94c3887121d10391ca3458f1301868fbd069961bfef8e34`.
+- After using Window → Bridge Coup to foreground that exact bundle, the picker opened with the 1♣ highlight. Four separate Right presses advanced the visible highlight through 1♦, 1♥, 1♠ and 1NT while the popover remained open. Return selected 1NT. Reopening the picker, Left moved the highlight to 1♠ and Space selected it. No model request or save was made.
+- Initial key injection while the QA app was backgrounded reproduced dismissal and focus on the opening-lead field. The successful sequence above was repeated only after foregrounding the exact bundle; it does not claim reliable behavior for input sent to a background app.
+- `ContractGridNavigation` unit coverage verifies destination/clamping math; packaged interaction verifies SwiftUI key delivery and popover retention. No UI-event XCTest is present.
 
 ## Automated verification
 
@@ -53,11 +56,13 @@ A QA-only source copy was made from the integration revision under `/tmp/bridge-
 
 The GUI was launched and addressed by this unique bundle identifier. The isolated QA source, package, and local review records were temporary and are not part of the commit.
 
-## Live service evidence (synthetic only)
+## Live service evidence and screenshot review
 
-No real-game/player screenshot was available. The only recognition input retained here is [synthetic-auction.png](synthetic-auction.png), generated for this acceptance run and containing no real player data.
+The only recognition input retained here is [synthetic-auction.png](synthetic-auction.png), generated for the service/schema check and containing no real player data. The supplied real-game screenshot/crop was not retained in the repository.
 
-One fresh screenshot-recognition request through the packaged app returned the 12 calls in that synthetic image and EW vulnerability, with a 3♥ result. The UI presented it as a candidate that required review; it did not silently treat the result as confirmed. After manual review/correction, the auction was expanded to a 20-call record. This is a synthetic service/schema smoke only and is **not evidence of real-game OCR accuracy**. Ticket #9's earlier synthetic service result was not reused as this run's response.
+In a separate isolated QA run, the operator compared the recognition candidate against the supplied real-game screenshot and verified the 20 visible calls and `None Vul`. The app left the candidate's confirmation checkbox and all visible-hand selections off. The candidate remained unconfirmed; there was no save or plan request. This is one manually checked candidate, not evidence of broader real-game OCR accuracy. The original image and crop remain outside the repository.
+
+One fresh screenshot-recognition request through the packaged app returned the 12 calls in the synthetic image and EW vulnerability, with a 3♥ result. The UI presented it as a candidate that required review; it did not silently treat the result as confirmed. After manual review/correction, the auction was expanded to a 20-call record. This is a synthetic service/schema smoke and Ticket #9's earlier synthetic service result was not reused as this run's response.
 
 One live declarer-plan request succeeded using a manually supplied, internally consistent synthetic deal. It had West as the starting seat and declarer, EW vulnerable, a 5♥ contract, and ♠2 lead:
 
@@ -80,11 +85,11 @@ The manual run exercised the continuous review path:
 - Opened the DDS disclosure below plan generation and confirmed its explanatory boundary: full-information verification is retrospective and excluded from teaching context.
 - Saved to the unique temporary store, reopened the review, and verified that the auction, per-call note, hands, vulnerability, starting seat, contract, lead, and stale-plan state survived.
 
-An additional packaged check ran against integration source revision `e1865e6` using `Bridge Coup.app` version `0.4.0` (build `11.2`), unique bundle `app.absurdwall.bridge-coup.issue4-final-qa`, and temporary store `/tmp/bridge-coup-issue4-final-qa-20260927/reviews`. Strict codesign verification passed; its signed bundled DDS helper hash matches the packaged SHA-256 above. The operator added a note to the first of two identical Passes, saved/reopened and verified the second Pass had Clear disabled, then cleared the first note, saved/reopened again, and verified neither Pass retained a note marker. No model request was made. This verifies packaged note clearing; it does not include the pending arrow-key packaged check.
+An additional packaged check ran against integration source revision `e1865e6` using `Bridge Coup.app` version `0.4.0` (build `11.2`), unique bundle `app.absurdwall.bridge-coup.issue4-final-qa`, and temporary store `/tmp/bridge-coup-issue4-final-qa-20260927/reviews`. Strict codesign verification passed; its signed bundled DDS helper hash matches the packaged SHA-256 above. The operator added a note to the first of two identical Passes, saved/reopened and verified the second Pass had Clear disabled, then cleared the first note, saved/reopened again, and verified neither Pass retained a note marker. No model request was made. Packaged arrow-key navigation was checked separately as recorded above.
 
 ## Limits
 
-- Recognition evidence is synthetic only. It cannot establish accuracy on a real deal, handwriting, camera crop, or noisy screenshot.
+- The synthetic schema-smoke input is the only screenshot retained. The one real-game candidate was manually matched to 20 visible calls and `None Vul`, but remained unconfirmed with no hands selected; this does not establish general OCR accuracy on real deals, handwriting, camera crops, or noisy screenshots.
 - The generated plan was evaluated only on the synthetic complete deal above. Bridge correctness on a real game was not independently established.
 - Runtime late-response races were not forced manually; deterministic workflow tests cover late screenshot and plan responses after corrections.
 - Three DDS-helper-dependent tests were skipped in `swift test`. The separate packaged DDS helper was verified and ticket #10 had already completed its DDS acceptance; this report does not convert those skipped tests into passes.
