@@ -943,8 +943,7 @@ private struct DeclarerEntryPanel: View {
 
     private func saveAuctionMeaningNote(_ id: UUID, _ note: String?) {
         guard var record = workflow.draft.auction,
-              let index = record.entries.firstIndex(where: { $0.id == id }) else { return }
-        record.entries[index].meaningNote = note
+              record.setMeaningNote(note, forEntryID: id) else { return }
         setAuction(record)
     }
 
@@ -953,16 +952,7 @@ private struct DeclarerEntryPanel: View {
             get: { workflow.draft.auction?.startingSeat },
             set: { newSeat in
                 var record = workflow.draft.auction ?? AuctionRecord()
-                let previousStartingSeat = record.startingSeat
-                record.startingSeat = newSeat
-                if previousStartingSeat == nil, newSeat != nil {
-                    for index in record.entries.indices where record.entries[index].seat == nil {
-                        if let seat = record.sequenceSeat(at: index) {
-                            record.entries[index].seat = seat
-                            record.entries[index].seatIsSequenceDerived = true
-                        }
-                    }
-                }
+                record.setStartingSeat(newSeat)
                 setAuction(record)
             }
         )
