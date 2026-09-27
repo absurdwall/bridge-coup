@@ -132,13 +132,14 @@ public final class DeclarerPlanWorkflow: ObservableObject {
     }
 
     public init(draft: DeclarerPlanDraft = DeclarerPlanDraft(), runtime: any DeclarerTeachingRuntime) {
-        self.draft = draft
+        self.draft = draft.normalizingOpeningLead()
         self.runtime = runtime
     }
 
     public func updateDraft(_ draft: DeclarerPlanDraft) {
-        guard draft != self.draft else { return }
-        self.draft = draft
+        let normalizedDraft = draft.normalizingOpeningLead()
+        guard normalizedDraft != self.draft else { return }
+        self.draft = normalizedDraft
         informationVersion += 1
         planOperationRevision += 1
         invalidatePendingFollowUps()
@@ -256,7 +257,7 @@ public final class DeclarerPlanWorkflow: ObservableObject {
     }
 
     public func restore(from archive: DeclarerPlanWorkflowArchive) {
-        draft = archive.draft
+        draft = archive.draft.normalizingOpeningLead()
         state = archive.state == .generating ? .idle : archive.state
         informationVersion = archive.informationVersion
         planAnalyses = archive.planAnalyses

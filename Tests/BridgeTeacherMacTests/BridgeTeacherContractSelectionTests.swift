@@ -84,4 +84,20 @@ final class BridgeTeacherContractSelectionTests: XCTestCase {
         XCTAssertEqual(model.workflow.draft.declarerSeat, .east)
         XCTAssertEqual(model.workflow.draft.openingLead, "♣A")
     }
+
+    func testOpeningLeadShortcutsNormalizeInEditableReviewDraft() {
+        let model = BridgeTeacherApplicationModel()
+
+        for (input, expected) in [("s2", "♠2"), ("H3", "♥3"), ("D10", "♦10"), ("cT", "♣10")] {
+            var draft = model.workflow.draft
+            draft.openingLead = input
+            model.updateReviewDraft(draft)
+            XCTAssertEqual(model.workflow.draft.openingLead, expected, "Input: \(input)")
+        }
+
+        var invalidDraft = model.workflow.draft
+        invalidDraft.openingLead = "S1"
+        model.updateReviewDraft(invalidDraft)
+        XCTAssertEqual(model.workflow.draft.openingLead, "S1")
+    }
 }

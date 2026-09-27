@@ -141,6 +141,44 @@ final class DeclarerPlanRequestBuilderTests: XCTestCase {
         XCTAssertTrue(request.prompt.contains("叫牌记录：未提供；这不代表无叫牌"))
     }
 
+    func testOpeningLeadShortcutsNormalizeInTeachingRequest() throws {
+        let examples = [
+            ("S2", "♠2"),
+            ("h3", "♥3"),
+            ("DA", "♦A"),
+            ("cK", "♣K"),
+            ("♠10", "♠10"),
+            ("dT", "♦10"),
+            ("♥t", "♥10"),
+        ]
+
+        for (input, expected) in examples {
+            var draft = DeclarerPlanDraft()
+            draft.contractLevel = 3
+            draft.contractStrain = .noTrump
+            draft.openingLead = input
+            draft.hands[.south, default: [:]][.spades] = "A2"
+
+            let request = try DeclarerPlanRequestBuilder.build(from: draft)
+
+            XCTAssertEqual(request.openingLead, expected, "Input: \(input)")
+            XCTAssertTrue(request.prompt.contains("首攻（用户提供）：\(expected)"), "Input: \(input)")
+        }
+    }
+
+    func testInvalidOpeningLeadIsRejectedWithActionableFeedback() {
+        var draft = DeclarerPlanDraft()
+        draft.contractLevel = 3
+        draft.contractStrain = .noTrump
+        draft.openingLead = "S1"
+        draft.hands[.south, default: [:]][.spades] = "A2"
+
+        XCTAssertThrowsError(try DeclarerPlanRequestBuilder.build(from: draft)) { error in
+            XCTAssertEqual(error as? OpeningLeadInputError, .invalidInput("S1"))
+            XCTAssertTrue(error.localizedDescription.contains("S2"))
+        }
+    }
+
     func testFollowUpKeepsCurrentPlanAndSeparatesHypothesesFromConfirmedInformation() throws {
         var draft = DeclarerPlanDraft()
         draft.contractLevel = 4

@@ -812,8 +812,16 @@ private struct DeclarerEntryPanel: View {
             }
             .labelsHidden()
             .pickerStyle(.menu)
-            TextField("首攻（可选，例如 ♠2）", text: draftBinding(for: \.openingLead))
+            TextField("首攻（可选，例如 S2 或 ♥10）", text: draftBinding(for: \.openingLead))
                 .textFieldStyle(.roundedBorder)
+                .accessibilityIdentifier("opening-lead-input")
+            if let openingLeadError {
+                Text(openingLeadError)
+                    .font(.system(size: 10))
+                    .foregroundStyle(BridgePalette.warning)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .accessibilityIdentifier("opening-lead-validation-error")
+            }
         }
         .padding(14)
         .background(BridgePalette.soft, in: RoundedRectangle(cornerRadius: 15, style: .continuous))
@@ -851,6 +859,12 @@ private struct DeclarerEntryPanel: View {
     private var selectedContractColor: Color {
         guard let contract = selectedContractChoice else { return BridgePalette.muted }
         return BridgePalette.contractColor(for: contract.strain)
+    }
+
+    private var openingLeadError: String? {
+        let input = workflow.draft.openingLead.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !input.isEmpty, OpeningLead(input: input) == nil else { return nil }
+        return OpeningLeadInputError.invalidInput(input).localizedDescription
     }
 
     private var generationButtonTitle: String {
@@ -1158,16 +1172,20 @@ private struct ContractSelectionGrid: View {
         } label: {
             Text("\(level)\(strain.symbol)")
                 .font(.system(size: 12, weight: .semibold, design: .rounded))
-                .foregroundStyle(isSelected ? .white : BridgePalette.contractColor(for: strain))
+                .foregroundStyle(BridgePalette.contractColor(for: strain))
                 .frame(width: 52, height: 36)
-                .background(isSelected ? BridgePalette.green : BridgePalette.soft, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                .background(BridgePalette.contractBackground(for: strain), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
                 .overlay(
                     RoundedRectangle(cornerRadius: 8, style: .continuous)
-                        .stroke(isFocused ? BridgePalette.amber : isSelected ? BridgePalette.green : BridgePalette.border, lineWidth: isFocused ? 2 : 1)
+                        .stroke(
+                            isFocused ? BridgePalette.amber : isSelected ? BridgePalette.contractColor(for: strain) : BridgePalette.border,
+                            lineWidth: isFocused || isSelected ? 2 : 1
+                        )
                 )
         }
         .buttonStyle(.plain)
         .focusable()
+        .focusEffectDisabled()
         .focused($focusedContractOption, equals: optionIdentifier)
         .onKeyPress(.return) {
             onSelect(ContractChoice(level: level, strain: strain))
@@ -1267,7 +1285,8 @@ private struct BridgeDealTable: View {
         let contract = contractLevel.flatMap { level in
             contractStrain.map { "\(level)\($0.symbol)" }
         } ?? "未定约"
-        let lead = openingLead.trimmingCharacters(in: .whitespacesAndNewlines)
+        let rawLead = openingLead.trimmingCharacters(in: .whitespacesAndNewlines)
+        let lead = OpeningLead(input: rawLead)?.description
 
         return Button {
             isShowingContractGrid = true
@@ -1282,7 +1301,7 @@ private struct BridgeDealTable: View {
                     .font(.system(size: 9, weight: .medium))
                     .foregroundStyle(BridgePalette.ink)
                     .lineLimit(1)
-                Text(lead.isEmpty ? "首攻未提供" : "首攻 \(lead)")
+                Text(lead.map { "首攻 \($0)" } ?? (rawLead.isEmpty ? "首攻未提供" : "首攻格式无效"))
                     .font(.system(size: 8))
                     .foregroundStyle(BridgePalette.muted)
                     .lineLimit(1)
@@ -1294,7 +1313,7 @@ private struct BridgeDealTable: View {
             .contentShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
         }
         .buttonStyle(.plain)
-        .accessibilityLabel("桌心定约：\(contract)，\(declarerSeat?.chineseName ?? "庄家未定")，\(lead.isEmpty ? "首攻未提供" : "首攻 \(lead)")")
+        .accessibilityLabel("桌心定约：\(contract)，\(declarerSeat?.chineseName ?? "庄家未定")，\(lead.map { "首攻 \($0)" } ?? (rawLead.isEmpty ? "首攻未提供" : "首攻格式无效"))")
         .accessibilityHint("打开完整叫品表")
         .accessibilityIdentifier("deal-table-contract")
         .popover(isPresented: $isShowingContractGrid, arrowEdge: .bottom) {
@@ -2011,13 +2030,29 @@ enum BridgePalette {
     static let muted = Color(red: 0.43, green: 0.49, blue: 0.44)
     static let green = Color(red: 0.20, green: 0.40, blue: 0.28)
     static let red = Color(red: 0.70, green: 0.24, blue: 0.23)
+    static let orange = Color(red: 0.76, green: 0.37, blue: 0.11)
+    static let suitGreen = Color(red: 0.20, green: 0.48, blue: 0.28)
+    static let purple = Color(red: 0.43, green: 0.32, blue: 0.66)
     static let amber = Color(red: 0.77, green: 0.52, blue: 0.14)
     static let warning = Color(red: 0.67, green: 0.39, blue: 0.11)
 
     static func contractColor(for strain: ContractStrain) -> Color {
         switch strain {
-        case .hearts, .diamonds: red
-        case .spades, .clubs, .noTrump: ink
+        case .spades: ink
+        case .hearts: red
+        case .diamonds: orange
+        case .clubs: suitGreen
+        case .noTrump: purple
+        }
+    }
+
+    static func contractBackground(for strain: ContractStrain) -> Color {
+        switch strain {
+        case .spades: Color(red: 0.94, green: 0.95, blue: 0.94)
+        case .hearts: Color(red: 0.99, green: 0.92, blue: 0.92)
+        case .diamonds: Color(red: 0.99, green: 0.94, blue: 0.88)
+        case .clubs: Color(red: 0.92, green: 0.96, blue: 0.92)
+        case .noTrump: Color(red: 0.95, green: 0.93, blue: 0.98)
         }
     }
 }

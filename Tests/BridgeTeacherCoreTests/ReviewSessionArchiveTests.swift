@@ -31,6 +31,57 @@ final class ReviewSessionArchiveTests: XCTestCase {
         XCTAssertTrue(reopened.draft.otherDecisionTimeFacts.contains("叫牌 1♣—Pass—3NT"))
     }
 
+    func testNormalizedOpeningLeadSurvivesSaveReopenAndTeachingRequest() throws {
+        let temporaryRoot = FileManager.default.temporaryDirectory
+            .appendingPathComponent(UUID().uuidString, isDirectory: true)
+        defer { try? FileManager.default.removeItem(at: temporaryRoot) }
+
+        var draft = DeclarerPlanDraft()
+        draft.contractLevel = 3
+        draft.contractStrain = .noTrump
+        draft.openingLead = "s2"
+        draft.hands[.south, default: [:]][.spades] = "A2"
+        draft = draft.normalizingOpeningLead()
+
+        let snapshot = ReviewSessionSnapshot(
+            title: "Lead round-trip",
+            teachingMode: .declarerPlan,
+            declarerPlan: DeclarerPlanWorkflowArchive(
+                draft: draft,
+                state: .idle,
+                informationVersion: 0,
+                planAnalyses: [],
+                currentPlanID: nil,
+                followUpExchanges: [],
+                followUpQuestion: "",
+                followUpAssumptions: ""
+            ),
+            screenshot: ScreenshotReviewWorkflowArchive(state: .idle, candidate: nil, response: nil),
+            keyPlay: KeyPlayAnalysisWorkflowArchive(
+                draft: KeyPlayAnalysisDraft(),
+                state: .idle,
+                result: nil,
+                resultIsOutdated: false,
+                resultInformationVersion: nil
+            ),
+            doubleDummy: DoubleDummyVerificationWorkflowArchive(
+                draft: DoubleDummyVerificationDraft(),
+                state: .unverified,
+                result: nil,
+                hasOutdatedResult: false
+            )
+        )
+
+        let store = LocalReviewSessionStore(directoryURL: temporaryRoot.appendingPathComponent("reviews", isDirectory: true))
+        let saved = try store.save(snapshot, screenshotURL: nil)
+        let reopened = try store.open(id: saved.id)
+
+        XCTAssertEqual(reopened.snapshot.declarerPlan.draft.openingLead, "♠2")
+        let request = try DeclarerPlanRequestBuilder.build(from: reopened.snapshot.declarerPlan.draft)
+        XCTAssertEqual(request.openingLead, "♠2")
+        XCTAssertTrue(request.prompt.contains("首攻（用户提供）：♠2"))
+    }
+
     @MainActor
     func testReopenedInFlightPlanAndFollowUpReturnToRetryableState() throws {
         var draft = DeclarerPlanDraft()
