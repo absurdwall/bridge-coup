@@ -3,6 +3,34 @@ import XCTest
 @testable import BridgeTeacherCore
 
 final class ReviewSessionArchiveTests: XCTestCase {
+    func testLegacyArchiveWithoutManualAuctionFieldsKeepsThemUnknown() throws {
+        var draft = DeclarerPlanDraft()
+        draft.otherDecisionTimeFacts = "旧备注：叫牌 1♣—Pass—3NT；尚未结构化录入。"
+        let archive = DeclarerPlanWorkflowArchive(
+            draft: draft,
+            state: .idle,
+            informationVersion: 0,
+            planAnalyses: [],
+            currentPlanID: nil,
+            followUpExchanges: [],
+            followUpQuestion: "",
+            followUpAssumptions: ""
+        )
+        let encoded = try JSONEncoder().encode(archive)
+        var object = try XCTUnwrap(JSONSerialization.jsonObject(with: encoded) as? [String: Any])
+        var storedDraft = try XCTUnwrap(object["draft"] as? [String: Any])
+        storedDraft.removeValue(forKey: "auction")
+        storedDraft.removeValue(forKey: "vulnerability")
+        object["draft"] = storedDraft
+        let legacyData = try JSONSerialization.data(withJSONObject: object)
+
+        let reopened = try JSONDecoder().decode(DeclarerPlanWorkflowArchive.self, from: legacyData)
+
+        XCTAssertNil(reopened.draft.auction)
+        XCTAssertNil(reopened.draft.vulnerability)
+        XCTAssertTrue(reopened.draft.otherDecisionTimeFacts.contains("叫牌 1♣—Pass—3NT"))
+    }
+
     @MainActor
     func testReopenedInFlightPlanAndFollowUpReturnToRetryableState() throws {
         var draft = DeclarerPlanDraft()
@@ -58,6 +86,15 @@ final class ReviewSessionArchiveTests: XCTestCase {
         draft.declarerSeat = .north
         draft.contractLevel = 3
         draft.contractStrain = .noTrump
+        draft.vulnerability = .eastWest
+        draft.auction = AuctionRecord(
+            startingSeat: .west,
+            entries: [
+                AuctionEntry(seat: .west, call: .pass),
+                AuctionEntry(seat: .north, call: .unknown),
+                AuctionEntry(seat: .east, call: .bid(level: 1, strain: .noTrump)),
+            ]
+        )
         draft.openingLead = "♠2"
         draft.otherDecisionTimeFacts = "叫牌：1NT—3NT；首攻后等待庄家决定。"
         draft.question = "如何安排前两轮？"
@@ -159,6 +196,8 @@ final class ReviewSessionArchiveTests: XCTestCase {
         XCTAssertEqual(reopened.snapshot.declarerPlan.planAnalyses.map(\.informationVersion), [2, 3])
         XCTAssertEqual(reopened.snapshot.declarerPlan.followUpExchanges, [oldExchange, currentExchange])
         XCTAssertEqual(reopened.snapshot.declarerPlan.draft.decisionTimeVisibleSeats, [.north, .south])
+        XCTAssertEqual(reopened.snapshot.declarerPlan.draft.vulnerability, .eastWest)
+        XCTAssertEqual(reopened.snapshot.declarerPlan.draft.auction, draft.auction)
         XCTAssertEqual(reopened.snapshot.declarerPlan.draft.hands[.east]?[.diamonds], "QJ9")
         XCTAssertEqual(reopened.snapshot.screenshot.candidate, candidate)
         XCTAssertEqual(reopened.snapshot.screenshot.response, response)
@@ -185,6 +224,8 @@ final class ReviewSessionArchiveTests: XCTestCase {
         XCTAssertEqual(request.informationVersion, 3)
         XCTAssertEqual(request.context.visibleHands.map(\.seat), [.north, .south])
         XCTAssertEqual(request.context.unknownSeats, [.east, .west])
+        XCTAssertEqual(request.context.vulnerability, .eastWest)
+        XCTAssertEqual(request.context.auction, draft.auction)
         XCTAssertFalse(request.context.prompt.contains("QJ9"))
         XCTAssertTrue(request.prompt.contains("假设西家持有五张黑桃"))
         XCTAssertEqual(workflow.followUpExchanges.last?.status, .answered(DeclarerPlanResponse(text: "只按当前确认信息分析。")))

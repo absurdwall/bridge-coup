@@ -157,7 +157,7 @@ final class DeclarerPlanWorkflowTests: XCTestCase {
         XCTAssertEqual(workflow.followUpExchanges.count, 2)
     }
 
-    func testLatePlanResponseCannotReplaceAnalysisForCorrectedInformation() async throws {
+    func testLatePlanResponseCannotReplaceAnalysisAfterAuctionAndVulnerabilityCorrection() async throws {
         var draft = DeclarerPlanDraft()
         draft.contractLevel = 4
         draft.contractStrain = .hearts
@@ -170,8 +170,17 @@ final class DeclarerPlanWorkflowTests: XCTestCase {
         var correctedDraft = workflow.draft
         correctedDraft.contractLevel = 3
         correctedDraft.contractStrain = .noTrump
+        correctedDraft.vulnerability = .northSouth
+        correctedDraft.auction = AuctionRecord(
+            startingSeat: .west,
+            entries: [
+                AuctionEntry(seat: .west, call: .pass),
+                AuctionEntry(call: .unknown),
+            ]
+        )
         correctedDraft.otherDecisionTimeFacts = "修正：明手是北家。"
         workflow.updateDraft(correctedDraft)
+        XCTAssertEqual(workflow.informationVersion, 1)
         await workflow.generatePlan()
 
         XCTAssertEqual(workflow.result?.text, "新信息版本的计划。")
@@ -186,6 +195,10 @@ final class DeclarerPlanWorkflowTests: XCTestCase {
         XCTAssertEqual(requests.count, 2)
         XCTAssertEqual(requests[1].contractLevel, 3)
         XCTAssertEqual(requests[1].contractStrain, .noTrump)
+        XCTAssertEqual(requests[1].vulnerability, .northSouth)
+        XCTAssertEqual(requests[1].auction, correctedDraft.auction)
+        XCTAssertTrue(requests[1].prompt.contains("首个行动位置：西家"))
+        XCTAssertTrue(requests[1].prompt.contains("第2次行动（位置未知）：未知叫品"))
     }
 }
 
