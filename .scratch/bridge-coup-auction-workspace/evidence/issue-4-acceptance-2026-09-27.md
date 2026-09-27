@@ -1,6 +1,6 @@
 # Issue #4 acceptance — 2026-09-27
 
-Implementation tickets #5–#11 were integrated at source revision `c565aabe4842a1e30aab53c5b269cdeb839b622a` (`feat: center compact auction table and editor`). This is the acceptance record for the final integrated Bridge Coup auction-workspace path. The initial acceptance found no cross-feature regression; a subsequent Spec review found and fixed incomplete-transcript seat inference, documented below.
+Implementation tickets #5–#11 were integrated at source revision `c565aabe4842a1e30aab53c5b269cdeb839b622a` (`feat: center compact auction table and editor`). This is the acceptance record for the final integrated Bridge Coup auction-workspace path. Later Spec review found and fixed incomplete-transcript seat inference; a retry-order review then found and fixed lost manual-edit tracking through the application model. Both follow-ups are documented below.
 
 ## Spec-review follow-up
 
@@ -12,6 +12,15 @@ The partial-transcript review fix was tested on ticket branch parent `08b4b8c773
 - The isolated package and temporary review store were removed after the check; the standard app and store were not used.
 
 Remaining scope is unchanged: live service evidence below is synthetic-only, and this manual follow-up did not force a runtime late-response race or evaluate teaching quality on a real game.
+
+## Application-model retry-order follow-up
+
+On top of `b565d41c469f2c9d70d1242344d0b3b64cefbbf8`, `BridgeTeacherApplicationModel.updateReviewDraft` now sends changed drafts through its shared `ScreenshotReviewWorkflow` before the workflow updates the shared `DeclarerPlanWorkflow`. This lets recognition review record manual edits before the draft changes. A focused app-model regression first failed against the previous order: after an initial recognition failure, retry returned a recognized opening lead and repopulated the lead the user had cleared through `updateReviewDraft`. It passes with the corrected order and also verifies that the edit is retained in the screenshot-review archive. The test uses an injected deterministic recognition stub and no live service call.
+
+- Focused `swift test --filter ScreenshotRecognitionRetryTests`: **1 test, 0 failures** after the fix; before the fix it failed because `♠2` replaced the user-cleared value and `.openingLead` was missing from archived manual edits.
+- Full `swift test`: **107 tests, 0 failures, 3 DDS-helper-dependent skips**.
+- `git diff --check`: passed.
+- No new packaged/manual GUI run or live service request was made for this code-order correction; the packaged and synthetic-only service evidence above remains the acceptance evidence for those paths.
 
 ## Automated verification
 
