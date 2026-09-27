@@ -495,10 +495,7 @@ private struct DeclarerEntryPanel: View {
     @State private var isScreenshotDetailsExpanded = false
     @State private var isContextExpanded = false
     @State private var isShowingContractGrid = false
-    @State private var isShowingTableContractGrid = false
     @State private var isDoubleDummyVerificationExpanded = false
-    @State private var newAuctionBidLevel = 1
-    @State private var newAuctionBidStrain: ContractStrain = .clubs
     @FocusState private var isContractPickerFocused: Bool
 
     var body: some View {
@@ -831,14 +828,14 @@ private struct DeclarerEntryPanel: View {
             Text("定约背景")
                 .font(.system(size: 13, weight: .semibold))
                 .foregroundStyle(BridgePalette.ink)
-            HStack(spacing: 12) {
+            HStack(spacing: 9) {
                 Picker("做庄人", selection: draftBinding(for: \.declarerSeat)) {
                     Text("未知").tag(Seat?.none)
                     ForEach(Seat.allCases, id: \.self) { seat in
                         Text(seat.chineseName).tag(Optional(seat))
                     }
                 }
-                .frame(maxWidth: 150)
+                .frame(width: 100)
                 Button {
                     isShowingContractGrid = true
                 } label: {
@@ -857,19 +854,20 @@ private struct DeclarerEntryPanel: View {
                     .contentShape(Rectangle())
                 }
                 .buttonStyle(.bordered)
-                .frame(maxWidth: 250)
+                .frame(width: 150)
                 .focused($isContractPickerFocused)
                 .accessibilityIdentifier("contract-grid-picker")
                 .accessibilityLabel("定约：\(selectedContractTitle)，打开完整叫品表")
                 .popover(isPresented: $isShowingContractGrid, arrowEdge: .bottom) {
                     contractSelectionGrid(isShowing: $isShowingContractGrid)
                 }
+                TextField("首攻（可选，如 S2）", text: draftBinding(for: \.openingLead))
+                    .textFieldStyle(.roundedBorder)
+                    .frame(minWidth: 120)
+                    .accessibilityIdentifier("opening-lead-input")
             }
             .labelsHidden()
             .pickerStyle(.menu)
-            TextField("首攻（可选，例如 S2 或 ♥10）", text: draftBinding(for: \.openingLead))
-                .textFieldStyle(.roundedBorder)
-                .accessibilityIdentifier("opening-lead-input")
             if let openingLeadError {
                 Text(openingLeadError)
                     .font(.system(size: 10))
@@ -918,224 +916,23 @@ private struct DeclarerEntryPanel: View {
             }
             .font(.system(size: 11, weight: .regular))
 
-            auctionRecordEditor
         }
         .padding(12)
         .background(BridgePalette.soft, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
     }
 
-    @ViewBuilder
-    private var auctionRecordEditor: some View {
-        if let record = workflow.draft.auction {
-            if record.kind == .noAuction {
-                HStack(spacing: 8) {
-                    Label("已确认本局无叫牌", systemImage: "minus.circle")
-                        .font(.system(size: 11, weight: .medium))
-                        .foregroundStyle(BridgePalette.muted)
-                    Spacer()
-                    Button("改为录入叫牌") {
-                        setAuction(AuctionRecord())
-                    }
-                    .buttonStyle(.borderless)
-                    .font(.system(size: 11, weight: .medium))
-                    .accessibilityIdentifier("start-auction-entry")
-                }
-            } else {
-                if record.entries.isEmpty {
-                    HStack(spacing: 8) {
-                        Text("空白记录：尚无已确认叫品。可直接生成计划，或继续录入。")
-                            .font(.system(size: 10))
-                            .foregroundStyle(BridgePalette.muted)
-                            .fixedSize(horizontal: false, vertical: true)
-                        Spacer(minLength: 4)
-                        Button("确认无叫牌") {
-                            setAuction(AuctionRecord(kind: .noAuction))
-                        }
-                        .buttonStyle(.borderless)
-                        .font(.system(size: 10, weight: .medium))
-                        .accessibilityIdentifier("confirm-no-auction")
-                    }
-                } else {
-                    Text("已录入 \(record.entries.count) 次行动；可保留部分叫牌记录。")
-                        .font(.system(size: 10))
-                        .foregroundStyle(BridgePalette.muted)
-                        .accessibilityIdentifier("auction-entry-count")
-                }
-
-                if !record.entries.isEmpty {
-                    auctionTable(record)
-                }
-                auctionAddControls
-                HStack {
-                    Spacer()
-                    Button("清除叫牌记录") {
-                        setAuction(nil)
-                    }
-                    .buttonStyle(.borderless)
-                    .font(.system(size: 10, weight: .medium))
-                    .foregroundStyle(BridgePalette.muted)
-                    .accessibilityIdentifier("clear-auction-record")
-                }
-            }
-        } else {
-            HStack(spacing: 8) {
-                Text("未提供叫牌记录；仍可录入局况和生成计划。")
-                    .font(.system(size: 10))
-                    .foregroundStyle(BridgePalette.muted)
-                    .fixedSize(horizontal: false, vertical: true)
-                Spacer(minLength: 4)
-                Button("录入叫牌") {
-                    setAuction(AuctionRecord())
-                }
-                .buttonStyle(.borderless)
-                .font(.system(size: 10, weight: .medium))
-                .accessibilityIdentifier("start-auction-entry")
-                Button("无叫牌") {
-                    setAuction(AuctionRecord(kind: .noAuction))
-                }
-                .buttonStyle(.borderless)
-                .font(.system(size: 10, weight: .medium))
-                .accessibilityIdentifier("confirm-no-auction")
-            }
-        }
+    private var auctionRecordBinding: Binding<AuctionRecord?> {
+        Binding(
+            get: { workflow.draft.auction },
+            set: { setAuction($0) }
+        )
     }
 
-    @ViewBuilder
-    private func auctionTable(_ record: AuctionRecord) -> some View {
-        if let rows = record.layoutRows {
-            VStack(spacing: 4) {
-                HStack(spacing: 5) {
-                    ForEach(Seat.allCases, id: \.self) { seat in
-                        Text(shortSeatName(seat))
-                            .font(.system(size: 10, weight: .medium))
-                            .foregroundStyle(BridgePalette.muted)
-                            .frame(maxWidth: .infinity)
-                    }
-                }
-                ForEach(Array(rows.enumerated()), id: \.offset) { rowIndex, row in
-                    HStack(spacing: 5) {
-                        ForEach(Seat.allCases, id: \.self) { seat in
-                            switch row[seat] {
-                            case .layoutBlank:
-                                Color.clear
-                                    .frame(maxWidth: .infinity, minHeight: 30)
-                            case .entry:
-                                if let entryIndex = auctionEntryIndex(row: rowIndex, seat: seat, record: record),
-                                   record.entries.indices.contains(entryIndex) {
-                                    auctionCallPresentation(entry: record.entries[entryIndex])
-                                        .frame(maxWidth: .infinity, minHeight: 30)
-                                        .background(.white, in: RoundedRectangle(cornerRadius: 7, style: .continuous))
-                                        .overlay(RoundedRectangle(cornerRadius: 7, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
-                                } else {
-                                    Color.clear
-                                        .frame(maxWidth: .infinity, minHeight: 30)
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            .accessibilityIdentifier("auction-round-table")
-        } else {
-            VStack(alignment: .leading, spacing: 6) {
-                Label(
-                    record.startingSeat == nil
-                        ? "叫品座位未确认；不默认北家。"
-                        : "起始位置与已确认叫品座位不一致；已保留原归属，请逐项核对。",
-                    systemImage: "exclamationmark.circle"
-                )
-                .font(.system(size: 10))
-                .foregroundStyle(BridgePalette.warning)
-                auctionEntrySeatList(record)
-            }
-            .accessibilityIdentifier("auction-seat-review")
-        }
-    }
-
-    private func auctionEntrySeatList(_ record: AuctionRecord) -> some View {
-        VStack(spacing: 4) {
-            ForEach(record.entries) { entry in
-                let index = record.entries.firstIndex(where: { $0.id == entry.id }) ?? 0
-                HStack(spacing: 6) {
-                    Text("\(index + 1)")
-                        .font(.system(size: 10, weight: .medium, design: .rounded))
-                        .foregroundStyle(BridgePalette.muted)
-                        .frame(width: 18, alignment: .trailing)
-                    Picker("第\(index + 1)次行动位置", selection: auctionEntrySeatBinding(forEntryID: entry.id)) {
-                        Text("未知位置").tag(Seat?.none)
-                        ForEach(Seat.allCases, id: \.self) { seat in
-                            Text(seat.chineseName).tag(Optional(seat))
-                        }
-                    }
-                    .pickerStyle(.menu)
-                    .frame(width: 118, alignment: .leading)
-                    .accessibilityIdentifier("auction-entry-seat-\(entry.id.uuidString)")
-                    auctionCallPresentation(entry: entry)
-                    Spacer(minLength: 0)
-                }
-            }
-        }
-    }
-
-    private var auctionAddControls: some View {
-        VStack(alignment: .leading, spacing: 5) {
-            HStack(spacing: 5) {
-                Text("定约")
-                    .foregroundStyle(BridgePalette.muted)
-                Picker("定约叫品阶数", selection: $newAuctionBidLevel) {
-                    ForEach(1...7, id: \.self) { level in
-                        Text("\(level)阶").tag(level)
-                    }
-                }
-                .pickerStyle(.menu)
-                .labelsHidden()
-                .frame(width: 66)
-                Picker("定约叫品花色", selection: $newAuctionBidStrain) {
-                    ForEach(ContractStrain.allCases, id: \.self) { strain in
-                        Text(strain.symbol).tag(strain)
-                    }
-                }
-                .pickerStyle(.menu)
-                .labelsHidden()
-                .frame(width: 54)
-                Text("预览：\(newAuctionBidLevel)\(newAuctionBidStrain.symbol)")
-                    .foregroundStyle(BridgePalette.muted)
-                Button("添加叫品") {
-                    appendAuctionCall(.bid(level: newAuctionBidLevel, strain: newAuctionBidStrain))
-                }
-                .accessibilityIdentifier("add-auction-bid")
-                Spacer(minLength: 0)
-            }
-            .font(.system(size: 10, weight: .medium))
-            HStack(spacing: 5) {
-                Button("Pass") { appendAuctionCall(.pass) }
-                    .accessibilityIdentifier("add-auction-pass")
-                Button("加倍") { appendAuctionCall(.double) }
-                    .accessibilityIdentifier("add-auction-double")
-                Button("再加倍") { appendAuctionCall(.redouble) }
-                    .accessibilityIdentifier("add-auction-redouble")
-                Button("未知叫品") { appendAuctionCall(.unknown) }
-                    .accessibilityIdentifier("add-auction-unknown")
-                Spacer(minLength: 0)
-            }
-            .font(.system(size: 10, weight: .medium))
-            .buttonStyle(.bordered)
-        }
-    }
-
-    private func auctionCallPresentation(entry: AuctionEntry) -> some View {
-        AuctionCallPresentation(
-            entry: entry,
-            onSaveMeaningNote: { note in setAuctionMeaningNote(for: entry.id, to: note) },
-            onCallChange: { call in updateAuctionCall(for: entry.id, to: call) },
-            onDelete: { deleteAuctionEntry(id: entry.id) }
-        ) {
-            Text(entry.call.displayText)
-                .font(.system(size: 11, weight: .semibold))
-                .foregroundStyle(BridgePalette.ink)
-                .lineLimit(1)
-                .frame(maxWidth: .infinity, minHeight: 28)
-        }
+    private func saveAuctionMeaningNote(_ id: UUID, _ note: String?) {
+        guard var record = workflow.draft.auction,
+              let index = record.entries.firstIndex(where: { $0.id == id }) else { return }
+        record.entries[index].meaningNote = note
+        setAuction(record)
     }
 
     private var auctionStartingSeatBinding: Binding<Seat?> {
@@ -1155,68 +952,10 @@ private struct DeclarerEntryPanel: View {
         )
     }
 
-    private func auctionEntrySeatBinding(forEntryID id: UUID) -> Binding<Seat?> {
-        Binding(
-            get: {
-                workflow.draft.auction?.entries.first(where: { $0.id == id })?.seat
-            },
-            set: { newSeat in
-                guard var record = workflow.draft.auction,
-                      let index = record.entries.firstIndex(where: { $0.id == id }) else { return }
-                record.entries[index].seat = newSeat
-                setAuction(record)
-            }
-        )
-    }
-
-    private func appendAuctionCall(_ call: AuctionCall) {
-        var record = workflow.draft.auction ?? AuctionRecord()
-        guard record.kind == .calls else { return }
-        let seat = record.sequenceSeat(at: record.entries.count)
-        record.entries.append(AuctionEntry(seat: seat, call: call))
-        setAuction(record)
-    }
-
-    private func updateAuctionCall(for id: UUID, to call: AuctionCall) {
-        guard var record = workflow.draft.auction,
-              record.updateCall(forEntryID: id, to: call) else { return }
-        setAuction(record)
-    }
-
-    private func setAuctionMeaningNote(for id: UUID, to note: String?) {
-        guard var record = workflow.draft.auction,
-              record.setMeaningNote(note, forEntryID: id) else { return }
-        setAuction(record)
-    }
-
-    private func deleteAuctionEntry(id: UUID) {
-        guard var record = workflow.draft.auction,
-              record.removeEntry(id: id) else { return }
-        setAuction(record)
-    }
-
     private func setAuction(_ auction: AuctionRecord?) {
         var draft = workflow.draft
         draft.auction = auction
         model.updateReviewDraft(draft)
-    }
-
-    private func auctionEntryIndex(row: Int, seat: Seat, record: AuctionRecord) -> Int? {
-        guard let firstSeat = record.entries.first?.seat ?? record.startingSeat,
-              let firstColumn = Seat.allCases.firstIndex(of: firstSeat),
-              let column = Seat.allCases.firstIndex(of: seat) else { return nil }
-        let absolutePosition = row * Seat.allCases.count + column
-        let entryIndex = absolutePosition - firstColumn
-        return record.entries.indices.contains(entryIndex) ? entryIndex : nil
-    }
-
-    private func shortSeatName(_ seat: Seat) -> String {
-        switch seat {
-        case .north: "北家"
-        case .east: "东家"
-        case .south: "南家"
-        case .west: "西家"
-        }
     }
 
     private func contractSelectionGrid(isShowing: Binding<Bool>) -> some View {
@@ -1279,10 +1018,8 @@ private struct DeclarerEntryPanel: View {
             }
             BridgeDealTable(
                 declarerSeat: workflow.draft.declarerSeat,
-                contractLevel: workflow.draft.contractLevel,
-                contractStrain: workflow.draft.contractStrain,
-                openingLead: workflow.draft.openingLead,
-                isShowingContractGrid: $isShowingTableContractGrid,
+                auction: auctionRecordBinding,
+                onSaveAuctionMeaningNote: saveAuctionMeaningNote,
                 actingSeat: mode == .keyPlayAnalysis ? keyPlayWorkflow.draft.actingSeat : nil,
                 screenshotReviewMode: screenshotWorkflow.screenshotURL != nil,
                 isDecisionTimeVisible: { seat in
@@ -1290,16 +1027,7 @@ private struct DeclarerEntryPanel: View {
                 },
                 holding: { seat, suit in workflow.draft.hands[seat]?[suit] ?? "" },
                 onCommit: commitHolding,
-                onVisibilityChange: setDecisionTimeVisibility,
-                onSelectContract: { contract in
-                    model.handleContractSelectionAction(.select(contract))
-                    isShowingTableContractGrid = false
-                },
-                onClearContract: {
-                    model.handleContractSelectionAction(.clear)
-                    isShowingTableContractGrid = false
-                },
-                onCancelContract: { model.handleContractSelectionAction(.cancel) }
+                onVisibilityChange: setDecisionTimeVisibility
             )
             Text(screenshotWorkflow.screenshotURL == nil
                  ? "点按花色行编辑 · 留空 = 未知 · “-” = 已确认缺门"
@@ -1627,26 +1355,22 @@ private struct ContractSelectionGrid: View {
 
 private struct BridgeDealTable: View {
     let declarerSeat: Seat?
-    let contractLevel: Int?
-    let contractStrain: ContractStrain?
-    let openingLead: String
-    @Binding var isShowingContractGrid: Bool
+    @Binding var auction: AuctionRecord?
+    let onSaveAuctionMeaningNote: (UUID, String?) -> Void
     let actingSeat: Seat?
     let screenshotReviewMode: Bool
     let isDecisionTimeVisible: (Seat) -> Bool
     let holding: (Seat, Suit) -> String
     let onCommit: (Seat, Suit, String) -> String?
     let onVisibilityChange: (Seat, Bool) -> Void
-    let onSelectContract: (ContractChoice) -> Void
-    let onClearContract: () -> Void
-    let onCancelContract: () -> Void
 
     var body: some View {
         VStack(spacing: 8) {
             seatCard(.north)
             HStack(spacing: 8) {
                 seatCard(.west)
-                contractCard
+                AuctionTableView(record: $auction, onSaveMeaningNote: onSaveAuctionMeaningNote)
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 82)
                 seatCard(.east)
             }
             seatCard(.south)
@@ -1673,62 +1397,6 @@ private struct BridgeDealTable: View {
         .frame(minHeight: 82)
     }
 
-    private var contractCard: some View {
-        let contract = contractLevel.flatMap { level in
-            contractStrain.map { "\(level)\($0.symbol)" }
-        } ?? "未定约"
-        let rawLead = openingLead.trimmingCharacters(in: .whitespacesAndNewlines)
-        let lead = OpeningLead(input: rawLead)?.description
-
-        return Button {
-            isShowingContractGrid = true
-        } label: {
-            VStack(spacing: 3) {
-                Text(contract)
-                    .font(.system(size: 16, weight: .bold, design: .rounded))
-                    .foregroundStyle(contractColor)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.75)
-                Text(declarerSeat?.chineseName ?? "庄家未定")
-                    .font(.system(size: 9, weight: .medium))
-                    .foregroundStyle(BridgePalette.ink)
-                    .lineLimit(1)
-                Text(lead.map { "首攻 \($0)" } ?? (rawLead.isEmpty ? "首攻未提供" : "首攻格式无效"))
-                    .font(.system(size: 8))
-                    .foregroundStyle(BridgePalette.muted)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.7)
-            }
-            .frame(width: 84, height: 82)
-            .background(.white.opacity(0.84), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
-            .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
-            .contentShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-        }
-        .buttonStyle(.plain)
-        .accessibilityLabel("桌心定约：\(contract)，\(declarerSeat?.chineseName ?? "庄家未定")，\(lead.map { "首攻 \($0)" } ?? (rawLead.isEmpty ? "首攻未提供" : "首攻格式无效"))")
-        .accessibilityHint("打开完整叫品表")
-        .accessibilityIdentifier("deal-table-contract")
-        .popover(isPresented: $isShowingContractGrid, arrowEdge: .bottom) {
-            ContractSelectionGrid(
-                selectedContract: contractLevel.flatMap { level in
-                    contractStrain.map { ContractChoice(level: level, strain: $0) }
-                },
-                onSelect: onSelectContract,
-                onClear: onClearContract,
-                onCancel: {
-                    onCancelContract()
-                    isShowingContractGrid = false
-                }
-            )
-        }
-    }
-
-    private var contractColor: Color {
-        switch contractStrain {
-        case .hearts, .diamonds: BridgePalette.red
-        case .spades, .clubs, .noTrump, .none: BridgePalette.green
-        }
-    }
 }
 
 private struct HandEntryCard: View {
@@ -1812,8 +1480,8 @@ private struct HandEntryCard: View {
                 Text(editError ?? "Enter 保存 · Esc 取消 · - 空门")
                     .font(.system(size: 8, weight: editError == nil ? .regular : .medium))
                     .foregroundStyle(editError == nil ? BridgePalette.muted : BridgePalette.warning)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.75)
+                    .lineLimit(2)
+                    .fixedSize(horizontal: false, vertical: true)
                     .accessibilityIdentifier(editError == nil ? "hand-edit-hint" : "hand-edit-error")
             }
         } else {
@@ -1825,15 +1493,14 @@ private struct HandEntryCard: View {
                     Text(displayHolding(holding(suit)))
                         .font(.system(size: 10, weight: .medium, design: .monospaced))
                         .foregroundStyle(holdingColor(holding(suit)))
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.72)
+                        .fixedSize(horizontal: false, vertical: true)
                     Spacer(minLength: 0)
                 }
                 .frame(maxWidth: .infinity, minHeight: 13, alignment: .leading)
                 .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
-            .accessibilityLabel("编辑\(seat.chineseName)\(suit.chineseName)；\(displayHolding(holding(suit)))")
+            .accessibilityLabel("编辑\(seat.chineseName)\(suit.chineseName)；\(accessibilityHolding(holding(suit)))")
             .accessibilityIdentifier("hand-row-\(seat.rawValue)-\(suit.rawValue)")
         }
     }
@@ -1866,14 +1533,23 @@ private struct HandEntryCard: View {
     private func displayHolding(_ raw: String) -> String {
         let cleaned = raw.uppercased().filter { !$0.isWhitespace && $0 != "," && $0 != ";" }
         if cleaned.isEmpty { return "未知" }
-        if cleaned == "-" || cleaned == "—" || cleaned == "VOID" { return "— 已确认空门" }
+        if cleaned == "-" || cleaned == "—" || cleaned == "VOID" { return "—" }
         return cleaned.replacingOccurrences(of: "T", with: "10")
     }
 
     private func holdingColor(_ raw: String) -> Color {
-        displayHolding(raw) == "未知" || displayHolding(raw).contains("已确认空门")
+        displayHolding(raw) == "未知" || isConfirmedVoid(raw)
             ? BridgePalette.muted
             : BridgePalette.ink
+    }
+
+    private func accessibilityHolding(_ raw: String) -> String {
+        isConfirmedVoid(raw) ? "已确认空门" : displayHolding(raw)
+    }
+
+    private func isConfirmedVoid(_ raw: String) -> Bool {
+        let cleaned = raw.uppercased().filter { !$0.isWhitespace && $0 != "," && $0 != ";" }
+        return cleaned == "-" || cleaned == "—" || cleaned == "VOID"
     }
 
     private func beginEditing(_ suit: Suit) {
