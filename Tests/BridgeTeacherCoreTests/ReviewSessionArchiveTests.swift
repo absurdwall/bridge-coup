@@ -3,6 +3,335 @@ import XCTest
 @testable import BridgeTeacherCore
 
 final class ReviewSessionArchiveTests: XCTestCase {
+    func testLegacyArchiveWithoutManualAuctionFieldsKeepsThemUnknown() throws {
+        var draft = DeclarerPlanDraft()
+        draft.otherDecisionTimeFacts = "旧备注：叫牌 1♣—Pass—3NT；尚未结构化录入。"
+        let archive = DeclarerPlanWorkflowArchive(
+            draft: draft,
+            state: .idle,
+            informationVersion: 0,
+            planAnalyses: [],
+            currentPlanID: nil,
+            followUpExchanges: [],
+            followUpQuestion: "",
+            followUpAssumptions: ""
+        )
+        let encoded = try JSONEncoder().encode(archive)
+        var object = try XCTUnwrap(JSONSerialization.jsonObject(with: encoded) as? [String: Any])
+        var storedDraft = try XCTUnwrap(object["draft"] as? [String: Any])
+        storedDraft.removeValue(forKey: "auction")
+        storedDraft.removeValue(forKey: "vulnerability")
+        object["draft"] = storedDraft
+        let legacyData = try JSONSerialization.data(withJSONObject: object)
+
+        let reopened = try JSONDecoder().decode(DeclarerPlanWorkflowArchive.self, from: legacyData)
+
+        XCTAssertNil(reopened.draft.auction)
+        XCTAssertNil(reopened.draft.vulnerability)
+        XCTAssertTrue(reopened.draft.otherDecisionTimeFacts.contains("叫牌 1♣—Pass—3NT"))
+    }
+
+    func testNormalizedOpeningLeadSurvivesSaveReopenAndTeachingRequest() throws {
+        let temporaryRoot = FileManager.default.temporaryDirectory
+            .appendingPathComponent(UUID().uuidString, isDirectory: true)
+        defer { try? FileManager.default.removeItem(at: temporaryRoot) }
+
+        var draft = DeclarerPlanDraft()
+        draft.contractLevel = 3
+        draft.contractStrain = .noTrump
+        draft.openingLead = "s2"
+        draft.hands[.south, default: [:]][.spades] = "A2"
+        draft = draft.normalizingOpeningLead()
+
+        let snapshot = ReviewSessionSnapshot(
+            title: "Lead round-trip",
+            teachingMode: .declarerPlan,
+            declarerPlan: DeclarerPlanWorkflowArchive(
+                draft: draft,
+                state: .idle,
+                informationVersion: 0,
+                planAnalyses: [],
+                currentPlanID: nil,
+                followUpExchanges: [],
+                followUpQuestion: "",
+                followUpAssumptions: ""
+            ),
+            screenshot: ScreenshotReviewWorkflowArchive(state: .idle, candidate: nil, response: nil),
+            keyPlay: KeyPlayAnalysisWorkflowArchive(
+                draft: KeyPlayAnalysisDraft(),
+                state: .idle,
+                result: nil,
+                resultIsOutdated: false,
+                resultInformationVersion: nil
+            ),
+            doubleDummy: DoubleDummyVerificationWorkflowArchive(
+                draft: DoubleDummyVerificationDraft(),
+                state: .unverified,
+                result: nil,
+                hasOutdatedResult: false
+            )
+        )
+
+        let store = LocalReviewSessionStore(directoryURL: temporaryRoot.appendingPathComponent("reviews", isDirectory: true))
+        let saved = try store.save(snapshot, screenshotURL: nil)
+        let reopened = try store.open(id: saved.id)
+
+        XCTAssertEqual(reopened.snapshot.declarerPlan.draft.openingLead, "♠2")
+        let request = try DeclarerPlanRequestBuilder.build(from: reopened.snapshot.declarerPlan.draft)
+        XCTAssertEqual(request.openingLead, "♠2")
+        XCTAssertTrue(request.prompt.contains("首攻（用户提供）：♠2"))
+    }
+
+    func testArchiveWithPreKindAuctionRecordDefaultsToCallsAndKeepsConfirmedOwners() throws {
+        var draft = DeclarerPlanDraft()
+        draft.auction = AuctionRecord(
+            startingSeat: .west,
+            entries: [
+                AuctionEntry(seat: .west, call: .pass),
+                AuctionEntry(seat: .north, call: .bid(level: 1, strain: .clubs)),
+            ]
+        )
+        let encoded = try JSONEncoder().encode(workflowArchive(draft: draft))
+        var object = try XCTUnwrap(JSONSerialization.jsonObject(with: encoded) as? [String: Any])
+        var storedDraft = try XCTUnwrap(object["draft"] as? [String: Any])
+        var storedAuction = try XCTUnwrap(storedDraft["auction"] as? [String: Any])
+        storedAuction.removeValue(forKey: "kind")
+        storedAuction.removeValue(forKey: "isPartial")
+        if var entries = storedAuction["entries"] as? [[String: Any]] {
+            for index in entries.indices {
+                entries[index].removeValue(forKey: "seatIsSequenceDerived")
+            }
+            storedAuction["entries"] = entries
+        }
+        storedDraft["auction"] = storedAuction
+        object["draft"] = storedDraft
+        let previousSchemaData = try JSONSerialization.data(withJSONObject: object)
+
+        let reopened = try JSONDecoder().decode(DeclarerPlanWorkflowArchive.self, from: previousSchemaData)
+
+        XCTAssertEqual(reopened.draft.auction?.kind, .calls)
+        XCTAssertFalse(try XCTUnwrap(reopened.draft.auction).isPartial)
+        XCTAssertEqual(reopened.draft.auction?.startingSeat, .west)
+        XCTAssertEqual(reopened.draft.auction?.entries.map(\.seat), [.west, .north])
+        XCTAssertEqual(reopened.draft.auction?.entries.map(\.seatIsSequenceDerived), [true, true])
+        XCTAssertEqual(reopened.draft.auction?.entries.map(\.call), [.pass, .bid(level: 1, strain: .clubs)])
+    }
+
+    func testLegacyScreenshotAuctionCandidateArchiveDefaultsToComplete() throws {
+        let candidate = ScreenshotRecognitionCandidate(
+            hands: [:],
+            declarerSeat: nil,
+            contractLevel: nil,
+            contractStrain: nil,
+            openingLead: nil,
+            otherDecisionTimeFacts: "",
+            notes: [],
+            auction: ScreenshotAuctionCandidate(
+                startingSeat: .west,
+                entries: [ScreenshotAuctionEntryCandidate(seat: nil, action: .pass)]
+            )
+        )
+        let archive = ScreenshotReviewWorkflowArchive(
+            state: .succeeded,
+            candidate: candidate,
+            response: ScreenshotRecognitionResponse(candidate: candidate),
+            sourceFilename: "legacy.png"
+        )
+        let encoded = try JSONEncoder().encode(archive)
+        var object = try XCTUnwrap(JSONSerialization.jsonObject(with: encoded) as? [String: Any])
+        for key in ["candidate", "response"] {
+            var wrapper = try XCTUnwrap(object[key] as? [String: Any])
+            let candidateKey = key == "candidate" ? nil : "candidate"
+            if let candidateKey {
+                var nestedCandidate = try XCTUnwrap(wrapper[candidateKey] as? [String: Any])
+                var auction = try XCTUnwrap(nestedCandidate["auction"] as? [String: Any])
+                auction.removeValue(forKey: "isPartial")
+                nestedCandidate["auction"] = auction
+                wrapper[candidateKey] = nestedCandidate
+            } else {
+                var auction = try XCTUnwrap(wrapper["auction"] as? [String: Any])
+                auction.removeValue(forKey: "isPartial")
+                wrapper["auction"] = auction
+            }
+            object[key] = wrapper
+        }
+        let legacyData = try JSONSerialization.data(withJSONObject: object)
+
+        let reopened = try JSONDecoder().decode(ScreenshotReviewWorkflowArchive.self, from: legacyData)
+
+        XCTAssertFalse(try XCTUnwrap(reopened.candidate?.auction).isPartial)
+        XCTAssertFalse(try XCTUnwrap(reopened.response?.candidate.auction).isPartial)
+    }
+
+    func testLocalReviewStorePreservesRepeatedCallIDsAndIndependentNotes() throws {
+        let temporaryRoot = FileManager.default.temporaryDirectory
+            .appendingPathComponent(UUID().uuidString, isDirectory: true)
+        defer { try? FileManager.default.removeItem(at: temporaryRoot) }
+
+        var draft = DeclarerPlanDraft()
+        let first = AuctionEntry(seat: .west, call: .pass, meaningNote: "仅当约定条件甲成立。")
+        let second = AuctionEntry(seat: .north, call: .pass, meaningNote: "仅当约定条件乙成立。")
+        draft.auction = AuctionRecord(startingSeat: .west, entries: [first, second])
+        let snapshot = ReviewSessionSnapshot(
+            title: "Auction meaning notes",
+            teachingMode: .declarerPlan,
+            declarerPlan: workflowArchive(draft: draft),
+            screenshot: ScreenshotReviewWorkflowArchive(state: .idle, candidate: nil, response: nil),
+            keyPlay: KeyPlayAnalysisWorkflowArchive(
+                draft: KeyPlayAnalysisDraft(),
+                state: .idle,
+                result: nil,
+                resultIsOutdated: false,
+                resultInformationVersion: nil
+            ),
+            doubleDummy: DoubleDummyVerificationWorkflowArchive(
+                draft: DoubleDummyVerificationDraft(),
+                state: .unverified,
+                result: nil,
+                hasOutdatedResult: false
+            )
+        )
+        let store = LocalReviewSessionStore(directoryURL: temporaryRoot.appendingPathComponent("reviews", isDirectory: true))
+
+        let saved = try store.save(snapshot, screenshotURL: nil)
+        let reopened = try store.open(id: saved.id)
+        let entries = try XCTUnwrap(reopened.snapshot.declarerPlan.draft.auction?.entries)
+
+        XCTAssertEqual(entries.map(\.id), [first.id, second.id])
+        XCTAssertNotEqual(entries[0].id, entries[1].id)
+        XCTAssertEqual(entries.map(\.call), [.pass, .pass])
+        XCTAssertEqual(entries.map(\.meaningNote), ["仅当约定条件甲成立。", "仅当约定条件乙成立。"])
+    }
+
+    func testConfirmedNoAuctionStateSurvivesArchiveRoundTrip() throws {
+        var draft = DeclarerPlanDraft()
+        draft.auction = AuctionRecord(kind: .noAuction)
+
+        let encoded = try JSONEncoder().encode(workflowArchive(draft: draft))
+        let reopened = try JSONDecoder().decode(DeclarerPlanWorkflowArchive.self, from: encoded)
+
+        XCTAssertEqual(reopened.draft.auction, AuctionRecord(kind: .noAuction))
+        XCTAssertEqual(reopened.draft.auction?.layoutRows, [])
+    }
+
+    func testLegacyScreenshotArchiveDefaultsManualEditTrackingToEmpty() throws {
+        let archive = ScreenshotReviewWorkflowArchive(state: .idle, candidate: nil, response: nil)
+        let encoded = try JSONEncoder().encode(archive)
+        var object = try XCTUnwrap(JSONSerialization.jsonObject(with: encoded) as? [String: Any])
+        object.removeValue(forKey: "manuallyEditedFields")
+        let legacyData = try JSONSerialization.data(withJSONObject: object)
+
+        let reopened = try JSONDecoder().decode(ScreenshotReviewWorkflowArchive.self, from: legacyData)
+
+        XCTAssertTrue(reopened.manuallyEditedFields.isEmpty)
+    }
+
+    @MainActor
+    func testClearedScreenshotAuctionCandidateAndEditStateSurviveArchiveReopen() async throws {
+        let temporaryRoot = FileManager.default.temporaryDirectory
+            .appendingPathComponent(UUID().uuidString, isDirectory: true)
+        defer { try? FileManager.default.removeItem(at: temporaryRoot) }
+
+        let candidate = ScreenshotRecognitionCandidate(
+            hands: [.south: [.spades: "A"]],
+            declarerSeat: .south,
+            contractLevel: 3,
+            contractStrain: .noTrump,
+            openingLead: nil,
+            otherDecisionTimeFacts: "",
+            notes: [ScreenshotRecognitionNote(field: "auction", kind: .visibleButUnclear, message: "第二次行动叫品不清。")],
+            vulnerability: .both,
+            auction: ScreenshotAuctionCandidate(
+                startingSeat: .north,
+                entries: [
+                    ScreenshotAuctionEntryCandidate(seat: .north, action: .bid, level: 1, strain: .clubs),
+                    ScreenshotAuctionEntryCandidate(seat: .east, action: .unknown),
+                ]
+            )
+        )
+        let response = ScreenshotRecognitionResponse(candidate: candidate, model: "vision-model")
+        var draft = DeclarerPlanDraft()
+        draft.declarerSeat = .south
+        draft.contractLevel = 3
+        draft.contractStrain = .noTrump
+        draft.decisionTimeConfirmed = false
+        draft.hands[.south, default: [:]][.spades] = "A"
+
+        let screenshotArchive = ScreenshotReviewWorkflowArchive(
+            state: .succeeded,
+            candidate: candidate,
+            response: response,
+            sourceFilename: "auction-crop.png",
+            manuallyEditedFields: [
+                .auction,
+                .vulnerability,
+                .hand(seat: .south, suit: .spades),
+            ]
+        )
+        let snapshot = ReviewSessionSnapshot(
+            title: "Unconfirmed screenshot auction",
+            teachingMode: .declarerPlan,
+            declarerPlan: workflowArchive(draft: draft),
+            screenshot: screenshotArchive,
+            keyPlay: KeyPlayAnalysisWorkflowArchive(
+                draft: KeyPlayAnalysisDraft(),
+                state: .idle,
+                result: nil,
+                resultIsOutdated: false,
+                resultInformationVersion: nil
+            ),
+            doubleDummy: DoubleDummyVerificationWorkflowArchive(
+                draft: DoubleDummyVerificationDraft(),
+                state: .unverified,
+                result: nil,
+                hasOutdatedResult: false
+            )
+        )
+        let store = LocalReviewSessionStore(directoryURL: temporaryRoot.appendingPathComponent("reviews", isDirectory: true))
+        let saved = try store.save(snapshot, screenshotURL: nil)
+        let reopened = try store.open(id: saved.id)
+
+        XCTAssertEqual(reopened.snapshot.screenshot.state, .succeeded)
+        XCTAssertEqual(reopened.snapshot.screenshot.candidate, candidate)
+        XCTAssertEqual(reopened.snapshot.screenshot.candidate?.notes, candidate.notes)
+        XCTAssertEqual(reopened.snapshot.screenshot.manuallyEditedFields, [
+            .auction,
+            .vulnerability,
+            .hand(seat: .south, suit: .spades),
+        ])
+        XCTAssertFalse(reopened.snapshot.declarerPlan.draft.decisionTimeConfirmed)
+
+        let planWorkflow = DeclarerPlanWorkflow(runtime: ReopenedFollowUpRuntime())
+        planWorkflow.restore(from: reopened.snapshot.declarerPlan)
+        let reviewWorkflow = ScreenshotReviewWorkflow(
+            planWorkflow: planWorkflow,
+            runtime: ArchivedScreenshotRecognitionRuntime(response)
+        )
+        reviewWorkflow.restore(from: reopened.snapshot.screenshot, screenshotURL: URL(fileURLWithPath: "/tmp/auction-crop.png"))
+        XCTAssertThrowsError(try DeclarerPlanRequestBuilder.build(from: planWorkflow.draft)) { error in
+            XCTAssertEqual(error as? DeclarerPlanInputError, .decisionTimeNotConfirmed)
+        }
+
+        await reviewWorkflow.recognizeScreenshot()
+
+        XCTAssertNil(planWorkflow.draft.auction)
+        XCTAssertNil(planWorkflow.draft.vulnerability)
+        XCTAssertFalse(planWorkflow.draft.decisionTimeConfirmed)
+    }
+
+    private func workflowArchive(draft: DeclarerPlanDraft) -> DeclarerPlanWorkflowArchive {
+        DeclarerPlanWorkflowArchive(
+            draft: draft,
+            state: .idle,
+            informationVersion: 0,
+            planAnalyses: [],
+            currentPlanID: nil,
+            followUpExchanges: [],
+            followUpQuestion: "",
+            followUpAssumptions: ""
+        )
+    }
+
     @MainActor
     func testReopenedInFlightPlanAndFollowUpReturnToRetryableState() throws {
         var draft = DeclarerPlanDraft()
@@ -58,6 +387,15 @@ final class ReviewSessionArchiveTests: XCTestCase {
         draft.declarerSeat = .north
         draft.contractLevel = 3
         draft.contractStrain = .noTrump
+        draft.vulnerability = .eastWest
+        draft.auction = AuctionRecord(
+            startingSeat: .west,
+            entries: [
+                AuctionEntry(seat: .west, call: .pass),
+                AuctionEntry(seat: .north, call: .unknown),
+                AuctionEntry(seat: .east, call: .bid(level: 1, strain: .noTrump)),
+            ]
+        )
         draft.openingLead = "♠2"
         draft.otherDecisionTimeFacts = "叫牌：1NT—3NT；首攻后等待庄家决定。"
         draft.question = "如何安排前两轮？"
@@ -106,7 +444,15 @@ final class ReviewSessionArchiveTests: XCTestCase {
             contractStrain: .noTrump,
             openingLead: nil,
             otherDecisionTimeFacts: "",
-            notes: [ScreenshotRecognitionNote(field: "declarerSeat", kind: .notShown, message: "截图未标注庄家。")]
+            notes: [ScreenshotRecognitionNote(field: "declarerSeat", kind: .notShown, message: "截图未标注庄家。")],
+            vulnerability: .both,
+            auction: ScreenshotAuctionCandidate(
+                startingSeat: .north,
+                entries: [
+                    ScreenshotAuctionEntryCandidate(seat: .north, action: .bid, level: 1, strain: .hearts),
+                    ScreenshotAuctionEntryCandidate(seat: .east, action: .unknown),
+                ]
+            )
         )
         let response = ScreenshotRecognitionResponse(candidate: candidate, model: "vision-model", runtimeVersion: "0.156.1")
 
@@ -159,8 +505,15 @@ final class ReviewSessionArchiveTests: XCTestCase {
         XCTAssertEqual(reopened.snapshot.declarerPlan.planAnalyses.map(\.informationVersion), [2, 3])
         XCTAssertEqual(reopened.snapshot.declarerPlan.followUpExchanges, [oldExchange, currentExchange])
         XCTAssertEqual(reopened.snapshot.declarerPlan.draft.decisionTimeVisibleSeats, [.north, .south])
+        XCTAssertEqual(reopened.snapshot.declarerPlan.draft.vulnerability, .eastWest)
+        XCTAssertEqual(reopened.snapshot.declarerPlan.draft.auction, draft.auction)
         XCTAssertEqual(reopened.snapshot.declarerPlan.draft.hands[.east]?[.diamonds], "QJ9")
         XCTAssertEqual(reopened.snapshot.screenshot.candidate, candidate)
+        XCTAssertEqual(reopened.snapshot.screenshot.state, .succeeded)
+        XCTAssertEqual(reopened.snapshot.screenshot.candidate?.vulnerability, .both)
+        XCTAssertEqual(reopened.snapshot.screenshot.candidate?.auction?.entries.map(\.auctionCall), [
+            .bid(level: 1, strain: .hearts), .unknown,
+        ])
         XCTAssertEqual(reopened.snapshot.screenshot.response, response)
         XCTAssertEqual(reopened.snapshot.screenshot.sourceFilename, "original-board.jpg")
         XCTAssertEqual(reopened.snapshot.keyPlay.result, session.keyPlay.result)
@@ -185,6 +538,8 @@ final class ReviewSessionArchiveTests: XCTestCase {
         XCTAssertEqual(request.informationVersion, 3)
         XCTAssertEqual(request.context.visibleHands.map(\.seat), [.north, .south])
         XCTAssertEqual(request.context.unknownSeats, [.east, .west])
+        XCTAssertEqual(request.context.vulnerability, .eastWest)
+        XCTAssertEqual(request.context.auction, draft.auction)
         XCTAssertFalse(request.context.prompt.contains("QJ9"))
         XCTAssertTrue(request.prompt.contains("假设西家持有五张黑桃"))
         XCTAssertEqual(workflow.followUpExchanges.last?.status, .answered(DeclarerPlanResponse(text: "只按当前确认信息分析。")))
@@ -204,4 +559,16 @@ private actor ReopenedFollowUpRuntime: DeclarerTeachingRuntime {
     }
 
     func lastFollowUpRequest() -> DeclarerFollowUpRequest? { followUpRequest }
+}
+
+private actor ArchivedScreenshotRecognitionRuntime: ScreenshotRecognitionRuntime {
+    private let response: ScreenshotRecognitionResponse
+
+    init(_ response: ScreenshotRecognitionResponse) {
+        self.response = response
+    }
+
+    func recognizeScreenshot(at imageURL: URL) async throws -> ScreenshotRecognitionResponse {
+        response
+    }
 }

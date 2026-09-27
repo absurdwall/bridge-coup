@@ -58,6 +58,177 @@ final class DeclarerPlanRequestBuilderTests: XCTestCase {
         XCTAssertTrue(request.prompt.contains("♦未知"))
     }
 
+    func testManualAuctionAndVulnerabilityReachRequestWithUnknownPassAndLayoutDistinct() throws {
+        var draft = DeclarerPlanDraft()
+        draft.contractLevel = 3
+        draft.contractStrain = .noTrump
+        draft.vulnerability = .eastWest
+        draft.auction = AuctionRecord(
+            startingSeat: .east,
+            entries: [
+                AuctionEntry(seat: .east, call: .pass),
+                AuctionEntry(seat: .south, call: .unknown),
+                AuctionEntry(seat: .west, call: .bid(level: 1, strain: .hearts)),
+            ]
+        )
+        draft.hands[.south, default: [:]][.spades] = "AKQ2"
+
+        let request = try DeclarerPlanRequestBuilder.build(from: draft, informationVersion: 8)
+
+        XCTAssertEqual(request.informationVersion, 8)
+        XCTAssertEqual(request.vulnerability, .eastWest)
+        XCTAssertEqual(request.auction, draft.auction)
+        XCTAssertTrue(request.prompt.contains("局况：东西有局"))
+        XCTAssertTrue(request.prompt.contains("首个行动位置：东家"))
+        XCTAssertTrue(request.prompt.contains("第1次行动（东家）：Pass"))
+        XCTAssertTrue(request.prompt.contains("第2次行动（南家）：未知叫品"))
+        XCTAssertTrue(request.prompt.contains("第3次行动（西家）：1♥"))
+        XCTAssertTrue(request.prompt.contains("Pass 只表示明确录入的 Pass"))
+        XCTAssertTrue(request.prompt.contains(AuctionCall.promptSemanticsInstruction))
+
+        let rows = try XCTUnwrap(draft.auction?.layoutRows)
+        XCTAssertEqual(rows.count, 1)
+        XCTAssertEqual(rows[0][.north], .layoutBlank)
+        XCTAssertEqual(rows[0][.east], .entry(try XCTUnwrap(draft.auction?.entries[0])))
+        XCTAssertEqual(rows[0][.south], .entry(try XCTUnwrap(draft.auction?.entries[1])))
+        XCTAssertEqual(rows[0][.west], .entry(try XCTUnwrap(draft.auction?.entries[2])))
+    }
+
+    func testAllFourStartingSeatsAlignColumnsAndUnknownSeatIsNeverDefaultedToNorth() throws {
+        for startingSeat in Seat.allCases {
+            let entries = [
+                AuctionEntry(seat: startingSeat, call: .pass),
+                AuctionEntry(seat: Seat.allCases[(Seat.allCases.firstIndex(of: startingSeat)! + 1) % 4], call: .unknown),
+            ]
+            let record = AuctionRecord(startingSeat: startingSeat, entries: entries)
+            let rows = try XCTUnwrap(record.layoutRows)
+            let startIndex = try XCTUnwrap(Seat.allCases.firstIndex(of: startingSeat))
+
+            for (rowIndex, row) in rows.enumerated() {
+                for (columnIndex, seat) in Seat.allCases.enumerated() {
+                    let position = rowIndex * Seat.allCases.count + columnIndex
+                    if position < startIndex || position >= startIndex + entries.count {
+                        XCTAssertEqual(row[seat], .layoutBlank, "alignment at row \(rowIndex), seat \(seat)")
+                    } else {
+                        XCTAssertEqual(row[seat], .entry(entries[position - startIndex]))
+                    }
+                }
+            }
+        }
+
+        let unassigned = AuctionRecord(entries: [AuctionEntry(call: .pass), AuctionEntry(call: .unknown)])
+        XCTAssertNil(unassigned.layoutRows)
+        XCTAssertTrue(unassigned.promptDescription.contains("未知；不得默认北家"))
+        XCTAssertEqual(unassigned.entries.map(\.call), [.pass, .unknown])
+
+        let correctedButUnreconciled = AuctionRecord(
+            startingSeat: .east,
+            entries: [AuctionEntry(seat: .north, call: .pass)]
+        )
+        XCTAssertNil(correctedButUnreconciled.layoutRows, "a correction must not silently move a confirmed call to a different seat")
+
+        var correctedOpeningSeat = AuctionRecord(
+            startingSeat: .west,
+            entries: [
+                AuctionEntry(seat: .west, call: .pass),
+                AuctionEntry(seat: .north, call: .bid(level: 1, strain: .hearts)),
+            ]
+        )
+        let savedOwners = correctedOpeningSeat.entries.map(\.seat)
+        correctedOpeningSeat.startingSeat = .east
+        XCTAssertEqual(correctedOpeningSeat.entries.map(\.seat), savedOwners)
+        XCTAssertNil(correctedOpeningSeat.layoutRows)
+
+        let noAuction = AuctionRecord(kind: .noAuction)
+        XCTAssertEqual(noAuction.layoutRows, [])
+        XCTAssertTrue(noAuction.promptDescription.contains("已确认本局无叫牌"))
+    }
+
+    func testOmittedAuctionAndVulnerabilityStayUnknownWithoutBlockingPlanRequest() throws {
+        var draft = DeclarerPlanDraft()
+        draft.contractLevel = 3
+        draft.contractStrain = .clubs
+        draft.hands[.south, default: [:]][.clubs] = "A2"
+
+        let request = try DeclarerPlanRequestBuilder.build(from: draft)
+
+        XCTAssertNil(request.auction)
+        XCTAssertNil(request.vulnerability)
+        XCTAssertTrue(request.prompt.contains("局况：未提供；保持未知"))
+        XCTAssertTrue(request.prompt.contains("叫牌记录：未提供；这不代表无叫牌"))
+
+        var noAuctionDraft = draft
+        noAuctionDraft.auction = AuctionRecord(kind: .noAuction)
+        let noAuctionRequest = try DeclarerPlanRequestBuilder.build(from: noAuctionDraft)
+        XCTAssertEqual(noAuctionRequest.auction?.kind, .noAuction)
+        XCTAssertTrue(noAuctionRequest.prompt.contains("用户已确认本局无叫牌"))
+    }
+
+    func testCompleteAuctionSeatConflictBlocksPlanRequestButPartialExcerptRemainsUsable() throws {
+        var draft = DeclarerPlanDraft()
+        draft.contractLevel = 3
+        draft.contractStrain = .hearts
+        draft.declarerSeat = .south
+        draft.question = "请制定做庄计划。"
+        draft.hands[.south, default: [:]][.spades] = "A2"
+
+        let conflictingAuction = AuctionRecord(
+            startingSeat: .east,
+            entries: [AuctionEntry(seat: .north, call: .pass)]
+        )
+        draft.auction = conflictingAuction
+
+        XCTAssertThrowsError(try DeclarerPlanRequestBuilder.build(from: draft)) { error in
+            XCTAssertEqual(error as? DeclarerPlanInputError, .conflictingAuctionSeats)
+            XCTAssertTrue(error.localizedDescription.contains("起始座位或行动顺序冲突"))
+        }
+
+        draft.auction = AuctionRecord(
+            startingSeat: .east,
+            entries: [AuctionEntry(seat: .north, call: .pass)],
+            isPartial: true
+        )
+        XCTAssertNoThrow(try DeclarerPlanRequestBuilder.build(from: draft))
+    }
+
+    func testOpeningLeadShortcutsNormalizeInTeachingRequest() throws {
+        let examples = [
+            ("S2", "♠2"),
+            ("h3", "♥3"),
+            ("DA", "♦A"),
+            ("cK", "♣K"),
+            ("♠10", "♠10"),
+            ("dT", "♦10"),
+            ("♥t", "♥10"),
+        ]
+
+        for (input, expected) in examples {
+            var draft = DeclarerPlanDraft()
+            draft.contractLevel = 3
+            draft.contractStrain = .noTrump
+            draft.openingLead = input
+            draft.hands[.south, default: [:]][.spades] = "A2"
+
+            let request = try DeclarerPlanRequestBuilder.build(from: draft)
+
+            XCTAssertEqual(request.openingLead, expected, "Input: \(input)")
+            XCTAssertTrue(request.prompt.contains("首攻（用户提供）：\(expected)"), "Input: \(input)")
+        }
+    }
+
+    func testInvalidOpeningLeadIsRejectedWithActionableFeedback() {
+        var draft = DeclarerPlanDraft()
+        draft.contractLevel = 3
+        draft.contractStrain = .noTrump
+        draft.openingLead = "S1"
+        draft.hands[.south, default: [:]][.spades] = "A2"
+
+        XCTAssertThrowsError(try DeclarerPlanRequestBuilder.build(from: draft)) { error in
+            XCTAssertEqual(error as? OpeningLeadInputError, .invalidInput("S1"))
+            XCTAssertTrue(error.localizedDescription.contains("S2"))
+        }
+    }
+
     func testFollowUpKeepsCurrentPlanAndSeparatesHypothesesFromConfirmedInformation() throws {
         var draft = DeclarerPlanDraft()
         draft.contractLevel = 4

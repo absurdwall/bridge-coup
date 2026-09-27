@@ -7,6 +7,17 @@ public enum ScreenshotRecognitionNoteKind: String, CaseIterable, Codable, Equata
     case ambiguous
 }
 
+public enum ScreenshotRecognitionEditedField: Codable, Hashable, Sendable {
+    case vulnerability
+    case auction
+    case declarerSeat
+    case contractLevel
+    case contractStrain
+    case openingLead
+    case otherDecisionTimeFacts
+    case hand(seat: Seat, suit: Suit)
+}
+
 public struct ScreenshotRecognitionNote: Codable, Equatable, Sendable {
     public let field: String
     public let kind: ScreenshotRecognitionNoteKind
@@ -19,9 +30,118 @@ public struct ScreenshotRecognitionNote: Codable, Equatable, Sendable {
     }
 }
 
+public enum ScreenshotAuctionAction: String, CaseIterable, Codable, Equatable, Sendable {
+    case bid
+    case pass
+    case double
+    case redouble
+    case unknown
+}
+
+/// A single call the recognizer can read from the screenshot. `unknown` is
+/// reserved for a visibly occupied call position whose symbol cannot be read;
+/// the recognizer must omit positions that are not shown.
+public struct ScreenshotAuctionEntryCandidate: Codable, Equatable, Sendable {
+    public var seat: Seat?
+    public var action: ScreenshotAuctionAction
+    public var level: Int?
+    public var strain: ContractStrain?
+
+    public init(
+        seat: Seat? = nil,
+        action: ScreenshotAuctionAction,
+        level: Int? = nil,
+        strain: ContractStrain? = nil
+    ) {
+        self.seat = seat
+        self.action = action
+        self.level = level
+        self.strain = strain
+    }
+
+    public var auctionCall: AuctionCall {
+        switch action {
+        case .bid:
+            guard let level, (1...7).contains(level), let strain else { return .unknown }
+            return .bid(level: level, strain: strain)
+        case .pass:
+            return .pass
+        case .double:
+            return .double
+        case .redouble:
+            return .redouble
+        case .unknown:
+            return .unknown
+        }
+    }
+}
+
+/// Ordered calls visible in the image. An empty list is an empty candidate,
+/// not confirmation that the board had no auction; `nil` on the parent
+/// recognition candidate means the image supplied no auction candidate.
+public struct ScreenshotAuctionCandidate: Codable, Equatable, Sendable {
+    public var startingSeat: Seat?
+    public var entries: [ScreenshotAuctionEntryCandidate]
+    public var isPartial: Bool
+
+    public init(
+        startingSeat: Seat? = nil,
+        entries: [ScreenshotAuctionEntryCandidate] = [],
+        isPartial: Bool = false
+    ) {
+        self.startingSeat = startingSeat
+        self.entries = entries
+        self.isPartial = isPartial
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case startingSeat
+        case entries
+        case isPartial
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        startingSeat = try container.decodeIfPresent(Seat.self, forKey: .startingSeat)
+        entries = try container.decodeIfPresent([ScreenshotAuctionEntryCandidate].self, forKey: .entries) ?? []
+        isPartial = try container.decodeIfPresent(Bool.self, forKey: .isPartial) ?? false
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(startingSeat, forKey: .startingSeat)
+        try container.encode(entries, forKey: .entries)
+        try container.encode(isPartial, forKey: .isPartial)
+    }
+
+    public var auctionRecord: AuctionRecord {
+        let firstPosition: Int?
+        if !isPartial, let startingSeat {
+            firstPosition = Seat.allCases.firstIndex(of: startingSeat)
+        } else {
+            firstPosition = nil
+        }
+        return AuctionRecord(
+            startingSeat: startingSeat,
+            entries: entries.enumerated().map { index, entry in
+                let sequentialSeat = firstPosition.map { Seat.allCases[($0 + index) % Seat.allCases.count] }
+                let inferredSeat = entry.seat == nil ? sequentialSeat : nil
+                return AuctionEntry(
+                    seat: entry.seat ?? sequentialSeat,
+                    seatIsSequenceDerived: inferredSeat != nil,
+                    call: entry.auctionCall
+                )
+            },
+            isPartial: isPartial
+        )
+    }
+}
+
 /// Model output stays a candidate until the player checks the image and the decision point.
 public struct ScreenshotRecognitionCandidate: Codable, Equatable, Sendable {
     public var hands: [Seat: [Suit: String]]
+    public var vulnerability: Vulnerability?
+    public var auction: ScreenshotAuctionCandidate?
     public var declarerSeat: Seat?
     public var contractLevel: Int?
     public var contractStrain: ContractStrain?
@@ -36,9 +156,13 @@ public struct ScreenshotRecognitionCandidate: Codable, Equatable, Sendable {
         contractStrain: ContractStrain?,
         openingLead: String?,
         otherDecisionTimeFacts: String,
-        notes: [ScreenshotRecognitionNote]
+        notes: [ScreenshotRecognitionNote],
+        vulnerability: Vulnerability? = nil,
+        auction: ScreenshotAuctionCandidate? = nil
     ) {
         self.hands = hands
+        self.vulnerability = vulnerability
+        self.auction = auction
         self.declarerSeat = declarerSeat
         self.contractLevel = contractLevel
         self.contractStrain = contractStrain
@@ -49,6 +173,8 @@ public struct ScreenshotRecognitionCandidate: Codable, Equatable, Sendable {
 
     private enum CodingKeys: String, CodingKey {
         case hands
+        case vulnerability
+        case auction
         case declarerSeat
         case contractLevel
         case contractStrain
@@ -83,6 +209,8 @@ public struct ScreenshotRecognitionCandidate: Codable, Equatable, Sendable {
         }
 
         hands = decodedHands
+        vulnerability = try container.decodeIfPresent(Vulnerability.self, forKey: .vulnerability)
+        auction = try container.decodeIfPresent(ScreenshotAuctionCandidate.self, forKey: .auction)
         declarerSeat = try container.decodeIfPresent(Seat.self, forKey: .declarerSeat)
         contractLevel = try container.decodeIfPresent(Int.self, forKey: .contractLevel)
         contractStrain = try container.decodeIfPresent(ContractStrain.self, forKey: .contractStrain)
@@ -97,6 +225,8 @@ public struct ScreenshotRecognitionCandidate: Codable, Equatable, Sendable {
             (seat.rawValue, Dictionary(uniqueKeysWithValues: holdings.map { ($0.key.rawValue, $0.value) }))
         })
         try container.encode(encodedHands, forKey: .hands)
+        try container.encodeIfPresent(vulnerability, forKey: .vulnerability)
+        try container.encodeIfPresent(auction, forKey: .auction)
         try container.encode(declarerSeat?.rawValue, forKey: .declarerSeat)
         try container.encode(contractLevel, forKey: .contractLevel)
         try container.encode(contractStrain?.rawValue, forKey: .contractStrain)
@@ -152,13 +282,15 @@ public final class ScreenshotReviewWorkflow: ObservableObject {
 
     private let runtime: any ScreenshotRecognitionRuntime
     private var recognitionRevision = 0
+    private var manuallyEditedFields: Set<ScreenshotRecognitionEditedField> = []
 
     public func makeArchive() -> ScreenshotReviewWorkflowArchive {
         ScreenshotReviewWorkflowArchive(
             state: state,
             candidate: candidate,
             response: recognitionResponse,
-            sourceFilename: screenshotFilename
+            sourceFilename: screenshotFilename,
+            manuallyEditedFields: manuallyEditedFields
         )
     }
 
@@ -174,6 +306,8 @@ public final class ScreenshotReviewWorkflow: ObservableObject {
         candidate = archive.candidate
         recognitionResponse = archive.response
         state = archive.state == .recognizing ? .idle : archive.state
+        manuallyEditedFields = archive.manuallyEditedFields
+        inferManualEdits(from: archive.candidate, draft: planWorkflow.draft)
     }
 
     public func selectScreenshot(at url: URL) {
@@ -183,6 +317,7 @@ public final class ScreenshotReviewWorkflow: ObservableObject {
         state = .idle
         candidate = nil
         recognitionResponse = nil
+        manuallyEditedFields = []
 
         var freshDraft = DeclarerPlanDraft()
         freshDraft.declarerSeat = nil
@@ -196,6 +331,7 @@ public final class ScreenshotReviewWorkflow: ObservableObject {
     }
 
     public func updateDraft(_ draft: DeclarerPlanDraft) {
+        recordManualEdits(from: planWorkflow.draft, to: draft)
         if state == .recognizing {
             recognitionRevision += 1
             state = .stale
@@ -209,6 +345,7 @@ public final class ScreenshotReviewWorkflow: ObservableObject {
             return
         }
 
+        let alreadyHasCandidate = candidate != nil || recognitionResponse != nil
         recognitionRevision += 1
         let requestRevision = recognitionRevision
         state = .recognizing
@@ -218,7 +355,13 @@ public final class ScreenshotReviewWorkflow: ObservableObject {
                   self.screenshotURL == screenshotURL else { return }
             recognitionResponse = response
             candidate = response.candidate
-            planWorkflow.updateDraft(Self.merge(response.candidate, into: planWorkflow.draft))
+            if !alreadyHasCandidate {
+                planWorkflow.updateDraft(Self.merge(
+                    response.candidate,
+                    into: planWorkflow.draft,
+                    manuallyEditedFields: manuallyEditedFields
+                ))
+            }
             state = .succeeded
         } catch {
             guard recognitionRevision == requestRevision,
@@ -233,31 +376,43 @@ public final class ScreenshotReviewWorkflow: ObservableObject {
 
     private static func merge(
         _ candidate: ScreenshotRecognitionCandidate,
-        into current: DeclarerPlanDraft
+        into current: DeclarerPlanDraft,
+        manuallyEditedFields: Set<ScreenshotRecognitionEditedField>
     ) -> DeclarerPlanDraft {
         var merged = current
 
-        if current.declarerSeat == nil, let recognizedSeat = candidate.declarerSeat {
+        if !manuallyEditedFields.contains(.vulnerability), current.vulnerability == nil,
+           let recognizedVulnerability = candidate.vulnerability {
+            merged.vulnerability = recognizedVulnerability
+        }
+        if !manuallyEditedFields.contains(.auction), current.auction == nil, let recognizedAuction = candidate.auction {
+            merged.auction = recognizedAuction.auctionRecord
+        }
+        if !manuallyEditedFields.contains(.declarerSeat), current.declarerSeat == nil,
+           let recognizedSeat = candidate.declarerSeat {
             merged.declarerSeat = recognizedSeat
         }
-        if current.contractLevel == nil {
+        if !manuallyEditedFields.contains(.contractLevel), current.contractLevel == nil {
             merged.contractLevel = candidate.contractLevel
         }
-        if current.contractStrain == nil {
+        if !manuallyEditedFields.contains(.contractStrain), current.contractStrain == nil {
             merged.contractStrain = candidate.contractStrain
         }
-        if current.openingLead.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+        if !manuallyEditedFields.contains(.openingLead),
+           current.openingLead.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
            let openingLead = candidate.openingLead {
             merged.openingLead = openingLead
         }
-        if current.otherDecisionTimeFacts.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+        if !manuallyEditedFields.contains(.otherDecisionTimeFacts),
+           current.otherDecisionTimeFacts.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             merged.otherDecisionTimeFacts = candidate.otherDecisionTimeFacts
         }
 
         for seat in Seat.allCases {
             for suit in Suit.allCases {
                 let currentValue = current.hands[seat]?[suit] ?? ""
-                if currentValue.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+                if !manuallyEditedFields.contains(.hand(seat: seat, suit: suit)),
+                   currentValue.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
                    let recognizedValue = candidate.hands[seat]?[suit] {
                     merged.hands[seat, default: [:]][suit] = recognizedValue
                 }
@@ -268,5 +423,57 @@ public final class ScreenshotReviewWorkflow: ObservableObject {
         merged.decisionTimeVisibleSeats = current.decisionTimeVisibleSeats ?? []
         merged.decisionTimeConfirmed = false
         return merged
+    }
+
+    private func recordManualEdits(from current: DeclarerPlanDraft, to draft: DeclarerPlanDraft) {
+        if current.vulnerability != draft.vulnerability { manuallyEditedFields.insert(.vulnerability) }
+        if current.auction != draft.auction { manuallyEditedFields.insert(.auction) }
+        if current.declarerSeat != draft.declarerSeat { manuallyEditedFields.insert(.declarerSeat) }
+        if current.contractLevel != draft.contractLevel { manuallyEditedFields.insert(.contractLevel) }
+        if current.contractStrain != draft.contractStrain { manuallyEditedFields.insert(.contractStrain) }
+        if current.openingLead != draft.openingLead { manuallyEditedFields.insert(.openingLead) }
+        if current.otherDecisionTimeFacts != draft.otherDecisionTimeFacts { manuallyEditedFields.insert(.otherDecisionTimeFacts) }
+
+        for seat in Seat.allCases {
+            for suit in Suit.allCases {
+                let currentValue = current.hands[seat]?[suit] ?? ""
+                let editedValue = draft.hands[seat]?[suit] ?? ""
+                if currentValue != editedValue {
+                    manuallyEditedFields.insert(.hand(seat: seat, suit: suit))
+                }
+            }
+        }
+    }
+
+    private func inferManualEdits(from candidate: ScreenshotRecognitionCandidate?, draft: DeclarerPlanDraft) {
+        guard let candidate else { return }
+
+        if let value = candidate.vulnerability, draft.vulnerability != value {
+            manuallyEditedFields.insert(.vulnerability)
+        }
+        if let value = candidate.auction, draft.auction != value.auctionRecord {
+            manuallyEditedFields.insert(.auction)
+        }
+        if let value = candidate.declarerSeat, draft.declarerSeat != value {
+            manuallyEditedFields.insert(.declarerSeat)
+        }
+        if let value = candidate.contractLevel, draft.contractLevel != value {
+            manuallyEditedFields.insert(.contractLevel)
+        }
+        if let value = candidate.contractStrain, draft.contractStrain != value {
+            manuallyEditedFields.insert(.contractStrain)
+        }
+        if let value = candidate.openingLead, draft.openingLead != value {
+            manuallyEditedFields.insert(.openingLead)
+        }
+        if draft.otherDecisionTimeFacts != candidate.otherDecisionTimeFacts {
+            manuallyEditedFields.insert(.otherDecisionTimeFacts)
+        }
+        for seat in Seat.allCases {
+            for suit in Suit.allCases {
+                guard let value = candidate.hands[seat]?[suit], draft.hands[seat]?[suit] != value else { continue }
+                manuallyEditedFields.insert(.hand(seat: seat, suit: suit))
+            }
+        }
     }
 }

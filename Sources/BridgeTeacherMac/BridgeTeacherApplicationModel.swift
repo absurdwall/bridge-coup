@@ -94,14 +94,17 @@ final class BridgeTeacherApplicationModel: ObservableObject {
         return nil
     }
 
-    init() {
+    init(screenshotRecognitionRuntime: (any ScreenshotRecognitionRuntime)? = nil) {
         let runtimeService = CodexTeachingService()
         service = runtimeService
         modelSelectionPreferences = CodexModelSelectionPreferences()
         let planWorkflow = DeclarerPlanWorkflow(runtime: runtimeService)
         workflow = planWorkflow
         keyPlayWorkflow = KeyPlayAnalysisWorkflow(runtime: runtimeService)
-        screenshotWorkflow = ScreenshotReviewWorkflow(planWorkflow: planWorkflow, runtime: runtimeService)
+        screenshotWorkflow = ScreenshotReviewWorkflow(
+            planWorkflow: planWorkflow,
+            runtime: screenshotRecognitionRuntime ?? runtimeService
+        )
         let helperURL = Bundle.main.bundleURL
             .appendingPathComponent("Contents", isDirectory: true)
             .appendingPathComponent("Helpers", isDirectory: true)
@@ -205,9 +208,9 @@ final class BridgeTeacherApplicationModel: ObservableObject {
     }
 
     func updateReviewDraft(_ draft: DeclarerPlanDraft) {
+        let draft = draft.normalizingOpeningLead()
         let previousDraft = workflow.draft
         guard draft != previousDraft else { return }
-        workflow.updateDraft(draft)
         screenshotWorkflow.updateDraft(draft)
         keyPlayWorkflow.invalidate()
         if previousDraft.declarerSeat != draft.declarerSeat

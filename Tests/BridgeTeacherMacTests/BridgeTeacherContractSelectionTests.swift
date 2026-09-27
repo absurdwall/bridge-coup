@@ -4,6 +4,41 @@ import BridgeTeacherCore
 
 @MainActor
 final class BridgeTeacherContractSelectionTests: XCTestCase {
+    func testContractGridNavigationMovesOneCellAndClampsAtGridEdges() {
+        XCTAssertEqual(
+            ContractGridNavigation.destination(from: ContractChoice(level: 1, strain: .clubs), direction: .right),
+            ContractChoice(level: 1, strain: .diamonds)
+        )
+        XCTAssertEqual(
+            ContractGridNavigation.destination(from: ContractChoice(level: 4, strain: .diamonds), direction: .left),
+            ContractChoice(level: 4, strain: .clubs)
+        )
+        XCTAssertEqual(
+            ContractGridNavigation.destination(from: ContractChoice(level: 3, strain: .hearts), direction: .up),
+            ContractChoice(level: 2, strain: .hearts)
+        )
+        XCTAssertEqual(
+            ContractGridNavigation.destination(from: ContractChoice(level: 3, strain: .hearts), direction: .down),
+            ContractChoice(level: 4, strain: .hearts)
+        )
+        XCTAssertEqual(
+            ContractGridNavigation.destination(from: ContractChoice(level: 1, strain: .clubs), direction: .left),
+            ContractChoice(level: 1, strain: .clubs)
+        )
+        XCTAssertEqual(
+            ContractGridNavigation.destination(from: ContractChoice(level: 7, strain: .noTrump), direction: .right),
+            ContractChoice(level: 7, strain: .noTrump)
+        )
+        XCTAssertEqual(
+            ContractGridNavigation.destination(from: ContractChoice(level: 1, strain: .spades), direction: .up),
+            ContractChoice(level: 1, strain: .spades)
+        )
+        XCTAssertEqual(
+            ContractGridNavigation.destination(from: ContractChoice(level: 7, strain: .noTrump), direction: .down),
+            ContractChoice(level: 7, strain: .noTrump)
+        )
+    }
+
     func testSelectingContractUpdatesReviewAndDoubleDummyContextAtomically() {
         let model = BridgeTeacherApplicationModel()
         var doubleDummyDraft = model.doubleDummyWorkflow.draft
@@ -83,5 +118,49 @@ final class BridgeTeacherContractSelectionTests: XCTestCase {
         XCTAssertEqual(model.workflow.draft.contractStrain, .spades)
         XCTAssertEqual(model.workflow.draft.declarerSeat, .east)
         XCTAssertEqual(model.workflow.draft.openingLead, "♣A")
+    }
+
+    func testOpeningLeadShortcutsNormalizeInEditableReviewDraft() {
+        let model = BridgeTeacherApplicationModel()
+
+        for (input, expected) in [("s2", "♠2"), ("H3", "♥3"), ("D10", "♦10"), ("cT", "♣10")] {
+            var draft = model.workflow.draft
+            draft.openingLead = input
+            model.updateReviewDraft(draft)
+            XCTAssertEqual(model.workflow.draft.openingLead, expected, "Input: \(input)")
+        }
+
+        var invalidDraft = model.workflow.draft
+        invalidDraft.openingLead = "S1"
+        model.updateReviewDraft(invalidDraft)
+        XCTAssertEqual(model.workflow.draft.openingLead, "S1")
+    }
+
+    func testCallMeaningNoteChangeInvalidatesSharedDeclarerAndKeyPlayAnalyses() {
+        let model = BridgeTeacherApplicationModel()
+        let entry = AuctionEntry(seat: .west, call: .pass)
+        var draft = model.workflow.draft
+        draft.auction = AuctionRecord(startingSeat: .west, entries: [entry])
+        model.updateReviewDraft(draft)
+
+        model.keyPlayWorkflow.restore(
+            from: KeyPlayAnalysisWorkflowArchive(
+                draft: KeyPlayAnalysisDraft(),
+                state: .succeeded,
+                result: DeclarerPlanResponse(text: "旧版关键出牌分析。"),
+                resultIsOutdated: false,
+                resultInformationVersion: model.workflow.informationVersion
+            ),
+            currentInformationVersion: model.workflow.informationVersion
+        )
+
+        var revisedDraft = model.workflow.draft
+        XCTAssertTrue(revisedDraft.auction?.setMeaningNote("仅当双方采用该约定时。", forEntryID: entry.id) == true)
+        let previousVersion = model.workflow.informationVersion
+        model.updateReviewDraft(revisedDraft)
+
+        XCTAssertEqual(model.workflow.informationVersion, previousVersion + 1)
+        XCTAssertTrue(model.keyPlayWorkflow.resultIsOutdated)
+        XCTAssertEqual(model.keyPlayWorkflow.result?.text, "旧版关键出牌分析。")
     }
 }

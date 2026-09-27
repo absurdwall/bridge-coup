@@ -495,7 +495,7 @@ private struct DeclarerEntryPanel: View {
     @State private var isScreenshotDetailsExpanded = false
     @State private var isContextExpanded = false
     @State private var isShowingContractGrid = false
-    @State private var isShowingTableContractGrid = false
+    @State private var isDoubleDummyVerificationExpanded = false
     @FocusState private var isContractPickerFocused: Bool
 
     var body: some View {
@@ -521,6 +521,7 @@ private struct DeclarerEntryPanel: View {
                 .accessibilityIdentifier("screenshot-review-details")
 
                 contractFields
+                auctionFields
                 visibleHands
 
                 DisclosureGroup(isExpanded: $isContextExpanded) {
@@ -579,6 +580,30 @@ private struct DeclarerEntryPanel: View {
                 )
                 .accessibilityIdentifier(mode == .declarerPlan ? "generate-declarer-plan" : "generate-key-play-analysis")
             }
+
+            DisclosureGroup(isExpanded: $isDoubleDummyVerificationExpanded) {
+                DoubleDummyVerificationView(model: model) {
+                    isDoubleDummyVerificationExpanded = false
+                }
+                    .padding(.top, 10)
+            } label: {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("事后双明手核验")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(BridgePalette.ink)
+                        .accessibilityIdentifier("open-double-dummy-verification")
+                    Text("按需录入完整牌局并运行 DDS；核验结果不会进入教学请求。")
+                        .font(.system(size: 10))
+                        .foregroundStyle(BridgePalette.muted)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .contentShape(Rectangle())
+            }
+            .padding(12)
+            .background(BridgePalette.soft.opacity(0.6), in: RoundedRectangle(cornerRadius: 13, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: 13).stroke(BridgePalette.border, lineWidth: 1))
+            .padding(.top, 12)
         }
         .onChange(of: screenshotWorkflow.screenshotURL) { _, url in
             if url != nil { isScreenshotDetailsExpanded = true }
@@ -596,7 +621,11 @@ private struct DeclarerEntryPanel: View {
             if !history.isEmpty { isContextExpanded = true }
         }
         .onChange(of: isShowingContractGrid) { _, isShowing in
-            if !isShowing {
+            if isShowing {
+                // Release focus from the popover's anchor while the grid owns
+                // keyboard navigation; restore it only after the popover closes.
+                isContractPickerFocused = false
+            } else {
                 isContractPickerFocused = true
             }
         }
@@ -694,6 +723,7 @@ private struct DeclarerEntryPanel: View {
                                 !model.canSendModelRequests
                                     || !model.modelSettings.canRecognizeImages
                                     || screenshotWorkflow.state == .recognizing
+                                    || screenshotWorkflow.state == .succeeded
                             )
                         }
                     }
@@ -719,6 +749,36 @@ private struct DeclarerEntryPanel: View {
                     requestedModel: recognition.requestedModel,
                     effort: recognition.reasoningEffort
                 )
+            }
+
+            if let candidate = screenshotWorkflow.candidate {
+                VStack(alignment: .leading, spacing: 4) {
+                    if let auction = candidate.auction {
+                        if auction.entries.isEmpty {
+                            Text(auction.isPartial
+                                 ? "截图叫牌候选为空，是部分可见片段；没有补入 Pass。可在下方手动录入。"
+                                 : "叫牌候选为空；没有补入 Pass。可在下方手动录入。")
+                        } else {
+                            let entries = auction.auctionRecord.entries.map { entry in
+                                "\(entry.seat?.chineseName ?? "位置未知") \(entry.call.displayText)"
+                            }
+                            Text(auction.isPartial
+                                 ? "截图叫牌候选 · 部分可见片段（按可见顺序；不推断缺口、Pass 或座位）：\(entries.joined(separator: " · "))。请在下方逐项核对、修正或补录。"
+                                 : "截图叫牌候选：\(entries.joined(separator: " · "))。请在下方叫牌表核对、修正或补录。")
+                        }
+                    }
+                    if let vulnerability = candidate.vulnerability {
+                        Text("局况候选：\(vulnerability.chineseDescription)；请核对截图与下方选项。")
+                    }
+                    if candidate.auction != nil || candidate.vulnerability != nil {
+                        Text("截图识别结果尚未确认；只有勾选下方核对声明后才会进入请求。")
+                            .foregroundStyle(BridgePalette.warning)
+                    }
+                }
+                .font(.system(size: 10))
+                .foregroundStyle(BridgePalette.muted)
+                .fixedSize(horizontal: false, vertical: true)
+                .accessibilityIdentifier("screenshot-auction-candidate-summary")
             }
 
             if let candidate = screenshotWorkflow.candidate, !candidate.notes.isEmpty {
@@ -757,7 +817,7 @@ private struct DeclarerEntryPanel: View {
             if screenshotWorkflow.screenshotURL != nil {
                 VStack(alignment: .leading, spacing: 6) {
                     Toggle(isOn: draftBinding(for: \.decisionTimeConfirmed)) {
-                        Text("我已核对：勾选的手牌、定约、做庄人、首攻和补充事实，都是这个决策点当时可得的信息。")
+                        Text("我已核对：叫牌、局况、勾选的手牌、定约、做庄人、首攻和补充事实，都是这个决策点当时可得的信息。")
                             .font(.system(size: 11, weight: .medium))
                             .foregroundStyle(BridgePalette.ink)
                     }
@@ -776,14 +836,14 @@ private struct DeclarerEntryPanel: View {
             Text("定约背景")
                 .font(.system(size: 13, weight: .semibold))
                 .foregroundStyle(BridgePalette.ink)
-            HStack(spacing: 12) {
+            HStack(spacing: 9) {
                 Picker("做庄人", selection: draftBinding(for: \.declarerSeat)) {
                     Text("未知").tag(Seat?.none)
                     ForEach(Seat.allCases, id: \.self) { seat in
                         Text(seat.chineseName).tag(Optional(seat))
                     }
                 }
-                .frame(maxWidth: 150)
+                .frame(width: 100)
                 Button {
                     isShowingContractGrid = true
                 } label: {
@@ -802,21 +862,106 @@ private struct DeclarerEntryPanel: View {
                     .contentShape(Rectangle())
                 }
                 .buttonStyle(.bordered)
-                .frame(maxWidth: 250)
+                .frame(width: 150)
                 .focused($isContractPickerFocused)
                 .accessibilityIdentifier("contract-grid-picker")
                 .accessibilityLabel("定约：\(selectedContractTitle)，打开完整叫品表")
                 .popover(isPresented: $isShowingContractGrid, arrowEdge: .bottom) {
                     contractSelectionGrid(isShowing: $isShowingContractGrid)
                 }
+                TextField("首攻（可选，如 S2）", text: draftBinding(for: \.openingLead))
+                    .textFieldStyle(.roundedBorder)
+                    .frame(minWidth: 120)
+                    .accessibilityIdentifier("opening-lead-input")
             }
             .labelsHidden()
             .pickerStyle(.menu)
-            TextField("首攻（可选，例如 ♠2）", text: draftBinding(for: \.openingLead))
-                .textFieldStyle(.roundedBorder)
+            if let openingLeadError {
+                Text(openingLeadError)
+                    .font(.system(size: 10))
+                    .foregroundStyle(BridgePalette.warning)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .accessibilityIdentifier("opening-lead-validation-error")
+            }
         }
         .padding(14)
         .background(BridgePalette.soft, in: RoundedRectangle(cornerRadius: 15, style: .continuous))
+    }
+
+    private var auctionFields: some View {
+        VStack(alignment: .leading, spacing: 9) {
+            HStack {
+                Text("叫牌与局况")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(BridgePalette.ink)
+                Spacer()
+                Text("未知资料可以留空")
+                    .font(.system(size: 10))
+                    .foregroundStyle(BridgePalette.muted)
+            }
+
+            HStack(spacing: 10) {
+                Picker("局况", selection: draftBinding(for: \.vulnerability)) {
+                    Text("局况未知").tag(Vulnerability?.none)
+                    ForEach(Vulnerability.allCases, id: \.self) { vulnerability in
+                        Text(vulnerability.chineseDescription).tag(Optional(vulnerability))
+                    }
+                }
+                .pickerStyle(.menu)
+                .frame(maxWidth: 145, alignment: .leading)
+                .accessibilityIdentifier("auction-vulnerability")
+
+                Picker(
+                    workflow.draft.auction?.isPartial == true
+                        ? "整段叫牌的首个行动位置（不推算片段座位）"
+                        : "首个行动位置",
+                    selection: auctionStartingSeatBinding
+                ) {
+                    Text("位置未知").tag(Seat?.none)
+                    ForEach(Seat.allCases, id: \.self) { seat in
+                        Text(seat.chineseName).tag(Optional(seat))
+                    }
+                }
+                .pickerStyle(.menu)
+                .frame(maxWidth: 150, alignment: .leading)
+                .disabled(workflow.draft.auction?.kind == .noAuction)
+                .accessibilityIdentifier("auction-starting-seat")
+            }
+            .font(.system(size: 11, weight: .regular))
+
+        }
+        .padding(12)
+        .background(BridgePalette.soft, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+    }
+
+    private var auctionRecordBinding: Binding<AuctionRecord?> {
+        Binding(
+            get: { workflow.draft.auction },
+            set: { setAuction($0) }
+        )
+    }
+
+    private func saveAuctionMeaningNote(_ id: UUID, _ note: String?) {
+        guard var record = workflow.draft.auction,
+              record.setMeaningNote(note, forEntryID: id) else { return }
+        setAuction(record)
+    }
+
+    private var auctionStartingSeatBinding: Binding<Seat?> {
+        Binding(
+            get: { workflow.draft.auction?.startingSeat },
+            set: { newSeat in
+                var record = workflow.draft.auction ?? AuctionRecord()
+                record.setStartingSeat(newSeat)
+                setAuction(record)
+            }
+        )
+    }
+
+    private func setAuction(_ auction: AuctionRecord?) {
+        var draft = workflow.draft
+        draft.auction = auction
+        model.updateReviewDraft(draft)
     }
 
     private func contractSelectionGrid(isShowing: Binding<Bool>) -> some View {
@@ -853,6 +998,12 @@ private struct DeclarerEntryPanel: View {
         return BridgePalette.contractColor(for: contract.strain)
     }
 
+    private var openingLeadError: String? {
+        let input = workflow.draft.openingLead.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !input.isEmpty, OpeningLead(input: input) == nil else { return nil }
+        return OpeningLeadInputError.invalidInput(input).localizedDescription
+    }
+
     private var generationButtonTitle: String {
         if activeGenerationState == .generating { return "正在生成…" }
         return mode == .declarerPlan ? "生成做庄计划" : "分析这一步"
@@ -873,10 +1024,8 @@ private struct DeclarerEntryPanel: View {
             }
             BridgeDealTable(
                 declarerSeat: workflow.draft.declarerSeat,
-                contractLevel: workflow.draft.contractLevel,
-                contractStrain: workflow.draft.contractStrain,
-                openingLead: workflow.draft.openingLead,
-                isShowingContractGrid: $isShowingTableContractGrid,
+                auction: auctionRecordBinding,
+                onSaveAuctionMeaningNote: saveAuctionMeaningNote,
                 actingSeat: mode == .keyPlayAnalysis ? keyPlayWorkflow.draft.actingSeat : nil,
                 screenshotReviewMode: screenshotWorkflow.screenshotURL != nil,
                 isDecisionTimeVisible: { seat in
@@ -884,16 +1033,7 @@ private struct DeclarerEntryPanel: View {
                 },
                 holding: { seat, suit in workflow.draft.hands[seat]?[suit] ?? "" },
                 onCommit: commitHolding,
-                onVisibilityChange: setDecisionTimeVisibility,
-                onSelectContract: { contract in
-                    model.handleContractSelectionAction(.select(contract))
-                    isShowingTableContractGrid = false
-                },
-                onClearContract: {
-                    model.handleContractSelectionAction(.clear)
-                    isShowingTableContractGrid = false
-                },
-                onCancelContract: { model.handleContractSelectionAction(.cancel) }
+                onVisibilityChange: setDecisionTimeVisibility
             )
             Text(screenshotWorkflow.screenshotURL == nil
                  ? "点按花色行编辑 · 留空 = 未知 · “-” = 已确认缺门"
@@ -1084,7 +1224,8 @@ private struct ContractSelectionGrid: View {
     let onClear: () -> Void
     let onCancel: () -> Void
 
-    @FocusState private var focusedContractOption: String?
+    @FocusState private var isContractGridFocused: Bool
+    @State private var focusedContractChoice: ContractChoice?
 
     private let strains: [ContractStrain] = [.clubs, .diamonds, .hearts, .spades, .noTrump]
 
@@ -1138,75 +1279,80 @@ private struct ContractSelectionGrid: View {
                     }
                 }
             }
-            .focusSection()
         }
         .padding(14)
         .frame(width: 344)
         .background(.white)
+        .focusable()
+        .focusEffectDisabled()
+        .focused($isContractGridFocused)
+        .defaultFocus($isContractGridFocused, true)
         .onAppear {
-            focusedContractOption = selectedContractFocusIdentifier
-                ?? contractOptionIdentifier(level: 1, strain: .clubs)
+            focusedContractChoice = selectedContract ?? ContractChoice(level: 1, strain: .clubs)
+        }
+        .onKeyPress(.leftArrow) {
+            moveFocus(.left)
+            return .handled
+        }
+        .onKeyPress(.rightArrow) {
+            moveFocus(.right)
+            return .handled
+        }
+        .onKeyPress(.upArrow) {
+            moveFocus(.up)
+            return .handled
+        }
+        .onKeyPress(.downArrow) {
+            moveFocus(.down)
+            return .handled
+        }
+        .onKeyPress(.return) {
+            selectFocusedContract()
+            return .handled
+        }
+        .onKeyPress(.space) {
+            selectFocusedContract()
+            return .handled
         }
     }
 
     private func contractOption(level: Int, strain: ContractStrain) -> some View {
         let isSelected = selectedContract == ContractChoice(level: level, strain: strain)
         let optionIdentifier = contractOptionIdentifier(level: level, strain: strain)
-        let isFocused = focusedContractOption == optionIdentifier
+        let isFocused = (focusedContractChoice ?? selectedContract ?? ContractChoice(level: 1, strain: .clubs))
+            == ContractChoice(level: level, strain: strain)
         return Button {
             onSelect(ContractChoice(level: level, strain: strain))
         } label: {
             Text("\(level)\(strain.symbol)")
                 .font(.system(size: 12, weight: .semibold, design: .rounded))
-                .foregroundStyle(isSelected ? .white : BridgePalette.contractColor(for: strain))
+                .foregroundStyle(BridgePalette.contractColor(for: strain))
                 .frame(width: 52, height: 36)
-                .background(isSelected ? BridgePalette.green : BridgePalette.soft, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                .background(BridgePalette.contractBackground(for: strain), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
                 .overlay(
                     RoundedRectangle(cornerRadius: 8, style: .continuous)
-                        .stroke(isFocused ? BridgePalette.amber : isSelected ? BridgePalette.green : BridgePalette.border, lineWidth: isFocused ? 2 : 1)
+                        .stroke(
+                            isFocused ? BridgePalette.amber : isSelected ? BridgePalette.contractColor(for: strain) : BridgePalette.border,
+                            lineWidth: isFocused || isSelected ? 2 : 1
+                        )
                 )
         }
         .buttonStyle(.plain)
-        .focusable()
-        .focused($focusedContractOption, equals: optionIdentifier)
-        .onKeyPress(.return) {
-            onSelect(ContractChoice(level: level, strain: strain))
-            return .handled
-        }
-        .onKeyPress(.space) {
-            onSelect(ContractChoice(level: level, strain: strain))
-            return .handled
-        }
-        .onMoveCommand { direction in
-            moveFocus(fromLevel: level, strain: strain, direction: direction)
-        }
+        .focusable(false)
         .accessibilityIdentifier(optionIdentifier)
         .accessibilityLabel("\(level)\(strain.symbol) 定约")
         .accessibilityValue(isSelected ? "当前选择" : "未选择")
         .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 
-    private var selectedContractFocusIdentifier: String? {
-        guard let selectedContract else { return nil }
-        return contractOptionIdentifier(level: selectedContract.level, strain: selectedContract.strain)
+    private func moveFocus(_ direction: ContractGridNavigation.Direction) {
+        let current = focusedContractChoice ?? selectedContract ?? ContractChoice(level: 1, strain: .clubs)
+        focusedContractChoice = ContractGridNavigation.destination(from: current, direction: direction)
     }
 
-    private func moveFocus(fromLevel level: Int, strain: ContractStrain, direction: MoveCommandDirection) {
-        var nextLevel = level
-        var nextColumn = strains.firstIndex(of: strain) ?? 0
-        switch direction {
-        case .left:
-            nextColumn = max(0, nextColumn - 1)
-        case .right:
-            nextColumn = min(strains.count - 1, nextColumn + 1)
-        case .up:
-            nextLevel = max(1, nextLevel - 1)
-        case .down:
-            nextLevel = min(7, nextLevel + 1)
-        @unknown default:
-            return
-        }
-        focusedContractOption = contractOptionIdentifier(level: nextLevel, strain: strains[nextColumn])
+    private func selectFocusedContract() {
+        let contract = focusedContractChoice ?? selectedContract ?? ContractChoice(level: 1, strain: .clubs)
+        onSelect(contract)
     }
 
     private func contractOptionIdentifier(level: Int, strain: ContractStrain) -> String {
@@ -1217,26 +1363,22 @@ private struct ContractSelectionGrid: View {
 
 private struct BridgeDealTable: View {
     let declarerSeat: Seat?
-    let contractLevel: Int?
-    let contractStrain: ContractStrain?
-    let openingLead: String
-    @Binding var isShowingContractGrid: Bool
+    @Binding var auction: AuctionRecord?
+    let onSaveAuctionMeaningNote: (UUID, String?) -> Void
     let actingSeat: Seat?
     let screenshotReviewMode: Bool
     let isDecisionTimeVisible: (Seat) -> Bool
     let holding: (Seat, Suit) -> String
     let onCommit: (Seat, Suit, String) -> String?
     let onVisibilityChange: (Seat, Bool) -> Void
-    let onSelectContract: (ContractChoice) -> Void
-    let onClearContract: () -> Void
-    let onCancelContract: () -> Void
 
     var body: some View {
         VStack(spacing: 8) {
             seatCard(.north)
             HStack(spacing: 8) {
                 seatCard(.west)
-                contractCard
+                AuctionTableView(record: $auction, onSaveMeaningNote: onSaveAuctionMeaningNote)
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 82)
                 seatCard(.east)
             }
             seatCard(.south)
@@ -1263,61 +1405,6 @@ private struct BridgeDealTable: View {
         .frame(minHeight: 82)
     }
 
-    private var contractCard: some View {
-        let contract = contractLevel.flatMap { level in
-            contractStrain.map { "\(level)\($0.symbol)" }
-        } ?? "未定约"
-        let lead = openingLead.trimmingCharacters(in: .whitespacesAndNewlines)
-
-        return Button {
-            isShowingContractGrid = true
-        } label: {
-            VStack(spacing: 3) {
-                Text(contract)
-                    .font(.system(size: 16, weight: .bold, design: .rounded))
-                    .foregroundStyle(contractColor)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.75)
-                Text(declarerSeat?.chineseName ?? "庄家未定")
-                    .font(.system(size: 9, weight: .medium))
-                    .foregroundStyle(BridgePalette.ink)
-                    .lineLimit(1)
-                Text(lead.isEmpty ? "首攻未提供" : "首攻 \(lead)")
-                    .font(.system(size: 8))
-                    .foregroundStyle(BridgePalette.muted)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.7)
-            }
-            .frame(width: 84, height: 82)
-            .background(.white.opacity(0.84), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
-            .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
-            .contentShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-        }
-        .buttonStyle(.plain)
-        .accessibilityLabel("桌心定约：\(contract)，\(declarerSeat?.chineseName ?? "庄家未定")，\(lead.isEmpty ? "首攻未提供" : "首攻 \(lead)")")
-        .accessibilityHint("打开完整叫品表")
-        .accessibilityIdentifier("deal-table-contract")
-        .popover(isPresented: $isShowingContractGrid, arrowEdge: .bottom) {
-            ContractSelectionGrid(
-                selectedContract: contractLevel.flatMap { level in
-                    contractStrain.map { ContractChoice(level: level, strain: $0) }
-                },
-                onSelect: onSelectContract,
-                onClear: onClearContract,
-                onCancel: {
-                    onCancelContract()
-                    isShowingContractGrid = false
-                }
-            )
-        }
-    }
-
-    private var contractColor: Color {
-        switch contractStrain {
-        case .hearts, .diamonds: BridgePalette.red
-        case .spades, .clubs, .noTrump, .none: BridgePalette.green
-        }
-    }
 }
 
 private struct HandEntryCard: View {
@@ -1401,8 +1488,8 @@ private struct HandEntryCard: View {
                 Text(editError ?? "Enter 保存 · Esc 取消 · - 空门")
                     .font(.system(size: 8, weight: editError == nil ? .regular : .medium))
                     .foregroundStyle(editError == nil ? BridgePalette.muted : BridgePalette.warning)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.75)
+                    .lineLimit(2)
+                    .fixedSize(horizontal: false, vertical: true)
                     .accessibilityIdentifier(editError == nil ? "hand-edit-hint" : "hand-edit-error")
             }
         } else {
@@ -1414,15 +1501,14 @@ private struct HandEntryCard: View {
                     Text(displayHolding(holding(suit)))
                         .font(.system(size: 10, weight: .medium, design: .monospaced))
                         .foregroundStyle(holdingColor(holding(suit)))
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.72)
+                        .fixedSize(horizontal: false, vertical: true)
                     Spacer(minLength: 0)
                 }
                 .frame(maxWidth: .infinity, minHeight: 13, alignment: .leading)
                 .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
-            .accessibilityLabel("编辑\(seat.chineseName)\(suit.chineseName)；\(displayHolding(holding(suit)))")
+            .accessibilityLabel("编辑\(seat.chineseName)\(suit.chineseName)；\(accessibilityHolding(holding(suit)))")
             .accessibilityIdentifier("hand-row-\(seat.rawValue)-\(suit.rawValue)")
         }
     }
@@ -1455,14 +1541,23 @@ private struct HandEntryCard: View {
     private func displayHolding(_ raw: String) -> String {
         let cleaned = raw.uppercased().filter { !$0.isWhitespace && $0 != "," && $0 != ";" }
         if cleaned.isEmpty { return "未知" }
-        if cleaned == "-" || cleaned == "—" || cleaned == "VOID" { return "— 已确认空门" }
+        if cleaned == "-" || cleaned == "—" || cleaned == "VOID" { return "—" }
         return cleaned.replacingOccurrences(of: "T", with: "10")
     }
 
     private func holdingColor(_ raw: String) -> Color {
-        displayHolding(raw) == "未知" || displayHolding(raw).contains("已确认空门")
+        displayHolding(raw) == "未知" || isConfirmedVoid(raw)
             ? BridgePalette.muted
             : BridgePalette.ink
+    }
+
+    private func accessibilityHolding(_ raw: String) -> String {
+        isConfirmedVoid(raw) ? "已确认空门" : displayHolding(raw)
+    }
+
+    private func isConfirmedVoid(_ raw: String) -> Bool {
+        let cleaned = raw.uppercased().filter { !$0.isWhitespace && $0 != "," && $0 != ";" }
+        return cleaned == "-" || cleaned == "—" || cleaned == "VOID"
     }
 
     private func beginEditing(_ suit: Suit) {
@@ -1539,8 +1634,8 @@ private struct ScreenshotRecognitionPresentation {
             buttonTitle = "识别截图"
             isFailure = false
         case .succeeded:
-            message = "\(model) 的识别候选已填入左侧表单，请对照原图校正后再确认。"
-            buttonTitle = "识别截图"
+            message = "\(model) 的牌面、叫牌与局况均为待核对候选；请编辑左侧表单并明确确认后再发送。"
+            buttonTitle = "候选已生成"
             isFailure = false
         case .stale:
             message = "识别期间牌面已改变；迟到的结果已丢弃。确认当前输入后可重新识别。"
@@ -2011,13 +2106,29 @@ enum BridgePalette {
     static let muted = Color(red: 0.43, green: 0.49, blue: 0.44)
     static let green = Color(red: 0.20, green: 0.40, blue: 0.28)
     static let red = Color(red: 0.70, green: 0.24, blue: 0.23)
+    static let orange = Color(red: 0.76, green: 0.37, blue: 0.11)
+    static let suitGreen = Color(red: 0.20, green: 0.48, blue: 0.28)
+    static let purple = Color(red: 0.43, green: 0.32, blue: 0.66)
     static let amber = Color(red: 0.77, green: 0.52, blue: 0.14)
     static let warning = Color(red: 0.67, green: 0.39, blue: 0.11)
 
     static func contractColor(for strain: ContractStrain) -> Color {
         switch strain {
-        case .hearts, .diamonds: red
-        case .spades, .clubs, .noTrump: ink
+        case .spades: ink
+        case .hearts: red
+        case .diamonds: orange
+        case .clubs: suitGreen
+        case .noTrump: purple
+        }
+    }
+
+    static func contractBackground(for strain: ContractStrain) -> Color {
+        switch strain {
+        case .spades: Color(red: 0.94, green: 0.95, blue: 0.94)
+        case .hearts: Color(red: 0.99, green: 0.92, blue: 0.92)
+        case .diamonds: Color(red: 0.99, green: 0.94, blue: 0.88)
+        case .clubs: Color(red: 0.92, green: 0.96, blue: 0.92)
+        case .noTrump: Color(red: 0.95, green: 0.93, blue: 0.98)
         }
     }
 }

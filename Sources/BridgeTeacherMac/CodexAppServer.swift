@@ -397,7 +397,9 @@ actor CodexTeachingService: DeclarerTeachingRuntime, ScreenshotRecognitionRuntim
 
     识别规则：
     - 只填写截图上清楚可辨的牌点。牌点用 A K Q J 10 9 8 7 6 5 4 3 2，花色字段分别为 spades/hearts/diamonds/clubs。每家每门都必须给字段；没有清楚识别到的牌填空字符串。只有界面明确标出缺门时才填 "-"。不要为凑满 13 张而推算其余牌。
-    - 记录清楚可见的庄家、定约阶数、定约花色、首攻、局况、叫牌及屏幕明确写出的叫牌解释。对需要按字面录入的解释，不要替牌手改写或推断体系含义。其它文字只记录会影响本局判断的屏幕原文摘要，不重建未显示的叫牌或出牌历史。
+    - 记录清楚可见的庄家、定约阶数、定约花色、首攻和局况。只有局况标记清楚可辨时才填写 vulnerability。
+    - auction 为 null 表示截图没有可识别的叫牌记录。否则只按画面可见顺序列出实际显示的叫品，并且必须填写 isPartial：只有整段叫牌连续完整可见、没有裁切或省略时才为 false；中途片段、被裁切或任何已知缺口都为 true。partial 片段保留可见记录项顺序；startingSeat 即使已知也不能用于推算任何 entry 的 seat。片段内 entry.seat 只在该叫品所在座位由截图明确标注时填写，否则为 null。完整连续序列可在起始位置明确时按连续次序填写座位。action 用 bid/pass/double/redouble/unknown；bid 才填写 level 和 strain。只有图中明确有一个叫牌位置但叫品看不清时才记为 unknown。不要为被裁掉、空白、未显示或不清楚的叫牌位置补 Pass、未知叫品或其它条目；不要根据叫牌常识推算叫品或位置。
+    - 对需要按字面录入的叫牌解释，不要替牌手改写或推断体系含义。其它文字只记录会影响本局判断的屏幕原文摘要，不重建未显示的叫牌或出牌历史。
     - 如果截图没有该字段，使用 null 或空字符串，并在 notes 中标为 notShown；若字段看得见但无法读清，标为 visibleButUnclear；若有两个以上合理读法，标为 ambiguous。notes 的 message 简短描述需核对的部分。
     - 保留画面中可能属于事后展示的所有识别结果作为候选；不要判断哪些牌在玩家决策时已可见，不要将四家牌自动解释成当时已知牌，不要给出做庄计划或牌理答案。
     """
@@ -423,6 +425,36 @@ actor CodexTeachingService: DeclarerTeachingRuntime, ScreenshotRecognitionRuntim
             "type": ["string", "null"],
             "enum": [Any](ContractStrain.allCases.map(\.rawValue)) + [NSNull()],
         ]
+        let nullableVulnerability: [String: Any] = [
+            "type": ["string", "null"],
+            "enum": [Any](Vulnerability.allCases.map(\.rawValue)) + [NSNull()],
+        ]
+        let nullableLevel: [String: Any] = [
+            "type": ["integer", "null"],
+            "minimum": 1,
+            "maximum": 7,
+        ]
+        let auctionEntrySchema: [String: Any] = [
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["seat", "action", "level", "strain"],
+            "properties": [
+                "seat": nullableSeat,
+                "action": ["type": "string", "enum": ScreenshotAuctionAction.allCases.map(\.rawValue)],
+                "level": nullableLevel,
+                "strain": nullableStrain,
+            ],
+        ]
+        let auctionSchema: [String: Any] = [
+            "type": ["object", "null"],
+            "additionalProperties": false,
+            "required": ["startingSeat", "entries", "isPartial"],
+            "properties": [
+                "startingSeat": nullableSeat,
+                "entries": ["type": "array", "items": auctionEntrySchema],
+                "isPartial": ["type": "boolean"],
+            ],
+        ]
         let noteSchema: [String: Any] = [
             "type": "object",
             "additionalProperties": false,
@@ -436,9 +468,11 @@ actor CodexTeachingService: DeclarerTeachingRuntime, ScreenshotRecognitionRuntim
         return [
             "type": "object",
             "additionalProperties": false,
-            "required": ["hands", "declarerSeat", "contractLevel", "contractStrain", "openingLead", "otherDecisionTimeFacts", "notes"],
+            "required": ["hands", "vulnerability", "auction", "declarerSeat", "contractLevel", "contractStrain", "openingLead", "otherDecisionTimeFacts", "notes"],
             "properties": [
                 "hands": handsSchema,
+                "vulnerability": nullableVulnerability,
+                "auction": auctionSchema,
                 "declarerSeat": nullableSeat,
                 "contractLevel": ["type": ["integer", "null"], "minimum": 1, "maximum": 7],
                 "contractStrain": nullableStrain,

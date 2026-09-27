@@ -36,17 +36,37 @@ public struct ScreenshotReviewWorkflowArchive: Codable, Equatable, Sendable {
     public let candidate: ScreenshotRecognitionCandidate?
     public let response: ScreenshotRecognitionResponse?
     public let sourceFilename: String?
+    public let manuallyEditedFields: Set<ScreenshotRecognitionEditedField>
 
     public init(
         state: ScreenshotRecognitionState,
         candidate: ScreenshotRecognitionCandidate?,
         response: ScreenshotRecognitionResponse?,
-        sourceFilename: String? = nil
+        sourceFilename: String? = nil,
+        manuallyEditedFields: Set<ScreenshotRecognitionEditedField> = []
     ) {
         self.state = state
         self.candidate = candidate
         self.response = response
         self.sourceFilename = sourceFilename
+        self.manuallyEditedFields = manuallyEditedFields
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case state
+        case candidate
+        case response
+        case sourceFilename
+        case manuallyEditedFields
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        state = try container.decode(ScreenshotRecognitionState.self, forKey: .state)
+        candidate = try container.decodeIfPresent(ScreenshotRecognitionCandidate.self, forKey: .candidate)
+        response = try container.decodeIfPresent(ScreenshotRecognitionResponse.self, forKey: .response)
+        sourceFilename = try container.decodeIfPresent(String.self, forKey: .sourceFilename)
+        manuallyEditedFields = try container.decodeIfPresent(Set<ScreenshotRecognitionEditedField>.self, forKey: .manuallyEditedFields) ?? []
     }
 }
 

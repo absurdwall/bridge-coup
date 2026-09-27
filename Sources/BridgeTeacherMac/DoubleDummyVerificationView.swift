@@ -3,38 +3,16 @@ import BridgeTeacherCore
 
 struct BridgeTeacherWorkspaceShell: View {
     @StateObject private var model = BridgeTeacherApplicationModel()
-    @State private var isVerificationPresented = false
 
     var body: some View {
-        VStack(spacing: 4) {
-            HStack {
-                Spacer()
-                Text("双明手结果属于事后核验，不参与教学请求")
-                    .font(.system(size: 11))
-                    .foregroundStyle(VerificationPalette.muted)
-                Button("事后双明手核验") {
-                    isVerificationPresented = true
-                }
-                .buttonStyle(.bordered)
-                .tint(VerificationPalette.green)
-                .accessibilityIdentifier("open-double-dummy-verification")
-            }
-            .padding(.horizontal, 32)
-            .padding(.top, 8)
-
-            BridgeTeacherWorkspaceView(model: model)
-        }
-        .sheet(isPresented: $isVerificationPresented) {
-            DoubleDummyVerificationView(model: model)
-                .frame(minWidth: 1120, minHeight: 760)
-        }
+        BridgeTeacherWorkspaceView(model: model)
     }
 }
 
-private struct DoubleDummyVerificationView: View {
+struct DoubleDummyVerificationView: View {
     @ObservedObject private var workflow: DoubleDummyVerificationWorkflow
     private let model: BridgeTeacherApplicationModel
-    @Environment(\.dismiss) private var dismiss
+    private let onCollapse: () -> Void
     private let suitColumns = [
         GridItem(.flexible(), spacing: 10),
         GridItem(.flexible(), spacing: 10),
@@ -42,23 +20,20 @@ private struct DoubleDummyVerificationView: View {
         GridItem(.flexible(), spacing: 10),
     ]
 
-    init(model: BridgeTeacherApplicationModel) {
+    init(model: BridgeTeacherApplicationModel, onCollapse: @escaping () -> Void) {
         self.model = model
+        self.onCollapse = onCollapse
         _workflow = ObservedObject(wrappedValue: model.doubleDummyWorkflow)
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
             heading
-            HStack(alignment: .top, spacing: 16) {
-                inputPanel
-                    .frame(minWidth: 600, maxWidth: 680)
-                resultPanel
-                    .frame(minWidth: 390, maxWidth: .infinity)
-            }
+            inputPanel
+            resultPanel
         }
-        .padding(22)
-        .background(VerificationPalette.canvas.ignoresSafeArea())
+        .padding(14)
+        .background(VerificationPalette.canvas, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
         .preferredColorScheme(.light)
     }
 
@@ -74,17 +49,19 @@ private struct DoubleDummyVerificationView: View {
             }
             Spacer()
             Button {
-                dismiss()
+                onCollapse()
             } label: {
-                Label("返回教学", systemImage: "arrow.left")
+                Label("收起", systemImage: "chevron.up")
             }
+            .controlSize(.small)
             .buttonStyle(.bordered)
             .accessibilityIdentifier("close-double-dummy-verification")
             Button {
                 Task { await loadAndRunKnownDeal() }
             } label: {
-                Label("运行已知结果例牌", systemImage: "checkmark.seal")
+                Label("已知结果例牌", systemImage: "checkmark.seal")
             }
+            .controlSize(.small)
             .buttonStyle(.bordered)
             .tint(VerificationPalette.green)
             .accessibilityIdentifier("run-known-double-dummy-example")
@@ -265,10 +242,9 @@ private struct DoubleDummyVerificationView: View {
                     .foregroundStyle(VerificationPalette.muted)
                     .fixedSize(horizontal: false, vertical: true)
             }
-            Spacer(minLength: 0)
         }
         .padding(16)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .frame(maxWidth: .infinity, alignment: .topLeading)
         .background(.white, in: RoundedRectangle(cornerRadius: 17, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: 17, style: .continuous).stroke(VerificationPalette.border, lineWidth: 1))
     }

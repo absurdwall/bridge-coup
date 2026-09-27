@@ -6,6 +6,15 @@ final class KeyPlayAnalysisTests: XCTestCase {
         var review = DeclarerPlanDraft()
         review.contractLevel = 3
         review.contractStrain = .noTrump
+        review.vulnerability = .both
+        review.auction = AuctionRecord(
+            startingSeat: .south,
+            entries: [
+                AuctionEntry(seat: .south, call: .bid(level: 1, strain: .noTrump)),
+                AuctionEntry(seat: .west, call: .pass),
+                AuctionEntry(seat: .north, call: .unknown),
+            ]
+        )
         review.hands[.south, default: [:]][.hearts] = "A84"
         review.hands[.north, default: [:]][.hearts] = "J7"
 
@@ -29,8 +38,106 @@ final class KeyPlayAnalysisTests: XCTestCase {
         XCTAssertTrue(request.prompt.contains("比较现在拿红心 A 与忍让的目的"))
         XCTAssertTrue(request.prompt.contains("东家：未知"))
         XCTAssertTrue(request.prompt.contains("不得把未提供的出牌过程当作事实"))
+        XCTAssertTrue(request.prompt.contains(AuctionCall.promptSemanticsInstruction))
+        XCTAssertEqual(request.vulnerability, .both)
+        XCTAssertEqual(request.auction, review.auction)
+        XCTAssertTrue(request.prompt.contains("局况：双方有局"))
+        XCTAssertTrue(request.prompt.contains("第3次行动（北家）：未知叫品"))
         XCTAssertFalse(request.prompt.contains("后来"))
         XCTAssertEqual(request.scoring, "IMP")
+    }
+
+    func testCompleteAuctionSeatConflictBlocksKeyPlayRequest() {
+        var review = DeclarerPlanDraft()
+        review.contractLevel = 3
+        review.contractStrain = .noTrump
+        review.declarerSeat = .south
+        review.hands[.south, default: [:]][.spades] = "A2"
+        review.auction = AuctionRecord(
+            startingSeat: .east,
+            entries: [AuctionEntry(seat: .north, call: .pass)]
+        )
+
+        XCTAssertThrowsError(
+            try KeyPlayAnalysisRequestBuilder.build(from: review, node: KeyPlayAnalysisDraft())
+        ) { error in
+            XCTAssertEqual(error as? DeclarerPlanInputError, .conflictingAuctionSeats)
+        }
+    }
+
+    func testKeyPlayRequestCarriesOccurrenceScopedUserMeaningNote() throws {
+        var review = DeclarerPlanDraft()
+        review.contractLevel = 3
+        review.contractStrain = .noTrump
+        review.auction = AuctionRecord(
+            startingSeat: .west,
+            entries: [
+                AuctionEntry(seat: .west, call: .pass, meaningNote: "May show values if the partnership's range applies."),
+                AuctionEntry(seat: .north, call: .pass),
+                AuctionEntry(seat: .east, call: .pass),
+            ]
+        )
+        review.hands[.south, default: [:]][.spades] = "A2"
+        let expectedEntryIDs = try XCTUnwrap(review.auction).entries.map(\.id)
+
+        let request = try KeyPlayAnalysisRequestBuilder.build(from: review, node: KeyPlayAnalysisDraft())
+
+        XCTAssertEqual(request.auction?.entries.map(\.id), expectedEntryIDs)
+        XCTAssertEqual(request.auction?.entries.map(\.meaningNote), ["May show values if the partnership's range applies.", nil, nil])
+        XCTAssertTrue(request.prompt.contains("May show values if the partnership's range applies."))
+        XCTAssertTrue(request.prompt.contains("未核实，不得表述为已确认的约定"))
+    }
+
+    @MainActor
+    func testMeaningNoteChangeInvalidatesKeyPlayAndRejectsLateResponse() async throws {
+        let first = AuctionEntry(seat: .west, call: .pass)
+        let repeated = AuctionEntry(seat: .north, call: .pass, meaningNote: "仅供第二次叫品参考。")
+        var review = DeclarerPlanDraft()
+        review.contractLevel = 3
+        review.contractStrain = .noTrump
+        review.hands[.south, default: [:]][.spades] = "A2"
+        review.auction = AuctionRecord(startingSeat: .west, entries: [first, repeated])
+        let runtime = DelayedKeyPlayRuntime()
+        let workflow = KeyPlayAnalysisWorkflow(runtime: runtime)
+        workflow.updateDraft(completeNode(at: "第七墩"))
+
+        let oldRequestTask = Task { await workflow.generate(from: review, informationVersion: 0) }
+        await runtime.waitForFirstRequest()
+        var correctedReview = review
+        XCTAssertTrue(correctedReview.auction?.setMeaningNote("仅当双方采用该约定时。", forEntryID: first.id) == true)
+        workflow.invalidate()
+        XCTAssertEqual(workflow.state, .idle)
+        await workflow.generate(from: correctedReview, informationVersion: 1)
+
+        XCTAssertEqual(workflow.result?.text, "新备注版本的关键出牌分析。")
+        await runtime.completeFirstRequest()
+        await oldRequestTask.value
+
+        let requests = await runtime.requests()
+        XCTAssertEqual(requests.count, 2)
+        XCTAssertEqual(requests[0].auction?.entries.map(\.id), [first.id, repeated.id])
+        XCTAssertEqual(requests[0].auction?.entries.map(\.meaningNote), [nil, "仅供第二次叫品参考。"])
+        XCTAssertEqual(requests[1].auction?.entries.map(\.meaningNote), ["仅当双方采用该约定时。", "仅供第二次叫品参考。"])
+        XCTAssertTrue(requests[1].prompt.contains("仅当双方采用该约定时。"))
+        XCTAssertTrue(requests[1].prompt.contains("仅供第二次叫品参考。"))
+        XCTAssertEqual(workflow.result?.text, "新备注版本的关键出牌分析。")
+        XCTAssertEqual(workflow.resultInformationVersion, 1)
+    }
+
+    func testKeyPlayRequestUsesCanonicalOpeningLeadAndRejectsInvalidInput() throws {
+        var review = DeclarerPlanDraft()
+        review.contractLevel = 3
+        review.contractStrain = .noTrump
+        review.openingLead = "cK"
+
+        let request = try KeyPlayAnalysisRequestBuilder.build(from: review, node: KeyPlayAnalysisDraft())
+        XCTAssertEqual(request.openingLead, "♣K")
+        XCTAssertTrue(request.prompt.contains("首攻（用户提供）：♣K"))
+
+        review.openingLead = "C1"
+        XCTAssertThrowsError(try KeyPlayAnalysisRequestBuilder.build(from: review, node: KeyPlayAnalysisDraft())) { error in
+            XCTAssertEqual(error as? OpeningLeadInputError, .invalidInput("C1"))
+        }
     }
 
     func testRejectsOffSuitCandidateWhenTheActingHandMustFollowSuit() {
@@ -181,6 +288,40 @@ private actor CapturingKeyPlayRuntime: DeclarerTeachingRuntime {
 
     func respondToFollowUp(_ request: DeclarerFollowUpRequest) async throws -> DeclarerPlanResponse {
         DeclarerPlanResponse(text: "已基于同版本信息回答。", model: "test-model")
+    }
+
+    func requests() -> [DeclarerPlanRequest] { sent }
+}
+
+private actor DelayedKeyPlayRuntime: DeclarerTeachingRuntime {
+    private var sent: [DeclarerPlanRequest] = []
+    private var firstRequestContinuation: CheckedContinuation<DeclarerPlanResponse, Error>?
+    private var firstRequestStarted = false
+    private var firstRequestWaiter: CheckedContinuation<Void, Never>?
+
+    func generatePlan(for request: DeclarerPlanRequest) async throws -> DeclarerPlanResponse {
+        sent.append(request)
+        guard sent.count == 1 else {
+            return DeclarerPlanResponse(text: "新备注版本的关键出牌分析。", model: "test-model")
+        }
+        firstRequestStarted = true
+        firstRequestWaiter?.resume()
+        firstRequestWaiter = nil
+        return try await withCheckedThrowingContinuation { firstRequestContinuation = $0 }
+    }
+
+    func respondToFollowUp(_ request: DeclarerFollowUpRequest) async throws -> DeclarerPlanResponse {
+        DeclarerPlanResponse(text: "未使用的追问响应。")
+    }
+
+    func waitForFirstRequest() async {
+        guard !firstRequestStarted else { return }
+        await withCheckedContinuation { firstRequestWaiter = $0 }
+    }
+
+    func completeFirstRequest() {
+        firstRequestContinuation?.resume(returning: DeclarerPlanResponse(text: "迟到的旧备注版本响应。", model: "test-model"))
+        firstRequestContinuation = nil
     }
 
     func requests() -> [DeclarerPlanRequest] { sent }
