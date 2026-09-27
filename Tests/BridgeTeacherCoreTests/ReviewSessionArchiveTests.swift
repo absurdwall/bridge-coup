@@ -108,6 +108,46 @@ final class ReviewSessionArchiveTests: XCTestCase {
         XCTAssertEqual(reopened.draft.auction?.entries.map(\.call), [.pass, .bid(level: 1, strain: .clubs)])
     }
 
+    func testLocalReviewStorePreservesRepeatedCallIDsAndIndependentNotes() throws {
+        let temporaryRoot = FileManager.default.temporaryDirectory
+            .appendingPathComponent(UUID().uuidString, isDirectory: true)
+        defer { try? FileManager.default.removeItem(at: temporaryRoot) }
+
+        var draft = DeclarerPlanDraft()
+        let first = AuctionEntry(seat: .west, call: .pass, meaningNote: "仅当约定条件甲成立。")
+        let second = AuctionEntry(seat: .north, call: .pass, meaningNote: "仅当约定条件乙成立。")
+        draft.auction = AuctionRecord(startingSeat: .west, entries: [first, second])
+        let snapshot = ReviewSessionSnapshot(
+            title: "Auction meaning notes",
+            teachingMode: .declarerPlan,
+            declarerPlan: workflowArchive(draft: draft),
+            screenshot: ScreenshotReviewWorkflowArchive(state: .idle, candidate: nil, response: nil),
+            keyPlay: KeyPlayAnalysisWorkflowArchive(
+                draft: KeyPlayAnalysisDraft(),
+                state: .idle,
+                result: nil,
+                resultIsOutdated: false,
+                resultInformationVersion: nil
+            ),
+            doubleDummy: DoubleDummyVerificationWorkflowArchive(
+                draft: DoubleDummyVerificationDraft(),
+                state: .unverified,
+                result: nil,
+                hasOutdatedResult: false
+            )
+        )
+        let store = LocalReviewSessionStore(directoryURL: temporaryRoot.appendingPathComponent("reviews", isDirectory: true))
+
+        let saved = try store.save(snapshot, screenshotURL: nil)
+        let reopened = try store.open(id: saved.id)
+        let entries = try XCTUnwrap(reopened.snapshot.declarerPlan.draft.auction?.entries)
+
+        XCTAssertEqual(entries.map(\.id), [first.id, second.id])
+        XCTAssertNotEqual(entries[0].id, entries[1].id)
+        XCTAssertEqual(entries.map(\.call), [.pass, .pass])
+        XCTAssertEqual(entries.map(\.meaningNote), ["仅当约定条件甲成立。", "仅当约定条件乙成立。"])
+    }
+
     func testConfirmedNoAuctionStateSurvivesArchiveRoundTrip() throws {
         var draft = DeclarerPlanDraft()
         draft.auction = AuctionRecord(kind: .noAuction)
