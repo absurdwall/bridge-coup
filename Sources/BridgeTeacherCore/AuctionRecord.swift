@@ -68,20 +68,55 @@ public struct AuctionLayoutRow: Equatable, Sendable {
     }
 }
 
+public enum AuctionRecordKind: String, Codable, CaseIterable, Equatable, Sendable {
+    case calls
+    case noAuction
+}
+
 /// Ordered, manually confirmed auction data. `nil` at the draft level means
-/// no structured auction was supplied; an empty record means no calls were
-/// entered. Neither case is converted to a pass or to an unknown call.
+/// no structured auction was supplied; an empty `.calls` record means no calls
+/// have been entered yet; `.noAuction` is the player's explicit statement that
+/// this board has no auction. None of these cases becomes a pass.
 public struct AuctionRecord: Codable, Equatable, Sendable {
+    public var kind: AuctionRecordKind
     /// The first position to act, not the seat making the first non-pass bid.
     public var startingSeat: Seat?
     public var entries: [AuctionEntry]
 
-    public init(startingSeat: Seat? = nil, entries: [AuctionEntry] = []) {
+    public init(
+        kind: AuctionRecordKind = .calls,
+        startingSeat: Seat? = nil,
+        entries: [AuctionEntry] = []
+    ) {
+        self.kind = kind
         self.startingSeat = startingSeat
         self.entries = entries
     }
 
+    private enum CodingKeys: String, CodingKey {
+        case kind
+        case startingSeat
+        case entries
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        kind = try container.decodeIfPresent(AuctionRecordKind.self, forKey: .kind) ?? .calls
+        startingSeat = try container.decodeIfPresent(Seat.self, forKey: .startingSeat)
+        entries = try container.decodeIfPresent([AuctionEntry].self, forKey: .entries) ?? []
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(kind, forKey: .kind)
+        try container.encodeIfPresent(startingSeat, forKey: .startingSeat)
+        try container.encode(entries, forKey: .entries)
+    }
+
     public var promptDescription: String {
+        if kind == .noAuction, entries.isEmpty {
+            return "叫牌状态：用户已确认本局无叫牌。"
+        }
         let start = startingSeat?.chineseName ?? "未知；不得默认北家"
         guard !entries.isEmpty else {
             return "首个行动位置：\(start)\n当前没有已确认叫品；空记录不代表无叫牌。"
@@ -109,6 +144,9 @@ public struct AuctionRecord: Codable, Equatable, Sendable {
     /// layout blanks. If no opening position or first entry seat is known, the
     /// calls remain an ordered transcript and no seat is guessed.
     public var layoutRows: [AuctionLayoutRow]? {
+        if kind == .noAuction {
+            return entries.isEmpty ? [] : nil
+        }
         guard !entries.isEmpty else { return [] }
         guard let firstSeat = entries.first?.seat ?? startingSeat,
               let firstColumn = Seat.allCases.firstIndex(of: firstSeat) else {
