@@ -6,6 +6,15 @@ final class KeyPlayAnalysisTests: XCTestCase {
         var review = DeclarerPlanDraft()
         review.contractLevel = 3
         review.contractStrain = .noTrump
+        review.vulnerability = .both
+        review.auction = AuctionRecord(
+            startingSeat: .south,
+            entries: [
+                AuctionEntry(seat: .south, call: .bid(level: 1, strain: .noTrump)),
+                AuctionEntry(seat: .west, call: .pass),
+                AuctionEntry(seat: .north, call: .unknown),
+            ]
+        )
         review.hands[.south, default: [:]][.hearts] = "A84"
         review.hands[.north, default: [:]][.hearts] = "J7"
 
@@ -29,6 +38,10 @@ final class KeyPlayAnalysisTests: XCTestCase {
         XCTAssertTrue(request.prompt.contains("比较现在拿红心 A 与忍让的目的"))
         XCTAssertTrue(request.prompt.contains("东家：未知"))
         XCTAssertTrue(request.prompt.contains("不得把未提供的出牌过程当作事实"))
+        XCTAssertEqual(request.vulnerability, .both)
+        XCTAssertEqual(request.auction, review.auction)
+        XCTAssertTrue(request.prompt.contains("局况：双方有局"))
+        XCTAssertTrue(request.prompt.contains("第3次行动（北家）：未知叫品"))
         XCTAssertFalse(request.prompt.contains("后来"))
         XCTAssertEqual(request.scoring, "IMP")
     }
