@@ -1319,6 +1319,22 @@ private struct ContractSelectionGrid: View {
         .focusable()
         .focusEffectDisabled()
         .focused($focusedContractOption, equals: optionIdentifier)
+        .onKeyPress(.leftArrow) {
+            moveFocus(fromLevel: level, strain: strain, direction: .left)
+            return .handled
+        }
+        .onKeyPress(.rightArrow) {
+            moveFocus(fromLevel: level, strain: strain, direction: .right)
+            return .handled
+        }
+        .onKeyPress(.upArrow) {
+            moveFocus(fromLevel: level, strain: strain, direction: .up)
+            return .handled
+        }
+        .onKeyPress(.downArrow) {
+            moveFocus(fromLevel: level, strain: strain, direction: .down)
+            return .handled
+        }
         .onKeyPress(.return) {
             onSelect(ContractChoice(level: level, strain: strain))
             return .handled
@@ -1328,7 +1344,7 @@ private struct ContractSelectionGrid: View {
             return .handled
         }
         .onMoveCommand { direction in
-            moveFocus(fromLevel: level, strain: strain, direction: direction)
+            moveFocusForCommand(fromLevel: level, strain: strain, direction: direction)
         }
         .accessibilityIdentifier(optionIdentifier)
         .accessibilityLabel("\(level)\(strain.symbol) 定约")
@@ -1341,22 +1357,29 @@ private struct ContractSelectionGrid: View {
         return contractOptionIdentifier(level: selectedContract.level, strain: selectedContract.strain)
     }
 
-    private func moveFocus(fromLevel level: Int, strain: ContractStrain, direction: MoveCommandDirection) {
-        var nextLevel = level
-        var nextColumn = strains.firstIndex(of: strain) ?? 0
+    private func moveFocusForCommand(fromLevel level: Int, strain: ContractStrain, direction: MoveCommandDirection) {
+        let navigationDirection: ContractGridNavigation.Direction
         switch direction {
         case .left:
-            nextColumn = max(0, nextColumn - 1)
+            navigationDirection = .left
         case .right:
-            nextColumn = min(strains.count - 1, nextColumn + 1)
+            navigationDirection = .right
         case .up:
-            nextLevel = max(1, nextLevel - 1)
+            navigationDirection = .up
         case .down:
-            nextLevel = min(7, nextLevel + 1)
+            navigationDirection = .down
         @unknown default:
             return
         }
-        focusedContractOption = contractOptionIdentifier(level: nextLevel, strain: strains[nextColumn])
+        moveFocus(fromLevel: level, strain: strain, direction: navigationDirection)
+    }
+
+    private func moveFocus(fromLevel level: Int, strain: ContractStrain, direction: ContractGridNavigation.Direction) {
+        let destination = ContractGridNavigation.destination(
+            from: ContractChoice(level: level, strain: strain),
+            direction: direction
+        )
+        focusedContractOption = contractOptionIdentifier(level: destination.level, strain: destination.strain)
     }
 
     private func contractOptionIdentifier(level: Int, strain: ContractStrain) -> String {

@@ -22,6 +22,14 @@ On top of `b565d41c469f2c9d70d1242344d0b3b64cefbbf8`, `BridgeTeacherApplicationM
 - `git diff --check`: passed.
 - No new packaged/manual GUI run or live service request was made for this code-order correction; the packaged and synthetic-only service evidence above remains the acceptance evidence for those paths.
 
+## Contract-grid keyboard navigation follow-up
+
+The contract picker now handles physical left/right/up/down arrow keys explicitly and returns `.handled` after moving its focused option, so arrow input does not dismiss the picker. Movement uses a pure grid-navigation helper, clamps at the first/last row and column, and preserves the existing Return/Space confirmation handlers.
+
+- Focused `swift test --filter BridgeTeacherContractSelectionTests/testContractGridNavigationMovesOneCellAndClampsAtGridEdges`: **1 test, 0 failures**; covers all four directions and edge clamping.
+- Full `swift test`: **108 tests, 0 failures, 3 DDS-helper-dependent skips**.
+- Keyboard interaction has **not yet been rechecked in a packaged app**. The integration/package check is pending cherry-pick; this pure-navigation test does not establish physical key delivery or picker retention in SwiftUI.
+
 ## Automated verification
 
 `swift test` completed on the integration revision: **99 tests, 0 failures, 3 DDS-helper-dependent tests skipped**. The test worktree did not have its DDS helper built for those integration tests. The packaged GUI below used the pinned DDS 3.0.0 helper copied from the already-integrated ticket #10 build; this does not change the skipped-test count.
@@ -71,6 +79,8 @@ The manual run exercised the continuous review path:
 - Inspected the vulnerability choices: unknown, neither side, NS, EW, and both sides are distinct. The temporary QA review was restored to EW vulnerability afterward.
 - Opened the DDS disclosure below plan generation and confirmed its explanatory boundary: full-information verification is retrospective and excluded from teaching context.
 - Saved to the unique temporary store, reopened the review, and verified that the auction, per-call note, hands, vulnerability, starting seat, contract, lead, and stale-plan state survived.
+
+An additional packaged check ran against integration source revision `e1865e6` using `Bridge Coup.app` version `0.4.0` (build `11.2`), unique bundle `app.absurdwall.bridge-coup.issue4-final-qa`, and temporary store `/tmp/bridge-coup-issue4-final-qa-20260927/reviews`. Strict codesign verification passed; its signed bundled DDS helper hash matches the packaged SHA-256 above. The operator added a note to the first of two identical Passes, saved/reopened and verified the second Pass had Clear disabled, then cleared the first note, saved/reopened again, and verified neither Pass retained a note marker. No model request was made. This verifies packaged note clearing; it does not include the pending arrow-key packaged check.
 
 ## Limits
 
