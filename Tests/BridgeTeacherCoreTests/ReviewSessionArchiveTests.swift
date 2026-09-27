@@ -159,6 +159,111 @@ final class ReviewSessionArchiveTests: XCTestCase {
         XCTAssertEqual(reopened.draft.auction?.layoutRows, [])
     }
 
+    func testLegacyScreenshotArchiveDefaultsManualEditTrackingToEmpty() throws {
+        let archive = ScreenshotReviewWorkflowArchive(state: .idle, candidate: nil, response: nil)
+        let encoded = try JSONEncoder().encode(archive)
+        var object = try XCTUnwrap(JSONSerialization.jsonObject(with: encoded) as? [String: Any])
+        object.removeValue(forKey: "manuallyEditedFields")
+        let legacyData = try JSONSerialization.data(withJSONObject: object)
+
+        let reopened = try JSONDecoder().decode(ScreenshotReviewWorkflowArchive.self, from: legacyData)
+
+        XCTAssertTrue(reopened.manuallyEditedFields.isEmpty)
+    }
+
+    @MainActor
+    func testClearedScreenshotAuctionCandidateAndEditStateSurviveArchiveReopen() async throws {
+        let temporaryRoot = FileManager.default.temporaryDirectory
+            .appendingPathComponent(UUID().uuidString, isDirectory: true)
+        defer { try? FileManager.default.removeItem(at: temporaryRoot) }
+
+        let candidate = ScreenshotRecognitionCandidate(
+            hands: [.south: [.spades: "A"]],
+            declarerSeat: .south,
+            contractLevel: 3,
+            contractStrain: .noTrump,
+            openingLead: nil,
+            otherDecisionTimeFacts: "",
+            notes: [ScreenshotRecognitionNote(field: "auction", kind: .visibleButUnclear, message: "第二次行动叫品不清。")],
+            vulnerability: .both,
+            auction: ScreenshotAuctionCandidate(
+                startingSeat: .north,
+                entries: [
+                    ScreenshotAuctionEntryCandidate(seat: .north, action: .bid, level: 1, strain: .clubs),
+                    ScreenshotAuctionEntryCandidate(seat: .east, action: .unknown),
+                ]
+            )
+        )
+        let response = ScreenshotRecognitionResponse(candidate: candidate, model: "vision-model")
+        var draft = DeclarerPlanDraft()
+        draft.declarerSeat = .south
+        draft.contractLevel = 3
+        draft.contractStrain = .noTrump
+        draft.decisionTimeConfirmed = false
+        draft.hands[.south, default: [:]][.spades] = "A"
+
+        let screenshotArchive = ScreenshotReviewWorkflowArchive(
+            state: .succeeded,
+            candidate: candidate,
+            response: response,
+            sourceFilename: "auction-crop.png",
+            manuallyEditedFields: [
+                .auction,
+                .vulnerability,
+                .hand(seat: .south, suit: .spades),
+            ]
+        )
+        let snapshot = ReviewSessionSnapshot(
+            title: "Unconfirmed screenshot auction",
+            teachingMode: .declarerPlan,
+            declarerPlan: workflowArchive(draft: draft),
+            screenshot: screenshotArchive,
+            keyPlay: KeyPlayAnalysisWorkflowArchive(
+                draft: KeyPlayAnalysisDraft(),
+                state: .idle,
+                result: nil,
+                resultIsOutdated: false,
+                resultInformationVersion: nil
+            ),
+            doubleDummy: DoubleDummyVerificationWorkflowArchive(
+                draft: DoubleDummyVerificationDraft(),
+                state: .unverified,
+                result: nil,
+                hasOutdatedResult: false
+            )
+        )
+        let store = LocalReviewSessionStore(directoryURL: temporaryRoot.appendingPathComponent("reviews", isDirectory: true))
+        let saved = try store.save(snapshot, screenshotURL: nil)
+        let reopened = try store.open(id: saved.id)
+
+        XCTAssertEqual(reopened.snapshot.screenshot.state, .succeeded)
+        XCTAssertEqual(reopened.snapshot.screenshot.candidate, candidate)
+        XCTAssertEqual(reopened.snapshot.screenshot.candidate?.notes, candidate.notes)
+        XCTAssertEqual(reopened.snapshot.screenshot.manuallyEditedFields, [
+            .auction,
+            .vulnerability,
+            .hand(seat: .south, suit: .spades),
+        ])
+        XCTAssertFalse(reopened.snapshot.declarerPlan.draft.decisionTimeConfirmed)
+
+        let planWorkflow = DeclarerPlanWorkflow(runtime: ReopenedFollowUpRuntime())
+        planWorkflow.restore(from: reopened.snapshot.declarerPlan)
+        let reviewWorkflow = ScreenshotReviewWorkflow(
+            planWorkflow: planWorkflow,
+            runtime: ArchivedScreenshotRecognitionRuntime(response)
+        )
+        reviewWorkflow.restore(from: reopened.snapshot.screenshot, screenshotURL: URL(fileURLWithPath: "/tmp/auction-crop.png"))
+        XCTAssertThrowsError(try DeclarerPlanRequestBuilder.build(from: planWorkflow.draft)) { error in
+            XCTAssertEqual(error as? DeclarerPlanInputError, .decisionTimeNotConfirmed)
+        }
+
+        await reviewWorkflow.recognizeScreenshot()
+
+        XCTAssertNil(planWorkflow.draft.auction)
+        XCTAssertNil(planWorkflow.draft.vulnerability)
+        XCTAssertFalse(planWorkflow.draft.decisionTimeConfirmed)
+    }
+
     private func workflowArchive(draft: DeclarerPlanDraft) -> DeclarerPlanWorkflowArchive {
         DeclarerPlanWorkflowArchive(
             draft: draft,
@@ -284,7 +389,15 @@ final class ReviewSessionArchiveTests: XCTestCase {
             contractStrain: .noTrump,
             openingLead: nil,
             otherDecisionTimeFacts: "",
-            notes: [ScreenshotRecognitionNote(field: "declarerSeat", kind: .notShown, message: "截图未标注庄家。")]
+            notes: [ScreenshotRecognitionNote(field: "declarerSeat", kind: .notShown, message: "截图未标注庄家。")],
+            vulnerability: .both,
+            auction: ScreenshotAuctionCandidate(
+                startingSeat: .north,
+                entries: [
+                    ScreenshotAuctionEntryCandidate(seat: .north, action: .bid, level: 1, strain: .hearts),
+                    ScreenshotAuctionEntryCandidate(seat: .east, action: .unknown),
+                ]
+            )
         )
         let response = ScreenshotRecognitionResponse(candidate: candidate, model: "vision-model", runtimeVersion: "0.156.1")
 
@@ -341,6 +454,11 @@ final class ReviewSessionArchiveTests: XCTestCase {
         XCTAssertEqual(reopened.snapshot.declarerPlan.draft.auction, draft.auction)
         XCTAssertEqual(reopened.snapshot.declarerPlan.draft.hands[.east]?[.diamonds], "QJ9")
         XCTAssertEqual(reopened.snapshot.screenshot.candidate, candidate)
+        XCTAssertEqual(reopened.snapshot.screenshot.state, .succeeded)
+        XCTAssertEqual(reopened.snapshot.screenshot.candidate?.vulnerability, .both)
+        XCTAssertEqual(reopened.snapshot.screenshot.candidate?.auction?.entries.map(\.auctionCall), [
+            .bid(level: 1, strain: .hearts), .unknown,
+        ])
         XCTAssertEqual(reopened.snapshot.screenshot.response, response)
         XCTAssertEqual(reopened.snapshot.screenshot.sourceFilename, "original-board.jpg")
         XCTAssertEqual(reopened.snapshot.keyPlay.result, session.keyPlay.result)
@@ -386,4 +504,16 @@ private actor ReopenedFollowUpRuntime: DeclarerTeachingRuntime {
     }
 
     func lastFollowUpRequest() -> DeclarerFollowUpRequest? { followUpRequest }
+}
+
+private actor ArchivedScreenshotRecognitionRuntime: ScreenshotRecognitionRuntime {
+    private let response: ScreenshotRecognitionResponse
+
+    init(_ response: ScreenshotRecognitionResponse) {
+        self.response = response
+    }
+
+    func recognizeScreenshot(at imageURL: URL) async throws -> ScreenshotRecognitionResponse {
+        response
+    }
 }

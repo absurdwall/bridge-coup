@@ -722,6 +722,7 @@ private struct DeclarerEntryPanel: View {
                                 !model.canSendModelRequests
                                     || !model.modelSettings.canRecognizeImages
                                     || screenshotWorkflow.state == .recognizing
+                                    || screenshotWorkflow.state == .succeeded
                             )
                         }
                     }
@@ -747,6 +748,32 @@ private struct DeclarerEntryPanel: View {
                     requestedModel: recognition.requestedModel,
                     effort: recognition.reasoningEffort
                 )
+            }
+
+            if let candidate = screenshotWorkflow.candidate {
+                VStack(alignment: .leading, spacing: 4) {
+                    if let auction = candidate.auction {
+                        if auction.entries.isEmpty {
+                            Text("叫牌候选为空；没有补入 Pass。可在下方手动录入。")
+                        } else {
+                            let entries = auction.auctionRecord.entries.map { entry in
+                                "\(entry.seat?.chineseName ?? "位置未知") \(entry.call.displayText)"
+                            }
+                            Text("截图叫牌候选：\(entries.joined(separator: " · "))。请在下方叫牌表核对、修正或补录。")
+                        }
+                    }
+                    if let vulnerability = candidate.vulnerability {
+                        Text("局况候选：\(vulnerability.chineseDescription)；请核对截图与下方选项。")
+                    }
+                    if candidate.auction != nil || candidate.vulnerability != nil {
+                        Text("截图识别结果尚未确认；只有勾选下方核对声明后才会进入请求。")
+                            .foregroundStyle(BridgePalette.warning)
+                    }
+                }
+                .font(.system(size: 10))
+                .foregroundStyle(BridgePalette.muted)
+                .fixedSize(horizontal: false, vertical: true)
+                .accessibilityIdentifier("screenshot-auction-candidate-summary")
             }
 
             if let candidate = screenshotWorkflow.candidate, !candidate.notes.isEmpty {
@@ -785,7 +812,7 @@ private struct DeclarerEntryPanel: View {
             if screenshotWorkflow.screenshotURL != nil {
                 VStack(alignment: .leading, spacing: 6) {
                     Toggle(isOn: draftBinding(for: \.decisionTimeConfirmed)) {
-                        Text("我已核对：勾选的手牌、定约、做庄人、首攻和补充事实，都是这个决策点当时可得的信息。")
+                        Text("我已核对：叫牌、局况、勾选的手牌、定约、做庄人、首攻和补充事实，都是这个决策点当时可得的信息。")
                             .font(.system(size: 11, weight: .medium))
                             .foregroundStyle(BridgePalette.ink)
                     }
@@ -1923,8 +1950,8 @@ private struct ScreenshotRecognitionPresentation {
             buttonTitle = "识别截图"
             isFailure = false
         case .succeeded:
-            message = "\(model) 的识别候选已填入左侧表单，请对照原图校正后再确认。"
-            buttonTitle = "识别截图"
+            message = "\(model) 的牌面、叫牌与局况均为待核对候选；请编辑左侧表单并明确确认后再发送。"
+            buttonTitle = "候选已生成"
             isFailure = false
         case .stale:
             message = "识别期间牌面已改变；迟到的结果已丢弃。确认当前输入后可重新识别。"

@@ -46,7 +46,7 @@ final class CodexTeachingServiceRequestTests: XCTestCase {
 
     func testScreenshotRecognitionUsesTheSelectedConfigurationAndRecordsIt() async throws {
         let screenshotReply = """
-        {"hands":{"north":{"spades":"","hearts":"","diamonds":"","clubs":""},"east":{"spades":"","hearts":"","diamonds":"","clubs":""},"south":{"spades":"","hearts":"","diamonds":"","clubs":""},"west":{"spades":"","hearts":"","diamonds":"","clubs":""}},"declarerSeat":null,"contractLevel":null,"contractStrain":null,"openingLead":null,"otherDecisionTimeFacts":"","notes":[]}
+        {"hands":{"north":{"spades":"","hearts":"","diamonds":"","clubs":""},"east":{"spades":"","hearts":"","diamonds":"","clubs":""},"south":{"spades":"","hearts":"","diamonds":"","clubs":""},"west":{"spades":"","hearts":"","diamonds":"","clubs":""}},"vulnerability":"eastWest","auction":{"startingSeat":"north","entries":[{"seat":"north","action":"bid","level":1,"strain":"clubs"},{"seat":"east","action":"unknown","level":null,"strain":null}]},"declarerSeat":null,"contractLevel":null,"contractStrain":null,"openingLead":null,"otherDecisionTimeFacts":"","notes":[]}
         """
         let fixture = try makeService(assistantReply: screenshotReply)
         defer { try? FileManager.default.removeItem(at: fixture.root) }
@@ -62,6 +62,23 @@ final class CodexTeachingServiceRequestTests: XCTestCase {
         XCTAssertEqual(params["effort"] as? String, "high")
         XCTAssertEqual(response.requestedModel, "gpt-6-sol")
         XCTAssertEqual(response.reasoningEffort, "high")
+        XCTAssertEqual(response.candidate.vulnerability, .eastWest)
+        XCTAssertEqual(response.candidate.auction?.entries.map(\.auctionCall), [
+            .bid(level: 1, strain: .clubs), .unknown,
+        ])
+
+        let outputSchema = try XCTUnwrap(params["outputSchema"] as? [String: Any])
+        let required = try XCTUnwrap(outputSchema["required"] as? [String])
+        XCTAssertTrue(required.contains("auction"))
+        XCTAssertTrue(required.contains("vulnerability"))
+        let properties = try XCTUnwrap(outputSchema["properties"] as? [String: Any])
+        let auctionSchema = try XCTUnwrap(properties["auction"] as? [String: Any])
+        let auctionProperties = try XCTUnwrap(auctionSchema["properties"] as? [String: Any])
+        let entriesSchema = try XCTUnwrap(auctionProperties["entries"] as? [String: Any])
+        let entrySchema = try XCTUnwrap(entriesSchema["items"] as? [String: Any])
+        let entryProperties = try XCTUnwrap(entrySchema["properties"] as? [String: Any])
+        let actionSchema = try XCTUnwrap(entryProperties["action"] as? [String: Any])
+        XCTAssertEqual(actionSchema["enum"] as? [String], ScreenshotAuctionAction.allCases.map(\.rawValue))
     }
 
     func testScreenshotRecognitionStopsWhenSelectedModelDoesNotAdvertiseImageInput() async throws {
