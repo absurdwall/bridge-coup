@@ -1,28 +1,11 @@
 import BridgeTeacherCore
 import SwiftUI
 
-enum AuctionCallInk: String, Equatable {
-    case neutral
-    case pass
-    case clubs
-    case diamonds
-    case hearts
-    case spades
-    case noTrump
+typealias AuctionCallInk = AuctionCallDisplayTone
 
+extension AuctionCallDisplayTone {
     static func forCall(_ call: AuctionCall) -> Self {
-        switch call {
-        case .pass: .pass
-        case .double, .redouble, .unknown: .neutral
-        case let .bid(_, strain):
-            switch strain {
-            case .clubs: .clubs
-            case .diamonds: .diamonds
-            case .hearts: .hearts
-            case .spades: .spades
-            case .noTrump: .noTrump
-            }
-        }
+        call.display.tone
     }
 
     var foreground: Color {
