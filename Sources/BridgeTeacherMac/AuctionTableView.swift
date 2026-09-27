@@ -441,13 +441,7 @@ struct AuctionTableView: View {
             get: { record?.isPartial ?? false },
             set: { isPartial in
                 guard var next = record, next.kind == .calls, next.isPartial != isPartial else { return }
-                next.isPartial = isPartial
-                if isPartial {
-                    for index in next.entries.indices where next.entries[index].seatIsSequenceDerived {
-                        next.entries[index].seat = nil
-                        next.entries[index].seatIsSequenceDerived = false
-                    }
-                }
+                next.setIsPartial(isPartial)
                 record = next
             }
         )
@@ -455,14 +449,13 @@ struct AuctionTableView: View {
 
     private func updateCall(_ id: UUID, _ call: AuctionCall) {
         guard var next = record,
-              let index = next.entries.firstIndex(where: { $0.id == id }) else { return }
-        next.entries[index].call = call
+              next.updateCall(forEntryID: id, to: call) else { return }
         record = next
     }
 
     private func deleteCall(_ id: UUID) {
-        guard var next = record else { return }
-        next.entries.removeAll { $0.id == id }
+        guard var next = record,
+              next.removeEntry(id: id) else { return }
         record = next
     }
 

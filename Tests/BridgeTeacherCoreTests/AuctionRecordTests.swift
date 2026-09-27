@@ -112,6 +112,88 @@ final class AuctionRecordTests: XCTestCase {
         XCTAssertFalse(record.promptDescription.contains("第2次行动"))
     }
 
+    func testPartialCompleteRoundTripRestoresSequenceDerivedSeatsForTableAndRequest() throws {
+        var record = AuctionRecord(
+            startingSeat: .north,
+            entries: [
+                AuctionEntry(seat: .north, seatIsSequenceDerived: true, call: .bid(level: 1, strain: .clubs)),
+                AuctionEntry(seat: .east, seatIsSequenceDerived: true, call: .pass),
+            ]
+        )
+
+        record.setIsPartial(true)
+
+        XCTAssertEqual(record.entries.map(\.seat), [nil, nil])
+        XCTAssertEqual(record.entries.map(\.seatIsSequenceDerived), [true, true])
+        XCTAssertNil(record.layoutRows)
+        XCTAssertTrue(record.promptDescription.contains("可见记录项 1（位置未知）：1♣"))
+
+        let archivedPartialRecord = try JSONDecoder().decode(
+            AuctionRecord.self,
+            from: JSONEncoder().encode(record)
+        )
+        XCTAssertEqual(archivedPartialRecord.entries.map(\.seat), [nil, nil])
+        XCTAssertEqual(archivedPartialRecord.entries.map(\.seatIsSequenceDerived), [true, true])
+
+        var restored = archivedPartialRecord
+        restored.setIsPartial(false)
+
+        XCTAssertEqual(restored.entries.map(\.seat), [.north, .east])
+        XCTAssertEqual(restored.entries.map(\.seatIsSequenceDerived), [true, true])
+        XCTAssertTrue(restored.promptDescription.contains("第1次行动（北家）：1♣"))
+        XCTAssertTrue(restored.promptDescription.contains("第2次行动（东家）：Pass"))
+
+        let rows = try XCTUnwrap(restored.layoutRows)
+        XCTAssertEqual(rows.count, 1)
+        XCTAssertEqual(rows[0][.north], .entry(restored.entries[0]))
+        XCTAssertEqual(rows[0][.east], .entry(restored.entries[1]))
+
+        var draft = DeclarerPlanDraft()
+        draft.contractLevel = 3
+        draft.contractStrain = .noTrump
+        draft.hands[.south, default: [:]][.spades] = "A2"
+        draft.auction = restored
+        let request = try DeclarerPlanRequestBuilder.build(from: draft)
+
+        XCTAssertEqual(request.auction?.layoutRows, restored.layoutRows)
+        XCTAssertTrue(request.prompt.contains("第1次行动（北家）：1♣"))
+        XCTAssertTrue(request.prompt.contains("第2次行动（东家）：Pass"))
+    }
+
+    func testChangingStartingSeatRecomputesDerivedSeats() throws {
+        var record = AuctionRecord(
+            startingSeat: .north,
+            entries: [
+                AuctionEntry(seat: .north, seatIsSequenceDerived: true, call: .bid(level: 1, strain: .clubs)),
+                AuctionEntry(seat: .east, seatIsSequenceDerived: true, call: .pass),
+                AuctionEntry(seat: .south, seatIsSequenceDerived: true, call: .bid(level: 1, strain: .diamonds)),
+            ]
+        )
+
+        record.setStartingSeat(.east)
+
+        XCTAssertEqual(record.entries.map(\.seat), [.east, .south, .west])
+        XCTAssertEqual(record.sequenceSeat(at: 0), .east)
+        XCTAssertEqual(record.sequenceSeat(at: 1), .south)
+        XCTAssertEqual(record.sequenceSeat(at: 2), .west)
+        XCTAssertNotNil(record.layoutRows)
+        XCTAssertTrue(record.promptDescription.contains("第1次行动（东家）：1♣"))
+        XCTAssertTrue(record.promptDescription.contains("第3次行动（西家）：1♦"))
+    }
+
+    func testChoosingStartingSeatInfersPreviouslyUnassignedCompleteEntries() {
+        var record = AuctionRecord(entries: [
+            AuctionEntry(call: .pass),
+            AuctionEntry(call: .unknown),
+        ])
+
+        record.setStartingSeat(.south)
+
+        XCTAssertEqual(record.entries.map(\.seat), [.south, .west])
+        XCTAssertEqual(record.entries.map(\.seatIsSequenceDerived), [true, true])
+        XCTAssertTrue(record.promptDescription.contains("第2次行动（西家）：未知叫品"))
+    }
+
     func testLegacyAuctionRecordDefaultsToCompleteSequenceBehavior() throws {
         let record = AuctionRecord(
             startingSeat: .west,

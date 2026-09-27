@@ -46,8 +46,9 @@ public struct AuctionEntry: Codable, Equatable, Identifiable, Sendable {
     /// entered more than once. Editing or moving an entry must preserve it.
     public let id: UUID
     public var seat: Seat?
-    /// True when this seat was derived from a contiguous auction sequence,
-    /// rather than confirmed for this specific record item.
+    /// True when this seat comes from a contiguous auction sequence rather
+    /// than direct confirmation. The marker remains set while a partial view
+    /// temporarily hides the inferred seat, so it can be recalculated later.
     public var seatIsSequenceDerived: Bool
     public var call: AuctionCall
     /// A user-supplied meaning and applicability note, not a verified system
@@ -152,6 +153,54 @@ public struct AuctionRecord: Codable, Equatable, Sendable {
         self.entries = entries
     }
 
+    /// Changes whether this is a contiguous auction. Inferred seats are hidden
+    /// while partial and restored from the confirmed sequence when made whole.
+    public mutating func setIsPartial(_ isPartial: Bool) {
+        guard self.isPartial != isPartial else { return }
+        self.isPartial = isPartial
+
+        if isPartial {
+            for index in entries.indices where entries[index].seatIsSequenceDerived {
+                entries[index].seat = nil
+            }
+            return
+        }
+
+        // A complete transcript asserts that the visible entries are
+        // contiguous. Infer only missing seats; preserve per-entry seats the
+        // user explicitly confirmed so contradictions remain visible.
+        for index in entries.indices where entries[index].seatIsSequenceDerived {
+            entries[index].seat = nil
+        }
+        for index in entries.indices where entries[index].seat == nil {
+            guard let seat = sequenceSeat(at: index) else { continue }
+            entries[index].seat = seat
+            entries[index].seatIsSequenceDerived = true
+        }
+    }
+
+    /// Updates the auction's first actor and recomputes only inferred seats.
+    /// Manually confirmed seats are kept intact for conflict checking.
+    public mutating func setStartingSeat(_ seat: Seat?) {
+        guard startingSeat != seat else { return }
+        let wasUnset = startingSeat == nil
+        startingSeat = seat
+
+        for index in entries.indices where entries[index].seatIsSequenceDerived {
+            entries[index].seat = nil
+        }
+
+        guard !isPartial else { return }
+        for index in entries.indices {
+            let shouldInfer = entries[index].seatIsSequenceDerived
+                || (wasUnset && seat != nil && entries[index].seat == nil)
+            guard shouldInfer else { continue }
+            guard let inferredSeat = sequenceSeat(at: index) else { continue }
+            entries[index].seat = inferredSeat
+            entries[index].seatIsSequenceDerived = true
+        }
+    }
+
     /// Inserts one occurrence without changing the identity of existing calls.
     @discardableResult
     public mutating func insertEntry(_ entry: AuctionEntry, at index: Int) -> Bool {
@@ -203,7 +252,6 @@ public struct AuctionRecord: Codable, Equatable, Sendable {
                 var entry = entry
                 if entry.seatIsSequenceDerived {
                     entry.seat = nil
-                    entry.seatIsSequenceDerived = false
                 }
                 return entry
             }
