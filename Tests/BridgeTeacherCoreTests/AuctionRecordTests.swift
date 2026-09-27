@@ -37,6 +37,7 @@ final class AuctionRecordTests: XCTestCase {
         let encoded = try JSONEncoder().encode(priorEntry)
         var object = try XCTUnwrap(JSONSerialization.jsonObject(with: encoded) as? [String: Any])
         object.removeValue(forKey: "id")
+        object.removeValue(forKey: "seatIsSequenceDerived")
         object.removeValue(forKey: "meaningNote")
         let priorSchemaData = try JSONSerialization.data(withJSONObject: object)
 
@@ -44,6 +45,7 @@ final class AuctionRecordTests: XCTestCase {
 
         XCTAssertNotEqual(decoded.id, priorEntry.id)
         XCTAssertEqual(decoded.seat, .north)
+        XCTAssertTrue(decoded.seatIsSequenceDerived)
         XCTAssertEqual(decoded.call, .bid(level: 1, strain: .clubs))
         XCTAssertNil(decoded.meaningNote)
     }
@@ -66,5 +68,69 @@ final class AuctionRecordTests: XCTestCase {
         XCTAssertTrue(request.prompt.contains("未核实，不得表述为已确认的约定"))
         XCTAssertTrue(request.prompt.contains("Only if the opponents used this agreement."))
         XCTAssertFalse(request.prompt.contains("<user-call-meaning-note>\n\n</user-call-meaning-note>"))
+    }
+
+    func testPartialRecordWithKnownStartDoesNotInferSeatsOrMissingCalls() throws {
+        let northCall = AuctionEntry(seat: .north, call: .bid(level: 1, strain: .clubs))
+        let eastCall = AuctionEntry(seat: .east, call: .pass)
+        let record = AuctionRecord(
+            startingSeat: .west,
+            entries: [northCall, eastCall],
+            isPartial: true
+        )
+
+        XCTAssertNil(record.sequenceSeat(at: 0))
+        XCTAssertNil(record.sequenceSeat(at: 1))
+        let rows = try XCTUnwrap(record.layoutRows)
+        XCTAssertEqual(rows.count, 2, "Each visible item keeps order without inferring intervening turns.")
+        XCTAssertEqual(rows[0][.north], .entry(northCall))
+        XCTAssertEqual(rows[0][.west], .layoutBlank)
+        XCTAssertEqual(rows[1][.east], .entry(eastCall))
+        XCTAssertEqual(record.entries.map(\.call), [.bid(level: 1, strain: .clubs), .pass])
+
+        XCTAssertTrue(record.promptDescription.contains("部分可见片段"))
+        XCTAssertTrue(record.promptDescription.contains("可见记录项 1（北家）：1♣"))
+        XCTAssertTrue(record.promptDescription.contains("可见记录项 2（东家）：Pass"))
+        XCTAssertTrue(record.promptDescription.contains("不得推断缺口中的叫品、Pass 或座位"))
+        XCTAssertFalse(record.promptDescription.contains("第1次行动"))
+        XCTAssertFalse(record.promptDescription.contains("第2次行动"))
+    }
+
+    func testPartialRecordKeepsUnknownSeatUnknownAndRequiresPerItemReview() {
+        let record = AuctionRecord(
+            startingSeat: .west,
+            entries: [
+                AuctionEntry(seat: .south, call: .bid(level: 1, strain: .diamonds)),
+                AuctionEntry(call: .unknown),
+            ],
+            isPartial: true
+        )
+
+        XCTAssertNil(record.sequenceSeat(at: 1))
+        XCTAssertNil(record.layoutRows)
+        XCTAssertTrue(record.promptDescription.contains("可见记录项 2（位置未知）：未知叫品"))
+        XCTAssertFalse(record.promptDescription.contains("第2次行动"))
+    }
+
+    func testLegacyAuctionRecordDefaultsToCompleteSequenceBehavior() throws {
+        let record = AuctionRecord(
+            startingSeat: .west,
+            entries: [
+                AuctionEntry(seat: .west, call: .pass),
+                AuctionEntry(seat: .north, call: .bid(level: 1, strain: .clubs)),
+            ]
+        )
+        let encoded = try JSONEncoder().encode(record)
+        var object = try XCTUnwrap(JSONSerialization.jsonObject(with: encoded) as? [String: Any])
+        object.removeValue(forKey: "isPartial")
+        let legacyData = try JSONSerialization.data(withJSONObject: object)
+
+        let decoded = try JSONDecoder().decode(AuctionRecord.self, from: legacyData)
+
+        XCTAssertFalse(decoded.isPartial)
+        XCTAssertEqual(decoded.sequenceSeat(at: 0), .west)
+        XCTAssertEqual(decoded.sequenceSeat(at: 1), .north)
+        XCTAssertNotNil(decoded.layoutRows)
+        XCTAssertTrue(decoded.promptDescription.contains("第2次行动（北家）"))
     }
 }

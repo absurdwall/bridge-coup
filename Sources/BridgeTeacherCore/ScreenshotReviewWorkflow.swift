@@ -82,15 +82,41 @@ public struct ScreenshotAuctionEntryCandidate: Codable, Equatable, Sendable {
 public struct ScreenshotAuctionCandidate: Codable, Equatable, Sendable {
     public var startingSeat: Seat?
     public var entries: [ScreenshotAuctionEntryCandidate]
+    public var isPartial: Bool
 
-    public init(startingSeat: Seat? = nil, entries: [ScreenshotAuctionEntryCandidate] = []) {
+    public init(
+        startingSeat: Seat? = nil,
+        entries: [ScreenshotAuctionEntryCandidate] = [],
+        isPartial: Bool = false
+    ) {
         self.startingSeat = startingSeat
         self.entries = entries
+        self.isPartial = isPartial
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case startingSeat
+        case entries
+        case isPartial
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        startingSeat = try container.decodeIfPresent(Seat.self, forKey: .startingSeat)
+        entries = try container.decodeIfPresent([ScreenshotAuctionEntryCandidate].self, forKey: .entries) ?? []
+        isPartial = try container.decodeIfPresent(Bool.self, forKey: .isPartial) ?? false
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(startingSeat, forKey: .startingSeat)
+        try container.encode(entries, forKey: .entries)
+        try container.encode(isPartial, forKey: .isPartial)
     }
 
     public var auctionRecord: AuctionRecord {
         let firstPosition: Int?
-        if let startingSeat {
+        if !isPartial, let startingSeat {
             firstPosition = Seat.allCases.firstIndex(of: startingSeat)
         } else {
             firstPosition = nil
@@ -99,8 +125,14 @@ public struct ScreenshotAuctionCandidate: Codable, Equatable, Sendable {
             startingSeat: startingSeat,
             entries: entries.enumerated().map { index, entry in
                 let sequentialSeat = firstPosition.map { Seat.allCases[($0 + index) % Seat.allCases.count] }
-                return AuctionEntry(seat: entry.seat ?? sequentialSeat, call: entry.auctionCall)
-            }
+                let inferredSeat = entry.seat == nil ? sequentialSeat : nil
+                return AuctionEntry(
+                    seat: entry.seat ?? sequentialSeat,
+                    seatIsSequenceDerived: inferredSeat != nil,
+                    call: entry.auctionCall
+                )
+            },
+            isPartial: isPartial
         )
     }
 }

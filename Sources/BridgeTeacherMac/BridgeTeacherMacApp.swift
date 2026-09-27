@@ -751,12 +751,16 @@ private struct DeclarerEntryPanel: View {
                 VStack(alignment: .leading, spacing: 4) {
                     if let auction = candidate.auction {
                         if auction.entries.isEmpty {
-                            Text("叫牌候选为空；没有补入 Pass。可在下方手动录入。")
+                            Text(auction.isPartial
+                                 ? "截图叫牌候选为空，是部分可见片段；没有补入 Pass。可在下方手动录入。"
+                                 : "叫牌候选为空；没有补入 Pass。可在下方手动录入。")
                         } else {
                             let entries = auction.auctionRecord.entries.map { entry in
                                 "\(entry.seat?.chineseName ?? "位置未知") \(entry.call.displayText)"
                             }
-                            Text("截图叫牌候选：\(entries.joined(separator: " · "))。请在下方叫牌表核对、修正或补录。")
+                            Text(auction.isPartial
+                                 ? "截图叫牌候选 · 部分可见片段（按可见顺序；不推断缺口、Pass 或座位）：\(entries.joined(separator: " · "))。请在下方逐项核对、修正或补录。"
+                                 : "截图叫牌候选：\(entries.joined(separator: " · "))。请在下方叫牌表核对、修正或补录。")
                         }
                     }
                     if let vulnerability = candidate.vulnerability {
@@ -903,7 +907,12 @@ private struct DeclarerEntryPanel: View {
                 .frame(maxWidth: 145, alignment: .leading)
                 .accessibilityIdentifier("auction-vulnerability")
 
-                Picker("首个行动位置", selection: auctionStartingSeatBinding) {
+                Picker(
+                    workflow.draft.auction?.isPartial == true
+                        ? "整段叫牌的首个行动位置（不推算片段座位）"
+                        : "首个行动位置",
+                    selection: auctionStartingSeatBinding
+                ) {
                     Text("位置未知").tag(Seat?.none)
                     ForEach(Seat.allCases, id: \.self) { seat in
                         Text(seat.chineseName).tag(Optional(seat))
@@ -944,7 +953,10 @@ private struct DeclarerEntryPanel: View {
                 record.startingSeat = newSeat
                 if previousStartingSeat == nil, newSeat != nil {
                     for index in record.entries.indices where record.entries[index].seat == nil {
-                        record.entries[index].seat = record.sequenceSeat(at: index)
+                        if let seat = record.sequenceSeat(at: index) {
+                            record.entries[index].seat = seat
+                            record.entries[index].seatIsSequenceDerived = true
+                        }
                     }
                 }
                 setAuction(record)

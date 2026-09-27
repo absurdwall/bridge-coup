@@ -46,6 +46,9 @@ public struct AuctionEntry: Codable, Equatable, Identifiable, Sendable {
     /// entered more than once. Editing or moving an entry must preserve it.
     public let id: UUID
     public var seat: Seat?
+    /// True when this seat was derived from a contiguous auction sequence,
+    /// rather than confirmed for this specific record item.
+    public var seatIsSequenceDerived: Bool
     public var call: AuctionCall
     /// A user-supplied meaning and applicability note, not a verified system
     /// convention or a tournament Alert.
@@ -54,11 +57,13 @@ public struct AuctionEntry: Codable, Equatable, Identifiable, Sendable {
     public init(
         id: UUID = UUID(),
         seat: Seat? = nil,
+        seatIsSequenceDerived: Bool = false,
         call: AuctionCall,
         meaningNote: String? = nil
     ) {
         self.id = id
         self.seat = seat
+        self.seatIsSequenceDerived = seatIsSequenceDerived
         self.call = call
         self.meaningNote = Self.normalizedMeaningNote(meaningNote)
     }
@@ -66,6 +71,7 @@ public struct AuctionEntry: Codable, Equatable, Identifiable, Sendable {
     private enum CodingKeys: String, CodingKey {
         case id
         case seat
+        case seatIsSequenceDerived
         case call
         case meaningNote
     }
@@ -74,6 +80,11 @@ public struct AuctionEntry: Codable, Equatable, Identifiable, Sendable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
         seat = try container.decodeIfPresent(Seat.self, forKey: .seat)
+        // Older archives did not distinguish a seat confirmed for this item
+        // from one filled by continuous sequence. Keep their current complete
+        // behavior, but treat stored seats as sequence-derived if the user
+        // later marks that record partial.
+        seatIsSequenceDerived = try container.decodeIfPresent(Bool.self, forKey: .seatIsSequenceDerived) ?? (seat != nil)
         call = try container.decode(AuctionCall.self, forKey: .call)
         meaningNote = Self.normalizedMeaningNote(try container.decodeIfPresent(String.self, forKey: .meaningNote))
     }
@@ -82,6 +93,7 @@ public struct AuctionEntry: Codable, Equatable, Identifiable, Sendable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
         try container.encodeIfPresent(seat, forKey: .seat)
+        try container.encode(seatIsSequenceDerived, forKey: .seatIsSequenceDerived)
         try container.encode(call, forKey: .call)
         try container.encodeIfPresent(Self.normalizedMeaningNote(meaningNote), forKey: .meaningNote)
     }
@@ -121,6 +133,9 @@ public enum AuctionRecordKind: String, Codable, CaseIterable, Equatable, Sendabl
 /// this board has no auction. None of these cases becomes a pass.
 public struct AuctionRecord: Codable, Equatable, Sendable {
     public var kind: AuctionRecordKind
+    /// True when entries are a visible excerpt rather than a contiguous full
+    /// auction. Sequence-based seat inference is disabled for partial records.
+    public var isPartial: Bool
     /// The first position to act, not the seat making the first non-pass bid.
     public var startingSeat: Seat?
     public var entries: [AuctionEntry]
@@ -128,9 +143,11 @@ public struct AuctionRecord: Codable, Equatable, Sendable {
     public init(
         kind: AuctionRecordKind = .calls,
         startingSeat: Seat? = nil,
-        entries: [AuctionEntry] = []
+        entries: [AuctionEntry] = [],
+        isPartial: Bool = false
     ) {
         self.kind = kind
+        self.isPartial = isPartial
         self.startingSeat = startingSeat
         self.entries = entries
     }
@@ -170,6 +187,7 @@ public struct AuctionRecord: Codable, Equatable, Sendable {
 
     private enum CodingKeys: String, CodingKey {
         case kind
+        case isPartial
         case startingSeat
         case entries
     }
@@ -177,13 +195,27 @@ public struct AuctionRecord: Codable, Equatable, Sendable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         kind = try container.decodeIfPresent(AuctionRecordKind.self, forKey: .kind) ?? .calls
+        isPartial = try container.decodeIfPresent(Bool.self, forKey: .isPartial) ?? false
         startingSeat = try container.decodeIfPresent(Seat.self, forKey: .startingSeat)
-        entries = try container.decodeIfPresent([AuctionEntry].self, forKey: .entries) ?? []
+        let decodedEntries = try container.decodeIfPresent([AuctionEntry].self, forKey: .entries) ?? []
+        if isPartial {
+            entries = decodedEntries.map { entry in
+                var entry = entry
+                if entry.seatIsSequenceDerived {
+                    entry.seat = nil
+                    entry.seatIsSequenceDerived = false
+                }
+                return entry
+            }
+        } else {
+            entries = decodedEntries
+        }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(kind, forKey: .kind)
+        try container.encode(isPartial, forKey: .isPartial)
         try container.encodeIfPresent(startingSeat, forKey: .startingSeat)
         try container.encode(entries, forKey: .entries)
     }
@@ -194,15 +226,23 @@ public struct AuctionRecord: Codable, Equatable, Sendable {
         }
         let start = startingSeat?.chineseName ?? "未知；不得默认北家"
         guard !entries.isEmpty else {
+            if isPartial {
+                return "叫牌记录状态：部分可见片段；尚无已确认记录项。不得推断省略叫品、Pass 或座位。"
+            }
             return "首个行动位置：\(start)\n当前没有已确认叫品；空记录不代表无叫牌。"
         }
         let lines = entries.enumerated().map { index, entry in
-            let seat = entry.seat?.chineseName ?? "位置未知"
-            var line = "第\(index + 1)次行动（\(seat)）：\(entry.call.displayText)"
+            let seat = entry.seatIsSequenceDerived && isPartial ? nil : entry.seat
+            let seatName = seat?.chineseName ?? "位置未知"
+            let itemLabel = isPartial ? "可见记录项 \(index + 1)" : "第\(index + 1)次行动"
+            var line = "\(itemLabel)（\(seatName)）：\(entry.call.displayText)"
             if let note = AuctionEntry.normalizedMeaningNote(entry.meaningNote) {
                 line += "\n  用户提供的叫品含义与适用条件备注（未核实，不得表述为已确认的约定；仅在备注所述条件明确成立时作为线索，条件不明时先询问）：<user-call-meaning-note>\n\(note)\n</user-call-meaning-note>"
             }
             return line
+        }
+        if isPartial {
+            return "叫牌记录状态：部分可见片段；以下只按可见顺序列出记录项，条目间可能有省略。不得推断缺口中的叫品、Pass 或座位。\n首个行动位置：\(start)（不得据此推算片段记录项座位）\n可见叫牌记录项：\n\(lines.joined(separator: "\n"))"
         }
         return "首个行动位置：\(start)\n已确认叫牌序列：\n\(lines.joined(separator: "\n"))"
     }
@@ -211,7 +251,8 @@ public struct AuctionRecord: Codable, Equatable, Sendable {
     /// and unknown calls each consume a turn. A missing starting position and
     /// missing first-entry seat remain unknown.
     public func sequenceSeat(at entryIndex: Int) -> Seat? {
-        guard entryIndex >= 0,
+        guard !isPartial,
+              entryIndex >= 0,
               let firstSeat = entries.first?.seat ?? startingSeat,
               let firstIndex = Seat.allCases.firstIndex(of: firstSeat) else {
             return nil
@@ -227,6 +268,14 @@ public struct AuctionRecord: Codable, Equatable, Sendable {
             return entries.isEmpty ? [] : nil
         }
         guard !entries.isEmpty else { return [] }
+        if isPartial {
+            guard entries.allSatisfy({ $0.seat != nil && !$0.seatIsSequenceDerived }) else { return nil }
+            return entries.map { entry in
+                var cells = Dictionary(uniqueKeysWithValues: Seat.allCases.map { ($0, AuctionLayoutCell.layoutBlank) })
+                cells[entry.seat!] = .entry(entry)
+                return AuctionLayoutRow(cells: cells)
+            }
+        }
         guard let firstSeat = entries.first?.seat ?? startingSeat,
               let firstColumn = Seat.allCases.firstIndex(of: firstSeat) else {
             return nil
