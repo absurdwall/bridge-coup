@@ -12,6 +12,14 @@ final class ScreenshotReviewWorkflowTests: XCTestCase {
             "south": {"spades":"Q", "hearts":"J10", "diamonds":"", "clubs":"A"},
             "west": {"spades":"", "hearts":"", "diamonds":"", "clubs":""}
           },
+          "vulnerability": "eastWest",
+          "auction": {
+            "startingSeat": "west",
+            "entries": [
+              {"seat":"west", "action":"bid", "level":1, "strain":"clubs"},
+              {"seat":"north", "action":"unknown", "level":null, "strain":null}
+            ]
+          },
           "declarerSeat": "south",
           "contractLevel": 4,
           "contractStrain": "hearts",
@@ -25,6 +33,11 @@ final class ScreenshotReviewWorkflowTests: XCTestCase {
         XCTAssertEqual(candidate.hands[.north]?[.spades], "AK")
         XCTAssertEqual(candidate.hands[.north]?[.diamonds], "-")
         XCTAssertNil(candidate.openingLead)
+        XCTAssertEqual(candidate.vulnerability, .eastWest)
+        XCTAssertEqual(candidate.auction?.entries.map(\.auctionCall), [
+            .bid(level: 1, strain: .clubs), .unknown,
+        ])
+        XCTAssertEqual(candidate.auction?.entries.map(\.seat), [.west, .north])
 
         let encoded = try JSONEncoder().encode(candidate)
         let object = try XCTUnwrap(JSONSerialization.jsonObject(with: encoded) as? [String: Any])
@@ -32,6 +45,154 @@ final class ScreenshotReviewWorkflowTests: XCTestCase {
         XCTAssertEqual(hands["north"]?["spades"], "AK")
         XCTAssertEqual(hands["south"]?["clubs"], "A")
         XCTAssertEqual(try JSONDecoder().decode(ScreenshotRecognitionCandidate.self, from: encoded), candidate)
+
+        var legacyObject = object
+        legacyObject.removeValue(forKey: "vulnerability")
+        legacyObject.removeValue(forKey: "auction")
+        let legacyData = try JSONSerialization.data(withJSONObject: legacyObject)
+        let legacyCandidate = try JSONDecoder().decode(ScreenshotRecognitionCandidate.self, from: legacyData)
+        XCTAssertNil(legacyCandidate.vulnerability)
+        XCTAssertNil(legacyCandidate.auction)
+    }
+
+    func testScreenshotAuctionCandidateCanBeCorrectedAndIsGatedUntilExplicitReview() async {
+        let recognition = Self.candidateResponse.candidate
+        let planRuntime = CapturingPlanRuntime()
+        let planWorkflow = DeclarerPlanWorkflow(runtime: planRuntime)
+        let review = ScreenshotReviewWorkflow(
+            planWorkflow: planWorkflow,
+            runtime: FixedScreenshotRecognitionRuntime(recognition)
+        )
+        review.selectScreenshot(at: URL(fileURLWithPath: "/tmp/partial-auction.jpg"))
+
+        await review.recognizeScreenshot()
+
+        XCTAssertEqual(planWorkflow.draft.auction?.entries.map(\.call), [
+            .bid(level: 1, strain: .clubs), .unknown,
+        ])
+        XCTAssertEqual(review.candidate?.auction?.entries.map(\.seat), [.west, nil])
+        XCTAssertEqual(planWorkflow.draft.auction?.entries.map(\.seat), [.west, .north])
+        XCTAssertEqual(planWorkflow.draft.vulnerability, .eastWest)
+        XCTAssertFalse(planWorkflow.draft.decisionTimeConfirmed)
+        XCTAssertThrowsError(try DeclarerPlanRequestBuilder.build(from: planWorkflow.draft)) { error in
+            XCTAssertEqual(error as? DeclarerPlanInputError, .decisionTimeNotConfirmed)
+        }
+
+        var reviewedDraft = planWorkflow.draft
+        reviewedDraft.auction?.entries[1].call = .pass
+        reviewedDraft.vulnerability = .both
+        reviewedDraft.decisionTimeVisibleSeats = [.south]
+        reviewedDraft.decisionTimeConfirmed = true
+        review.updateDraft(reviewedDraft)
+        await review.generatePlan()
+
+        let requests = await planRuntime.requests()
+        XCTAssertEqual(requests.count, 1)
+        XCTAssertEqual(requests[0].auction?.entries.map(\.call), [
+            .bid(level: 1, strain: .clubs), .pass,
+        ])
+        XCTAssertEqual(requests[0].auction?.entries.map(\.seat), [.west, .north])
+        XCTAssertTrue(requests[0].auction?.promptDescription.contains("第2次行动（北家）") == true)
+        XCTAssertNotNil(requests[0].auction?.layoutRows)
+        XCTAssertEqual(requests[0].vulnerability, .both)
+        XCTAssertEqual(requests[0].informationVersion, planWorkflow.informationVersion)
+    }
+
+    func testRecognitionPreservesExistingManualAuctionAndVulnerability() async {
+        let planWorkflow = DeclarerPlanWorkflow(runtime: CapturingPlanRuntime())
+        let review = ScreenshotReviewWorkflow(
+            planWorkflow: planWorkflow,
+            runtime: FixedScreenshotRecognitionRuntime(Self.candidateResponse.candidate)
+        )
+        review.selectScreenshot(at: URL(fileURLWithPath: "/tmp/manual-auction.jpg"))
+        var manualDraft = planWorkflow.draft
+        manualDraft.vulnerability = .northSouth
+        manualDraft.auction = AuctionRecord(
+            startingSeat: .east,
+            entries: [AuctionEntry(seat: .east, call: .pass)]
+        )
+        review.updateDraft(manualDraft)
+
+        await review.recognizeScreenshot()
+
+        XCTAssertEqual(planWorkflow.draft.vulnerability, .northSouth)
+        XCTAssertEqual(planWorkflow.draft.auction, manualDraft.auction)
+        XCTAssertFalse(planWorkflow.draft.decisionTimeConfirmed)
+    }
+
+    func testEmptyAuctionCandidateCreatesNoCallsAndNeverInventsPassOrNoAuction() async {
+        var candidate = Self.candidateResponse.candidate
+        candidate.auction = ScreenshotAuctionCandidate(startingSeat: .north, entries: [])
+        let planRuntime = CapturingPlanRuntime()
+        let planWorkflow = DeclarerPlanWorkflow(runtime: planRuntime)
+        let review = ScreenshotReviewWorkflow(
+            planWorkflow: planWorkflow,
+            runtime: FixedScreenshotRecognitionRuntime(candidate)
+        )
+        review.selectScreenshot(at: URL(fileURLWithPath: "/tmp/no-visible-calls.jpg"))
+
+        await review.recognizeScreenshot()
+
+        XCTAssertEqual(planWorkflow.draft.auction, AuctionRecord(startingSeat: .north, entries: []))
+        XCTAssertEqual(planWorkflow.draft.auction?.kind, .calls)
+        XCTAssertTrue(planWorkflow.draft.auction?.entries.isEmpty == true)
+        XCTAssertFalse(planWorkflow.draft.decisionTimeConfirmed)
+    }
+
+    func testCroppedAuctionKeepsOnlyVisibleCallsWithoutInsertingOmittedTurns() async {
+        var candidate = Self.candidateResponse.candidate
+        candidate.auction = ScreenshotAuctionCandidate(
+            startingSeat: nil,
+            entries: [
+                ScreenshotAuctionEntryCandidate(seat: .south, action: .bid, level: 1, strain: .clubs),
+                ScreenshotAuctionEntryCandidate(seat: .north, action: .bid, level: 2, strain: .hearts),
+            ]
+        )
+        let planWorkflow = DeclarerPlanWorkflow(runtime: CapturingPlanRuntime())
+        let review = ScreenshotReviewWorkflow(
+            planWorkflow: planWorkflow,
+            runtime: FixedScreenshotRecognitionRuntime(candidate)
+        )
+        review.selectScreenshot(at: URL(fileURLWithPath: "/tmp/cropped-auction.jpg"))
+
+        await review.recognizeScreenshot()
+
+        XCTAssertEqual(planWorkflow.draft.auction?.entries.map(\.call), [
+            .bid(level: 1, strain: .clubs), .bid(level: 2, strain: .hearts),
+        ])
+        XCTAssertEqual(planWorkflow.draft.auction?.entries.map(\.seat), [.south, .north])
+        XCTAssertNil(planWorkflow.draft.auction?.startingSeat)
+        XCTAssertFalse(planWorkflow.draft.decisionTimeConfirmed)
+    }
+
+    func testReapplyingRecognitionCannotRestoreManuallyClearedAuctionOrVulnerability() async {
+        let candidate = Self.candidateResponse.candidate
+        let planWorkflow = DeclarerPlanWorkflow(runtime: CapturingPlanRuntime())
+        let review = ScreenshotReviewWorkflow(
+            planWorkflow: planWorkflow,
+            runtime: FixedScreenshotRecognitionRuntime(candidate)
+        )
+        review.selectScreenshot(at: URL(fileURLWithPath: "/tmp/cleared-auction.jpg"))
+
+        await review.recognizeScreenshot()
+        var correctedDraft = planWorkflow.draft
+        correctedDraft.auction = nil
+        correctedDraft.vulnerability = nil
+        correctedDraft.hands[.south, default: [:]][.spades] = ""
+        review.updateDraft(correctedDraft)
+        XCTAssertTrue(review.makeArchive().manuallyEditedFields.contains(.auction))
+        XCTAssertTrue(review.makeArchive().manuallyEditedFields.contains(.vulnerability))
+        XCTAssertTrue(review.makeArchive().manuallyEditedFields.contains(.hand(seat: .south, suit: .spades)))
+
+        await review.recognizeScreenshot()
+
+        XCTAssertNil(planWorkflow.draft.auction)
+        XCTAssertNil(planWorkflow.draft.vulnerability)
+        XCTAssertEqual(planWorkflow.draft.hands[.south]?[.spades], "")
+        XCTAssertTrue(review.makeArchive().manuallyEditedFields.contains(.auction))
+        XCTAssertTrue(review.makeArchive().manuallyEditedFields.contains(.vulnerability))
+        XCTAssertTrue(review.makeArchive().manuallyEditedFields.contains(.hand(seat: .south, suit: .spades)))
+        XCTAssertFalse(planWorkflow.draft.decisionTimeConfirmed)
     }
 
     func testContradictoryVisibleScreenshotCandidatesAreRejectedBeforeTeaching() async {
@@ -211,6 +372,11 @@ final class ScreenshotReviewWorkflowTests: XCTestCase {
 
         var correctedDraft = planWorkflow.draft
         correctedDraft.hands[.south, default: [:]][.spades] = "AKQ"
+        correctedDraft.vulnerability = .neither
+        correctedDraft.auction = AuctionRecord(
+            startingSeat: .east,
+            entries: [AuctionEntry(seat: .east, call: .unknown)]
+        )
         correctedDraft.otherDecisionTimeFacts = "牌手在识别期间确认：南家黑桃为 AKQ。"
         review.updateDraft(correctedDraft)
         await runtime.finish(with: Self.candidateResponse)
@@ -220,6 +386,8 @@ final class ScreenshotReviewWorkflowTests: XCTestCase {
         XCTAssertNil(review.candidate)
         XCTAssertEqual(review.state, .stale)
         XCTAssertEqual(planWorkflow.draft, correctedDraft)
+        XCTAssertEqual(planWorkflow.draft.vulnerability, .neither)
+        XCTAssertEqual(planWorkflow.draft.auction?.entries.map(\.call), [.unknown])
     }
 
     func testRecognitionFailureKeepsImageAndManualFactsAndRetryFillsOnlyMissingFields() async {
@@ -230,6 +398,11 @@ final class ScreenshotReviewWorkflowTests: XCTestCase {
         review.selectScreenshot(at: image)
         var draft = planWorkflow.draft
         draft.otherDecisionTimeFacts = "我确认当前墩是黑桃 2、明手已摊牌。"
+        draft.vulnerability = .neither
+        draft.auction = AuctionRecord(
+            startingSeat: .south,
+            entries: [AuctionEntry(seat: .south, call: .unknown)]
+        )
         review.updateDraft(draft)
 
         await review.recognizeScreenshot()
@@ -244,10 +417,70 @@ final class ScreenshotReviewWorkflowTests: XCTestCase {
         XCTAssertEqual(review.state, .succeeded)
         XCTAssertEqual(review.screenshotURL, image)
         XCTAssertEqual(planWorkflow.draft.otherDecisionTimeFacts, draft.otherDecisionTimeFacts)
+        XCTAssertEqual(planWorkflow.draft.vulnerability, .neither)
+        XCTAssertEqual(planWorkflow.draft.auction, draft.auction)
         XCTAssertEqual(planWorkflow.draft.hands[.south]?[.spades], "KQ")
         XCTAssertFalse(planWorkflow.draft.decisionTimeConfirmed)
         let attempts = await runtime.callCount()
         XCTAssertEqual(attempts, 2)
+    }
+
+    func testFailureRetryPreservesIndividuallyClearedRecognitionFields() async {
+        let runtime = RetryScreenshotRecognitionRuntime(Self.candidateResponse)
+        let planWorkflow = DeclarerPlanWorkflow(runtime: CapturingPlanRuntime())
+        let review = ScreenshotReviewWorkflow(planWorkflow: planWorkflow, runtime: runtime)
+        review.selectScreenshot(at: URL(fileURLWithPath: "/tmp/field-edits-after-failure.jpg"))
+
+        var manuallyEnteredDraft = planWorkflow.draft
+        manuallyEnteredDraft.auction = AuctionRecord(
+            startingSeat: .east,
+            entries: [AuctionEntry(seat: .east, call: .pass)]
+        )
+        manuallyEnteredDraft.vulnerability = .neither
+        manuallyEnteredDraft.declarerSeat = .east
+        manuallyEnteredDraft.contractLevel = 2
+        manuallyEnteredDraft.contractStrain = .clubs
+        manuallyEnteredDraft.openingLead = "♥3"
+        manuallyEnteredDraft.otherDecisionTimeFacts = "人工输入的事实"
+        manuallyEnteredDraft.hands[.south, default: [:]][.spades] = "A"
+        review.updateDraft(manuallyEnteredDraft)
+
+        await review.recognizeScreenshot()
+        XCTAssertEqual(review.state, .failed(PlanRuntimeError.temporarilyUnavailable.localizedDescription))
+
+        var clearedDraft = planWorkflow.draft
+        clearedDraft.auction = nil
+        clearedDraft.vulnerability = nil
+        clearedDraft.declarerSeat = nil
+        clearedDraft.contractLevel = nil
+        clearedDraft.contractStrain = nil
+        clearedDraft.openingLead = ""
+        clearedDraft.otherDecisionTimeFacts = ""
+        clearedDraft.hands[.south, default: [:]][.spades] = ""
+        review.updateDraft(clearedDraft)
+
+        let editedFields = review.makeArchive().manuallyEditedFields
+        XCTAssertTrue(editedFields.contains(.auction))
+        XCTAssertTrue(editedFields.contains(.vulnerability))
+        XCTAssertTrue(editedFields.contains(.declarerSeat))
+        XCTAssertTrue(editedFields.contains(.contractLevel))
+        XCTAssertTrue(editedFields.contains(.contractStrain))
+        XCTAssertTrue(editedFields.contains(.openingLead))
+        XCTAssertTrue(editedFields.contains(.otherDecisionTimeFacts))
+        XCTAssertTrue(editedFields.contains(.hand(seat: .south, suit: .spades)))
+
+        await review.recognizeScreenshot()
+
+        XCTAssertEqual(review.state, .succeeded)
+        XCTAssertNil(planWorkflow.draft.auction)
+        XCTAssertNil(planWorkflow.draft.vulnerability)
+        XCTAssertNil(planWorkflow.draft.declarerSeat)
+        XCTAssertNil(planWorkflow.draft.contractLevel)
+        XCTAssertNil(planWorkflow.draft.contractStrain)
+        XCTAssertEqual(planWorkflow.draft.openingLead, "")
+        XCTAssertEqual(planWorkflow.draft.otherDecisionTimeFacts, "")
+        XCTAssertEqual(planWorkflow.draft.hands[.south]?[.spades], "")
+        XCTAssertEqual(planWorkflow.draft.hands[.north]?[.spades], "J8")
     }
 
     private static let recognizedHands: [Seat: [Suit: String]] = [
@@ -265,7 +498,20 @@ final class ScreenshotReviewWorkflowTests: XCTestCase {
             contractStrain: .hearts,
             openingLead: "♠2",
             otherDecisionTimeFacts: "西家开叫后东家加叫。",
-            notes: []
+            notes: [],
+            vulnerability: .eastWest,
+            auction: ScreenshotAuctionCandidate(
+                startingSeat: .west,
+                entries: [
+                    ScreenshotAuctionEntryCandidate(
+                        seat: .west,
+                        action: .bid,
+                        level: 1,
+                        strain: .clubs
+                    ),
+                    ScreenshotAuctionEntryCandidate(seat: nil, action: .unknown),
+                ]
+            )
         ),
         model: "test-model",
         runtimeVersion: "test-runtime"
