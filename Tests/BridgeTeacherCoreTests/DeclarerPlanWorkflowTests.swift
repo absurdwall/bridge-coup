@@ -202,6 +202,63 @@ final class DeclarerPlanWorkflowTests: XCTestCase {
         XCTAssertTrue(requests[1].prompt.contains("首个行动位置：西家"))
         XCTAssertTrue(requests[1].prompt.contains("第2次行动（位置未知）：未知叫品"))
     }
+
+    @MainActor
+    func testMeaningNoteChangeInvalidatesPlanAndRejectsLateResponseForRepeatedCalls() async throws {
+        let first = AuctionEntry(seat: .west, call: .pass, meaningNote: "可能邀叫，仅当约定适用。")
+        let second = AuctionEntry(seat: .north, call: .pass)
+        var draft = DeclarerPlanDraft()
+        draft.contractLevel = 3
+        draft.contractStrain = .noTrump
+        draft.hands[.south, default: [:]][.spades] = "A2"
+        draft.auction = AuctionRecord(startingSeat: .west, entries: [first, second])
+        let runtime = DelayedPlanRuntime()
+        let workflow = DeclarerPlanWorkflow(draft: draft, runtime: runtime)
+
+        let oldRequestTask = Task { await workflow.generatePlan() }
+        await runtime.waitForFirstPlan()
+        var revisedDraft = workflow.draft
+        XCTAssertTrue(revisedDraft.auction?.setMeaningNote("仅在双方采用该邀叫约定时。", forEntryID: first.id) == true)
+        workflow.updateDraft(revisedDraft)
+        XCTAssertEqual(workflow.informationVersion, 1)
+        XCTAssertEqual(workflow.state, .idle)
+
+        await workflow.generatePlan()
+        XCTAssertEqual(workflow.result?.text, "新信息版本的计划。")
+        await runtime.completeFirstPlan()
+        await oldRequestTask.value
+
+        let requests = await runtime.planRequests()
+        XCTAssertEqual(requests.count, 2)
+        XCTAssertEqual(requests.map(\.informationVersion), [0, 1])
+        XCTAssertEqual(requests[1].auction?.entries.map(\.id), [first.id, second.id])
+        XCTAssertEqual(requests[1].auction?.entries.map(\.meaningNote), ["仅在双方采用该邀叫约定时。", nil])
+        XCTAssertTrue(requests[1].prompt.contains("仅在双方采用该邀叫约定时。"))
+        XCTAssertFalse(requests[1].prompt.contains("可能邀叫，仅当约定适用。"))
+        XCTAssertEqual(workflow.result?.text, "新信息版本的计划。")
+        XCTAssertEqual(workflow.planAnalyses.count, 1)
+    }
+
+    func testMeaningNoteCorrectionOutdatesAnExistingAnalysis() async throws {
+        let entry = AuctionEntry(seat: .west, call: .pass)
+        var draft = DeclarerPlanDraft()
+        draft.contractLevel = 3
+        draft.contractStrain = .noTrump
+        draft.hands[.south, default: [:]][.spades] = "A2"
+        draft.auction = AuctionRecord(startingSeat: .west, entries: [entry])
+        let workflow = DeclarerPlanWorkflow(draft: draft, runtime: FollowUpRetryRuntime())
+
+        await workflow.generatePlan()
+        let existingPlan = try XCTUnwrap(workflow.planAnalyses.last)
+        var revisedDraft = workflow.draft
+        XCTAssertTrue(revisedDraft.auction?.setMeaningNote("仅当对手的叫品含义符合该条件。", forEntryID: entry.id) == true)
+        workflow.updateDraft(revisedDraft)
+
+        XCTAssertEqual(workflow.informationVersion, existingPlan.informationVersion + 1)
+        XCTAssertTrue(workflow.resultIsOutdated)
+        XCTAssertTrue(workflow.isOutdated(existingPlan))
+        XCTAssertFalse(workflow.canFollowUp)
+    }
 }
 
 private actor RetryRuntime: DeclarerTeachingRuntime {

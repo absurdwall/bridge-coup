@@ -100,4 +100,32 @@ final class BridgeTeacherContractSelectionTests: XCTestCase {
         model.updateReviewDraft(invalidDraft)
         XCTAssertEqual(model.workflow.draft.openingLead, "S1")
     }
+
+    func testCallMeaningNoteChangeInvalidatesSharedDeclarerAndKeyPlayAnalyses() {
+        let model = BridgeTeacherApplicationModel()
+        let entry = AuctionEntry(seat: .west, call: .pass)
+        var draft = model.workflow.draft
+        draft.auction = AuctionRecord(startingSeat: .west, entries: [entry])
+        model.updateReviewDraft(draft)
+
+        model.keyPlayWorkflow.restore(
+            from: KeyPlayAnalysisWorkflowArchive(
+                draft: KeyPlayAnalysisDraft(),
+                state: .succeeded,
+                result: DeclarerPlanResponse(text: "旧版关键出牌分析。"),
+                resultIsOutdated: false,
+                resultInformationVersion: model.workflow.informationVersion
+            ),
+            currentInformationVersion: model.workflow.informationVersion
+        )
+
+        var revisedDraft = model.workflow.draft
+        XCTAssertTrue(revisedDraft.auction?.setMeaningNote("仅当双方采用该约定时。", forEntryID: entry.id) == true)
+        let previousVersion = model.workflow.informationVersion
+        model.updateReviewDraft(revisedDraft)
+
+        XCTAssertEqual(model.workflow.informationVersion, previousVersion + 1)
+        XCTAssertTrue(model.keyPlayWorkflow.resultIsOutdated)
+        XCTAssertEqual(model.keyPlayWorkflow.result?.text, "旧版关键出牌分析。")
+    }
 }

@@ -995,7 +995,7 @@ private struct DeclarerEntryPanel: View {
                             case .entry:
                                 if let entryIndex = auctionEntryIndex(row: rowIndex, seat: seat, record: record),
                                    record.entries.indices.contains(entryIndex) {
-                                    auctionCallMenu(at: entryIndex, entry: record.entries[entryIndex])
+                                    auctionCallPresentation(entry: record.entries[entryIndex])
                                         .frame(maxWidth: .infinity, minHeight: 30)
                                         .background(.white, in: RoundedRectangle(cornerRadius: 7, style: .continuous))
                                         .overlay(RoundedRectangle(cornerRadius: 7, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
@@ -1027,13 +1027,14 @@ private struct DeclarerEntryPanel: View {
 
     private func auctionEntrySeatList(_ record: AuctionRecord) -> some View {
         VStack(spacing: 4) {
-            ForEach(record.entries.indices, id: \.self) { index in
+            ForEach(record.entries) { entry in
+                let index = record.entries.firstIndex(where: { $0.id == entry.id }) ?? 0
                 HStack(spacing: 6) {
                     Text("\(index + 1)")
                         .font(.system(size: 10, weight: .medium, design: .rounded))
                         .foregroundStyle(BridgePalette.muted)
                         .frame(width: 18, alignment: .trailing)
-                    Picker("第\(index + 1)次行动位置", selection: auctionEntrySeatBinding(at: index)) {
+                    Picker("第\(index + 1)次行动位置", selection: auctionEntrySeatBinding(forEntryID: entry.id)) {
                         Text("未知位置").tag(Seat?.none)
                         ForEach(Seat.allCases, id: \.self) { seat in
                             Text(seat.chineseName).tag(Optional(seat))
@@ -1041,8 +1042,8 @@ private struct DeclarerEntryPanel: View {
                     }
                     .pickerStyle(.menu)
                     .frame(width: 118, alignment: .leading)
-                    .accessibilityIdentifier("auction-entry-seat-\(index)")
-                    auctionCallMenu(at: index, entry: record.entries[index])
+                    .accessibilityIdentifier("auction-entry-seat-\(entry.id.uuidString)")
+                    auctionCallPresentation(entry: entry)
                     Spacer(minLength: 0)
                 }
             }
@@ -1095,36 +1096,19 @@ private struct DeclarerEntryPanel: View {
         }
     }
 
-    private func auctionCallMenu(at index: Int, entry: AuctionEntry) -> some View {
-        Menu {
-            Section("特殊叫品") {
-                Button("Pass") { updateAuctionCall(at: index, to: .pass) }
-                Button("加倍 X") { updateAuctionCall(at: index, to: .double) }
-                Button("再加倍 XX") { updateAuctionCall(at: index, to: .redouble) }
-                Button("未知叫品") { updateAuctionCall(at: index, to: .unknown) }
-            }
-            Menu("定约叫品") {
-                ForEach(1...7, id: \.self) { level in
-                    Menu("\(level)阶") {
-                        ForEach(ContractStrain.allCases, id: \.self) { strain in
-                            Button("\(level)\(strain.symbol)") {
-                                updateAuctionCall(at: index, to: .bid(level: level, strain: strain))
-                            }
-                        }
-                    }
-                }
-            }
-        } label: {
+    private func auctionCallPresentation(entry: AuctionEntry) -> some View {
+        AuctionCallPresentation(
+            entry: entry,
+            onSaveMeaningNote: { note in setAuctionMeaningNote(for: entry.id, to: note) },
+            onCallChange: { call in updateAuctionCall(for: entry.id, to: call) },
+            onDelete: { deleteAuctionEntry(id: entry.id) }
+        ) {
             Text(entry.call.displayText)
                 .font(.system(size: 11, weight: .semibold))
                 .foregroundStyle(BridgePalette.ink)
                 .lineLimit(1)
                 .frame(maxWidth: .infinity, minHeight: 28)
-                .contentShape(Rectangle())
         }
-        .menuStyle(.borderlessButton)
-        .accessibilityIdentifier("auction-call-\(index)")
-        .accessibilityLabel("第\(index + 1)次行动，\(entry.seat?.chineseName ?? "位置未知")，修正叫品；当前\(entry.call.displayText)")
     }
 
     private var auctionStartingSeatBinding: Binding<Seat?> {
@@ -1144,16 +1128,14 @@ private struct DeclarerEntryPanel: View {
         )
     }
 
-    private func auctionEntrySeatBinding(at index: Int) -> Binding<Seat?> {
+    private func auctionEntrySeatBinding(forEntryID id: UUID) -> Binding<Seat?> {
         Binding(
             get: {
-                guard let entries = workflow.draft.auction?.entries,
-                      entries.indices.contains(index) else { return nil }
-                return entries[index].seat
+                workflow.draft.auction?.entries.first(where: { $0.id == id })?.seat
             },
             set: { newSeat in
                 guard var record = workflow.draft.auction,
-                      record.entries.indices.contains(index) else { return }
+                      let index = record.entries.firstIndex(where: { $0.id == id }) else { return }
                 record.entries[index].seat = newSeat
                 setAuction(record)
             }
@@ -1168,10 +1150,21 @@ private struct DeclarerEntryPanel: View {
         setAuction(record)
     }
 
-    private func updateAuctionCall(at index: Int, to call: AuctionCall) {
+    private func updateAuctionCall(for id: UUID, to call: AuctionCall) {
         guard var record = workflow.draft.auction,
-              record.entries.indices.contains(index) else { return }
-        record.entries[index].call = call
+              record.updateCall(forEntryID: id, to: call) else { return }
+        setAuction(record)
+    }
+
+    private func setAuctionMeaningNote(for id: UUID, to note: String?) {
+        guard var record = workflow.draft.auction,
+              record.setMeaningNote(note, forEntryID: id) else { return }
+        setAuction(record)
+    }
+
+    private func deleteAuctionEntry(id: UUID) {
+        guard var record = workflow.draft.auction,
+              record.removeEntry(id: id) else { return }
         setAuction(record)
     }
 
