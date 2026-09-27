@@ -75,6 +75,66 @@ public enum CardRank: String, CaseIterable, Codable, Hashable, Sendable {
     case two = "2"
 }
 
+/// A validated opening-lead card. Text input may use suit letters or symbols;
+/// its canonical display and teaching-request value always use the suit symbol.
+public struct OpeningLead: Equatable, Sendable, CustomStringConvertible {
+    public let suit: Suit
+    public let rank: CardRank
+
+    public init?(input: String) {
+        let compact = input
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .filter { !$0.isWhitespace }
+        guard !compact.isEmpty else { return nil }
+
+        let suitCode = String(compact.prefix(1)).uppercased()
+        guard let suit = Self.suit(for: suitCode) else { return nil }
+        let rankCode = String(compact.dropFirst()).uppercased()
+        guard let rank = CardRank.allCases.first(where: { $0.rawValue == rankCode || ($0 == .ten && rankCode == "T") }) else {
+            return nil
+        }
+
+        self.suit = suit
+        self.rank = rank
+    }
+
+    public var description: String {
+        "\(suit.symbol)\(rank.rawValue)"
+    }
+
+    /// Returns a canonical card value, or nil when no lead was supplied.
+    /// Invalid nonempty text throws instead of being silently reinterpreted.
+    public static func normalizedValue(from input: String) throws -> String? {
+        let trimmed = input.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return nil }
+        guard let lead = OpeningLead(input: trimmed) else {
+            throw OpeningLeadInputError.invalidInput(trimmed)
+        }
+        return lead.description
+    }
+
+    private static func suit(for code: String) -> Suit? {
+        switch code {
+        case "S", "♠": .spades
+        case "H", "♥": .hearts
+        case "D", "♦": .diamonds
+        case "C", "♣": .clubs
+        default: nil
+        }
+    }
+}
+
+public enum OpeningLeadInputError: Error, Equatable, LocalizedError, Sendable {
+    case invalidInput(String)
+
+    public var errorDescription: String? {
+        switch self {
+        case let .invalidInput(value):
+            "首攻“\(value)”无法识别。请使用 S2、H3、DA、CK、♠2 或 ♥10 这样的单张牌。"
+        }
+    }
+}
+
 public struct VisibleHand: Equatable, Sendable {
     public let seat: Seat
     /// An absent suit means unknown. An empty array means the user confirmed a void.
@@ -106,6 +166,16 @@ public struct DeclarerPlanDraft: Codable, Equatable, Sendable {
     public var decisionTimeConfirmed = true
 
     public init() {}
+
+    /// Keep accepted shortcuts normalized wherever the review draft is stored.
+    /// Invalid text remains intact so the user can correct it explicitly.
+    public func normalizingOpeningLead() -> Self {
+        var normalized = self
+        if let lead = OpeningLead(input: openingLead) {
+            normalized.openingLead = lead.description
+        }
+        return normalized
+    }
 }
 
 public struct DeclarerPlanRequest: Equatable, Sendable {
@@ -228,7 +298,7 @@ public enum DeclarerPlanRequestBuilder {
             !visibleHands.contains(where: { $0.seat == seat })
         }
         let otherFacts = draft.otherDecisionTimeFacts.trimmingCharacters(in: .whitespacesAndNewlines)
-        let lead = draft.openingLead.trimmingCharacters(in: .whitespacesAndNewlines)
+        let lead = try OpeningLead.normalizedValue(from: draft.openingLead) ?? ""
         let prompt = makePrompt(
             draft: draft,
             declarerSeat: declarerSeat,

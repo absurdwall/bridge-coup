@@ -205,6 +205,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
     }
 
     func updateReviewDraft(_ draft: DeclarerPlanDraft) {
+        let draft = draft.normalizingOpeningLead()
         let previousDraft = workflow.draft
         guard draft != previousDraft else { return }
         workflow.updateDraft(draft)

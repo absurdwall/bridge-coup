@@ -46,6 +46,22 @@ final class KeyPlayAnalysisTests: XCTestCase {
         XCTAssertEqual(request.scoring, "IMP")
     }
 
+    func testKeyPlayRequestUsesCanonicalOpeningLeadAndRejectsInvalidInput() throws {
+        var review = DeclarerPlanDraft()
+        review.contractLevel = 3
+        review.contractStrain = .noTrump
+        review.openingLead = "cK"
+
+        let request = try KeyPlayAnalysisRequestBuilder.build(from: review, node: KeyPlayAnalysisDraft())
+        XCTAssertEqual(request.openingLead, "♣K")
+        XCTAssertTrue(request.prompt.contains("首攻（用户提供）：♣K"))
+
+        review.openingLead = "C1"
+        XCTAssertThrowsError(try KeyPlayAnalysisRequestBuilder.build(from: review, node: KeyPlayAnalysisDraft())) { error in
+            XCTAssertEqual(error as? OpeningLeadInputError, .invalidInput("C1"))
+        }
+    }
+
     func testRejectsOffSuitCandidateWhenTheActingHandMustFollowSuit() {
         var review = DeclarerPlanDraft()
         review.contractLevel = 3

@@ -136,7 +136,7 @@ public enum KeyPlayAnalysisRequestBuilder {
             currentTrick: currentTrick,
             visibleHands: visibleHands
         )
-        let lead = review.openingLead.trimmingCharacters(in: .whitespacesAndNewlines)
+        let lead = try OpeningLead.normalizedValue(from: review.openingLead) ?? ""
         let otherFacts = review.otherDecisionTimeFacts.trimmingCharacters(in: .whitespacesAndNewlines)
         let history = node.relevantPlayHistory.trimmingCharacters(in: .whitespacesAndNewlines)
         let point = node.analysisPoint.trimmingCharacters(in: .whitespacesAndNewlines)

@@ -89,6 +89,7 @@ final class DeclarerPlanWorkflowTests: XCTestCase {
         var correctedDraft = workflow.draft
         correctedDraft.contractLevel = 4
         correctedDraft.contractStrain = .spades
+        correctedDraft.openingLead = "h5"
         correctedDraft.otherDecisionTimeFacts = "修正：首攻实际是 ♥5。"
         workflow.updateDraft(correctedDraft)
 
@@ -117,6 +118,7 @@ final class DeclarerPlanWorkflowTests: XCTestCase {
         XCTAssertEqual(requests[1].context.contractLevel, 4)
         XCTAssertEqual(requests[1].context.contractStrain, .spades)
         XCTAssertEqual(requests[1].priorExchanges, [])
+        XCTAssertTrue(requests[1].context.prompt.contains("首攻（用户提供）：♥5"))
         XCTAssertTrue(requests[1].context.prompt.contains("修正：首攻实际是 ♥5。"))
         XCTAssertFalse(requests[1].prompt.contains("为什么保留西家的牌型为未知？"))
     }
