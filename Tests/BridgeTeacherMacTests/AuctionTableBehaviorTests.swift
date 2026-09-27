@@ -56,6 +56,26 @@ final class AuctionTableBehaviorTests: XCTestCase {
         XCTAssertNil(AuctionTablePresentation(record: record).rows)
     }
 
+    func testPartialTranscriptProjectsExplicitSeatsAsSparseRowsInVisibleOrder() throws {
+        let north = AuctionEntry(seat: .north, call: .bid(level: 1, strain: .clubs))
+        let east = AuctionEntry(seat: .east, call: .pass)
+        let record = AuctionRecord(
+            startingSeat: .west,
+            entries: [north, east],
+            isPartial: true
+        )
+
+        let rows = try XCTUnwrap(AuctionTablePresentation(record: record).rows)
+
+        XCTAssertEqual(rows.count, 2)
+        XCTAssertEqual(rows[0][0].seat, .north)
+        XCTAssertEqual(rows[0][0].content, .call(id: north.id, text: "1♣", ink: .clubs, hasMeaningNote: false))
+        XCTAssertEqual(rows[0].dropFirst().map(\.content), Array(repeating: .layoutBlank, count: 3))
+        XCTAssertEqual(rows[1][1].seat, .east)
+        XCTAssertEqual(rows[1][1].content, .call(id: east.id, text: "Pass", ink: .pass, hasMeaningNote: false))
+        XCTAssertEqual(rows[1].enumerated().filter { $0.offset != 1 }.map(\.element.content), Array(repeating: .layoutBlank, count: 3))
+    }
+
     func testCallInkUsesSuitColorsAndGreenPass() {
         XCTAssertEqual(AuctionCallInk.forCall(.pass), .pass)
         XCTAssertEqual(AuctionCallInk.forCall(.bid(level: 1, strain: .clubs)), .clubs)

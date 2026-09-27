@@ -1,6 +1,17 @@
 # Issue #4 acceptance — 2026-09-27
 
-Implementation tickets #5–#11 were integrated at source revision `c565aabe4842a1e30aab53c5b269cdeb839b622a` (`feat: center compact auction table and editor`). This is the acceptance record for the final integrated Bridge Coup auction-workspace path. The acceptance pass found no cross-feature regression requiring a production-source fix; this ticket adds the report and sanitized synthetic fixture only.
+Implementation tickets #5–#11 were integrated at source revision `c565aabe4842a1e30aab53c5b269cdeb839b622a` (`feat: center compact auction table and editor`). This is the acceptance record for the final integrated Bridge Coup auction-workspace path. The initial acceptance found no cross-feature regression; a subsequent Spec review found and fixed incomplete-transcript seat inference, documented below.
+
+## Spec-review follow-up
+
+The partial-transcript review fix was tested on ticket branch parent `08b4b8c77334b26760252b0218a4fb68f535d68b` plus the follow-up source diff. It adds a backward-compatible `isPartial` state to manual auctions and screenshot candidates. Old archives/candidates default to complete sequence behavior; a partial candidate keeps visible order and only per-entry seats that were explicitly provided. Complete records retain their existing sequential seat projection.
+
+- Reran full `swift test`: **106 tests, 0 failures, 3 DDS-helper-dependent skips**.
+- Built a separate QA package from the follow-up diff: `Bridge Coup.app`, version `0.4.0` (build `11.1`), bundle `app.absurdwall.bridge-coup.issue11-review-qa`. It used only `/tmp/bridge-coup-issue-11-review-qa-20260927/reviews` for review data. The package was ad-hoc signed after its QA-only plist changes; `codesign --verify --deep --strict --verbose=2` passed. It reused the pinned DDS 3.0.0 helper from ticket #10.
+- Launched that exact QA bundle by app path. In the expanded editor, set the full-auction starting seat to West, marked a manual record as partial, then added `1♣` and `Pass`. The UI showed the partial-excerpt warning and “记录项 1 位置 / 记录项 2 位置,” both “未知位置”; it did not assign West/North from the starting seat or item index and did not insert omitted calls. No save or live request was made. Core and Mac tests separately verify sparse rows when all partial seats are explicit.
+- The isolated package and temporary review store were removed after the check; the standard app and store were not used.
+
+Remaining scope is unchanged: live service evidence below is synthetic-only, and this manual follow-up did not force a runtime late-response race or evaluate teaching quality on a real game.
 
 ## Automated verification
 

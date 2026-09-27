@@ -96,6 +96,13 @@ final class ReviewSessionArchiveTests: XCTestCase {
         var storedDraft = try XCTUnwrap(object["draft"] as? [String: Any])
         var storedAuction = try XCTUnwrap(storedDraft["auction"] as? [String: Any])
         storedAuction.removeValue(forKey: "kind")
+        storedAuction.removeValue(forKey: "isPartial")
+        if var entries = storedAuction["entries"] as? [[String: Any]] {
+            for index in entries.indices {
+                entries[index].removeValue(forKey: "seatIsSequenceDerived")
+            }
+            storedAuction["entries"] = entries
+        }
         storedDraft["auction"] = storedAuction
         object["draft"] = storedDraft
         let previousSchemaData = try JSONSerialization.data(withJSONObject: object)
@@ -103,9 +110,57 @@ final class ReviewSessionArchiveTests: XCTestCase {
         let reopened = try JSONDecoder().decode(DeclarerPlanWorkflowArchive.self, from: previousSchemaData)
 
         XCTAssertEqual(reopened.draft.auction?.kind, .calls)
+        XCTAssertFalse(try XCTUnwrap(reopened.draft.auction).isPartial)
         XCTAssertEqual(reopened.draft.auction?.startingSeat, .west)
         XCTAssertEqual(reopened.draft.auction?.entries.map(\.seat), [.west, .north])
+        XCTAssertEqual(reopened.draft.auction?.entries.map(\.seatIsSequenceDerived), [true, true])
         XCTAssertEqual(reopened.draft.auction?.entries.map(\.call), [.pass, .bid(level: 1, strain: .clubs)])
+    }
+
+    func testLegacyScreenshotAuctionCandidateArchiveDefaultsToComplete() throws {
+        let candidate = ScreenshotRecognitionCandidate(
+            hands: [:],
+            declarerSeat: nil,
+            contractLevel: nil,
+            contractStrain: nil,
+            openingLead: nil,
+            otherDecisionTimeFacts: "",
+            notes: [],
+            auction: ScreenshotAuctionCandidate(
+                startingSeat: .west,
+                entries: [ScreenshotAuctionEntryCandidate(seat: nil, action: .pass)]
+            )
+        )
+        let archive = ScreenshotReviewWorkflowArchive(
+            state: .succeeded,
+            candidate: candidate,
+            response: ScreenshotRecognitionResponse(candidate: candidate),
+            sourceFilename: "legacy.png"
+        )
+        let encoded = try JSONEncoder().encode(archive)
+        var object = try XCTUnwrap(JSONSerialization.jsonObject(with: encoded) as? [String: Any])
+        for key in ["candidate", "response"] {
+            var wrapper = try XCTUnwrap(object[key] as? [String: Any])
+            let candidateKey = key == "candidate" ? nil : "candidate"
+            if let candidateKey {
+                var nestedCandidate = try XCTUnwrap(wrapper[candidateKey] as? [String: Any])
+                var auction = try XCTUnwrap(nestedCandidate["auction"] as? [String: Any])
+                auction.removeValue(forKey: "isPartial")
+                nestedCandidate["auction"] = auction
+                wrapper[candidateKey] = nestedCandidate
+            } else {
+                var auction = try XCTUnwrap(wrapper["auction"] as? [String: Any])
+                auction.removeValue(forKey: "isPartial")
+                wrapper["auction"] = auction
+            }
+            object[key] = wrapper
+        }
+        let legacyData = try JSONSerialization.data(withJSONObject: object)
+
+        let reopened = try JSONDecoder().decode(ScreenshotReviewWorkflowArchive.self, from: legacyData)
+
+        XCTAssertFalse(try XCTUnwrap(reopened.candidate?.auction).isPartial)
+        XCTAssertFalse(try XCTUnwrap(reopened.response?.candidate.auction).isPartial)
     }
 
     func testLocalReviewStorePreservesRepeatedCallIDsAndIndependentNotes() throws {

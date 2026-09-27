@@ -102,6 +102,12 @@ struct AuctionTableView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
+            if record?.kind == .calls, record?.isPartial == true {
+                Label("部分叫牌片段 · 不推断省略叫品或座位", systemImage: "ellipsis")
+                    .font(.system(size: 10, weight: .medium))
+                    .foregroundStyle(BridgePalette.warning)
+                    .accessibilityIdentifier("auction-partial-transcript-marker")
+            }
             recordContent()
         }
         .sheet(isPresented: $isExpanded) {
@@ -254,9 +260,11 @@ struct AuctionTableView: View {
     private func seatAssignmentReview(_ record: AuctionRecord, compact: Bool) -> some View {
         VStack(alignment: .leading, spacing: 6) {
             Label(
-                record.startingSeat == nil
-                    ? "叫品座位未确认；不默认北家。"
-                    : "起始位置与已确认叫品座位不一致；已保留原归属，请逐项核对。",
+                record.isPartial
+                    ? "部分可见片段；只保留已确认记录项顺序，不推算缺口或座位。请逐项核对位置。"
+                    : record.startingSeat == nil
+                        ? "叫品座位未确认；不默认北家。"
+                        : "起始位置与已确认叫品座位不一致；已保留原归属，请逐项核对。",
                 systemImage: "exclamationmark.circle"
             )
             .font(.system(size: 10))
@@ -268,7 +276,12 @@ struct AuctionTableView: View {
                         .font(.system(size: 10, weight: .medium, design: .rounded))
                         .foregroundStyle(BridgePalette.muted)
                         .frame(width: 18, alignment: .trailing)
-                    Picker("第\(entryOrdinal(entry.id, in: record) + 1)次行动位置", selection: entrySeatBinding(entry.id)) {
+                    Picker(
+                        record.isPartial
+                            ? "记录项 \(entryOrdinal(entry.id, in: record) + 1) 位置"
+                            : "第\(entryOrdinal(entry.id, in: record) + 1)次行动位置",
+                        selection: entrySeatBinding(entry.id)
+                    ) {
                         Text("未知位置").tag(Seat?.none)
                         ForEach(Seat.allCases, id: \.self) { seat in
                             Text(seat.chineseName).tag(Optional(seat))
@@ -359,6 +372,17 @@ struct AuctionTableView: View {
 
             if let record {
                 if record.kind == .calls {
+                    Toggle(isOn: partialTranscriptBinding) {
+                        Text("这是部分叫牌片段")
+                            .font(.system(size: 11, weight: .medium))
+                    }
+                    .toggleStyle(.checkbox)
+                    .accessibilityIdentifier("auction-partial-transcript-toggle")
+                    Text("只保留可见记录项，不补推缺口、Pass 或座位。启用时会清除按连续次序推算的位置，保留逐项确认的座位。")
+                        .font(.system(size: 10))
+                        .foregroundStyle(BridgePalette.muted)
+                        .fixedSize(horizontal: false, vertical: true)
+
                     if record.entries.isEmpty {
                         Text("空白记录：尚无已确认叫品；这不等于本局无叫牌。")
                             .font(.system(size: 11))
@@ -407,8 +431,26 @@ struct AuctionTableView: View {
     private func appendCall(_ call: AuctionCall) {
         var next = record ?? AuctionRecord()
         guard next.kind == .calls else { return }
-        next.entries.append(AuctionEntry(seat: next.sequenceSeat(at: next.entries.count), call: call))
+        let seat = next.sequenceSeat(at: next.entries.count)
+        next.entries.append(AuctionEntry(seat: seat, seatIsSequenceDerived: seat != nil, call: call))
         record = next
+    }
+
+    private var partialTranscriptBinding: Binding<Bool> {
+        Binding(
+            get: { record?.isPartial ?? false },
+            set: { isPartial in
+                guard var next = record, next.kind == .calls, next.isPartial != isPartial else { return }
+                next.isPartial = isPartial
+                if isPartial {
+                    for index in next.entries.indices where next.entries[index].seatIsSequenceDerived {
+                        next.entries[index].seat = nil
+                        next.entries[index].seatIsSequenceDerived = false
+                    }
+                }
+                record = next
+            }
+        )
     }
 
     private func updateCall(_ id: UUID, _ call: AuctionCall) {
@@ -435,6 +477,7 @@ struct AuctionTableView: View {
                 guard var next = record,
                       let index = next.entries.firstIndex(where: { $0.id == id }) else { return }
                 next.entries[index].seat = seat
+                next.entries[index].seatIsSequenceDerived = false
                 record = next
             }
         )

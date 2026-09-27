@@ -15,6 +15,7 @@ final class ScreenshotReviewWorkflowTests: XCTestCase {
           "vulnerability": "eastWest",
           "auction": {
             "startingSeat": "west",
+            "isPartial": false,
             "entries": [
               {"seat":"west", "action":"bid", "level":1, "strain":"clubs"},
               {"seat":"north", "action":"unknown", "level":null, "strain":null}
@@ -38,6 +39,7 @@ final class ScreenshotReviewWorkflowTests: XCTestCase {
             .bid(level: 1, strain: .clubs), .unknown,
         ])
         XCTAssertEqual(candidate.auction?.entries.map(\.seat), [.west, .north])
+        XCTAssertFalse(try XCTUnwrap(candidate.auction).isPartial)
 
         let encoded = try JSONEncoder().encode(candidate)
         let object = try XCTUnwrap(JSONSerialization.jsonObject(with: encoded) as? [String: Any])
@@ -46,6 +48,14 @@ final class ScreenshotReviewWorkflowTests: XCTestCase {
         XCTAssertEqual(hands["south"]?["clubs"], "A")
         XCTAssertEqual(try JSONDecoder().decode(ScreenshotRecognitionCandidate.self, from: encoded), candidate)
 
+        var legacyAuctionObject = object
+        var legacyAuction = try XCTUnwrap(legacyAuctionObject["auction"] as? [String: Any])
+        legacyAuction.removeValue(forKey: "isPartial")
+        legacyAuctionObject["auction"] = legacyAuction
+        let legacyAuctionData = try JSONSerialization.data(withJSONObject: legacyAuctionObject)
+        let legacyAuctionCandidate = try JSONDecoder().decode(ScreenshotRecognitionCandidate.self, from: legacyAuctionData)
+        XCTAssertFalse(try XCTUnwrap(legacyAuctionCandidate.auction).isPartial)
+
         var legacyObject = object
         legacyObject.removeValue(forKey: "vulnerability")
         legacyObject.removeValue(forKey: "auction")
@@ -53,6 +63,44 @@ final class ScreenshotReviewWorkflowTests: XCTestCase {
         let legacyCandidate = try JSONDecoder().decode(ScreenshotRecognitionCandidate.self, from: legacyData)
         XCTAssertNil(legacyCandidate.vulnerability)
         XCTAssertNil(legacyCandidate.auction)
+    }
+
+    func testPartialScreenshotCandidateNeverInfersMissingSeatFromKnownStartOrIndex() throws {
+        let candidate = ScreenshotAuctionCandidate(
+            startingSeat: .west,
+            entries: [
+                ScreenshotAuctionEntryCandidate(seat: .north, action: .bid, level: 1, strain: .clubs),
+                ScreenshotAuctionEntryCandidate(seat: nil, action: .pass),
+            ],
+            isPartial: true
+        )
+
+        let record = candidate.auctionRecord
+
+        XCTAssertTrue(record.isPartial)
+        XCTAssertEqual(record.startingSeat, .west)
+        XCTAssertEqual(record.entries.map(\.seat), [.north, nil])
+        XCTAssertEqual(record.entries.map(\.seatIsSequenceDerived), [false, false])
+        XCTAssertNil(record.sequenceSeat(at: 1))
+        XCTAssertNil(record.layoutRows)
+    }
+
+    func testCompleteScreenshotCandidateKeepsContiguousSeatInference() throws {
+        let candidate = ScreenshotAuctionCandidate(
+            startingSeat: .west,
+            entries: [
+                ScreenshotAuctionEntryCandidate(seat: nil, action: .bid, level: 1, strain: .clubs),
+                ScreenshotAuctionEntryCandidate(seat: nil, action: .pass),
+            ]
+        )
+
+        let record = candidate.auctionRecord
+
+        XCTAssertFalse(record.isPartial)
+        XCTAssertEqual(record.entries.map(\.seat), [.west, .north])
+        XCTAssertEqual(record.entries.map(\.seatIsSequenceDerived), [true, true])
+        XCTAssertEqual(record.sequenceSeat(at: 1), .north)
+        XCTAssertNotNil(record.layoutRows)
     }
 
     func testScreenshotAuctionCandidateCanBeCorrectedAndIsGatedUntilExplicitReview() async {
@@ -139,14 +187,15 @@ final class ScreenshotReviewWorkflowTests: XCTestCase {
         XCTAssertFalse(planWorkflow.draft.decisionTimeConfirmed)
     }
 
-    func testCroppedAuctionKeepsOnlyVisibleCallsWithoutInsertingOmittedTurns() async {
+    func testCroppedAuctionKeepsOnlyVisibleCallsWithoutInsertingOmittedTurns() async throws {
         var candidate = Self.candidateResponse.candidate
         candidate.auction = ScreenshotAuctionCandidate(
             startingSeat: nil,
             entries: [
                 ScreenshotAuctionEntryCandidate(seat: .south, action: .bid, level: 1, strain: .clubs),
                 ScreenshotAuctionEntryCandidate(seat: .north, action: .bid, level: 2, strain: .hearts),
-            ]
+            ],
+            isPartial: true
         )
         let planWorkflow = DeclarerPlanWorkflow(runtime: CapturingPlanRuntime())
         let review = ScreenshotReviewWorkflow(
@@ -162,6 +211,8 @@ final class ScreenshotReviewWorkflowTests: XCTestCase {
         ])
         XCTAssertEqual(planWorkflow.draft.auction?.entries.map(\.seat), [.south, .north])
         XCTAssertNil(planWorkflow.draft.auction?.startingSeat)
+        XCTAssertTrue(try XCTUnwrap(planWorkflow.draft.auction).isPartial)
+        XCTAssertEqual(planWorkflow.draft.auction?.layoutRows?.count, 2)
         XCTAssertFalse(planWorkflow.draft.decisionTimeConfirmed)
     }
 
