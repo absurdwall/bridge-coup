@@ -5,3 +5,18 @@
 @media(max-width:850px){.hero{grid-template-columns:1fr;gap:40px;padding-block:65px 75px}.hero-copy{max-width:690px}.hero-visual{width:min(750px,100%)}.requirements-grid,.download-grid{grid-template-columns:1fr;gap:36px}.feature-grid{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr 1fr}.section{padding-block:75px}}
 @media(max-width:600px){.shell{width:min(100% - 32px,1160px)}.header-inner{min-height:66px}.brand{font-size:.88rem}.brand img{width:32px;height:32px}.site-header nav{gap:12px}.site-header nav a{font-size:.72rem}.site-header nav a:first-child{display:none}.hero{padding-block:45px 60px}.wordmark{width:280px}.hero h1{font-size:2.2rem}.hero-copy>p{font-size:1rem}.hero-actions{gap:18px}.hero-visual:before{inset:-12px -7px 20px 22px}.feature-grid,.gallery,.steps{grid-template-columns:1fr}.feature-grid{gap:12px;margin-bottom:34px}.feature{padding:23px}.gallery{gap:32px}.requirements-list div{grid-template-columns:95px 1fr;gap:12px}.download-card{max-width:360px}.footer-inner{display:block}.footer-links{margin-top:26px;gap:12px 20px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Keep the language selector visible on both desktop and narrow screens. */
+.header-actions { display: flex; align-items: center; gap: 26px; }
+.language-switch { display: flex; flex-shrink: 0; padding: 3px; gap: 2px; border: 1px solid var(--line); border-radius: 6px; }
+.language-switch a { padding: 5px 9px; font-size: .8rem; font-weight: 600; line-height: 1.4; text-decoration: none; white-space: nowrap; }
+.language-switch a[aria-current="page"] { color: var(--white); background: var(--ink); border-radius: 4px; }
+html:lang(zh-CN) { --serif: 'Songti SC', 'Noto Serif CJK SC', serif; --sans: 'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif; }
+html:lang(zh-CN) .hero h1 { line-height: 1.35; letter-spacing: 0; }
+@media (max-width: 850px) { .header-actions { gap: 16px; } .site-header nav { gap: 18px; } }
+@media (max-width: 600px) {
+  .header-inner { gap: 8px; }
+  .header-actions { gap: 10px; }
+  .site-header nav a:not(:last-child) { display: none; }
+  .language-switch a { padding: 5px 7px; font-size: .75rem; }
+}
