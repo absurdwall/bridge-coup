@@ -1,6 +1,6 @@
 # Independent review follow-up — PR #22
 
-Review scope: `3676ca6...62e226a`. The reviewer reproduced two state transitions not covered by the original179 passing tests. Both required changes. Latest code is `b81a5021636b6598e84b3e1211f71341c077823f`;187 tests now pass with real DDS, zero failures/skips.
+Review scope: `3676ca6...62e226a`. The reviewer reproduced two state transitions not covered by the original179 passing tests. Both required changes. Latest code is `64d565219d96f33b133574ac1c6aa3bed5fcb3a1`;189 tests now pass with real DDS, zero failures/skips.
 
 ## Repairs and regressions
 
@@ -39,3 +39,15 @@ QA6 first exposed the repeated-save defect; its temporary synthetic missing asse
 Optional Standards P3 shared delta-label formatting is deferred: it is a non-blocking maintenance suggestion and does not cause these source/reset failures. No broad coordinator or UI redesign was added. Fixed A prototype direction remains unchanged.
 
 Original dirty requirements/prototype files and the original running app session were preserved. These results are local arm64 Mac acceptance; no production store migration or model-quality ranking is claimed. A fresh independent two-axis review is requested after the final evidence push. PR has not been merged and issues have not been manually closed.
+
+## Fresh review: staged manual edit versus late recognition
+
+Review at `d20cfae` independently passed187 tests and closed the original P1/P2 reproduction paths. It also reproduced one new P2: an in-flight first recognition could replace a manual edit pending play reset, because staging bypassed recognition revision invalidation.
+
+Commit `64d565219d96f33b133574ac1c6aa3bed5fcb3a1` immediately invalidates existing recognition when either a manual key-input edit or screenshot replacement is staged. It advances the existing request revision without prematurely changing facts or manual-merge tracking; late recognized proposals also cannot replace a manual pending request. Cancellation retains facts, play and history. Confirmation applies only the user's staged input. Two public application regressions first failed31 assertions, then passed alongside25 focused and189 total tests, actual DDS with zero skips. They cover hands/contract/confirmation and screenshot replacement, each with cancel/confirm and no late metadata commit. [Disposition](evidence/review3-disposition.md), [validation summary](evidence/review3-final-tests.txt).
+
+The reviewer's unchanged independent `/tmp/pr22-spec-race-probe.swift` was rebuilt against final debug objects. Before and after the response, pending remained manual and North remained the intended `KQJT98765432`; confirmation applied it (`intendedCorrectionPreserved=true`). [Exact probe output](evidence/review3-race-probe-green.txt).
+
+QA8 version0.13.0/build8 packages64d5652 in another isolated synthetic store. Opened the earlier canceled-recognition record, played East S4 to add native undo history, and clicked first recognition using actual Runtime0.159.2/Luna Medium. While the UI still showed recognition in progress, toggled main confirmation to stage a manual reset. Canceled the native dialog. The UI showed retryable stale recognition, original confirmation true, South's turn and undo still available. Saved output retained original/play version10, North SA plus East S4 and no candidate/response. [Saved native state](evidence/review3-native-cancel.json). This native case establishes request invalidation and cancel preservation; exact suspended-response ordering and confirm/screenshot-replacement cases are established by the public automated regressions and independent probe, rather than claiming instrumentation of the real Runtime response arrival.
+
+The normal unmodified release package was rebuilt from64d5652 and strict signature verification passed. Original20 dirty requirement/prototype hashes and `CONTEXT.md` diff still match the initial checkout. A new independent review is requested for this source; PR remains unmerged.
