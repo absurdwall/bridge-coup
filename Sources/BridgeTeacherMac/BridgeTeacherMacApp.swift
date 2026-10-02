@@ -376,6 +376,15 @@ private struct CodexModelSettingsPopover: View {
                     .foregroundStyle(BridgePalette.muted)
                     .fixedSize(horizontal: false, vertical: true)
 
+                if let runtimePath = model.runtimePath,
+                   URL(fileURLWithPath: runtimePath).resolvingSymlinksInPath().path == Bundle.main.bundleURL
+                    .appendingPathComponent("Contents/Resources/codex").resolvingSymlinksInPath().path {
+                    Text("已使用应用内附带的 Codex。首次使用请点“连接 ChatGPT”，在浏览器中用自己的账号登录，返回后点“检查连接”。AI 功能需要网络及账号可用额度。")
+                        .font(.system(size: 9))
+                        .foregroundStyle(BridgePalette.muted)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+
                 if let runtimePath = model.runtimePath {
                     Text(runtimePath)
                         .font(.system(size: 9, design: .monospaced))

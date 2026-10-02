@@ -36,7 +36,7 @@ for ENTRY in \
   [[ "$ACTUAL" == "$EXPECTED" ]] || { print -u2 "$KEY: expected '$EXPECTED', found '$ACTUAL'"; exit 1; }
 done
 
-for FILE in "$CONTENTS_DIR/MacOS/BridgeTeacherMac" "$CONTENTS_DIR/Helpers/bridge-dds"; do
+for FILE in "$CONTENTS_DIR/MacOS/BridgeTeacherMac" "$CONTENTS_DIR/Helpers/bridge-dds" "$CONTENTS_DIR/Resources/codex"; do
   [[ -x "$FILE" ]] || { print -u2 "Missing executable: $FILE"; exit 1; }
 done
 while IFS= read -r -d '' FILE; do
@@ -60,9 +60,18 @@ while IFS= read -r -d '' FILE; do
   fi
   codesign --verify --strict --verbose=2 "$FILE"
 done < <(find "$CONTENTS_DIR" -type f -print0)
-for FILE in DDS-LICENSE.txt BridgeCoup.icns BridgeCoupLogo.png BridgeCoupWordmark.png; do
+for FILE in DDS-LICENSE.txt Codex-LICENSE.txt Codex-NOTICE.txt BridgeCoup.icns BridgeCoupLogo.png BridgeCoupWordmark.png; do
   [[ -s "$CONTENTS_DIR/Resources/$FILE" ]] || { print -u2 "Missing resource: $FILE"; exit 1; }
 done
+for FILE in Codex-LICENSE.txt Codex-NOTICE.txt; do
+  cmp "$APP_ROOT/ThirdPartyNotices/$FILE" "$CONTENTS_DIR/Resources/$FILE" || {
+    print -u2 "Shipped $FILE differs from pinned source notice"; exit 1
+  }
+done
+[[ "$("$CONTENTS_DIR/Resources/codex" --version)" == 'codex-cli 0.156.1' ]] || {
+  print -u2 "Unexpected shipped Codex runtime version"; exit 1
+}
+"$APP_ROOT/Scripts/verify-codex-handshake.py" "$CONTENTS_DIR/Resources/codex"
 codesign --verify --deep --strict --verbose=2 "$APP_BUNDLE"
 SIGNATURE="$(codesign -dv --verbose=4 "$APP_BUNDLE" 2>&1)"
 [[ "$SIGNATURE" == *'Signature=adhoc'* ]] || {
