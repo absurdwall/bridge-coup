@@ -4,13 +4,12 @@
 
 ## 构建与使用
 
-要求 macOS 14 或更高版本，以及 Codex CLI 0.156.1 或更新版本。首次使用时，在应用内完成 Codex 登录。
+要求 macOS 14 或更高版本。发行版会内附官方 Codex CLI 0.156.1；首次使用时，在应用内通过浏览器完成自己的 ChatGPT 账号登录。AI 功能需要网络和账号可用额度。
 
 ```sh
-npm install --global @openai/codex@0.156.1
 swift test
 ./Scripts/build-macos-app.sh
-open .build/macos/BridgeTeacher.app
+open ".build/macos/Bridge Coup.app"
 ```
 
 完整设置和操作说明见 [APP-README.md](APP-README.md)。构建输出和下载缓存位于 `.build/`，不会提交。
