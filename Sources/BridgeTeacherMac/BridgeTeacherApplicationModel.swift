@@ -64,6 +64,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
     let keyPlayWorkflow: KeyPlayAnalysisWorkflow
     let screenshotWorkflow: ScreenshotReviewWorkflow
     let doubleDummyWorkflow: DoubleDummyVerificationWorkflow
+    let playCardResultsWorkflow: PlayCardResultsWorkflow
     let originalContractTableWorkflow: OriginalContractTableWorkflow
 
     @Published private(set) var originalHandFacts = OriginalHandFacts()
@@ -100,6 +101,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
     private let reviewStore: LocalReviewSessionStore
     private var currentReviewID: UUID?
     private var hasBootstrapped = false
+    private var playResultsObservation: AnyCancellable?
     private var draftObservation: AnyCancellable?
     private var isRestoringReview = false
 
@@ -146,7 +148,12 @@ final class BridgeTeacherApplicationModel: ObservableObject {
         let solver = doubleDummySolver ?? BundledDDSSolver(executableURL: helperURL)
         doubleDummyWorkflow = DoubleDummyVerificationWorkflow(solver: solver)
         originalContractTableWorkflow = OriginalContractTableWorkflow(solver: solver)
+        playCardResultsWorkflow = PlayCardResultsWorkflow(solver: solver)
         self.reviewStore = reviewStore
+        playResultsObservation = $playPositionRevision.sink { [weak self] revision in
+            guard let self else { return }
+            self.playCardResultsWorkflow.updatePosition(self.playSession, revision: revision)
+        }
         draftObservation = planWorkflow.$draft.dropFirst().sink { [weak self] draft in
             guard let self, !self.isRestoringReview else { return }
             self.synchronizeOriginalHands(from: draft)
