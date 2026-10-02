@@ -189,6 +189,7 @@ struct BridgeTeacherWorkspaceView: View {
 private struct CodexModelSettingsPopover: View {
     @ObservedObject var model: BridgeTeacherApplicationModel
     @Environment(\.dismiss) private var dismiss
+    @State private var showRuntimePaths = false
     @State private var isConnectionExpanded = false
 
     var body: some View {
@@ -323,7 +324,7 @@ private struct CodexModelSettingsPopover: View {
             }
             .padding(12)
         }
-        .frame(width: 326, height: 354)
+        .frame(width: 326, height: isConnectionExpanded ? 560 : 354)
         .background(BridgePalette.canvas)
     }
 
@@ -336,15 +337,20 @@ private struct CodexModelSettingsPopover: View {
                     .fixedSize(horizontal: false, vertical: true)
 
                 if let runtimePath = model.runtimePath {
-                    Text(URL(fileURLWithPath: runtimePath).lastPathComponent)
+                    Text(runtimePath)
                         .font(.system(size: 9, design: .monospaced))
                         .foregroundStyle(BridgePalette.muted)
                         .lineLimit(1)
                 }
 
                 HStack(spacing: 6) {
-                    Button("选择 Codex runtime") { model.chooseRuntime() }
+                    Button("重新搜索") { Task { await model.searchRuntime() } }
                         .controlSize(.small)
+                        .disabled(model.isConnecting || model.isStartingLogin)
+                        .accessibilityIdentifier("search-codex-runtime")
+                    Button("手动选择") { model.chooseRuntime() }
+                        .controlSize(.small)
+                        .disabled(model.isConnecting || model.isStartingLogin)
                     if model.connectionStatus.isSignedIn {
                         Button("检查连接") { Task { await model.checkLogin() } }
                             .controlSize(.small)
@@ -364,6 +370,38 @@ private struct CodexModelSettingsPopover: View {
                             .controlSize(.small)
                             .disabled(model.isStartingLogin)
                     }
+                }
+
+                Button(showRuntimePaths ? "收起候选路径" : "查看建议路径") { showRuntimePaths.toggle() }
+                    .font(.system(size: 10))
+                    .accessibilityIdentifier("show-runtime-paths")
+                if showRuntimePaths || (!model.connectionStatus.isSignedIn && model.connectionStatus.runtimeVersion == nil && !model.isConnecting) {
+                    Text("候选位置不保证已安装。复制完整路径，或定位到最近的已有文件夹后手动选择。")
+                        .font(.system(size: 9))
+                        .foregroundStyle(BridgePalette.muted)
+                        .fixedSize(horizontal: false, vertical: true)
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 8) {
+                            ForEach(model.runtimePathHints) { hint in
+                                VStack(alignment: .leading, spacing: 3) {
+                                    Text(hint.url.path)
+                                        .font(.system(size: 9, design: .monospaced))
+                                        .textSelection(.enabled)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                    HStack {
+                                        Text(hint.failure?.message ?? "探测通过")
+                                            .font(.system(size: 9))
+                                            .foregroundStyle(BridgePalette.muted)
+                                        Spacer()
+                                        Button("复制") { model.copyRuntimePath(hint.url) }
+                                        Button("定位") { model.revealRuntimePath(hint.url) }
+                                    }
+                                    .controlSize(.mini)
+                                }
+                            }
+                        }
+                    }
+                    .frame(maxHeight: 125)
                 }
 
                 Button("刷新模型能力") { Task { await model.refreshModelSettings() } }
