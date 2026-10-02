@@ -297,7 +297,7 @@ actor CodexTeachingService: DeclarerTeachingRuntime, ScreenshotRecognitionRuntim
 
     private struct IsolatedTurnResult {
         let text: String
-        let model: String
+        let model: String?
         let requestedModel: String
         let reasoningEffort: String
     }
@@ -379,7 +379,19 @@ actor CodexTeachingService: DeclarerTeachingRuntime, ScreenshotRecognitionRuntim
                 throw CodexRuntimeSetupError.emptyResponse
             }
 
-            let turnModel = turn["model"] as? String ?? effectiveThreadModel ?? selection.modelIdentifier
+            let reportedModels = [startedTurn["model"] as? String, turn["model"] as? String].compactMap { $0 }
+            if let changedModel = reportedModels.first(where: { $0 != selection.modelIdentifier }) {
+                throw CodexRuntimeSetupError.request(
+                    "Codex runtime 返回了 \(changedModel)，与本次选择的 \(selection.modelIdentifier) 不同。请刷新模型能力后重试。"
+                )
+            }
+            let reportedEfforts = [startedTurn["effort"] as? String, turn["effort"] as? String].compactMap { $0 }
+            if let changedEffort = reportedEfforts.first(where: { $0 != selection.effort.rawValue }) {
+                throw CodexRuntimeSetupError.request(
+                    "Codex runtime 返回了 \(changedEffort)，与本次选择的 \(selection.effort.rawValue) 不同。请刷新模型能力后重试。"
+                )
+            }
+            let turnModel = turn["model"] as? String ?? startedTurn["model"] as? String ?? effectiveThreadModel
             return IsolatedTurnResult(
                 text: text,
                 model: turnModel,
@@ -492,6 +504,10 @@ actor CodexTeachingService: DeclarerTeachingRuntime, ScreenshotRecognitionRuntim
 
     private func requireRequestSelection() throws -> CodexModelSelection {
         guard let requestSelection else { throw CodexRuntimeSetupError.modelConfigurationUnavailable }
+        let verified = CodexModelSettingsState(runtimeModels: runtimeModels, savedSelection: requestSelection)
+        guard verified.selection == requestSelection else {
+            throw CodexRuntimeSetupError.modelConfigurationUnavailable
+        }
         return requestSelection
     }
 

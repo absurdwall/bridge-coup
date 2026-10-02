@@ -47,8 +47,9 @@ final class CodexRuntimeModelCatalogTests: XCTestCase {
             "data": [
                 catalogEntry("gpt-6-luna", displayName: "GPT-6-Luna"),
                 catalogEntry("gpt-5.6-luna", displayName: "GPT-5.6-Luna"),
-                catalogEntry("gpt-6-sol", displayName: "GPT-6-Sol"),
+                catalogEntry("gpt-6.1-sol", displayName: "GPT-6-Sol"),
                 catalogEntry("gpt-5.6-sol", displayName: "GPT-5.6-Sol"),
+                catalogEntry("gpt-6-sol", displayName: "GPT-6 Sol"),
                 catalogEntry("gpt-6-astra", displayName: "GPT-6-Astra"),
                 catalogEntry("gpt-5.6-terra", displayName: "GPT-5.6-Terra"),
             ],
@@ -58,8 +59,8 @@ final class CodexRuntimeModelCatalogTests: XCTestCase {
 
         XCTAssertEqual(settings.option(for: .luna).runtimeModelIdentifier, "gpt-6-luna")
         XCTAssertEqual(settings.option(for: .luna).excludedRuntimeModelIdentifiers, ["gpt-5.6-luna"])
-        XCTAssertEqual(settings.option(for: .sol).runtimeModelIdentifier, "gpt-6-sol")
-        XCTAssertEqual(settings.option(for: .sol).excludedRuntimeModelIdentifiers, ["gpt-5.6-sol"])
+        XCTAssertEqual(settings.option(for: .sol).runtimeModelIdentifier, "gpt-6.1-sol")
+        XCTAssertEqual(settings.option(for: .sol).excludedRuntimeModelIdentifiers, ["gpt-5.6-sol", "gpt-6-sol"])
         XCTAssertEqual(settings.option(for: .astra).runtimeModelIdentifier, "gpt-6-astra")
         XCTAssertEqual(settings.option(for: .astra).excludedRuntimeModelIdentifiers, [])
         XCTAssertEqual(settings.selection?.modelIdentifier, "gpt-6-luna")
