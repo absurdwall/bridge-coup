@@ -1,0 +1,5 @@
+legacy before: conflict=true, preserved=true
+legacy after start/save: conflict=true, preserved=false
+recognition before: originalVersion=2, playVersion=2, canUndo=true
+recognition after: originalConfirmed=false, originalVersion=3, playVersion=2, canUndo=false, pendingReset=false
+recognition next card accepted=true

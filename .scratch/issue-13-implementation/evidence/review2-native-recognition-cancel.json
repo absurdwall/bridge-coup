@@ -1,0 +1,345 @@
+{
+  "createdAt": 812643748.693208,
+  "declarerPlan": {
+    "draft": {
+      "contractLevel": 5,
+      "contractStrain": "hearts",
+      "decisionTimeConfirmed": true,
+      "decisionTimeVisibleSeats": [
+        "north",
+        "east",
+        "south",
+        "west"
+      ],
+      "declarerSeat": "west",
+      "hands": [
+        "east",
+        [
+          "clubs",
+          "AJ92",
+          "hearts",
+          "KQ107",
+          "diamonds",
+          "J65",
+          "spades",
+          "43"
+        ],
+        "south",
+        [
+          "spades",
+          "J865",
+          "hearts",
+          "964",
+          "diamonds",
+          "K",
+          "clubs",
+          "K10763"
+        ],
+        "west",
+        [
+          "diamonds",
+          "A10983",
+          "hearts",
+          "AJ8532",
+          "clubs",
+          "5",
+          "spades",
+          "Q"
+        ],
+        "north",
+        [
+          "hearts",
+          "-",
+          "clubs",
+          "Q84",
+          "diamonds",
+          "Q742",
+          "spades",
+          "AK10972"
+        ]
+      ],
+      "openingLead": "",
+      "otherDecisionTimeFacts": "已确认合成牌例；叫牌和首攻未知。",
+      "question": "只用一句话确认当前定约和已提供手牌的四个座位；本次无需牌理分析。",
+      "vulnerability": "eastWest"
+    },
+    "followUpAssumptions": "",
+    "followUpExchanges": [],
+    "followUpQuestion": "",
+    "informationVersion": 12,
+    "planAnalyses": [],
+    "state": {
+      "idle": {}
+    }
+  },
+  "doubleDummy": {
+    "draft": {
+      "contractLevel": 5,
+      "currentTrickCards": "♠A",
+      "declarerSeat": "west",
+      "declarerTricksAlreadyTaken": 0,
+      "hands": [
+        "north",
+        [
+          "spades",
+          "K10972",
+          "hearts",
+          "-",
+          "diamonds",
+          "Q742",
+          "clubs",
+          "Q84"
+        ],
+        "south",
+        [
+          "clubs",
+          "K10763",
+          "spades",
+          "J865",
+          "hearts",
+          "964",
+          "diamonds",
+          "K"
+        ],
+        "east",
+        [
+          "clubs",
+          "AJ92",
+          "diamonds",
+          "J65",
+          "spades",
+          "43",
+          "hearts",
+          "KQ107"
+        ],
+        "west",
+        [
+          "hearts",
+          "AJ8532",
+          "diamonds",
+          "A10983",
+          "clubs",
+          "5",
+          "spades",
+          "Q"
+        ]
+      ],
+      "trickLeader": "north",
+      "trump": "hearts"
+    },
+    "hasOutdatedResult": false,
+    "state": {
+      "unverified": {}
+    }
+  },
+  "doubleDummyHandSource": "sharedOriginal",
+  "id": "D97B15C3-E2E3-46E6-AB0A-3873B87539FA",
+  "keyPlay": {
+    "draft": {
+      "actingSeat": "east",
+      "analysisPoint": "",
+      "candidatePlays": "",
+      "currentTrickCards": "♠A",
+      "currentTrickState": "cardsRecorded",
+      "question": "请分析当前这一出牌节点。",
+      "relevantPlayHistory": ""
+    },
+    "resultIsOutdated": false,
+    "state": {
+      "idle": {}
+    }
+  },
+  "originalHandFacts": {
+    "boardID": "B29D615C-13F1-4824-BF0E-E0D1F479C646",
+    "decisionTimeConfirmed": true,
+    "hands": [
+      "east",
+      [
+        "clubs",
+        "AJ92",
+        "hearts",
+        "KQ107",
+        "diamonds",
+        "J65",
+        "spades",
+        "43"
+      ],
+      "south",
+      [
+        "spades",
+        "J865",
+        "hearts",
+        "964",
+        "diamonds",
+        "K",
+        "clubs",
+        "K10763"
+      ],
+      "west",
+      [
+        "diamonds",
+        "A10983",
+        "hearts",
+        "AJ8532",
+        "clubs",
+        "5",
+        "spades",
+        "Q"
+      ],
+      "north",
+      [
+        "hearts",
+        "-",
+        "clubs",
+        "Q84",
+        "diamonds",
+        "Q742",
+        "spades",
+        "AK10972"
+      ]
+    ],
+    "version": 10
+  },
+  "playSession": {
+    "completedTricks": [],
+    "contractLevel": 5,
+    "currentTrick": [
+      {
+        "card": {
+          "rank": "A",
+          "suit": "spades"
+        },
+        "seat": "north"
+      }
+    ],
+    "declarerSeat": "west",
+    "eastWestTricks": 0,
+    "northSouthTricks": 0,
+    "originalBoardID": "B29D615C-13F1-4824-BF0E-E0D1F479C646",
+    "originalVersion": 10,
+    "remainingHands": [
+      "east",
+      [
+        "hearts",
+        [
+          "K",
+          "Q",
+          "10",
+          "7"
+        ],
+        "clubs",
+        [
+          "A",
+          "J",
+          "9",
+          "2"
+        ],
+        "spades",
+        [
+          "4",
+          "3"
+        ],
+        "diamonds",
+        [
+          "J",
+          "6",
+          "5"
+        ]
+      ],
+      "south",
+      [
+        "clubs",
+        [
+          "K",
+          "10",
+          "7",
+          "6",
+          "3"
+        ],
+        "spades",
+        [
+          "J",
+          "8",
+          "6",
+          "5"
+        ],
+        "hearts",
+        [
+          "9",
+          "6",
+          "4"
+        ],
+        "diamonds",
+        [
+          "K"
+        ]
+      ],
+      "west",
+      [
+        "spades",
+        [
+          "Q"
+        ],
+        "hearts",
+        [
+          "A",
+          "J",
+          "8",
+          "5",
+          "3",
+          "2"
+        ],
+        "diamonds",
+        [
+          "A",
+          "10",
+          "9",
+          "8",
+          "3"
+        ],
+        "clubs",
+        [
+          "5"
+        ]
+      ],
+      "north",
+      [
+        "hearts",
+        [],
+        "clubs",
+        [
+          "Q",
+          "8",
+          "4"
+        ],
+        "spades",
+        [
+          "K",
+          "10",
+          "9",
+          "7",
+          "2"
+        ],
+        "diamonds",
+        [
+          "Q",
+          "7",
+          "4",
+          "2"
+        ]
+      ]
+    ],
+    "strain": "hearts",
+    "trickLeader": "north"
+  },
+  "screenshot": {
+    "manuallyEditedFields": [],
+    "sourceFilename": "synthetic-full-deal.png",
+    "state": {
+      "idle": {}
+    }
+  },
+  "screenshotAssetName": "82c23902-6bdc-48ba-b3c9-1f0911c97119.png",
+  "teachingMode": "declarerPlan",
+  "title": "西家 5♥"
+}

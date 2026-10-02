@@ -1,0 +1,312 @@
+{
+  "createdAt": 812643748.693208,
+  "declarerPlan": {
+    "draft": {
+      "contractLevel": 5,
+      "contractStrain": "hearts",
+      "decisionTimeConfirmed": false,
+      "decisionTimeVisibleSeats": [
+        "south",
+        "west",
+        "north",
+        "east"
+      ],
+      "declarerSeat": "west",
+      "hands": [
+        "south",
+        [
+          "clubs",
+          "K10763",
+          "spades",
+          "J865",
+          "diamonds",
+          "K",
+          "hearts",
+          "964"
+        ],
+        "east",
+        [
+          "diamonds",
+          "J65",
+          "clubs",
+          "AJ92",
+          "spades",
+          "43",
+          "hearts",
+          "KQ107"
+        ],
+        "west",
+        [
+          "spades",
+          "Q",
+          "hearts",
+          "AJ8532",
+          "diamonds",
+          "A10983",
+          "clubs",
+          "5"
+        ],
+        "north",
+        [
+          "spades",
+          "AK10972",
+          "clubs",
+          "Q84",
+          "diamonds",
+          "Q742",
+          "hearts",
+          "-"
+        ]
+      ],
+      "openingLead": "",
+      "otherDecisionTimeFacts": "已确认合成牌例；叫牌和首攻未知。",
+      "question": "只用一句话确认当前定约和已提供手牌的四个座位；本次无需牌理分析。",
+      "vulnerability": "eastWest"
+    },
+    "followUpAssumptions": "",
+    "followUpExchanges": [],
+    "followUpQuestion": "",
+    "informationVersion": 14,
+    "planAnalyses": [],
+    "state": {
+      "idle": {}
+    }
+  },
+  "doubleDummy": {
+    "draft": {
+      "contractLevel": 5,
+      "currentTrickCards": "",
+      "declarerSeat": "west",
+      "declarerTricksAlreadyTaken": 0,
+      "hands": [
+        "south",
+        [
+          "clubs",
+          "K10763",
+          "spades",
+          "J865",
+          "diamonds",
+          "K",
+          "hearts",
+          "964"
+        ],
+        "east",
+        [
+          "diamonds",
+          "J65",
+          "clubs",
+          "AJ92",
+          "spades",
+          "43",
+          "hearts",
+          "KQ107"
+        ],
+        "west",
+        [
+          "spades",
+          "Q",
+          "hearts",
+          "AJ8532",
+          "diamonds",
+          "A10983",
+          "clubs",
+          "5"
+        ],
+        "north",
+        [
+          "spades",
+          "AK10972",
+          "clubs",
+          "Q84",
+          "diamonds",
+          "Q742",
+          "hearts",
+          "-"
+        ]
+      ],
+      "trickLeader": "north",
+      "trump": "hearts"
+    },
+    "hasOutdatedResult": false,
+    "state": {
+      "unverified": {}
+    }
+  },
+  "doubleDummyHandSource": "sharedOriginal",
+  "doubleDummyOriginalHandVersion": 11,
+  "id": "D8AD3EF6-13E0-4CC0-8AB9-7EAE0EC182FB",
+  "keyPlay": {
+    "draft": {
+      "actingSeat": "east",
+      "analysisPoint": "",
+      "candidatePlays": "",
+      "currentTrickCards": "♠A",
+      "currentTrickState": "cardsRecorded",
+      "question": "请分析当前这一出牌节点。",
+      "relevantPlayHistory": ""
+    },
+    "resultIsOutdated": false,
+    "state": {
+      "idle": {}
+    }
+  },
+  "originalHandFacts": {
+    "boardID": "0D1EEA2F-CD94-4D57-876D-B56C21EBA2FF",
+    "decisionTimeConfirmed": false,
+    "hands": [
+      "south",
+      [
+        "clubs",
+        "K10763",
+        "spades",
+        "J865",
+        "diamonds",
+        "K",
+        "hearts",
+        "964"
+      ],
+      "east",
+      [
+        "diamonds",
+        "J65",
+        "clubs",
+        "AJ92",
+        "spades",
+        "43",
+        "hearts",
+        "KQ107"
+      ],
+      "west",
+      [
+        "spades",
+        "Q",
+        "hearts",
+        "AJ8532",
+        "diamonds",
+        "A10983",
+        "clubs",
+        "5"
+      ],
+      "north",
+      [
+        "spades",
+        "AK10972",
+        "clubs",
+        "Q84",
+        "diamonds",
+        "Q742",
+        "hearts",
+        "-"
+      ]
+    ],
+    "version": 11
+  },
+  "screenshot": {
+    "candidate": {
+      "contractLevel": 5,
+      "contractStrain": "hearts",
+      "declarerSeat": "west",
+      "hands": {
+        "east": {
+          "clubs": "AJ92",
+          "diamonds": "J65",
+          "hearts": "KQ107",
+          "spades": "43"
+        },
+        "north": {
+          "clubs": "Q84",
+          "diamonds": "Q742",
+          "hearts": "-",
+          "spades": "AK10972"
+        },
+        "south": {
+          "clubs": "K10763",
+          "diamonds": "K",
+          "hearts": "964",
+          "spades": "J865"
+        },
+        "west": {
+          "clubs": "5",
+          "diamonds": "A10983",
+          "hearts": "AJ8532",
+          "spades": "Q"
+        }
+      },
+      "notes": [
+        {
+          "field": "auction",
+          "kind": "notShown",
+          "message": "截图未显示叫牌记录。"
+        },
+        {
+          "field": "openingLead",
+          "kind": "notShown",
+          "message": "截图未显示首攻。"
+        }
+      ],
+      "openingLead": null,
+      "otherDecisionTimeFacts": "截图标注“ Synthetic bridge deal – all four hands shown”。",
+      "vulnerability": "eastWest"
+    },
+    "manuallyEditedFields": [],
+    "response": {
+      "candidate": {
+        "contractLevel": 5,
+        "contractStrain": "hearts",
+        "declarerSeat": "west",
+        "hands": {
+          "east": {
+            "clubs": "AJ92",
+            "diamonds": "J65",
+            "hearts": "KQ107",
+            "spades": "43"
+          },
+          "north": {
+            "clubs": "Q84",
+            "diamonds": "Q742",
+            "hearts": "-",
+            "spades": "AK10972"
+          },
+          "south": {
+            "clubs": "K10763",
+            "diamonds": "K",
+            "hearts": "964",
+            "spades": "J865"
+          },
+          "west": {
+            "clubs": "5",
+            "diamonds": "A10983",
+            "hearts": "AJ8532",
+            "spades": "Q"
+          }
+        },
+        "notes": [
+          {
+            "field": "auction",
+            "kind": "notShown",
+            "message": "截图未显示叫牌记录。"
+          },
+          {
+            "field": "openingLead",
+            "kind": "notShown",
+            "message": "截图未显示首攻。"
+          }
+        ],
+        "openingLead": null,
+        "otherDecisionTimeFacts": "截图标注“ Synthetic bridge deal – all four hands shown”。",
+        "vulnerability": "eastWest"
+      },
+      "model": "gpt-6-luna",
+      "reasoningEffort": "medium",
+      "requestedModel": "gpt-6-luna",
+      "runtimeVersion": "codex-cli 0.159.2"
+    },
+    "sourceFilename": "synthetic-full-deal.png",
+    "state": {
+      "succeeded": {}
+    }
+  },
+  "screenshotAssetName": "5ac6a5f8-7946-4a22-8eea-fd135ac4a4ff.png",
+  "teachingMode": "declarerPlan",
+  "title": "西家 5♥"
+}
