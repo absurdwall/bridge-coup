@@ -18,8 +18,8 @@ struct BridgeTeacherMacApp: App {
                     let build = info["CFBundleVersion"] as? String ?? "unknown"
                     NSApplication.shared.orderFrontStandardAboutPanel(options: [
                         .applicationName: "Bridge Coup",
-                        .applicationVersion: "Version \(label) (build \(build))",
-                        .version: build
+                        .applicationVersion: "Version \(label)",
+                        .version: "build \(build)"
                     ])
                 }
             }
