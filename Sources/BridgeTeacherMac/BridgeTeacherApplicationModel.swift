@@ -17,6 +17,8 @@ enum ContractSelectionAction {
 enum CodexConnectionStatus: Equatable {
     case checking
     case runtimeMissing
+    case runtimeCannotRun(String)
+    case runtimeProtocolUnavailable(String)
     case needsLogin(version: String)
     case awaitingLogin(version: String)
     case signedIn(version: String)
@@ -28,6 +30,10 @@ enum CodexConnectionStatus: Equatable {
             "正在检查 Codex runtime…"
         case .runtimeMissing:
             "没有找到 Codex runtime"
+        case let .runtimeCannotRun(message):
+            "Codex runtime 不可运行：\(message)"
+        case let .runtimeProtocolUnavailable(message):
+            "Codex runtime 协议不可用：\(message)"
         case let .needsLogin(version):
             "Codex \(version) · 需要 ChatGPT 登录"
         case let .awaitingLogin(version):
@@ -47,7 +53,7 @@ enum CodexConnectionStatus: Equatable {
     var runtimeVersion: String? {
         switch self {
         case let .needsLogin(version), let .awaitingLogin(version), let .signedIn(version): version
-        case .checking, .runtimeMissing, .failed: nil
+        case .checking, .runtimeMissing, .runtimeCannotRun, .runtimeProtocolUnavailable, .failed: nil
         }
     }
 }
@@ -66,6 +72,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
     @Published private(set) var connectionStatus: CodexConnectionStatus = .checking
     @Published private(set) var isConnecting = false
     @Published private(set) var isStartingLogin = false
+    @Published private(set) var runtimePathHints: [CodexRuntimePathHint] = []
     @Published private(set) var runtimePath: String?
     @Published private(set) var modelSettings = CodexModelSettingsState(runtimeModels: [])
     @Published private(set) var modelCatalogStatus = "连接 ChatGPT 后读取当前账号可用的模型能力。"
@@ -132,18 +139,39 @@ final class BridgeTeacherApplicationModel: ObservableObject {
     func bootstrap() async {
         guard !hasBootstrapped else { return }
         hasBootstrapped = true
-        guard let candidate = CodexExecutableDiscovery.find() else {
-            connectionStatus = .runtimeMissing
-            modelCatalogStatus = "选择 Codex runtime 并连接 ChatGPT 后，才能读取模型能力。"
+        await searchRuntime()
+    }
+
+    func searchRuntime() async {
+        guard !isConnecting, !isStartingLogin else { return }
+        let candidates = CodexRuntimeDiscovery.candidateURLs(
+            savedPath: UserDefaults.standard.string(forKey: CodexRuntimeDiscovery.preferenceKey)
+        )
+        await discoverRuntime(candidates: candidates, saveManualSelection: false)
+    }
+
+    func copyRuntimePath(_ url: URL) {
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(url.path, forType: .string)
+    }
+
+    func revealRuntimePath(_ url: URL) {
+        if FileManager.default.fileExists(atPath: url.path) {
+            NSWorkspace.shared.activateFileViewerSelecting([url])
             return
         }
-        await useRuntime(candidate, saveSelection: false)
+        var directory = url.deletingLastPathComponent()
+        while directory.path != "/", !FileManager.default.fileExists(atPath: directory.path) {
+            directory.deleteLastPathComponent()
+        }
+        NSWorkspace.shared.open(directory)
     }
 
     func chooseRuntime() {
         let panel = NSOpenPanel()
         panel.title = "选择 Codex CLI 可执行文件"
-        panel.message = "选择官方 Codex CLI 或 app-server 可执行文件。"
+        panel.message = "选择官方 Codex 的 codex 可执行文件。建议位置见连接状态中的候选路径；这些位置不保证已安装。"
+        panel.directoryURL = runtimePathHints.first(where: { $0.failure == nil })?.url.deletingLastPathComponent()
         panel.canChooseFiles = true
         panel.canChooseDirectories = false
         panel.allowsMultipleSelection = false
@@ -469,23 +497,42 @@ final class BridgeTeacherApplicationModel: ObservableObject {
     }
 
     private func useRuntime(_ url: URL, saveSelection: Bool) async {
+        await discoverRuntime(candidates: [url], saveManualSelection: saveSelection)
+    }
+
+    private func discoverRuntime(candidates: [URL], saveManualSelection: Bool) async {
+        guard !isConnecting else { return }
+        isConnecting = true
         connectionStatus = .checking
-        runtimePath = url.path
-        do {
+        defer { isConnecting = false }
+        let discovery = CodexRuntimeDiscovery(candidates: candidates) { [service] url in
             let info = try await service.configure(executableURL: url)
             let signedIn = try await service.isChatGPTSignedIn()
-            connectionStatus = signedIn ? .signedIn(version: info.version) : .needsLogin(version: info.version)
-            if signedIn {
-                await refreshModelSettings()
-            } else {
-                await clearRuntimeModelSettings(message: "连接 ChatGPT 后读取当前账号可用的模型能力。")
+            return CodexRuntimeConnection(info: info, isSignedIn: signedIn)
+        }
+        let result = await discovery.search()
+        runtimePathHints = result.hints
+        guard let connection = result.connection else {
+            switch result.failure {
+            case let .protocolUnavailable(message): connectionStatus = .runtimeProtocolUnavailable(message)
+            case let .cannotRun(message): connectionStatus = .runtimeCannotRun(message)
+            case .notExecutable: connectionStatus = .runtimeCannotRun("找到的文件不可执行。请重新搜索或手动选择。")
+            case .missing, nil: connectionStatus = .runtimeMissing
             }
-            if saveSelection {
-                UserDefaults.standard.set(url.path, forKey: "bridgeTeacher.codexExecutablePath")
-            }
-        } catch {
-            connectionStatus = .failed(error.localizedDescription)
-            await clearRuntimeModelSettings(message: "模型能力不可用：\(error.localizedDescription)")
+            await clearRuntimeModelSettings(message: "重新搜索或选择 Codex runtime 后连接 ChatGPT。")
+            return
+        }
+        runtimePath = connection.info.executableURL.path
+        connectionStatus = connection.isSignedIn
+            ? .signedIn(version: connection.info.version)
+            : .needsLogin(version: connection.info.version)
+        if saveManualSelection {
+            UserDefaults.standard.set(connection.info.executableURL.path, forKey: CodexRuntimeDiscovery.preferenceKey)
+        }
+        if connection.isSignedIn {
+            await refreshModelSettings()
+        } else {
+            await clearRuntimeModelSettings(message: "连接 ChatGPT 后读取当前账号可用的模型能力。")
         }
     }
 
@@ -521,30 +568,4 @@ struct ReviewSessionAlert: Identifiable {
     let id = UUID()
     let title: String
     let message: String
-}
-
-private enum CodexExecutableDiscovery {
-    static func find() -> URL? {
-        let fileManager = FileManager.default
-        var candidates: [URL] = []
-
-        if let bundled = Bundle.main.url(forResource: "codex", withExtension: nil) {
-            candidates.append(bundled)
-        }
-        if let storedPath = UserDefaults.standard.string(forKey: "bridgeTeacher.codexExecutablePath") {
-            candidates.append(URL(fileURLWithPath: storedPath))
-        }
-
-        let environment = ProcessInfo.processInfo.environment
-        let pathDirectories = (environment["PATH"] ?? "").split(separator: ":").map(String.init)
-        candidates.append(contentsOf: pathDirectories.map { URL(fileURLWithPath: $0).appendingPathComponent("codex") })
-        candidates.append(contentsOf: ["/opt/homebrew/bin/codex", "/usr/local/bin/codex"].map(URL.init(fileURLWithPath:)))
-
-        let nvmRoot = fileManager.homeDirectoryForCurrentUser.appendingPathComponent(".nvm/versions/node", isDirectory: true)
-        if let versions = try? fileManager.contentsOfDirectory(at: nvmRoot, includingPropertiesForKeys: nil) {
-            candidates.append(contentsOf: versions.map { $0.appendingPathComponent("bin/codex") })
-        }
-
-        return candidates.first(where: { fileManager.isExecutableFile(atPath: $0.path) })
-    }
 }
