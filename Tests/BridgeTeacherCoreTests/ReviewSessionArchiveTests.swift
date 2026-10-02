@@ -3,6 +3,44 @@ import XCTest
 @testable import BridgeTeacherCore
 
 final class ReviewSessionArchiveTests: XCTestCase {
+    func testRepeatedSaveOfOpenedReviewKeepsItsScreenshotReadable() throws {
+        let temporaryRoot = FileManager.default.temporaryDirectory
+            .appendingPathComponent(UUID().uuidString, isDirectory: true)
+        try FileManager.default.createDirectory(at: temporaryRoot, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: temporaryRoot) }
+        let externalScreenshot = temporaryRoot.appendingPathComponent("source.png")
+        let screenshotData = Data([0x89, 0x50, 0x4e, 0x47])
+        try screenshotData.write(to: externalScreenshot)
+        let snapshot = ReviewSessionSnapshot(
+            title: "Initial review",
+            teachingMode: .declarerPlan,
+            declarerPlan: workflowArchive(draft: DeclarerPlanDraft()),
+            screenshot: ScreenshotReviewWorkflowArchive(state: .idle, candidate: nil, response: nil),
+            keyPlay: KeyPlayAnalysisWorkflowArchive(
+                draft: KeyPlayAnalysisDraft(), state: .idle, result: nil,
+                resultIsOutdated: false, resultInformationVersion: nil
+            ),
+            doubleDummy: DoubleDummyVerificationWorkflowArchive(
+                draft: DoubleDummyVerificationDraft(), state: .unverified,
+                result: nil, hasOutdatedResult: false
+            )
+        )
+        let store = LocalReviewSessionStore(directoryURL: temporaryRoot.appendingPathComponent("reviews", isDirectory: true))
+        let saved = try store.save(snapshot, screenshotURL: externalScreenshot)
+        let opened = try store.open(id: saved.id)
+        let openedScreenshot = try XCTUnwrap(opened.screenshotURL)
+        var updated = opened.snapshot
+        updated.title = "First edit"
+        _ = try store.save(updated, screenshotURL: openedScreenshot)
+        updated.title = "Second edit"
+        _ = try store.save(updated, screenshotURL: openedScreenshot)
+
+        XCTAssertEqual(try Data(contentsOf: openedScreenshot), screenshotData)
+        let reopened = try store.open(id: saved.id)
+        XCTAssertEqual(reopened.snapshot.title, "Second edit")
+        XCTAssertEqual(try Data(contentsOf: XCTUnwrap(reopened.screenshotURL)), screenshotData)
+    }
+
     func testLegacyArchiveWithoutManualAuctionFieldsKeepsThemUnknown() throws {
         var draft = DeclarerPlanDraft()
         draft.otherDecisionTimeFacts = "旧备注：叫牌 1♣—Pass—3NT；尚未结构化录入。"
