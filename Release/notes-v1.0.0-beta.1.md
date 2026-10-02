@@ -1,4 +1,4 @@
-# Bridge Coup 1.0.0 Beta 1
+# Bridge Coup 1.0.0 Beta 1 (build 10002)
 
 This is the first public beta for Apple Silicon Macs running macOS 14 or
 later. It brings the bridge deal workspace, declarer-play teaching, local
@@ -35,6 +35,16 @@ login data retain their existing app identifiers and storage when replacing
 the app. Do not remove the user's Bridge Coup data during replacement.
 
 ## Current limits
+
+This early beta is available for voluntary testing. Package verification and
+local real-service teaching/DDS checks provide supporting evidence; complete
+clean-user and upgrade acceptance is still open in Issue #28.
+
+- Browser-downloaded first launch, security override, and own-account setup on
+  a clean macOS user have not yet completed acceptance.
+- Preservation of reviews, screenshots, preferences, and login across an
+  isolated two-version upgrade has not yet completed acceptance. Back up
+  important saved reviews before trying this beta or replacing an older app.
 
 - Intel Macs and macOS versions earlier than 14 are unsupported.
 - An account or network failure can make AI functions unavailable even when
