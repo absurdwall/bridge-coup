@@ -19,6 +19,27 @@ checks before closing the issue.
   different hash; see `first-use-2026-10-02.md`. That evidence must not be
   attributed to this integrated candidate.
 
+### Packaged GUI teaching on the integrated candidate
+
+The final local candidate above was copied to the temporary
+`/tmp/bridge-coup-issue-23-acceptance/Applications` directory and launched
+with `CFFIXED_USER_HOME=/tmp/bridge-coup-issue-23-first-use-home`. A
+command-line override selected its **bundled Codex 0.156.1** executable.
+The app first showed signed-out guidance. Clicking **连接 ChatGPT** opened
+Chrome at `auth.openai.com/choose-an-account`; that page then closed through
+an existing browser session. After **检查连接**, Bridge Coup showed ChatGPT
+connected and `gpt-6-astra` with Medium thinking effort available.
+
+With a synthetic 3NT South position (South: ♠ AKQJ, ♥ 543, ♦ A432, ♣ K2;
+other hands unknown), the installed app generated a real Codex teaching
+response. It conditionally discussed five sure tricks and the missing North
+hand and opening lead. This establishes a packaged-app, real-service teaching
+turn on the integrated candidate. It was still the maintainer's macOS account:
+the browser or Keychain may have reused existing authentication, and the
+bundled runtime was selected by override rather than unmodified discovery.
+It does not establish clean-user login, first launch from a browser download,
+quarantine handling, or login-state preservation after an upgrade.
+
 ## Earlier two-version local rehearsal
 
 The 2026-10-02 local rehearsal used two packages built from **`362e1d7`**,
