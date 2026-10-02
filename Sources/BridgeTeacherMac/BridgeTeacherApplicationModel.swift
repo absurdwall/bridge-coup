@@ -72,6 +72,11 @@ final class BridgeTeacherApplicationModel: ObservableObject {
     @Published private(set) var playStatus = "点击开始自主推演后可点牌。"
     @Published var pendingPlayReset: PlayResetRequest?
     private var isConfirmingPlayReset = false
+    @Published private var playUndoStack: [BridgePlaySession] = []
+    @Published private var playRedoStack: [BridgePlaySession] = []
+
+    var canUndoPlay: Bool { playSession != nil && !playUndoStack.isEmpty }
+    var canRedoPlay: Bool { playSession != nil && !playRedoStack.isEmpty }
 
     var currentTeachingDraft: DeclarerPlanDraft {
         playSession?.teachingDraft(from: workflow.draft) ?? workflow.draft
@@ -458,6 +463,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
         }
 
         let snapshot = opened.snapshot
+        clearPlayHistory()
         isRestoringReview = true
         defer { isRestoringReview = false }
         workflow.restore(from: snapshot.declarerPlan)
@@ -504,7 +510,9 @@ final class BridgeTeacherApplicationModel: ObservableObject {
     func startPlay() -> Bool {
         guard playSession == nil else { return false }
         do {
-            playSession = try BridgePlaySession(original: originalHandFacts, draft: workflow.draft)
+            let session = try BridgePlaySession(original: originalHandFacts, draft: workflow.draft)
+            clearPlayHistory()
+            playSession = session
             playStatus = playSession?.suppliedOpeningLead.map { "已采用核对后的首攻 \($0.description)，不会再次出牌。" }
                 ?? "自主推演已开始，请点当前行动家的合法牌。"
             playPositionChanged()
@@ -514,9 +522,11 @@ final class BridgeTeacherApplicationModel: ObservableObject {
 
     @discardableResult
     func playCard(_ card: DoubleDummyCard, by seat: Seat) -> Bool {
-        guard var session = playSession else { playStatus = "请先点击开始自主推演。"; return false }
+        guard let previous = playSession else { playStatus = "请先点击开始自主推演。"; return false }
+        var session = previous
         do {
             try session.play(card, by: seat)
+            recordPlayAction(before: previous)
             playSession = session
             playStatus = session.awaitingCollection ? "四张已出齐，请手动收墩。" : "请点当前行动家的合法牌。"
             playPositionChanged()
@@ -526,9 +536,11 @@ final class BridgeTeacherApplicationModel: ObservableObject {
 
     @discardableResult
     func collectPlayTrick() -> Bool {
-        guard var session = playSession else { return false }
+        guard let previous = playSession else { return false }
+        var session = previous
         do {
             try session.collectTrick()
+            recordPlayAction(before: previous)
             playSession = session
             playStatus = session.isComplete ? "全副 13 墩已完成，显示的是实际推演结果。" : "由 \(session.trickLeader.chineseName) 首引下一墩。"
             playPositionChanged()
@@ -539,6 +551,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
     func confirmPlayReset() {
         guard let request = pendingPlayReset else { return }
         pendingPlayReset = nil
+        clearPlayHistory()
         playSession = nil
         playPositionChanged()
         isConfirmingPlayReset = true
@@ -549,6 +562,49 @@ final class BridgeTeacherApplicationModel: ObservableObject {
     }
 
     func cancelPlayReset() { pendingPlayReset = nil }
+
+    @discardableResult
+    func undoPlay() -> Bool {
+        guard let previous = playUndoStack.last, let current = playSession else { return false }
+        guard replacePlaySession(previous) else { clearPlayHistory(); return false }
+        playUndoStack.removeLast()
+        playRedoStack.append(current)
+        playStatus = "已撤销上一个操作，恢复完整局面。"
+        return true
+    }
+
+    @discardableResult
+    func redoPlay() -> Bool {
+        guard let next = playRedoStack.last, let current = playSession else { return false }
+        guard replacePlaySession(next) else { clearPlayHistory(); return false }
+        playRedoStack.removeLast()
+        playUndoStack.append(current)
+        playStatus = "已恢复被撤销的完整局面。"
+        return true
+    }
+
+    @discardableResult
+    func restartPlay() -> Bool {
+        guard let current = playSession else { return false }
+        do {
+            let start = try BridgePlaySession(original: originalHandFacts, draft: workflow.draft)
+            guard replacePlaySession(start) else { return false }
+            recordPlayAction(before: current)
+            playStatus = start.suppliedOpeningLead.map { "已从原始牌局重走；采用首攻 \($0.description)，不会再次出牌。" }
+                ?? "已回到原始牌局起点；请自行选择首攻。"
+            return true
+        } catch { playStatus = error.localizedDescription; return false }
+    }
+
+    private func recordPlayAction(before position: BridgePlaySession) {
+        playUndoStack.append(position)
+        playRedoStack = []
+    }
+
+    private func clearPlayHistory() {
+        playUndoStack = []
+        playRedoStack = []
+    }
 
     /// Applies a previously captured derived position on the same original board.
     /// Every restored position follows the same analysis invalidation boundary.
@@ -621,6 +677,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
         let updated = originalHandFacts.updating(from: draft)
         guard updated != originalHandFacts else { return }
         originalHandFacts = updated
+        clearPlayHistory()
         originalContractTableWorkflow.updateOriginalHands(updated)
         doubleDummyWorkflow.invalidate()
         resetDoubleDummyToOriginal(context: draft)

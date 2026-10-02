@@ -31,6 +31,14 @@ struct PlayWorkspaceView: View {
                 HStack {
                     Text("已收 \(session.completedTricks.count) 墩 · NS \(session.northSouthTricks) · EW \(session.eastWestTricks)")
                     Spacer()
+                    Button("撤销") { model.undoPlay() }
+                        .disabled(!model.canUndoPlay)
+                        .accessibilityIdentifier("undo-play")
+                    Button("重做") { model.redoPlay() }
+                        .disabled(!model.canRedoPlay)
+                        .accessibilityIdentifier("redo-play")
+                    Button("重走") { model.restartPlay() }
+                        .accessibilityIdentifier("restart-play")
                     Button("收墩") { model.collectPlayTrick() }
                         .disabled(!session.awaitingCollection)
                         .accessibilityIdentifier("collect-play-trick")
