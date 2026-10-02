@@ -97,3 +97,36 @@ unconfirmed. The newer package did not include the final review fixes.
 
 If any gate fails or cannot be observed, record it here and leave Issue #28
 open. The local checks above are useful supporting evidence only.
+
+## Shared early beta — 2026-10-02
+
+The user explicitly authorized merging PR #29, replacing the website hero with
+a real teaching example, and making the beta downloadable for friends before
+full release acceptance. PR #29 merged at `b1d2738`; release source and identity
+are pinned to `676979b5f5e918242152c5d58c450d606b44a3cb`. This changes the
+publication timing only. Issue #28 and all unobserved installed-app gates remain
+open. The exception is recorded in `Release/README.md` and the public notes.
+
+- Final artifact: `Bridge-Coup-v1.0.0-beta.1-arm64.dmg`, version 1.0.0 Beta 1,
+  build **10002**, **110,293,727 bytes**.
+- SHA-256: `f5cdc53ff39da52fe6fac6e3baaa5009da6e267494447b93b8e6a0e5dbbd6272`.
+- `build-macos-dmg.sh` rebuilt from the above source and completed its full
+  package gate: release metadata, arm64/macOS minimum, executable permissions,
+  final signatures, required notices, isolated signed-out Codex handshake, and
+  complete-deal DDS solve. It contains both fixes from `0c5a324`.
+- Published as a **prerelease**, not stable, at
+  https://github.com/absurdwall/bridge-coup/releases/tag/v1.0.0-beta.1.
+  The tag resolves to the exact source commit above.
+- An unauthenticated HTTPS download of the complete public asset returned 200
+  and matched the byte count and SHA-256 above. This is public transport proof;
+  it is not clean-user installation or security-override acceptance.
+- The website hero was captured from the user's current real 6♦ teaching
+  session without changing its content. The desktop and 390px narrow preview
+  passed visual checks; no horizontal page overflow was observed.
+- The website's download activation retains an explicit early-beta notice.
+  Clean-user installation/login/teaching/DDS, isolated two-version preservation,
+  and installed-app checks against real release metadata remain unverified.
+
+The earlier build 10001 evidence above is historical and must not be relabeled
+as validation of build 10002. The user's currently open application was left
+running with its unsaved bridge work; it was not replaced by this release.
