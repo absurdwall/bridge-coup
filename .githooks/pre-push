@@ -1,0 +1,8 @@
+#!/bin/sh
+set -eu
+while read -r local_ref local_oid remote_ref remote_oid; do
+    if [ "$remote_ref" = refs/heads/main ]; then
+        echo "Bridge Coup: update main by merging a GitHub pull request; direct pushes to main are blocked." >&2
+        exit 1
+    fi
+done
