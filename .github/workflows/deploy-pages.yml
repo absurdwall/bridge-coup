@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - codex/issue-23-ticket-27
     paths:
       - docs/**
       - .github/workflows/deploy-pages.yml
