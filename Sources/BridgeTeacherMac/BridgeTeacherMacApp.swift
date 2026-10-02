@@ -4,9 +4,14 @@ import BridgeTeacherCore
 
 @main
 struct BridgeTeacherMacApp: App {
+    @StateObject private var updateCoordinator = BridgeCoupUpdateCoordinator()
+
     var body: some Scene {
         WindowGroup("Bridge Coup") {
             BridgeTeacherWorkspaceShell()
+                .sheet(isPresented: $updateCoordinator.isShowingUpdates) {
+                    BridgeCoupUpdateView(workflow: updateCoordinator.workflow)
+                }
         }
         .windowResizability(.contentMinSize)
         .defaultSize(width: 1320, height: 900)
@@ -21,6 +26,9 @@ struct BridgeTeacherMacApp: App {
                         .applicationVersion: "Version \(label)",
                         .version: "build \(build)"
                     ])
+                }
+                Button("Check for Updates…") {
+                    updateCoordinator.checkFromMenu()
                 }
             }
         }
