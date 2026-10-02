@@ -496,6 +496,7 @@ private struct DeclarerEntryPanel: View {
     @State private var isContextExpanded = false
     @State private var isShowingContractGrid = false
     @State private var isDoubleDummyVerificationExpanded = false
+    @State private var isShowingOriginalContractTable = false
     @FocusState private var isContractPickerFocused: Bool
 
     var body: some View {
@@ -523,6 +524,9 @@ private struct DeclarerEntryPanel: View {
                 contractFields
                 auctionFields
                 visibleHands
+                Button("原始四手定约表") { isShowingOriginalContractTable = true }
+                    .font(.system(size: 11, weight: .medium))
+                    .accessibilityIdentifier("open-original-contract-table")
 
                 DisclosureGroup(isExpanded: $isContextExpanded) {
                     Group {
@@ -632,6 +636,9 @@ private struct DeclarerEntryPanel: View {
         .padding(20)
         .background(.white, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
+        .sheet(isPresented: $isShowingOriginalContractTable) {
+            OriginalContractTableView(workflow: model.originalContractTableWorkflow)
+        }
         .sheet(isPresented: $isShowingScreenshotPreview) {
             if let screenshotURL = screenshotWorkflow.screenshotURL {
                 ScreenshotImagePreview(url: screenshotURL)
