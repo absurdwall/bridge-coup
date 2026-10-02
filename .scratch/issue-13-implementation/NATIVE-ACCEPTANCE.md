@@ -1,5 +1,7 @@
 # Issue #13 packaged Mac acceptance — 2026-10-02
 
+The following records the first delivery at `2824db8`. Independent review at `62e226a` subsequently found two uncovered transitions; the fixes, new failure-first regressions and additional native acceptance are recorded in [REVIEW-FOLLOWUP.md](REVIEW-FOLLOWUP.md). Latest code revision is `b81a502`, with187 passing tests.
+
 Scope: parent #13 and dependency tickets #14–#21. Fixed prototype commit `7478abf51aa3346ba3f31b726739c99f8b5667fe`; accepted A corner auction, existing four-player table, brand and two-panel teaching workspace. Prototype numbers were not used as solver answers.
 
 All native interactions below used packaged release executables on this arm64 Mac through Computer Use. The full user-controlled play and DDS sequence ran in QA3, containing all prerequisite tickets. QA4 verified integrated Runtime waiting; QA5 verified final review fixes and reopened the same completed play. These are distinct from automated request mocks or prototype demonstrations.
@@ -78,4 +80,4 @@ These runs establish access, request identity and information boundaries. They d
 
 [Spec review](evidence/review-spec.md): the two P2 findings (count-only corner auction and original-hand warning during current-position teaching) were fixed and independently rechecked at final code revision. [Fix disposition](evidence/review-fixes-disposition.md) records source/test work; its pending native statements are completed by the QA5 scenarios above. Native reset-alert hosting and minimum-window issues discovered during integration were also repaired and checked in QA5.
 
-No unresolved functional acceptance blocker remains in these scenarios. Evidence is from this arm64 Mac and ad hoc signed local packages; hosted CI has no configured checks. Native screenshots/AX observations are in the execution transcript, while this directory retains the synthetic source, actual completed-play payload, review reports and build/test summaries. No production review-store migration or other-platform acceptance is claimed. PR review/merge remains the next repository action; issues were not manually closed.
+The first acceptance exercised the scenarios above; it did not cover the two later independent-review reproductions. See the follow-up for their repair and verification. Evidence is from this arm64 Mac and ad hoc signed local packages; hosted CI has no configured checks. Native screenshots/AX observations are in the execution transcript, while this directory retains the synthetic source, actual completed-play payload, review reports and build/test summaries. No production review-store migration or other-platform acceptance is claimed. PR review/merge remains the next repository action; issues were not manually closed.
