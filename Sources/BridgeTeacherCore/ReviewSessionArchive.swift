@@ -275,12 +275,20 @@ public struct LocalReviewSessionStore {
         )
         var newAssetName: String?
         if let screenshotURL {
-            do {
-                let name = try copyScreenshot(screenshotURL, to: assetsDirectory)
-                newAssetName = name
-                storedSnapshot.screenshotAssetName = name
-            } catch {
-                throw ReviewSessionStoreError.writeFailed(error.localizedDescription)
+            if let previousAsset = previousSnapshot?.screenshotAssetName,
+               isSafeAssetName(previousAsset),
+               screenshotURL.standardizedFileURL == assetsDirectory.appendingPathComponent(previousAsset).standardizedFileURL,
+               fileManager.fileExists(atPath: screenshotURL.path) {
+                // An opened workflow keeps this URL across saves and recognition requests.
+                storedSnapshot.screenshotAssetName = previousAsset
+            } else {
+                do {
+                    let name = try copyScreenshot(screenshotURL, to: assetsDirectory)
+                    newAssetName = name
+                    storedSnapshot.screenshotAssetName = name
+                } catch {
+                    throw ReviewSessionStoreError.writeFailed(error.localizedDescription)
+                }
             }
         } else if storedSnapshot.screenshotAssetName == nil {
             storedSnapshot.screenshotAssetName = previousSnapshot?.screenshotAssetName
