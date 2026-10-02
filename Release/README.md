@@ -24,6 +24,7 @@ Run on an Apple Silicon Mac with Xcode command-line tools, Swift, and network
 access for the pinned DDS source, Bazelisk, and official Codex CLI download:
 
 ```sh
+python3 -m unittest discover -s Tests/Scripts -v
 ./Scripts/build-macos-dmg.sh
 ```
 
