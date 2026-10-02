@@ -23,7 +23,7 @@
 
 - UI 与工作流：SwiftUI、Swift Package Manager；目标 macOS 14 或更高版本。
 - Codex runtime：官方 `codex-cli 0.156.1`。启动方式为 `codex app-server --listen stdio://`，通过换行分隔的 JSON-RPC 与 App 通信。
-- 当前实现要求 Codex CLI `0.156.1` 或更高。构建和协议握手已在 Apple Silicon Mac 上使用 `0.156.1` 实测。
+- 发行版应用内附带官方 Apple Silicon Codex CLI `0.156.1`，无需通过终端安装。源码直接运行时仍需另外提供 `0.156.1` 或更高版本；发行构建会下载并校验固定版本。
 - 登录使用 app-server 的 ChatGPT `account/login/start` 浏览器流程。应用把 `CODEX_HOME` 指向 `~/Library/Application Support/Bridge Teacher/Codex Home`，由 Codex runtime 自行保存其登录状态；首次使用需要在本应用中登录一次。
 
 官方协议文档：[Codex App Server](https://learn.chatgpt.com/docs/app-server)。该文档说明 app-server 支持本地 stdio JSONL，并提供 ChatGPT 登录与线程/回合 API。WebSocket 传输标为 experimental，因此本应用使用 stdio。
@@ -36,7 +36,11 @@
 
 ## 安装和启动
 
-在 Mac 上安装已验证版本：
+发行版 DMG 的构建、校验、复制到“应用程序”及首次启动说明见
+[`Release/README.md`](Release/README.md)。本节的命令用于开发环境；
+公开下载与干净用户环境验收应以实际发布的 DMG 为准。
+
+仅当直接运行源码而不是打开打包应用时，安装开发环境 runtime：
 
 ```sh
 npm install --global @openai/codex@0.156.1
@@ -51,6 +55,8 @@ open ".build/macos/Bridge Coup.app"
 ```
 
 应用启动时自动检查已保存的手动路径、应用内资源、PATH、Homebrew、nvm，以及 `/Applications` 和 `~/Applications` 中 Codex/ChatGPT 桌面应用内嵌的 `codex`。每个候选都检查可执行性、版本和 app-server 协议；失效候选不会阻止后续搜索。
+
+发行版首次使用：将 DMG 内的 Bridge Coup 拖到“应用程序”，推出 DMG，从“应用程序”打开应用。在顶部模型设置中展开“连接状态”；应用会自动寻找内附 Codex。若显示需要登录，点“连接 ChatGPT”，用自己的账号在浏览器完成登录，返回应用点“检查连接”。随后选择当前 runtime 返回的可用模型和思考深度，录入牌局信息，发起教学请求。AI 请求需要网络连接以及账号可用额度；下载应用并不保证 AI 服务可用。
 
 在顶部模型设置的“连接状态”中点“重新搜索”可恢复更新后的 Runtime。搜索优先保留仍可用的手动路径；自动搜索不会改写保存的手动路径。“查看建议路径”列出本次检查的具体路径、结果，以及“复制”和“定位”入口；未找到的位置明确标为候选，不保证已安装。仍可点“手动选择”选取非标准位置的 `codex` 可执行文件。
 

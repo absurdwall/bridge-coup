@@ -4,12 +4,34 @@ import BridgeTeacherCore
 
 @main
 struct BridgeTeacherMacApp: App {
+    @StateObject private var updateCoordinator = BridgeCoupUpdateCoordinator()
+
     var body: some Scene {
         WindowGroup("Bridge Coup") {
             BridgeTeacherWorkspaceShell()
+                .sheet(isPresented: $updateCoordinator.isShowingUpdates) {
+                    BridgeCoupUpdateView(workflow: updateCoordinator.workflow)
+                }
         }
         .windowResizability(.contentMinSize)
         .defaultSize(width: 1320, height: 900)
+        .commands {
+            CommandGroup(replacing: .appInfo) {
+                Button("About Bridge Coup") {
+                    let info = Bundle.main.infoDictionary ?? [:]
+                    let label = info["BridgeCoupReleaseLabel"] as? String ?? "Unknown release"
+                    let build = info["CFBundleVersion"] as? String ?? "unknown"
+                    NSApplication.shared.orderFrontStandardAboutPanel(options: [
+                        .applicationName: "Bridge Coup",
+                        .applicationVersion: "Version \(label)",
+                        .version: "build \(build)"
+                    ])
+                }
+                Button("Check for Updates…") {
+                    updateCoordinator.checkFromMenu()
+                }
+            }
+        }
     }
 }
 
@@ -353,6 +375,15 @@ private struct CodexModelSettingsPopover: View {
                     .font(.system(size: 10))
                     .foregroundStyle(BridgePalette.muted)
                     .fixedSize(horizontal: false, vertical: true)
+
+                if let runtimePath = model.runtimePath,
+                   URL(fileURLWithPath: runtimePath).resolvingSymlinksInPath().path == Bundle.main.bundleURL
+                    .appendingPathComponent("Contents/Resources/codex").resolvingSymlinksInPath().path {
+                    Text("已使用应用内附带的 Codex。首次使用请点“连接 ChatGPT”，在浏览器中用自己的账号登录，返回后点“检查连接”。AI 功能需要网络及账号可用额度。")
+                        .font(.system(size: 9))
+                        .foregroundStyle(BridgePalette.muted)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
 
                 if let runtimePath = model.runtimePath {
                     Text(runtimePath)
