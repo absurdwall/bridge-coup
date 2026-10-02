@@ -21,7 +21,7 @@ declaration. A future stable release uses channel `stable`, a plain
 ## Build and verify
 
 Run on an Apple Silicon Mac with Xcode command-line tools, Swift, and network
-access for the pinned DDS source and Bazelisk download:
+access for the pinned DDS source, Bazelisk, and official Codex CLI download:
 
 ```sh
 ./Scripts/build-macos-dmg.sh
@@ -38,14 +38,23 @@ shasum -a 256 .build/macos/Bridge-Coup-v1.0.0-beta.1-arm64.dmg
 
 Verification mounts the DMG read-only, checks the Applications shortcut,
 bundle identifier, version/build/beta fields, macOS 14 minimum, arm64-only
-executables, executable permissions, required artwork and DDS license, ad hoc
-signature, and a real complete-deal DDS solve from the mounted helper. The
+executables, executable permissions, required artwork and DDS/Codex notices,
+ad hoc signature, an isolated signed-out Codex app-server handshake, and a
+real complete-deal DDS solve from the mounted helper. The
 script detaches the image on exit. The DMG is a local build artifact and is
 not committed to the repository.
 
 The helper is built from DDS 3.0.0 at the pinned source commit. Its Apache
 License 2.0 notice is copied into the app's Resources directory. The bundle
-identifier remains `app.tortillaflat.bridge-teacher`; saved reviews,
+also includes official Apple Silicon Codex CLI 0.156.1 from OpenAI's
+`rust-v0.156.1` release. `Scripts/fetch-codex-runtime.sh` verifies the
+published release archive SHA-256 before extraction. Tagged upstream
+`LICENSE` and `NOTICE` are copied from `ThirdPartyNotices/` into the bundle.
+This source notice review does not establish a complete binary dependency
+license audit; confirm the selected release has no separately bundled notices
+before publication. The checked binary links only system dynamic libraries.
+No credentials are bundled. The bundle identifier remains
+`app.tortillaflat.bridge-teacher`; saved reviews,
 screenshots, runtime login state, and preferences continue using their
 existing `~/Library/Application Support/Bridge Teacher/` location.
 
@@ -60,8 +69,17 @@ Security → Open Anyway** for Bridge Coup if macOS offers that choice. Confirm
 the macOS prompt and reopen from Applications. Managed-device policy may
 prevent an override; do not disable Gatekeeper globally.
 
+The app includes Codex. Open **连接状态** in the model area. If it reports
+**需要 ChatGPT 登录**, click **连接 ChatGPT**, complete browser login with your
+own account, return to Bridge Coup, and click **检查连接**. Choose an available
+model and thinking effort, enter the bridge information visible at the
+decision point, and request a teaching plan. Internet access and an account
+with available AI access are required; the app download does not include
+unrestricted AI service. Retry controls preserve entered bridge work.
+
 Record the exact macOS version, chip, DMG SHA-256, release label/build shown in
 About Bridge Coup, security prompt and override outcome, copy/eject/launch
-outcome, and a DDS run with a complete deal. A passing package verification
+outcome, bundled Codex version/path, browser login, a completed real teaching
+response, and a DDS run with a complete deal. A passing package verification
 script does not establish clean-machine first use or a successful upgrade;
 those require the separate release acceptance work.

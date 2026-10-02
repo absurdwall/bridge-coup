@@ -10,6 +10,7 @@ if [[ "$(uname -m)" != arm64 ]]; then
   exit 1
 fi
 "$APP_ROOT/Scripts/build-dds-helper.sh"
+CODEX_RUNTIME="$("$APP_ROOT/Scripts/fetch-codex-runtime.sh")"
 swift build --configuration release --arch arm64
 
 APP_BUNDLE="$APP_ROOT/.build/macos/Bridge Coup.app"
@@ -22,6 +23,9 @@ mkdir -p "$CONTENTS_DIR/Helpers"
 cp "$APP_ROOT/.build/release/BridgeTeacherMac" "$MACOS_DIR/BridgeTeacherMac"
 cp "$APP_ROOT/.build/dds/bridge-dds" "$CONTENTS_DIR/Helpers/bridge-dds"
 cp "$APP_ROOT/.build/dds-source-v3.0.0/LICENSE" "$RESOURCES_DIR/DDS-LICENSE.txt"
+cp "$APP_ROOT/ThirdPartyNotices/Codex-LICENSE.txt" "$RESOURCES_DIR/Codex-LICENSE.txt"
+cp "$APP_ROOT/ThirdPartyNotices/Codex-NOTICE.txt" "$RESOURCES_DIR/Codex-NOTICE.txt"
+install -m 755 "$CODEX_RUNTIME" "$RESOURCES_DIR/codex"
 LOGO_PNG="$APP_ROOT/AppResources/BridgeCoupLogo.png"
 WORDMARK_PNG="$APP_ROOT/AppResources/BridgeCoupWordmark.png"
 cp "$LOGO_PNG" "$RESOURCES_DIR/BridgeCoupLogo.png"

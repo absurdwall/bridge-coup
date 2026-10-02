@@ -29,7 +29,7 @@ enum CodexConnectionStatus: Equatable {
         case .checking:
             "正在检查 Codex runtime…"
         case .runtimeMissing:
-            "没有找到 Codex runtime"
+            "没有找到 Codex runtime。请重新安装完整的 Bridge Coup.app，或手动选择官方 codex 可执行文件。"
         case let .runtimeCannotRun(message):
             "Codex runtime 不可运行：\(message)"
         case let .runtimeProtocolUnavailable(message):
