@@ -78,6 +78,7 @@ struct AuctionTableView: View {
 
     @Binding var record: AuctionRecord?
     let onSaveMeaningNote: (UUID, String?) -> Void
+    var isCornerSummary = false
 
     @State private var isExpanded = false
     @State private var newBidLevel = 1
@@ -85,17 +86,40 @@ struct AuctionTableView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            if record?.kind == .calls, record?.isPartial == true {
-                Label("部分叫牌片段 · 不推断省略叫品或座位", systemImage: "ellipsis")
-                    .font(.system(size: 10, weight: .medium))
-                    .foregroundStyle(BridgePalette.warning)
-                    .accessibilityIdentifier("auction-partial-transcript-marker")
+            if isCornerSummary {
+                cornerSummary
+            } else {
+                if record?.kind == .calls, record?.isPartial == true {
+                    Label("部分叫牌片段 · 不推断省略叫品或座位", systemImage: "ellipsis")
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundStyle(BridgePalette.warning)
+                        .accessibilityIdentifier("auction-partial-transcript-marker")
+                }
+                recordContent()
             }
-            recordContent()
         }
         .sheet(isPresented: $isExpanded) {
             expandedEditor
         }
+    }
+
+    private var cornerSummary: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack {
+                Text("叫牌记录").font(.system(size: 10, weight: .semibold))
+                Spacer()
+                Button("展开") { isExpanded = true }
+                    .font(.system(size: 10)).buttonStyle(.plain)
+                    .accessibilityIdentifier("auction-expand")
+            }
+            Text(record.map { $0.kind == .noAuction ? "已确认本局无叫牌" : "\($0.entries.count) 个已记录叫品\($0.isPartial ? " · 部分片段" : "")" } ?? "未提供；保持未知")
+                .font(.system(size: 10)).foregroundStyle(BridgePalette.muted)
+                .lineLimit(2)
+        }
+        .padding(8)
+        .background(.white.opacity(0.9), in: RoundedRectangle(cornerRadius: 8))
+        .overlay(RoundedRectangle(cornerRadius: 8).stroke(BridgePalette.border, lineWidth: 1))
+        .accessibilityIdentifier("auction-corner-summary")
     }
 
     @ViewBuilder

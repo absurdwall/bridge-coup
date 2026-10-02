@@ -123,6 +123,7 @@ public struct ReviewSessionSnapshot: Codable, Equatable, Identifiable, Sendable 
     public var screenshotAssetName: String?
     public var originalHandFacts: OriginalHandFacts?
     public var doubleDummyOriginalHandVersion: Int?
+    public var playSession: BridgePlaySession?
 
     public init(
         id: UUID = UUID(),
@@ -135,7 +136,8 @@ public struct ReviewSessionSnapshot: Codable, Equatable, Identifiable, Sendable 
         doubleDummy: DoubleDummyVerificationWorkflowArchive,
         screenshotAssetName: String? = nil,
         originalHandFacts: OriginalHandFacts? = nil,
-        doubleDummyOriginalHandVersion: Int? = nil
+        doubleDummyOriginalHandVersion: Int? = nil,
+        playSession: BridgePlaySession? = nil
     ) {
         self.id = id
         self.title = title
@@ -148,6 +150,7 @@ public struct ReviewSessionSnapshot: Codable, Equatable, Identifiable, Sendable 
         self.screenshotAssetName = screenshotAssetName
         self.originalHandFacts = originalHandFacts
         self.doubleDummyOriginalHandVersion = doubleDummyOriginalHandVersion
+        self.playSession = playSession
     }
 }
 
@@ -256,7 +259,8 @@ public struct LocalReviewSessionStore {
             doubleDummy: snapshot.doubleDummy,
             screenshotAssetName: snapshot.screenshotAssetName,
             originalHandFacts: snapshot.originalHandFacts,
-            doubleDummyOriginalHandVersion: snapshot.doubleDummyOriginalHandVersion
+            doubleDummyOriginalHandVersion: snapshot.doubleDummyOriginalHandVersion,
+            playSession: snapshot.playSession
         )
         var newAssetName: String?
         if let screenshotURL {

@@ -88,6 +88,9 @@ public final class DeclarerPlanWorkflow: ObservableObject {
     @Published public private(set) var followUpAssumptions = ""
 
     private let runtime: any DeclarerTeachingRuntime
+    private var teachingProjection: DeclarerPlanDraft?
+
+    public func setTeachingProjection(_ draft: DeclarerPlanDraft?) { teachingProjection = draft }
     private var currentPlanID: UUID?
     private var failedPlanRequest: DeclarerPlanRequest?
     private var planOperationRevision = 0
@@ -167,7 +170,7 @@ public final class DeclarerPlanWorkflow: ObservableObject {
         } else {
             do {
                 request = try DeclarerPlanRequestBuilder.build(
-                    from: draft,
+                    from: teachingProjection ?? draft,
                     informationVersion: informationVersion
                 )
             } catch {
@@ -272,6 +275,7 @@ public final class DeclarerPlanWorkflow: ObservableObject {
         followUpQuestion = archive.followUpQuestion
         followUpAssumptions = archive.followUpAssumptions
         failedPlanRequest = nil
+        teachingProjection = nil
         planOperationRevision += 1
         followUpOperationRevision += 1
     }
@@ -301,7 +305,7 @@ public final class DeclarerPlanWorkflow: ObservableObject {
         let request: DeclarerFollowUpRequest
         do {
             context = try DeclarerPlanRequestBuilder.build(
-                from: draft,
+                from: teachingProjection ?? draft,
                 informationVersion: informationVersion,
                 requestID: plan.requestID
             )

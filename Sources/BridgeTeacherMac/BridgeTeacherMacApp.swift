@@ -496,6 +496,7 @@ private struct DeclarerEntryPanel: View {
     @State private var isContextExpanded = false
     @State private var isShowingContractGrid = false
     @State private var isDoubleDummyVerificationExpanded = false
+    @State private var isEditingOriginalHands = false
     @FocusState private var isContractPickerFocused: Bool
 
     var body: some View {
@@ -522,7 +523,12 @@ private struct DeclarerEntryPanel: View {
 
                 contractFields
                 auctionFields
-                visibleHands
+                playControls
+                if model.playSession != nil && !isEditingOriginalHands {
+                    PlayWorkspaceView(model: model, auction: auctionRecordBinding, onSaveMeaningNote: saveAuctionMeaningNote)
+                } else {
+                    visibleHands
+                }
 
                 DisclosureGroup(isExpanded: $isContextExpanded) {
                     Group {
@@ -592,7 +598,7 @@ private struct DeclarerEntryPanel: View {
                         .font(.system(size: 12, weight: .semibold))
                         .foregroundStyle(BridgePalette.ink)
                         .accessibilityIdentifier("open-double-dummy-verification")
-                    Text("按需录入完整牌局并运行 DDS；核验结果不会进入教学请求。")
+                    Text("复用已核对牌面或当前推演局面运行 DDS；核验结果不会进入教学请求。")
                         .font(.system(size: 10))
                         .foregroundStyle(BridgePalette.muted)
                         .fixedSize(horizontal: false, vertical: true)
@@ -604,6 +610,12 @@ private struct DeclarerEntryPanel: View {
             .background(BridgePalette.soft.opacity(0.6), in: RoundedRectangle(cornerRadius: 13, style: .continuous))
             .overlay(RoundedRectangle(cornerRadius: 13).stroke(BridgePalette.border, lineWidth: 1))
             .padding(.top, 12)
+        }
+        .alert(item: Binding(get: { model.pendingPlayReset }, set: { _ in })) { _ in
+            Alert(title: Text("重置当前自主推演？"),
+                  message: Text("修改原始手牌、首攻、庄家或定约会重置当前推演。取消可保留原输入和局面。"),
+                  primaryButton: .destructive(Text("重置并修改")) { model.confirmPlayReset() },
+                  secondaryButton: .cancel(Text("取消")) { model.cancelPlayReset() })
         }
         .onChange(of: screenshotWorkflow.screenshotURL) { _, url in
             if url != nil { isScreenshotDetailsExpanded = true }
@@ -1009,6 +1021,35 @@ private struct DeclarerEntryPanel: View {
         return mode == .declarerPlan ? "生成做庄计划" : "分析这一步"
     }
 
+    private var playControls: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                if model.playSession == nil {
+                    Button {
+                        if model.startPlay() { isEditingOriginalHands = false }
+                    } label: {
+                        Text(workflow.draft.openingLead.isEmpty ? "开始自主推演" : "开始自主推演 · 采用首攻 \(workflow.draft.openingLead)")
+                    }
+                    .buttonStyle(.borderedProminent).tint(BridgePalette.green)
+                    .disabled(model.playStartReason != nil)
+                    .accessibilityIdentifier("start-autonomous-play")
+                } else {
+                    Text("自主推演").font(.system(size: 12, weight: .semibold))
+                    Spacer()
+                    Button(isEditingOriginalHands ? "返回推演" : "编辑原始手牌") { isEditingOriginalHands.toggle() }
+                        .controlSize(.small)
+                }
+            }
+            if model.playSession == nil {
+                Text(model.playStartReason ?? "点击开始自主推演后可点牌。")
+                    .font(.system(size: 11)).foregroundStyle(BridgePalette.muted)
+            } else if isEditingOriginalHands {
+                Text("这里显示原始手牌；保存修改前可选择重置推演或取消。")
+                    .font(.system(size: 11)).foregroundStyle(BridgePalette.muted)
+            }
+        }
+    }
+
     private var visibleHands: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .firstTextBaseline) {
@@ -1377,13 +1418,20 @@ private struct BridgeDealTable: View {
             seatCard(.north)
             HStack(spacing: 8) {
                 seatCard(.west)
-                AuctionTableView(record: $auction, onSaveMeaningNote: onSaveAuctionMeaningNote)
+                Text("点击开始自主推演后可点牌")
+                    .font(.system(size: 10))
+                    .foregroundStyle(BridgePalette.muted)
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 82)
                 seatCard(.east)
             }
             seatCard(.south)
         }
         .padding(8)
+        .overlay(alignment: .topLeading) {
+            AuctionTableView(record: $auction, onSaveMeaningNote: onSaveAuctionMeaningNote, isCornerSummary: true)
+                .frame(width: 172, height: 86, alignment: .topLeading)
+                .padding(8)
+        }
         .background(Color(red: 0.92, green: 0.95, blue: 0.92), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
         .frame(maxWidth: .infinity)
