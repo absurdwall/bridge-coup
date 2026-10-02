@@ -108,6 +108,39 @@ enum CodexRuntimeModelCatalogParser {
     }
 }
 
+/// The runtime can legitimately reason and stream beyond three minutes at Ultra.
+/// Bound both silence and overall duration; durations are injectable at the service seam.
+struct CodexTurnWaitPolicy: Sendable {
+    let inactivityTimeout: Duration
+    let overallTimeout: Duration
+
+    static let standard = Self(inactivityTimeout: .seconds(180), overallTimeout: .seconds(900))
+}
+
+private actor CodexTurnActivity {
+    private let clock = ContinuousClock()
+    private let policy: CodexTurnWaitPolicy
+    private let overallDeadline: ContinuousClock.Instant
+    private var lastActivity: ContinuousClock.Instant
+
+    init(policy: CodexTurnWaitPolicy) {
+        let now = ContinuousClock().now
+        self.policy = policy
+        overallDeadline = now.advanced(by: policy.overallTimeout)
+        lastActivity = now
+    }
+
+    func recordProgress() { lastActivity = clock.now }
+
+    func remainingWait() -> Duration {
+        let now = clock.now
+        return min(
+            now.duration(to: lastActivity.advanced(by: policy.inactivityTimeout)),
+            now.duration(to: overallDeadline)
+        )
+    }
+}
+
 actor CodexTeachingService: DeclarerTeachingRuntime, ScreenshotRecognitionRuntime {
     static let minimumVersion = "0.156.1"
 
@@ -116,11 +149,13 @@ actor CodexTeachingService: DeclarerTeachingRuntime, ScreenshotRecognitionRuntim
     private var runtimeModels: [CodexRuntimeModelCapability] = []
     private var requestSelection: CodexModelSelection?
     private let appSupportURL: URL
+    private let turnWaitPolicy: CodexTurnWaitPolicy
     private let clientFactory: @Sendable (URL, URL, [String: String]) -> any CodexRPCClientProtocol
     private let fileManager = FileManager.default
 
     init(
         appSupportURL: URL? = nil,
+        turnWaitPolicy: CodexTurnWaitPolicy = .standard,
         clientFactory: @escaping @Sendable (URL, URL, [String: String]) -> any CodexRPCClientProtocol = {
             CodexJSONRPCClient(executableURL: $0, currentDirectoryURL: $1, environment: $2)
         }
@@ -130,6 +165,7 @@ actor CodexTeachingService: DeclarerTeachingRuntime, ScreenshotRecognitionRuntim
             in: .userDomainMask
         )[0].appendingPathComponent("Bridge Teacher", isDirectory: true)
         self.clientFactory = clientFactory
+        self.turnWaitPolicy = turnWaitPolicy
     }
 
     func configure(executableURL: URL) async throws -> CodexRuntimeInfo {
@@ -362,7 +398,8 @@ actor CodexTeachingService: DeclarerTeachingRuntime, ScreenshotRecognitionRuntim
             let completion = try await Self.waitForCompletion(
                 threadID: threadID,
                 turnID: turnID,
-                notifications: notifications
+                notifications: notifications,
+                policy: turnWaitPolicy
             )
             let turn = completion["turn"] as? [String: Any] ?? [:]
             guard turn["status"] as? String == "completed" else {
@@ -527,24 +564,33 @@ actor CodexTeachingService: DeclarerTeachingRuntime, ScreenshotRecognitionRuntim
     private static func waitForCompletion(
         threadID: String,
         turnID: String,
-        notifications: AsyncStream<CodexServerNotification>
+        notifications: AsyncStream<CodexServerNotification>,
+        policy: CodexTurnWaitPolicy
     ) async throws -> [String: Any] {
-        try await withThrowingTaskGroup(of: [String: Any].self) { group in
+        let activity = CodexTurnActivity(policy: policy)
+        return try await withThrowingTaskGroup(of: [String: Any].self) { group in
             group.addTask {
                 for await event in notifications {
-                    guard event.method == "turn/completed",
-                          event.params["threadId"] as? String == threadID,
-                          let turn = event.params["turn"] as? [String: Any],
-                          turn["id"] as? String == turnID else {
-                        continue
+                    guard event.params["threadId"] as? String == threadID else { continue }
+                    let turn = event.params["turn"] as? [String: Any]
+                    let eventTurnID = event.params["turnId"] as? String ?? turn?["id"] as? String
+                    guard eventTurnID == turnID else { continue }
+                    if event.method == "turn/completed", turn != nil {
+                        return event.params
                     }
-                    return event.params
+                    if event.method.hasPrefix("item/") || event.method == "turn/started"
+                        || event.method == "turn/plan/updated" || event.method == "turn/diff/updated" {
+                        await activity.recordProgress()
+                    }
                 }
                 throw CodexRuntimeSetupError.transport("连接在 Codex 返回结果前结束。")
             }
             group.addTask {
-                try await Task.sleep(nanoseconds: 180_000_000_000)
-                throw CodexRuntimeSetupError.timedOut
+                while true {
+                    let remaining = await activity.remainingWait()
+                    guard remaining > .zero else { throw CodexRuntimeSetupError.timedOut }
+                    try await Task.sleep(for: remaining)
+                }
             }
             defer { group.cancelAll() }
             guard let completion = try await group.next() else {
