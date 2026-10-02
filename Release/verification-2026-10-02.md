@@ -1,5 +1,9 @@
 # Local package verification — 2026-10-02
 
+Historical pre-bundled-runtime package evidence. The hashes below identify
+local packages from this earlier stage, not the integrated candidate in
+`acceptance-v1.0.0-beta.1.md`.
+
 Environment: Apple Silicon (`arm64`), macOS 27.0.1, Xcode 26.6
 (17F113), Apple Swift 6.3.3. DDS source was pinned to
 `37c8a79f4c67c55d1a309ccb66dd00cb58af464a`.
@@ -41,6 +45,7 @@ integration tests passed.
 This was a local package and GUI check. A browser-downloaded quarantined DMG,
 the first-launch security override, clean-profile runtime/login/teaching use,
 and an older-to-newer installed-app replacement have not yet been exercised.
-The local DMGs have not been
-published and do not include a bundled Codex runtime; subsequent release work
-must rebuild and reverify artifacts before publication.
+These local DMGs were not published and did not include a bundled Codex
+runtime. Later bundled-runtime and integrated candidates are recorded
+separately; neither this package check nor its hashes establish release
+acceptance.
