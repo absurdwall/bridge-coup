@@ -10,6 +10,20 @@ struct BridgeTeacherMacApp: App {
         }
         .windowResizability(.contentMinSize)
         .defaultSize(width: 1320, height: 900)
+        .commands {
+            CommandGroup(replacing: .appInfo) {
+                Button("About Bridge Coup") {
+                    let info = Bundle.main.infoDictionary ?? [:]
+                    let label = info["BridgeCoupReleaseLabel"] as? String ?? "Unknown release"
+                    let build = info["CFBundleVersion"] as? String ?? "unknown"
+                    NSApplication.shared.orderFrontStandardAboutPanel(options: [
+                        .applicationName: "Bridge Coup",
+                        .applicationVersion: "Version \(label) (build \(build))",
+                        .version: build
+                    ])
+                }
+            }
+        }
     }
 }
 

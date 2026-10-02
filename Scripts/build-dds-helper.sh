@@ -70,6 +70,7 @@ cp "$APP_ROOT/Native/DDSHelper/bridge_teacher_dds.cpp" "$HELPER_TARGET/bridge_te
   USE_BAZEL_VERSION="$BAZEL_VERSION" "$BAZELISK" \
     --output_user_root="$BAZEL_OUTPUT_ROOT" \
     build --repository_cache="$APP_ROOT/.build/dds-repository-cache" \
+    --macos_minimum_os=14.0 \
     --compilation_mode=opt --jobs="$(sysctl -n hw.ncpu)" \
     //BridgeTeacherHelper:bridge_teacher_dds
 )
