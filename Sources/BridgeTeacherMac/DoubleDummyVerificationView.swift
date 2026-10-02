@@ -79,7 +79,9 @@ struct DoubleDummyVerificationView: View {
                 }
             }
             HStack {
-                Text("主牌面版本 \(model.originalHandFacts.version) · DDS 编辑只改变当前局面")
+                Text(model.doubleDummyHandSource == .sharedOriginal
+                     ? "主牌面版本 \(model.originalHandFacts.version) · DDS 编辑只改变当前局面"
+                     : "保留的独立 DDS 局面 · 不随主牌面或推演变化")
                     .font(.system(size: 11))
                     .foregroundStyle(VerificationPalette.muted)
                 Spacer()
@@ -159,7 +161,7 @@ struct DoubleDummyVerificationView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(VerificationPalette.green)
-                .disabled(workflow.state == .solving || model.hasLegacyDoubleDummyConflict || !model.originalHandFacts.decisionTimeConfirmed)
+                .disabled(workflow.state == .solving || model.hasLegacyDoubleDummyConflict || (model.doubleDummyHandSource == .sharedOriginal && !model.originalHandFacts.decisionTimeConfirmed))
                 .accessibilityIdentifier("verify-double-dummy-position")
             }
         }

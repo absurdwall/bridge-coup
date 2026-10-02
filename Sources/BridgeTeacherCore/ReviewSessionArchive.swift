@@ -111,6 +111,13 @@ public struct DoubleDummyVerificationWorkflowArchive: Codable, Equatable, Sendab
     }
 }
 
+/// Independent DDS inputs remain separate until the user chooses a shared source.
+public enum DoubleDummyHandSource: String, Codable, Equatable, Sendable {
+    case sharedOriginal
+    case independentNeedsReview
+    case independentReviewed
+}
+
 public struct ReviewSessionSnapshot: Codable, Equatable, Identifiable, Sendable {
     public let id: UUID
     public var title: String
@@ -123,6 +130,7 @@ public struct ReviewSessionSnapshot: Codable, Equatable, Identifiable, Sendable 
     public var screenshotAssetName: String?
     public var originalHandFacts: OriginalHandFacts?
     public var doubleDummyOriginalHandVersion: Int?
+    public var doubleDummyHandSource: DoubleDummyHandSource?
     public var playSession: BridgePlaySession?
 
     public init(
@@ -137,7 +145,8 @@ public struct ReviewSessionSnapshot: Codable, Equatable, Identifiable, Sendable 
         screenshotAssetName: String? = nil,
         originalHandFacts: OriginalHandFacts? = nil,
         doubleDummyOriginalHandVersion: Int? = nil,
-        playSession: BridgePlaySession? = nil
+        playSession: BridgePlaySession? = nil,
+        doubleDummyHandSource: DoubleDummyHandSource? = nil
     ) {
         self.id = id
         self.title = title
@@ -151,6 +160,7 @@ public struct ReviewSessionSnapshot: Codable, Equatable, Identifiable, Sendable 
         self.originalHandFacts = originalHandFacts
         self.doubleDummyOriginalHandVersion = doubleDummyOriginalHandVersion
         self.playSession = playSession
+        self.doubleDummyHandSource = doubleDummyHandSource
     }
 }
 
@@ -260,7 +270,8 @@ public struct LocalReviewSessionStore {
             screenshotAssetName: snapshot.screenshotAssetName,
             originalHandFacts: snapshot.originalHandFacts,
             doubleDummyOriginalHandVersion: snapshot.doubleDummyOriginalHandVersion,
-            playSession: snapshot.playSession
+            playSession: snapshot.playSession,
+            doubleDummyHandSource: snapshot.doubleDummyHandSource
         )
         var newAssetName: String?
         if let screenshotURL {
