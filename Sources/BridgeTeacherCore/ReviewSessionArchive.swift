@@ -121,6 +121,8 @@ public struct ReviewSessionSnapshot: Codable, Equatable, Identifiable, Sendable 
     public var keyPlay: KeyPlayAnalysisWorkflowArchive
     public var doubleDummy: DoubleDummyVerificationWorkflowArchive
     public var screenshotAssetName: String?
+    public var originalHandFacts: OriginalHandFacts?
+    public var doubleDummyOriginalHandVersion: Int?
 
     public init(
         id: UUID = UUID(),
@@ -131,7 +133,9 @@ public struct ReviewSessionSnapshot: Codable, Equatable, Identifiable, Sendable 
         screenshot: ScreenshotReviewWorkflowArchive,
         keyPlay: KeyPlayAnalysisWorkflowArchive,
         doubleDummy: DoubleDummyVerificationWorkflowArchive,
-        screenshotAssetName: String? = nil
+        screenshotAssetName: String? = nil,
+        originalHandFacts: OriginalHandFacts? = nil,
+        doubleDummyOriginalHandVersion: Int? = nil
     ) {
         self.id = id
         self.title = title
@@ -142,6 +146,8 @@ public struct ReviewSessionSnapshot: Codable, Equatable, Identifiable, Sendable 
         self.keyPlay = keyPlay
         self.doubleDummy = doubleDummy
         self.screenshotAssetName = screenshotAssetName
+        self.originalHandFacts = originalHandFacts
+        self.doubleDummyOriginalHandVersion = doubleDummyOriginalHandVersion
     }
 }
 
@@ -248,7 +254,9 @@ public struct LocalReviewSessionStore {
             screenshot: snapshot.screenshot,
             keyPlay: snapshot.keyPlay,
             doubleDummy: snapshot.doubleDummy,
-            screenshotAssetName: snapshot.screenshotAssetName
+            screenshotAssetName: snapshot.screenshotAssetName,
+            originalHandFacts: snapshot.originalHandFacts,
+            doubleDummyOriginalHandVersion: snapshot.doubleDummyOriginalHandVersion
         )
         var newAssetName: String?
         if let screenshotURL {

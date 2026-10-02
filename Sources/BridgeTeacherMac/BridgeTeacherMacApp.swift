@@ -1018,7 +1018,7 @@ private struct DeclarerEntryPanel: View {
                     .font(.system(size: 13, weight: .semibold))
                     .foregroundStyle(BridgePalette.ink)
                 Spacer()
-                Text(screenshotWorkflow.screenshotURL == nil ? "留空 = 未知" : "仅勾选后加入分析")
+                Text("仅勾选后加入教学 · 留空 = 未知")
                     .font(.system(size: 11))
                     .foregroundStyle(BridgePalette.muted)
             }
@@ -1027,7 +1027,7 @@ private struct DeclarerEntryPanel: View {
                 auction: auctionRecordBinding,
                 onSaveAuctionMeaningNote: saveAuctionMeaningNote,
                 actingSeat: mode == .keyPlayAnalysis ? keyPlayWorkflow.draft.actingSeat : nil,
-                screenshotReviewMode: screenshotWorkflow.screenshotURL != nil,
+                screenshotReviewMode: true,
                 isDecisionTimeVisible: { seat in
                     workflow.draft.decisionTimeVisibleSeats?.contains(seat) ?? true
                 },
