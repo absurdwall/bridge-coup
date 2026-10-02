@@ -5,6 +5,100 @@ import BridgeTeacherCore
 
 @MainActor
 final class ReviewSourceRegressionTests: XCTestCase {
+    func testManualPlayResetWinsOverInflightRecognitionOnCancelAndConfirm() async throws {
+        for field in ["hands", "contract", "confirmation"] {
+            for confirm in [false, true] {
+                let runtime = SuspendedRegressionRecognition()
+                let model = BridgeTeacherApplicationModel(screenshotRecognitionRuntime: runtime)
+                model.selectScreenshot(at: URL(fileURLWithPath: "/tmp/inflight-manual-board.png"))
+                model.updateReviewDraft(regressionBoard())
+                XCTAssertTrue(model.startPlay())
+                XCTAssertTrue(model.playCard(DoubleDummyCard(suit: .hearts, rank: .ace), by: .east))
+                let source = model.originalHandFacts
+                let position = model.playSession
+                let original = model.workflow.draft
+                let task = Task { await model.screenshotWorkflow.recognizeScreenshot() }
+                while !(await runtime.isWaiting()) { await Task.yield() }
+                var corrected = original
+                switch field {
+                case "hands": corrected.hands[.north]?[.spades] = "KQJT98765432"
+                case "contract": corrected.contractLevel = 6
+                default: corrected.decisionTimeConfirmed = false
+                }
+                model.updateReviewDraft(corrected)
+                let requestID = try XCTUnwrap(model.pendingPlayReset?.id)
+                await runtime.finish()
+                await task.value
+
+                XCTAssertEqual(model.pendingPlayReset?.id, requestID)
+                XCTAssertEqual(model.pendingPlayReset?.draft, corrected)
+                XCTAssertFalse(try XCTUnwrap(model.pendingPlayReset).isRecognition)
+                XCTAssertNil(model.screenshotWorkflow.candidate)
+                XCTAssertNil(model.screenshotWorkflow.recognitionResponse)
+                if confirm {
+                    model.confirmPlayReset()
+                    XCTAssertEqual(model.workflow.draft, corrected)
+                    XCTAssertNil(model.playSession)
+                    XCTAssertFalse(model.canUndoPlay)
+                    XCTAssertFalse(model.canRedoPlay)
+                    XCTAssertNil(model.screenshotWorkflow.candidate)
+                    XCTAssertNil(model.screenshotWorkflow.recognitionResponse)
+                } else {
+                    model.cancelPlayReset()
+                    XCTAssertEqual(model.originalHandFacts, source)
+                    XCTAssertEqual(model.workflow.draft, original)
+                    XCTAssertEqual(model.playSession, position)
+                    XCTAssertTrue(model.undoPlay())
+                    XCTAssertTrue(model.redoPlay())
+                    XCTAssertEqual(model.playSession, position)
+                }
+            }
+        }
+    }
+
+    func testStagedScreenshotReplacementWinsOverInflightRecognitionOnCancelAndConfirm() async throws {
+        for confirm in [false, true] {
+            let runtime = SuspendedRegressionRecognition()
+            let model = BridgeTeacherApplicationModel(screenshotRecognitionRuntime: runtime)
+            let originalURL = URL(fileURLWithPath: "/tmp/inflight-original.png")
+            let replacementURL = URL(fileURLWithPath: "/tmp/inflight-replacement.png")
+            model.selectScreenshot(at: originalURL)
+            model.updateReviewDraft(regressionBoard())
+            XCTAssertTrue(model.startPlay())
+            XCTAssertTrue(model.playCard(DoubleDummyCard(suit: .hearts, rank: .ace), by: .east))
+            let source = model.originalHandFacts
+            let position = model.playSession
+            let task = Task { await model.screenshotWorkflow.recognizeScreenshot() }
+            while !(await runtime.isWaiting()) { await Task.yield() }
+            model.selectScreenshot(at: replacementURL)
+            let requestID = try XCTUnwrap(model.pendingPlayReset?.id)
+            await runtime.finish()
+            await task.value
+
+            XCTAssertEqual(model.pendingPlayReset?.id, requestID)
+            XCTAssertEqual(model.pendingPlayReset?.screenshotURL, replacementURL)
+            XCTAssertNil(model.screenshotWorkflow.candidate)
+            XCTAssertNil(model.screenshotWorkflow.recognitionResponse)
+            if confirm {
+                model.confirmPlayReset()
+                XCTAssertEqual(model.screenshotWorkflow.screenshotURL, replacementURL)
+                XCTAssertNil(model.playSession)
+                XCTAssertFalse(model.canUndoPlay)
+                XCTAssertFalse(model.canRedoPlay)
+                XCTAssertNil(model.screenshotWorkflow.candidate)
+                XCTAssertNil(model.screenshotWorkflow.recognitionResponse)
+            } else {
+                model.cancelPlayReset()
+                XCTAssertEqual(model.screenshotWorkflow.screenshotURL, originalURL)
+                XCTAssertEqual(model.originalHandFacts, source)
+                XCTAssertEqual(model.playSession, position)
+                XCTAssertTrue(model.undoPlay())
+                XCTAssertTrue(model.redoPlay())
+                XCTAssertEqual(model.playSession, position)
+            }
+        }
+    }
+
     func testFirstRecognitionDuringPlayStagesResetAndCancelPreservesSourcePositionAndHistory() async throws {
         let model = BridgeTeacherApplicationModel(screenshotRecognitionRuntime: RegressionRecognition())
         model.selectScreenshot(at: URL(fileURLWithPath: "/tmp/recognition-board.png"))
