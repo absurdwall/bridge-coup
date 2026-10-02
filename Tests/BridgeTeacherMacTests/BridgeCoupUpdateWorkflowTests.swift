@@ -62,7 +62,7 @@ final class BridgeCoupUpdateWorkflowTests: XCTestCase {
         }
     }
 
-    func testNoReleasesOrCompatibleDMGReportsNoEligibleRelease() async throws {
+    func testEmptyFeedAndIncompleteReleasesHaveDistinctResults() async throws {
         let empty = makeWorkflow(tag: "v1.0.0-beta.1", channel: .beta, releases: [])
         await empty.check()
         XCTAssertEqual(empty.state.message, "No eligible release with an Apple Silicon DMG is available yet.")
@@ -75,7 +75,66 @@ final class BridgeCoupUpdateWorkflowTests: XCTestCase {
             release("v4.0.0-beta.1", draft: true)
         ])
         await incompatible.check()
-        XCTAssertEqual(incompatible.state.message, "No eligible release with an Apple Silicon DMG is available yet.")
+        XCTAssertEqual(incompatible.state, .incompleteRelease("v2.0.0-beta.2"))
+    }
+
+    func testMixedFeedWithNewerMissingDMGDoesNotReportUpToDateOrOpenAnOlderRelease() async {
+        for completeTag in ["v0.9.0-beta.1", "v1.0.0-beta.1"] {
+            for asset in [nil, "Bridge-Coup-v1.0.0-beta.2-x86_64.dmg"] as [String?] {
+                let opened = OpenedPages()
+                let workflow = makeWorkflow(tag: "v1.0.0-beta.1", channel: .beta, releases: [
+                    release(completeTag), release("v1.0.0-beta.2", asset: asset)
+                ], opened: opened)
+                await workflow.check()
+                XCTAssertEqual(workflow.state, .incompleteRelease("v1.0.0-beta.2"))
+                XCTAssertEqual(workflow.state.message,
+                    "A newer release (v1.0.0-beta.2) is published, but its Apple Silicon DMG is unavailable. Please retry later.")
+                workflow.openAvailableRelease()
+                XCTAssertTrue(opened.urls.isEmpty)
+            }
+        }
+    }
+
+    func testMixedFeedStillOffersHighestCompleteNewerRelease() async {
+        let workflow = makeWorkflow(tag: "v1.0.0-beta.1", channel: .beta, releases: [
+            release("v1.0.0-beta.1"), release("v1.0.0-beta.2", asset: nil),
+            release("v1.0.0-beta.10"), release("v1.0.0", prerelease: false, asset: nil)
+        ])
+        await workflow.check()
+        guard case let .available(candidate) = workflow.state else { return XCTFail(workflow.state.message) }
+        XCTAssertEqual(candidate.tag, "v1.0.0-beta.10")
+    }
+
+    func testMissingAssetsRespectChannelDraftAndPrereleaseEligibility() async {
+        let workflow = makeWorkflow(tag: "v1.0.0", channel: .stable, releases: [
+            release("v1.0.0", prerelease: false), release("v0.9.0", prerelease: false, asset: nil),
+            release("v1.1.0-beta.1", asset: nil), release("v2.0.0", prerelease: false, draft: true, asset: nil),
+            release("v3.0.0-rc.1", asset: nil), release("v4.0.0", prerelease: true, asset: nil)
+        ])
+        await workflow.check()
+        XCTAssertEqual(workflow.state, .upToDate)
+
+        let stable = makeWorkflow(tag: "v1.0.0", channel: .stable, releases: [
+            release("v1.0.0", prerelease: false), release("v1.1.0", prerelease: false, asset: nil)
+        ])
+        await stable.check()
+        XCTAssertEqual(stable.state, .incompleteRelease("v1.1.0"))
+    }
+
+    func testIncompleteStableReleaseFromBetaCanBeRetriedAfterAssetPublication() async throws {
+        let attempts = AttemptCounter()
+        let missing = try json([release("v1.0.0-beta.1"), release("v1.0.0", prerelease: false, asset: nil)])
+        let complete = try json([release("v1.0.0", prerelease: false)])
+        let workflow = BridgeCoupUpdateWorkflow(identity: .init(tag: "v1.0.0-beta.1", channel: .beta),
+            fetch: { _ in
+                attempts.count += 1
+                return (attempts.count == 1 ? missing : complete, Self.response(200))
+            })
+        await workflow.check()
+        XCTAssertEqual(workflow.state, .incompleteRelease("v1.0.0"))
+        await workflow.check()
+        guard case let .available(candidate) = workflow.state else { return XCTFail(workflow.state.message) }
+        XCTAssertEqual(candidate.tag, "v1.0.0")
     }
 
     func testInvalidReleasePageFailsWithoutOpeningBrowser() async throws {

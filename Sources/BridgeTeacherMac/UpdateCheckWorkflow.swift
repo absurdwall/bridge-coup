@@ -83,6 +83,7 @@ enum BridgeCoupUpdateState: Equatable {
     case available(BridgeCoupUpdateCandidate)
     case upToDate
     case noEligibleRelease
+    case incompleteRelease(String)
     case failed(String)
 
     var message: String {
@@ -92,6 +93,8 @@ enum BridgeCoupUpdateState: Equatable {
         case let .available(candidate): "Bridge Coup \(candidate.displayVersion) is available."
         case .upToDate: "Bridge Coup is up to date."
         case .noEligibleRelease: "No eligible release with an Apple Silicon DMG is available yet."
+        case let .incompleteRelease(tag):
+            "A newer release (\(tag)) is published, but its Apple Silicon DMG is unavailable. Please retry later."
         case let .failed(reason): "Update check failed: \(reason)"
         }
     }
@@ -162,12 +165,16 @@ final class BridgeCoupUpdateWorkflow: ObservableObject {
             catch { throw UpdateError.invalidResponse }
 
             var eligible: [(BridgeCoupVersion, BridgeCoupUpdateCandidate)] = []
+            var incomplete: [(version: BridgeCoupVersion, tag: String)] = []
             for release in releases where !release.draft {
                 guard let version = BridgeCoupVersion(tag: release.tagName) else { continue }
                 guard (version.beta != nil) == release.prerelease else { continue }
                 guard channel.allows(version) else { continue }
                 let assetName = "Bridge-Coup-\(release.tagName)-arm64.dmg"
-                guard release.assets.contains(where: { $0.name == assetName }) else { continue }
+                guard release.assets.contains(where: { $0.name == assetName }) else {
+                    if version > installed { incomplete.append((version, release.tagName)) }
+                    continue
+                }
                 guard Self.isOfficialPage(release.htmlURL, tag: release.tagName) else {
                     throw UpdateError.invalidDestination
                 }
@@ -176,11 +183,14 @@ final class BridgeCoupUpdateWorkflow: ObservableObject {
                     pageURL: release.htmlURL
                 )))
             }
-            guard let newest = eligible.max(by: { $0.0 < $1.0 }) else {
-                state = .noEligibleRelease
-                return
+            let newest = eligible.max(by: { $0.0 < $1.0 })
+            if let newest, newest.0 > installed {
+                state = .available(newest.1)
+            } else if let missing = incomplete.max(by: { $0.version < $1.version }) {
+                state = .incompleteRelease(missing.tag)
+            } else {
+                state = newest == nil ? .noEligibleRelease : .upToDate
             }
-            state = newest.0 > installed ? .available(newest.1) : .upToDate
         } catch {
             state = .failed(Self.message(for: error))
         }

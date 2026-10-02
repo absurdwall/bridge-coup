@@ -10,25 +10,47 @@ import tempfile
 import time
 
 
-def receive(process, selector, request_id, deadline):
-    while time.monotonic() < deadline:
-        if process.poll() is not None:
-            raise RuntimeError(f"Codex app-server exited {process.returncode}")
-        events = selector.select(max(0, deadline - time.monotonic()))
-        for key, _ in events:
-            line = key.fileobj.readline()
-            if not line:
+class LineReader:
+    """Keep complete JSONL messages and partial lines outside Python's I/O buffer."""
+
+    def __init__(self, process):
+        self.process = process
+        self.buffer = b""
+        self.selector = selectors.DefaultSelector()
+        self.selector.register(process.stdout, selectors.EVENT_READ)
+
+    def read_line(self, deadline):
+        while time.monotonic() < deadline:
+            line, separator, remainder = self.buffer.partition(b"\n")
+            if separator:
+                self.buffer = remainder
+                return line
+            if not self.selector.select(max(0, deadline - time.monotonic())):
+                return None
+            chunk = os.read(self.process.stdout.fileno(), 65536)
+            if not chunk:
+                if self.process.poll() is not None:
+                    raise RuntimeError(f"Codex app-server exited {self.process.returncode}")
                 raise RuntimeError("Codex app-server closed stdout")
-            message = json.loads(line)
-            if message.get("id") == request_id:
-                if "error" in message:
-                    raise RuntimeError(f"Codex app-server error: {message['error']}")
-                return message.get("result")
+            self.buffer += chunk
+        return None
+
+    def close(self):
+        self.selector.close()
+
+
+def receive(reader, request_id, deadline):
+    while (line := reader.read_line(deadline)) is not None:
+        message = json.loads(line)
+        if message.get("id") == request_id:
+            if "error" in message:
+                raise RuntimeError(f"Codex app-server error: {message['error']}")
+            return message.get("result")
     raise RuntimeError(f"Codex app-server timed out on request {request_id}")
 
 
 def send(process, payload):
-    process.stdin.write(json.dumps(payload) + "\n")
+    process.stdin.write((json.dumps(payload) + "\n").encode("utf-8"))
     process.stdin.flush()
 
 
@@ -48,33 +70,33 @@ def main():
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.DEVNULL,
-            text=True,
-            bufsize=1,
+            bufsize=0,
         )
-        selector = selectors.DefaultSelector()
-        selector.register(process.stdout, selectors.EVENT_READ)
+        reader = LineReader(process)
         try:
             deadline = time.monotonic() + 20
             send(process, {"id": 1, "method": "initialize", "params": {
                 "clientInfo": {"name": "bridge_coup_package_probe", "title": "Bridge Coup", "version": "1.0.0"}
             }})
-            initialized = receive(process, selector, 1, deadline)
+            initialized = receive(reader, 1, deadline)
             if not isinstance(initialized, dict):
                 raise RuntimeError("Codex initialize response was not an object")
             send(process, {"method": "initialized", "params": {}})
             send(process, {"id": 2, "method": "account/read", "params": {}})
-            account = receive(process, selector, 2, deadline)
+            account = receive(reader, 2, deadline)
             if not isinstance(account, dict) or account.get("account", "missing") is not None:
                 raise RuntimeError("Isolated Codex account state was not signed out")
             print("Verified packaged Codex app-server initialize and signed-out account/read")
         finally:
-            selector.close()
+            reader.close()
             process.terminate()
             try:
                 process.wait(timeout=5)
             except subprocess.TimeoutExpired:
                 process.kill()
                 process.wait(timeout=5)
+            process.stdin.close()
+            process.stdout.close()
 
 
 if __name__ == "__main__":
