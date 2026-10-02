@@ -64,7 +64,8 @@ for FILE in DDS-LICENSE.txt BridgeCoup.icns BridgeCoupLogo.png BridgeCoupWordmar
   [[ -s "$CONTENTS_DIR/Resources/$FILE" ]] || { print -u2 "Missing resource: $FILE"; exit 1; }
 done
 codesign --verify --deep --strict --verbose=2 "$APP_BUNDLE"
-codesign -dv --verbose=4 "$APP_BUNDLE" 2>&1 | grep -q 'Signature=adhoc' || {
+SIGNATURE="$(codesign -dv --verbose=4 "$APP_BUNDLE" 2>&1)"
+[[ "$SIGNATURE" == *'Signature=adhoc'* ]] || {
   print -u2 "Expected valid ad hoc app signature"; exit 1
 }
 # Complete, independently known deal: each seat holds one full suit. North
