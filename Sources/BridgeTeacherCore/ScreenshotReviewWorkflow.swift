@@ -279,6 +279,9 @@ public final class ScreenshotReviewWorkflow: ObservableObject {
     @Published public private(set) var recognitionResponse: ScreenshotRecognitionResponse?
 
     public let planWorkflow: DeclarerPlanWorkflow
+    /// The application can stage recognized facts behind its cancellable reset
+    /// boundary. Without an application policy, the existing core workflow applies them.
+    public var onRecognizedDraft: ((DeclarerPlanDraft, @escaping () -> Void) -> Bool)?
 
     private let runtime: any ScreenshotRecognitionRuntime
     private var recognitionRevision = 0
@@ -332,10 +335,8 @@ public final class ScreenshotReviewWorkflow: ObservableObject {
 
     public func updateDraft(_ draft: DeclarerPlanDraft) {
         recordManualEdits(from: planWorkflow.draft, to: draft)
-        if state == .recognizing {
-            recognitionRevision += 1
-            state = .stale
-        }
+        recognitionRevision += 1
+        if state == .recognizing { state = .stale }
         planWorkflow.updateDraft(draft)
     }
 
@@ -353,16 +354,27 @@ public final class ScreenshotReviewWorkflow: ObservableObject {
             let response = try await runtime.recognizeScreenshot(at: screenshotURL)
             guard recognitionRevision == requestRevision,
                   self.screenshotURL == screenshotURL else { return }
-            recognitionResponse = response
-            candidate = response.candidate
+            let commitRecognition: () -> Void = { [weak self] in
+                guard let self, self.recognitionRevision == requestRevision,
+                      self.screenshotURL == screenshotURL else { return }
+                self.recognitionResponse = response
+                self.candidate = response.candidate
+                self.state = .succeeded
+            }
             if !alreadyHasCandidate {
-                planWorkflow.updateDraft(Self.merge(
+                let proposedDraft = Self.merge(
                     response.candidate,
                     into: planWorkflow.draft,
                     manuallyEditedFields: manuallyEditedFields
-                ))
-            }
-            state = .succeeded
+                )
+                if let onRecognizedDraft {
+                    if onRecognizedDraft(proposedDraft, commitRecognition) { commitRecognition() }
+                    else { state = .idle } // Cancel leaves the first recognition retryable.
+                } else {
+                    planWorkflow.updateDraft(proposedDraft)
+                    commitRecognition()
+                }
+            } else { commitRecognition() }
         } catch {
             guard recognitionRevision == requestRevision,
                   self.screenshotURL == screenshotURL else { return }

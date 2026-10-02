@@ -95,6 +95,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
         catch { return error.localizedDescription }
     }
     @Published private(set) var hasLegacyDoubleDummyConflict = false
+    @Published private(set) var doubleDummyHandSource: DoubleDummyHandSource = .sharedOriginal
     private var doubleDummyOriginalHandVersion: Int? = 0
 
     @Published private(set) var connectionStatus: CodexConnectionStatus = .checking
@@ -163,6 +164,9 @@ final class BridgeTeacherApplicationModel: ObservableObject {
         originalContractTableWorkflow = OriginalContractTableWorkflow(solver: solver)
         playCardResultsWorkflow = PlayCardResultsWorkflow(solver: solver)
         self.reviewStore = reviewStore
+        screenshotWorkflow.onRecognizedDraft = { [weak self] draft, commitRecognition in
+            self?.applyReviewDraft(draft, isRecognition: true, recognitionCommit: commitRecognition) ?? false
+        }
         playResultsObservation = $playPositionRevision.sink { [weak self] revision in
             guard let self else { return }
             self.playCardResultsWorkflow.updatePosition(self.playSession, revision: revision)
@@ -252,8 +256,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
     func recognizeScreenshot() async {
         guard await prepareModelRequest(), modelSettings.canRecognizeImages else { return }
         await screenshotWorkflow.recognizeScreenshot()
-        keyPlayWorkflow.invalidate()
-        reviewSessionStatus = "有尚未保存的更改"
+        if pendingPlayReset == nil { reviewSessionStatus = "有尚未保存的更改" }
     }
 
     func connectToChatGPT() async {
@@ -297,20 +300,29 @@ final class BridgeTeacherApplicationModel: ObservableObject {
     }
 
     func updateReviewDraft(_ draft: DeclarerPlanDraft) {
+        applyReviewDraft(draft, isRecognition: false)
+    }
+
+    @discardableResult
+    private func applyReviewDraft(_ draft: DeclarerPlanDraft, isRecognition: Bool,
+                                  recognitionCommit: (() -> Void)? = nil) -> Bool {
         let draft = draft.normalizingOpeningLead()
         let previousDraft = workflow.draft
-        guard draft != previousDraft else { return }
+        guard draft != previousDraft else { return true }
+        if !isRecognition, pendingPlayReset?.isRecognition == true { pendingPlayReset = nil }
         if playSession != nil, !isConfirmingPlayReset,
            draft.hands != previousDraft.hands || draft.declarerSeat != previousDraft.declarerSeat
             || draft.contractLevel != previousDraft.contractLevel || draft.contractStrain != previousDraft.contractStrain
             || draft.openingLead != previousDraft.openingLead || draft.decisionTimeConfirmed != previousDraft.decisionTimeConfirmed {
-            pendingPlayReset = PlayResetRequest(draft: draft)
-            return
+            pendingPlayReset = PlayResetRequest(draft: draft, isRecognition: isRecognition, recognitionCommit: recognitionCommit)
+            return false
         }
-        screenshotWorkflow.updateDraft(draft)
+        if isRecognition { workflow.updateDraft(draft) }
+        else { screenshotWorkflow.updateDraft(draft) }
         workflow.setTeachingProjection(playSession?.teachingDraft(from: draft))
         keyPlayWorkflow.invalidate()
-        if previousDraft.declarerSeat != draft.declarerSeat
+        if doubleDummyHandSource == .sharedOriginal,
+           previousDraft.declarerSeat != draft.declarerSeat
             || previousDraft.contractLevel != draft.contractLevel
             || previousDraft.contractStrain != draft.contractStrain {
             var doubleDummyDraft = doubleDummyWorkflow.draft
@@ -320,6 +332,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
             doubleDummyWorkflow.updateDraft(doubleDummyDraft)
         }
         reviewSessionStatus = "有尚未保存的更改"
+        return true
     }
 
     func handleContractSelectionAction(_ action: ContractSelectionAction) {
@@ -373,7 +386,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
 
     func verifyDoubleDummy() async {
         guard !hasLegacyDoubleDummyConflict else { return }
-        guard originalHandFacts.decisionTimeConfirmed else {
+        guard doubleDummyHandSource != .sharedOriginal || originalHandFacts.decisionTimeConfirmed else {
             reviewSessionAlert = ReviewSessionAlert(title: "请先核对截图", message: "截图候选尚未确认，不能用于 DDS。")
             return
         }
@@ -445,7 +458,8 @@ final class BridgeTeacherApplicationModel: ObservableObject {
             doubleDummy: doubleDummyWorkflow.makeArchive(),
             originalHandFacts: originalHandFacts,
             doubleDummyOriginalHandVersion: doubleDummyOriginalHandVersion,
-            playSession: playSession
+            playSession: playSession,
+            doubleDummyHandSource: doubleDummyHandSource
         )
         do {
             let saved = try reviewStore.save(snapshot, screenshotURL: screenshotWorkflow.screenshotURL)
@@ -495,10 +509,15 @@ final class BridgeTeacherApplicationModel: ObservableObject {
         )
         originalContractTableWorkflow.updateOriginalHands(originalHandFacts)
         doubleDummyOriginalHandVersion = snapshot.doubleDummyOriginalHandVersion
-        hasLegacyDoubleDummyConflict = snapshot.doubleDummyOriginalHandVersion == nil
+        let legacyConflict = snapshot.doubleDummyOriginalHandVersion == nil
             && !snapshot.doubleDummy.draft.hands.isEmpty
             && snapshot.doubleDummy.draft.hands != originalHandFacts.hands
-        if snapshot.doubleDummy.draft.hands.isEmpty { useOriginalHandsForDoubleDummy() }
+        doubleDummyHandSource = snapshot.doubleDummyHandSource
+            ?? (legacyConflict ? .independentNeedsReview : .sharedOriginal)
+        hasLegacyDoubleDummyConflict = doubleDummyHandSource == .independentNeedsReview
+        if snapshot.doubleDummy.draft.hands.isEmpty, doubleDummyHandSource == .sharedOriginal {
+            resetDoubleDummyToOriginal(context: workflow.draft)
+        }
         playSession = snapshot.playSession
         if let playSession, !playSession.isCompatible(with: originalHandFacts, context: workflow.draft) {
             self.playSession = nil
@@ -520,7 +539,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
 
     @discardableResult
     func startPlay() -> Bool {
-        guard playSession == nil else { return false }
+        guard playSession == nil, pendingPlayReset == nil else { return false }
         do {
             let session = try BridgePlaySession(original: originalHandFacts, draft: workflow.draft)
             clearPlayHistory()
@@ -535,6 +554,10 @@ final class BridgeTeacherApplicationModel: ObservableObject {
     @discardableResult
     func playCard(_ card: DoubleDummyCard, by seat: Seat) -> Bool {
         guard let previous = playSession else { playStatus = "请先点击开始自主推演。"; return false }
+        guard pendingPlayReset == nil, previous.isCompatible(with: originalHandFacts, context: workflow.draft) else {
+            playStatus = "输入修改待核对或局面已失效，请先确认或取消修改。"
+            return false
+        }
         var session = previous
         do {
             try session.play(card, by: seat)
@@ -549,6 +572,10 @@ final class BridgeTeacherApplicationModel: ObservableObject {
     @discardableResult
     func collectPlayTrick() -> Bool {
         guard let previous = playSession else { return false }
+        guard pendingPlayReset == nil, previous.isCompatible(with: originalHandFacts, context: workflow.draft) else {
+            playStatus = "输入修改待核对或局面已失效，请先确认或取消修改。"
+            return false
+        }
         var session = previous
         do {
             try session.collectTrick()
@@ -568,7 +595,10 @@ final class BridgeTeacherApplicationModel: ObservableObject {
         playPositionChanged()
         isConfirmingPlayReset = true
         if let screenshotURL = request.screenshotURL { selectScreenshot(at: screenshotURL) }
-        else { updateReviewDraft(request.draft) }
+        else {
+            applyReviewDraft(request.draft, isRecognition: request.isRecognition)
+            request.recognitionCommit?()
+        }
         isConfirmingPlayReset = false
         playStatus = "输入已更改，旧推演已重置；请重新开始。"
     }
@@ -577,7 +607,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
 
     @discardableResult
     func undoPlay() -> Bool {
-        guard let previous = playUndoStack.last, let current = playSession else { return false }
+        guard pendingPlayReset == nil, let previous = playUndoStack.last, let current = playSession else { return false }
         guard replacePlaySession(previous) else { clearPlayHistory(); return false }
         playUndoStack.removeLast()
         playRedoStack.append(current)
@@ -587,7 +617,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
 
     @discardableResult
     func redoPlay() -> Bool {
-        guard let next = playRedoStack.last, let current = playSession else { return false }
+        guard pendingPlayReset == nil, let next = playRedoStack.last, let current = playSession else { return false }
         guard replacePlaySession(next) else { clearPlayHistory(); return false }
         playRedoStack.removeLast()
         playUndoStack.append(current)
@@ -597,7 +627,8 @@ final class BridgeTeacherApplicationModel: ObservableObject {
 
     @discardableResult
     func restartPlay() -> Bool {
-        guard let current = playSession else { return false }
+        guard let current = playSession, pendingPlayReset == nil,
+              current.isCompatible(with: originalHandFacts, context: workflow.draft) else { return false }
         do {
             let start = try BridgePlaySession(original: originalHandFacts, draft: workflow.draft)
             guard replacePlaySession(start) else { return false }
@@ -622,19 +653,23 @@ final class BridgeTeacherApplicationModel: ObservableObject {
     /// Every restored position follows the same analysis invalidation boundary.
     @discardableResult
     func replacePlaySession(_ session: BridgePlaySession) -> Bool {
-        guard session.isCompatible(with: originalHandFacts, context: workflow.draft) else { return false }
+        guard pendingPlayReset == nil,
+              session.isCompatible(with: originalHandFacts, context: workflow.draft) else { return false }
         playSession = session
         playPositionChanged()
         return true
     }
 
     /// Shared change signal for history, per-card DDS and teaching staleness.
-    func playPositionChanged() {
+    func playPositionChanged(context: DeclarerPlanDraft? = nil) {
+        let context = context ?? workflow.draft
         workflow.markCurrentResultOutdated()
-        workflow.setTeachingProjection(playSession?.teachingDraft(from: workflow.draft))
+        workflow.setTeachingProjection(playSession?.teachingDraft(from: context))
         keyPlayWorkflow.invalidate()
         if let session = playSession {
-            doubleDummyWorkflow.updateDraft(session.doubleDummyDraft())
+            if doubleDummyHandSource == .sharedOriginal {
+                doubleDummyWorkflow.updateDraft(session.doubleDummyDraft())
+            }
             var node = keyPlayWorkflow.draft
             node.actingSeat = session.actingSeat
             node.currentTrickState = session.currentTrick.isEmpty ? .noCardsPlayed : .cardsRecorded
@@ -642,7 +677,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
             node.candidatePlays = ""
             keyPlayWorkflow.updateDraft(node)
         }
-        else { useOriginalHandsForDoubleDummy() }
+        else { resetDoubleDummyToOriginal(context: context) }
         reviewSessionStatus = "有尚未保存的更改"
         playPositionRevision += 1
     }
@@ -654,10 +689,12 @@ final class BridgeTeacherApplicationModel: ObservableObject {
     }
 
     func useOriginalHandsForDoubleDummy() {
+        doubleDummyHandSource = .sharedOriginal
         resetDoubleDummyToOriginal(context: workflow.draft)
     }
 
     private func resetDoubleDummyToOriginal(context: DeclarerPlanDraft) {
+        guard doubleDummyHandSource == .sharedOriginal else { return }
         var draft = doubleDummyWorkflow.draft
         draft.hands = originalHandFacts.hands
         draft.currentTrickCards = ""
@@ -676,8 +713,10 @@ final class BridgeTeacherApplicationModel: ObservableObject {
     }
 
     func keepLegacyDoubleDummyPosition() {
+        doubleDummyHandSource = .independentReviewed
         hasLegacyDoubleDummyConflict = false
-        // A nil source keeps the independent origin explicit in future archives.
+        reviewSessionStatus = "有尚未保存的更改"
+        // The persisted source records this explicit choice; nil version remains independent.
         doubleDummyOriginalHandVersion = nil
     }
 
@@ -687,8 +726,15 @@ final class BridgeTeacherApplicationModel: ObservableObject {
         originalHandFacts = updated
         clearPlayHistory()
         originalContractTableWorkflow.updateOriginalHands(updated)
-        doubleDummyWorkflow.invalidate()
-        resetDoubleDummyToOriginal(context: draft)
+        if let session = playSession, !session.isCompatible(with: updated, context: draft) {
+            playSession = nil
+            playStatus = "原始输入已改变，旧推演已失效；请核对后重新开始。"
+            playPositionChanged(context: draft)
+        }
+        if doubleDummyHandSource == .sharedOriginal {
+            doubleDummyWorkflow.invalidate()
+            resetDoubleDummyToOriginal(context: draft)
+        }
     }
 
     private func reviewTitle(for draft: DeclarerPlanDraft) -> String {
@@ -775,4 +821,6 @@ struct PlayResetRequest: Identifiable {
     let id = UUID()
     let draft: DeclarerPlanDraft
     var screenshotURL: URL? = nil
+    var isRecognition = false
+    var recognitionCommit: (() -> Void)? = nil
 }
