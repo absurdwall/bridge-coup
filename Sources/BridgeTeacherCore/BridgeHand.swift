@@ -164,6 +164,8 @@ public struct DeclarerPlanDraft: Codable, Equatable, Sendable {
     /// `nil` means manual entry. A set filters screenshot candidates to confirmed visible seats.
     public var decisionTimeVisibleSeats: Set<Seat>? = nil
     public var decisionTimeConfirmed = true
+    /// Public observed cards in an explicitly started autonomous play position.
+    public var observedPlays: [BridgePlayedCard]? = nil
 
     public init() {}
 
@@ -296,7 +298,9 @@ public enum DeclarerPlanRequestBuilder {
 
         let visibleHands = try visibleHands(in: draft)
         guard let declarerHand = visibleHands.first(where: { $0.seat == declarerSeat }),
-              declarerHand.cardsBySuit.values.contains(where: { !$0.isEmpty }) else {
+              (declarerHand.cardsBySuit.values.contains(where: { !$0.isEmpty })
+               || (draft.observedPlays?.contains(where: { $0.seat == declarerSeat }) == true
+                   && declarerHand.cardsBySuit.count == 4)) else {
             throw DeclarerPlanInputError.noDeclarerCards
         }
 
