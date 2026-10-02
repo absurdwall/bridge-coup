@@ -410,7 +410,7 @@ private struct CodexRequestProvenanceLine: View {
     private var summary: String? {
         let requested = requestedModel ?? model
         guard let requested, !requested.isEmpty else { return nil }
-        let effective = model.map { $0 == requested ? requested : "\(requested) → \($0)" } ?? requested
+        let effective = model.map { $0 == requested ? requested : "\(requested) → \($0)" } ?? "\(requested)（runtime 未回报模型）"
         guard let effort, !effort.isEmpty else { return effective }
         let effortTitle = CodexReasoningEffort(rawValue: effort)?.title ?? effort
         return "\(effective) · \(effortTitle)"

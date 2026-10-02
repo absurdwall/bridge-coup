@@ -301,7 +301,6 @@ final class BridgeTeacherApplicationModel: ObservableObject {
         guard updated.selectModel(family) else { return }
         modelSettings = updated
         saveExplicitModelSelection(updated.selection)
-        Task { await applyServiceSelection(updated.selection) }
     }
 
     func selectEffort(_ effort: CodexReasoningEffort) {
@@ -309,7 +308,6 @@ final class BridgeTeacherApplicationModel: ObservableObject {
         guard updated.selectEffort(effort) else { return }
         modelSettings = updated
         saveExplicitModelSelection(updated.selection)
-        Task { await applyServiceSelection(updated.selection) }
     }
 
     func refreshModelSettings() async {
@@ -322,6 +320,9 @@ final class BridgeTeacherApplicationModel: ObservableObject {
             let runtimeModels = try await service.listRuntimeModels()
             let savedSelection = loadSavedModelSelection()
             modelSettings = CodexModelSettingsState(runtimeModels: runtimeModels, savedSelection: savedSelection)
+            if savedSelection?.modelIdentifier == "gpt-6-sol", let migrated = modelSettings.selection {
+                modelSelectionPreferences.save(migrated)
+            }
             try await service.setRequestSelection(modelSettings.selection)
             modelCatalogStatus = "模型标识、effort 与输入能力来自当前 Codex runtime。"
         } catch {
@@ -422,14 +423,6 @@ final class BridgeTeacherApplicationModel: ObservableObject {
             modelCatalogStatus = "模型设置已不可用：\(error.localizedDescription) 请刷新模型能力。"
             modelSettings = CodexModelSettingsState(runtimeModels: [])
             return false
-        }
-    }
-
-    private func applyServiceSelection(_ selection: CodexModelSelection?) async {
-        do {
-            try await service.setRequestSelection(selection)
-        } catch {
-            modelCatalogStatus = "无法应用模型设置：\(error.localizedDescription)"
         }
     }
 
