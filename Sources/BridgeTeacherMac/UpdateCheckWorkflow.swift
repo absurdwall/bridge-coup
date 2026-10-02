@@ -38,14 +38,32 @@ struct BridgeCoupVersion: Comparable, Equatable {
     }
 }
 
+enum BridgeCoupReleaseChannel: String {
+    case beta
+    case stable
+
+    func matchesInstalled(_ version: BridgeCoupVersion) -> Bool {
+        switch self {
+        case .beta: version.beta != nil
+        case .stable: version.beta == nil
+        }
+    }
+
+    func allows(_ version: BridgeCoupVersion) -> Bool {
+        self == .beta || version.beta == nil
+    }
+}
+
 struct BridgeCoupReleaseIdentity {
     let tag: String
-    let channel: String
+    let channel: BridgeCoupReleaseChannel?
 
     static func installed(bundle: Bundle = .main) -> Self {
         let info = bundle.infoDictionary ?? [:]
         return Self(tag: info["BridgeCoupReleaseTag"] as? String ?? "",
-                    channel: info["BridgeCoupReleaseChannel"] as? String ?? "")
+                    channel: BridgeCoupReleaseChannel(
+                        rawValue: info["BridgeCoupReleaseChannel"] as? String ?? ""
+                    ))
     }
 }
 
@@ -126,8 +144,8 @@ final class BridgeCoupUpdateWorkflow: ObservableObject {
         guard state != .checking else { return }
         state = .checking
         guard let installed = BridgeCoupVersion(tag: identity.tag),
-              (identity.channel == "beta" && installed.beta != nil) ||
-              (identity.channel == "stable" && installed.beta == nil) else {
+              let channel = identity.channel,
+              channel.matchesInstalled(installed) else {
             state = .failed("This app has invalid release identity.")
             return
         }
@@ -147,7 +165,7 @@ final class BridgeCoupUpdateWorkflow: ObservableObject {
             for release in releases where !release.draft {
                 guard let version = BridgeCoupVersion(tag: release.tagName) else { continue }
                 guard (version.beta != nil) == release.prerelease else { continue }
-                if identity.channel == "stable" && version.beta != nil { continue }
+                guard channel.allows(version) else { continue }
                 let assetName = "Bridge-Coup-\(release.tagName)-arm64.dmg"
                 guard release.assets.contains(where: { $0.name == assetName }) else { continue }
                 guard Self.isOfficialPage(release.htmlURL, tag: release.tagName) else {

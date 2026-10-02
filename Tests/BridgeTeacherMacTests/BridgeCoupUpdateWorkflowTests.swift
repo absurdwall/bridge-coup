@@ -6,7 +6,7 @@ import XCTest
 final class BridgeCoupUpdateWorkflowTests: XCTestCase {
     func testBetaOffersHighestNumberedBetaThenStableAndOpensOnlyOfficialPage() async throws {
         let opened = OpenedPages()
-        let workflow = makeWorkflow(tag: "v1.0.0-beta.1", channel: "beta", releases: [
+        let workflow = makeWorkflow(tag: "v1.0.0-beta.1", channel: .beta, releases: [
             release("v1.0.0-beta.2", notes: "Second beta fixes login."),
             release("v1.0.0-beta.10", notes: "Tenth beta improves DDS."),
             release("v1.0.0", prerelease: false, notes: "Stable release."),
@@ -27,19 +27,19 @@ final class BridgeCoupUpdateWorkflowTests: XCTestCase {
 
     func testNumericBetaOrderingAndNoDowngrade() async throws {
         let feed = [release("v1.0.0-beta.2"), release("v1.0.0-beta.10")]
-        let older = makeWorkflow(tag: "v1.0.0-beta.1", channel: "beta", releases: feed)
+        let older = makeWorkflow(tag: "v1.0.0-beta.1", channel: .beta, releases: feed)
         await older.check()
         guard case let .available(candidate) = older.state else { return XCTFail(older.state.message) }
         XCTAssertEqual(candidate.tag, "v1.0.0-beta.10")
         XCTAssertEqual(older.state.message, "Bridge Coup 1.0.0 Beta 10 is available.")
 
-        let newer = makeWorkflow(tag: "v1.0.0-beta.11", channel: "beta", releases: feed)
+        let newer = makeWorkflow(tag: "v1.0.0-beta.11", channel: .beta, releases: feed)
         await newer.check()
         XCTAssertEqual(newer.state.message, "Bridge Coup is up to date.")
     }
 
     func testStableChannelSkipsBetasAndSameVersionIsUpToDate() async throws {
-        let workflow = makeWorkflow(tag: "v1.0.0", channel: "stable", releases: [
+        let workflow = makeWorkflow(tag: "v1.0.0", channel: .stable, releases: [
             release("v1.0.0" , prerelease: false),
             release("v1.1.0-beta.4")
         ])
@@ -47,12 +47,27 @@ final class BridgeCoupUpdateWorkflowTests: XCTestCase {
         XCTAssertEqual(workflow.state.message, "Bridge Coup is up to date.")
     }
 
+    func testUnknownOrMismatchedInstalledChannelFailsBeforeFetch() async {
+        XCTAssertNil(BridgeCoupReleaseChannel(rawValue: "preview"))
+        for identity in [
+            BridgeCoupReleaseIdentity(tag: "v1.0.0", channel: BridgeCoupReleaseChannel(rawValue: "preview")),
+            BridgeCoupReleaseIdentity(tag: "v1.0.0-beta.1", channel: .stable)
+        ] {
+            let workflow = BridgeCoupUpdateWorkflow(identity: identity, fetch: { _ in
+                XCTFail("Invalid release identity must not fetch releases")
+                return (Data(), Self.response(200))
+            })
+            await workflow.check()
+            XCTAssertEqual(workflow.state.message, "Update check failed: This app has invalid release identity.")
+        }
+    }
+
     func testNoReleasesOrCompatibleDMGReportsNoEligibleRelease() async throws {
-        let empty = makeWorkflow(tag: "v1.0.0-beta.1", channel: "beta", releases: [])
+        let empty = makeWorkflow(tag: "v1.0.0-beta.1", channel: .beta, releases: [])
         await empty.check()
         XCTAssertEqual(empty.state.message, "No eligible release with an Apple Silicon DMG is available yet.")
 
-        let incompatible = makeWorkflow(tag: "v1.0.0-beta.1", channel: "beta", releases: [
+        let incompatible = makeWorkflow(tag: "v1.0.0-beta.1", channel: .beta, releases: [
             release("v2.0.0-beta.1", asset: "Bridge-Coup-v2.0.0-beta.1-x86_64.dmg"),
             release("v2.0.0-beta.2", asset: nil),
             release("v3.0.0-rc.1"),
@@ -65,7 +80,7 @@ final class BridgeCoupUpdateWorkflowTests: XCTestCase {
 
     func testInvalidReleasePageFailsWithoutOpeningBrowser() async throws {
         let opened = OpenedPages()
-        let workflow = makeWorkflow(tag: "v1.0.0-beta.1", channel: "beta", releases: [
+        let workflow = makeWorkflow(tag: "v1.0.0-beta.1", channel: .beta, releases: [
             release("v1.0.0-beta.2", url: "https://github.com.evil.test/absurdwall/bridge-coup/releases/tag/v1.0.0-beta.2")
         ], opened: opened)
         await workflow.check()
@@ -78,7 +93,7 @@ final class BridgeCoupUpdateWorkflowTests: XCTestCase {
         let attempts = AttemptCounter()
         let valid = try json([release("v1.0.0-beta.2")])
         let workflow = BridgeCoupUpdateWorkflow(
-            identity: .init(tag: "v1.0.0-beta.1", channel: "beta"),
+            identity: .init(tag: "v1.0.0-beta.1", channel: .beta),
             fetch: { _ in
                 attempts.count += 1
                 switch attempts.count {
@@ -103,7 +118,7 @@ final class BridgeCoupUpdateWorkflowTests: XCTestCase {
     }
 
     func testBrowserFailureIsVisibleAndDoesNotChangeInstalledIdentity() async throws {
-        let workflow = makeWorkflow(tag: "v1.0.0-beta.1", channel: "beta", releases: [
+        let workflow = makeWorkflow(tag: "v1.0.0-beta.1", channel: .beta, releases: [
             release("v1.0.0-beta.2")
         ], openPage: { _ in false })
         await workflow.check()
@@ -115,7 +130,7 @@ final class BridgeCoupUpdateWorkflowTests: XCTestCase {
 
     func testMenuActionShowsUpdateSheetWhileControlledCheckRuns() async throws {
         let opened = OpenedPages()
-        let workflow = makeWorkflow(tag: "v1.0.0-beta.1", channel: "beta", releases: [
+        let workflow = makeWorkflow(tag: "v1.0.0-beta.1", channel: .beta, releases: [
             release("v1.0.0-beta.2", notes: "A controlled test release")
         ], opened: opened)
         let coordinator = BridgeCoupUpdateCoordinator(workflow: workflow)
@@ -129,7 +144,7 @@ final class BridgeCoupUpdateWorkflowTests: XCTestCase {
         XCTAssertEqual(opened.urls.first?.host, "github.com")
     }
 
-    private func makeWorkflow(tag: String, channel: String, releases: [[String: Any]],
+    private func makeWorkflow(tag: String, channel: BridgeCoupReleaseChannel, releases: [[String: Any]],
                               opened: OpenedPages = OpenedPages(),
                               openPage: ((URL) -> Bool)? = nil) -> BridgeCoupUpdateWorkflow {
         let payload = try! json(releases)
