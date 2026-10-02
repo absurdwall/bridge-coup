@@ -335,9 +335,15 @@ public final class ScreenshotReviewWorkflow: ObservableObject {
 
     public func updateDraft(_ draft: DeclarerPlanDraft) {
         recordManualEdits(from: planWorkflow.draft, to: draft)
+        invalidatePendingRecognition()
+        planWorkflow.updateDraft(draft)
+    }
+
+    /// Supersedes an in-flight response or staged recognition commit without
+    /// applying an unconfirmed edit to the current facts or manual merge tracking.
+    public func invalidatePendingRecognition() {
         recognitionRevision += 1
         if state == .recognizing { state = .stale }
-        planWorkflow.updateDraft(draft)
     }
 
     public func recognizeScreenshot() async {

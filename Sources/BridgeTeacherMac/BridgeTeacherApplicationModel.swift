@@ -244,6 +244,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
 
     func selectScreenshot(at url: URL) {
         if playSession != nil {
+            screenshotWorkflow.invalidatePendingRecognition()
             pendingPlayReset = PlayResetRequest(draft: workflow.draft, screenshotURL: url)
             return
         }
@@ -309,11 +310,13 @@ final class BridgeTeacherApplicationModel: ObservableObject {
         let draft = draft.normalizingOpeningLead()
         let previousDraft = workflow.draft
         guard draft != previousDraft else { return true }
+        if isRecognition, pendingPlayReset?.isRecognition == false { return false }
         if !isRecognition, pendingPlayReset?.isRecognition == true { pendingPlayReset = nil }
         if playSession != nil, !isConfirmingPlayReset,
            draft.hands != previousDraft.hands || draft.declarerSeat != previousDraft.declarerSeat
             || draft.contractLevel != previousDraft.contractLevel || draft.contractStrain != previousDraft.contractStrain
             || draft.openingLead != previousDraft.openingLead || draft.decisionTimeConfirmed != previousDraft.decisionTimeConfirmed {
+            if !isRecognition { screenshotWorkflow.invalidatePendingRecognition() }
             pendingPlayReset = PlayResetRequest(draft: draft, isRecognition: isRecognition, recognitionCommit: recognitionCommit)
             return false
         }
