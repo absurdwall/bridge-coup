@@ -1,6 +1,6 @@
 # Bridge Coup Mac package
 
-The first planned release is **Bridge Coup 1.0.0 Beta 1**, build **10001**, tag
+The first planned release is **Bridge Coup 1.0.0 Beta 1**, build **10002**, tag
 `v1.0.0-beta.1`. `release.env` is the declared identity for the app metadata
 and DMG filename. Keep the tag, release notes, and website aligned with it.
 Increase `RELEASE_BUILD` for every distributed build, including a rebuild of
@@ -46,6 +46,14 @@ script detaches the image on exit. The DMG is a local build artifact and is
 not committed to the repository.
 
 ## Release gates and publication
+
+On 2026-10-02 the user authorized publishing this first beta for sharing before
+full installed-app acceptance. This is an explicit early-beta exception: rebuild
+and verify the final source, publish as a prerelease with the outstanding checks
+visible in its notes, verify the public asset, then enable the website download.
+Keep Issue #28 open and do not mark clean-user or upgrade acceptance complete.
+The sequence below remains the full acceptance procedure for this release and
+the default for subsequent releases.
 
 Use this order for each beta. `release.env` is the source for the version,
 build, tag, and asset name; change all four together for later betas. Never
