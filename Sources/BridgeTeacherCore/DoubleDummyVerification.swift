@@ -571,6 +571,11 @@ public final class DoubleDummyVerificationWorkflow: ObservableObject {
     public func updateDraft(_ draft: DoubleDummyVerificationDraft) {
         guard draft != self.draft else { return }
         self.draft = draft
+        invalidate()
+    }
+
+    /// A source revision can change without changing the serialized DDS position.
+    public func invalidate() {
         revision += 1
         if result != nil || state == .verified || state == .outdated {
             result = nil

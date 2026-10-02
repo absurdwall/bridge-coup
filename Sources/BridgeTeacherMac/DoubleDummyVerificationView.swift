@@ -11,7 +11,7 @@ struct BridgeTeacherWorkspaceShell: View {
 
 struct DoubleDummyVerificationView: View {
     @ObservedObject private var workflow: DoubleDummyVerificationWorkflow
-    private let model: BridgeTeacherApplicationModel
+    @ObservedObject private var model: BridgeTeacherApplicationModel
     private let onCollapse: () -> Void
     private let suitColumns = [
         GridItem(.flexible(), spacing: 10),
@@ -70,6 +70,22 @@ struct DoubleDummyVerificationView: View {
 
     private var inputPanel: some View {
         VStack(alignment: .leading, spacing: 13) {
+            if model.hasLegacyDoubleDummyConflict {
+                Text("旧独立 DDS 输入与主牌面不同，两份材料均保留；请先核对来源。")
+                    .foregroundStyle(VerificationPalette.warning)
+                HStack {
+                    Button("保留独立 DDS 局面") { model.keepLegacyDoubleDummyPosition() }
+                    Button("使用主牌面") { model.useOriginalHandsForDoubleDummy() }
+                }
+            }
+            HStack {
+                Text("主牌面版本 \(model.originalHandFacts.version) · DDS 编辑只改变当前局面")
+                    .font(.system(size: 11))
+                    .foregroundStyle(VerificationPalette.muted)
+                Spacer()
+                Button("从原始手牌重置") { model.useOriginalHandsForDoubleDummy() }
+                    .controlSize(.small)
+            }
             Text("核验材料")
                 .font(.system(size: 15, weight: .semibold))
                 .foregroundStyle(VerificationPalette.ink)
@@ -143,7 +159,7 @@ struct DoubleDummyVerificationView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(VerificationPalette.green)
-                .disabled(workflow.state == .solving)
+                .disabled(workflow.state == .solving || model.hasLegacyDoubleDummyConflict || !model.originalHandFacts.decisionTimeConfirmed)
                 .accessibilityIdentifier("verify-double-dummy-position")
             }
         }

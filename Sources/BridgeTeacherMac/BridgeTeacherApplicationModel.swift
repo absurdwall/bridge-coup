@@ -59,6 +59,10 @@ final class BridgeTeacherApplicationModel: ObservableObject {
     let screenshotWorkflow: ScreenshotReviewWorkflow
     let doubleDummyWorkflow: DoubleDummyVerificationWorkflow
 
+    @Published private(set) var originalHandFacts = OriginalHandFacts()
+    @Published private(set) var hasLegacyDoubleDummyConflict = false
+    private var doubleDummyOriginalHandVersion: Int? = 0
+
     @Published private(set) var connectionStatus: CodexConnectionStatus = .checking
     @Published private(set) var isConnecting = false
     @Published private(set) var isStartingLogin = false
@@ -75,6 +79,8 @@ final class BridgeTeacherApplicationModel: ObservableObject {
     private let reviewStore: LocalReviewSessionStore
     private var currentReviewID: UUID?
     private var hasBootstrapped = false
+    private var draftObservation: AnyCancellable?
+    private var isRestoringReview = false
 
     var canSendModelRequests: Bool {
         connectionStatus.isSignedIn && modelSettings.selection != nil
@@ -94,11 +100,17 @@ final class BridgeTeacherApplicationModel: ObservableObject {
         return nil
     }
 
-    init(screenshotRecognitionRuntime: (any ScreenshotRecognitionRuntime)? = nil) {
+    init(
+        screenshotRecognitionRuntime: (any ScreenshotRecognitionRuntime)? = nil,
+        doubleDummySolver: (any DoubleDummySolving)? = nil,
+        reviewStore: LocalReviewSessionStore = LocalReviewSessionStore()
+    ) {
         let runtimeService = CodexTeachingService()
         service = runtimeService
         modelSelectionPreferences = CodexModelSelectionPreferences()
-        let planWorkflow = DeclarerPlanWorkflow(runtime: runtimeService)
+        var initialDraft = DeclarerPlanDraft()
+        initialDraft.decisionTimeVisibleSeats = [.north, .south]
+        let planWorkflow = DeclarerPlanWorkflow(draft: initialDraft, runtime: runtimeService)
         workflow = planWorkflow
         keyPlayWorkflow = KeyPlayAnalysisWorkflow(runtime: runtimeService)
         screenshotWorkflow = ScreenshotReviewWorkflow(
@@ -109,8 +121,12 @@ final class BridgeTeacherApplicationModel: ObservableObject {
             .appendingPathComponent("Contents", isDirectory: true)
             .appendingPathComponent("Helpers", isDirectory: true)
             .appendingPathComponent("bridge-dds", isDirectory: false)
-        doubleDummyWorkflow = DoubleDummyVerificationWorkflow(solver: BundledDDSSolver(executableURL: helperURL))
-        reviewStore = LocalReviewSessionStore()
+        doubleDummyWorkflow = DoubleDummyVerificationWorkflow(solver: doubleDummySolver ?? BundledDDSSolver(executableURL: helperURL))
+        self.reviewStore = reviewStore
+        draftObservation = planWorkflow.$draft.dropFirst().sink { [weak self] draft in
+            guard let self, !self.isRestoringReview else { return }
+            self.synchronizeOriginalHands(from: draft)
+        }
     }
 
     func bootstrap() async {
@@ -275,6 +291,11 @@ final class BridgeTeacherApplicationModel: ObservableObject {
     }
 
     func verifyDoubleDummy() async {
+        guard !hasLegacyDoubleDummyConflict else { return }
+        guard originalHandFacts.decisionTimeConfirmed else {
+            reviewSessionAlert = ReviewSessionAlert(title: "请先核对截图", message: "截图候选尚未确认，不能用于 DDS。")
+            return
+        }
         await doubleDummyWorkflow.verify()
         reviewSessionStatus = "有尚未保存的更改"
     }
@@ -339,7 +360,9 @@ final class BridgeTeacherApplicationModel: ObservableObject {
             declarerPlan: workflow.makeArchive(),
             screenshot: screenshotWorkflow.makeArchive(),
             keyPlay: keyPlayWorkflow.makeArchive(),
-            doubleDummy: doubleDummyWorkflow.makeArchive()
+            doubleDummy: doubleDummyWorkflow.makeArchive(),
+            originalHandFacts: originalHandFacts,
+            doubleDummyOriginalHandVersion: doubleDummyOriginalHandVersion
         )
         do {
             let saved = try reviewStore.save(snapshot, screenshotURL: screenshotWorkflow.screenshotURL)
@@ -372,6 +395,8 @@ final class BridgeTeacherApplicationModel: ObservableObject {
         }
 
         let snapshot = opened.snapshot
+        isRestoringReview = true
+        defer { isRestoringReview = false }
         workflow.restore(from: snapshot.declarerPlan)
         screenshotWorkflow.restore(from: snapshot.screenshot, screenshotURL: opened.screenshotURL)
         keyPlayWorkflow.restore(
@@ -379,11 +404,61 @@ final class BridgeTeacherApplicationModel: ObservableObject {
             currentInformationVersion: snapshot.declarerPlan.informationVersion
         )
         doubleDummyWorkflow.restore(from: snapshot.doubleDummy)
+        originalHandFacts = snapshot.originalHandFacts ?? OriginalHandFacts(
+            version: snapshot.declarerPlan.informationVersion,
+            hands: workflow.draft.hands,
+            decisionTimeConfirmed: workflow.draft.decisionTimeConfirmed
+        )
+        doubleDummyOriginalHandVersion = snapshot.doubleDummyOriginalHandVersion
+        hasLegacyDoubleDummyConflict = snapshot.doubleDummyOriginalHandVersion == nil
+            && !snapshot.doubleDummy.draft.hands.isEmpty
+            && snapshot.doubleDummy.draft.hands != originalHandFacts.hands
+        if snapshot.doubleDummy.draft.hands.isEmpty { useOriginalHandsForDoubleDummy() }
         teachingMode = snapshot.teachingMode
         currentReviewID = snapshot.id
         reviewSessionStatus = "已打开本地复盘 · \(snapshot.title)"
-        reviewSessionAlert = nil
+        reviewSessionAlert = hasLegacyDoubleDummyConflict
+            ? ReviewSessionAlert(title: "旧 DDS 牌面需要核对", message: "主牌面与旧独立 DDS 输入不同；两份材料均已保留。请在双明手面板选择保留独立局面或使用主牌面。")
+            : nil
         return true
+    }
+
+    /// Explicitly starts DDS from the original board; editing DDS remaining hands
+    /// never writes back to the entered board or changes its version.
+    func useOriginalHandsForDoubleDummy() {
+        resetDoubleDummyToOriginal(context: workflow.draft)
+    }
+
+    private func resetDoubleDummyToOriginal(context: DeclarerPlanDraft) {
+        var draft = doubleDummyWorkflow.draft
+        draft.hands = originalHandFacts.hands
+        draft.currentTrickCards = ""
+        draft.declarerTricksAlreadyTaken = 0
+        draft.declarerSeat = context.declarerSeat
+        draft.contractLevel = context.contractLevel
+        draft.trump = context.contractStrain
+        if let declarer = context.declarerSeat,
+           let index = Seat.allCases.firstIndex(of: declarer) {
+            draft.trickLeader = Seat.allCases[(index + 1) % Seat.allCases.count]
+        }
+        doubleDummyWorkflow.updateDraft(draft)
+        doubleDummyOriginalHandVersion = originalHandFacts.version
+        hasLegacyDoubleDummyConflict = false
+        reviewSessionStatus = "有尚未保存的更改"
+    }
+
+    func keepLegacyDoubleDummyPosition() {
+        hasLegacyDoubleDummyConflict = false
+        // A nil source keeps the independent origin explicit in future archives.
+        doubleDummyOriginalHandVersion = nil
+    }
+
+    private func synchronizeOriginalHands(from draft: DeclarerPlanDraft) {
+        let updated = originalHandFacts.updating(from: draft)
+        guard updated != originalHandFacts else { return }
+        originalHandFacts = updated
+        doubleDummyWorkflow.invalidate()
+        resetDoubleDummyToOriginal(context: draft)
     }
 
     private func reviewTitle(for draft: DeclarerPlanDraft) -> String {
