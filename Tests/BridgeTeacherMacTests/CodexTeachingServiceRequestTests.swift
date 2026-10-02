@@ -8,15 +8,15 @@ final class CodexTeachingServiceRequestTests: XCTestCase {
         let fixture = try makeService()
         defer { try? FileManager.default.removeItem(at: fixture.root) }
         try await configure(fixture)
-        try await fixture.service.setRequestSelection(selection(.luna, .medium))
+        try await fixture.service.setRequestSelection(selection(.astra, .ultra))
 
         let response = try await fixture.service.generatePlan(for: makePlanRequest())
 
         let params = try XCTUnwrap(fixture.client.requests(for: "turn/start").last)
-        XCTAssertEqual(params["model"] as? String, "gpt-6-luna")
-        XCTAssertEqual(params["effort"] as? String, "medium")
-        XCTAssertEqual(response.requestedModel, "gpt-6-luna")
-        XCTAssertEqual(response.reasoningEffort, "medium")
+        XCTAssertEqual(params["model"] as? String, "gpt-6-astra")
+        XCTAssertEqual(params["effort"] as? String, "ultra")
+        XCTAssertEqual(response.requestedModel, "gpt-6-astra")
+        XCTAssertEqual(response.reasoningEffort, "ultra")
         XCTAssertEqual(response.runtimeVersion, "codex-cli 0.156.1")
     }
 
@@ -40,7 +40,7 @@ final class CodexTeachingServiceRequestTests: XCTestCase {
 
         _ = try await fixture.service.generatePlan(for: makePlanRequest())
         let turnParams = fixture.client.requests(for: "turn/start")
-        XCTAssertEqual(turnParams.map { $0["model"] as? String }, ["gpt-6-luna", "gpt-6-sol"])
+        XCTAssertEqual(turnParams.map { $0["model"] as? String }, ["gpt-6-luna", "gpt-6.1-sol"])
         XCTAssertEqual(turnParams.map { $0["effort"] as? String }, ["medium", "high"])
     }
 
@@ -58,9 +58,9 @@ final class CodexTeachingServiceRequestTests: XCTestCase {
         let response = try await fixture.service.recognizeScreenshot(at: imageURL)
 
         let params = try XCTUnwrap(fixture.client.requests(for: "turn/start").last)
-        XCTAssertEqual(params["model"] as? String, "gpt-6-sol")
+        XCTAssertEqual(params["model"] as? String, "gpt-6.1-sol")
         XCTAssertEqual(params["effort"] as? String, "high")
-        XCTAssertEqual(response.requestedModel, "gpt-6-sol")
+        XCTAssertEqual(response.requestedModel, "gpt-6.1-sol")
         XCTAssertEqual(response.reasoningEffort, "high")
         XCTAssertEqual(response.candidate.vulnerability, .eastWest)
         XCTAssertEqual(response.candidate.auction?.entries.map(\.auctionCall), [
@@ -134,6 +134,67 @@ final class CodexTeachingServiceRequestTests: XCTestCase {
         XCTAssertEqual(response.reasoningEffort, "xhigh")
     }
 
+    func testUnavailableOrLegacySelectionIsRejectedBeforeAnyRequest() async throws {
+        let fixture = try makeService()
+        defer { try? FileManager.default.removeItem(at: fixture.root) }
+        try await configure(fixture)
+        for choice in [
+            CodexModelSelection(family: .sol, modelIdentifier: "gpt-6-sol", effort: .high),
+            selection(.astra, .max),
+        ] {
+            do {
+                try await fixture.service.setRequestSelection(choice)
+                XCTFail("Unavailable selection must not be applied.")
+            } catch let error as CodexRuntimeSetupError {
+                XCTAssertEqual(error, .modelConfigurationUnavailable)
+            }
+        }
+        XCTAssertTrue(fixture.client.requests(for: "thread/start").isEmpty)
+    }
+
+    func testCatalogRefreshInvalidatesSavedRequestConfiguration() async throws {
+        let fixture = try makeService()
+        defer { try? FileManager.default.removeItem(at: fixture.root) }
+        try await configure(fixture)
+        try await fixture.service.setRequestSelection(selection(.astra, .ultra))
+        fixture.client.useUnavailableCatalog()
+        _ = try await fixture.service.listRuntimeModels()
+        do {
+            _ = try await fixture.service.generatePlan(for: makePlanRequest())
+            XCTFail("A selection removed from the refreshed catalog must be blocked.")
+        } catch let error as CodexRuntimeSetupError {
+            XCTAssertEqual(error, .modelConfigurationUnavailable)
+        }
+        XCTAssertTrue(fixture.client.requests(for: "thread/start").isEmpty)
+    }
+
+    func testRuntimeModelOrEffortMismatchCannotBecomeASuccessfulTeachingResult() async throws {
+        for (model, effort) in [("gpt-6-sol", nil), (nil, "medium")] as [(String?, String?)] {
+            let fixture = try makeService(reportedTurnModel: model, reportedTurnEffort: effort)
+            defer { try? FileManager.default.removeItem(at: fixture.root) }
+            try await configure(fixture)
+            try await fixture.service.setRequestSelection(selection(.astra, .ultra))
+            do {
+                _ = try await fixture.service.generatePlan(for: makePlanRequest())
+                XCTFail("A different runtime configuration must be reported as a failure.")
+            } catch let error as CodexRuntimeSetupError {
+                guard case .request(let message) = error else { return XCTFail("Unexpected error: \(error)") }
+                XCTAssertTrue(message.contains("不同"))
+            }
+        }
+    }
+
+    func testAbsentRuntimeModelDoesNotInventAnEffectiveModelIdentity() async throws {
+        let fixture = try makeService(reportsThreadModel: false)
+        defer { try? FileManager.default.removeItem(at: fixture.root) }
+        try await configure(fixture)
+        try await fixture.service.setRequestSelection(selection(.astra, .ultra))
+        let response = try await fixture.service.generatePlan(for: makePlanRequest())
+        XCTAssertNil(response.model)
+        XCTAssertEqual(response.requestedModel, "gpt-6-astra")
+        XCTAssertEqual(response.reasoningEffort, "ultra")
+    }
+
     private func configure(_ fixture: (service: CodexTeachingService, client: FakeCodexRPCClient, root: URL)) async throws {
         let executable = fixture.root.appendingPathComponent("codex")
         try "#!/bin/sh\nprintf 'codex-cli 0.156.1\\n'\n".write(to: executable, atomically: true, encoding: .utf8)
@@ -145,14 +206,24 @@ final class CodexTeachingServiceRequestTests: XCTestCase {
         XCTAssertEqual(models.count, 3)
     }
 
-    private func makeService(assistantReply: String = "计划已根据当前请求生成。") throws -> (
+    private func makeService(
+        assistantReply: String = "计划已根据当前请求生成。",
+        reportedTurnModel: String? = nil,
+        reportedTurnEffort: String? = nil,
+        reportsThreadModel: Bool = true
+    ) throws -> (
         service: CodexTeachingService,
         client: FakeCodexRPCClient,
         root: URL
     ) {
         let root = FileManager.default.temporaryDirectory.appendingPathComponent("Bridge-Service-Test-\(UUID().uuidString)", isDirectory: true)
         try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
-        let client = FakeCodexRPCClient(assistantReply: assistantReply)
+        let client = FakeCodexRPCClient(
+            assistantReply: assistantReply,
+            reportedTurnModel: reportedTurnModel,
+            reportedTurnEffort: reportedTurnEffort,
+            reportsThreadModel: reportsThreadModel
+        )
         let appSupport = root.appendingPathComponent("Application Support", isDirectory: true)
         let service = CodexTeachingService(appSupportURL: appSupport) { _, _, _ in client }
         return (service, client, root)
@@ -167,7 +238,7 @@ final class CodexTeachingServiceRequestTests: XCTestCase {
     }
 
     private func selection(_ family: CodexModelFamily, _ effort: CodexReasoningEffort) -> CodexModelSelection {
-        CodexModelSelection(family: family, modelIdentifier: "gpt-6-\(family.rawValue)", effort: effort)
+        CodexModelSelection(family: family, modelIdentifier: family.modelIdentifier, effort: effort)
     }
 }
 
@@ -181,6 +252,10 @@ private final class FakeCodexRPCClient: CodexRPCClientProtocol, @unchecked Senda
 
     private let lock = NSLock()
     private let assistantReply: String
+    private let reportedTurnModel: String?
+    private let reportedTurnEffort: String?
+    private let reportsThreadModel: Bool
+    private var unavailableCatalog = false
     private let notificationStream: AsyncStream<CodexServerNotification>
     private var notificationContinuation: AsyncStream<CodexServerNotification>.Continuation!
     private var requestLog: [(String, [String: Any])] = []
@@ -190,8 +265,11 @@ private final class FakeCodexRPCClient: CodexRPCClientProtocol, @unchecked Senda
     private var nextThreadNumber = 1
     private var nextTurnNumber = 1
 
-    init(assistantReply: String) {
+    init(assistantReply: String, reportedTurnModel: String?, reportedTurnEffort: String?, reportsThreadModel: Bool) {
         self.assistantReply = assistantReply
+        self.reportedTurnModel = reportedTurnModel
+        self.reportedTurnEffort = reportedTurnEffort
+        self.reportsThreadModel = reportsThreadModel
         var savedContinuation: AsyncStream<CodexServerNotification>.Continuation!
         notificationStream = AsyncStream { streamContinuation in
             savedContinuation = streamContinuation
@@ -217,7 +295,10 @@ private final class FakeCodexRPCClient: CodexRPCClientProtocol, @unchecked Senda
             nextThreadNumber += 1
             let model = params["model"] as? String
             record(method, params)
-            return ["thread": ["id": threadID, "model": model as Any], "model": model as Any]
+            if reportsThreadModel {
+                return ["thread": ["id": threadID, "model": model as Any], "model": model as Any]
+            }
+            return ["thread": ["id": threadID]]
         case "turn/start":
             record(method, params)
             let threadID = params["threadId"] as? String ?? "thread-unknown"
@@ -241,6 +322,12 @@ private final class FakeCodexRPCClient: CodexRPCClientProtocol, @unchecked Senda
         default:
             return [:]
         }
+    }
+
+    func useUnavailableCatalog() {
+        lock.lock()
+        unavailableCatalog = true
+        lock.unlock()
     }
 
     func holdNextTurnStart() {
@@ -301,21 +388,33 @@ private final class FakeCodexRPCClient: CodexRPCClientProtocol, @unchecked Senda
     }
 
     private func finishTurn(threadID: String, turnID: String, reply: String) {
+        var turn: [String: Any] = [
+            "id": turnID,
+            "status": "completed",
+            "items": [["type": "agentMessage", "text": reply]],
+        ]
+        if let reportedTurnModel { turn["model"] = reportedTurnModel }
+        if let reportedTurnEffort { turn["effort"] = reportedTurnEffort }
         notificationContinuation.yield(CodexServerNotification(
             method: "turn/completed",
             params: [
                 "threadId": threadID,
-                "turn": [
-                    "id": turnID,
-                    "status": "completed",
-                    "items": [["type": "agentMessage", "text": reply]],
-                ],
+                "turn": turn,
             ]
         ))
     }
 
     private var modelCatalog: [String: Any] {
-        [
+        lock.lock()
+        defer { lock.unlock() }
+        if unavailableCatalog {
+            return ["data": [[
+                "model": "gpt-6-luna", "displayName": "GPT-6 Luna",
+                "supportedReasoningEfforts": [["reasoningEffort": "medium"]],
+                "inputModalities": ["text"],
+            ]]]
+        }
+        return [
             "data": [
                 [
                     "id": "luna-picker-id", "model": "gpt-6-luna", "displayName": "GPT-6 Luna",
@@ -323,13 +422,13 @@ private final class FakeCodexRPCClient: CodexRPCClientProtocol, @unchecked Senda
                     "defaultReasoningEffort": "medium", "inputModalities": ["text", "image"],
                 ],
                 [
-                    "id": "sol-picker-id", "model": "gpt-6-sol", "displayName": "GPT-6 Sol",
+                    "id": "sol-picker-id", "model": "gpt-6.1-sol", "displayName": "GPT-6 Sol",
                     "supportedReasoningEfforts": [["reasoningEffort": "low"], ["reasoningEffort": "medium"], ["reasoningEffort": "high"]],
                     "defaultReasoningEffort": "medium", "inputModalities": ["text", "image"],
                 ],
                 [
                     "id": "astra-picker-id", "model": "gpt-6-astra", "displayName": "GPT-6 Astra",
-                    "supportedReasoningEfforts": [["reasoningEffort": "medium"], ["reasoningEffort": "high"], ["reasoningEffort": "xhigh"]],
+                    "supportedReasoningEfforts": [["reasoningEffort": "medium"], ["reasoningEffort": "high"], ["reasoningEffort": "xhigh"], ["reasoningEffort": "ultra"]],
                     "defaultReasoningEffort": "high", "inputModalities": ["text"],
                 ],
             ],
