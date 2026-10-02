@@ -130,3 +130,18 @@ open. The exception is recorded in `Release/README.md` and the public notes.
 The earlier build 10001 evidence above is historical and must not be relabeled
 as validation of build 10002. The user's currently open application was left
 running with its unsaved bridge work; it was not replaced by this release.
+
+### Live website and browser download
+
+- Main commit `030e30d` deployed successfully through the Pages workflow:
+  https://github.com/absurdwall/bridge-coup/actions/runs/37066879640.
+- The canonical HTTPS homepage returned 200 and matched `docs/index.html`
+  byte-for-byte. Browser inspection confirmed the new real teaching screenshot,
+  build 10002 notice, release-note link, and enabled Download for Mac button.
+- Clicking that button in Chrome downloaded the full DMG to Downloads. Its
+  size and SHA-256 match the verified local artifact and GitHub asset above.
+  The downloaded file has a browser quarantine attribute. It was not launched
+  or substituted for the user's currently running application.
+- This completes the public website/download transport check in the user's
+  existing account. It does not complete clean-user installation/security or
+  isolated upgrade acceptance. Those remaining Issue #28 checks stay open.
