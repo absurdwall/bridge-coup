@@ -195,6 +195,61 @@ final class CodexTeachingServiceRequestTests: XCTestCase {
         XCTAssertEqual(response.reasoningEffort, "ultra")
     }
 
+    func testActiveTeachingResponseMayFinishAfterTheOldTotalDeadlineWithoutChangingSelection() async throws {
+        let fixture = try makeService(turnWaitPolicy: CodexTurnWaitPolicy(inactivityTimeout: .milliseconds(150), overallTimeout: .seconds(2)))
+        defer { try? FileManager.default.removeItem(at: fixture.root) }
+        try await configure(fixture)
+        try await fixture.service.setRequestSelection(selection(.astra, .ultra))
+        fixture.client.scheduleTurn(progress: .currentTurn)
+        let response = try await fixture.service.generatePlan(for: makePlanRequest())
+        XCTAssertEqual(response.text, "计划已根据当前请求生成。")
+        XCTAssertEqual(response.requestedModel, "gpt-6-astra")
+        XCTAssertEqual(response.reasoningEffort, "ultra")
+    }
+
+    func testSilentOrUnrelatedNotificationsDoNotKeepAStalledRequestAlive() async throws {
+        for progress: ScheduledTurnProgress in [.none, .otherTurn, .otherThread, .account] {
+            let fixture = try makeService(turnWaitPolicy: CodexTurnWaitPolicy(inactivityTimeout: .milliseconds(150), overallTimeout: .seconds(2)))
+            defer { try? FileManager.default.removeItem(at: fixture.root) }
+            try await configure(fixture)
+            try await fixture.service.setRequestSelection(selection(.astra, .ultra))
+            fixture.client.scheduleTurn(progress: progress)
+            do {
+                _ = try await fixture.service.generatePlan(for: makePlanRequest())
+                XCTFail("Silent or unrelated activity must still time out")
+            } catch let error as CodexRuntimeSetupError {
+                XCTAssertEqual(error, .timedOut)
+            }
+        }
+    }
+
+    func testContinuouslyActiveRequestStillHasAFiniteOverallLimit() async throws {
+        let fixture = try makeService(turnWaitPolicy: CodexTurnWaitPolicy(inactivityTimeout: .milliseconds(150), overallTimeout: .milliseconds(250)))
+        defer { try? FileManager.default.removeItem(at: fixture.root) }
+        try await configure(fixture)
+        try await fixture.service.setRequestSelection(selection(.astra, .ultra))
+        fixture.client.scheduleTurn(progress: .currentTurn)
+        do {
+            _ = try await fixture.service.generatePlan(for: makePlanRequest())
+            XCTFail("Progress must not bypass the finite total limit")
+        } catch let error as CodexRuntimeSetupError {
+            XCTAssertEqual(error, .timedOut)
+        }
+    }
+
+    func testBackendFailureRemainsAFailureUnderTheExtendedActiveWaitPolicy() async throws {
+        let fixture = try makeService(completionFailureMessage: "Synthetic backend request failed")
+        defer { try? FileManager.default.removeItem(at: fixture.root) }
+        try await configure(fixture)
+        try await fixture.service.setRequestSelection(selection(.astra, .ultra))
+        do {
+            _ = try await fixture.service.generatePlan(for: makePlanRequest())
+            XCTFail("A failed turn cannot become a successful response")
+        } catch let error as PlanRuntimeError {
+            XCTAssertEqual(error, .requestFailed("Synthetic backend request failed"))
+        }
+    }
+
     private func configure(_ fixture: (service: CodexTeachingService, client: FakeCodexRPCClient, root: URL)) async throws {
         let executable = fixture.root.appendingPathComponent("codex")
         try "#!/bin/sh\nprintf 'codex-cli 0.156.1\\n'\n".write(to: executable, atomically: true, encoding: .utf8)
@@ -210,7 +265,9 @@ final class CodexTeachingServiceRequestTests: XCTestCase {
         assistantReply: String = "计划已根据当前请求生成。",
         reportedTurnModel: String? = nil,
         reportedTurnEffort: String? = nil,
-        reportsThreadModel: Bool = true
+        reportsThreadModel: Bool = true,
+        turnWaitPolicy: CodexTurnWaitPolicy = .standard,
+        completionFailureMessage: String? = nil
     ) throws -> (
         service: CodexTeachingService,
         client: FakeCodexRPCClient,
@@ -222,10 +279,11 @@ final class CodexTeachingServiceRequestTests: XCTestCase {
             assistantReply: assistantReply,
             reportedTurnModel: reportedTurnModel,
             reportedTurnEffort: reportedTurnEffort,
-            reportsThreadModel: reportsThreadModel
+            reportsThreadModel: reportsThreadModel,
+            completionFailureMessage: completionFailureMessage
         )
         let appSupport = root.appendingPathComponent("Application Support", isDirectory: true)
-        let service = CodexTeachingService(appSupportURL: appSupport) { _, _, _ in client }
+        let service = CodexTeachingService(appSupportURL: appSupport, turnWaitPolicy: turnWaitPolicy) { _, _, _ in client }
         return (service, client, root)
     }
 
@@ -242,6 +300,10 @@ final class CodexTeachingServiceRequestTests: XCTestCase {
     }
 }
 
+private enum ScheduledTurnProgress {
+    case none, currentTurn, otherTurn, otherThread, account
+}
+
 private final class FakeCodexRPCClient: CodexRPCClientProtocol, @unchecked Sendable {
     private struct HeldTurn {
         let continuation: CheckedContinuation<[String: Any], Error>
@@ -255,6 +317,7 @@ private final class FakeCodexRPCClient: CodexRPCClientProtocol, @unchecked Senda
     private let reportedTurnModel: String?
     private let reportedTurnEffort: String?
     private let reportsThreadModel: Bool
+    private let completionFailureMessage: String?
     private var unavailableCatalog = false
     private let notificationStream: AsyncStream<CodexServerNotification>
     private var notificationContinuation: AsyncStream<CodexServerNotification>.Continuation!
@@ -262,14 +325,16 @@ private final class FakeCodexRPCClient: CodexRPCClientProtocol, @unchecked Senda
     private var turnStartWaiters: [CheckedContinuation<Void, Never>] = []
     private var shouldHoldNextTurnStart = false
     private var heldTurn: HeldTurn?
+    private var scheduledProgress: ScheduledTurnProgress?
     private var nextThreadNumber = 1
     private var nextTurnNumber = 1
 
-    init(assistantReply: String, reportedTurnModel: String?, reportedTurnEffort: String?, reportsThreadModel: Bool) {
+    init(assistantReply: String, reportedTurnModel: String?, reportedTurnEffort: String?, reportsThreadModel: Bool, completionFailureMessage: String?) {
         self.assistantReply = assistantReply
         self.reportedTurnModel = reportedTurnModel
         self.reportedTurnEffort = reportedTurnEffort
         self.reportsThreadModel = reportsThreadModel
+        self.completionFailureMessage = completionFailureMessage
         var savedContinuation: AsyncStream<CodexServerNotification>.Continuation!
         notificationStream = AsyncStream { streamContinuation in
             savedContinuation = streamContinuation
@@ -315,6 +380,26 @@ private final class FakeCodexRPCClient: CodexRPCClientProtocol, @unchecked Senda
                     waiters.forEach { $0.resume() }
                 }
             }
+            if let progress = takeScheduledProgress() {
+                Task {
+                    for _ in 0..<4 {
+                        try? await Task.sleep(for: .milliseconds(80))
+                        switch progress {
+                        case .none: break
+                        case .currentTurn, .otherTurn, .otherThread:
+                            self.notificationContinuation.yield(CodexServerNotification(
+                                method: "item/agentMessage/delta",
+                                params: ["threadId": progress == .otherThread ? "unrelated-thread" : threadID, "turnId": progress == .otherTurn ? "unrelated-turn" : turnID, "delta": "synthetic progress"]
+                            ))
+                        case .account:
+                            self.notificationContinuation.yield(CodexServerNotification(method: "account/rateLimits/updated", params: [:]))
+                        }
+                    }
+                    try? await Task.sleep(for: .milliseconds(80))
+                    self.finishTurn(threadID: threadID, turnID: turnID, reply: self.assistantReply)
+                }
+                return ["turn": ["id": turnID]]
+            }
             let waiters = takeTurnStartWaiters()
             waiters.forEach { $0.resume() }
             finishTurn(threadID: threadID, turnID: turnID, reply: assistantReply)
@@ -322,6 +407,20 @@ private final class FakeCodexRPCClient: CodexRPCClientProtocol, @unchecked Senda
         default:
             return [:]
         }
+    }
+
+    func scheduleTurn(progress: ScheduledTurnProgress) {
+        lock.lock()
+        scheduledProgress = progress
+        lock.unlock()
+    }
+
+    private func takeScheduledProgress() -> ScheduledTurnProgress? {
+        lock.lock()
+        defer { lock.unlock() }
+        let value = scheduledProgress
+        scheduledProgress = nil
+        return value
     }
 
     func useUnavailableCatalog() {
@@ -393,6 +492,10 @@ private final class FakeCodexRPCClient: CodexRPCClientProtocol, @unchecked Senda
             "status": "completed",
             "items": [["type": "agentMessage", "text": reply]],
         ]
+        if let completionFailureMessage {
+            turn["status"] = "failed"
+            turn["error"] = ["message": completionFailureMessage]
+        }
         if let reportedTurnModel { turn["model"] = reportedTurnModel }
         if let reportedTurnEffort { turn["effort"] = reportedTurnEffort }
         notificationContinuation.yield(CodexServerNotification(
