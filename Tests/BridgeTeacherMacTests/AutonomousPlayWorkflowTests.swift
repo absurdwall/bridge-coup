@@ -163,6 +163,49 @@ final class AutonomousPlayWorkflowTests: XCTestCase {
         XCTAssertEqual(model.playSession, position)
     }
 
+    func testUIWarningAndSubmissionUseRemainingHandsForVisibleCardInPartialTrick() async throws {
+        let runtime = RecordingTeachingRuntime()
+        let model = BridgeTeacherApplicationModel(teachingRuntime: runtime)
+        model.updateReviewDraft(board())
+        XCTAssertTrue(model.startPlay())
+        XCTAssertTrue(model.playCard(card(.hearts, .four), by: .west))
+        XCTAssertTrue(model.playCard(card(.spades, .ace), by: .north))
+        XCTAssertTrue(model.workflow.draft.hands[.north]?[.spades]?.contains("A") == true)
+        XCTAssertNil(model.keyPlayInputWarning)
+        await model.keyPlayWorkflow.generate(from: model.currentTeachingDraft, informationVersion: model.workflow.informationVersion)
+        XCTAssertEqual(model.keyPlayWorkflow.state, .succeeded)
+        let latest = await runtime.latest()
+        let request = try XCTUnwrap(latest)
+        XCTAssertFalse(try XCTUnwrap(request.visibleHands.first { $0.seat == .north }).cardsBySuit[.spades]?.contains(.ace) == true)
+        XCTAssertTrue(request.prompt.contains("♠A"), "The removed card remains public current-trick history")
+        XCTAssertEqual(Set(request.unknownSeats), [.east, .west])
+    }
+
+    func testReplacedOpeningLeadRejectsOldPositionAndArchiveRestorationUsesSameGuard() throws {
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: root) }
+        let store = LocalReviewSessionStore(directoryURL: root)
+        let model = BridgeTeacherApplicationModel(reviewStore: store)
+        model.updateReviewDraft(board())
+        XCTAssertTrue(model.startPlay())
+        let oldPosition = try XCTUnwrap(model.playSession)
+        var changed = model.workflow.draft
+        changed.openingLead = "H4"
+        model.updateReviewDraft(changed)
+        model.confirmPlayReset()
+        XCTAssertFalse(model.replacePlaySession(oldPosition), "Source version is unchanged but opening-lead dependency changed")
+        XCTAssertTrue(model.startPlay())
+        model.saveReview()
+        let saved = try XCTUnwrap(store.list().first)
+        var snapshot = try store.open(id: saved.id).snapshot
+        snapshot.playSession = oldPosition
+        _ = try store.save(snapshot, screenshotURL: nil)
+        let reopened = BridgeTeacherApplicationModel(reviewStore: store)
+        XCTAssertTrue(reopened.openReview(id: saved.id))
+        XCTAssertNil(reopened.playSession, "Archive restoration rejects the same incompatible supplied-lead position")
+        XCTAssertEqual(reopened.workflow.draft.openingLead, "♥4")
+    }
+
     func testOriginalOrContractEditRequiresExplicitResetAndCancellationPreservesEverything() throws {
         let model = BridgeTeacherApplicationModel()
         model.updateReviewDraft(board())

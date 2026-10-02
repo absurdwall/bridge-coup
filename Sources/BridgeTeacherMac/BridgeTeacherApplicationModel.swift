@@ -82,6 +82,14 @@ final class BridgeTeacherApplicationModel: ObservableObject {
     var currentTeachingDraft: DeclarerPlanDraft {
         playSession?.teachingDraft(from: workflow.draft) ?? workflow.draft
     }
+    /// UI warning and submission validate the same current selected-hand projection.
+    var keyPlayInputWarning: String? {
+        do {
+            _ = try KeyPlayAnalysisRequestBuilder.build(from: currentTeachingDraft, node: keyPlayWorkflow.draft)
+            return nil
+        } catch { return error.localizedDescription }
+    }
+
     var playStartReason: String? {
         do { _ = try BridgePlaySession(original: originalHandFacts, draft: workflow.draft); return nil }
         catch { return error.localizedDescription }
@@ -492,10 +500,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
             && snapshot.doubleDummy.draft.hands != originalHandFacts.hands
         if snapshot.doubleDummy.draft.hands.isEmpty { useOriginalHandsForDoubleDummy() }
         playSession = snapshot.playSession
-        if let playSession,
-           playSession.originalBoardID != originalHandFacts.boardID || playSession.originalVersion != originalHandFacts.version
-            || playSession.declarerSeat != workflow.draft.declarerSeat || playSession.contractLevel != workflow.draft.contractLevel
-            || playSession.strain != workflow.draft.contractStrain {
+        if let playSession, !playSession.isCompatible(with: originalHandFacts, context: workflow.draft) {
             self.playSession = nil
             workflow.markCurrentResultOutdated()
             keyPlayWorkflow.invalidate()
@@ -617,11 +622,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
     /// Every restored position follows the same analysis invalidation boundary.
     @discardableResult
     func replacePlaySession(_ session: BridgePlaySession) -> Bool {
-        guard session.originalBoardID == originalHandFacts.boardID,
-              session.originalVersion == originalHandFacts.version,
-              session.declarerSeat == workflow.draft.declarerSeat,
-              session.contractLevel == workflow.draft.contractLevel,
-              session.strain == workflow.draft.contractStrain else { return false }
+        guard session.isCompatible(with: originalHandFacts, context: workflow.draft) else { return false }
         playSession = session
         playPositionChanged()
         return true

@@ -8,7 +8,7 @@ struct BridgeTeacherMacApp: App {
         WindowGroup("Bridge Coup") {
             BridgeTeacherWorkspaceShell()
         }
-        .windowResizability(.contentSize)
+        .windowResizability(.contentMinSize)
         .defaultSize(width: 1320, height: 900)
     }
 }
@@ -53,6 +53,7 @@ struct BridgeTeacherWorkspaceView: View {
             .frame(minWidth: 1180, minHeight: 650, alignment: .top)
             .accessibilityIdentifier("bridge-coup-workspace")
         }
+        .frame(minWidth: 1180, minHeight: 650)
         .background(BridgePalette.canvas.ignoresSafeArea())
         .preferredColorScheme(.light)
         .task { await model.bootstrap() }
@@ -60,13 +61,30 @@ struct BridgeTeacherWorkspaceView: View {
             SavedReviewSessionsView(model: model)
                 .frame(minWidth: 540, minHeight: 420)
         }
-        .alert(item: $model.reviewSessionAlert) { alert in
-            Alert(
-                title: Text(alert.title),
-                message: Text(alert.message),
-                dismissButton: .default(Text("好"))
-            )
+        .alert(item: workspaceAlertBinding) { presented in
+            switch presented {
+            case let .review(alert):
+                Alert(title: Text(alert.title), message: Text(alert.message),
+                      dismissButton: .default(Text("好")) { model.reviewSessionAlert = nil })
+            case .playReset:
+                Alert(title: Text("重置当前自主推演？"),
+                      message: Text("修改原始手牌、首攻、庄家或定约会重置当前推演。取消可保留原输入和局面。"),
+                      primaryButton: .destructive(Text("重置并修改")) { model.confirmPlayReset() },
+                      secondaryButton: .cancel(Text("取消")) { model.cancelPlayReset() })
+            }
         }
+    }
+
+    private var workspaceAlertBinding: Binding<WorkspacePresentedAlert?> {
+        Binding(
+            get: {
+                if let request = model.pendingPlayReset { return .playReset(request) }
+                return model.reviewSessionAlert.map(WorkspacePresentedAlert.review)
+            },
+            // Alert clears its binding before invoking a button callback. Keep
+            // the staged edit until confirm/cancel explicitly consumes it.
+            set: { _ in }
+        )
     }
 
     private var teachingModeBinding: Binding<TeachingMode> {
@@ -653,12 +671,6 @@ private struct DeclarerEntryPanel: View {
             .overlay(RoundedRectangle(cornerRadius: 13).stroke(BridgePalette.border, lineWidth: 1))
             .padding(.top, 12)
         }
-        .alert(item: Binding(get: { model.pendingPlayReset }, set: { _ in })) { _ in
-            Alert(title: Text("重置当前自主推演？"),
-                  message: Text("修改原始手牌、首攻、庄家或定约会重置当前推演。取消可保留原输入和局面。"),
-                  primaryButton: .destructive(Text("重置并修改")) { model.confirmPlayReset() },
-                  secondaryButton: .cancel(Text("取消")) { model.cancelPlayReset() })
-        }
         .onChange(of: screenshotWorkflow.screenshotURL) { _, url in
             if url != nil { isScreenshotDetailsExpanded = true }
         }
@@ -1223,12 +1235,7 @@ private struct DeclarerEntryPanel: View {
 
     private var inputWarning: String? {
         if mode == .declarerPlan { return handWarning }
-        do {
-            _ = try KeyPlayAnalysisRequestBuilder.build(from: workflow.draft, node: keyPlayWorkflow.draft)
-            return nil
-        } catch {
-            return error.localizedDescription
-        }
+        return model.keyPlayInputWarning
     }
 
     private var handWarning: String? {
@@ -2222,6 +2229,17 @@ enum BridgePalette {
         case .diamonds: Color(red: 0.99, green: 0.94, blue: 0.88)
         case .clubs: Color(red: 0.92, green: 0.96, blue: 0.92)
         case .noTrump: Color(red: 0.95, green: 0.93, blue: 0.98)
+        }
+    }
+}
+
+private enum WorkspacePresentedAlert: Identifiable {
+    case review(ReviewSessionAlert)
+    case playReset(PlayResetRequest)
+    var id: UUID {
+        switch self {
+        case let .review(alert): alert.id
+        case let .playReset(request): request.id
         }
     }
 }

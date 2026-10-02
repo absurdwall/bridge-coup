@@ -88,6 +88,19 @@ public struct BridgePlaySession: Codable, Equatable, Sendable {
         } else { suppliedOpeningLead = nil }
     }
 
+    /// History and archive restoration share the original board's dependency boundary.
+    public func isCompatible(with original: OriginalHandFacts, context: DeclarerPlanDraft) -> Bool {
+        guard originalBoardID == original.boardID, originalVersion == original.version,
+              original.decisionTimeConfirmed, context.decisionTimeConfirmed,
+              declarerSeat == context.declarerSeat, contractLevel == context.contractLevel,
+              strain == context.contractStrain else { return false }
+        do {
+            let normalized = try OpeningLead.normalizedValue(from: context.openingLead)
+            let lead = normalized.flatMap(OpeningLead.init(input:)).map { DoubleDummyCard(suit: $0.suit, rank: $0.rank) }
+            return lead == suppliedOpeningLead
+        } catch { return false }
+    }
+
     public mutating func play(_ card: DoubleDummyCard, by seat: Seat) throws {
         guard !isComplete else { throw BridgePlayError.finished }
         guard !awaitingCollection else { throw BridgePlayError.collectFirst }
