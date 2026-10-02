@@ -91,6 +91,84 @@ final class DoubleDummySolverIntegrationTests: XCTestCase {
         }
     }
 
+    func testOriginalTwentyCellTableMatchesIndependentPureSuitDeal() async throws {
+        let solver = try bundledSolver()
+        let hands = pureSuitOriginalHands()
+        let workflow = OriginalContractTableWorkflow(originalHandFacts: OriginalHandFacts(hands: hands), solver: solver)
+        await workflow.calculate()
+        guard case .ready(let table) = workflow.state else { return XCTFail("Real DDS table failed: \(workflow.state)") }
+        XCTAssertEqual(table.cells.count, 20)
+        XCTAssertEqual(table.solverVersion, "3.0.0")
+        // Each seat holds one entire suit. Trump owners can take all thirteen;
+        // in NT the defender on opening lead cashes their entire suit.
+        for strain in OriginalContractTable.strains {
+            for declarer in OriginalContractTable.declarers {
+                let northSouth = declarer == .north || declarer == .south
+                let ownsTrump = (northSouth && (strain == .spades || strain == .diamonds))
+                    || (!northSouth && (strain == .hearts || strain == .clubs))
+                let expectedTricks = ownsTrump ? 13 : 0
+                let cell = try XCTUnwrap(table.cell(strain: strain, declarer: declarer))
+                XCTAssertEqual(cell.tricks, expectedTricks, "Wrong real DDS value for \(strain), \(declarer)")
+                XCTAssertEqual(cell.contract, ownsTrump ? "7" + strainContractLetter(strain) : "—")
+            }
+        }
+    }
+
+    func testOriginalTableDistinguishesDeclarersByActualOpeningLeaderAndFullContractNotation() async throws {
+        let solver = try bundledSolver()
+        var hands = pureSuitOriginalHands()
+        // Exchange South's diamond two and West's club ace. In NT, East
+        // cashes thirteen hearts against North. Against South, West cannot
+        // reach East: either opening suit loses to South, who cashes twelve
+        // diamonds plus the club ace. In clubs, defense gets the club ace
+        // and one diamond while West must follow with diamond two: 11 tricks.
+        hands[.south] = [.spades: "-", .hearts: "-", .diamonds: "AKQJT9876543", .clubs: "A"]
+        hands[.west] = [.spades: "-", .hearts: "-", .diamonds: "2", .clubs: "KQJT98765432"]
+        let workflow = OriginalContractTableWorkflow(originalHandFacts: OriginalHandFacts(hands: hands), solver: solver)
+        await workflow.calculate()
+        guard case .ready(let table) = workflow.state else { return XCTFail("Real DDS table failed: \(workflow.state)") }
+        XCTAssertEqual(table.cell(strain: .noTrump, declarer: .north)?.tricks, 0)
+        XCTAssertEqual(table.cell(strain: .noTrump, declarer: .north)?.contract, "—")
+        XCTAssertEqual(table.cell(strain: .noTrump, declarer: .south)?.tricks, 13)
+        XCTAssertEqual(table.cell(strain: .noTrump, declarer: .south)?.contract, "7NT")
+        XCTAssertEqual(table.cell(strain: .clubs, declarer: .west)?.contract, "5C")
+        XCTAssertEqual(table.cell(strain: .diamonds, declarer: .south)?.contract, "7D")
+    }
+
+    func testOriginalTableShowsSmallSlamAtTwelveTricks() async throws {
+        let solver = try bundledSolver()
+        var hands = pureSuitOriginalHands()
+        // East owns the trump ace. North has all twelve other trumps and a
+        // diamond; South has the other twelve diamonds and heart two. East
+        // takes one trump trick, then North ruffs and NS wins the remainder.
+        hands[.north] = [.spades: "KQJT98765432", .hearts: "-", .diamonds: "2", .clubs: "-"]
+        hands[.east] = [.spades: "A", .hearts: "AKQJT9876543", .diamonds: "-", .clubs: "-"]
+        hands[.south] = [.spades: "-", .hearts: "2", .diamonds: "AKQJT9876543", .clubs: "-"]
+        let workflow = OriginalContractTableWorkflow(originalHandFacts: OriginalHandFacts(hands: hands), solver: solver)
+        await workflow.calculate()
+        guard case .ready(let table) = workflow.state else { return XCTFail("Real DDS table failed: \(workflow.state)") }
+        XCTAssertEqual(table.cell(strain: .spades, declarer: .north)?.tricks, 12)
+        XCTAssertEqual(table.cell(strain: .spades, declarer: .north)?.contract, "6S")
+        XCTAssertEqual(table.cell(strain: .spades, declarer: .south)?.contract, "6S")
+    }
+
+    private func pureSuitOriginalHands() -> [Seat: [Suit: String]] {
+        let suitBySeat: [Seat: Suit] = [.north: .spades, .east: .hearts, .south: .diamonds, .west: .clubs]
+        return Dictionary(uniqueKeysWithValues: Seat.allCases.map { seat in
+            (seat, Dictionary(uniqueKeysWithValues: Suit.allCases.map { ($0, $0 == suitBySeat[seat] ? "AKQJT98765432" : "-") }))
+        })
+    }
+
+    private func strainContractLetter(_ strain: ContractStrain) -> String {
+        switch strain {
+        case .spades: "S"
+        case .hearts: "H"
+        case .diamonds: "D"
+        case .clubs: "C"
+        case .noTrump: "NT"
+        }
+    }
+
     private func bundledSolver() throws -> BundledDDSSolver {
         let configuredPath = ProcessInfo.processInfo.environment["BRIDGE_TEACHER_DDS_HELPER"]
         let helperPath = configuredPath ?? URL(fileURLWithPath: FileManager.default.currentDirectoryPath)

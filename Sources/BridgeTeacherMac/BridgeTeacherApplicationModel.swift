@@ -58,6 +58,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
     let keyPlayWorkflow: KeyPlayAnalysisWorkflow
     let screenshotWorkflow: ScreenshotReviewWorkflow
     let doubleDummyWorkflow: DoubleDummyVerificationWorkflow
+    let originalContractTableWorkflow: OriginalContractTableWorkflow
 
     @Published private(set) var originalHandFacts = OriginalHandFacts()
     @Published private(set) var hasLegacyDoubleDummyConflict = false
@@ -121,7 +122,9 @@ final class BridgeTeacherApplicationModel: ObservableObject {
             .appendingPathComponent("Contents", isDirectory: true)
             .appendingPathComponent("Helpers", isDirectory: true)
             .appendingPathComponent("bridge-dds", isDirectory: false)
-        doubleDummyWorkflow = DoubleDummyVerificationWorkflow(solver: doubleDummySolver ?? BundledDDSSolver(executableURL: helperURL))
+        let solver = doubleDummySolver ?? BundledDDSSolver(executableURL: helperURL)
+        doubleDummyWorkflow = DoubleDummyVerificationWorkflow(solver: solver)
+        originalContractTableWorkflow = OriginalContractTableWorkflow(solver: solver)
         self.reviewStore = reviewStore
         draftObservation = planWorkflow.$draft.dropFirst().sink { [weak self] draft in
             guard let self, !self.isRestoringReview else { return }
@@ -410,6 +413,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
             hands: workflow.draft.hands,
             decisionTimeConfirmed: workflow.draft.decisionTimeConfirmed
         )
+        originalContractTableWorkflow.updateOriginalHands(originalHandFacts)
         doubleDummyOriginalHandVersion = snapshot.doubleDummyOriginalHandVersion
         hasLegacyDoubleDummyConflict = snapshot.doubleDummyOriginalHandVersion == nil
             && !snapshot.doubleDummy.draft.hands.isEmpty
@@ -426,6 +430,10 @@ final class BridgeTeacherApplicationModel: ObservableObject {
 
     /// Explicitly starts DDS from the original board; editing DDS remaining hands
     /// never writes back to the entered board or changes its version.
+    func calculateOriginalContractTable() async {
+        await originalContractTableWorkflow.calculate()
+    }
+
     func useOriginalHandsForDoubleDummy() {
         resetDoubleDummyToOriginal(context: workflow.draft)
     }
@@ -458,6 +466,7 @@ final class BridgeTeacherApplicationModel: ObservableObject {
         let updated = originalHandFacts.updating(from: draft)
         guard updated != originalHandFacts else { return }
         originalHandFacts = updated
+        originalContractTableWorkflow.updateOriginalHands(updated)
         doubleDummyWorkflow.invalidate()
         resetDoubleDummyToOriginal(context: draft)
     }
