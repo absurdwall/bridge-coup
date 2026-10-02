@@ -3,6 +3,7 @@ set -euo pipefail
 
 APP_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 source "$APP_ROOT/Scripts/release-identity.sh"
+source "$APP_ROOT/Scripts/codex-runtime-identity.sh"
 DMG_PATH="${1:-$APP_ROOT/.build/macos/$RELEASE_ASSET}"
 [[ -f "$DMG_PATH" ]] || { print -u2 "Missing DMG: $DMG_PATH"; exit 1; }
 [[ "${DMG_PATH:t}" == "$RELEASE_ASSET" ]] || { print -u2 "DMG filename differs from declared release asset"; exit 1; }
@@ -68,7 +69,7 @@ for FILE in Codex-LICENSE.txt Codex-NOTICE.txt; do
     print -u2 "Shipped $FILE differs from pinned source notice"; exit 1
   }
 done
-[[ "$("$CONTENTS_DIR/Resources/codex" --version)" == 'codex-cli 0.156.1' ]] || {
+[[ "$("$CONTENTS_DIR/Resources/codex" --version)" == "codex-cli $CODEX_BUNDLED_RUNTIME_VERSION" ]] || {
   print -u2 "Unexpected shipped Codex runtime version"; exit 1
 }
 "$APP_ROOT/Scripts/verify-codex-handshake.py" "$CONTENTS_DIR/Resources/codex"
