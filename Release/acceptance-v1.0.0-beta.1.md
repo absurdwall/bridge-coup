@@ -40,6 +40,13 @@ bundled runtime was selected by override rather than unmodified discovery.
 It does not establish clean-user login, first launch from a browser download,
 quarantine handling, or login-state preservation after an upgrade.
 
+In the same installed final candidate, the DDS panel's **已知结果例牌** action
+populated a complete 52-card, four-hand position with North holding thirteen
+spades. DDS 3.0.0 displayed a verified result of **行牌方搭档 13 / 13 墩** for
+each spade lead. This verifies packaged DDS execution through the GUI on the
+local installed app. It still does not establish the clean-user,
+browser-downloaded DDS release gate.
+
 ## Earlier two-version local rehearsal
 
 The 2026-10-02 local rehearsal used two packages built from **`362e1d7`**,
