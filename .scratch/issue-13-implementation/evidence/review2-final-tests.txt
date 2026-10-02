@@ -1,0 +1,14 @@
+Code source: b81a5021636b6598e84b3e1211f71341c077823f
+Real DDS helper 3.0.0; command: BRIDGE_TEACHER_DDS_HELPER=<aggregate>/.build/dds/bridge-dds swift test
+
+Test Case '-[BridgeTeacherMacTests.SharedOriginalHandsWorkflowTests testSharedImportedBoardRunsRealDDSWithoutIndependentInput]' passed (0.017 seconds).
+Test Suite 'SharedOriginalHandsWorkflowTests' passed at 2026-10-02 11:56:51.628.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 0.027 (0.028) seconds
+Test Suite 'BridgeTeacherPackageTests.xctest' passed at 2026-10-02 11:56:51.628.
+	 Executed 187 tests, with 0 failures (0 unexpected) in 12.425 (12.442) seconds
+Test Suite 'All tests' passed at 2026-10-02 11:56:51.628.
+	 Executed 187 tests, with 0 failures (0 unexpected) in 12.425 (12.444) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

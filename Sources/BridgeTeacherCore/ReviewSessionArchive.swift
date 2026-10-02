@@ -111,6 +111,13 @@ public struct DoubleDummyVerificationWorkflowArchive: Codable, Equatable, Sendab
     }
 }
 
+/// Independent DDS inputs remain separate until the user chooses a shared source.
+public enum DoubleDummyHandSource: String, Codable, Equatable, Sendable {
+    case sharedOriginal
+    case independentNeedsReview
+    case independentReviewed
+}
+
 public struct ReviewSessionSnapshot: Codable, Equatable, Identifiable, Sendable {
     public let id: UUID
     public var title: String
@@ -121,6 +128,10 @@ public struct ReviewSessionSnapshot: Codable, Equatable, Identifiable, Sendable 
     public var keyPlay: KeyPlayAnalysisWorkflowArchive
     public var doubleDummy: DoubleDummyVerificationWorkflowArchive
     public var screenshotAssetName: String?
+    public var originalHandFacts: OriginalHandFacts?
+    public var doubleDummyOriginalHandVersion: Int?
+    public var doubleDummyHandSource: DoubleDummyHandSource?
+    public var playSession: BridgePlaySession?
 
     public init(
         id: UUID = UUID(),
@@ -131,7 +142,11 @@ public struct ReviewSessionSnapshot: Codable, Equatable, Identifiable, Sendable 
         screenshot: ScreenshotReviewWorkflowArchive,
         keyPlay: KeyPlayAnalysisWorkflowArchive,
         doubleDummy: DoubleDummyVerificationWorkflowArchive,
-        screenshotAssetName: String? = nil
+        screenshotAssetName: String? = nil,
+        originalHandFacts: OriginalHandFacts? = nil,
+        doubleDummyOriginalHandVersion: Int? = nil,
+        playSession: BridgePlaySession? = nil,
+        doubleDummyHandSource: DoubleDummyHandSource? = nil
     ) {
         self.id = id
         self.title = title
@@ -142,6 +157,10 @@ public struct ReviewSessionSnapshot: Codable, Equatable, Identifiable, Sendable 
         self.keyPlay = keyPlay
         self.doubleDummy = doubleDummy
         self.screenshotAssetName = screenshotAssetName
+        self.originalHandFacts = originalHandFacts
+        self.doubleDummyOriginalHandVersion = doubleDummyOriginalHandVersion
+        self.playSession = playSession
+        self.doubleDummyHandSource = doubleDummyHandSource
     }
 }
 
@@ -248,16 +267,28 @@ public struct LocalReviewSessionStore {
             screenshot: snapshot.screenshot,
             keyPlay: snapshot.keyPlay,
             doubleDummy: snapshot.doubleDummy,
-            screenshotAssetName: snapshot.screenshotAssetName
+            screenshotAssetName: snapshot.screenshotAssetName,
+            originalHandFacts: snapshot.originalHandFacts,
+            doubleDummyOriginalHandVersion: snapshot.doubleDummyOriginalHandVersion,
+            playSession: snapshot.playSession,
+            doubleDummyHandSource: snapshot.doubleDummyHandSource
         )
         var newAssetName: String?
         if let screenshotURL {
-            do {
-                let name = try copyScreenshot(screenshotURL, to: assetsDirectory)
-                newAssetName = name
-                storedSnapshot.screenshotAssetName = name
-            } catch {
-                throw ReviewSessionStoreError.writeFailed(error.localizedDescription)
+            if let previousAsset = previousSnapshot?.screenshotAssetName,
+               isSafeAssetName(previousAsset),
+               screenshotURL.standardizedFileURL == assetsDirectory.appendingPathComponent(previousAsset).standardizedFileURL,
+               fileManager.fileExists(atPath: screenshotURL.path) {
+                // An opened workflow keeps this URL across saves and recognition requests.
+                storedSnapshot.screenshotAssetName = previousAsset
+            } else {
+                do {
+                    let name = try copyScreenshot(screenshotURL, to: assetsDirectory)
+                    newAssetName = name
+                    storedSnapshot.screenshotAssetName = name
+                } catch {
+                    throw ReviewSessionStoreError.writeFailed(error.localizedDescription)
+                }
             }
         } else if storedSnapshot.screenshotAssetName == nil {
             storedSnapshot.screenshotAssetName = previousSnapshot?.screenshotAssetName

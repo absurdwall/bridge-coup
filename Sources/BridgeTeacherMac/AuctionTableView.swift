@@ -73,11 +73,32 @@ struct AuctionTablePresentation: Equatable {
     }
 }
 
+/// Compact visible auction rows use the same call identity/seat projection as
+/// the expanded editor. Missing seat assignments remain a labeled sequence.
+struct AuctionCornerPresentation {
+    let rows: [[AuctionTableCellPresentation]]?
+    let unassignedEntries: [AuctionEntry]
+    let hasEarlierRows: Bool
+
+    init(record: AuctionRecord) {
+        if let allRows = AuctionTablePresentation(record: record).rows {
+            rows = Array(allRows.suffix(2))
+            unassignedEntries = []
+            hasEarlierRows = allRows.count > 2
+        } else {
+            rows = nil
+            unassignedEntries = Array(record.entries.suffix(2))
+            hasEarlierRows = record.entries.count > 2
+        }
+    }
+}
+
 struct AuctionTableView: View {
     static let compactTableMaxHeight: CGFloat = 124
 
     @Binding var record: AuctionRecord?
     let onSaveMeaningNote: (UUID, String?) -> Void
+    var isCornerSummary = false
 
     @State private var isExpanded = false
     @State private var newBidLevel = 1
@@ -85,17 +106,103 @@ struct AuctionTableView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            if record?.kind == .calls, record?.isPartial == true {
-                Label("部分叫牌片段 · 不推断省略叫品或座位", systemImage: "ellipsis")
-                    .font(.system(size: 10, weight: .medium))
-                    .foregroundStyle(BridgePalette.warning)
-                    .accessibilityIdentifier("auction-partial-transcript-marker")
+            if isCornerSummary {
+                cornerSummary
+            } else {
+                if record?.kind == .calls, record?.isPartial == true {
+                    Label("部分叫牌片段 · 不推断省略叫品或座位", systemImage: "ellipsis")
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundStyle(BridgePalette.warning)
+                        .accessibilityIdentifier("auction-partial-transcript-marker")
+                }
+                recordContent()
             }
-            recordContent()
         }
         .sheet(isPresented: $isExpanded) {
             expandedEditor
         }
+    }
+
+    private var cornerSummary: some View {
+        VStack(alignment: .leading, spacing: 3) {
+            HStack(spacing: 4) {
+                Text("叫牌").font(.system(size: 10, weight: .semibold))
+                if record?.isPartial == true {
+                    Text("片段").font(.system(size: 8)).foregroundStyle(BridgePalette.warning)
+                }
+                if let record, AuctionCornerPresentation(record: record).hasEarlierRows {
+                    Text("末两行").font(.system(size: 8)).foregroundStyle(BridgePalette.muted)
+                }
+                Spacer(minLength: 0)
+                Button("展开") { isExpanded = true }
+                    .font(.system(size: 9)).buttonStyle(.plain)
+                    .accessibilityIdentifier("auction-expand")
+            }
+            if let record, record.kind == .calls, !record.entries.isEmpty {
+                cornerCalls(record)
+            } else {
+                Text(record.map { $0.kind == .noAuction ? "已确认本局无叫牌" : "尚无已确认叫品" } ?? "未提供；保持未知")
+                    .font(.system(size: 9)).foregroundStyle(BridgePalette.muted)
+                    .lineLimit(2)
+            }
+        }
+        .padding(6)
+        .background(.white.opacity(0.9), in: RoundedRectangle(cornerRadius: 8))
+        .overlay(RoundedRectangle(cornerRadius: 8).stroke(BridgePalette.border, lineWidth: 1))
+        .accessibilityIdentifier("auction-corner-summary")
+    }
+
+    @ViewBuilder
+    private func cornerCalls(_ record: AuctionRecord) -> some View {
+        let projection = AuctionCornerPresentation(record: record)
+        if let rows = projection.rows {
+            HStack(spacing: 3) {
+                ForEach(Seat.allCases, id: \.self) { seat in
+                    Text(shortSeatName(seat)).font(.system(size: 8)).foregroundStyle(BridgePalette.muted)
+                        .frame(maxWidth: .infinity)
+                }
+            }
+            ForEach(Array(rows.enumerated()), id: \.offset) { _, row in
+                HStack(spacing: 3) {
+                    ForEach(Array(row.enumerated()), id: \.offset) { _, cell in
+                        switch cell.content {
+                        case .layoutBlank:
+                            Color.clear.frame(maxWidth: .infinity, minHeight: 16).accessibilityHidden(true)
+                        case let .call(id, _, _, _):
+                            if let entry = record.entries.first(where: { $0.id == id }) {
+                                cornerCall(entryForDisplay(entry, in: cell))
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            ForEach(projection.unassignedEntries, id: \.id) { entry in
+                HStack(spacing: 5) {
+                    Text(entry.seat?.chineseName ?? "位置未知")
+                        .font(.system(size: 8)).foregroundStyle(BridgePalette.warning)
+                    cornerCall(entry)
+                }
+            }
+        }
+    }
+
+    private func cornerCall(_ entry: AuctionEntry) -> some View {
+        let ink = AuctionCallInk.forCall(entry.call)
+        return AuctionCallPresentation(
+            entry: entry,
+            onSaveMeaningNote: { onSaveMeaningNote(entry.id, $0) },
+            onCallChange: { updateCall(entry.id, $0) },
+            onDelete: { deleteCall(entry.id) }
+        ) {
+            Text(entry.call.displayText)
+                .font(.system(size: 9, weight: .semibold, design: .rounded))
+                .foregroundStyle(ink.foreground)
+                .lineLimit(1)
+                .minimumScaleFactor(0.82)
+                .frame(maxWidth: .infinity, minHeight: 16)
+        }
+        .background(ink.background, in: RoundedRectangle(cornerRadius: 3))
     }
 
     @ViewBuilder

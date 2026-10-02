@@ -1,0 +1,17 @@
+Source: 2824db804ed226774a5e3a1cd84b7114b3e21935
+Command: Scripts/build-macos-app.sh
+Native QA5: 0.13.0 (5), isolated bundle ID and review store
+Normal package: 0.1.0 (1), existing product metadata; built and strict signature verified
+
+INFO: Build completed successfully, 1 total action
+Built DDS v3.0.0 (37c8a79f4c67c55d1a309ccb66dd00cb58af464a) at /Users/tingranwang/.codex/worktrees/play-workspace-spec13/bridge-coup/.build/dds/bridge-dds
+Building for production...
+[0/5] Write sources
+[2/5] Write swift-version--58304C5D6DBC2206.txt
+[4/6] Compiling BridgeTeacherCore AuctionRecord.swift
+[5/7] Compiling BridgeTeacherMac AnalysisMarkdownDocument.swift
+[5/7] Write Objects.LinkFileList
+[6/7] Linking BridgeTeacherMac
+Build complete! (72.70s)
+/Users/tingranwang/.codex/worktrees/play-workspace-spec13/bridge-coup/.build/macos/Bridge Coup.app: replacing existing signature
+Built /Users/tingranwang/.codex/worktrees/play-workspace-spec13/bridge-coup/.build/macos/Bridge Coup.app

@@ -17,6 +17,8 @@ protocol CodexRPCClientProtocol: AnyObject, Sendable {
 
 enum CodexRuntimeSetupError: Error, Equatable, LocalizedError {
     case runtimeNotFound
+    case runtimeNotExecutable(String)
+    case protocolUnavailable(String)
     case invalidVersion(String)
     case unsupportedVersion(found: String, minimum: String)
     case notSignedIn
@@ -33,6 +35,10 @@ enum CodexRuntimeSetupError: Error, Equatable, LocalizedError {
         switch self {
         case .runtimeNotFound:
             PlanRuntimeError.runtimeNotFound.localizedDescription
+        case let .runtimeNotExecutable(message):
+            "Codex runtime 不可运行：\(message) 请重新搜索或手动选择可执行文件。"
+        case let .protocolUnavailable(message):
+            "Codex runtime 协议不可用：\(message) 请重新搜索或选择支持 app-server 的 runtime。"
         case let .invalidVersion(value):
             "无法读取 Codex runtime 版本（\(value)）。请重新选择 codex 可执行文件。"
         case let .unsupportedVersion(found, minimum):
@@ -102,6 +108,39 @@ enum CodexRuntimeModelCatalogParser {
     }
 }
 
+/// The runtime can legitimately reason and stream beyond three minutes at Ultra.
+/// Bound both silence and overall duration; durations are injectable at the service seam.
+struct CodexTurnWaitPolicy: Sendable {
+    let inactivityTimeout: Duration
+    let overallTimeout: Duration
+
+    static let standard = Self(inactivityTimeout: .seconds(180), overallTimeout: .seconds(900))
+}
+
+private actor CodexTurnActivity {
+    private let clock = ContinuousClock()
+    private let policy: CodexTurnWaitPolicy
+    private let overallDeadline: ContinuousClock.Instant
+    private var lastActivity: ContinuousClock.Instant
+
+    init(policy: CodexTurnWaitPolicy) {
+        let now = ContinuousClock().now
+        self.policy = policy
+        overallDeadline = now.advanced(by: policy.overallTimeout)
+        lastActivity = now
+    }
+
+    func recordProgress() { lastActivity = clock.now }
+
+    func remainingWait() -> Duration {
+        let now = clock.now
+        return min(
+            now.duration(to: lastActivity.advanced(by: policy.inactivityTimeout)),
+            now.duration(to: overallDeadline)
+        )
+    }
+}
+
 actor CodexTeachingService: DeclarerTeachingRuntime, ScreenshotRecognitionRuntime {
     static let minimumVersion = "0.156.1"
 
@@ -110,11 +149,13 @@ actor CodexTeachingService: DeclarerTeachingRuntime, ScreenshotRecognitionRuntim
     private var runtimeModels: [CodexRuntimeModelCapability] = []
     private var requestSelection: CodexModelSelection?
     private let appSupportURL: URL
+    private let turnWaitPolicy: CodexTurnWaitPolicy
     private let clientFactory: @Sendable (URL, URL, [String: String]) -> any CodexRPCClientProtocol
     private let fileManager = FileManager.default
 
     init(
         appSupportURL: URL? = nil,
+        turnWaitPolicy: CodexTurnWaitPolicy = .standard,
         clientFactory: @escaping @Sendable (URL, URL, [String: String]) -> any CodexRPCClientProtocol = {
             CodexJSONRPCClient(executableURL: $0, currentDirectoryURL: $1, environment: $2)
         }
@@ -124,6 +165,7 @@ actor CodexTeachingService: DeclarerTeachingRuntime, ScreenshotRecognitionRuntim
             in: .userDomainMask
         )[0].appendingPathComponent("Bridge Teacher", isDirectory: true)
         self.clientFactory = clientFactory
+        self.turnWaitPolicy = turnWaitPolicy
     }
 
     func configure(executableURL: URL) async throws -> CodexRuntimeInfo {
@@ -137,9 +179,6 @@ actor CodexTeachingService: DeclarerTeachingRuntime, ScreenshotRecognitionRuntim
             throw CodexRuntimeSetupError.unsupportedVersion(found: version, minimum: Self.minimumVersion)
         }
 
-        client?.stop()
-        runtimeModels = []
-        requestSelection = nil
         let home = appSupportURL.appendingPathComponent("Codex Home", isDirectory: true)
         let workspace = appSupportURL.appendingPathComponent("Runtime Workspace", isDirectory: true)
         try fileManager.createDirectory(at: home, withIntermediateDirectories: true)
@@ -152,7 +191,7 @@ actor CodexTeachingService: DeclarerTeachingRuntime, ScreenshotRecognitionRuntim
         let nextClient = clientFactory(executableURL, workspace, environment)
         do {
             try nextClient.start()
-            _ = try await nextClient.request("initialize", params: [
+            _ = try await Self.probeRequest(nextClient, method: "initialize", params: [
                 "clientInfo": [
                     "name": "bridge_teacher",
                     "title": "Bridge Coup",
@@ -162,9 +201,12 @@ actor CodexTeachingService: DeclarerTeachingRuntime, ScreenshotRecognitionRuntim
             try nextClient.notify("initialized", params: [:])
         } catch {
             nextClient.stop()
-            throw Self.map(error)
+            throw CodexRuntimeSetupError.protocolUnavailable(error.localizedDescription)
         }
 
+        client?.stop()
+        runtimeModels = []
+        requestSelection = nil
         let info = CodexRuntimeInfo(executableURL: executableURL, version: version)
         runtimeInfo = info
         client = nextClient
@@ -172,8 +214,11 @@ actor CodexTeachingService: DeclarerTeachingRuntime, ScreenshotRecognitionRuntim
     }
 
     func isChatGPTSignedIn() async throws -> Bool {
-        let response = try await requireClient().request("account/read", params: [:])
-        let account = response["account"] as? [String: Any]
+        let response = try await Self.probeRequest(requireClient(), method: "account/read", params: [:])
+        guard let value = response["account"], value is NSNull || value is [String: Any] else {
+            throw CodexRuntimeSetupError.protocolUnavailable("account/read 没有返回可读取的账号状态。")
+        }
+        let account = value as? [String: Any]
         return account?["type"] as? String == "chatgpt"
     }
 
@@ -297,7 +342,7 @@ actor CodexTeachingService: DeclarerTeachingRuntime, ScreenshotRecognitionRuntim
 
     private struct IsolatedTurnResult {
         let text: String
-        let model: String
+        let model: String?
         let requestedModel: String
         let reasoningEffort: String
     }
@@ -353,7 +398,8 @@ actor CodexTeachingService: DeclarerTeachingRuntime, ScreenshotRecognitionRuntim
             let completion = try await Self.waitForCompletion(
                 threadID: threadID,
                 turnID: turnID,
-                notifications: notifications
+                notifications: notifications,
+                policy: turnWaitPolicy
             )
             let turn = completion["turn"] as? [String: Any] ?? [:]
             guard turn["status"] as? String == "completed" else {
@@ -379,7 +425,19 @@ actor CodexTeachingService: DeclarerTeachingRuntime, ScreenshotRecognitionRuntim
                 throw CodexRuntimeSetupError.emptyResponse
             }
 
-            let turnModel = turn["model"] as? String ?? effectiveThreadModel ?? selection.modelIdentifier
+            let reportedModels = [startedTurn["model"] as? String, turn["model"] as? String].compactMap { $0 }
+            if let changedModel = reportedModels.first(where: { $0 != selection.modelIdentifier }) {
+                throw CodexRuntimeSetupError.request(
+                    "Codex runtime 返回了 \(changedModel)，与本次选择的 \(selection.modelIdentifier) 不同。请刷新模型能力后重试。"
+                )
+            }
+            let reportedEfforts = [startedTurn["effort"] as? String, turn["effort"] as? String].compactMap { $0 }
+            if let changedEffort = reportedEfforts.first(where: { $0 != selection.effort.rawValue }) {
+                throw CodexRuntimeSetupError.request(
+                    "Codex runtime 返回了 \(changedEffort)，与本次选择的 \(selection.effort.rawValue) 不同。请刷新模型能力后重试。"
+                )
+            }
+            let turnModel = turn["model"] as? String ?? startedTurn["model"] as? String ?? effectiveThreadModel
             return IsolatedTurnResult(
                 text: text,
                 model: turnModel,
@@ -492,6 +550,10 @@ actor CodexTeachingService: DeclarerTeachingRuntime, ScreenshotRecognitionRuntim
 
     private func requireRequestSelection() throws -> CodexModelSelection {
         guard let requestSelection else { throw CodexRuntimeSetupError.modelConfigurationUnavailable }
+        let verified = CodexModelSettingsState(runtimeModels: runtimeModels, savedSelection: requestSelection)
+        guard verified.selection == requestSelection else {
+            throw CodexRuntimeSetupError.modelConfigurationUnavailable
+        }
         return requestSelection
     }
 
@@ -502,24 +564,33 @@ actor CodexTeachingService: DeclarerTeachingRuntime, ScreenshotRecognitionRuntim
     private static func waitForCompletion(
         threadID: String,
         turnID: String,
-        notifications: AsyncStream<CodexServerNotification>
+        notifications: AsyncStream<CodexServerNotification>,
+        policy: CodexTurnWaitPolicy
     ) async throws -> [String: Any] {
-        try await withThrowingTaskGroup(of: [String: Any].self) { group in
+        let activity = CodexTurnActivity(policy: policy)
+        return try await withThrowingTaskGroup(of: [String: Any].self) { group in
             group.addTask {
                 for await event in notifications {
-                    guard event.method == "turn/completed",
-                          event.params["threadId"] as? String == threadID,
-                          let turn = event.params["turn"] as? [String: Any],
-                          turn["id"] as? String == turnID else {
-                        continue
+                    guard event.params["threadId"] as? String == threadID else { continue }
+                    let turn = event.params["turn"] as? [String: Any]
+                    let eventTurnID = event.params["turnId"] as? String ?? turn?["id"] as? String
+                    guard eventTurnID == turnID else { continue }
+                    if event.method == "turn/completed", turn != nil {
+                        return event.params
                     }
-                    return event.params
+                    if event.method.hasPrefix("item/") || event.method == "turn/started"
+                        || event.method == "turn/plan/updated" || event.method == "turn/diff/updated" {
+                        await activity.recordProgress()
+                    }
                 }
                 throw CodexRuntimeSetupError.transport("连接在 Codex 返回结果前结束。")
             }
             group.addTask {
-                try await Task.sleep(nanoseconds: 180_000_000_000)
-                throw CodexRuntimeSetupError.timedOut
+                while true {
+                    let remaining = await activity.remainingWait()
+                    guard remaining > .zero else { throw CodexRuntimeSetupError.timedOut }
+                    try await Task.sleep(for: remaining)
+                }
             }
             defer { group.cancelAll() }
             guard let completion = try await group.next() else {
@@ -537,31 +608,67 @@ actor CodexTeachingService: DeclarerTeachingRuntime, ScreenshotRecognitionRuntim
         })?["text"] as? String ?? ""
     }
 
+    /// Probe calls have a bounded lifetime. Stopping the candidate resumes pending RPCs,
+    /// allowing search to proceed even when a process never speaks the protocol.
+    private static func probeRequest(
+        _ client: any CodexRPCClientProtocol,
+        method: String,
+        params: [String: Any]
+    ) async throws -> [String: Any] {
+        try await withThrowingTaskGroup(of: [String: Any].self) { group in
+            group.addTask { try await client.request(method, params: params) }
+            group.addTask {
+                try await Task.sleep(nanoseconds: 5_000_000_000)
+                client.stop()
+                throw CodexRuntimeSetupError.protocolUnavailable("连接检查超时。")
+            }
+            defer { group.cancelAll() }
+            guard let response = try await group.next() else {
+                throw CodexRuntimeSetupError.protocolUnavailable("连接检查没有返回响应。")
+            }
+            return response
+        }
+    }
+
     private static func readVersion(executableURL: URL) throws -> String {
-        guard FileManager.default.isExecutableFile(atPath: executableURL.path) else {
-            throw CodexRuntimeSetupError.runtimeNotFound
+        if let failure = CodexRuntimeDiscovery.checkFile(executableURL) {
+            if failure == .missing { throw CodexRuntimeSetupError.runtimeNotFound }
+            throw CodexRuntimeSetupError.runtimeNotExecutable(failure.message)
         }
         let process = Process()
         let output = Pipe()
-        let errors = Pipe()
         process.executableURL = executableURL
         process.arguments = ["--version"]
         process.environment = ["PATH": applicationPath(environment: ProcessInfo.processInfo.environment)]
         process.standardOutput = output
-        process.standardError = errors
-        do {
-            try process.run()
-            let data = output.fileHandleForReading.readDataToEndOfFile()
-            process.waitUntilExit()
-            guard process.terminationStatus == 0 else {
-                throw CodexRuntimeSetupError.transport("版本检查命令退出码 \(process.terminationStatus)。")
-            }
-            return String(decoding: data, as: UTF8.self).trimmingCharacters(in: .whitespacesAndNewlines)
-        } catch let error as CodexRuntimeSetupError {
-            throw error
-        } catch {
-            throw CodexRuntimeSetupError.transport(error.localizedDescription)
+        process.standardError = FileHandle.nullDevice
+        let finished = DispatchSemaphore(value: 0)
+        process.terminationHandler = { _ in finished.signal() }
+        do { try process.run() } catch {
+            throw CodexRuntimeSetupError.runtimeNotExecutable(error.localizedDescription)
         }
+        // Version output is small; drain while waiting so a broken candidate cannot fill its pipe.
+        let buffer = CodexVersionOutput()
+        let outputFinished = DispatchSemaphore(value: 0)
+        DispatchQueue.global().async {
+            while true {
+                let data = output.fileHandleForReading.availableData
+                if data.isEmpty { break }
+                buffer.append(data)
+            }
+            outputFinished.signal()
+        }
+        guard finished.wait(timeout: .now() + 5) == .success else {
+            process.terminate()
+            throw CodexRuntimeSetupError.runtimeNotExecutable("版本检查超时。")
+        }
+        guard outputFinished.wait(timeout: .now() + 1) == .success else {
+            throw CodexRuntimeSetupError.runtimeNotExecutable("版本输出没有结束。")
+        }
+        guard process.terminationStatus == 0 else {
+            throw CodexRuntimeSetupError.runtimeNotExecutable("版本检查退出码 \(process.terminationStatus)。")
+        }
+        return String(decoding: buffer.data, as: UTF8.self).trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     private static func applicationPath(environment: [String: String]) -> String {
@@ -674,6 +781,8 @@ private final class CodexJSONRPCClient: CodexRPCClientProtocol, @unchecked Senda
         self.currentDirectoryURL = currentDirectoryURL
         self.environment = environment
     }
+
+    deinit { stop() }
 
     func start() throws {
         lock.lock()
@@ -835,7 +944,11 @@ private final class CodexJSONRPCClient: CodexRPCClientProtocol, @unchecked Senda
                     message: failure["message"] as? String ?? "Unknown Codex error"
                 ))
             } else {
-                continuation.resume(returning: message["result"] as? [String: Any] ?? [:])
+                if let result = message["result"] as? [String: Any] {
+                    continuation.resume(returning: result)
+                } else {
+                    continuation.resume(throwing: CodexRuntimeSetupError.protocolUnavailable("app-server 返回了无效响应。"))
+                }
             }
             return
         }
@@ -870,5 +983,17 @@ private final class CodexJSONRPCClient: CodexRPCClientProtocol, @unchecked Senda
         lock.lock()
         notificationContinuations.removeValue(forKey: id)
         lock.unlock()
+    }
+}
+
+private final class CodexVersionOutput: @unchecked Sendable {
+    private let lock = NSLock()
+    private var storage = Data()
+    var data: Data { lock.lock(); defer { lock.unlock() }; return storage }
+    func append(_ data: Data) {
+        lock.lock()
+        defer { lock.unlock() }
+        // Malformed output cannot grow memory without bound.
+        storage.append(data.prefix(max(0, 8192 - storage.count)))
     }
 }

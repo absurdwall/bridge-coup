@@ -8,7 +8,7 @@ struct BridgeTeacherMacApp: App {
         WindowGroup("Bridge Coup") {
             BridgeTeacherWorkspaceShell()
         }
-        .windowResizability(.contentSize)
+        .windowResizability(.contentMinSize)
         .defaultSize(width: 1320, height: 900)
     }
 }
@@ -53,6 +53,7 @@ struct BridgeTeacherWorkspaceView: View {
             .frame(minWidth: 1180, minHeight: 650, alignment: .top)
             .accessibilityIdentifier("bridge-coup-workspace")
         }
+        .frame(minWidth: 1180, minHeight: 650)
         .background(BridgePalette.canvas.ignoresSafeArea())
         .preferredColorScheme(.light)
         .task { await model.bootstrap() }
@@ -60,13 +61,30 @@ struct BridgeTeacherWorkspaceView: View {
             SavedReviewSessionsView(model: model)
                 .frame(minWidth: 540, minHeight: 420)
         }
-        .alert(item: $model.reviewSessionAlert) { alert in
-            Alert(
-                title: Text(alert.title),
-                message: Text(alert.message),
-                dismissButton: .default(Text("好"))
-            )
+        .alert(item: workspaceAlertBinding) { presented in
+            switch presented {
+            case let .review(alert):
+                Alert(title: Text(alert.title), message: Text(alert.message),
+                      dismissButton: .default(Text("好")) { model.reviewSessionAlert = nil })
+            case .playReset:
+                Alert(title: Text("重置当前自主推演？"),
+                      message: Text("修改原始手牌、首攻、庄家或定约会重置当前推演。取消可保留原输入和局面。"),
+                      primaryButton: .destructive(Text("重置并修改")) { model.confirmPlayReset() },
+                      secondaryButton: .cancel(Text("取消")) { model.cancelPlayReset() })
+            }
         }
+    }
+
+    private var workspaceAlertBinding: Binding<WorkspacePresentedAlert?> {
+        Binding(
+            get: {
+                if let request = model.pendingPlayReset { return .playReset(request) }
+                return model.reviewSessionAlert.map(WorkspacePresentedAlert.review)
+            },
+            // Alert clears its binding before invoking a button callback. Keep
+            // the staged edit until confirm/cancel explicitly consumes it.
+            set: { _ in }
+        )
     }
 
     private var teachingModeBinding: Binding<TeachingMode> {
@@ -189,6 +207,7 @@ struct BridgeTeacherWorkspaceView: View {
 private struct CodexModelSettingsPopover: View {
     @ObservedObject var model: BridgeTeacherApplicationModel
     @Environment(\.dismiss) private var dismiss
+    @State private var showRuntimePaths = false
     @State private var isConnectionExpanded = false
 
     var body: some View {
@@ -323,7 +342,7 @@ private struct CodexModelSettingsPopover: View {
             }
             .padding(12)
         }
-        .frame(width: 326, height: 354)
+        .frame(width: 326, height: isConnectionExpanded ? 560 : 354)
         .background(BridgePalette.canvas)
     }
 
@@ -336,15 +355,20 @@ private struct CodexModelSettingsPopover: View {
                     .fixedSize(horizontal: false, vertical: true)
 
                 if let runtimePath = model.runtimePath {
-                    Text(URL(fileURLWithPath: runtimePath).lastPathComponent)
+                    Text(runtimePath)
                         .font(.system(size: 9, design: .monospaced))
                         .foregroundStyle(BridgePalette.muted)
                         .lineLimit(1)
                 }
 
                 HStack(spacing: 6) {
-                    Button("选择 Codex runtime") { model.chooseRuntime() }
+                    Button("重新搜索") { Task { await model.searchRuntime() } }
                         .controlSize(.small)
+                        .disabled(model.isConnecting || model.isStartingLogin)
+                        .accessibilityIdentifier("search-codex-runtime")
+                    Button("手动选择") { model.chooseRuntime() }
+                        .controlSize(.small)
+                        .disabled(model.isConnecting || model.isStartingLogin)
                     if model.connectionStatus.isSignedIn {
                         Button("检查连接") { Task { await model.checkLogin() } }
                             .controlSize(.small)
@@ -364,6 +388,38 @@ private struct CodexModelSettingsPopover: View {
                             .controlSize(.small)
                             .disabled(model.isStartingLogin)
                     }
+                }
+
+                Button(showRuntimePaths ? "收起候选路径" : "查看建议路径") { showRuntimePaths.toggle() }
+                    .font(.system(size: 10))
+                    .accessibilityIdentifier("show-runtime-paths")
+                if showRuntimePaths || (!model.connectionStatus.isSignedIn && model.connectionStatus.runtimeVersion == nil && !model.isConnecting) {
+                    Text("候选位置不保证已安装。复制完整路径，或定位到最近的已有文件夹后手动选择。")
+                        .font(.system(size: 9))
+                        .foregroundStyle(BridgePalette.muted)
+                        .fixedSize(horizontal: false, vertical: true)
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 8) {
+                            ForEach(model.runtimePathHints) { hint in
+                                VStack(alignment: .leading, spacing: 3) {
+                                    Text(hint.url.path)
+                                        .font(.system(size: 9, design: .monospaced))
+                                        .textSelection(.enabled)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                    HStack {
+                                        Text(hint.failure?.message ?? "探测通过")
+                                            .font(.system(size: 9))
+                                            .foregroundStyle(BridgePalette.muted)
+                                        Spacer()
+                                        Button("复制") { model.copyRuntimePath(hint.url) }
+                                        Button("定位") { model.revealRuntimePath(hint.url) }
+                                    }
+                                    .controlSize(.mini)
+                                }
+                            }
+                        }
+                    }
+                    .frame(maxHeight: 125)
                 }
 
                 Button("刷新模型能力") { Task { await model.refreshModelSettings() } }
@@ -410,7 +466,7 @@ private struct CodexRequestProvenanceLine: View {
     private var summary: String? {
         let requested = requestedModel ?? model
         guard let requested, !requested.isEmpty else { return nil }
-        let effective = model.map { $0 == requested ? requested : "\(requested) → \($0)" } ?? requested
+        let effective = model.map { $0 == requested ? requested : "\(requested) → \($0)" } ?? "\(requested)（runtime 未回报模型）"
         guard let effort, !effort.isEmpty else { return effective }
         let effortTitle = CodexReasoningEffort(rawValue: effort)?.title ?? effort
         return "\(effective) · \(effortTitle)"
@@ -496,6 +552,8 @@ private struct DeclarerEntryPanel: View {
     @State private var isContextExpanded = false
     @State private var isShowingContractGrid = false
     @State private var isDoubleDummyVerificationExpanded = false
+    @State private var isShowingOriginalContractTable = false
+    @State private var isEditingOriginalHands = false
     @FocusState private var isContractPickerFocused: Bool
 
     var body: some View {
@@ -522,7 +580,15 @@ private struct DeclarerEntryPanel: View {
 
                 contractFields
                 auctionFields
-                visibleHands
+                playControls
+                if model.playSession != nil && !isEditingOriginalHands {
+                    PlayWorkspaceView(model: model, auction: auctionRecordBinding, onSaveMeaningNote: saveAuctionMeaningNote)
+                } else {
+                    visibleHands
+                }
+                Button("原始四手定约表") { isShowingOriginalContractTable = true }
+                    .font(.system(size: 11, weight: .medium))
+                    .accessibilityIdentifier("open-original-contract-table")
 
                 DisclosureGroup(isExpanded: $isContextExpanded) {
                     Group {
@@ -592,7 +658,7 @@ private struct DeclarerEntryPanel: View {
                         .font(.system(size: 12, weight: .semibold))
                         .foregroundStyle(BridgePalette.ink)
                         .accessibilityIdentifier("open-double-dummy-verification")
-                    Text("按需录入完整牌局并运行 DDS；核验结果不会进入教学请求。")
+                    Text("复用已核对牌面或当前推演局面运行 DDS；核验结果不会进入教学请求。")
                         .font(.system(size: 10))
                         .foregroundStyle(BridgePalette.muted)
                         .fixedSize(horizontal: false, vertical: true)
@@ -632,6 +698,9 @@ private struct DeclarerEntryPanel: View {
         .padding(20)
         .background(.white, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
+        .sheet(isPresented: $isShowingOriginalContractTable) {
+            OriginalContractTableView(workflow: model.originalContractTableWorkflow)
+        }
         .sheet(isPresented: $isShowingScreenshotPreview) {
             if let screenshotURL = screenshotWorkflow.screenshotURL {
                 ScreenshotImagePreview(url: screenshotURL)
@@ -1009,6 +1078,35 @@ private struct DeclarerEntryPanel: View {
         return mode == .declarerPlan ? "生成做庄计划" : "分析这一步"
     }
 
+    private var playControls: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                if model.playSession == nil {
+                    Button {
+                        if model.startPlay() { isEditingOriginalHands = false }
+                    } label: {
+                        Text(workflow.draft.openingLead.isEmpty ? "开始自主推演" : "开始自主推演 · 采用首攻 \(workflow.draft.openingLead)")
+                    }
+                    .buttonStyle(.borderedProminent).tint(BridgePalette.green)
+                    .disabled(model.playStartReason != nil)
+                    .accessibilityIdentifier("start-autonomous-play")
+                } else {
+                    Text("自主推演").font(.system(size: 12, weight: .semibold))
+                    Spacer()
+                    Button(isEditingOriginalHands ? "返回推演" : "编辑原始手牌") { isEditingOriginalHands.toggle() }
+                        .controlSize(.small)
+                }
+            }
+            if model.playSession == nil {
+                Text(model.playStartReason ?? "点击开始自主推演后可点牌。")
+                    .font(.system(size: 11)).foregroundStyle(BridgePalette.muted)
+            } else if isEditingOriginalHands {
+                Text("这里显示原始手牌；保存修改前可选择重置推演或取消。")
+                    .font(.system(size: 11)).foregroundStyle(BridgePalette.muted)
+            }
+        }
+    }
+
     private var visibleHands: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .firstTextBaseline) {
@@ -1018,7 +1116,7 @@ private struct DeclarerEntryPanel: View {
                     .font(.system(size: 13, weight: .semibold))
                     .foregroundStyle(BridgePalette.ink)
                 Spacer()
-                Text(screenshotWorkflow.screenshotURL == nil ? "留空 = 未知" : "仅勾选后加入分析")
+                Text("仅勾选后加入教学 · 留空 = 未知")
                     .font(.system(size: 11))
                     .foregroundStyle(BridgePalette.muted)
             }
@@ -1027,7 +1125,7 @@ private struct DeclarerEntryPanel: View {
                 auction: auctionRecordBinding,
                 onSaveAuctionMeaningNote: saveAuctionMeaningNote,
                 actingSeat: mode == .keyPlayAnalysis ? keyPlayWorkflow.draft.actingSeat : nil,
-                screenshotReviewMode: screenshotWorkflow.screenshotURL != nil,
+                screenshotReviewMode: true,
                 isDecisionTimeVisible: { seat in
                     workflow.draft.decisionTimeVisibleSeats?.contains(seat) ?? true
                 },
@@ -1137,12 +1235,7 @@ private struct DeclarerEntryPanel: View {
 
     private var inputWarning: String? {
         if mode == .declarerPlan { return handWarning }
-        do {
-            _ = try KeyPlayAnalysisRequestBuilder.build(from: workflow.draft, node: keyPlayWorkflow.draft)
-            return nil
-        } catch {
-            return error.localizedDescription
-        }
+        return model.keyPlayInputWarning
     }
 
     private var handWarning: String? {
@@ -1377,13 +1470,20 @@ private struct BridgeDealTable: View {
             seatCard(.north)
             HStack(spacing: 8) {
                 seatCard(.west)
-                AuctionTableView(record: $auction, onSaveMeaningNote: onSaveAuctionMeaningNote)
+                Text("点击开始自主推演后可点牌")
+                    .font(.system(size: 10))
+                    .foregroundStyle(BridgePalette.muted)
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 82)
                 seatCard(.east)
             }
             seatCard(.south)
         }
         .padding(8)
+        .overlay(alignment: .topLeading) {
+            AuctionTableView(record: $auction, onSaveMeaningNote: onSaveAuctionMeaningNote, isCornerSummary: true)
+                .frame(width: 172, height: 86, alignment: .topLeading)
+                .padding(8)
+        }
         .background(Color(red: 0.92, green: 0.95, blue: 0.92), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).stroke(BridgePalette.border, lineWidth: 1))
         .frame(maxWidth: .infinity)
@@ -2129,6 +2229,17 @@ enum BridgePalette {
         case .diamonds: Color(red: 0.99, green: 0.94, blue: 0.88)
         case .clubs: Color(red: 0.92, green: 0.96, blue: 0.92)
         case .noTrump: Color(red: 0.95, green: 0.93, blue: 0.98)
+        }
+    }
+}
+
+private enum WorkspacePresentedAlert: Identifiable {
+    case review(ReviewSessionAlert)
+    case playReset(PlayResetRequest)
+    var id: UUID {
+        switch self {
+        case let .review(alert): alert.id
+        case let .playReset(request): request.id
         }
     }
 }

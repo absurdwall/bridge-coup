@@ -7,9 +7,17 @@ public enum CodexModelFamily: String, CaseIterable, Codable, Equatable, Hashable
 
     public var title: String {
         switch self {
-        case .luna: "Luna"
-        case .sol: "Sol"
-        case .astra: "Astra"
+        case .luna: "6 Luna"
+        case .sol: "6.1 Sol"
+        case .astra: "6 Astra"
+        }
+    }
+
+    public var modelIdentifier: String {
+        switch self {
+        case .luna: "gpt-6-luna"
+        case .sol: "gpt-6.1-sol"
+        case .astra: "gpt-6-astra"
         }
     }
 }
@@ -125,7 +133,7 @@ public struct CodexModelOption: Equatable, Sendable {
     }
 }
 
-/// Validates remembered choices and applies product rules to runtime-reported capabilities.
+/// Validates the three exact product targets against runtime-reported capabilities.
 public struct CodexModelSettingsState: Equatable, Sendable {
     public let options: [CodexModelFamily: CodexModelOption]
     public private(set) var selectedFamily: CodexModelFamily?
@@ -138,6 +146,21 @@ public struct CodexModelSettingsState: Equatable, Sendable {
         if let savedSelection {
             let option = options[savedSelection.family]!
             selectedFamily = savedSelection.family
+            if savedSelection.family == .sol, savedSelection.modelIdentifier == "gpt-6-sol" {
+                if option.runtimeModelIdentifier == CodexModelFamily.sol.modelIdentifier,
+                   option.supportedEfforts.contains(savedSelection.effort) {
+                    selection = CodexModelSelection(
+                        family: .sol,
+                        modelIdentifier: CodexModelFamily.sol.modelIdentifier,
+                        effort: savedSelection.effort
+                    )
+                    notice = "旧 6 Sol 偏好已迁移为 6.1 Sol · \(savedSelection.effort.title)（gpt-6.1-sol）。"
+                } else {
+                    selection = nil
+                    notice = "旧 6 Sol 已移除；当前 runtime 未提供可用的 6.1 Sol · \(savedSelection.effort.title)。请刷新模型能力或明确重新选择。"
+                }
+                return
+            }
             if option.runtimeModelIdentifier == savedSelection.modelIdentifier,
                option.supportedEfforts.contains(savedSelection.effort) {
                 selection = savedSelection
@@ -236,11 +259,11 @@ public struct CodexModelSettingsState: Equatable, Sendable {
             guard matches.count == 1, let model = matches.first else {
                 let reason: String
                 if matches.isEmpty, excluded.isEmpty {
-                    reason = "当前 Codex runtime 未返回 GPT-6 \(family.title)。"
+                    reason = "当前 Codex runtime 未返回目标 \(family.modelIdentifier)。"
                 } else if matches.isEmpty {
-                    reason = "未找到可接受的 GPT-6 \(family.title) 标识；已排除相似目录项。"
+                    reason = "未找到目标 \(family.modelIdentifier)；已排除相似目录项。"
                 } else {
-                    reason = "当前 Codex runtime 返回多个 GPT-6 \(family.title) 标识，无法安全选择。"
+                    reason = "当前 Codex runtime 返回多个 \(family.modelIdentifier) 标识，无法安全选择。"
                 }
                 return (family, CodexModelOption(
                     family: family,
@@ -254,10 +277,8 @@ public struct CodexModelSettingsState: Equatable, Sendable {
                 ))
             }
 
-            let allowedEfforts = model.supportedEfforts.filter { effort in
-                effort != .ultra && (effort != .max || family == .luna)
-            }
-            let reason = allowedEfforts.isEmpty ? "没有符合产品规则的运行时思考深度" : nil
+            let allowedEfforts = model.supportedEfforts
+            let reason = allowedEfforts.isEmpty ? "Runtime 未返回可用的思考深度，请刷新模型能力。" : nil
             return (family, CodexModelOption(
                 family: family,
                 runtimeModelIdentifiers: [model.modelIdentifier],
@@ -278,7 +299,7 @@ public struct CodexModelSettingsState: Equatable, Sendable {
     }
 
     private static func matchesGPT6Family(_ model: CodexRuntimeModelCapability, family: CodexModelFamily) -> Bool {
-        model.modelIdentifier == "gpt-6-\(family.rawValue)"
+        model.modelIdentifier == family.modelIdentifier
     }
 
     private static func identifierTokens(_ value: String) -> [String] {
