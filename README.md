@@ -16,6 +16,8 @@ open ".build/macos/Bridge Coup.app"
 
 ## 产品记录
 
+- [Bridge Coup 2.0 正式总 spec（Issue #33）](https://github.com/absurdwall/bridge-coup/issues/33)
+- [Bridge Coup 2.0 文档入口、原稿归档与章节对照](docs/bridge-2/README.md)
 - [领域词汇](CONTEXT.md)
 - [第一版设计记录](DESIGN.md)
 - [设计访谈记录](DESIGN-NOTES.md)
