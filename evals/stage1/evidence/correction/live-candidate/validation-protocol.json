@@ -1,0 +1,16 @@
+{
+  "source_commit": "1d0fae4e1b3044b31ebf9f47425645c5e545c985",
+  "source_tests": {
+    "swift_tests": 227,
+    "existing_skips": 10,
+    "python_tests": 41,
+    "failures": 0
+  },
+  "grader_calls_predeclared": [
+    "calibration-r1 six saved authored answers",
+    "calibration-r2 same six answers independent call",
+    "saved-former-reserved-r1 all21 saved original decisions"
+  ],
+  "playing_protocol": "../README.md; one candidate, at most four affected attempts sequentially; stop after confirmed severe defect, no reroll",
+  "scope": "development, not the final22 matrix; allissuesopen andPRdraft; no merge approval"
+}
