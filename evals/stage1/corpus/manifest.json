@@ -1,8 +1,8 @@
 {
-  "corpus_version": "stage1-finite-v1",
-  "rubric_version": "stage1-basic-v2",
+  "corpus_version": "stage1-finite-v2",
+  "rubric_version": "stage1-basic-v3",
   "freeze": "Final case/rubric candidate frozen before #42; changes require revision-log entry and affected evidence revalidation.",
-  "reserved_policy": "Evaluator inspection and legality validation allowed. No playing attempt or targeted prompt tuning before first #42 acceptance. After targeted repair, call it regression evidence.",
+  "reserved_policy": "The former reserved board was exposed in ticket42 and targeted correction review. It is now regression evidence, not fresh held-out evidence. No board, case ID or finite run count is replaced.",
   "cases": [
     {
       "review": "independent-agent-reviewed-basic-facts; strategic disputes pending review",
@@ -75,7 +75,7 @@
         "Require both defenders to follow three club rounds with five missing clubs.",
         "Invent the other defender specific discard before it occurs."
       ],
-      "coverage_trigger": "Both defenders actually follow two club rounds during this live run; otherwise uncovered."
+      "coverage_trigger": "Both defenders actually follow two club rounds, followed by a controlled model decision. Separately record a third defender club localizing the length before the other defender discards; no mandatory plan replacement when retention remains justified."
     },
     {
       "review": "independent-agent-reviewed-basic-facts; strategic disputes pending review",
@@ -99,7 +99,7 @@
         "Reuse a played card or name a nonexistent necessary entry.",
         "Cash winners in the opposite hand without a route to that hand."
       ],
-      "coverage_trigger": "Club establishment is actually attempted and a later model decision has consumed club honors plus a remaining entry decision; otherwise uncovered."
+      "coverage_trigger": "At least one club honor is actually consumed, with remaining clubs and a later concrete entry opportunity; independently review actual transport. Post-two-honor/endgame coverage is a separate stronger facet, not assumed."
     },
     {
       "review": "independent-agent-reviewed-basic-facts; strategic disputes pending review",
@@ -150,7 +150,7 @@
         "Assert East is known void after all defenders follow to three spade rounds.",
         "Assert hidden DA location as fact."
       ],
-      "coverage_trigger": "Defenders continue spades while legally possible, then a diamond establishment attempt creates an actual defensive response; gifts or avoidance mean uncovered."
+      "coverage_trigger": "An actual controlled opening-suit hold-up while SA remains, followed by defender spade continuation before DA loss, then a diamond contest/defensive response and later controlled decision. Judge actual communication independently. Early control or a defensive gift does not prove exercised hold-up; reasonable alternatives remain separately judged."
     },
     {
       "review": "independent-agent-reviewed-basic-facts; strategic disputes pending review",
@@ -179,10 +179,10 @@
       "hard_gate": "Only verified basic facts, legal physical routes, visibility and material consistency; unresolved strategic alternatives are uncertain. Winner counts below refer only to the initial case state; later decisions use actual remaining cards and won tricks. Concise answers need not repeat a winner count every turn.",
       "opponent_policy": "conserve-high",
       "id": "full-reserved",
-      "title": "Separate reserved acceptance board",
+      "title": "Former reserved acceptance board (used regression)",
       "kind": "full",
       "board": "boards/reserved-acceptance.json",
-      "role": "reserved",
+      "role": "regression",
       "required_runs": 2,
       "properties": [
         "Finish all thirteen tricks legally using actual choices.",
@@ -194,7 +194,8 @@
       "severe_errors": [
         "Nonforced controlled substitution, invented cards, false winners, impossible entries or hidden-hand certainty."
       ],
-      "coverage_trigger": "All 52 cards actually consumed in thirteen tricks."
+      "coverage_trigger": "All 52 cards actually consumed in thirteen tricks.",
+      "former_role": "reserved"
     }
   ]
 }

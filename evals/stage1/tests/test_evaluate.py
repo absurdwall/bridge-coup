@@ -13,6 +13,24 @@ spec.loader.exec_module(evaluate)
 
 
 class SavedDecisionTests(unittest.TestCase):
+    def test_v4_plan_variants_keep_replace_withdraw_use_the_same_saved_output_boundary(self):
+        record = evaluate.read_decision(ROOT / 'evidence/ticket37/live3')
+        record['wireContractVersion'] = 'stage1-plan-variants-v4'
+        record.pop('rpc')
+        answer = json.loads(record['rawOutput'])
+        answer['selectedCard'] = answer.pop('currentCard')
+        for plan in ({'update': 'replace', 'text': 'Establish clubs.'},
+                     {'update': 'keep', 'text': None}, {'update': 'withdraw', 'text': None}):
+            answer['plan'] = plan
+            record['rawOutput'] = json.dumps(answer)
+            self.assertEqual(evaluate.deterministic_checks(record)['structure']['status'], 'pass')
+        answer['plan'] = {'update': 'keep', 'text': 'Establish clubs.'}
+        record['rawOutput'] = json.dumps(answer)
+        self.assertEqual(evaluate.deterministic_checks(record)['structure']['status'], 'fail')
+        answer['plan'] = {'update': 'keep'}
+        record['rawOutput'] = json.dumps(answer)
+        self.assertEqual(evaluate.deterministic_checks(record)['structure']['status'], 'fail')
+
     def test_grader_can_cite_actual_retained_plan_on_keep_turn(self):
         record = evaluate.read_decision(ROOT / 'evidence/ticket37/live3')
         answer = json.loads(record['rawOutput'])

@@ -48,14 +48,16 @@ def incomplete_decision_report(identifier, record):
 def deterministic_checks(record):
     checks = {}
     version = record.get('wireContractVersion', 'stage1-currentCard-plan-publicReason-v1')
-    card_key = 'selectedCard' if version in ('stage1-plan-publicReason-selectedCard-v2', 'stage1-legal-selectedCard-v3') else 'currentCard'
+    versions = ('stage1-currentCard-plan-publicReason-v1', 'stage1-plan-publicReason-selectedCard-v2',
+                'stage1-legal-selectedCard-v3', 'stage1-plan-variants-v4')
+    card_key = 'currentCard' if version == versions[0] else 'selectedCard'
     def add(name, condition, fact):
         checks[name] = {'status': 'pass' if condition else 'fail', 'fact': fact}
     snapshot = record['snapshot']
     try:
         answer = json.loads(record['rawOutput'])
         plan = answer['plan']
-        valid = (version in ('stage1-currentCard-plan-publicReason-v1', 'stage1-plan-publicReason-selectedCard-v2', 'stage1-legal-selectedCard-v3') and set(answer) == {card_key, 'publicReason', 'plan'} and
+        valid = (version in versions and set(answer) == {card_key, 'publicReason', 'plan'} and
                  isinstance(answer['publicReason'], str) and bool(answer['publicReason'].strip()) and
                  set(plan) == {'update', 'text'} and plan['update'] in ('replace', 'keep', 'withdraw') and
                  ((plan['update'] == 'replace' and isinstance(plan['text'], str) and bool(plan['text'].strip())) or
@@ -108,7 +110,7 @@ def grader_package(decisions):
         allowed = {declarer, seats[(seats.index(declarer) + 2) % 4]}
         if any(h['seat'] not in allowed for h in record['snapshot']['hands']):
             raise ValueError('Decision snapshot contains unauthorized defender holdings')
-    return {'rubric_version': 'stage1-basic-v2', 'rubric': Path(__file__).with_name('rubric.txt').read_text(),
+    return {'rubric_version': 'stage1-basic-v3', 'rubric': Path(__file__).with_name('rubric.txt').read_text(),
             'decisions': [{'id': identifier, 'authorized_input': record['input'], 'playing_identity': record.get('identity'),
                            'playing_instructions': record['instructions'], 'wire_contract': record.get('wireContractVersion', 'stage1-currentCard-plan-publicReason-v1'), 'raw_output': record['rawOutput'],
                            'effective_plan': record.get('effectivePlan'),
@@ -153,11 +155,12 @@ def adjudicate(package, grader_output=None, evaluator_error=None):
                 error = str(issue)
         quality = 'uncertain' if error else row['status']
         mechanical_failure = any(c['status'] == 'fail' for c in decision['deterministic_checks'].values())
-        attribution = ('evaluator_issue' if error else 'product_error' if mechanical_failure or quality == 'fail'
+        attribution = ('product_error' if mechanical_failure else 'evaluator_issue' if error else 'product_error' if quality == 'fail'
                        else 'pending_review' if quality == 'uncertain' else 'no_material_error_found')
         results.append({'id': decision['id'], 'mechanical': 'fail' if mechanical_failure else 'pass',
                         'quality': quality, 'overall': 'fail' if mechanical_failure else quality,
-                        'attribution': attribution, 'evaluator_error': error, 'findings': row.get('findings', []) if row else []})
+                        'attribution': attribution, 'evaluator_attribution': 'evaluator_issue' if error else None,
+                        'evaluator_error': error, 'findings': row.get('findings', []) if row else []})
     return {'rubric_version': package['rubric_version'], 'results': results,
             'scope': 'Small-sample basic evaluation; no claim of broad grading reliability.'}
 

@@ -17,15 +17,30 @@ class CorpusPublicEntryTests(unittest.TestCase):
             result = json.loads((output / 'corpus-validation.json').read_text()) if (output / 'corpus-validation.json').exists() else None
             return run, result
 
-    def test_frozen_finite_corpus_has_six_short_and_distinct_development_reserved_boards(self):
+    def test_revised_corpus_preserves_finite_cases_and_labels_used_reserve_as_regression(self):
         run, report = self.validate()
         self.assertEqual(run.returncode, 0, run.stderr)
         self.assertEqual(report['status'], 'pass')
         self.assertEqual(report['short_cases'], 6)
         self.assertEqual(report['full_boards'], 2)
-        self.assertTrue(report['reserved_distinct'])
-        self.assertEqual(report['rubric_version'], 'stage1-basic-v2')
+        self.assertTrue(report['regression_distinct'])
+        self.assertEqual(report['rubric_version'], 'stage1-basic-v3')
+        self.assertEqual(report['corpus_version'], 'stage1-finite-v2')
+        manifest = json.loads((ROOT / 'corpus/manifest.json').read_text())
+        case = next(c for c in manifest['cases'] if c['id'] == 'full-reserved')
+        self.assertEqual(case['role'], 'regression')
+        self.assertEqual(case['former_role'], 'reserved')
+        self.assertEqual(len(manifest['cases']), 8)
         self.assertFalse(report['playing_model_called'])
+
+    def test_authored_hold_up_witness_is_legally_reachable_and_never_model_performance(self):
+        run, report = self.validate()
+        self.assertEqual(run.returncode, 0, run.stderr)
+        witness = report['communication_reachability']
+        self.assertEqual(witness['tricks'], [2, 3])
+        self.assertEqual(witness['east_remaining_spades'], 0)
+        self.assertTrue(witness['north_heart_ace_entry'])
+        self.assertFalse(witness['model_performance'])
 
     def test_case_rules_reach_existing_grader_entry_without_environment_or_expected_labels(self):
         with tempfile.TemporaryDirectory() as temporary:
