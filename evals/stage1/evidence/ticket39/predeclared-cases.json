@@ -1,0 +1,81 @@
+{
+  "corpus_version": "stage1-finite-v1",
+  "rubric_version": "stage1-basic-v2",
+  "freeze": "Final case/rubric candidate frozen before #42; changes require revision-log entry and affected evidence revalidation.",
+  "reserved_policy": "Evaluator inspection and legality validation allowed. No playing attempt or targeted prompt tuning before first #42 acceptance. After targeted repair, call it regression evidence.",
+  "cases": [
+    {
+      "review": "independent-agent-reviewed-basic-facts; strategic disputes pending review",
+      "hard_gate": "Only verified basic facts, legal physical routes, visibility and material consistency; unresolved strategic alternatives are uncertain. Winner counts below refer only to the initial case state; later decisions use actual remaining cards and won tricks. Concise answers need not repeat a winner count every turn.",
+      "opponent_policy": "conserve-high",
+      "id": "short-2",
+      "title": "Normal plan continuation",
+      "kind": "short",
+      "board": "boards/synthetic.json",
+      "decisions": 8,
+      "required_runs": 3,
+      "properties": [
+        "Use only the same live run previous plan and actual executed events.",
+        "Retain a still-applicable concrete route, or explain a justified replacement."
+      ],
+      "acceptable_alternatives": [
+        "Keep or replace when consistent with actual state.",
+        "Different lawful spot cards or feasible club routes."
+      ],
+      "severe_errors": [
+        "Invent prior execution or revive consumed cards.",
+        "Contradict actual current card or active plan."
+      ],
+      "coverage_trigger": "At least three model decisions with an actual previous plan and no newly disproved premise; otherwise uncovered."
+    },
+    {
+      "review": "independent-agent-reviewed-basic-facts; strategic disputes pending review",
+      "hard_gate": "Only verified basic facts, legal physical routes, visibility and material consistency; unresolved strategic alternatives are uncertain. Winner counts below refer only to the initial case state; later decisions use actual remaining cards and won tricks. Concise answers need not repeat a winner count every turn.",
+      "opponent_policy": "conserve-high",
+      "id": "short-3",
+      "title": "New public information",
+      "kind": "short",
+      "board": "boards/synthetic.json",
+      "decisions": 12,
+      "required_runs": 3,
+      "properties": [
+        "Two club rounds with both defenders following prove 3-2 already.",
+        "The defender showing a third club localizes the length before the other defender discards.",
+        "Assess keep or replace against actual newly visible information."
+      ],
+      "acceptable_alternatives": [
+        "Justified retention when original plan anticipated the break.",
+        "Revised route conditional on actual observed cards."
+      ],
+      "severe_errors": [
+        "Require both defenders to follow three club rounds with five missing clubs.",
+        "Invent the other defender specific discard before it occurs."
+      ],
+      "coverage_trigger": "Both defenders actually follow two club rounds during this live run; otherwise uncovered."
+    },
+    {
+      "review": "independent-agent-reviewed-basic-facts; strategic disputes pending review",
+      "hard_gate": "Only verified basic facts, legal physical routes, visibility and material consistency; unresolved strategic alternatives are uncertain. Winner counts below refer only to the initial case state; later decisions use actual remaining cards and won tricks. Concise answers need not repeat a winner count every turn.",
+      "opponent_policy": "conserve-high",
+      "id": "short-4",
+      "title": "Entries and consumed cards",
+      "kind": "short",
+      "board": "boards/synthetic.json",
+      "decisions": 16,
+      "required_runs": 3,
+      "properties": [
+        "Track which top clubs and heart entries remain at each actual decision.",
+        "Explain physically available transport for any remaining established clubs."
+      ],
+      "acceptable_alternatives": [
+        "Either reviewed club route and any other concretely feasible entry route.",
+        "Concise prose may omit an obvious available entry."
+      ],
+      "severe_errors": [
+        "Reuse a played card or name a nonexistent necessary entry.",
+        "Cash winners in the opposite hand without a route to that hand."
+      ],
+      "coverage_trigger": "Club establishment is actually attempted and a later model decision has consumed club honors plus a remaining entry decision; otherwise uncovered."
+    }
+  ]
+}

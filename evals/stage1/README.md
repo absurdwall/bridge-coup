@@ -25,7 +25,7 @@ python3 Scripts/capture-playing-wire.py \
 
 Pass its printed wrapper path as the driver's `--codex` value. Keep the proxy running for that attempt and stop it afterward. The local proxy forwards unchanged Responses payload bytes to the official ChatGPT Codex endpoint, saves the payload and public response metadata, and stores no headers or reasoning stream. It explicitly changes provider routing to observe the request; capture-config.json records that difference. The model/effort remains unchanged. The proxy binds only to loopback. Use unique output directories to preserve each attempt.
 
-`ExpertSession.decide` is the public Expert boundary for future driver and UI use. Domain/Engine have no Codex or UI dependencies. Runtime checks card legality; semantic quality evaluation remains separate, so legal-card execution alone is never a quality pass. Continuous turns, full-board play and final acceptance remain later tickets.
+`ExpertSession.decide` is the public Expert boundary for future driver and UI use. Domain/Engine have no Codex or UI dependencies. Runtime checks card legality; semantic quality evaluation remains separate, so legal-card execution alone is never a quality pass. Continuous turns are implemented in ticket 39 with preserved failed quality evidence; full-board play and final acceptance remain later tickets.
 
 ## Saved-output evaluation
 
@@ -52,3 +52,22 @@ The final citation contract is rubric `stage1-basic-v2`, with `quotes: ["one exa
 The playing contract consumed here is `currentCard`, `plan`, `publicReason`, version `stage1-currentCard-plan-publicReason-v1`. Card decoding and action association are localized in `deterministic_checks`; a later playing wire-contract change must update/revalidate that boundary, retaining all original failed attempts.
 
 See [ticket 38 review](evidence/ticket38/REVIEW.md) for calibration, live-output judgments, evaluator corrections and isolation limits. Authored calibration failures are intentional bad examples, not new observed product defects. Six reviewed answers and two repeat grades establish only a small calibration checkpoint.
+
+
+## Continuing short runs
+
+Ticket 39 adds the public `BoardDriver.advance` one-action entry and continuing `ExpertSession`, with fresh snapshot-bound DecisionSessions, actual-event deltas and program-owned plan provenance. [The ticket 39 review](evidence/ticket39/REVIEW.md) distinguishes working execution from failed basic model quality.
+
+```sh
+.build/debug/bridge-play \
+  --fixture evals/stage1/corpus/boards/synthetic.json \
+  --output /tmp/bridge-continuation-unique \
+  --codex /absolute/path/to/codex \
+  --timeout 180 --decisions 8 --opponent conserve-high
+```
+
+`--decisions` bounds model requests (1–26, default 1). All dummy and declarer decisions use the same Expert; `--sole-legal true` permits later sole-legal mechanics while still requiring the initial model plan. Fixtures may supply ordered `initialEvents` for a reachable mid-board state. Each multi-request run saves immutable `decision-NNNN/decision.json` and its immediate post-action `events.json`; shared thread RPC and the authoritative per-action `trace.json` stay at the run root. Illegal selected cards preserve their unexecuted decision and failure. Unreadable/transport failures preserve raw evidence and stop; no automatic answer repair occurs.
+
+The current wire version is `stage1-plan-publicReason-selectedCard-v2`: `plan`, `publicReason`, then the single `selectedCard`, mapped to internal `currentCard`. Saved v1 evidence remains readable. Evaluation's exact-citation check also accepts excerpts of the actual retained effective plan on keep turns, because it is prior model advice from the same run. A parser regrade never calls a playing model.
+
+The three first developmental continuity attempts are preserved, including illegal cards and serious plan/reason failures. They were concurrent across boards and sequential within each board; their durations are exploratory resource conditions, not final sequential board timings. No stage quality pass is claimed.
