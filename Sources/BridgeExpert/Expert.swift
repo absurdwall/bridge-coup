@@ -40,11 +40,37 @@ public struct PlanChange: Codable, Equatable, Sendable {
 
 public struct PublicAdvice: Codable, Equatable, Sendable {
     public let currentCard: Card
+    private enum CodingKeys: String, CodingKey { case currentCard = "selectedCard", publicReason, plan }
     public let publicReason: String
     public let plan: PlanChange
 }
 
+public struct DecisionSession: Codable, Equatable, Sendable {
+    public let id: UUID
+    public let snapshotID: String
+}
+
+public struct PlanAssociation: Codable, Equatable, Sendable {
+    public let boardID: UUID
+    public let controller: Seat
+    public let sourceSnapshotID: String
+    public let sourceSessionID: UUID
+    public let text: String
+}
+
+public struct ActualExecution: Codable, Equatable, Sendable {
+    public enum Source: String, Codable, Sendable { case model, forced, opponent, external }
+    public let event: PlayEvent
+    public let source: Source
+    public init(event: PlayEvent, source: Source) { self.event = event; self.source = source }
+}
+
+public enum ExpertSessionError: Error, Equatable { case overlappingDecision, staleSnapshot, differentBoardOrController, changedHistory, endedSession, changedThreadOrRepeatedTurn, invalidExecutionEvidence }
+
 public struct DecisionRecord: Codable, Sendable {
+    public let session: DecisionSession
+    public let planAssociation: PlanAssociation?
+    public let wireContractVersion: String
     public let snapshot: DecisionSnapshot
     public let instructions: String
     public let input: String
@@ -66,26 +92,58 @@ public struct ExpertFailure: Error, Sendable {
 /// The App-independent Expert entry: one board/controller owns one continuing transport.
 public actor ExpertSession {
     private let transport: any PlayingTransport
-    private var effectivePlan: String?
+    private var planAssociation: PlanAssociation?
+    private var previousAction: CurrentAction?
+    private var previousIdentity: RuntimeIdentity?
+    private var usedTurnIDs: Set<String> = []
+    private var inFlight = false
+    private var ended = false
+    private var boundBoard: UUID?
+    private var boundController: Seat?
     private var previousSnapshot: DecisionSnapshot?
 
     public init(transport: any PlayingTransport) { self.transport = transport }
 
-    public func decide(_ snapshot: DecisionSnapshot) async throws -> DecisionRecord {
-        guard snapshot.actingSeat == snapshot.controller || snapshot.actingSeat == snapshot.controller.partner else {
+    public func decide(_ snapshot: DecisionSnapshot, executions: [ActualExecution] = []) async throws -> DecisionRecord {
+        guard !inFlight else { throw ExpertSessionError.overlappingDecision }
+        guard !ended else { throw ExpertSessionError.endedSession }
+        if let boundBoard {
+            guard snapshot.boardID == boundBoard, snapshot.controller == boundController else { throw ExpertSessionError.differentBoardOrController }
+        }
+        if let previousSnapshot {
+            guard snapshot.revision > previousSnapshot.revision else { throw ExpertSessionError.staleSnapshot }
+            guard snapshot.events.starts(with: previousSnapshot.events),
+                  snapshot.contract == previousSnapshot.contract,
+                  snapshot.scoring == previousSnapshot.scoring,
+                  snapshot.vulnerability == previousSnapshot.vulnerability,
+                  snapshot.objective == previousSnapshot.objective,
+                  snapshot.publicBackground == previousSnapshot.publicBackground else { throw ExpertSessionError.changedHistory }
+        }
+        let delta = Array(snapshot.events.dropFirst(previousSnapshot?.events.count ?? 0))
+        guard executions.isEmpty || executions.map(\.event) == delta else { throw ExpertSessionError.invalidExecutionEvidence }
+        guard snapshot.controller == snapshot.contract.declarer,
+              snapshot.actingSeat == snapshot.controller || snapshot.actingSeat == snapshot.controller.partner else {
             throw DomainError.invalidController
         }
-        let input = Self.initialInput(snapshot)
+        boundBoard = snapshot.boardID; boundController = snapshot.controller
+        inFlight = true
+        defer { inFlight = false }
+        let session = DecisionSession(id: UUID(), snapshotID: snapshot.id)
+        let input = previousSnapshot == nil ? Self.initialInput(snapshot) : continuationInput(snapshot, delta: delta, executions: executions)
         let start = Date()
         let reply: PlayingReply
         do { reply = try await transport.respond(to: PlayingRequest(instructions: Self.instructions, input: input, outputSchema: Self.outputSchema)) }
-        catch { throw ExpertFailure(input: input, rawOutput: "", detail: String(describing: error), elapsedSeconds: Date().timeIntervalSince(start)) }
+        catch { ended = true; throw ExpertFailure(input: input, rawOutput: "", detail: String(describing: error), elapsedSeconds: Date().timeIntervalSince(start)) }
         let elapsed = Date().timeIntervalSince(start)
+        if let previousIdentity, (reply.identity.threadID != previousIdentity.threadID || usedTurnIDs.contains(reply.identity.turnID)) {
+            ended = true
+            throw ExpertFailure(input: input, rawOutput: reply.rawOutput, detail: String(describing: ExpertSessionError.changedThreadOrRepeatedTurn), elapsedSeconds: elapsed)
+        }
         let advice: PublicAdvice
         do {
             let data = Data(reply.rawOutput.utf8)
             guard let object = try JSONSerialization.jsonObject(with: data) as? [String: Any],
-                  Set(object.keys) == ["currentCard", "publicReason", "plan"],
+                  Set(object.keys) == ["selectedCard", "publicReason", "plan"],
                   let plan = object["plan"] as? [String: Any], Set(plan.keys) == ["update", "text"] else { throw ValidationError.unexpectedFields }
             advice = try JSONDecoder().decode(PublicAdvice.self, from: data)
             guard !advice.publicReason.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
@@ -99,17 +157,35 @@ public actor ExpertSession {
             }
             if advice.plan.update != .replace && advice.plan.text != nil { throw ValidationError.ambiguousPlan }
         } catch {
+            ended = true
             throw ExpertFailure(input: input, rawOutput: reply.rawOutput, detail: String(describing: error), elapsedSeconds: elapsed)
         }
         switch advice.plan.update {
         case .keep: break
-        case .replace: effectivePlan = advice.plan.text
-        case .withdraw: effectivePlan = nil
+        case .replace: planAssociation = PlanAssociation(boardID: snapshot.boardID, controller: snapshot.controller, sourceSnapshotID: snapshot.id, sourceSessionID: session.id, text: advice.plan.text!)
+        case .withdraw: planAssociation = nil
         }
         previousSnapshot = snapshot
-        return DecisionRecord(snapshot: snapshot, instructions: Self.instructions, input: input, rawOutput: reply.rawOutput,
+        previousAction = CurrentAction(snapshot: snapshot, card: advice.currentCard)
+        previousIdentity = reply.identity
+        usedTurnIDs.insert(reply.identity.turnID)
+        return DecisionRecord(session: session, planAssociation: planAssociation, wireContractVersion: Self.wireContractVersion, snapshot: snapshot, instructions: Self.instructions, input: input, rawOutput: reply.rawOutput,
                               identity: reply.identity, advice: advice, action: CurrentAction(snapshot: snapshot, card: advice.currentCard),
-                              effectivePlan: effectivePlan, elapsedSeconds: elapsed)
+                              effectivePlan: planAssociation?.text, elapsedSeconds: elapsed)
+    }
+
+    private func continuationInput(_ snapshot: DecisionSnapshot, delta: [PlayEvent], executions: [ActualExecution]) -> String {
+        let executed = delta.first.map { $0.seat == previousAction?.actingSeat && $0.card == previousAction?.card } ?? false
+        var lines = ["Decision snapshot: \(snapshot.id). Controller: \(snapshot.controller.rawValue.capitalized). Acting hand: \(snapshot.actingSeat.rawValue.capitalized).",
+                     "Previous suggestion actually executed: \(executed ? "yes" : "no").",
+                     "New actual plays in order:"]
+        for event in delta {
+            let source = executions.first(where: { $0.event.sequence == event.sequence })?.source.rawValue
+            lines.append("\(event.sequence): \(event.seat.rawValue.capitalized) \(event.card)" + (source.map { " (\($0))" } ?? "") + ".")
+        }
+        lines.append("Current trick: " + snapshot.currentTrick.map { "\($0.seat.rawValue.capitalized) \($0.card)" }.joined(separator: "; ") + ".")
+        lines.append("Tricks won: declarer \(snapshot.declarerTricks), defenders \(snapshot.defenderTricks).")
+        return lines.joined(separator: "\n")
     }
 
     private static func initialInput(_ snapshot: DecisionSnapshot) -> String {
@@ -137,9 +213,11 @@ public actor ExpertSession {
 
     private enum ValidationError: Error { case emptyReason, missingInitialPlan, missingReplacement, ambiguousPlan, unexpectedFields }
 
+    public static let wireContractVersion = "stage1-plan-publicReason-selectedCard-v2"
+
     public static let instructions = """
-    Play declarer and dummy using the supplied decision-time information. Write in English and pursue the stated objective. currentCard is the single card from actingSeat to play now; publicReason briefly explains it. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide an initial concrete plan before dummy's first play. Unknown cards remain unknown.
+    Play declarer and dummy using the supplied decision-time information. Write in English and pursue the stated objective. selectedCard is the single card from the acting hand to play now; publicReason briefly explains it. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide an initial concrete plan before dummy's first play. Unknown cards remain unknown.
     """
 
-    public static let outputSchema = #"{"type":"object","additionalProperties":false,"required":["currentCard","publicReason","plan"],"properties":{"currentCard":{"type":"string","pattern":"^[SHDC][2-9TJQKA]$"},"publicReason":{"type":"string"},"plan":{"type":"object","additionalProperties":false,"required":["update","text"],"properties":{"update":{"type":"string","enum":["keep","replace","withdraw"]},"text":{"type":["string","null"]}}}}}"#
+    public static let outputSchema = #"{"type":"object","additionalProperties":false,"required":["plan","publicReason","selectedCard"],"properties":{"selectedCard":{"type":"string","pattern":"^[SHDC][2-9TJQKA]$"},"publicReason":{"type":"string"},"plan":{"type":"object","additionalProperties":false,"required":["update","text"],"properties":{"update":{"type":"string","enum":["keep","replace","withdraw"]},"text":{"type":["string","null"]}}}}}"#
 }

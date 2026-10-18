@@ -13,6 +13,38 @@ spec.loader.exec_module(evaluate)
 
 
 class SavedDecisionTests(unittest.TestCase):
+    def test_grader_can_cite_actual_retained_plan_on_keep_turn(self):
+        record = evaluate.read_decision(ROOT / 'evidence/ticket37/live3')
+        answer = json.loads(record['rawOutput'])
+        answer['plan'] = {'update': 'keep', 'text': None}
+        record['rawOutput'] = json.dumps(answer)
+        record['effectivePlan'] = 'Win with the nonexistent diamond eight over the queen.'
+        record.pop('rpc')
+        package = evaluate.grader_package([('retained', record)])
+        grade = {'results': [{'id': 'retained', 'status': 'fail', 'findings': [{
+            'dimension': 'retained plan', 'quotes': ['nonexistent diamond eight'],
+            'fact': 'D8 cannot beat DQ.', 'explanation': 'Keeping a false winning route remains a quality defect.'}]}]}
+        result = evaluate.adjudicate(package, grade)['results'][0]
+        self.assertEqual(result['attribution'], 'product_error')
+        self.assertEqual(result['quality'], 'fail')
+        grade['results'][0]['findings'][0]['quotes'] = ['An unobserved earlier plan']
+        self.assertEqual(evaluate.adjudicate(package, grade)['results'][0]['attribution'], 'evaluator_issue')
+
+    def test_versioned_selected_card_wire_preserves_saved_execution_checks(self):
+        record = evaluate.read_decision(ROOT / 'evidence/ticket37/live3')
+        record['wireContractVersion'] = 'stage1-plan-publicReason-selectedCard-v2'
+        answer = json.loads(record['rawOutput'])
+        answer['selectedCard'] = answer.pop('currentCard')
+        record['rawOutput'] = json.dumps(answer)
+        record.pop('rpc')  # Original v1 transport must not certify this authored wire migration.
+        checks = evaluate.deterministic_checks(record)
+        self.assertEqual(checks['structure']['status'], 'pass')
+        self.assertEqual(checks['action_binding']['status'], 'pass')
+        self.assertEqual(checks['execution']['status'], 'pass')
+        answer['currentCard'] = 'D8'
+        record['rawOutput'] = json.dumps(answer)
+        self.assertEqual(evaluate.deterministic_checks(record)['structure']['status'], 'fail')
+
     def test_actual_illegal_card_and_legal_execution_have_distinct_mechanical_results(self):
         illegal = evaluate.read_decision(ROOT / 'evidence/ticket37/live2')
         legal = evaluate.read_decision(ROOT / 'evidence/ticket37/live3')

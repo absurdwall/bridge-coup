@@ -16,26 +16,31 @@ def read_decision(directory):
                 'rpc': [json.loads(line) for line in (directory / 'rpc.jsonl').read_text().splitlines()] if (directory / 'rpc.jsonl').exists() else [],
                 'runtime_config': (directory / 'runtime-config.toml').read_text() if (directory / 'runtime-config.toml').exists() else None}
     record = read_json(directory / 'decision.json')
+    rpc_path = directory / 'rpc.jsonl'
+    if not rpc_path.exists() and (directory.parent / 'trace.json').exists():
+        rpc_path = directory.parent / 'rpc.jsonl'
     return {**record, 'executionEvents': read_json(directory / 'events.json') if (directory / 'events.json').exists() else None,
             'runtimeFailure': read_json(directory / 'failure.json') if (directory / 'failure.json').exists() else None,
-            'rpc': [json.loads(line) for line in (directory / 'rpc.jsonl').read_text().splitlines()] if (directory / 'rpc.jsonl').exists() else None}
+            'rpc': [json.loads(line) for line in rpc_path.read_text().splitlines()] if rpc_path.exists() else None}
 
 
 def deterministic_checks(record):
     checks = {}
+    version = record.get('wireContractVersion', 'stage1-currentCard-plan-publicReason-v1')
+    card_key = 'selectedCard' if version == 'stage1-plan-publicReason-selectedCard-v2' else 'currentCard'
     def add(name, condition, fact):
         checks[name] = {'status': 'pass' if condition else 'fail', 'fact': fact}
     snapshot = record['snapshot']
     try:
         answer = json.loads(record['rawOutput'])
         plan = answer['plan']
-        valid = (set(answer) == {'currentCard', 'publicReason', 'plan'} and
+        valid = (version in ('stage1-currentCard-plan-publicReason-v1', 'stage1-plan-publicReason-selectedCard-v2') and set(answer) == {card_key, 'publicReason', 'plan'} and
                  isinstance(answer['publicReason'], str) and bool(answer['publicReason'].strip()) and
                  set(plan) == {'update', 'text'} and plan['update'] in ('replace', 'keep', 'withdraw') and
                  ((plan['update'] == 'replace' and isinstance(plan['text'], str) and bool(plan['text'].strip())) or
                   (plan['update'] != 'replace' and plan['text'] is None)) and
-                 isinstance(answer['currentCard'], str) and bool(re.fullmatch('[SHDC][2-9TJQKA]', answer['currentCard'])))
-        add('structure', valid, 'Raw answer must contain currentCard, publicReason and a valid plan update.')
+                 isinstance(answer[card_key], str) and bool(re.fullmatch('[SHDC][2-9TJQKA]', answer[card_key])))
+        add('structure', valid, 'Raw answer must match the versioned single-card wire contract with publicReason and a valid plan update.')
     except (ValueError, KeyError, TypeError):
         add('structure', False, 'Raw answer cannot be decoded as the public advice contract.')
         return checks
@@ -46,7 +51,7 @@ def deterministic_checks(record):
         completions = [item.get('text') for e in record['rpc'] if e.get('kind') == 'completion' for item in e['value'].get('items', []) if item.get('type') == 'agentMessage']
         add('request_evidence', any(record['input'] == item.get('text') for turn in turns for item in turn.get('input', [])), 'Saved input must occur in an actual turn/start request.')
         add('output_evidence', record['rawOutput'] in completions, 'Saved raw output must occur in actual completion evidence.')
-    card = answer.get('currentCard', '')
+    card = answer.get(card_key, '')
     action = record.get('action', {})
     add('current_seat', action.get('actingSeat') == snapshot['actingSeat'] and action.get('controller') == snapshot['controller'],
         'Current actor is %s; controller is %s.' % (snapshot['actingSeat'], snapshot['controller']))
@@ -84,7 +89,7 @@ def grader_package(decisions):
             raise ValueError('Decision snapshot contains unauthorized defender holdings')
     return {'rubric_version': 'stage1-basic-v2', 'rubric': Path(__file__).with_name('rubric.txt').read_text(),
             'decisions': [{'id': identifier, 'authorized_input': record['input'], 'playing_identity': record.get('identity'),
-                           'playing_instructions': record['instructions'], 'raw_output': record['rawOutput'],
+                           'playing_instructions': record['instructions'], 'wire_contract': record.get('wireContractVersion', 'stage1-currentCard-plan-publicReason-v1'), 'raw_output': record['rawOutput'],
                            'effective_plan': record.get('effectivePlan'),
                            'decision_time_facts': record['snapshot'],
                            'deterministic_checks': deterministic_checks(record)}
@@ -119,9 +124,9 @@ def adjudicate(package, grader_output=None, evaluator_error=None):
                     if not isinstance(quotes, list) or not quotes or not all(isinstance(q, str) and q.strip() for q in quotes):
                         raise ValueError('Missing exact answer excerpts')
                     answer = json.loads(decision['raw_output'])
-                    public_text = answer.get('publicReason', '') + '\n' + str(answer.get('plan', {}).get('text', '')) + '\n' + answer.get('currentCard', '')
+                    public_text = answer.get('publicReason', '') + '\n' + str(answer.get('plan', {}).get('text', '')) + '\n' + answer.get('selectedCard', answer.get('currentCard', ''))
                     for quote in quotes:
-                        if not any(quote in source for source in (decision['raw_output'], json.dumps(answer, ensure_ascii=False), public_text)):
+                        if not any(quote in source for source in (decision['raw_output'], json.dumps(answer, ensure_ascii=False), public_text, decision.get('effective_plan') or '')):
                             raise ValueError('Grader quote absent from actual answer')
             except (TypeError, KeyError, ValueError) as issue:
                 error = str(issue)
@@ -153,7 +158,7 @@ def run_grader(package, output, codex='codex', timeout=180):
                 'observed_service_model': None, 'observed_service_effort': None,
                 'identity_limit': 'CLI requested configuration is recorded; JSONL does not independently expose resolved service identity.',
                 'playing_model_called': False, 'isolation': 'Fresh HOME, CODEX_HOME and cwd; authentication file only copied, then deleted.',
-                'wire_contract': 'stage1-currentCard-plan-publicReason-v1'}
+                'wire_contracts': sorted({d.get('wire_contract', 'stage1-currentCard-plan-publicReason-v1') for d in package['decisions']})}
     error = None
     answer = None
     try:
