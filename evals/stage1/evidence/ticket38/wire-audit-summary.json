@@ -1,0 +1,15 @@
+{
+  "requested_model": "gpt-6.1-sol",
+  "requested_reasoning": {
+    "effort": "medium",
+    "context": "all_turns"
+  },
+  "standard_runtime_tool_namespaces": [
+    "functions",
+    "collaboration"
+  ],
+  "tool_surface_limit": "Catalog-selected built-in exec/wait/user-input/collaboration remain advertised. exec nested definitions contain apply_patch and clock only; code-mode host disabled. No shell, file-reading, Engine analysis, Knowledge, MCP or skills. No tool invocation observed. This is not a literally empty advertised tool catalog.",
+  "observed_response_model": "gpt-6.1-sol",
+  "request_unchanged": true,
+  "capture_scope": "V1 saved-output grader request; final V2 only changed rubric citation sentence and structured quotes array. Routing override documented in capture-config.json."
+}

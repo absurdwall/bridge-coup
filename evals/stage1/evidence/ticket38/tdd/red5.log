@@ -1,0 +1,24 @@
+test_actual_illegal_card_and_legal_execution_have_distinct_mechanical_results (test_evaluate.SavedDecisionTests) ... ok
+test_grader_package_uses_actual_input_and_raw_output_without_expected_labels (test_evaluate.SavedDecisionTests) ... ok
+test_saved_grades_can_be_reprocessed_without_a_playing_or_grading_model (test_evaluate.SavedDecisionTests) ... ok
+test_unavailable_grader_is_evaluator_issue_not_product_quality_failure (test_evaluate.SavedDecisionTests) ... FAIL
+test_uncertain_and_malformed_grader_results_never_become_product_passes (test_evaluate.SavedDecisionTests) ... ok
+
+======================================================================
+FAIL: test_unavailable_grader_is_evaluator_issue_not_product_quality_failure (test_evaluate.SavedDecisionTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tingranwang/.codex/worktrees/stage1-ticket38/bridge-coup/evals/stage1/tests/test_evaluate.py", line 74, in test_unavailable_grader_is_evaluator_issue_not_product_quality_failure
+    self.assertEqual(run.returncode, 0, run.stderr)
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "/Users/tingranwang/.codex/worktrees/stage1-ticket38/bridge-coup/evals/stage1/evaluate.py", line 155, in <module>
+    main()
+  File "/Users/tingranwang/.codex/worktrees/stage1-ticket38/bridge-coup/evals/stage1/evaluate.py", line 149, in main
+    result = run_grader(package, args.output, args.codex, args.timeout)
+NameError: name 'run_grader' is not defined
+
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.074s
+
+FAILED (failures=1)

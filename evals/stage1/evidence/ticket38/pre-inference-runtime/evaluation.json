@@ -1,0 +1,220 @@
+{
+  "rubric_version": "stage1-basic-v2",
+  "results": [
+    {
+      "id": "live1",
+      "mechanical": "uncertain",
+      "quality": "uncertain",
+      "overall": "fail",
+      "attribution": "runtime_failure",
+      "runtime_failure": {
+        "error": "Error Domain=NSCocoaErrorDomain Code=3840 \"Unexpected end of file around line 1, column 401.\" UserInfo={NSDebugDescription=Unexpected end of file around line 1, column 401., NSJSONSerializationErrorIndex=401}",
+        "status": "failed"
+      },
+      "evidence": {
+        "runtimeFailure": {
+          "error": "Error Domain=NSCocoaErrorDomain Code=3840 \"Unexpected end of file around line 1, column 401.\" UserInfo={NSDebugDescription=Unexpected end of file around line 1, column 401., NSJSONSerializationErrorIndex=401}",
+          "status": "failed"
+        },
+        "source_directory": "/Users/tingranwang/.codex/worktrees/stage1-ticket38/bridge-coup/evals/stage1/evidence/ticket37/live1",
+        "rpc": [
+          {
+            "kind": "request",
+            "value": {
+              "id": 1,
+              "method": "initialize",
+              "params": {
+                "capabilities": {
+                  "experimentalApi": true
+                },
+                "clientInfo": {
+                  "name": "bridge-declarer",
+                  "version": "1"
+                }
+              }
+            }
+          },
+          {
+            "kind": "response",
+            "value": {
+              "method": "initialize",
+              "result": {
+                "codexHome": "/private/var/folders/1l/xh7kf4ss1rqg3vxjr17q9_0w0000gn/T/bridge-playing-A38EED59-4F10-479C-91CB-D25997B08979/home",
+                "platformFamily": "unix",
+                "platformOs": "macos",
+                "userAgent": "bridge-declarer/0.160.0 (Mac OS 27.0.1; arm64) unknown (bridge-declarer; 1)"
+              }
+            }
+          },
+          {
+            "kind": "request",
+            "value": {
+              "method": "initialized",
+              "params": {}
+            }
+          },
+          {
+            "kind": "request",
+            "value": {
+              "id": 2,
+              "method": "model/list",
+              "params": {
+                "includeHidden": true
+              }
+            }
+          },
+          {
+            "kind": "catalogAcknowledgement",
+            "value": {
+              "additionalSpeedTiers": [
+                "fast"
+              ],
+              "availabilityNux": null,
+              "availableAccessPrograms": {
+                "cyber": [
+                  "standard"
+                ]
+              },
+              "defaultReasoningEffort": "medium",
+              "defaultServiceTier": null,
+              "description": "Fast and affordable model for easier tasks.",
+              "displayName": "GPT-6-Luna",
+              "hidden": false,
+              "id": "gpt-6-luna",
+              "inputModalities": [
+                "text",
+                "image"
+              ],
+              "isDefault": false,
+              "model": "gpt-6-luna",
+              "modelSpecialty": null,
+              "multiAgentVersion": "v2",
+              "serviceTiers": [
+                {
+                  "description": "1.5x speed",
+                  "id": "priority",
+                  "name": "Fast"
+                }
+              ],
+              "supportedReasoningEfforts": [
+                {
+                  "description": "Fast responses with lighter reasoning",
+                  "reasoningEffort": "low"
+                },
+                {
+                  "description": "Balances speed and reasoning depth for everyday tasks",
+                  "reasoningEffort": "medium"
+                },
+                {
+                  "description": "Greater reasoning depth for complex problems",
+                  "reasoningEffort": "high"
+                },
+                {
+                  "description": "Extra high reasoning depth for complex problems",
+                  "reasoningEffort": "xhigh"
+                },
+                {
+                  "description": "Maximum reasoning depth for the hardest problems",
+                  "reasoningEffort": "max"
+                }
+              ],
+              "supportsPersonality": false,
+              "upgrade": null,
+              "upgradeInfo": null
+            }
+          },
+          {
+            "kind": "request",
+            "value": {
+              "id": 3,
+              "method": "thread/start",
+              "params": {
+                "approvalPolicy": "never",
+                "baseInstructions": "Play declarer and dummy using the supplied decision-time information. Write in English and pursue the stated objective. currentCard is the single card from actingSeat to play now; publicReason briefly explains it. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide an initial concrete plan before dummy's first play. Unknown cards remain unknown.",
+                "cwd": "/var/folders/1l/xh7kf4ss1rqg3vxjr17q9_0w0000gn/T/bridge-playing-A38EED59-4F10-479C-91CB-D25997B08979/cwd",
+                "developerInstructions": "",
+                "ephemeral": true,
+                "model": "gpt-6-luna",
+                "sandbox": "read-only",
+                "serviceName": "bridge-declarer"
+              }
+            }
+          },
+          {
+            "kind": "response",
+            "value": {
+              "method": "thread/start",
+              "result": {
+                "activePermissionProfile": null,
+                "approvalPolicy": "never",
+                "approvalsReviewer": "user",
+                "cwd": "/var/folders/1l/xh7kf4ss1rqg3vxjr17q9_0w0000gn/T/bridge-playing-A38EED59-4F10-479C-91CB-D25997B08979/cwd",
+                "disabledPluginIds": [],
+                "instructionSources": [],
+                "model": "gpt-6-luna",
+                "modelProvider": "openai",
+                "multiAgentMode": "explicitRequestOnly",
+                "reasoningEffort": "medium",
+                "runtimeWorkspaceRoots": [
+                  "/var/folders/1l/xh7kf4ss1rqg3vxjr17q9_0w0000gn/T/bridge-playing-A38EED59-4F10-479C-91CB-D25997B08979/cwd"
+                ],
+                "sandbox": {
+                  "networkAccess": false,
+                  "type": "readOnly"
+                },
+                "serviceTier": null,
+                "thread": {
+                  "agentNickname": null,
+                  "agentRole": null,
+                  "canAcceptDirectInput": true,
+                  "cliVersion": "0.160.0",
+                  "createdAt": 1792308235,
+                  "cwd": "/var/folders/1l/xh7kf4ss1rqg3vxjr17q9_0w0000gn/T/bridge-playing-A38EED59-4F10-479C-91CB-D25997B08979/cwd",
+                  "daybreakEnabled": null,
+                  "environments": [
+                    {
+                      "cwd": "/var/folders/1l/xh7kf4ss1rqg3vxjr17q9_0w0000gn/T/bridge-playing-A38EED59-4F10-479C-91CB-D25997B08979/cwd",
+                      "environmentId": "local",
+                      "runtimeWorkspaceRoots": [
+                        "/var/folders/1l/xh7kf4ss1rqg3vxjr17q9_0w0000gn/T/bridge-playing-A38EED59-4F10-479C-91CB-D25997B08979/cwd"
+                      ]
+                    }
+                  ],
+                  "ephemeral": true,
+                  "extra": null,
+                  "forkedFromId": null,
+                  "gitInfo": null,
+                  "historyMode": "paginated",
+                  "id": "01a14de5-4d1e-7a01-bfd2-7e09244d0b6a",
+                  "model": "gpt-6-luna",
+                  "modelProvider": "openai",
+                  "name": null,
+                  "originator": "bridge-declarer",
+                  "parentThreadId": null,
+                  "path": null,
+                  "preview": "",
+                  "projectId": null,
+                  "reasoningEffort": "medium",
+                  "recencyAt": 1792308235,
+                  "section": null,
+                  "sectionEnteredAt": null,
+                  "sessionId": "01a14de5-4d1e-7a01-bfd2-7e09244d0b6a",
+                  "source": "vscode",
+                  "status": {
+                    "type": "idle"
+                  },
+                  "threadSource": null,
+                  "turns": [],
+                  "updatedAt": 1792308235
+                }
+              }
+            }
+          }
+        ],
+        "runtime_config": "model = \"gpt-6-luna\"\nmodel_reasoning_effort = \"medium\"\napproval_policy = \"never\"\nsandbox_mode = \"read-only\"\nweb_search = \"disabled\"\nproject_doc_max_bytes = 0\ncli_auth_credentials_store = \"file\"\n[features]\nshell_tool = false\nunified_exec = false\nshell_snapshot = false\nview_image = false\nimage_generation = false\nbrowser_use = false\ncomputer_use = false\nin_app_browser = false\napps = false\nplugins = false\nremote_plugin = false\nmulti_agent = false\nmulti_agent_v2 = false\nmemories = false\nchronicle = false\nhooks = false\nskill_search = false\nskip_host_skill_discovery = true\ntool_suggest = false\nsleep_tool = false\ngoals = false\nworktrees = false\nworkspace_dependencies = false\n[tools]\nview_image = false"
+      },
+      "findings": []
+    }
+  ],
+  "scope": "Small-sample basic evaluation; no claim of broad grading reliability."
+}
