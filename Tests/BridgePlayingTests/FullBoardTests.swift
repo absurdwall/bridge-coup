@@ -184,7 +184,7 @@ final class FullBoardTests: XCTestCase {
         try board.play(Card("DQ"), by: .west)
         let transport = SchemaCheckingTransport(expected: ["D8", "D6", "D5", "D3"], card: "D3")
         let decision = try await ExpertSession(transport: transport).decide(board.snapshot(controller: .south))
-        XCTAssertEqual(decision.wireContractVersion, "stage1-legal-selectedCard-v3")
+        XCTAssertEqual(decision.wireContractVersion, "stage1-plan-variants-v4")
         XCTAssertEqual(decision.snapshot.legalCards.map(\.description), ["D8", "D6", "D5", "D3"])
     }
 }

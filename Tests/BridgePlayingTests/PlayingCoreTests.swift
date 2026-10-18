@@ -84,7 +84,7 @@ final class PlayingCoreTests: XCTestCase {
         let expert = ExpertSession(transport: RecordedPlayTransport(output: #"{"selectedCard":"D3","publicReason":"Follow low from dummy, preserving the diamond winners in South.","plan":{"update":"replace","text":"Establish clubs for the ninth trick, retaining a heart entry to South."}}"#))
         let decision = try await expert.decide(snapshot)
         XCTAssertTrue(decision.input.contains("Acting hand: North (dummy)"))
-        XCTAssertTrue(decision.input.contains("North (dummy): S 862 / H K74 / D 8653 / C Q72"))
+        XCTAssertTrue(decision.input.contains("North (dummy): spades: S8 S6 S2 / hearts: HK H7 H4 / diamonds: D8 D6 D5 D3 / clubs: CQ C7 C2"))
         XCTAssertFalse(decision.input.contains("East: S"))
         XCTAssertEqual(decision.action.card, try Card("D3"))
         XCTAssertEqual(decision.effectivePlan, "Establish clubs for the ninth trick, retaining a heart entry to South.")
