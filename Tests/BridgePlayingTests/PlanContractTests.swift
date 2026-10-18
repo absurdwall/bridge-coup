@@ -13,14 +13,15 @@ final class PlanContractTests: XCTestCase {
             #"{"plan":{"update":"keep","text":null},"publicReason":"Follow under partner's ace.","selectedCard":"C2"}"#
         ]))
         let initial = try await expert.decide(board.snapshot(controller: .south))
-        XCTAssertTrue(initial.input.contains("Current winning play so far: West DQ."), initial.input)
+        XCTAssertTrue(initial.input.contains("Current winning play so far: West DQ (Queen of diamonds)."), initial.input)
         try board.apply(initial.action)
         try board.play(Card("D4"), by: .east)
         try board.play(Card("DK"), by: .south)
         try board.play(Card("CA"), by: .south)
         try board.play(board.legalCards()[0], by: .west)
         let continuation = try await expert.decide(board.snapshot(controller: .south))
-        XCTAssertTrue(continuation.input.contains("Current winning play so far: South CA."), continuation.input)
+        XCTAssertTrue(continuation.input.contains("Current winning play so far: South CA (Ace of clubs)."), continuation.input)
+        XCTAssertTrue(continuation.input.contains("South DK (King of diamonds)"), continuation.input)
         XCTAssertFalse(continuation.input.contains("South (declarer):"))
         XCTAssertFalse(continuation.input.contains("North (dummy):"))
     }
@@ -59,8 +60,8 @@ final class PlanContractTests: XCTestCase {
         let repository = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
         let matrix = repository.appendingPathComponent("evals/stage1/evidence/ticket42/matrix")
         for (attempt, decision, expectedPhase, expectedChoices) in [
-            ("short-2-r3", 7, "Current action: South (declarer) leads a new trick.", "Legal current choices: SA, S9, S4, H6, H3, DK, CA, CK, C8, C6."),
-            ("full-reserved-r1", 4, "Current action: North (dummy) plays third in the current trick; clubs were led.", "Legal current choices: CA, C6, C5.")
+            ("short-2-r3", 7, "Current action: South (declarer) leads a new trick.", "Legal current choices: SA (Ace of spades), S9 (Nine of spades), S4 (Four of spades), H6 (Six of hearts), H3 (Three of hearts), DK (King of diamonds), CA (Ace of clubs), CK (King of clubs), C8 (Eight of clubs), C6 (Six of clubs)."),
+            ("full-reserved-r1", 4, "Current action: North (dummy) plays third in the current trick; clubs were led.", "Legal current choices: CA (Ace of clubs), C6 (Six of clubs), C5 (Five of clubs).")
         ] {
             let play = matrix.appendingPathComponent(attempt + "/play")
             let first = try JSONDecoder().decode(DecisionRecord.self, from: Data(contentsOf: play.appendingPathComponent("decision-0001/decision.json")))
@@ -68,11 +69,11 @@ final class PlanContractTests: XCTestCase {
             let reply = try JSONSerialization.data(withJSONObject: ["plan": ["update": "keep", "text": NSNull()], "selectedCard": current.action.card.description, "publicReason": "Play the current legal card from the acting hand."])
             let expert = ExpertSession(transport: SequencePlayTransport(outputs: [first.rawOutput, String(decoding: reply, as: UTF8.self)]))
             let initial = try await expert.decide(first.snapshot)
-            XCTAssertTrue(initial.input.contains("diamonds: DA DK") || initial.input.contains("diamonds: DA D7 D2"))
+            XCTAssertTrue(initial.input.contains("diamonds: DA (Ace of diamonds) DK (King of diamonds)") || initial.input.contains("diamonds: DA (Ace of diamonds) D7 (Seven of diamonds) D2 (Two of diamonds)"))
             let result = try await expert.decide(current.snapshot)
             XCTAssertTrue(result.input.contains(expectedPhase), result.input)
             XCTAssertTrue(result.input.contains(expectedChoices), result.input)
-            if decision == 4 { XCTAssertTrue(result.input.contains("Current trick: South C3; West C4.")) }
+            if decision == 4 { XCTAssertTrue(result.input.contains("Current trick: South C3 (Three of clubs); West C4 (Four of clubs).")) }
             XCTAssertFalse(result.input.contains("South (declarer):"))
             XCTAssertFalse(result.input.contains("North (dummy):"))
             XCTAssertFalse(result.input.contains("East ("))

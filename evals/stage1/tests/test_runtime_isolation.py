@@ -6,6 +6,7 @@ service: a loopback provider captures the request and immediately rejects it.
 import http.server
 import json
 import os
+import re
 from pathlib import Path
 import shlex
 import shutil
@@ -26,7 +27,7 @@ class RuntimeIsolationTests(unittest.TestCase):
         if not cls.binary.is_file():
             raise RuntimeError('Build the production public driver with swift build --product bridge-play first')
 
-    def public_request(self):
+    def public_request(self, fixture='evals/stage1/fixtures/synthetic-initial.json'):
         captures = []
 
         class RejectingProvider(http.server.BaseHTTPRequestHandler):
@@ -55,7 +56,7 @@ class RuntimeIsolationTests(unittest.TestCase):
                 wrapper.write_text('#!/bin/sh\nexport PATH='+shlex.quote(str(codex.parent))+':"$PATH"\nexec '+shlex.quote(str(codex))+' "$@" -c model_provider="offline-isolation-test" -c '+shlex.quote('model_providers.offline-isolation-test='+provider)+' -c features.enable_request_compression=false\n')
                 wrapper.chmod(0o700)
                 result = subprocess.run([str(self.binary),
-                    '--fixture', str(ROOT/'evals/stage1/fixtures/synthetic-initial.json'),
+                    '--fixture', str(ROOT/fixture),
                     '--output', str(root/'play'), '--codex', str(wrapper), '--timeout', '15'],
                     cwd=ROOT, env={**os.environ, 'CODEX_HOME': str(root)},
                     capture_output=True, text=True, timeout=25)
@@ -91,3 +92,22 @@ class RuntimeIsolationTests(unittest.TestCase):
         request = self.public_request()
         self.assertEqual(list(request['text']['format']['schema']['properties']),
                          ['publicReason', 'plan', 'selectedCard'])
+
+    def test_public_card_names_preserve_codes_visibility_and_legal_actions(self):
+        fixture_path = 'evals/stage1/corpus/boards/walker-holdup-adapted.json'
+        request = self.public_request(fixture_path)
+        text = '\n'.join(part.get('text', '') for item in request['input']
+                         if item.get('role') == 'user' for part in item.get('content', []))
+        labels = dict(re.findall(r'\b([SHDC][2-9TJQKA]) \(([^)]+)\)', text))
+        fixture = json.loads((ROOT/fixture_path).read_text())
+        public_cards = {card for hand in fixture['hands'] if hand['seat'] in ('north', 'south')
+                        for card in hand['cards']} | {'SK'}
+        self.assertEqual(set(labels), public_cards, 'Name every authorized card without exposing hidden hands')
+        for code, name in {'SA': 'Ace of spades', 'DK': 'King of diamonds',
+                           'DQ': 'Queen of diamonds', 'DJ': 'Jack of diamonds',
+                           'DT': 'Ten of diamonds', 'S3': 'Three of spades'}.items():
+            self.assertEqual(labels[code], name)
+        self.assertIn('Current winning play so far: West SK (King of spades).', text)
+        self.assertIn('Actual plays in order: West SK (King of spades).', text)
+        self.assertEqual(request['text']['format']['schema']['properties']['selectedCard']['enum'],
+                         ['S8', 'S7'])
