@@ -1,0 +1,15 @@
+test_actual_illegal_card_and_legal_execution_have_distinct_mechanical_results (test_evaluate.SavedDecisionTests) ... ok
+test_grader_package_uses_actual_input_and_raw_output_without_expected_labels (test_evaluate.SavedDecisionTests) ... ERROR
+
+======================================================================
+ERROR: test_grader_package_uses_actual_input_and_raw_output_without_expected_labels (test_evaluate.SavedDecisionTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tingranwang/.codex/worktrees/stage1-ticket38/bridge-coup/evals/stage1/tests/test_evaluate.py", line 28, in test_grader_package_uses_actual_input_and_raw_output_without_expected_labels
+    package = evaluate.grader_package([('live3', record)])
+AttributeError: module 'evaluate' has no attribute 'grader_package'
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.001s
+
+FAILED (errors=1)

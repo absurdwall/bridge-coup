@@ -1,0 +1,204 @@
+{
+  "id": "short-6-r2",
+  "case_id": "short-6",
+  "kind": "short",
+  "board": "boards/walker-holdup-adapted.json",
+  "decisions": 12,
+  "opponent_policy": "conserve-high",
+  "task_complete": true,
+  "legal_execution": "pass",
+  "quality": "fail",
+  "playing": {
+    "exit_code": 0,
+    "wall_seconds": 56.805
+  },
+  "grading": {
+    "exit_code": 0,
+    "grading_evidence_available": true
+  },
+  "coverage": {
+    "status": "pending",
+    "basis": "Spade continuation and controlled diamond attempt occurred; response/communication trigger requires independent review."
+  },
+  "counts": {
+    "actual_events": 29,
+    "complete": false,
+    "tricks": [
+      2,
+      5
+    ],
+    "model_request_attempts": 12,
+    "actual_rpc_requests": 12,
+    "model_actions": 12,
+    "forced_actions": 3,
+    "driver_opponent_actions": 13,
+    "initial_controlled_actions": 0,
+    "initial_opponent_actions": 1,
+    "retries": 0
+  },
+  "wire": {
+    "upstream_request_attempts": 12,
+    "http_statuses": {
+      "200": 12
+    },
+    "transport_errors": [],
+    "missing_response_metadata": [],
+    "observed_response_models": [
+      "gpt-6-luna"
+    ]
+  },
+  "timing": {
+    "elapsedSeconds": 56.503944993019104,
+    "lastControlledActionSeconds": 56.5019029378891,
+    "environmentOverheadSeconds": 0.10159409046173096,
+    "initialRequestSeconds": 10.465981006622314,
+    "subsequentRequestSeconds": [
+      4.5165979862213135,
+      3.602041006088257,
+      3.7926039695739746,
+      3.8153018951416016,
+      3.7694469690322876,
+      6.75580906867981,
+      4.57381808757782,
+      3.829677939414978,
+      4.094218015670776,
+      3.619462013244629,
+      3.567392945289612
+    ],
+    "failedRequestSeconds": null
+  },
+  "quality_counts": {
+    "pass": 6,
+    "fail": 6,
+    "uncertain": 0
+  },
+  "review_required": [
+    {
+      "id": "decision-0001",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "card ownership and route",
+          "fact": "North holds S87; the spade ace belongs to South.",
+          "explanation": "The plan assigns dummy a nonexistent spade ace. The reason also proposes retaining the very spade eight selected for immediate play, despite no established prospect of a spade entry.",
+          "quotes": [
+            "Win the spade lead with dummy’s ace if possible, then lead diamonds; manage entries carefully and avoid conceding a diamond trick unnecessarily.",
+            "retain dummy’s spade 8 as a possible later entry."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0002",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "plan consistency",
+          "fact": "South holds SA and is playing fourth to SK–S8–S4; North holds only S7.",
+          "explanation": "SA correctly wins, but the explicitly retained plan still directs winning this opening lead with dummy’s nonexistent ace, materially disagreeing with the current reason.",
+          "quotes": [
+            "Win the spade lead with dummy’s ace if possible, then lead diamonds; manage entries carefully and avoid conceding a diamond trick unnecessarily.",
+            "The king remains the winning card, so cover it with the ace to take the trick and preserve the heart and diamond entries."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0009",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "plan feasibility and trick objective",
+          "fact": "North holds HA43 opposite South’s HKQJ. Defenders have four tricks and lead S2 with both declarer hands void in spades.",
+          "explanation": "There is no heart honor to finesse against. Moreover, the current spade necessarily gives defenders their fifth trick, so a subsequent finesse cannot be needed to make this contract.",
+          "quotes": [
+            "Use dummy’s heart ace as an entry to the diamond suit; cash the remaining diamond honors, then take the heart finesse if needed for the contract."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0010",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "retained plan feasibility",
+          "fact": "North holds HA43 opposite HKQJ; West’s S2 is winning the current trick and defenders already have four tricks.",
+          "explanation": "The retained plan proposes an unnecessary, undefined heart finesse and still treats making the contract as possible after the unavoidable fifth defensive trick. CJ itself is a reasonable discard.",
+          "quotes": [
+            "Use dummy’s heart ace as an entry to the diamond suit; cash the remaining diamond honors, then take the heart finesse if needed for the contract."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0011",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "action and reason consistency",
+          "fact": "North has no clubs and the selected card is H3.",
+          "explanation": "The reason directs a club discard while the action discards a heart; its acknowledgment that CT is gone does not resolve that contradiction.",
+          "quotes": [
+            "Discard a low club; dummy’s club ten is already gone, so preserve the heart ace and diamond honors.",
+            "H3"
+          ]
+        },
+        {
+          "dimension": "retained plan feasibility",
+          "fact": "Defenders have already won five tricks; declarer holds every heart honor from ace through jack.",
+          "explanation": "The retained plan still invokes a heart finesse for a contract that is already defeated.",
+          "quotes": [
+            "Use dummy’s heart ace as an entry to the diamond suit; cash the remaining diamond honors, then take the heart finesse if needed for the contract."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0012",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "retained plan feasibility",
+          "fact": "Defenders have five tricks. South holds HKQJ and D543 opposite North’s HA4 and DKQJT.",
+          "explanation": "HK is a sound sure-winner lead, but the explicitly retained plan still calls for a heart finesse despite declarer owning all top heart honors, and refers to making an already defeated contract.",
+          "quotes": [
+            "Lead the heart king from the top of the sequence to cash a sure heart winner and retain the queen-jack for continuation.",
+            "Use dummy’s heart ace as an entry to the diamond suit; cash the remaining diamond honors, then take the heart finesse if needed for the contract."
+          ]
+        }
+      ]
+    }
+  ],
+  "plan_updates": {
+    "keep": 10,
+    "replace": 2,
+    "withdraw": 0
+  },
+  "failures": [],
+  "outcome": "fail"
+}

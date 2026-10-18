@@ -1,0 +1,174 @@
+{
+  "results": [
+    {
+      "id": "decision-0001",
+      "status": "fail",
+      "findings": [
+        {
+          "dimension": "card ownership and consistency",
+          "fact": "South holds SA; North holds only S8 and S7.",
+          "explanation": "The plan invents an ace in dummy, and the reason claims that ace wins while the selected card is S8.",
+          "quotes": [
+            "Win the spade lead with dummy’s ace",
+            "the ace wins and keeps declarer’s high spade intact."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0002",
+      "status": "fail",
+      "findings": [
+        {
+          "dimension": "plan consistency",
+          "fact": "SA belongs to South, who is now playing it after North followed with S8.",
+          "explanation": "The current action and reason correctly win in South, but the explicitly retained plan specifies an impossible win in dummy.",
+          "quotes": [
+            "Win the spade lead with dummy’s ace",
+            "declarer should take it with the ace"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0003",
+      "status": "fail",
+      "findings": [
+        {
+          "dimension": "plan factual accuracy",
+          "fact": "The opening trick was won by South’s SA; dummy never held a spade ace.",
+          "explanation": "The diamond lead is feasible, but the retained effective plan still contains a materially false card assignment and route.",
+          "quotes": [
+            "Win the spade lead with dummy’s ace"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0004",
+      "status": "fail",
+      "findings": [
+        {
+          "dimension": "plan factual accuracy",
+          "fact": "South held and played SA; North’s original spades were S8 and S7.",
+          "explanation": "D9 is a sound equivalent diamond spot, but the retained plan continues to assign an unavailable ace to dummy.",
+          "quotes": [
+            "Win the spade lead with dummy’s ace"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0005",
+      "status": "fail",
+      "findings": [
+        {
+          "dimension": "plan factual accuracy",
+          "fact": "South won the opening trick with SA; North never held that card.",
+          "explanation": "The conditional description of S9 as a possible stopper is reasonable, but the retained plan still contains the impossible dummy-ace route.",
+          "quotes": [
+            "Win the spade lead with dummy’s ace"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0006",
+      "status": "fail",
+      "findings": [
+        {
+          "dimension": "plan factual accuracy",
+          "fact": "SA was held and played by South, whereas North began with S8 and S7.",
+          "explanation": "Cashing DK is feasible, but the explicitly retained plan preserves the false assignment of the spade ace to dummy.",
+          "quotes": [
+            "Win the spade lead with dummy’s ace"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0007",
+      "status": "fail",
+      "findings": [
+        {
+          "dimension": "invented cards",
+          "fact": "South’s remaining diamonds are D5, D4 and D3; North holds the remaining diamond honors.",
+          "explanation": "The reason invents diamond honors in declarer’s hand. D3 legally follows suit, but cannot preserve honors South does not hold.",
+          "quotes": [
+            "preserve declarer’s diamond honors by discarding a low diamond."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0008",
+      "status": "fail",
+      "findings": [
+        {
+          "dimension": "suit control and winners",
+          "fact": "DA has already been played by East, and North holds DQ, DJ and DT after cashing DK.",
+          "explanation": "There is no remaining opposing diamond control to force out; North’s diamonds are already established winners.",
+          "quotes": [
+            "force out the remaining opposing diamond control and continue establishing the suit."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0009",
+      "status": "fail",
+      "findings": [
+        {
+          "dimension": "plan factual accuracy",
+          "fact": "The opening spade ace belonged to South and was played on the first trick.",
+          "explanation": "Following with D4 while retaining CA and CJ is feasible, but the retained effective plan still assigns the opening ace to dummy.",
+          "quotes": [
+            "Win the spade lead with dummy’s ace"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0010",
+      "status": "fail",
+      "findings": [
+        {
+          "dimension": "remaining-card accounting",
+          "fact": "The defenders’ four original diamonds were DA, D8, D7 and D6, and all four have already been played.",
+          "explanation": "DT is a safe winner, but the suggestion that it might draw another opposing diamond contradicts the complete visible diamond accounting.",
+          "quotes": [
+            "may draw the last opposing diamond."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0011",
+      "status": "fail",
+      "findings": [
+        {
+          "dimension": "card location and trick assessment",
+          "fact": "North still holds HA, and South holds HK, HQ and HJ.",
+          "explanation": "The ace is visibly still in dummy. The heart honors are established winners rather than merely a chance to develop tricks against an outstanding ace.",
+          "quotes": [
+            "the ace is out, but these honors offer the best chance to develop tricks."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0012",
+      "status": "fail",
+      "findings": [
+        {
+          "dimension": "action and reason consistency",
+          "fact": "South’s only hearts are HK, HQ and HJ, and the selected card is HJ.",
+          "explanation": "HJ is a legal winning play, but playing it cannot preserve the jack as the reason explicitly claims.",
+          "quotes": [
+            "play the lowest heart from South, preserving the king, queen, and jack."
+          ]
+        }
+      ]
+    }
+  ]
+}

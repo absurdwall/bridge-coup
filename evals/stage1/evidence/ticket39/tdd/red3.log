@@ -1,0 +1,50 @@
+[0/1] Planning build
+Building for debugging...
+[0/9] Write sources
+[2/10] Write swift-version--58304C5D6DBC2206.txt
+[4/10] Compiling BridgeDriver BoardDriver.swift
+[5/10] Emitting module BridgeDriver
+[5/12] Write Objects.LinkFileList
+[7/12] Emitting module BridgePlayingTests
+[8/12] Compiling BridgePlayingTests PlayingCoreTests.swift
+/Users/tingranwang/.codex/worktrees/stage1-ticket39/bridge-coup/Tests/BridgePlayingTests/PlayingCoreTests.swift:84:22: error: cannot find 'BoardDriver' in scope
+ 82 |             #"{"plan":{"update":"keep","text":null},"publicReason":"Win with the ace.","selectedCard":"DA"}"#
+ 83 |         ]))
+ 84 |         let driver = BoardDriver(board: board, expert: expert, opponent: .lowLegal)
+    |                      `- error: cannot find 'BoardDriver' in scope
+ 85 |         let dummy = try await driver.advance()
+ 86 |         XCTAssertEqual(dummy.execution.event.card, try Card("D3"))
+
+/Users/tingranwang/.codex/worktrees/stage1-ticket39/bridge-coup/Tests/BridgePlayingTests/PlayingCoreTests.swift:84:75: error: cannot infer contextual base in reference to member 'lowLegal'
+ 82 |             #"{"plan":{"update":"keep","text":null},"publicReason":"Win with the ace.","selectedCard":"DA"}"#
+ 83 |         ]))
+ 84 |         let driver = BoardDriver(board: board, expert: expert, opponent: .lowLegal)
+    |                                                                           `- error: cannot infer contextual base in reference to member 'lowLegal'
+ 85 |         let dummy = try await driver.advance()
+ 86 |         XCTAssertEqual(dummy.execution.event.card, try Card("D3"))
+
+/Users/tingranwang/.codex/worktrees/stage1-ticket39/bridge-coup/Tests/BridgePlayingTests/PlayingCoreTests.swift:87:49: error: type 'Equatable' has no member 'model'
+ 85 |         let dummy = try await driver.advance()
+ 86 |         XCTAssertEqual(dummy.execution.event.card, try Card("D3"))
+ 87 |         XCTAssertEqual(dummy.execution.source, .model)
+    |                                                 `- error: type 'Equatable' has no member 'model'
+ 88 |         let opponent = try await driver.advance()
+ 89 |         XCTAssertEqual(opponent.execution.source, .opponent)
+
+/Users/tingranwang/.codex/worktrees/stage1-ticket39/bridge-coup/Tests/BridgePlayingTests/PlayingCoreTests.swift:89:52: error: type 'Equatable' has no member 'opponent'
+ 87 |         XCTAssertEqual(dummy.execution.source, .model)
+ 88 |         let opponent = try await driver.advance()
+ 89 |         XCTAssertEqual(opponent.execution.source, .opponent)
+    |                                                    `- error: type 'Equatable' has no member 'opponent'
+ 90 |         let declarer = try await driver.advance()
+ 91 |         XCTAssertEqual(declarer.execution.source, .model)
+
+/Users/tingranwang/.codex/worktrees/stage1-ticket39/bridge-coup/Tests/BridgePlayingTests/PlayingCoreTests.swift:91:52: error: type 'Equatable' has no member 'model'
+ 89 |         XCTAssertEqual(opponent.execution.source, .opponent)
+ 90 |         let declarer = try await driver.advance()
+ 91 |         XCTAssertEqual(declarer.execution.source, .model)
+    |                                                    `- error: type 'Equatable' has no member 'model'
+ 92 |         XCTAssertTrue(declarer.decision!.input.contains("(opponent)"))
+ 93 |         XCTAssertEqual(declarer.decision!.snapshot.events.count, 3)
+[8/12] Linking bridge-play
+error: fatalError

@@ -1,0 +1,23 @@
+[
+  "codex",
+  "exec",
+  "--ignore-user-config",
+  "--ephemeral",
+  "--skip-git-repo-check",
+  "--sandbox",
+  "read-only",
+  "--model",
+  "gpt-6.1-sol",
+  "-c",
+  "model_reasoning_effort=\"medium\"",
+  "--output-schema",
+  "/Users/tingranwang/.codex/visualizations/2026/10/18/01a14d59-f7fd-7621-973c-154b0ab4b8b3/eval-preparation/schema.json",
+  "--json",
+  "--color",
+  "never",
+  "--cd",
+  "/Users/tingranwang/.codex/visualizations/2026/10/18/01a14d59-f7fd-7621-973c-154b0ab4b8b3/eval-preparation/isolated-cwd/gpt-6.1-sol-r2",
+  "-o",
+  "/Users/tingranwang/.codex/visualizations/2026/10/18/01a14d59-f7fd-7621-973c-154b0ab4b8b3/eval-preparation/gpt-6.1-sol-r2.final.json",
+  "-"
+]

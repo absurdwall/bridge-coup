@@ -1,0 +1,361 @@
+{
+  "status": "pass",
+  "unique_board_ids": 22,
+  "unique_threads": 22,
+  "unique_saved_decision_sessions": 226,
+  "limitation": "Four rejected invalidOutput requests preserve raw public completion/turn evidence but no successful DecisionRecord session metadata; do not claim 230 saved session UUIDs. Hidden resolved service identity is not established.",
+  "attempts": [
+    {
+      "attempt": "full-development-r1",
+      "board_id": "DE25A3FE-6D21-428B-BBB0-328C1A6068E9",
+      "thread_ids": [
+        "01a14e36-984a-70d0-a4b1-bd67253e226a"
+      ],
+      "turn_start_requests": 20,
+      "public_completions": 20,
+      "unique_completion_turn_ids": 20,
+      "saved_decision_sessions": 20,
+      "unique_saved_decision_sessions": 20,
+      "observed_models": [
+        "gpt-6-luna"
+      ],
+      "status": "pass"
+    },
+    {
+      "attempt": "full-development-r2",
+      "board_id": "1D310C87-FCEC-4548-AFDE-93AB1F58234A",
+      "thread_ids": [
+        "01a14e39-230d-78b1-8d11-3908b173e336"
+      ],
+      "turn_start_requests": 20,
+      "public_completions": 20,
+      "unique_completion_turn_ids": 20,
+      "saved_decision_sessions": 20,
+      "unique_saved_decision_sessions": 20,
+      "observed_models": [
+        "gpt-6-luna"
+      ],
+      "status": "pass"
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "board_id": "E16B17A6-B731-4F45-B9FA-2048A7AD20DF",
+      "thread_ids": [
+        "01a14e3b-9db7-7f83-9632-572717e1eed9"
+      ],
+      "turn_start_requests": 21,
+      "public_completions": 21,
+      "unique_completion_turn_ids": 21,
+      "saved_decision_sessions": 21,
+      "unique_saved_decision_sessions": 21,
+      "observed_models": [
+        "gpt-6-luna"
+      ],
+      "status": "pass"
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "board_id": "A2428674-67D5-48E6-A7AA-EC449E662C24",
+      "thread_ids": [
+        "01a14e3d-c05b-72c3-8307-ce8a53a42717"
+      ],
+      "turn_start_requests": 19,
+      "public_completions": 19,
+      "unique_completion_turn_ids": 19,
+      "saved_decision_sessions": 19,
+      "unique_saved_decision_sessions": 19,
+      "observed_models": [
+        "gpt-6-luna"
+      ],
+      "status": "pass"
+    },
+    {
+      "attempt": "short-1-r1",
+      "board_id": "826066C8-70AC-4FAA-8D70-3FAED9AFBE9C",
+      "thread_ids": [
+        "01a14e21-b462-7e51-bb5f-155523e48ca0"
+      ],
+      "turn_start_requests": 1,
+      "public_completions": 1,
+      "unique_completion_turn_ids": 1,
+      "saved_decision_sessions": 1,
+      "unique_saved_decision_sessions": 1,
+      "observed_models": [
+        "gpt-6-luna"
+      ],
+      "status": "pass"
+    },
+    {
+      "attempt": "short-1-r2",
+      "board_id": "BAC302EA-82F5-4D89-9C13-E219DA0F726F",
+      "thread_ids": [
+        "01a14e21-fb4c-73f1-bdb2-ee13592d9d47"
+      ],
+      "turn_start_requests": 1,
+      "public_completions": 1,
+      "unique_completion_turn_ids": 1,
+      "saved_decision_sessions": 1,
+      "unique_saved_decision_sessions": 1,
+      "observed_models": [
+        "gpt-6-luna"
+      ],
+      "status": "pass"
+    },
+    {
+      "attempt": "short-1-r3",
+      "board_id": "C2B957EC-15E9-4E9F-A7B7-620A6D63C95B",
+      "thread_ids": [
+        "01a14e22-8619-7d42-8234-5bd20cd0a4d9"
+      ],
+      "turn_start_requests": 1,
+      "public_completions": 1,
+      "unique_completion_turn_ids": 1,
+      "saved_decision_sessions": 1,
+      "unique_saved_decision_sessions": 1,
+      "observed_models": [
+        "gpt-6-luna"
+      ],
+      "status": "pass"
+    },
+    {
+      "attempt": "short-2-r1",
+      "board_id": "97E6D566-3F26-49E1-8DB9-3C97B7BAEF33",
+      "thread_ids": [
+        "01a14e22-d718-7e63-8843-d5c6c6394b5f"
+      ],
+      "turn_start_requests": 8,
+      "public_completions": 8,
+      "unique_completion_turn_ids": 8,
+      "saved_decision_sessions": 8,
+      "unique_saved_decision_sessions": 8,
+      "observed_models": [
+        "gpt-6-luna"
+      ],
+      "status": "pass"
+    },
+    {
+      "attempt": "short-2-r2",
+      "board_id": "037CC6B9-6F5D-490F-9428-9C56BBDB470E",
+      "thread_ids": [
+        "01a14e23-fd54-7fa2-bb4b-3a0e76016c65"
+      ],
+      "turn_start_requests": 8,
+      "public_completions": 8,
+      "unique_completion_turn_ids": 8,
+      "saved_decision_sessions": 8,
+      "unique_saved_decision_sessions": 8,
+      "observed_models": [
+        "gpt-6-luna"
+      ],
+      "status": "pass"
+    },
+    {
+      "attempt": "short-2-r3",
+      "board_id": "C2E2BDE7-D867-48DD-A71A-F902167541E9",
+      "thread_ids": [
+        "01a14e25-0386-73a2-b940-96b8e58caefc"
+      ],
+      "turn_start_requests": 8,
+      "public_completions": 8,
+      "unique_completion_turn_ids": 8,
+      "saved_decision_sessions": 8,
+      "unique_saved_decision_sessions": 8,
+      "observed_models": [
+        "gpt-6-luna"
+      ],
+      "status": "pass"
+    },
+    {
+      "attempt": "short-3-r1",
+      "board_id": "08600350-B007-45F8-8730-2AE83A41384A",
+      "thread_ids": [
+        "01a14e26-17e1-7670-adba-e9e5a4b22d6a"
+      ],
+      "turn_start_requests": 12,
+      "public_completions": 12,
+      "unique_completion_turn_ids": 12,
+      "saved_decision_sessions": 12,
+      "unique_saved_decision_sessions": 12,
+      "observed_models": [
+        "gpt-6-luna"
+      ],
+      "status": "pass"
+    },
+    {
+      "attempt": "short-3-r2",
+      "board_id": "4EAAA1F7-7D2C-4C7F-9E7C-45DD9F697692",
+      "thread_ids": [
+        "01a14e27-9928-7be2-baec-39eb03b2f45e"
+      ],
+      "turn_start_requests": 5,
+      "public_completions": 5,
+      "unique_completion_turn_ids": 5,
+      "saved_decision_sessions": 4,
+      "unique_saved_decision_sessions": 4,
+      "observed_models": [
+        "gpt-6-luna"
+      ],
+      "status": "pass"
+    },
+    {
+      "attempt": "short-3-r3",
+      "board_id": "B6BAB27C-235A-4538-984F-FA2EF7EFBEB6",
+      "thread_ids": [
+        "01a14e28-7c18-7e62-bb7f-26c3b44c3cce"
+      ],
+      "turn_start_requests": 12,
+      "public_completions": 12,
+      "unique_completion_turn_ids": 12,
+      "saved_decision_sessions": 12,
+      "unique_saved_decision_sessions": 12,
+      "observed_models": [
+        "gpt-6-luna"
+      ],
+      "status": "pass"
+    },
+    {
+      "attempt": "short-4-r1",
+      "board_id": "BDE2D1B4-7200-4F66-BC2E-554073BACDF4",
+      "thread_ids": [
+        "01a14e29-c19f-7942-a066-44cbb5e85062"
+      ],
+      "turn_start_requests": 11,
+      "public_completions": 11,
+      "unique_completion_turn_ids": 11,
+      "saved_decision_sessions": 10,
+      "unique_saved_decision_sessions": 10,
+      "observed_models": [
+        "gpt-6-luna"
+      ],
+      "status": "pass"
+    },
+    {
+      "attempt": "short-4-r2",
+      "board_id": "9A401F52-3434-4340-99DA-C8642ABCF050",
+      "thread_ids": [
+        "01a14e2b-0dc4-78d2-970e-d1ceeab47d7f"
+      ],
+      "turn_start_requests": 16,
+      "public_completions": 16,
+      "unique_completion_turn_ids": 16,
+      "saved_decision_sessions": 16,
+      "unique_saved_decision_sessions": 16,
+      "observed_models": [
+        "gpt-6-luna"
+      ],
+      "status": "pass"
+    },
+    {
+      "attempt": "short-4-r3",
+      "board_id": "74168969-9291-4A50-BD7B-7486CEF8A1DD",
+      "thread_ids": [
+        "01a14e2c-ec6e-7161-bb81-5477b0e2f916"
+      ],
+      "turn_start_requests": 2,
+      "public_completions": 2,
+      "unique_completion_turn_ids": 2,
+      "saved_decision_sessions": 1,
+      "unique_saved_decision_sessions": 1,
+      "observed_models": [
+        "gpt-6-luna"
+      ],
+      "status": "pass"
+    },
+    {
+      "attempt": "short-5-r1",
+      "board_id": "8F16E23A-EB21-4F1A-9B59-199E4AE29208",
+      "thread_ids": [
+        "01a14e2d-465a-7813-a722-52faac41767e"
+      ],
+      "turn_start_requests": 12,
+      "public_completions": 12,
+      "unique_completion_turn_ids": 12,
+      "saved_decision_sessions": 12,
+      "unique_saved_decision_sessions": 12,
+      "observed_models": [
+        "gpt-6-luna"
+      ],
+      "status": "pass"
+    },
+    {
+      "attempt": "short-5-r2",
+      "board_id": "778C639A-D3F4-422A-B000-B3D7E5203594",
+      "thread_ids": [
+        "01a14e2e-fdc8-7341-8e96-01f8ae75f7bd"
+      ],
+      "turn_start_requests": 12,
+      "public_completions": 12,
+      "unique_completion_turn_ids": 12,
+      "saved_decision_sessions": 12,
+      "unique_saved_decision_sessions": 12,
+      "observed_models": [
+        "gpt-6-luna"
+      ],
+      "status": "pass"
+    },
+    {
+      "attempt": "short-5-r3",
+      "board_id": "33579795-EF62-4D15-B7F3-C2657BB95993",
+      "thread_ids": [
+        "01a14e30-afd6-7353-b857-cf4695f9389a"
+      ],
+      "turn_start_requests": 5,
+      "public_completions": 5,
+      "unique_completion_turn_ids": 5,
+      "saved_decision_sessions": 4,
+      "unique_saved_decision_sessions": 4,
+      "observed_models": [
+        "gpt-6-luna"
+      ],
+      "status": "pass"
+    },
+    {
+      "attempt": "short-6-r1",
+      "board_id": "0F965CB9-7DF1-4E3F-8499-AE551BF810FB",
+      "thread_ids": [
+        "01a14e31-d027-74f0-91c7-4a7b31c1f33a"
+      ],
+      "turn_start_requests": 12,
+      "public_completions": 12,
+      "unique_completion_turn_ids": 12,
+      "saved_decision_sessions": 12,
+      "unique_saved_decision_sessions": 12,
+      "observed_models": [
+        "gpt-6-luna"
+      ],
+      "status": "pass"
+    },
+    {
+      "attempt": "short-6-r2",
+      "board_id": "D666FA6D-94A5-4BB4-AE75-3D2A38A5FF9F",
+      "thread_ids": [
+        "01a14e33-559d-7851-abe4-a324cc9138af"
+      ],
+      "turn_start_requests": 12,
+      "public_completions": 12,
+      "unique_completion_turn_ids": 12,
+      "saved_decision_sessions": 12,
+      "unique_saved_decision_sessions": 12,
+      "observed_models": [
+        "gpt-6-luna"
+      ],
+      "status": "pass"
+    },
+    {
+      "attempt": "short-6-r3",
+      "board_id": "9F4FEE24-7A99-4CE8-8881-28F05DBD46C6",
+      "thread_ids": [
+        "01a14e34-d8e9-7c31-8fc3-55cc2b91665d"
+      ],
+      "turn_start_requests": 12,
+      "public_completions": 12,
+      "unique_completion_turn_ids": 12,
+      "saved_decision_sessions": 12,
+      "unique_saved_decision_sessions": 12,
+      "observed_models": [
+        "gpt-6-luna"
+      ],
+      "status": "pass"
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+Building for debugging...
+[0/23] /Users/tingranwang/.codex/worktrees/stage1-ticket39/bridge-coup/.build/arm64-apple-macosx/debug/BridgeTeacherPackageTests.derived/runner.swift
+[1/23] Write sources
+[3/23] Write bridge-play-entitlement.plist
+[3/23] Write sources
+[8/23] Write BridgeTeacherMac-entitlement.plist
+[9/23] Write sources
+[14/23] Write swift-version--58304C5D6DBC2206.txt
+[16/39] Compiling BridgeDomain BridgeValues.swift
+[17/39] Emitting module BridgeDomain
+[18/39] Emitting module BridgeTeacherCore
+[19/39] Compiling BridgeTeacherCore AuctionRecord.swift
+[20/39] Compiling BridgeTeacherCore BridgeHand.swift
+[21/39] Compiling BridgeTeacherCore OriginalHandFacts.swift
+[22/44] Compiling BridgeTeacherCore ScreenshotReviewWorkflow.swift
+[23/44] Compiling BridgeTeacherCore OriginalContractTableWorkflow.swift
+[24/44] Compiling BridgeTeacherCore KeyPlayAnalysis.swift
+[25/44] Compiling BridgeTeacherCore KeyPlayAnalysisWorkflow.swift
+[26/44] Compiling BridgeTeacherCore BridgePlaySession.swift
+[27/44] Compiling BridgeTeacherCore CodexModelSettings.swift
+[28/44] Compiling BridgeTeacherCore DeclarerPlanWorkflow.swift
+[29/44] Compiling BridgeTeacherCore DoubleDummyVerification.swift
+[30/44] Compiling BridgeTeacherCore ReviewSessionArchive.swift
+[31/44] Compiling BridgeTeacherCore PlayCardResultsWorkflow.swift
+[32/44] Emitting module BridgeEngine
+[33/44] Compiling BridgeEngine BoardState.swift
+[34/44] Compiling BridgeTeacherCore TeachingConversation.swift
+[35/44] Compiling BridgeExpert Expert.swift
+[36/44] Emitting module BridgeExpert
+[37/71] Emitting module BridgeCodex
+[38/71] Compiling BridgeCodex CodexTransport.swift
+[39/75] Emitting module BridgePlayCLI
+[40/75] Compiling BridgePlayCLI BridgePlayMain.swift
+[40/75] Write Objects.LinkFileList
+[41/75] Linking bridge-play
+[42/75] Applying bridge-play
+[44/75] Compiling BridgeTeacherMac CodexModelSelectionPreferences.swift
+[45/75] Compiling BridgeTeacherMac CodexRuntimeDiscovery.swift
+[46/76] Compiling BridgeTeacherMac ContractGridNavigation.swift
+[47/76] Emitting module BridgeTeacherMac
+[48/76] Compiling BridgeTeacherMac AnalysisMarkdownDocument.swift
+[49/76] Compiling BridgeTeacherMac AnalysisMarkdownView.swift
+[50/76] Compiling BridgeTeacherMac BridgeCoupUpdateView.swift
+[51/76] Compiling BridgeTeacherMac BridgeTeacherApplicationModel.swift
+[52/76] Compiling BridgeTeacherMac OriginalContractTableView.swift
+[53/76] Compiling BridgeTeacherMac UpdateCheckWorkflow.swift
+[54/76] Compiling BridgeTeacherMac PlayWorkspaceView.swift
+[55/76] Compiling BridgeTeacherMac DoubleDummyVerificationView.swift
+[56/76] Compiling BridgeTeacherMac AuctionCallPresentation.swift
+[57/76] Compiling BridgeTeacherMac AuctionTableView.swift
+[58/76] Emitting module BridgePlayingTests
+[59/76] Compiling BridgePlayingTests PlayingCoreTests.swift
+[60/76] Compiling BridgeTeacherCoreTests OriginalContractTableWorkflowTests.swift
+[61/76] Compiling BridgeTeacherCoreTests ReviewSessionArchiveTests.swift
+[62/77] Compiling BridgeTeacherCoreTests KeyPlayAnalysisTests.swift
+[63/77] Compiling BridgeTeacherCoreTests DoubleDummySolverIntegrationTests.swift
+[64/77] Compiling BridgeTeacherCoreTests DoubleDummyVerificationTests.swift
+[65/77] Compiling BridgeTeacherCoreTests DeclarerPlanRequestBuilderTests.swift
+[66/77] Emitting module BridgeTeacherCoreTests
+[67/77] Compiling BridgeTeacherCoreTests DeclarerPlanWorkflowTests.swift
+[68/77] Compiling BridgeTeacherCoreTests CodexModelSettingsTests.swift
+[69/77] Compiling BridgeTeacherCoreTests AuctionRecordTests.swift
+[70/77] Compiling BridgeTeacherCoreTests ScreenshotReviewWorkflowTests.swift
+[71/77] Compiling BridgeTeacherMac BridgeTeacherMacApp.swift
+[72/77] Compiling BridgeTeacherMac CodexAppServer.swift
+[72/77] Write Objects.LinkFileList
+[73/77] Linking BridgeTeacherMac
+[74/77] Applying BridgeTeacherMac
+[76/93] Compiling BridgeTeacherMacTests PlayWorkspaceIntegrationTests.swift
+[77/93] Emitting module BridgeTeacherMacTests
+[78/93] Compiling BridgeTeacherMacTests PlayCardResultsWorkflowTests.swift
+[79/93] Compiling BridgeTeacherMacTests PlayHistoryWorkflowTests.swift
+[80/93] Compiling BridgeTeacherMacTests ReviewSourceRegressionTests.swift
+[81/93] Compiling BridgeTeacherMacTests ScreenshotRecognitionRetryTests.swift
+[82/93] Compiling BridgeTeacherMacTests AutonomousPlayWorkflowTests.swift
+[83/93] Compiling BridgeTeacherMacTests BridgeCoupUpdateWorkflowTests.swift
+[84/93] Compiling BridgeTeacherMacTests CodexRuntimeDiscoveryTests.swift
+[85/93] Compiling BridgeTeacherMacTests CodexRuntimeModelCatalogTests.swift
+[86/93] Compiling BridgeTeacherMacTests BridgeTeacherContractSelectionTests.swift
+[87/93] Compiling BridgeTeacherMacTests CodexModelSelectionPreferencesTests.swift
+[88/93] Compiling BridgeTeacherMacTests CodexTeachingServiceRequestTests.swift
+[89/93] Compiling BridgeTeacherMacTests OriginalContractTableApplicationTests.swift
+[90/93] Compiling BridgeTeacherMacTests AnalysisMarkdownDocumentTests.swift
+[91/93] Compiling BridgeTeacherMacTests AuctionTableBehaviorTests.swift
+[92/94] Compiling BridgeTeacherMacTests SharedOriginalHandsWorkflowTests.swift
+[93/96] Compiling BridgeTeacherPackageTests runner.swift
+[94/96] Emitting module BridgeTeacherPackageTests
+[94/96] Write Objects.LinkFileList
+[95/96] Linking BridgeTeacherPackageTests
+Build complete! (16.04s)
+Test Suite 'Selected tests' started at 2026-10-18 03:51:09.262.
+Test Suite 'BridgeTeacherPackageTests.xctest' started at 2026-10-18 03:51:09.263.
+Test Suite 'PlayingCoreTests' started at 2026-10-18 03:51:09.263.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testPublicExpertInitialDecisionKeepsFactsSeparateFromAdvice]' started.
+/Users/tingranwang/.codex/worktrees/stage1-ticket39/bridge-coup/Sources/BridgeExpert/Expert.swift:102: error: -[BridgePlayingTests.PlayingCoreTests testPublicExpertInitialDecisionKeepsFactsSeparateFromAdvice] : failed: caught error: "ExpertFailure(input: "Contract: 3NT by South. Scoring: IMP. Vulnerability: neither.\nObjective: Normal IMP strategy, weighing contract risk and overtricks.\nDecision controller: South (declarer).\nActing hand: North (dummy).\nSouth (declarer): S A94 / H A63 / D AK / C AK864\nNorth (dummy): S 862 / H K74 / D 8653 / C Q72\nActual plays in order: West DQ.\nTricks won: declarer 0, defenders 0.\nAdditional public background: Auction and defensive methods are not provided.", rawOutput: "{\"selectedCard\":\"D3\",\"publicReason\":\"Follow low from dummy, preserving the diamond winners in South.\",\"plan\":{\"update\":\"replace\",\"text\":\"Establish clubs for the ninth trick, retaining a heart entry to South.\"}}", detail: "unexpectedFields", elapsedSeconds: 4.398822784423828e-05)"
+Test Case '-[BridgePlayingTests.PlayingCoreTests testPublicExpertInitialDecisionKeepsFactsSeparateFromAdvice]' failed (0.110 seconds).
+Test Suite 'PlayingCoreTests' failed at 2026-10-18 03:51:09.374.
+	 Executed 1 test, with 1 failure (1 unexpected) in 0.110 (0.110) seconds
+Test Suite 'BridgeTeacherPackageTests.xctest' failed at 2026-10-18 03:51:09.374.
+	 Executed 1 test, with 1 failure (1 unexpected) in 0.110 (0.110) seconds
+Test Suite 'Selected tests' failed at 2026-10-18 03:51:09.374.
+	 Executed 1 test, with 1 failure (1 unexpected) in 0.110 (0.111) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

@@ -1,0 +1,2143 @@
+{
+  "status": "no-go",
+  "reviewed_rows": 230,
+  "original_evaluation_hashes_verified": true,
+  "quality_counts": {
+    "pass": 98,
+    "pending": 56,
+    "fail": 76
+  },
+  "overall_counts": {
+    "pass": 98,
+    "pending": 53,
+    "fail": 79
+  },
+  "attempt_outcomes": {
+    "fail": 21,
+    "pending": 1
+  },
+  "original_evaluator_issues_preserved": 45,
+  "attempts": [
+    {
+      "id": "short-1-r1",
+      "overall": "fail",
+      "quality_counts": {
+        "fail": 1
+      },
+      "overall_counts": {
+        "fail": 1
+      }
+    },
+    {
+      "id": "short-1-r2",
+      "overall": "pending",
+      "quality_counts": {
+        "pending": 1
+      },
+      "overall_counts": {
+        "pending": 1
+      }
+    },
+    {
+      "id": "short-1-r3",
+      "overall": "fail",
+      "quality_counts": {
+        "fail": 1
+      },
+      "overall_counts": {
+        "fail": 1
+      }
+    },
+    {
+      "id": "short-2-r1",
+      "overall": "fail",
+      "quality_counts": {
+        "pass": 7,
+        "fail": 1
+      },
+      "overall_counts": {
+        "pass": 7,
+        "fail": 1
+      }
+    },
+    {
+      "id": "short-2-r2",
+      "overall": "fail",
+      "quality_counts": {
+        "fail": 4,
+        "pending": 4
+      },
+      "overall_counts": {
+        "fail": 4,
+        "pending": 4
+      }
+    },
+    {
+      "id": "short-2-r3",
+      "overall": "fail",
+      "quality_counts": {
+        "fail": 4,
+        "pass": 4
+      },
+      "overall_counts": {
+        "fail": 4,
+        "pass": 4
+      }
+    },
+    {
+      "id": "short-3-r1",
+      "overall": "fail",
+      "quality_counts": {
+        "pending": 2,
+        "pass": 7,
+        "fail": 3
+      },
+      "overall_counts": {
+        "pending": 2,
+        "pass": 7,
+        "fail": 3
+      }
+    },
+    {
+      "id": "short-3-r2",
+      "overall": "fail",
+      "quality_counts": {
+        "pending": 1,
+        "pass": 3,
+        "fail": 1
+      },
+      "overall_counts": {
+        "pending": 1,
+        "pass": 3,
+        "fail": 1
+      }
+    },
+    {
+      "id": "short-3-r3",
+      "overall": "fail",
+      "quality_counts": {
+        "fail": 7,
+        "pass": 5
+      },
+      "overall_counts": {
+        "fail": 7,
+        "pass": 5
+      }
+    },
+    {
+      "id": "short-4-r1",
+      "overall": "fail",
+      "quality_counts": {
+        "fail": 5,
+        "pass": 3,
+        "pending": 3
+      },
+      "overall_counts": {
+        "fail": 6,
+        "pass": 3,
+        "pending": 2
+      }
+    },
+    {
+      "id": "short-4-r2",
+      "overall": "fail",
+      "quality_counts": {
+        "fail": 6,
+        "pending": 10
+      },
+      "overall_counts": {
+        "fail": 6,
+        "pending": 10
+      }
+    },
+    {
+      "id": "short-4-r3",
+      "overall": "fail",
+      "quality_counts": {
+        "fail": 1,
+        "pending": 1
+      },
+      "overall_counts": {
+        "fail": 2
+      }
+    },
+    {
+      "id": "short-5-r1",
+      "overall": "fail",
+      "quality_counts": {
+        "pass": 6,
+        "fail": 4,
+        "pending": 2
+      },
+      "overall_counts": {
+        "pass": 6,
+        "fail": 4,
+        "pending": 2
+      }
+    },
+    {
+      "id": "short-5-r2",
+      "overall": "fail",
+      "quality_counts": {
+        "pass": 7,
+        "fail": 2,
+        "pending": 3
+      },
+      "overall_counts": {
+        "pass": 7,
+        "fail": 2,
+        "pending": 3
+      }
+    },
+    {
+      "id": "short-5-r3",
+      "overall": "fail",
+      "quality_counts": {
+        "pending": 5
+      },
+      "overall_counts": {
+        "pending": 4,
+        "fail": 1
+      }
+    },
+    {
+      "id": "short-6-r1",
+      "overall": "fail",
+      "quality_counts": {
+        "fail": 5,
+        "pending": 7
+      },
+      "overall_counts": {
+        "fail": 5,
+        "pending": 7
+      }
+    },
+    {
+      "id": "short-6-r2",
+      "overall": "fail",
+      "quality_counts": {
+        "fail": 2,
+        "pending": 4,
+        "pass": 6
+      },
+      "overall_counts": {
+        "fail": 2,
+        "pending": 4,
+        "pass": 6
+      }
+    },
+    {
+      "id": "short-6-r3",
+      "overall": "fail",
+      "quality_counts": {
+        "fail": 5,
+        "pass": 6,
+        "pending": 1
+      },
+      "overall_counts": {
+        "fail": 5,
+        "pass": 6,
+        "pending": 1
+      }
+    },
+    {
+      "id": "full-development-r1",
+      "overall": "fail",
+      "quality_counts": {
+        "pass": 11,
+        "pending": 2,
+        "fail": 7
+      },
+      "overall_counts": {
+        "pass": 11,
+        "pending": 2,
+        "fail": 7
+      }
+    },
+    {
+      "id": "full-development-r2",
+      "overall": "fail",
+      "quality_counts": {
+        "fail": 13,
+        "pass": 5,
+        "pending": 2
+      },
+      "overall_counts": {
+        "fail": 13,
+        "pass": 5,
+        "pending": 2
+      }
+    },
+    {
+      "id": "full-reserved-r1",
+      "overall": "fail",
+      "quality_counts": {
+        "pass": 16,
+        "fail": 1,
+        "pending": 4
+      },
+      "overall_counts": {
+        "pass": 16,
+        "fail": 1,
+        "pending": 4
+      }
+    },
+    {
+      "id": "full-reserved-r2",
+      "overall": "fail",
+      "quality_counts": {
+        "pending": 4,
+        "pass": 12,
+        "fail": 3
+      },
+      "overall_counts": {
+        "pending": 4,
+        "pass": 12,
+        "fail": 3
+      }
+    }
+  ],
+  "rows": [
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0001",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0002",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0003",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0004",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0005",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0006",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0007",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0008",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0009",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0010",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0011",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0012",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0013",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0014",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0015",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0016",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0017",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0018",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0019",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0020",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0001",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0002",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0003",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0004",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0005",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0006",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0007",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0008",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0009",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0010",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0011",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0012",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0013",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0014",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0015",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0016",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0017",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0018",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0019",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0020",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0001",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0002",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0003",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0004",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0005",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0006",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0007",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0008",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0009",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0010",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0011",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0012",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0013",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0014",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0015",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0016",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0017",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0018",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0019",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0020",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0021",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0001",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0002",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0003",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0004",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0005",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0006",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0007",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0008",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0009",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0010",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0011",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0012",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0013",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0014",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0015",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0016",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0017",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0018",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0019",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-1-r1",
+      "decision": "play",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-1-r2",
+      "decision": "play",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-1-r3",
+      "decision": "play",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-2-r1",
+      "decision": "decision-0001",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-2-r1",
+      "decision": "decision-0002",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-2-r1",
+      "decision": "decision-0003",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-2-r1",
+      "decision": "decision-0004",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-2-r1",
+      "decision": "decision-0005",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-2-r1",
+      "decision": "decision-0006",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-2-r1",
+      "decision": "decision-0007",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-2-r1",
+      "decision": "decision-0008",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-2-r2",
+      "decision": "decision-0001",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-2-r2",
+      "decision": "decision-0002",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-2-r2",
+      "decision": "decision-0003",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-2-r2",
+      "decision": "decision-0004",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-2-r2",
+      "decision": "decision-0005",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-2-r2",
+      "decision": "decision-0006",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-2-r2",
+      "decision": "decision-0007",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-2-r2",
+      "decision": "decision-0008",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-2-r3",
+      "decision": "decision-0001",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-2-r3",
+      "decision": "decision-0002",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-2-r3",
+      "decision": "decision-0003",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-2-r3",
+      "decision": "decision-0004",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-2-r3",
+      "decision": "decision-0005",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-2-r3",
+      "decision": "decision-0006",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-2-r3",
+      "decision": "decision-0007",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-2-r3",
+      "decision": "decision-0008",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-3-r1",
+      "decision": "decision-0001",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-3-r1",
+      "decision": "decision-0002",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "short-3-r1",
+      "decision": "decision-0003",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "short-3-r1",
+      "decision": "decision-0004",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-3-r1",
+      "decision": "decision-0005",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "short-3-r1",
+      "decision": "decision-0006",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "short-3-r1",
+      "decision": "decision-0007",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "short-3-r1",
+      "decision": "decision-0008",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-3-r1",
+      "decision": "decision-0009",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "short-3-r1",
+      "decision": "decision-0010",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-3-r1",
+      "decision": "decision-0011",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "short-3-r1",
+      "decision": "decision-0012",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-3-r2",
+      "decision": "decision-0001",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-3-r2",
+      "decision": "decision-0002",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-3-r2",
+      "decision": "decision-0003",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-3-r2",
+      "decision": "decision-0004",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-3-r2",
+      "decision": "play",
+      "quality": "fail",
+      "mechanical": "fail",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-3-r3",
+      "decision": "decision-0001",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-3-r3",
+      "decision": "decision-0002",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-3-r3",
+      "decision": "decision-0003",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "short-3-r3",
+      "decision": "decision-0004",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-3-r3",
+      "decision": "decision-0005",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "short-3-r3",
+      "decision": "decision-0006",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-3-r3",
+      "decision": "decision-0007",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "short-3-r3",
+      "decision": "decision-0008",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-3-r3",
+      "decision": "decision-0009",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "short-3-r3",
+      "decision": "decision-0010",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": "Missing status or cited findings"
+    },
+    {
+      "attempt": "short-3-r3",
+      "decision": "decision-0011",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-3-r3",
+      "decision": "decision-0012",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r1",
+      "decision": "decision-0001",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r1",
+      "decision": "decision-0002",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r1",
+      "decision": "decision-0003",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r1",
+      "decision": "decision-0004",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r1",
+      "decision": "decision-0005",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r1",
+      "decision": "decision-0006",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r1",
+      "decision": "decision-0007",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r1",
+      "decision": "decision-0008",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r1",
+      "decision": "decision-0009",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r1",
+      "decision": "decision-0010",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r1",
+      "decision": "play",
+      "quality": "pending",
+      "mechanical": "fail",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0001",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0002",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0003",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0004",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0005",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0006",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0007",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0008",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0009",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0010",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0011",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0012",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0013",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0014",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0015",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0016",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r3",
+      "decision": "decision-0001",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-4-r3",
+      "decision": "play",
+      "quality": "pending",
+      "mechanical": "fail",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r1",
+      "decision": "decision-0001",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r1",
+      "decision": "decision-0002",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r1",
+      "decision": "decision-0003",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r1",
+      "decision": "decision-0004",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r1",
+      "decision": "decision-0005",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r1",
+      "decision": "decision-0006",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r1",
+      "decision": "decision-0007",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r1",
+      "decision": "decision-0008",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r1",
+      "decision": "decision-0009",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r1",
+      "decision": "decision-0010",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r1",
+      "decision": "decision-0011",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r1",
+      "decision": "decision-0012",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0001",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0002",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0003",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0004",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0005",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0006",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0007",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0008",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0009",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0010",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0011",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0012",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r3",
+      "decision": "decision-0001",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r3",
+      "decision": "decision-0002",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r3",
+      "decision": "decision-0003",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r3",
+      "decision": "decision-0004",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-5-r3",
+      "decision": "play",
+      "quality": "pending",
+      "mechanical": "fail",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r1",
+      "decision": "decision-0001",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r1",
+      "decision": "decision-0002",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r1",
+      "decision": "decision-0003",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r1",
+      "decision": "decision-0004",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r1",
+      "decision": "decision-0005",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r1",
+      "decision": "decision-0006",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r1",
+      "decision": "decision-0007",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r1",
+      "decision": "decision-0008",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r1",
+      "decision": "decision-0009",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r1",
+      "decision": "decision-0010",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r1",
+      "decision": "decision-0011",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r1",
+      "decision": "decision-0012",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r2",
+      "decision": "decision-0001",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r2",
+      "decision": "decision-0002",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r2",
+      "decision": "decision-0003",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r2",
+      "decision": "decision-0004",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r2",
+      "decision": "decision-0005",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r2",
+      "decision": "decision-0006",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r2",
+      "decision": "decision-0007",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r2",
+      "decision": "decision-0008",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r2",
+      "decision": "decision-0009",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r2",
+      "decision": "decision-0010",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r2",
+      "decision": "decision-0011",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r2",
+      "decision": "decision-0012",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r3",
+      "decision": "decision-0001",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r3",
+      "decision": "decision-0002",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r3",
+      "decision": "decision-0003",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r3",
+      "decision": "decision-0004",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r3",
+      "decision": "decision-0005",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r3",
+      "decision": "decision-0006",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r3",
+      "decision": "decision-0007",
+      "quality": "pending",
+      "mechanical": "pass",
+      "overall": "pending",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r3",
+      "decision": "decision-0008",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r3",
+      "decision": "decision-0009",
+      "quality": "fail",
+      "mechanical": "pass",
+      "overall": "fail",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r3",
+      "decision": "decision-0010",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r3",
+      "decision": "decision-0011",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    },
+    {
+      "attempt": "short-6-r3",
+      "decision": "decision-0012",
+      "quality": "pass",
+      "mechanical": "pass",
+      "overall": "pass",
+      "original_evaluator_error": null
+    }
+  ],
+  "scope": "Independent agent review of this finite material; no claim of human-expert signoff or broad evaluation reliability. Pending remains unaccepted."
+}

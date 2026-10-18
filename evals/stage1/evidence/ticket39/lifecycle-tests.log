@@ -1,0 +1,51 @@
+[0/1] Planning build
+Building for debugging...
+[0/8] Write sources
+[2/8] Write swift-version--58304C5D6DBC2206.txt
+[4/8] Compiling BridgeExpert Expert.swift
+[5/8] Emitting module BridgeExpert
+[6/12] Compiling BridgeDriver BoardDriver.swift
+[7/12] Emitting module BridgeDriver
+[8/12] Emitting module BridgeCodex
+[9/12] Compiling BridgeCodex CodexTransport.swift
+[10/18] Emitting module BridgePlayCLI
+[11/18] Compiling BridgePlayCLI BridgePlayMain.swift
+[11/18] Write Objects.LinkFileList
+[13/18] Emitting module BridgePlayingTests
+[14/18] Compiling BridgePlayingTests PlayingCoreTests.swift
+[14/18] Linking bridge-play
+[15/18] Applying bridge-play
+[16/18] Write Objects.LinkFileList
+[17/18] Linking BridgeTeacherPackageTests
+Build complete! (2.54s)
+Test Suite 'Selected tests' started at 2026-10-18 03:55:21.898.
+Test Suite 'BridgeTeacherPackageTests.xctest' started at 2026-10-18 03:55:21.899.
+Test Suite 'PlayingCoreTests' started at 2026-10-18 03:55:21.899.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testAmbiguousExtraExecutableFieldFailsWithoutApplyingAnything]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testAmbiguousExtraExecutableFieldFailsWithoutApplyingAnything]' passed (0.002 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testContinuationUsesActualDeltaAndRetainsPlanSourceWithFreshDecisionSession]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testContinuationUsesActualDeltaAndRetainsPlanSourceWithFreshDecisionSession]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testIllegalCurrentActionStopsDriverWithOriginalOutputAndNoExecution]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testIllegalCurrentActionStopsDriverWithOriginalOutputAndNoExecution]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testOneThreadRejectsOverlapStaleAndCrossBoardRequests]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testOneThreadRejectsOverlapStaleAndCrossBoardRequests]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testOpeningLeadExposesDummyAndCurrentActionAppliesOnlyToItsSnapshot]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testOpeningLeadExposesDummyAndCurrentActionAppliesOnlyToItsSnapshot]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testPlanReplacementChangesSourceAndWithdrawalClearsIt]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testPlanReplacementChangesSourceAndWithdrawalClearsIt]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testPublicDriverExecutesEveryDummyChoiceAndRecordsOpponentDelta]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testPublicDriverExecutesEveryDummyChoiceAndRecordsOpponentDelta]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testPublicExpertInitialDecisionKeepsFactsSeparateFromAdvice]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testPublicExpertInitialDecisionKeepsFactsSeparateFromAdvice]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testRuntimeTimeoutAlsoBoundsVersionProbeAndPreservesFailure]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testRuntimeTimeoutAlsoBoundsVersionProbeAndPreservesFailure]' passed (0.108 seconds).
+Test Suite 'PlayingCoreTests' passed at 2026-10-18 03:55:22.015.
+	 Executed 9 tests, with 0 failures (0 unexpected) in 0.115 (0.116) seconds
+Test Suite 'BridgeTeacherPackageTests.xctest' passed at 2026-10-18 03:55:22.015.
+	 Executed 9 tests, with 0 failures (0 unexpected) in 0.115 (0.116) seconds
+Test Suite 'Selected tests' passed at 2026-10-18 03:55:22.015.
+	 Executed 9 tests, with 0 failures (0 unexpected) in 0.115 (0.117) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

@@ -1,0 +1,43 @@
+{
+  "reason": "Exact excerpts of actual retained effective_plan must be valid citations for keep turns; original parser only accepted current raw output.",
+  "playing_model_called": false,
+  "grading_model_called": false,
+  "changed_results": [
+    {
+      "id": "decision-0002",
+      "before_quality": "uncertain",
+      "after_quality": "fail",
+      "prior_evaluator_error": "Grader quote absent from actual answer"
+    },
+    {
+      "id": "decision-0003",
+      "before_quality": "uncertain",
+      "after_quality": "fail",
+      "prior_evaluator_error": "Grader quote absent from actual answer"
+    },
+    {
+      "id": "decision-0006",
+      "before_quality": "uncertain",
+      "after_quality": "fail",
+      "prior_evaluator_error": "Grader quote absent from actual answer"
+    },
+    {
+      "id": "decision-0007",
+      "before_quality": "uncertain",
+      "after_quality": "fail",
+      "prior_evaluator_error": "Grader quote absent from actual answer"
+    },
+    {
+      "id": "decision-0008",
+      "before_quality": "uncertain",
+      "after_quality": "fail",
+      "prior_evaluator_error": "Grader quote absent from actual answer"
+    },
+    {
+      "id": "decision-0011",
+      "before_quality": "uncertain",
+      "after_quality": "fail",
+      "prior_evaluator_error": "Grader quote absent from actual answer"
+    }
+  ]
+}
