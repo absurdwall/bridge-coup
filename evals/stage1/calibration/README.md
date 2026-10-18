@@ -1,7 +1,0 @@
-# Calibration provenance
-
-`answers.json` converts the six original A–F authored outputs without changing their plan, current card or public reason. It adds the authorized initial snapshot and program-style action binding to exercise the same mechanical checks as actual saved decisions. These answers have no playing runtime or execution record. Their snapshot board identifier is copied from the initial public position only as an association fixture; it does not claim they were produced in that thread.
-
-`reviewed-expectations.json` is evaluation-side reference material. It must never enter `grader_package`. Its old source filename, `human-expectations.json`, did not establish human review. `independent-review.md` records the separate root agent's actual card-counting/route review and labels: A/B pass, C–F fail. Historical original model grades, commands, timing, public JSONL and reports are retained in `historical/`.
-
-`preparation-revision-log.md` preserves the correction: with five missing clubs, both opponents following twice already proves 3–2; the third club localizes the longer hand before the other defender's actual discard. The six answers did not contain that preparation mistake. `source-case-corrections.md` preserves source defects and information-time corrections for prospective teaching cases; it is research provenance, not a ticket 41 corpus or a playing-model knowledge resource.
