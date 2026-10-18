@@ -49,7 +49,7 @@ Each `grade` makes an independent `codex exec` request for gpt-6.1-sol / medium.
 
 The final citation contract is rubric `stage1-basic-v2`, with `quotes: ["one exact contiguous excerpt", ...]` for every finding. Each excerpt must occur verbatim in the actual raw or decoded public answer. Separate excerpts remain separate strings. Legacy v1 single-contiguous `quote` fields remain readable for historical reprocessing. The narrow `--reviewed-parser-fix REASON` option only supersedes the recorded initial bug that misclassified CLI `item.type=error` notices as tools, provided the original CLI exited zero and every recorded tool item was exactly `error`; it cannot override real tools or a failed exit. Such review provenance is saved.
 
-The playing contract consumed here is `currentCard`, `plan`, `publicReason`, version `stage1-currentCard-plan-publicReason-v1`. Card decoding and action association are localized in `deterministic_checks`; a later playing wire-contract change must update/revalidate that boundary, retaining all original failed attempts.
+The evaluator reads historical v1 (`currentCard`), v2 (`selectedCard`), and current v3 (`selectedCard` constrained to the current complete legal set). Card decoding and action association remain localized in `deterministic_checks`; original failed attempts retain their own contract versions.
 
 See [ticket 38 review](evidence/ticket38/REVIEW.md) for calibration, live-output judgments, evaluator corrections and isolation limits. Authored calibration failures are intentional bad examples, not new observed product defects. Six reviewed answers and two repeat grades establish only a small calibration checkpoint.
 
@@ -68,6 +68,28 @@ Ticket 39 adds the public `BoardDriver.advance` one-action entry and continuing 
 
 `--decisions` bounds model requests (1–26, default 1). All dummy and declarer decisions use the same Expert; `--sole-legal true` permits later sole-legal mechanics while still requiring the initial model plan. Fixtures may supply ordered `initialEvents` for a reachable mid-board state. Each multi-request run saves immutable `decision-NNNN/decision.json` and its immediate post-action `events.json`; shared thread RPC and the authoritative per-action `trace.json` stay at the run root. Illegal selected cards preserve their unexecuted decision and failure. Unreadable/transport failures preserve raw evidence and stop; no automatic answer repair occurs.
 
-The current wire version is `stage1-plan-publicReason-selectedCard-v2`: `plan`, `publicReason`, then the single `selectedCard`, mapped to internal `currentCard`. Saved v1 evidence remains readable. Evaluation's exact-citation check also accepts excerpts of the actual retained effective plan on keep turns, because it is prior model advice from the same run. A parser regrade never calls a playing model.
+Ticket 39 used wire version `stage1-plan-publicReason-selectedCard-v2`: `plan`, `publicReason`, then the single `selectedCard`, mapped to internal `currentCard`. Saved v1 evidence remains readable. Evaluation's exact-citation check also accepts excerpts of the actual retained effective plan on keep turns, because it is prior model advice from the same run. A parser regrade never calls a playing model.
 
 The three first developmental continuity attempts are preserved, including illegal cards and serious plan/reason failures. They were concurrent across boards and sequential within each board; their durations are exploratory resource conditions, not final sequential board timings. No stage quality pass is claimed.
+
+
+## Complete-board driver (ticket 40)
+
+```sh
+.build/debug/bridge-play \
+  --fixture evals/stage1/corpus/boards/synthetic.json \
+  --output /tmp/bridge-full-development-unique \
+  --codex /absolute/path/to/codex \
+  --full-board true --sole-legal true --opponent conserve-high \
+  --timeout 180 --run-timeout 1800
+```
+
+Full mode continues through all 52 actual plays, including any opponent play after the final controlled decision. The first controlled action always requests an initial plan, even with a sole legal card. Later sole-card mechanics are labeled `forced` and enter the next actual-event delta. No nonforced action comes from the driver, policy, or free-text plan. Short mode still stops at `--decisions` (default 1).
+
+Current wire contract `stage1-legal-selectedCard-v3` preserves plan → publicReason → selectedCard. Engine derives the complete legal-card set once into the immutable Domain snapshot. Expert uses exactly this set as the enum of the single `selectedCard` field; it does not rank choices or receive hidden hands. Stable instructions are unchanged. Model legality is therefore constrained by program-owned rule facts, rather than evidence of unconstrained model rule recall. Engine still checks ownership, turn, follow-suit and snapshot freshness at execution. The evaluator independently checks actual output and execution, and serious prose contradictions still fail quality. Old v1/v2 failures remain failures; they are not reclassified as successful v3 runs.
+
+`trace.json` separates model-request attempts, executed model actions, nonforced controlled actions, forced mechanics and opponent actions. Counts in `steps` cover only actions after driver entry; `initialEvents`, `initialControlledActions` and `initialOpponentActions` explicitly cover the supplied prefix. Actual app-server `turn/start` counts are audited separately: a startup failure can be an Expert attempt without a sent model turn. The trace includes first and later request latencies, failed-request latency where available, total driver duration, last-controlled-action elapsed time (including forced actions), real overhead, trick totals and failure. The clock starts at exposure/driver setup and includes runtime startup; timing ends at the last controlled action for the experience measure, while full driver elapsed may also include trailing opponents. Retries are zero.
+
+Operational bounds are independent of the later three-minute experience target. Each production request, including version discovery, receives the lesser of its configured limit and the remaining run budget. The adapter sends termination at that deadline, then SIGKILL after 0.2 seconds if necessary; observed process teardown adds a small scheduling/cleanup margin. Late results cannot execute. Timeout/failure preserves input, actual prefix, saved decisions and failure, with no regeneration or replacement action. A fresh run needs a new output directory.
+
+The limited `pavlicek-entry` environment policy implements the frozen short-5 manifest: East ducks a low diamond under North's first DK/DQ while retaining DA/DJ, and covers North D9 with DJ when held. Other choices use the legal state-aware conserve-high policy. It is a teaching-case policy, not a general defense platform. Engine's basic trick-winner rule is shared with this policy. No reserved-board playing attempt occurs in ticket 40.

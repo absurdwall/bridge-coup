@@ -1,4 +1,5 @@
 import Foundation
+import Darwin
 import BridgeExpert
 
 public enum CodexPlayingError: Error, CustomStringConvertible {
@@ -59,8 +60,14 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
 
     private func perform(_ request: PlayingRequest) throws -> PlayingReply {
         let alarm = DispatchWorkItem { [weak self] in self?.process?.terminate() }
-        DispatchQueue.global().asyncAfter(deadline: .now() + timeout, execute: alarm)
-        defer { alarm.cancel() }
+        let hardStop = DispatchWorkItem { [weak self] in
+            guard let process = self?.process, process.isRunning else { return }
+            kill(process.processIdentifier, SIGKILL)
+        }
+        let deadline = min(timeout, request.timeoutSeconds)
+        DispatchQueue.global().asyncAfter(deadline: .now() + deadline, execute: alarm)
+        DispatchQueue.global().asyncAfter(deadline: .now() + deadline + 0.2, execute: hardStop)
+        defer { alarm.cancel(); hardStop.cancel() }
         if process == nil { try start() }
         if threadID == nil {
             let result = try rpc("thread/start", ["cwd": runtimeDirectory.appendingPathComponent("cwd").path,

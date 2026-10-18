@@ -46,24 +46,30 @@ private struct BoardInput: Codable {
             } else if let lead = supplied.openingLead {
                 try board.play(lead, by: supplied.contract.declarer.next)
             } else { throw DomainError.invalidDeal }
-            guard let limit = Int(options["--decisions"] ?? "1"), (1...26).contains(limit),
+            let fullBoard = options["--full-board"] == "true"
+            let exposureTime = Date()
+            guard let limit = Int(options["--decisions"] ?? (fullBoard ? "26" : "1")), (1...26).contains(limit),
                   let policy = OpponentPolicy(rawValue: options["--opponent"] ?? "low-legal") else {
                 throw CodexPlayingError.failure("Invalid decision limit or opponent policy")
+            }
+            guard let requestTimeout = Double(options["--timeout"] ?? "180"), requestTimeout > 0, requestTimeout.isFinite,
+                  let runTimeout = Double(options["--run-timeout"] ?? "1800"), runTimeout > 0, runTimeout.isFinite else {
+                throw CodexPlayingError.failure("Invalid request or run timeout")
             }
             let authHome = ProcessInfo.processInfo.environment["CODEX_HOME"] ?? FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent(".codex").path
             let transport = try CodexPlayingTransport(executable: URL(fileURLWithPath: codex),
                 authenticationFile: URL(fileURLWithPath: authHome).appendingPathComponent("auth.json"), evidenceDirectory: output,
-                timeoutSeconds: Double(options["--timeout"] ?? "180") ?? 180)
+                timeoutSeconds: requestTimeout)
             let expert = ExpertSession(transport: transport)
             let driver = BoardDriver(board: board, expert: expert, opponent: policy,
-                                     mechanicalSoleLegal: options["--sole-legal"] == "true")
+                                     mechanicalSoleLegal: options["--sole-legal"] == "true", requestTimeoutSeconds: requestTimeout, runTimeoutSeconds: runTimeout, started: exposureTime)
             var decisionCount = 0
             do {
-                while decisionCount < limit {
+                while fullBoard || decisionCount < limit {
                     let step = try await driver.advance()
                     if let decision = step.decision {
                         decisionCount += 1
-                        let directory = limit == 1 ? output : output.appendingPathComponent(String(format: "decision-%04d", decisionCount))
+                        let directory = !fullBoard && limit == 1 ? output : output.appendingPathComponent(String(format: "decision-%04d", decisionCount))
                         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
                         try save(decision, to: directory.appendingPathComponent("decision.json"))
                         try save(step.actualEvents, to: directory.appendingPathComponent("events.json"))
@@ -75,7 +81,7 @@ private struct BoardInput: Codable {
                 }
             } catch {
                 if let failure = error as? DriverFailure {
-                    let directory = limit == 1 ? output : output.appendingPathComponent(String(format: "decision-%04d", decisionCount + 1))
+                    let directory = !fullBoard && limit == 1 ? output : output.appendingPathComponent(String(format: "decision-%04d", decisionCount + 1))
                     try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
                     try save(failure.decision, to: directory.appendingPathComponent("decision.json"))
                     let data = try JSONSerialization.data(withJSONObject: ["status": "failed", "error": failure.detail], options: [.prettyPrinted, .sortedKeys])

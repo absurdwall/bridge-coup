@@ -30,6 +30,18 @@ class SavedDecisionTests(unittest.TestCase):
         grade['results'][0]['findings'][0]['quotes'] = ['An unobserved earlier plan']
         self.assertEqual(evaluate.adjudicate(package, grade)['results'][0]['attribution'], 'evaluator_issue')
 
+    def test_v3_legal_enum_contract_remains_independently_checked(self):
+        record = evaluate.read_decision(ROOT / 'evidence/ticket37/live3')
+        record['wireContractVersion'] = 'stage1-legal-selectedCard-v3'
+        answer = json.loads(record['rawOutput'])
+        answer['selectedCard'] = answer.pop('currentCard')
+        record['rawOutput'] = json.dumps(answer)
+        record.pop('rpc')
+        self.assertEqual(evaluate.deterministic_checks(record)['structure']['status'], 'pass')
+        answer['selectedCard'] = 'DA'
+        record['rawOutput'] = json.dumps(answer)
+        self.assertEqual(evaluate.deterministic_checks(record)['ownership']['status'], 'fail')
+
     def test_versioned_selected_card_wire_preserves_saved_execution_checks(self):
         record = evaluate.read_decision(ROOT / 'evidence/ticket37/live3')
         record['wireContractVersion'] = 'stage1-plan-publicReason-selectedCard-v2'

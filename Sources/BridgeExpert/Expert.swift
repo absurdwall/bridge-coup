@@ -19,6 +19,7 @@ public struct PlayingRequest: Sendable {
     public let instructions: String
     public let input: String
     public let outputSchema: String
+    public let timeoutSeconds: Double
 }
 
 public struct PlayingReply: Sendable {
@@ -104,7 +105,7 @@ public actor ExpertSession {
 
     public init(transport: any PlayingTransport) { self.transport = transport }
 
-    public func decide(_ snapshot: DecisionSnapshot, executions: [ActualExecution] = []) async throws -> DecisionRecord {
+    public func decide(_ snapshot: DecisionSnapshot, executions: [ActualExecution] = [], timeoutSeconds: Double = 180) async throws -> DecisionRecord {
         guard !inFlight else { throw ExpertSessionError.overlappingDecision }
         guard !ended else { throw ExpertSessionError.endedSession }
         if let boundBoard {
@@ -132,7 +133,7 @@ public actor ExpertSession {
         let input = previousSnapshot == nil ? Self.initialInput(snapshot) : continuationInput(snapshot, delta: delta, executions: executions)
         let start = Date()
         let reply: PlayingReply
-        do { reply = try await transport.respond(to: PlayingRequest(instructions: Self.instructions, input: input, outputSchema: Self.outputSchema)) }
+        do { reply = try await transport.respond(to: PlayingRequest(instructions: Self.instructions, input: input, outputSchema: try Self.outputSchema(for: snapshot), timeoutSeconds: timeoutSeconds)) }
         catch { ended = true; throw ExpertFailure(input: input, rawOutput: "", detail: String(describing: error), elapsedSeconds: Date().timeIntervalSince(start)) }
         let elapsed = Date().timeIntervalSince(start)
         if let previousIdentity, (reply.identity.threadID != previousIdentity.threadID || usedTurnIDs.contains(reply.identity.turnID)) {
@@ -213,11 +214,19 @@ public actor ExpertSession {
 
     private enum ValidationError: Error { case emptyReason, missingInitialPlan, missingReplacement, ambiguousPlan, unexpectedFields }
 
-    public static let wireContractVersion = "stage1-plan-publicReason-selectedCard-v2"
+    public static let wireContractVersion = "stage1-legal-selectedCard-v3"
 
     public static let instructions = """
     Play declarer and dummy using the supplied decision-time information. Write in English and pursue the stated objective. selectedCard is the single card from the acting hand to play now; publicReason briefly explains it. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide an initial concrete plan before dummy's first play. Unknown cards remain unknown.
     """
+
+    private static func outputSchema(for snapshot: DecisionSnapshot) throws -> String {
+        var schema = try JSONSerialization.jsonObject(with: Data(outputSchema.utf8)) as! [String: Any]
+        var properties = schema["properties"] as! [String: Any]
+        properties["selectedCard"] = ["type": "string", "enum": snapshot.legalCards.map(\.description)]
+        schema["properties"] = properties
+        return String(decoding: try JSONSerialization.data(withJSONObject: schema, options: [.sortedKeys]), as: UTF8.self)
+    }
 
     public static let outputSchema = #"{"type":"object","additionalProperties":false,"required":["plan","publicReason","selectedCard"],"properties":{"selectedCard":{"type":"string","pattern":"^[SHDC][2-9TJQKA]$"},"publicReason":{"type":"string"},"plan":{"type":"object","additionalProperties":false,"required":["update","text"],"properties":{"update":{"type":"string","enum":["keep","replace","withdraw"]},"text":{"type":["string","null"]}}}}}"#
 }
