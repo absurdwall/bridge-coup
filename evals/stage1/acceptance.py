@@ -336,7 +336,7 @@ def render_report(output, candidate, summaries):
     import statistics
     status = 'NO-GO' if any(row['outcome'] == 'fail' for row in summaries) else 'PENDING INDEPENDENT REVIEW'
     lines = ['# Stage 1 finite acceptance', '', '**%s.** %d of 22 predeclared attempts recorded.' % (status, len(summaries)), '',
-             'Candidate source commit: `%s`. The exact source, executable, instructions, schema template, corpus, rubric, requested configurations and runtime hashes were recorded before play in [candidate.json](candidate.json). Later evidence/document commits do not change that candidate.', '',
+             'Candidate source commit: `%s`. The exact source, executable, instructions, schema template, corpus, rubric, requested configurations and runtime hashes were recorded before play in [candidate.json](candidate.json). Later evidence/document commits do not change that candidate.' % candidate['source_commit'], '',
              'All attempts use the production public Expert/driver through Codex app-server, requested gpt-6-luna / medium. Grading uses independent gpt-6.1-sol / medium with the frozen case/rubric. These names describe requested and observable identities; internal service resolution is not independently proven. Playing calls and graders run strictly sequentially, with no answer repair, manual controlled substitute or playing retry.', '',
              '## Every attempt', '',
              '| Attempt | Task | Legal | Quality | Trigger | Requests attempted / RPC | Model / forced / opponents | Tricks | Evidence |',
