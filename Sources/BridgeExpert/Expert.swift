@@ -84,6 +84,8 @@ public struct DecisionRecord: Codable, Sendable {
 }
 
 public struct ExpertFailure: Error, Sendable {
+    public enum Category: String, Codable, Sendable { case runtime, invalidOutput, identity }
+    public let category: Category
     public let input: String
     public let rawOutput: String
     public let detail: String
@@ -134,11 +136,11 @@ public actor ExpertSession {
         let start = Date()
         let reply: PlayingReply
         do { reply = try await transport.respond(to: PlayingRequest(instructions: Self.instructions, input: input, outputSchema: try Self.outputSchema(for: snapshot), timeoutSeconds: timeoutSeconds)) }
-        catch { ended = true; throw ExpertFailure(input: input, rawOutput: "", detail: String(describing: error), elapsedSeconds: Date().timeIntervalSince(start)) }
+        catch { ended = true; throw ExpertFailure(category: .runtime, input: input, rawOutput: "", detail: String(describing: error), elapsedSeconds: Date().timeIntervalSince(start)) }
         let elapsed = Date().timeIntervalSince(start)
         if let previousIdentity, (reply.identity.threadID != previousIdentity.threadID || usedTurnIDs.contains(reply.identity.turnID)) {
             ended = true
-            throw ExpertFailure(input: input, rawOutput: reply.rawOutput, detail: String(describing: ExpertSessionError.changedThreadOrRepeatedTurn), elapsedSeconds: elapsed)
+            throw ExpertFailure(category: .identity, input: input, rawOutput: reply.rawOutput, detail: String(describing: ExpertSessionError.changedThreadOrRepeatedTurn), elapsedSeconds: elapsed)
         }
         let advice: PublicAdvice
         do {
@@ -159,7 +161,7 @@ public actor ExpertSession {
             if advice.plan.update != .replace && advice.plan.text != nil { throw ValidationError.ambiguousPlan }
         } catch {
             ended = true
-            throw ExpertFailure(input: input, rawOutput: reply.rawOutput, detail: String(describing: error), elapsedSeconds: elapsed)
+            throw ExpertFailure(category: .invalidOutput, input: input, rawOutput: reply.rawOutput, detail: String(describing: error), elapsedSeconds: elapsed)
         }
         switch advice.plan.update {
         case .keep: break

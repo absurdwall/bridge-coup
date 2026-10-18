@@ -1,0 +1,13 @@
+....F..........
+======================================================================
+FAIL: test_grader_timeout_stops_nested_runtime_before_returning (test_evaluate.SavedDecisionTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tingranwang/.codex/worktrees/stage1-reviewfix/bridge-coup/evals/stage1/tests/test_evaluate.py", line 195, in test_grader_timeout_stops_nested_runtime_before_returning
+    self.assertTrue(not state or state.startswith('Z'), 'Timed-out grader must not leave an active descendant: ' + state)
+AssertionError: False is not true : Timed-out grader must not leave an active descendant: S
+
+----------------------------------------------------------------------
+Ran 15 tests in 1.473s
+
+FAILED (failures=1)
