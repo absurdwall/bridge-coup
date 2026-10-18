@@ -59,6 +59,17 @@ def main():
                 (args.output / f"transport-error-{ordinal}.json").write_text(json.dumps({"errorType": type(error).__name__}))
                 self.send_error(502, "Upstream transport failed")
                 return
+            metadata = {"httpStatus": upstream.status}
+            metadata_path = args.output / f"response-metadata-{ordinal}.json"
+
+            def persist_metadata():
+                # Readers may terminate the proxy as soon as completion is visible.
+                # Publish one complete file before exposing the matching bytes.
+                temporary = metadata_path.with_suffix(".json.tmp")
+                temporary.write_text(json.dumps(metadata, indent=2))
+                temporary.replace(metadata_path)
+
+            persist_metadata()
             self.send_response(upstream.status)
             for key, value in upstream.headers.items():
                 if key.lower() not in {"connection", "transfer-encoding", "content-length"}:
@@ -66,12 +77,9 @@ def main():
             self.end_headers()
             # Forward bytes unchanged. Retain only public response identity, not reasoning.
             pending = b""
-            metadata = {"httpStatus": upstream.status}
             try:
                 with upstream:
                     while chunk := upstream.read1(65536):
-                        self.wfile.write(chunk)
-                        self.wfile.flush()
                         pending += chunk
                         while b"\n" in pending:
                             line, pending = pending.split(b"\n", 1)
@@ -85,8 +93,11 @@ def main():
                                     for key in ("id", "model", "status", "usage"):
                                         if key in response:
                                             metadata[key] = response[key]
+                                    persist_metadata()
+                        self.wfile.write(chunk)
+                        self.wfile.flush()
             finally:
-                (args.output / f"response-metadata-{ordinal}.json").write_text(json.dumps(metadata, indent=2))
+                persist_metadata()
 
     server = http.server.ThreadingHTTPServer(("127.0.0.1", args.port), Handler)
     provider = {
