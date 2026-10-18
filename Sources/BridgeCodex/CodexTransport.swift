@@ -94,7 +94,7 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
         while true {
             let message = try read()
             if message["id"] != nil && message["method"] != nil {
-                try send(["id": message["id"]!, "error": ["code": -32601, "message": "Playing tool surface is empty."]])
+                try send(["id": message["id"]!, "error": ["code": -32601, "message": "This playing client does not service tool or approval requests."]])
                 throw CodexPlayingError.failure("Unexpected runtime tool or approval request")
             }
             guard message["method"] as? String == "turn/completed",
@@ -248,11 +248,11 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
     goals = false
     worktrees = false
     workspace_dependencies = false
+    [agents]
+    enabled = false
     [orchestrator.skills]
     enabled = false
     [orchestrator.mcp]
     enabled = false
-    [tools]
-    view_image = false
     """
 }
