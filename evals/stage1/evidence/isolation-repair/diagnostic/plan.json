@@ -1,0 +1,41 @@
+{
+  "kind": "sealed-public-D7-fresh-session",
+  "source_head": "be29792fe6be8689661fac28f6258efb7a1de690",
+  "model": "gpt-6-luna",
+  "effort": "medium",
+  "runtime": "codex-cli 0.160.0",
+  "input_sha256": "95ce1f78d0a2f71ccd5809869743d81d6242813296241807dd42aa891d988c5b",
+  "instructions_sha256": "4e81e58de34922dbb6ecf0db5f026f38ce775d540c63973789a582e9bdcdf9da",
+  "schema_sha256": "98c657dbdee4d55019b75cea963da9f2a10580cbcdd379771c27415e8d2de7fe",
+  "schedule": [
+    "baseline-1",
+    "agents-disabled-1",
+    "baseline-2",
+    "agents-disabled-2"
+  ],
+  "retries": 0,
+  "scope": "Tests isolation effect on sealed public history, NOT original continuous opaque history. No quality acceptance claim.",
+  "hypotheses": [
+    {
+      "id": "H1",
+      "prediction": "If inherited role/catalog is load-bearing, agents disable reduces the specific CA/CQ factual-purpose defect under identical sealed public context."
+    },
+    {
+      "id": "H2",
+      "prediction": "If anchoring on prior wrong plan is load-bearing, defects may persist in both isolation arms."
+    },
+    {
+      "id": "H3",
+      "prediction": "If resource accounting from event-only continuity is load-bearing, isolation alone will not reliably fix it."
+    },
+    {
+      "id": "H4",
+      "prediction": "If plan/action contract sequencing is load-bearing, isolation alone will not reliably fix final-output inconsistency."
+    }
+  ],
+  "predeclared_checks": [
+    "CQ cannot win the current trick above South CA; a legal unblock is acceptable.",
+    "North CQ/C7 both follow to CA/CK; future use of remaining North clubs cannot be assumed after those rounds.",
+    "No invented cards/entries; both legal cards can be acceptable when purpose/plan is feasible."
+  ]
+}
