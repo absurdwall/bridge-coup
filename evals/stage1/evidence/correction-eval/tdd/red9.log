@@ -1,0 +1,14 @@
+E....
+======================================================================
+ERROR: test_authored_hold_up_witness_is_legally_reachable_and_never_model_performance (test_corpus.CorpusPublicEntryTests.test_authored_hold_up_witness_is_legally_reachable_and_never_model_performance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tingranwang/.codex/worktrees/stage1-correction-eval/bridge-coup/evals/stage1/tests/test_corpus.py", line 39, in test_authored_hold_up_witness_is_legally_reachable_and_never_model_performance
+    witness = report['communication_reachability']
+              ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'communication_reachability'
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.207s
+
+FAILED (errors=1)

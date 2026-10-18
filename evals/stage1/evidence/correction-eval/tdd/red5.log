@@ -1,0 +1,41 @@
+F.FF
+======================================================================
+FAIL: test_case_rules_reach_existing_grader_entry_without_environment_or_expected_labels (test_corpus.CorpusPublicEntryTests.test_case_rules_reach_existing_grader_entry_without_environment_or_expected_labels)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tingranwang/.codex/worktrees/stage1-correction-eval/bridge-coup/evals/stage1/tests/test_corpus.py", line 40, in test_case_rules_reach_existing_grader_entry_without_environment_or_expected_labels
+    self.assertEqual(run.returncode, 0, run.stderr)
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "/Users/tingranwang/.codex/worktrees/stage1-correction-eval/bridge-coup/evals/stage1/evaluate.py", line 372, in <module>
+    main()
+  File "/Users/tingranwang/.codex/worktrees/stage1-correction-eval/bridge-coup/evals/stage1/evaluate.py", line 348, in main
+    material = corpus.validate(args.manifest)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tingranwang/.codex/worktrees/stage1-correction-eval/bridge-coup/evals/stage1/corpus.py", line 108, in validate
+    raise ValueError('Frozen asset changed; review, revise version and log correction before re-freezing')
+ValueError: Frozen asset changed; review, revise version and log correction before re-freezing
+
+
+======================================================================
+FAIL: test_revised_corpus_preserves_finite_cases_and_labels_used_reserve_as_regression (test_corpus.CorpusPublicEntryTests.test_revised_corpus_preserves_finite_cases_and_labels_used_reserve_as_regression)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tingranwang/.codex/worktrees/stage1-correction-eval/bridge-coup/evals/stage1/tests/test_corpus.py", line 23, in test_revised_corpus_preserves_finite_cases_and_labels_used_reserve_as_regression
+    self.assertEqual(report['status'], 'pass')
+AssertionError: 'fail' != 'pass'
+- fail
++ pass
+
+
+======================================================================
+FAIL: test_wrong_case_cannot_supply_facts_to_an_unrelated_actual_decision (test_corpus.CorpusPublicEntryTests.test_wrong_case_cannot_supply_facts_to_an_unrelated_actual_decision)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tingranwang/.codex/worktrees/stage1-correction-eval/bridge-coup/evals/stage1/tests/test_corpus.py", line 65, in test_wrong_case_cannot_supply_facts_to_an_unrelated_actual_decision
+    self.assertEqual(run.returncode, 2)
+AssertionError: 1 != 2
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.327s
+
+FAILED (failures=3)

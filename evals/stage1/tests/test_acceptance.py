@@ -13,6 +13,35 @@ spec.loader.exec_module(acceptance)
 
 
 class AcceptanceTests(unittest.TestCase):
+    def saved_play(self, attempt):
+        trace = acceptance.load(ROOT / 'evidence/ticket42/matrix' / attempt / 'play/trace.json')
+        return trace['steps'][-1]['actualEvents'], [s['decision'] for s in trace['steps'] if s.get('decision')]
+
+    def test_one_consumed_honor_and_real_entry_choice_is_limited_pending_coverage(self):
+        events, decisions = self.saved_play('short-4-r2')
+        result = acceptance.coverage('short-4', events, decisions, False)
+        self.assertEqual(result['status'], 'pending')
+        self.assertEqual(result['facets']['consumed_club_honors'], ['CQ'])
+        self.assertTrue(result['facets']['entry_opportunity_revisions'])
+        self.assertFalse(result['facets']['post_two_honors'])
+
+    def test_early_ace_then_diamond_loss_does_not_prove_hold_up_coverage(self):
+        for attempt in ('short-6-r1', 'short-6-r2', 'short-6-r3'):
+            events, decisions = self.saved_play(attempt)
+            result = acceptance.coverage('short-6', events, decisions, False)
+            self.assertEqual(result['status'], 'uncovered')
+            self.assertFalse(result['facets']['hold_up_before_diamond_ace_loss'])
+            self.assertTrue(result['facets']['diamond_ace_defensive_response'])
+
+    def test_new_information_tracks_break_and_third_club_before_unobserved_discard(self):
+        events, decisions = self.saved_play('short-3-r1')
+        result = acceptance.coverage('short-3', events, decisions, False)
+        self.assertEqual(result['status'], 'pending')
+        self.assertIn(12, result['facets']['two_round_break_decision_revisions'])
+        # North's C2 at revision 14 is sole-legal/forced, so no model saw this window.
+        self.assertEqual(result['facets']['third_club_before_other_defender_revisions'], [])
+
+
     def test_finite_schedule_has_22_independent_attempts_and_fixed_policies(self):
         manifest = acceptance.load(ROOT / 'corpus/manifest.json')
         attempts = acceptance.schedule(manifest)

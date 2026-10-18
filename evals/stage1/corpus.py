@@ -100,7 +100,8 @@ def verify_case_decisions(manifest_path, case_id, decisions):
 def validate(manifest_path):
     manifest_path = Path(manifest_path)
     assets = {'@rubric': ROOT / 'rubric.txt', 'manifest.json': manifest_path,
-              'synthetic-demonstration.json': manifest_path.parent / 'synthetic-demonstration.json'}
+              'synthetic-demonstration.json': manifest_path.parent / 'synthetic-demonstration.json',
+              'communication-reachability.json': manifest_path.parent / 'communication-reachability.json'}
     assets.update({str(p.relative_to(manifest_path.parent)): p for p in (manifest_path.parent / 'boards').glob('*.json')})
     hashes = {name: hashlib.sha256(path.read_bytes()).hexdigest() for name, path in assets.items()}
     frozen = load(manifest_path.parent / 'frozen-sha256.json')
@@ -112,9 +113,9 @@ def validate(manifest_path):
         raise ValueError('Duplicate case identifiers')
     short = [c for c in cases if c['kind'] == 'short']
     full = [c for c in cases if c['kind'] == 'full']
-    if len(short) != 6 or len(full) != 2 or {c['role'] for c in full} != {'development', 'reserved'}:
-        raise ValueError('Finite corpus requires six short, one development and one reserved board')
-    if manifest['rubric_version'] != 'stage1-basic-v2':
+    if len(short) != 6 or len(full) != 2 or {c['role'] for c in full} != {'development', 'regression'}:
+        raise ValueError('Finite corpus requires six short, one development and one used regression board')
+    if manifest['corpus_version'] != 'stage1-finite-v2' or manifest['rubric_version'] != 'stage1-basic-v3':
         raise ValueError('Unreviewed rubric version')
     starts, fingerprints = {}, {}
     for case in cases:
@@ -127,18 +128,28 @@ def validate(manifest_path):
         fingerprints[case['id']] = fingerprint
         if case['required_runs'] != (3 if case['kind'] == 'short' else 2):
             raise ValueError('Finite acceptance run count changed')
-    reserve = next(c for c in full if c['role'] == 'reserved')
+    reserve = next(c for c in full if c['role'] == 'regression')
     distinct = all(fingerprints[c['id']] != fingerprints[reserve['id']] for c in cases if c != reserve)
     if not distinct:
-        raise ValueError('Reserved board must differ from every tuning/development board')
+        raise ValueError('Used regression board must differ from every tuning/development board')
     demonstration = load(manifest_path.parent / 'synthetic-demonstration.json')
     demo = replay(load(manifest_path.parent / demonstration['board']), demonstration['events'])
     if len(demonstration['events']) != 52 or demo['declarerTricks'] != 10 or demo['defenderTricks'] != 3 or any(demo['hands'].values()):
         raise ValueError('Synthetic authored demonstration did not legally finish 10:3')
+    witness = load(manifest_path.parent / 'communication-reachability.json')
+    communication = replay(load(manifest_path.parent / witness['board']), witness['events'])
+    east_spades = sum(c.startswith('S') for c in communication['hands']['east'])
+    if (witness['model_performance'] is not False or len(witness['events']) != 20
+            or communication['declarerTricks'] != 2 or communication['defenderTricks'] != 3
+            or east_spades != 0 or 'HA' not in communication['hands']['north']):
+        raise ValueError('Authored communication witness does not establish its stated reachable facts')
     return {'status': 'pass', 'corpus_version': manifest['corpus_version'], 'rubric_version': manifest['rubric_version'],
-            'short_cases': len(short), 'full_boards': len(full), 'reserved_distinct': distinct,
+            'short_cases': len(short), 'full_boards': len(full), 'regression_distinct': distinct,
             'playing_model_called': False, 'grading_model_called': False,
             'demonstration': {'status': 'legal-authored-example', 'tricks': [10, 3], 'model_performance': False},
+            'communication_reachability': {'status': 'legal-authored-example', 'tricks': [2, 3],
+                                          'east_remaining_spades': east_spades, 'north_heart_ace_entry': True,
+                                          'model_performance': False},
             'sha256': hashes,
             'authorized_starts': starts,
             'case_rules': [case_rules(c) for c in cases]}
