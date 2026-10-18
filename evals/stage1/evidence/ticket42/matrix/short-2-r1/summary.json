@@ -1,0 +1,100 @@
+{
+  "id": "short-2-r1",
+  "case_id": "short-2",
+  "kind": "short",
+  "board": "boards/synthetic.json",
+  "decisions": 8,
+  "opponent_policy": "conserve-high",
+  "task_complete": true,
+  "legal_execution": "pass",
+  "quality": "fail",
+  "playing": {
+    "exit_code": 0,
+    "wall_seconds": 48.046
+  },
+  "grading": {
+    "exit_code": 0,
+    "grading_evidence_available": true
+  },
+  "coverage": {
+    "status": "pending",
+    "basis": "At least three actual decisions; absence of a newly disproved plan premise requires independent review."
+  },
+  "counts": {
+    "actual_events": 17,
+    "complete": false,
+    "tricks": [
+      4,
+      0
+    ],
+    "model_request_attempts": 8,
+    "actual_rpc_requests": 8,
+    "model_actions": 8,
+    "forced_actions": 1,
+    "driver_opponent_actions": 7,
+    "initial_controlled_actions": 0,
+    "initial_opponent_actions": 1,
+    "retries": 0
+  },
+  "wire": {
+    "upstream_request_attempts": 8,
+    "http_statuses": {
+      "200": 7
+    },
+    "transport_errors": [],
+    "missing_response_metadata": [
+      "response-metadata-7.json"
+    ],
+    "observed_response_models": [
+      "gpt-6-luna"
+    ]
+  },
+  "timing": {
+    "elapsedSeconds": 47.83667504787445,
+    "lastControlledActionSeconds": 47.83410906791687,
+    "environmentOverheadSeconds": 0.05409276485443115,
+    "initialRequestSeconds": 14.397664070129395,
+    "subsequentRequestSeconds": [
+      3.52760910987854,
+      6.164759993553162,
+      3.7136740684509277,
+      4.837045073509216,
+      3.743212938308716,
+      5.079977035522461,
+      6.3186399936676025
+    ],
+    "failedRequestSeconds": null
+  },
+  "quality_counts": {
+    "pass": 7,
+    "fail": 1,
+    "uncertain": 0
+  },
+  "review_required": [
+    {
+      "id": "decision-0005",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "entry and stopper",
+          "fact": "Dummy’s C7 cannot serve as the claimed later entry or stopper on this route.",
+          "explanation": "Dummy has only C7 and C2, while South holds CA, CK, C8 and C6. After C2 is led toward the honors, C7 must follow on the next club round. The outstanding CJ also outranks it. Preserving C7 therefore provides neither the stated later entry nor a stopper, although leading C2 itself is sound.",
+          "quotes": [
+            "Continue clubs from dummy toward declarer’s remaining honors, keeping the 7 as a later entry or stopper."
+          ]
+        }
+      ]
+    }
+  ],
+  "plan_updates": {
+    "keep": 7,
+    "replace": 1,
+    "withdraw": 0
+  },
+  "failures": [],
+  "outcome": "fail"
+}

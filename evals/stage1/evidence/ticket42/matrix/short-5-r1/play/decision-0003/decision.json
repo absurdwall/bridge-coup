@@ -1,0 +1,151 @@
+{
+  "action" : {
+    "actingSeat" : "south",
+    "boardID" : "8F16E23A-EB21-4F1A-9B59-199E4AE29208",
+    "card" : "S4",
+    "controller" : "south",
+    "revision" : 9,
+    "snapshotID" : "8F16E23A-EB21-4F1A-9B59-199E4AE29208:9:south"
+  },
+  "advice" : {
+    "plan" : {
+      "update" : "keep"
+    },
+    "publicReason" : "Follow suit with the lowest spade, keeping the queen as a possible later stopper or trick source.",
+    "selectedCard" : "S4"
+  },
+  "effectivePlan" : "Develop dummy’s long diamonds by leading a low diamond from South toward dummy’s honors, preserving the remaining diamond entry and taking the sure tricks in hearts and clubs as the defense permits.",
+  "elapsedSeconds" : 3.9774279594421387,
+  "identity" : {
+    "observedModel" : "gpt-6-luna",
+    "requestedEffort" : "medium",
+    "requestedModel" : "gpt-6-luna",
+    "runtimeVersion" : "codex-cli 0.160.0",
+    "threadID" : "01a14e2d-465a-7813-a722-52faac41767e",
+    "turnID" : "01a14e2d-813d-7772-b25c-d797dfb99dd6"
+  },
+  "input" : "Decision snapshot: 8F16E23A-EB21-4F1A-9B59-199E4AE29208:9:south. Controller: South. Acting hand: South.\nPrevious suggestion actually executed: yes.\nNew actual plays in order:\n6: North D5 (model).\n7: East D8 (opponent).\n8: East S2 (opponent).\nCurrent trick: East S2.\nTricks won: declarer 1, defenders 1.",
+  "instructions" : "Play declarer and dummy using the supplied decision-time information. Write in English and pursue the stated objective. selectedCard is the single card from the acting hand to play now; publicReason briefly explains it. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide an initial concrete plan before dummy's first play. Unknown cards remain unknown.",
+  "planAssociation" : {
+    "boardID" : "8F16E23A-EB21-4F1A-9B59-199E4AE29208",
+    "controller" : "south",
+    "sourceSessionID" : "BD155A98-BF36-4AA1-A8B5-5AE337036661",
+    "sourceSnapshotID" : "8F16E23A-EB21-4F1A-9B59-199E4AE29208:4:south",
+    "text" : "Develop dummy’s long diamonds by leading a low diamond from South toward dummy’s honors, preserving the remaining diamond entry and taking the sure tricks in hearts and clubs as the defense permits."
+  },
+  "rawOutput" : "{\"plan\":{\"text\":null,\"update\":\"keep\"},\"publicReason\":\"Follow suit with the lowest spade, keeping the queen as a possible later stopper or trick source.\",\"selectedCard\":\"S4\"}",
+  "session" : {
+    "id" : "A802112C-5724-4814-963B-2B7ECB075B13",
+    "snapshotID" : "8F16E23A-EB21-4F1A-9B59-199E4AE29208:9:south"
+  },
+  "snapshot" : {
+    "actingSeat" : "south",
+    "boardID" : "8F16E23A-EB21-4F1A-9B59-199E4AE29208",
+    "contract" : {
+      "declarer" : "south",
+      "level" : 3,
+      "strain" : "noTrump"
+    },
+    "controller" : "south",
+    "currentTrick" : [
+      {
+        "card" : "S2",
+        "seat" : "east",
+        "sequence" : 8
+      }
+    ],
+    "declarerTricks" : 1,
+    "defenderTricks" : 1,
+    "events" : [
+      {
+        "card" : "SJ",
+        "seat" : "west",
+        "sequence" : 0
+      },
+      {
+        "card" : "S3",
+        "seat" : "north",
+        "sequence" : 1
+      },
+      {
+        "card" : "SK",
+        "seat" : "east",
+        "sequence" : 2
+      },
+      {
+        "card" : "SA",
+        "seat" : "south",
+        "sequence" : 3
+      },
+      {
+        "card" : "D4",
+        "seat" : "south",
+        "sequence" : 4
+      },
+      {
+        "card" : "D6",
+        "seat" : "west",
+        "sequence" : 5
+      },
+      {
+        "card" : "D5",
+        "seat" : "north",
+        "sequence" : 6
+      },
+      {
+        "card" : "D8",
+        "seat" : "east",
+        "sequence" : 7
+      },
+      {
+        "card" : "S2",
+        "seat" : "east",
+        "sequence" : 8
+      }
+    ],
+    "hands" : [
+      {
+        "cards" : [
+          "SQ",
+          "S7",
+          "S4",
+          "HA",
+          "HK",
+          "H6",
+          "H2",
+          "D3",
+          "CK",
+          "C7",
+          "C3"
+        ],
+        "seat" : "south"
+      },
+      {
+        "cards" : [
+          "S6",
+          "S5",
+          "H4",
+          "H3",
+          "DK",
+          "DQ",
+          "D9",
+          "D7",
+          "CA",
+          "CT",
+          "C4"
+        ],
+        "seat" : "north"
+      }
+    ],
+    "legalCards" : [
+      "SQ",
+      "S7",
+      "S4"
+    ],
+    "objective" : "Normal IMP strategy, weighing contract risk and overtricks.",
+    "revision" : 9,
+    "scoring" : "IMP",
+    "vulnerability" : "neither"
+  },
+  "wireContractVersion" : "stage1-legal-selectedCard-v3"
+}

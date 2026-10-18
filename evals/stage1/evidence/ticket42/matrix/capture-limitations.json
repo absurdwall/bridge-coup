@@ -1,0 +1,26 @@
+{
+  "limitations": [
+    {
+      "category": "capture_limitation",
+      "attempt": "short-2-r1",
+      "missing_file": "short-2-r1/wire/response-metadata-7.json",
+      "payload_file": "short-2-r1/wire/request-7.json",
+      "http_status": "unknown",
+      "rpc_completion": "The actual eighth app-server public completion and applied decision are preserved. This proves a returned answer but does not independently supply the missing HTTP status.",
+      "possible_cause": "Proxy termination after the CLI returned may have raced with final response-metadata persistence; this remains an inference, not confirmed runtime failure.",
+      "playing_runtime_failure": false,
+      "rerun_or_repair": false
+    },
+    {
+      "category": "capture_limitation",
+      "attempt": "full-development-r2",
+      "missing_file": "full-development-r2/wire/response-metadata-19.json",
+      "payload_file": "full-development-r2/wire/request-19.json",
+      "http_status": "unknown",
+      "rpc_completion": "Final actual public completion, applied model decision and all 52 actual cards are preserved. A returned answer does not independently supply the missing HTTP status.",
+      "possible_cause": "Proxy teardown may have raced with metadata persistence; this is an inference, not confirmed runtime failure.",
+      "playing_runtime_failure": false,
+      "rerun_or_repair": false
+    }
+  ]
+}

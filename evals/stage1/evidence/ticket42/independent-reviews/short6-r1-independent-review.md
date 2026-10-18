@@ -1,0 +1,26 @@
+# Independent saved-output adjudication — short-6-r1
+
+Frozen source `8266947`, corpus `stage1-finite-v1`, rubric `stage1-basic-v2`. Reviewed all 12 actual answers, current visible hands/tricks, English deltas, retained plan and cited grades. No full defender holdings/future events, model/API call, regrade or original-file edit. No root/runtime failure occurred. The adapted case starts with five immediate cashing tricks: SA, three heart tricks across the three-card holdings, and CA; no fourth heart trick is inferred.
+
+**Conservative proposed review: 5 fail / 7 pending / 0 pass. Run quality FAIL.** Raw grader reports 12 fail. All citations exist; disagreements concern retained-plan severity or ambiguous words, not citation parsing. Pending rows are not passes.
+
+| Decision | Proposed | Visible-state basis |
+|---|---|---|
+| 1 | fail | North S87 selects S8 under West SK, while the unconditional plan says “Win ... with dummy’s ace” and the reason says “the ace wins.” SA is South's. The selected S8 is not an ace and cannot beat SK. |
+| 2 | fail | South SA correctly wins SK-S8-S4, but `keep` retains the wrong-hand ace step while the opening trick is still active. This is an active action/plan contradiction, not merely a completed old step. |
+| 3 | pending | South D2 toward North DKQJT9 is a feasible diamond-establishment start with North HA as an entry. Sole grade failure cites the now-completed erroneous opening step. Preserve the retained-plan dispute rather than call this a newly invented current card. |
+| 4 | pending | At South D2-West D6, North D9 is its lowest diamond and beats D6 before East acts. Preserving higher diamonds as potential controls/entries is feasible while DA's location remains unknown. Sole grade failure is the completed old opening step. |
+| 5 | pending | East has visibly won DA and led S6. South S3 follows while preserving S9 as a *possible* later stopper, without asserting an observed void or known high-card location. Sole grade failure is the old opening fragment. |
+| 6 | pending | Actual S6-S3-S2-S7 lets North win; North now has no spades. DK is a winner after DA has appeared, and DT is a real later entry from South's small diamonds if retained. “Continue establishing” is imprecise but not itself an impossible route. Sole grade failure is the old opening fragment. |
+| 7 | fail | On North DK-East D7, South D543 selects D3. “Preserve declarer’s diamond honors” invents honors in South; they are in North. Calling the follow a discard is secondary to the explicit wrong-hand honor claim. |
+| 8 | fail | DA has already been played and North has cashed DK; remaining DQJT are all top diamonds. “Force out the remaining opposing diamond control” asserts an opposing control that does not exist. Legal DQ does not cure that false factual mechanism. |
+| 9 | pending | At North DQ-East D8, South D4 follows and DQ is winning. “Retain the ace and jack” can refer to actual South CA/CJ; the text does not explicitly invent South DA/DJ. Sole grader failure is the old opening fragment. |
+| 10 | pending | Nine original diamonds are in the authorized hands; all four missing cards DA/D6/D7/D8 have now appeared. DT is certainly safe, but “may draw the last opposing diamond” wrongly leaves open an already excluded possibility. Because it is hedged and does not claim an actual opponent card or alter the valid cashing route, preserve a severity/conditional-language dispute rather than equate it with decision 8's unconditional remaining-control assertion. |
+| 11 | pending | North HA is still present; South HKQJ are known winners via low H3. “The ace is out” can be read as a false claim that HA has gone, or a muddled outstanding/outside-South reference. The grade adopts the former interpretation. The actual H3-to-HKQJ route is sound and the answer does not explicitly name a defender holding HA, so preserve the interpretation dispute rather than silently accept or invent that attribution. |
+| 12 | fail | At North H3-East H8, South HKQJ selects HJ. Calling it the lowest heart is correct, but “preserving the king, queen, and jack” contradicts consuming the jack. The legal winner cannot preserve itself. |
+
+## Actual trigger coverage
+
+**Uncovered for the specialized hold-up/defensive-communication facet, with a real but limited diamond-response facet.** The model takes SA immediately at sequence 3; there is no opening hold-up. A genuine diamond attempt D2-D6-D9-DA follows (4–7), revealing DA in East only when it is actually played. East then continues S6 (8), South S3 (9), West S2 (10), and North's remaining S7 mechanically wins (11). That actual defense gifts a new dummy spade entry after SA has been spent, removing the intended sustained-spade-pressure/communication test rather than demonstrating a successful hold-up solution.
+
+The subsequent diamond cashing and real defensive response are observed, but should not be promoted into full notrump hold-up coverage. No East-void claim follows from these events: only two spade rounds have been played, and further spades remain unseen. Accepting the new gifted entry is appropriate; exploiting it does not prove the avoided specialized skill. The known severe hand/action/control errors independently establish quality failure.

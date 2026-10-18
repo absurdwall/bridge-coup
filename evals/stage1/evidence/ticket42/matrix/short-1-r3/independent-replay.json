@@ -1,0 +1,30 @@
+{
+  "status": "pass",
+  "errors": [],
+  "actual_events": 2,
+  "complete": false,
+  "tricks": [
+    0,
+    0
+  ],
+  "model_request_attempts": 1,
+  "actual_rpc_requests": 1,
+  "model_actions": 1,
+  "forced_actions": 0,
+  "driver_opponent_actions": 0,
+  "initial_controlled_actions": 0,
+  "initial_opponent_actions": 1,
+  "retries": 0,
+  "events": [
+    {
+      "card": "DQ",
+      "seat": "west",
+      "sequence": 0
+    },
+    {
+      "card": "D8",
+      "seat": "north",
+      "sequence": 1
+    }
+  ]
+}

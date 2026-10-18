@@ -1,0 +1,134 @@
+{
+  "action" : {
+    "actingSeat" : "south",
+    "boardID" : "8F16E23A-EB21-4F1A-9B59-199E4AE29208",
+    "card" : "D4",
+    "controller" : "south",
+    "revision" : 4,
+    "snapshotID" : "8F16E23A-EB21-4F1A-9B59-199E4AE29208:4:south"
+  },
+  "advice" : {
+    "plan" : {
+      "text" : "Develop dummy’s long diamonds by leading a low diamond from South toward dummy’s honors, preserving the remaining diamond entry and taking the sure tricks in hearts and clubs as the defense permits.",
+      "update" : "replace"
+    },
+    "publicReason" : "Lead a low diamond toward dummy’s K-Q to start establishing the long suit while preserving dummy’s honors.",
+    "selectedCard" : "D4"
+  },
+  "effectivePlan" : "Develop dummy’s long diamonds by leading a low diamond from South toward dummy’s honors, preserving the remaining diamond entry and taking the sure tricks in hearts and clubs as the defense permits.",
+  "elapsedSeconds" : 14.066022992134094,
+  "identity" : {
+    "observedModel" : "gpt-6-luna",
+    "requestedEffort" : "medium",
+    "requestedModel" : "gpt-6-luna",
+    "runtimeVersion" : "codex-cli 0.160.0",
+    "threadID" : "01a14e2d-465a-7813-a722-52faac41767e",
+    "turnID" : "01a14e2d-51d1-7a73-aabe-590619ee5148"
+  },
+  "input" : "Contract: 3NT by South. Scoring: IMP. Vulnerability: neither.\nObjective: Normal IMP strategy, weighing contract risk and overtricks.\nDecision controller: South (declarer).\nActing hand: South (declarer).\nSouth (declarer): S Q74 \/ H AK62 \/ D 43 \/ C K73\nNorth (dummy): S 65 \/ H 43 \/ D KQ975 \/ C AT4\nActual plays in order: West SJ; North S3; East SK; South SA.\nTricks won: declarer 1, defenders 0.\nAdditional public background: Auction and defensive methods are not provided.",
+  "instructions" : "Play declarer and dummy using the supplied decision-time information. Write in English and pursue the stated objective. selectedCard is the single card from the acting hand to play now; publicReason briefly explains it. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide an initial concrete plan before dummy's first play. Unknown cards remain unknown.",
+  "planAssociation" : {
+    "boardID" : "8F16E23A-EB21-4F1A-9B59-199E4AE29208",
+    "controller" : "south",
+    "sourceSessionID" : "BD155A98-BF36-4AA1-A8B5-5AE337036661",
+    "sourceSnapshotID" : "8F16E23A-EB21-4F1A-9B59-199E4AE29208:4:south",
+    "text" : "Develop dummy’s long diamonds by leading a low diamond from South toward dummy’s honors, preserving the remaining diamond entry and taking the sure tricks in hearts and clubs as the defense permits."
+  },
+  "rawOutput" : "{\"plan\":{\"text\":\"Develop dummy’s long diamonds by leading a low diamond from South toward dummy’s honors, preserving the remaining diamond entry and taking the sure tricks in hearts and clubs as the defense permits.\",\"update\":\"replace\"},\"publicReason\":\"Lead a low diamond toward dummy’s K-Q to start establishing the long suit while preserving dummy’s honors.\",\"selectedCard\":\"D4\"}",
+  "session" : {
+    "id" : "BD155A98-BF36-4AA1-A8B5-5AE337036661",
+    "snapshotID" : "8F16E23A-EB21-4F1A-9B59-199E4AE29208:4:south"
+  },
+  "snapshot" : {
+    "actingSeat" : "south",
+    "boardID" : "8F16E23A-EB21-4F1A-9B59-199E4AE29208",
+    "contract" : {
+      "declarer" : "south",
+      "level" : 3,
+      "strain" : "noTrump"
+    },
+    "controller" : "south",
+    "currentTrick" : [
+
+    ],
+    "declarerTricks" : 1,
+    "defenderTricks" : 0,
+    "events" : [
+      {
+        "card" : "SJ",
+        "seat" : "west",
+        "sequence" : 0
+      },
+      {
+        "card" : "S3",
+        "seat" : "north",
+        "sequence" : 1
+      },
+      {
+        "card" : "SK",
+        "seat" : "east",
+        "sequence" : 2
+      },
+      {
+        "card" : "SA",
+        "seat" : "south",
+        "sequence" : 3
+      }
+    ],
+    "hands" : [
+      {
+        "cards" : [
+          "SQ",
+          "S7",
+          "S4",
+          "HA",
+          "HK",
+          "H6",
+          "H2",
+          "D4",
+          "D3",
+          "CK",
+          "C7",
+          "C3"
+        ],
+        "seat" : "south"
+      },
+      {
+        "cards" : [
+          "S6",
+          "S5",
+          "H4",
+          "H3",
+          "DK",
+          "DQ",
+          "D9",
+          "D7",
+          "D5",
+          "CA",
+          "CT",
+          "C4"
+        ],
+        "seat" : "north"
+      }
+    ],
+    "legalCards" : [
+      "SQ",
+      "S7",
+      "S4",
+      "HA",
+      "HK",
+      "H6",
+      "H2",
+      "D4",
+      "D3",
+      "CK",
+      "C7",
+      "C3"
+    ],
+    "objective" : "Normal IMP strategy, weighing contract risk and overtricks.",
+    "revision" : 4,
+    "scoring" : "IMP",
+    "vulnerability" : "neither"
+  },
+  "wireContractVersion" : "stage1-legal-selectedCard-v3"
+}
