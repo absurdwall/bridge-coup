@@ -94,6 +94,7 @@ private struct BoardInput: Codable {
         } catch {
             var failure: [String: Any] = ["status": "failed", "error": String(describing: error)]
             if let expert = error as? ExpertFailure {
+                failure["category"] = expert.category.rawValue
                 failure["input"] = expert.input; failure["rawOutput"] = expert.rawOutput
                 failure["error"] = expert.detail; failure["elapsedSeconds"] = expert.elapsedSeconds
             }

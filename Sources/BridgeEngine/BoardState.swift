@@ -69,6 +69,7 @@ public struct BoardState: Sendable {
     public func snapshot(controller: Seat) throws -> DecisionSnapshot {
         guard controller == contract.declarer else { throw DomainError.invalidController }
         guard let acting = actingSeat else { throw DomainError.finished }
+        guard acting == controller || acting == controller.partner else { throw DomainError.invalidController }
         return DecisionSnapshot(boardID: id, revision: events.count, controller: controller, actingSeat: acting,
                                 contract: contract, vulnerability: vulnerability, scoring: scoring, objective: objective,
                                 publicBackground: publicBackground,

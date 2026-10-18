@@ -6,6 +6,16 @@ import BridgeCodex
 import BridgeDriver
 
 final class PlayingCoreTests: XCTestCase {
+    func testAuthorizedSnapshotRejectsOpponentTurnsWithoutExposingTheirLegalChoices() throws {
+        var board = try BoardState(deal: syntheticDeal(), contract: .init(level: 3, strain: .noTrump, declarer: .south))
+        XCTAssertThrowsError(try board.snapshot(controller: .south)) { XCTAssertEqual($0 as? DomainError, .invalidController) }
+        try board.play(Card("DQ"), by: .west)
+        let dummy = try board.snapshot(controller: .south)
+        XCTAssertEqual(dummy.legalCards.map(\.description), ["D8", "D6", "D5", "D3"])
+        try board.play(Card("D3"), by: .north)
+        XCTAssertThrowsError(try board.snapshot(controller: .south)) { XCTAssertEqual($0 as? DomainError, .invalidController) }
+    }
+
     func testOpeningLeadExposesDummyAndCurrentActionAppliesOnlyToItsSnapshot() throws {
         var board = try BoardState(deal: syntheticDeal(), contract: .init(level: 3, strain: .noTrump, declarer: .south))
         try board.play(Card("DQ"), by: .west)
@@ -20,6 +30,53 @@ final class PlayingCoreTests: XCTestCase {
         XCTAssertThrowsError(try board.apply(action))
         XCTAssertEqual(board.events.count, 2)
     }
+    func testCLIRecordsMalformedCompletedAnswerAsInvalidOutput() throws {
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: root) }
+        try Data("{}".utf8).write(to: root.appendingPathComponent("auth.json"))
+        let runtime = root.appendingPathComponent("recorded-app-server")
+        // Recorded external protocol boundary; this test makes no model request.
+        let script = #"""
+        #!/usr/bin/python3
+        import json, sys
+        if '--version' in sys.argv:
+            print('recorded boundary')
+            sys.exit(0)
+        for line in sys.stdin:
+            request = json.loads(line)
+            method = request.get('method')
+            if 'id' not in request:
+                continue
+            result = {}
+            if method == 'model/list':
+                result = {'data': [{'model': 'gpt-6-luna', 'supportedReasoningEfforts': [{'reasoningEffort': 'medium'}]}]}
+            elif method == 'thread/start':
+                result = {'thread': {'id': 'recorded-thread'}, 'model': 'gpt-6-luna'}
+            elif method == 'turn/start':
+                result = {'turn': {'id': 'recorded-turn'}}
+            print(json.dumps({'id': request['id'], 'result': result}), flush=True)
+            if method == 'turn/start':
+                print(json.dumps({'method': 'turn/completed', 'params': {'threadId': 'recorded-thread', 'turn': {'id': 'recorded-turn', 'status': 'completed', 'items': [{'type': 'agentMessage', 'text': '{"selectedCard":"D3"}'}]}}}), flush=True)
+        """#
+        try script.write(to: runtime, atomically: true, encoding: .utf8)
+        try FileManager.default.setAttributes([.posixPermissions: 0o700], ofItemAtPath: runtime.path)
+        let repository = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+        let output = root.appendingPathComponent("evidence")
+        let process = Process()
+        process.executableURL = repository.appendingPathComponent(".build/debug/bridge-play")
+        process.arguments = ["--fixture", repository.appendingPathComponent("evals/stage1/corpus/boards/synthetic.json").path,
+                             "--output", output.path, "--codex", runtime.path, "--timeout", "3"]
+        process.environment = ProcessInfo.processInfo.environment.merging(["CODEX_HOME": root.path]) { _, value in value }
+        process.standardOutput = FileHandle.nullDevice; process.standardError = FileHandle.nullDevice
+        try process.run(); process.waitUntilExit()
+        XCTAssertEqual(process.terminationStatus, 1)
+        let failure = try JSONSerialization.jsonObject(with: Data(contentsOf: output.appendingPathComponent("failure.json"))) as! [String: Any]
+        XCTAssertEqual(failure["category"] as? String, "invalidOutput")
+        XCTAssertEqual(failure["rawOutput"] as? String, #"{"selectedCard":"D3"}"#)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: output.appendingPathComponent("decision.json").path))
+    }
+
     func testPublicExpertInitialDecisionKeepsFactsSeparateFromAdvice() async throws {
         var board = try BoardState(deal: syntheticDeal(), contract: .init(level: 3, strain: .noTrump, declarer: .south))
         try board.play(Card("DQ"), by: .west)
@@ -185,7 +242,7 @@ final class PlayingCoreTests: XCTestCase {
         let second = try await expert.decide(board.snapshot(controller: .south))
         try board.apply(second.action)
         do { _ = try await expert.decide(board.snapshot(controller: .south)); XCTFail("Each decision needs a previously unused turn") }
-        catch let failure as ExpertFailure { XCTAssertEqual(failure.detail, "changedThreadOrRepeatedTurn") }
+        catch let failure as ExpertFailure { XCTAssertEqual(failure.detail, "changedThreadOrRepeatedTurn"); XCTAssertEqual(failure.category, .identity) }
     }
 
     func testRuntimeTimeoutAlsoBoundsVersionProbeAndPreservesFailure() async throws {
@@ -204,6 +261,7 @@ final class PlayingCoreTests: XCTestCase {
             _ = try await ExpertSession(transport: transport).decide(board.snapshot(controller: .south))
             XCTFail("Timed out runtime must fail")
         } catch let failure as ExpertFailure {
+            XCTAssertEqual(failure.category, .runtime)
             XCTAssertLessThan(failure.elapsedSeconds, 1)
             XCTAssertFalse(failure.input.isEmpty)
             XCTAssertEqual(board.events.count, 1)
