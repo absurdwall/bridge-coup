@@ -1,0 +1,19 @@
+[
+  "/var/folders/1l/xh7kf4ss1rqg3vxjr17q9_0w0000gn/T/bridge-luna-high-source-n16zah2w/.build/debug/bridge-play",
+  "--fixture",
+  "/Users/tingranwang/.codex/worktrees/stage1-integration/bridge-coup/evals/stage1/corpus/boards/synthetic.json",
+  "--output",
+  "/Users/tingranwang/.codex/worktrees/stage1-integration/bridge-coup/evals/stage1/evidence/high-effort-diagnostic/high-continuity-1/play",
+  "--codex",
+  "/Users/tingranwang/.codex/worktrees/stage1-integration/bridge-coup/evals/stage1/evidence/high-effort-diagnostic/high-continuity-1/wire/codex-wire-audit",
+  "--timeout",
+  "180",
+  "--run-timeout",
+  "1800",
+  "--opponent",
+  "conserve-high",
+  "--sole-legal",
+  "true",
+  "--decisions",
+  "8"
+]

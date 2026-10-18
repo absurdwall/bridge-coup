@@ -1,0 +1,27 @@
+{
+  "diagnostic_only": true,
+  "base_commit": "352d61f",
+  "schedule": [
+    {
+      "id": "luna-max",
+      "model": "gpt-6-luna",
+      "effort": "max"
+    },
+    {
+      "id": "sol-medium",
+      "model": "gpt-6.1-sol",
+      "effort": "medium"
+    },
+    {
+      "id": "astra-medium",
+      "model": "gpt-6-astra",
+      "effort": "medium"
+    }
+  ],
+  "attempts_per_config": 1,
+  "decisions": 8,
+  "retry_policy": "No answer retries/rerolls; all attempts retained.",
+  "fixed": "instructions/schema/deal/opponent/limits/rubric; target-specific catalog differences audited.",
+  "sol_player_evaluation": "Same rubric and public package, coordinator direct independent review; no Sol model call to grade its own acting output.",
+  "acceptance_credit": false
+}

@@ -1,0 +1,40 @@
+{
+  "requested_model": "gpt-6.1-sol",
+  "requested_effort": "medium",
+  "observed_service_model": null,
+  "observed_service_effort": null,
+  "identity_limit": "CLI requested configuration is recorded; JSONL does not independently expose resolved service identity.",
+  "playing_model_called": false,
+  "isolation": "Fresh HOME, CODEX_HOME and cwd; authentication file only copied, then deleted.",
+  "wire_contracts": [
+    "stage1-plan-variants-v4"
+  ],
+  "runtime_version": "codex-cli 0.160.0",
+  "command": [
+    "/Users/tingranwang/.nvm/versions/node/v24.12.0/bin/codex",
+    "exec",
+    "--ignore-rules",
+    "--ephemeral",
+    "--skip-git-repo-check",
+    "--sandbox",
+    "read-only",
+    "--model",
+    "gpt-6.1-sol",
+    "-c",
+    "model_reasoning_effort=\"medium\"",
+    "--output-schema",
+    "/Users/tingranwang/.codex/worktrees/stage1-integration/bridge-coup/evals/stage1/evidence/model-comparison/luna-max/continuous-1/grade/schema.json",
+    "--json",
+    "--color",
+    "never",
+    "--cd",
+    "/var/folders/1l/xh7kf4ss1rqg3vxjr17q9_0w0000gn/T/bridge-grader-gahmaj0x/cwd",
+    "-o",
+    "/Users/tingranwang/.codex/worktrees/stage1-integration/bridge-coup/evals/stage1/evidence/model-comparison/luna-max/continuous-1/grade/grader-output.json",
+    "-"
+  ],
+  "exit_code": 0,
+  "observed_tool_items": [],
+  "elapsed_seconds": 34.753,
+  "evaluator_error": null
+}

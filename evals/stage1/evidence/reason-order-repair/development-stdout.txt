@@ -1,0 +1,52 @@
+{
+  "id": "development-normal",
+  "outcome": "fail",
+  "quality_counts": {
+    "pass": 5,
+    "fail": 3,
+    "uncertain": 0
+  },
+  "counts": {
+    "actual_events": 15,
+    "complete": false,
+    "tricks": [
+      3,
+      0
+    ],
+    "model_request_attempts": 8,
+    "actual_rpc_requests": 8,
+    "model_actions": 8,
+    "forced_actions": 0,
+    "driver_opponent_actions": 6,
+    "initial_controlled_actions": 0,
+    "initial_opponent_actions": 1,
+    "retries": 0
+  },
+  "timing": {
+    "elapsedSeconds": 37.85140299797058,
+    "lastControlledActionSeconds": 37.85062801837921,
+    "environmentOverheadSeconds": 0.02880382537841797,
+    "initialRequestSeconds": 10.53430700302124,
+    "subsequentRequestSeconds": [
+      3.637969970703125,
+      4.25046706199646,
+      3.960737943649292,
+      4.09817910194397,
+      3.6325340270996094,
+      3.747732996940613,
+      3.960671067237854
+    ],
+    "failedRequestSeconds": null
+  },
+  "wire": {
+    "upstream_request_attempts": 8,
+    "http_statuses": {
+      "200": 8
+    },
+    "transport_errors": [],
+    "missing_response_metadata": [],
+    "observed_response_models": [
+      "gpt-6-luna"
+    ]
+  }
+}

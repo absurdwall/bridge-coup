@@ -1,0 +1,40 @@
+{
+  "outcome": "fail",
+  "quality_counts": {
+    "pass": 6,
+    "fail": 2,
+    "uncertain": 0
+  },
+  "counts": {
+    "actual_events": 15,
+    "complete": false,
+    "tricks": [
+      3,
+      0
+    ],
+    "model_request_attempts": 8,
+    "actual_rpc_requests": 8,
+    "model_actions": 8,
+    "forced_actions": 0,
+    "driver_opponent_actions": 6,
+    "initial_controlled_actions": 0,
+    "initial_opponent_actions": 1,
+    "retries": 0
+  },
+  "timing": {
+    "elapsedSeconds": 48.06643295288086,
+    "lastControlledActionSeconds": 48.06520700454712,
+    "environmentOverheadSeconds": 0.030234932899475098,
+    "initialRequestSeconds": 12.053251028060913,
+    "subsequentRequestSeconds": [
+      3.9288859367370605,
+      4.101268887519836,
+      4.095595002174377,
+      3.6927870512008667,
+      4.061753034591675,
+      12.419085025787354,
+      3.6835720539093018
+    ],
+    "failedRequestSeconds": null
+  }
+}
