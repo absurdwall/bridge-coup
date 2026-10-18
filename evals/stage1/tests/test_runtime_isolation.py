@@ -26,7 +26,7 @@ class RuntimeIsolationTests(unittest.TestCase):
         if not cls.binary.is_file():
             raise RuntimeError('Build the production public driver with swift build --product bridge-play first')
 
-    def test_public_expert_request_disables_collaboration_but_reports_remaining_generic_tools(self):
+    def public_request(self):
         captures = []
 
         class RejectingProvider(http.server.BaseHTTPRequestHandler):
@@ -65,15 +65,29 @@ class RuntimeIsolationTests(unittest.TestCase):
                 self.assertTrue(auth_absent)
                 self.assertEqual(request['model'], 'gpt-6-luna')
                 self.assertEqual(request['reasoning']['effort'], 'medium')
-                tools = next(item['tools'] for item in request['input'] if item['type'] == 'additional_tools')
-                names = {namespace['name'] for namespace in tools}
-                self.assertNotIn('collaboration', names, 'Inherited collaboration must be disabled in the actual public request')
-                text = '\n'.join(part.get('text', '') for item in request['input'] for part in item.get('content', []))
-                self.assertNotIn('<multi_agent_role>', text)
-                self.assertNotIn('<multi_agent_mode>', text)
-                functions = next(namespace['tools'] for namespace in tools if namespace['name'] == 'functions')
-                self.assertEqual({tool['name'] for tool in functions},
-                                 {'exec', 'wait', 'request_user_input', 'request_user_input_async'})
+                rows = [json.loads(line) for line in (root/'play/rpc.jsonl').read_text().splitlines()]
+                sent = next(row['value']['params']['outputSchema'] for row in rows
+                            if row['kind'] == 'request' and row['value'].get('method') == 'turn/start')
+                self.assertEqual(list(sent['properties']), list(request['text']['format']['schema']['properties']))
+                return request
         finally:
             server.shutdown()
             server.server_close()
+
+
+    def test_public_expert_request_disables_collaboration_but_reports_remaining_generic_tools(self):
+        request = self.public_request()
+        tools = next(item['tools'] for item in request['input'] if item['type'] == 'additional_tools')
+        names = {namespace['name'] for namespace in tools}
+        self.assertNotIn('collaboration', names, 'Inherited collaboration must be disabled in the actual public request')
+        text = '\n'.join(part.get('text', '') for item in request['input'] for part in item.get('content', []))
+        self.assertNotIn('<multi_agent_role>', text)
+        self.assertNotIn('<multi_agent_mode>', text)
+        functions = next(namespace['tools'] for namespace in tools if namespace['name'] == 'functions')
+        self.assertEqual({tool['name'] for tool in functions},
+                         {'exec', 'wait', 'request_user_input', 'request_user_input_async'})
+
+    def test_current_public_reason_precedes_future_plan_in_actual_output_schema(self):
+        request = self.public_request()
+        self.assertEqual(list(request['text']['format']['schema']['properties']),
+                         ['publicReason', 'plan', 'selectedCard'])

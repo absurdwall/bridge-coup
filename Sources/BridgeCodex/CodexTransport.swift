@@ -87,7 +87,7 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
         }
         let result = try rpc("turn/start", ["threadId": threadID!, "model": Self.model, "effort": Self.effort,
             "input": [["type": "text", "text": request.input, "text_elements": []]],
-            "outputSchema": try JSONSerialization.jsonObject(with: Data(request.outputSchema.utf8))])
+            "outputSchema": try JSONSerialization.jsonObject(with: Data(request.outputSchema.utf8))], outputSchema: request.outputSchema)
         guard let turn = result["turn"] as? [String: Any], let turnID = turn["id"] as? String else {
             throw CodexPlayingError.failure("Missing turn identity")
         }
@@ -162,9 +162,9 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
         else if let process, process.isRunning { kill(process.processIdentifier, signal) }
     }
 
-    private func rpc(_ method: String, _ params: [String: Any]) throws -> [String: Any] {
+    private func rpc(_ method: String, _ params: [String: Any], outputSchema: String? = nil) throws -> [String: Any] {
         let id = nextID; nextID += 1
-        try send(["id": id, "method": method, "params": params])
+        try send(["id": id, "method": method, "params": params], outputSchema: outputSchema)
         while true {
             let message = try read()
             guard (message["id"] as? NSNumber)?.intValue == id else { continue }
@@ -175,9 +175,28 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
         }
     }
 
-    private func send(_ message: [String: Any]) throws {
-        try log("request", message)
-        var data = try JSONSerialization.data(withJSONObject: message, options: [.sortedKeys]); data.append(10)
+    private func send(_ message: [String: Any], outputSchema: String? = nil) throws {
+        var data: Data
+        if let outputSchema, let params = message["params"] as? [String: Any] {
+            // The schema was parsed when constructing params. Embed that validated JSON verbatim;
+            // recursively sorting it would change the model's structured generation order.
+            func json(_ value: Any) throws -> String {
+                String(decoding: try JSONSerialization.data(withJSONObject: value, options: [.fragmentsAllowed, .sortedKeys]), as: UTF8.self)
+            }
+            let parameterMembers = try params.keys.sorted().map { key in
+                let value = key == "outputSchema" ? outputSchema : try json(params[key]!)
+                return try json(key) + ":" + value
+            }.joined(separator: ",")
+            let members = try message.keys.sorted().map { key in
+                let value = key == "params" ? "{" + parameterMembers + "}" : try json(message[key]!)
+                return try json(key) + ":" + value
+            }.joined(separator: ",")
+            data = Data(("{" + members + "}").utf8)
+        } else {
+            data = try JSONSerialization.data(withJSONObject: message, options: [.sortedKeys])
+        }
+        try log("request", message, encodedValue: data)
+        data.append(10)
         try input?.write(contentsOf: data)
     }
 
@@ -202,12 +221,19 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
         }
     }
 
-    private func log(_ kind: String, _ value: [String: Any]) throws {
+    private func log(_ kind: String, _ value: [String: Any], encodedValue: Data? = nil) throws {
         let url = evidenceDirectory.appendingPathComponent("rpc.jsonl")
         if !FileManager.default.fileExists(atPath: url.path) { _ = FileManager.default.createFile(atPath: url.path, contents: nil) }
         let handle = try FileHandle(forWritingTo: url); defer { try? handle.close() }
         try handle.seekToEnd()
-        var data = try JSONSerialization.data(withJSONObject: ["kind": kind, "value": value], options: [.sortedKeys]); data.append(10)
+        var data: Data
+        if let encodedValue {
+            data = Data("{\"kind\":\"request\",\"value\":".utf8)
+            data.append(encodedValue); data.append(Data("}".utf8))
+        } else {
+            data = try JSONSerialization.data(withJSONObject: ["kind": kind, "value": value], options: [.sortedKeys])
+        }
+        data.append(10)
         try handle.write(contentsOf: data)
     }
 

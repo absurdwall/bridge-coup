@@ -257,7 +257,18 @@ public actor ExpertSession {
             properties["plan"] = plan
         }
         schema["properties"] = properties
-        return String(decoding: try JSONSerialization.data(withJSONObject: schema, options: [.sortedKeys]), as: UTF8.self)
+        func json(_ value: Any) throws -> String {
+            String(decoding: try JSONSerialization.data(withJSONObject: value, options: [.fragmentsAllowed, .sortedKeys]), as: UTF8.self)
+        }
+        // Structured generation follows this order: ground the current reason before future advice.
+        let orderedProperties = try ["publicReason", "plan", "selectedCard"].map { key in
+            try json(key) + ":" + json(properties[key]!)
+        }.joined(separator: ",")
+        let members = try schema.keys.sorted().map { key in
+            let value = key == "properties" ? "{" + orderedProperties + "}" : try json(schema[key]!)
+            return try json(key) + ":" + value
+        }.joined(separator: ",")
+        return "{" + members + "}"
     }
 
     public static let outputSchema = #"{"type":"object","additionalProperties":false,"required":["plan","publicReason","selectedCard"],"properties":{"selectedCard":{"type":"string","pattern":"^[SHDC][2-9TJQKA]$"},"publicReason":{"type":"string"},"plan":{"anyOf":[{"type":"object","additionalProperties":false,"required":["update","text"],"properties":{"update":{"type":"string","enum":["replace"]},"text":{"type":"string","pattern":"\\S"}}},{"type":"object","additionalProperties":false,"required":["update","text"],"properties":{"update":{"type":"string","enum":["keep"]},"text":{"type":"null"}}},{"type":"object","additionalProperties":false,"required":["update","text"],"properties":{"update":{"type":"string","enum":["withdraw"]},"text":{"type":"null"}}}]}}}"#
