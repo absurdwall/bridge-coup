@@ -347,10 +347,10 @@ def render_report(output, candidate, summaries):
              '|---|---|---|---|---|---|---|---|---|']
     for row in summaries:
         counts = row['counts']
-        lines.append('| %s | %s | %s | %s | %s | %s / %s | %s / %s / %s (+%s prefix) | %s | [saved](%s/summary.json) |' %
+        lines.append('| %s | %s | %s | %s | %s | %s / %s | %s / %s / %s (+%s controlled, %s opponent prefix) | %s | [saved](%s/summary.json) |' %
                      (row['id'], row['task_complete'], row['legal_execution'], row['quality'], row['coverage']['status'],
                       counts.get('model_request_attempts'), counts.get('actual_rpc_requests'), counts.get('model_actions'), counts.get('forced_actions'),
-                      counts.get('driver_opponent_actions'), counts.get('initial_opponent_actions'), counts.get('tricks'), row['id']))
+                      counts.get('driver_opponent_actions'), counts.get('initial_controlled_actions'), counts.get('initial_opponent_actions'), counts.get('tricks'), row['id']))
     lines += ['', 'Quality pass is provisional until independent review of cited facts. Trigger coverage is separate from task bounds and quality. Pending means the mechanical event predicate needs review; an avoided trigger remains uncovered. Contract result cannot erase a factual, entry or consistency failure.', '',
               '## Four full-board timings', '',
               '| Attempt | First request s | Later requests n / median / range s | Last controlled action s | Full driver s | Environment overhead s | Failed request s | Retries |',
