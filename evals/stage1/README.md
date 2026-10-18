@@ -25,4 +25,30 @@ python3 Scripts/capture-playing-wire.py \
 
 Pass its printed wrapper path as the driver's `--codex` value. Keep the proxy running for that attempt and stop it afterward. The local proxy forwards unchanged Responses payload bytes to the official ChatGPT Codex endpoint, saves the payload and public response metadata, and stores no headers or reasoning stream. It explicitly changes provider routing to observe the request; capture-config.json records that difference. The model/effort remains unchanged. The proxy binds only to loopback. Use unique output directories to preserve each attempt.
 
-`ExpertSession.decide` is the public Expert boundary for future driver and UI use. Domain/Engine have no Codex or UI dependencies. Runtime checks card legality; semantic quality evaluation remains separate, so legal-card execution alone is never a quality pass. Continuous turns, the Python evaluation runner, full-board play and final acceptance remain later tickets.
+`ExpertSession.decide` is the public Expert boundary for future driver and UI use. Domain/Engine have no Codex or UI dependencies. Runtime checks card legality; semantic quality evaluation remains separate, so legal-card execution alone is never a quality pass. Continuous turns, full-board play and final acceptance remain later tickets.
+
+## Saved-output evaluation
+
+Issue 38 adds a standard-library Python entry. It reads saved Expert decisions and actual RPC/execution evidence; it never invokes the playing model. From the repository root:
+
+```sh
+python3 -m unittest discover -s evals/stage1/tests -v
+python3 evals/stage1/evaluate.py grade \
+  --decision evals/stage1/evidence/ticket37/live2 \
+  --decision evals/stage1/evidence/ticket37/live3 \
+  --output /tmp/bridge-saved-grade-unique
+python3 evals/stage1/evaluate.py grade \
+  --answers evals/stage1/calibration/answers.json \
+  --output /tmp/bridge-calibration-unique
+python3 evals/stage1/evaluate.py regrade \
+  --run /tmp/bridge-saved-grade-unique \
+  --output /tmp/bridge-offline-regrade-unique
+```
+
+Each `grade` makes an independent `codex exec` request for gpt-6.1-sol / medium. It saves the rubric and actual authorized input, original answer, mechanical checks, schema, isolated configuration, command, runtime version, timing and public grader output. No expected labels or complete hidden deal enters its package. The grader runs in a new independent thread and its output never returns to Expert. `regrade` repeats local parsing/adjudication of those saved grades without any model call; to get a fresh independent judgment of the same player output, repeat `grade` with a new output directory. Nonzero grader exit, timeout, actual tool use, bad result structure and invalid citations remain evaluator issues with uncertain quality, preserving separately observed mechanical failures. Unresolved uncertainty requires review.
+
+The final citation contract is rubric `stage1-basic-v2`, with `quotes: ["one exact contiguous excerpt", ...]` for every finding. Each excerpt must occur verbatim in the actual raw or decoded public answer. Separate excerpts remain separate strings. Legacy v1 single-contiguous `quote` fields remain readable for historical reprocessing. The narrow `--reviewed-parser-fix REASON` option only supersedes the recorded initial bug that misclassified CLI `item.type=error` notices as tools, provided the original CLI exited zero and every recorded tool item was exactly `error`; it cannot override real tools or a failed exit. Such review provenance is saved.
+
+The playing contract consumed here is `currentCard`, `plan`, `publicReason`, version `stage1-currentCard-plan-publicReason-v1`. Card decoding and action association are localized in `deterministic_checks`; a later playing wire-contract change must update/revalidate that boundary, retaining all original failed attempts.
+
+See [ticket 38 review](evidence/ticket38/REVIEW.md) for calibration, live-output judgments, evaluator corrections and isolation limits. Authored calibration failures are intentional bad examples, not new observed product defects. Six reviewed answers and two repeat grades establish only a small calibration checkpoint.
