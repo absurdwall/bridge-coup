@@ -230,9 +230,14 @@ def main():
     import argparse
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest='command', required=True)
+    material = commands.add_parser('validate-corpus', help='Verify evaluator-owned finite cases without model calls.')
+    material.add_argument('--manifest', type=Path, default=Path(__file__).with_name('corpus') / 'manifest.json')
+    material.add_argument('--output', required=True, type=Path)
     grade = commands.add_parser('grade')
     grade.add_argument('--decision', action='append', default=[], type=Path)
     grade.add_argument('--answers', type=Path, help='Authored calibration records; never passed with expectation file.')
+    grade.add_argument('--case', help='Finite case ID; attach reviewed visible facts and alternatives, never hidden hands.')
+    grade.add_argument('--manifest', type=Path, default=Path(__file__).with_name('corpus') / 'manifest.json')
     grade.add_argument('--codex', default='codex')
     grade.add_argument('--timeout', type=float, default=180)
     grade.add_argument('--output', required=True, type=Path)
@@ -242,6 +247,15 @@ def main():
     regrade.add_argument('--reviewed-parser-fix', help='Review reason for the known CLI item.type=error false tool classification only.')
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=False)
+    if args.command == 'validate-corpus':
+        import corpus
+        try:
+            result = corpus.validate(args.manifest)
+        except (ValueError, KeyError, TypeError, OSError) as error:
+            result = {'status': 'fail', 'attribution': 'case_material_error', 'error': str(error), 'playing_model_called': False, 'grading_model_called': False}
+        (args.output / 'corpus-validation.json').write_text(json_text(result))
+        print(json_text(result), end='')
+        return
     runtime_reports = []
     if args.command == 'regrade':
         if (args.run / 'runtime-failures.json').exists():
@@ -276,6 +290,18 @@ def main():
         if (not decisions and not runtime_reports) or len({i for i, _ in decisions} | {r['id'] for r in runtime_reports}) != len(decisions) + len(runtime_reports):
             parser.error('Supply at least one decision; identifiers must be unique.')
         package = grader_package(decisions)
+        if args.case:
+            import corpus
+            material = corpus.validate(args.manifest)
+            matches = [case for case in material['case_rules'] if case['id'] == args.case]
+            if not matches:
+                parser.error('Unknown finite case ID: ' + args.case)
+            try:
+                corpus.verify_case_decisions(args.manifest, args.case, decisions)
+            except (ValueError, KeyError, TypeError) as error:
+                parser.error(str(error))
+            package['case'] = matches[0]
+            package['corpus_version'] = material['corpus_version']
         if decisions:
             result = run_grader(package, args.output, args.codex, args.timeout)
         else:
