@@ -1,0 +1,28 @@
+{
+  "scope": "Offline actual wire/source/state audit; no new model calls or quality verdict alteration. Same44d946f playing source with only effort literals changed. Excludes runtime-generated message identifiers from public message comparison.",
+  "results": [
+    {
+      "effort": "high",
+      "requests": 8,
+      "model_effort_HTTP_completion_verified": true,
+      "actual_instruction_matches_frozen_candidate": true,
+      "rules_replay": "pass",
+      "source_binary_runtime_preflight": "pass",
+      "first_public_messages_sha256": "673ee83568ad2a094d43b79a2fa60ce6efd164f4f85c3680799c2702a182a708",
+      "schema_sha256": "4972f94dd20234f20b5c0151c826277d37d52858f956fc85a03e37b4530a644c",
+      "tool_surface_sha256": "64701077298f0d4fc6a9a4cc684222cb438f3538d78b6104459f57cd323dd8ac"
+    },
+    {
+      "effort": "xhigh",
+      "requests": 8,
+      "model_effort_HTTP_completion_verified": true,
+      "actual_instruction_matches_frozen_candidate": true,
+      "rules_replay": "pass",
+      "source_binary_runtime_preflight": "pass",
+      "first_public_messages_sha256": "673ee83568ad2a094d43b79a2fa60ce6efd164f4f85c3680799c2702a182a708",
+      "schema_sha256": "4972f94dd20234f20b5c0151c826277d37d52858f956fc85a03e37b4530a644c",
+      "tool_surface_sha256": "64701077298f0d4fc6a9a4cc684222cb438f3538d78b6104459f57cd323dd8ac"
+    }
+  ],
+  "first_public_messages_schema_tools_identical": true
+}

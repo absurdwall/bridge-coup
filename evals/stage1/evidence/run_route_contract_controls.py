@@ -30,7 +30,7 @@ acceptance.write(OUT / 'predeclared.json', {
     'schedule': ['high', 'xhigh'], 'model': 'gpt-6-luna', 'attempts_per_effort': 1,
     'decisions': 8, 'playing_retries': 0,
     'fixed': 'Same route contract, schema, board, opponent, runtime, grading and limits.',
-    'hypothesis': 'Checking rank, actual holdings, next leader and retained entries improves physical plan feasibility. This is unproven until real outputs are independently reviewed.',
+    'hypothesis': 'Carrying hypothetical card consumption, the trick winner, next leader and remaining entries through the whole route improves physical plan feasibility. This is unproven until real outputs are independently reviewed.',
     'followup': 'For independently acceptable eight-decision controls, predeclare one complete development board; no unchanged candidate rerolls.',
 })
 for effort in ['high', 'xhigh']:

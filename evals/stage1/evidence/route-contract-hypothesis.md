@@ -29,3 +29,23 @@ and patches are recorded. Acceptable outputs lead to a predeclared full board,
 then a promising adopted production candidate still requires the finite 22
 attempts and actual specialty coverage. Failed configurations remain failed;
 there are no unchanged candidate answer rerolls. PR45 stays draft/unmerged.
+
+## Second slice: hypothetical card consumption
+
+The first change, 44d946f, did not establish an acceptable candidate. High's
+eight-decision run took 69.089 seconds; its raw grade was six pass/two fail.
+Independent root and Spec review left D6/D7 pending for severity, so High did
+not pass. xhigh took 132.138 seconds and retained its impossible first plan
+through all eight decisions (raw zero pass/eight fail). That plan cashes CA/CK,
+then CQ, yet subsequently leads North's C2; all three North clubs are already
+consumed. The actual first input lists CQ/C7/C2 correctly. There is no prior
+plan or accumulated history at that initial decision.
+
+The next single replacement carries hypothetical consumption forward explicitly:
+what each trick consumes from both hands, which card wins, the next leader and
+the resulting remaining cards/entries. This replaces the prior route sentence;
+it does not accumulate case-specific restrictions. The first eight-decision
+controls and all original grades remain unchanged under route-contract-controls.
+New controls use the same harness at a new output directory and committed source.
+This remains a hypothesis, with real public-driver outputs as the behavioral
+test. No instruction-text assertion would establish that the model can plan.
