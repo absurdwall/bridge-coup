@@ -116,6 +116,15 @@ class AcceptanceTests(unittest.TestCase):
                 acceptance.bounded_command([sys.executable, '-c', 'import signal,time;signal.signal(signal.SIGTERM,signal.SIG_IGN);time.sleep(2)'], sink, sink, 0.05)
             self.assertLess(time.monotonic() - started, 1)
 
+    def test_durable_report_identifies_actual_source_commit(self):
+        with tempfile.TemporaryDirectory() as directory:
+            acceptance.render_report(Path(directory), {'source_commit': '37fe44c-example'}, [])
+            report = (Path(directory) / 'REPORT.md').read_text()
+            self.assertIn('`37fe44c-example`', report)
+            self.assertNotIn('`%s`', report)
+            self.assertIn('PENDING INDEPENDENT REVIEW', report)
+            self.assertIn('0 of 22', report)
+
 
 if __name__ == '__main__':
     unittest.main()
