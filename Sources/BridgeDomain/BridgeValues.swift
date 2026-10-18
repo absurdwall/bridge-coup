@@ -68,6 +68,8 @@ public struct DecisionSnapshot: Codable, Equatable, Sendable {
     public let hands: [Hand]
     public let events: [PlayEvent]
     public let currentTrick: [PlayEvent]
+    /// Highest actual play so far, derived from public trick rules; later cards may change it.
+    public let currentWinningPlay: PlayEvent?
     /// Complete current legal choices, derived by Engine from the acting hand.
     public let legalCards: [Card]
     public let declarerTricks: Int
@@ -76,11 +78,12 @@ public struct DecisionSnapshot: Codable, Equatable, Sendable {
 
     public init(boardID: UUID, revision: Int, controller: Seat, actingSeat: Seat, contract: Contract,
                 vulnerability: String, scoring: String, objective: String, publicBackground: String?, hands: [Hand],
-                events: [PlayEvent], currentTrick: [PlayEvent], declarerTricks: Int, defenderTricks: Int, legalCards: [Card] = []) {
+                events: [PlayEvent], currentTrick: [PlayEvent], declarerTricks: Int, defenderTricks: Int, legalCards: [Card] = [], currentWinningPlay: PlayEvent? = nil) {
         self.boardID = boardID; self.revision = revision; self.controller = controller; self.actingSeat = actingSeat
         self.contract = contract; self.vulnerability = vulnerability; self.scoring = scoring; self.objective = objective
         self.publicBackground = publicBackground; self.hands = hands; self.events = events
         self.currentTrick = currentTrick; self.legalCards = legalCards; self.declarerTricks = declarerTricks; self.defenderTricks = defenderTricks
+        self.currentWinningPlay = currentWinningPlay
     }
 }
 

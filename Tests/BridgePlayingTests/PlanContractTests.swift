@@ -5,6 +5,26 @@ import BridgeExpert
 import BridgeCodex
 
 final class PlanContractTests: XCTestCase {
+    func testPublicExpertReceivesRuleDerivedCurrentWinningPlay() async throws {
+        var board = try BoardState(deal: syntheticDeal(), contract: .init(level: 3, strain: .noTrump, declarer: .south))
+        try board.play(Card("DQ"), by: .west)
+        let expert = ExpertSession(transport: SequencePlayTransport(outputs: [
+            #"{"plan":{"update":"replace","text":"Establish clubs while preserving entries."},"publicReason":"Follow the diamond lead.","selectedCard":"D3"}"#,
+            #"{"plan":{"update":"keep","text":null},"publicReason":"Follow under partner's ace.","selectedCard":"C2"}"#
+        ]))
+        let initial = try await expert.decide(board.snapshot(controller: .south))
+        XCTAssertTrue(initial.input.contains("Current winning play so far: West DQ."), initial.input)
+        try board.apply(initial.action)
+        try board.play(Card("D4"), by: .east)
+        try board.play(Card("DK"), by: .south)
+        try board.play(Card("CA"), by: .south)
+        try board.play(board.legalCards()[0], by: .west)
+        let continuation = try await expert.decide(board.snapshot(controller: .south))
+        XCTAssertTrue(continuation.input.contains("Current winning play so far: South CA."), continuation.input)
+        XCTAssertFalse(continuation.input.contains("South (declarer):"))
+        XCTAssertFalse(continuation.input.contains("North (dummy):"))
+    }
+
     func testFourHistoricalAmbiguousPlansRemainFailuresWithOriginalOutputAndNoRetry() async throws {
         let repository = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
         let matrix = repository.appendingPathComponent("evals/stage1/evidence/ticket42/matrix")
