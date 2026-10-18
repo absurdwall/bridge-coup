@@ -132,6 +132,19 @@ class AcceptanceTests(unittest.TestCase):
             self.assertIn('PENDING INDEPENDENT REVIEW', report)
             self.assertIn('0 of 22', report)
 
+    def test_wire_attempts_remain_distinct_from_driver_retries(self):
+        with tempfile.TemporaryDirectory() as directory:
+            wire = Path(directory)
+            (wire / 'request-0.json').write_text('{}')
+            (wire / 'request-1.json').write_text('{}')
+            (wire / 'response-metadata-0.json').write_text('{"httpStatus":200,"model":"gpt-6-luna"}')
+            (wire / 'transport-error-1.json').write_text('{"errorType":"TimeoutError"}')
+            audit = acceptance.audit_wire(wire)
+            self.assertEqual(audit['upstream_request_attempts'], 2)
+            self.assertEqual(audit['http_statuses'], {'200': 1})
+            self.assertEqual(audit['transport_errors'], [{'errorType': 'TimeoutError'}])
+            self.assertEqual(audit['missing_response_metadata'], ['response-metadata-1.json'])
+
 
 if __name__ == '__main__':
     unittest.main()

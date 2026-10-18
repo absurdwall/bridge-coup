@@ -304,6 +304,7 @@ def summarize_attempt(attempt, directory):
               'playing': playing, 'grading': load(directory / 'grading-outcome.json'),
               'coverage': coverage(attempt['case_id'], inspection['events'], decisions, inspection['complete']),
               'counts': {k: v for k, v in inspection.items() if k not in ('events', 'errors', 'status')},
+              'wire': audit_wire(directory / 'wire'),
               'timing': {k: trace.get(k) for k in timing_keys}, 'quality_counts': {status: sum(r['quality'] == status for r in rows) for status in ('pass', 'fail', 'uncertain')},
               'review_required': [r for r in rows if r['overall'] != 'pass'],
               'plan_updates': {update: sum(d['advice']['plan']['update'] == update for d in decisions) for update in ('keep', 'replace', 'withdraw')},
@@ -343,15 +344,16 @@ def render_report(output, candidate, summaries):
              'Candidate source commit: `%s`. The exact source, executable, instructions, schema template, corpus, rubric, requested configurations and runtime hashes were recorded before play in [candidate.json](candidate.json). Later evidence/document commits do not change that candidate.' % candidate['source_commit'], '',
              'All attempts use the production public Expert/driver through Codex app-server, requested gpt-6-luna / medium. Grading uses independent gpt-6.1-sol / medium with the frozen case/rubric. These names describe requested and observable identities; internal service resolution is not independently proven. Playing calls and graders run strictly sequentially, with no answer repair, manual controlled substitute or playing retry.', '',
              '## Every attempt', '',
-             '| Attempt | Task | Legal | Quality | Trigger | Requests attempted / RPC | Model / forced / opponents | Tricks | Evidence |',
+             '| Attempt | Task | Legal | Quality | Trigger | Requests attempted / RPC / HTTP | Model / forced / opponents | Tricks | Evidence |',
              '|---|---|---|---|---|---|---|---|---|']
     for row in summaries:
         counts = row['counts']
-        lines.append('| %s | %s | %s | %s | %s | %s / %s | %s / %s / %s (+%s controlled, %s opponent prefix) | %s | [saved](%s/summary.json) |' %
+        lines.append('| %s | %s | %s | %s | %s | %s / %s / %s | %s / %s / %s (+%s controlled, %s opponent prefix) | %s | [saved](%s/summary.json) |' %
                      (row['id'], row['task_complete'], row['legal_execution'], row['quality'], row['coverage']['status'],
-                      counts.get('model_request_attempts'), counts.get('actual_rpc_requests'), counts.get('model_actions'), counts.get('forced_actions'),
+                      counts.get('model_request_attempts'), counts.get('actual_rpc_requests'), row['wire']['upstream_request_attempts'], counts.get('model_actions'), counts.get('forced_actions'),
                       counts.get('driver_opponent_actions'), counts.get('initial_controlled_actions'), counts.get('initial_opponent_actions'), counts.get('tricks'), row['id']))
-    lines += ['', 'Quality pass is provisional until independent review of cited facts. Trigger coverage is separate from task bounds and quality. Pending means the mechanical event predicate needs review; an avoided trigger remains uncovered. Contract result cannot erase a factual, entry or consistency failure.', '',
+    lines += ['', 'Driver retries are counted separately from actual HTTP attempts. Per-attempt wire summaries preserve HTTP statuses, transport errors and missing responses; an RPC may cause multiple upstream HTTP attempts inside the runtime. The runner does not equate driver retries=0 with no internal runtime transport retry.', '',
+              'Quality pass is provisional until independent review of cited facts. Trigger coverage is separate from task bounds and quality. Pending means the mechanical event predicate needs review; an avoided trigger remains uncovered. Contract result cannot erase a factual, entry or consistency failure.', '',
               '## Four full-board timings', '',
               '| Attempt | First request s | Later requests n / median / range s | Last controlled action s | Full driver s | Environment overhead s | Failed request s | Retries |',
               '|---|---|---|---|---|---|---|---|']
@@ -390,6 +392,20 @@ def decision_directories(play):
 def verify_schedule(plan):
     if plan != schedule(load(ROOT / 'corpus/manifest.json')):
         raise ValueError('Predeclared finite schedule changed')
+
+
+def audit_wire(wire):
+    requests = sorted(Path(wire).glob('request-*.json'))
+    metadata = [load(path) for path in sorted(Path(wire).glob('response-metadata-*.json'))]
+    statuses = {}
+    for row in metadata:
+        key = str(row.get('httpStatus', 'unknown'))
+        statuses[key] = statuses.get(key, 0) + 1
+    return {'upstream_request_attempts': len(requests), 'http_statuses': statuses,
+            'transport_errors': [load(path) for path in sorted(Path(wire).glob('transport-error-*.json'))],
+            'missing_response_metadata': ['response-metadata-' + path.name[len('request-'):] for path in requests
+                                          if not (Path(wire) / ('response-metadata-' + path.name[len('request-'):])).exists()],
+            'observed_response_models': sorted({row['model'] for row in metadata if row.get('model')})}
 
 
 def bounded_command(command, stdout, stderr, timeout):
