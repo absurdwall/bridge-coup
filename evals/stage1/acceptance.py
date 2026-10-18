@@ -103,9 +103,13 @@ def changed_files(root, hashes):
 
 def quality_status(evaluation):
     results = evaluation.get('results', [])
-    if any(r['overall'] == 'fail' for r in results):
+    if any(r['quality'] == 'fail' for r in results):
         return 'fail'
-    return 'pass' if results and all(r['overall'] == 'pass' for r in results) else 'pending'
+    return 'pass' if results and all(r['quality'] == 'pass' for r in results) else 'pending'
+
+
+def has_failed_evaluation(evaluation):
+    return any(row['overall'] == 'fail' for row in evaluation.get('results', []))
 
 
 def coverage(case_id, events, decisions, complete):
@@ -304,7 +308,7 @@ def summarize_attempt(attempt, directory):
               'review_required': [r for r in rows if r['overall'] != 'pass'],
               'plan_updates': {update: sum(d['advice']['plan']['update'] == update for d in decisions) for update in ('keep', 'replace', 'withdraw')},
               'failures': inspection['errors'] + ([trace['failure']] if trace.get('failure') else [])}
-    result['outcome'] = 'fail' if not task or result['quality'] == 'fail' else 'pending' if result['quality'] != 'pass' or result['coverage']['status'] != 'covered' else 'pass'
+    result['outcome'] = 'fail' if not task or has_failed_evaluation(evaluation) else 'pending' if result['quality'] != 'pass' or result['coverage']['status'] != 'covered' else 'pass'
     write(directory / 'summary.json', result)
     return result
 
