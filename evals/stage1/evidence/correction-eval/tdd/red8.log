@@ -1,0 +1,16 @@
+........F......
+======================================================================
+FAIL: test_new_information_tracks_break_and_third_club_before_unobserved_discard (test_acceptance.AcceptanceTests.test_new_information_tracks_break_and_third_club_before_unobserved_discard)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tingranwang/.codex/worktrees/stage1-correction-eval/bridge-coup/evals/stage1/tests/test_acceptance.py", line 39, in test_new_information_tracks_break_and_third_club_before_unobserved_discard
+    self.assertEqual(result['status'], 'pending')
+AssertionError: 'covered' != 'pending'
+- covered
++ pending
+
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.356s
+
+FAILED (failures=1)

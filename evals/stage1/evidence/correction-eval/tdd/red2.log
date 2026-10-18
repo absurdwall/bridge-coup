@@ -1,0 +1,18 @@
+.F
+======================================================================
+FAIL: test_every_verdict_requires_exact_citations_and_preserves_real_uncertainty (test_grader_contract.GraderContractTests.test_every_verdict_requires_exact_citations_and_preserves_real_uncertainty)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tingranwang/.codex/worktrees/stage1-correction-eval/bridge-coup/evals/stage1/tests/test_grader_contract.py", line 36, in test_every_verdict_requires_exact_citations_and_preserves_real_uncertainty
+    self.assertEqual(package['rubric_version'], 'stage1-basic-v3')
+AssertionError: 'stage1-basic-v2' != 'stage1-basic-v3'
+- stage1-basic-v2
+?               ^
++ stage1-basic-v3
+?               ^
+
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.004s
+
+FAILED (failures=1)

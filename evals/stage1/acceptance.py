@@ -127,15 +127,41 @@ def coverage(case_id, events, decisions, complete):
         rounds = [events[i:i+4] for i in range(0, len(events) - 3, 4)]
         club_rounds = [r for r in rounds if all(e['card'][0] == 'C' for e in r)]
         second = club_rounds[1][-1]['sequence'] if len(club_rounds) >= 2 else None
-        covered = second is not None and any(d['snapshot']['revision'] > second for d in decisions)
-        detail = 'Both defenders followed two full club rounds, followed by another controlled model decision.'
+        break_revisions = [d['snapshot']['revision'] for d in decisions
+                           if second is not None and d['snapshot']['revision'] > second]
+        seen, localized_revisions = {'east': 0, 'west': 0}, []
+        for event in events:
+            if event['seat'] not in seen or not event['card'].startswith('C'):
+                continue
+            seen[event['seat']] += 1
+            if seen[event['seat']] != 3:
+                continue
+            other = 'west' if event['seat'] == 'east' else 'east'
+            next_other = next((e['sequence'] for e in events if e['sequence'] > event['sequence'] and e['seat'] == other), len(events))
+            localized_revisions += [d['snapshot']['revision'] for d in decisions
+                                    if event['sequence'] < d['snapshot']['revision'] <= next_other]
+        return {'status': 'pending' if break_revisions else 'uncovered',
+                'basis': 'Actual information windows observed; factual use, justified retention/replacement and non-invention require independent review.',
+                'facets': {'two_round_break_decision_revisions': break_revisions,
+                           'third_club_before_other_defender_revisions': localized_revisions}}
     elif case_id == 'short-4':
-        covered = any(sum(e['card'] in ('CA', 'CK', 'CQ') for e in d['snapshot']['events']) >= 2
-                      and any(c[0] == 'C' for h in d['snapshot']['hands'] for c in h['cards'])
-                      and d['snapshot']['actingSeat'] in ('north', 'south') for d in decisions)
-        detail = 'Consumed club honors and later remaining-club decision occurred; an entry decision still requires independent review.'
-        if covered:
-            return {'status': 'pending', 'basis': detail}
+        honors, entry_revisions, post_two = set(), [], False
+        for decision in decisions:
+            snapshot = decision['snapshot']
+            consumed = {e['card'] for e in snapshot['events'] if e['card'] in ('CA', 'CK', 'CQ')}
+            honors.update(consumed)
+            hands = {h['seat']: h['cards'] for h in snapshot['hands']}
+            # This is an observable opportunity, not a strategic claim that the entry is needed.
+            remaining_clubs = any(c.startswith('C') for cards in hands.values() for c in cards)
+            heart_entry = any(c in ('HA', 'HK') for cards in hands.values() for c in cards)
+            heart_choice = any(c.startswith('H') for c in hands.get(snapshot['actingSeat'], []))
+            if consumed and remaining_clubs and heart_entry and heart_choice:
+                entry_revisions.append(snapshot['revision'])
+                post_two |= len(consumed) >= 2
+        return {'status': 'pending' if entry_revisions else 'uncovered',
+                'basis': 'Consumed honor plus remaining-club/heart-entry opportunity; actual necessary transport and explanation require independent review.',
+                'facets': {'consumed_club_honors': sorted(honors),
+                           'entry_opportunity_revisions': entry_revisions, 'post_two_honors': post_two}}
     elif case_id == 'short-5':
         attempts = [e for e in events if e['seat'] == 'north' and e['card'][0] == 'D']
         covered = any('CA' in next(h['cards'] for h in d['snapshot']['hands'] if h['seat'] == 'north')
@@ -145,10 +171,25 @@ def coverage(case_id, events, decisions, complete):
         if covered:
             return {'status': 'pending', 'basis': detail}
     elif case_id == 'short-6':
-        covered = any(e['card'][0] == 'D' and e['seat'] in ('north', 'south') for e in events) and sum(e['card'][0] == 'S' and e['seat'] in ('east', 'west') for e in events) >= 2
-        detail = 'Spade continuation and controlled diamond attempt occurred; response/communication trigger requires independent review.'
-        if covered:
-            return {'status': 'pending', 'basis': detail}
+        ace = next((e['sequence'] for e in events if e['card'] == 'SA'), len(events))
+        diamond_ace = next((e['sequence'] for e in events if e['card'] == 'DA' and e['seat'] in ('east', 'west')), None)
+        before_loss = diamond_ace if diamond_ace is not None else len(events)
+        ducks = [r for i in range(0, len(events) - 3, 4) if len(r := events[i:i+4]) == 4
+                 and r[-1]['sequence'] < min(ace, before_loss)
+                 and all(e['card'].startswith('S') for e in r)
+                 and any(e['seat'] == 'south' and e['card'] != 'SA' for e in r)]
+        continued = bool(ducks) and any(e['sequence'] > ducks[0][-1]['sequence']
+                        and e['sequence'] < before_loss and e['seat'] in ('east', 'west')
+                        and e['card'].startswith('S') for e in events)
+        diamond_contest = diamond_ace is not None and any(e['sequence'] < diamond_ace
+                              and e['seat'] in ('north', 'south') and e['card'].startswith('D') for e in events)
+        later = diamond_ace is not None and any(d['snapshot']['revision'] > diamond_ace for d in decisions)
+        return {'status': 'pending' if ducks and continued and diamond_contest and later else 'uncovered',
+                'basis': 'Actual pre-DA-loss hold-up, spade continuation, diamond response and later decision are required; communication meaning still needs independent review.',
+                'facets': {'hold_up_before_diamond_ace_loss': bool(ducks),
+                           'spade_continuation_before_diamond_ace_loss': continued,
+                           'diamond_ace_defensive_response': diamond_contest,
+                           'later_controlled_decision': later}}
     else:
         covered = complete
         detail = 'All 52 actual cards consumed in thirteen independently replayed tricks.'
@@ -369,7 +410,7 @@ def render_report(output, candidate, summaries):
     lines += ['', 'The time origin is dummy exposure/driver start immediately before the first request; last controlled action includes mechanical forced actions. Initial fixture prefix is counted separately. Full driver time includes trailing opponents after the last controlled action. Request limit 180 s, run limit 1800 s, independent grader limit 600 s. Three minutes is an experience goal, not a hard gate. Every individual subsequent latency and failed request is preserved in each trace.', '',
               '## Review and limits', '',
               'Every non-pass grade, original cited text, evaluator error and coverage predicate is preserved in per-attempt summary.json and grade/. An independent review must decide disputed/uncertain findings before any stage-complete claim. The runner never feeds grading results into the player.', '',
-              'The separate reserved board is first played in this finite acceptance. No targeted repair is performed here; these finite samples do not prove broad bridge strength or general grader reliability.', '',
+              'Corpus v2 keeps the formerly reserved board as used regression material: it has already been played and inspected for correction. It is not fresh held-out evidence. These finite samples do not prove broad bridge strength or general grader reliability.', '',
               'Wire captures preserve exact forwarded payload bytes, no authentication headers and no decrypted reasoning. The inherited runtime catalog may contain built-ins/collaboration and opaque encrypted reasoning history. This is not a claim of an entirely empty runtime tool list or a wholly public-only runtime history. Engine analysis/Knowledge tools are absent from the playing surface; verify actual captures and invocation records in independent review.', '',
               'Rule and dependency review evidence, concrete failure adjudication, achieved/unachieved criteria and the final stage recommendation are recorded separately in REVIEW.md. Until then this report is a captured result, not acceptance approval.', '']
     (output / 'REPORT.md').write_text('\n'.join(lines))
