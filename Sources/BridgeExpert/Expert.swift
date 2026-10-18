@@ -135,7 +135,7 @@ public actor ExpertSession {
         let input = previousSnapshot == nil ? Self.initialInput(snapshot) : continuationInput(snapshot, delta: delta, executions: executions)
         let start = Date()
         let reply: PlayingReply
-        do { reply = try await transport.respond(to: PlayingRequest(instructions: Self.instructions, input: input, outputSchema: try Self.outputSchema(for: snapshot), timeoutSeconds: timeoutSeconds)) }
+        do { reply = try await transport.respond(to: PlayingRequest(instructions: Self.instructions, input: input, outputSchema: try Self.outputSchema(for: snapshot, initialPlan: previousSnapshot == nil), timeoutSeconds: timeoutSeconds)) }
         catch { ended = true; throw ExpertFailure(category: .runtime, input: input, rawOutput: "", detail: String(describing: error), elapsedSeconds: Date().timeIntervalSince(start)) }
         let elapsed = Date().timeIntervalSince(start)
         if let previousIdentity, (reply.identity.threadID != previousIdentity.threadID || usedTurnIDs.contains(reply.identity.turnID)) {
@@ -180,8 +180,9 @@ public actor ExpertSession {
     private func continuationInput(_ snapshot: DecisionSnapshot, delta: [PlayEvent], executions: [ActualExecution]) -> String {
         let executed = delta.first.map { $0.seat == previousAction?.actingSeat && $0.card == previousAction?.card } ?? false
         var lines = ["Decision snapshot: \(snapshot.id). Controller: \(snapshot.controller.rawValue.capitalized). Acting hand: \(snapshot.actingSeat.rawValue.capitalized).",
-                     "Previous suggestion actually executed: \(executed ? "yes" : "no").",
-                     "New actual plays in order:"]
+                     "Previous suggestion actually executed: \(executed ? "yes" : "no")."]
+        lines += Self.currentActionInput(snapshot)
+        lines.append("New actual plays in order:")
         for event in delta {
             let source = executions.first(where: { $0.event.sequence == event.sequence })?.source.rawValue
             lines.append("\(event.sequence): \(event.seat.rawValue.capitalized) \(event.card)" + (source.map { " (\($0))" } ?? "") + ".")
@@ -189,6 +190,20 @@ public actor ExpertSession {
         lines.append("Current trick: " + snapshot.currentTrick.map { "\($0.seat.rawValue.capitalized) \($0.card)" }.joined(separator: "; ") + ".")
         lines.append("Tricks won: declarer \(snapshot.declarerTricks), defenders \(snapshot.defenderTricks).")
         return lines.joined(separator: "\n")
+    }
+
+    private static func currentActionInput(_ snapshot: DecisionSnapshot) -> [String] {
+        let seat = snapshot.actingSeat.rawValue.capitalized
+        let role = snapshot.actingSeat == snapshot.contract.declarer ? "declarer" : "dummy"
+        let phase: String
+        if let led = snapshot.currentTrick.first?.card.suit {
+            let ordinal = ["first", "second", "third", "fourth"][snapshot.currentTrick.count]
+            phase = "plays \(ordinal) in the current trick; \(led.rawValue) were led"
+        } else {
+            phase = "leads a new trick"
+        }
+        return ["Current action: \(seat) (\(role)) \(phase).",
+                "Legal current choices: " + snapshot.legalCards.map(\.description).joined(separator: ", ") + "."]
     }
 
     private static func initialInput(_ snapshot: DecisionSnapshot) -> String {
@@ -201,10 +216,11 @@ public actor ExpertSession {
             "Decision controller: \(name(snapshot.controller)) (declarer).",
             "Acting hand: \(name(snapshot.actingSeat)) (\(role(snapshot.actingSeat)))."
         ]
+        lines += currentActionInput(snapshot)
         for hand in snapshot.hands {
             let holding = Suit.allCases.map { suit in
-                let ranks = hand.cards.filter { $0.suit == suit }.sorted { $0.rank > $1.rank }.map { String($0.description.dropFirst()) }.joined()
-                return "\(suit.code) \(ranks.isEmpty ? "-" : ranks)"
+                let cards = hand.cards.filter { $0.suit == suit }.sorted { $0.rank > $1.rank }.map(\.description).joined(separator: " ")
+                return "\(suit.rawValue): \(cards.isEmpty ? "-" : cards)"
             }.joined(separator: " / ")
             lines.append("\(name(hand.seat)) (\(role(hand.seat))): \(holding)")
         }
@@ -216,19 +232,29 @@ public actor ExpertSession {
 
     private enum ValidationError: Error { case emptyReason, missingInitialPlan, missingReplacement, ambiguousPlan, unexpectedFields }
 
-    public static let wireContractVersion = "stage1-legal-selectedCard-v3"
+    public static let wireContractVersion = "stage1-plan-variants-v4"
 
     public static let instructions = """
-    Play declarer and dummy using the supplied decision-time information. Write in English and pursue the stated objective. selectedCard is the single card from the acting hand to play now; publicReason briefly explains it. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide an initial concrete plan before dummy's first play. Unknown cards remain unknown.
+    Play declarer and dummy from the supplied decision-time information, in English, pursuing the stated objective. Form a concrete route using available winners, suit establishment, timing and entries; reassess it as actual play warrants. Derive publicReason and the single selectedCard to play now from the effective plan, current trick and remaining cards of the acting hand. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide the initial plan before dummy's first play. Unknown cards remain unknown.
     """
 
-    private static func outputSchema(for snapshot: DecisionSnapshot) throws -> String {
+    private static func outputSchema(for snapshot: DecisionSnapshot, initialPlan: Bool) throws -> String {
         var schema = try JSONSerialization.jsonObject(with: Data(outputSchema.utf8)) as! [String: Any]
         var properties = schema["properties"] as! [String: Any]
         properties["selectedCard"] = ["type": "string", "enum": snapshot.legalCards.map(\.description)]
+        if initialPlan {
+            var plan = properties["plan"] as! [String: Any]
+            let variants = plan["anyOf"] as! [[String: Any]]
+            plan["anyOf"] = variants.filter { variant in
+                let fields = variant["properties"] as! [String: Any]
+                let update = fields["update"] as! [String: Any]
+                return update["enum"] as? [String] == ["replace"]
+            }
+            properties["plan"] = plan
+        }
         schema["properties"] = properties
         return String(decoding: try JSONSerialization.data(withJSONObject: schema, options: [.sortedKeys]), as: UTF8.self)
     }
 
-    public static let outputSchema = #"{"type":"object","additionalProperties":false,"required":["plan","publicReason","selectedCard"],"properties":{"selectedCard":{"type":"string","pattern":"^[SHDC][2-9TJQKA]$"},"publicReason":{"type":"string"},"plan":{"type":"object","additionalProperties":false,"required":["update","text"],"properties":{"update":{"type":"string","enum":["keep","replace","withdraw"]},"text":{"type":["string","null"]}}}}}"#
+    public static let outputSchema = #"{"type":"object","additionalProperties":false,"required":["plan","publicReason","selectedCard"],"properties":{"selectedCard":{"type":"string","pattern":"^[SHDC][2-9TJQKA]$"},"publicReason":{"type":"string"},"plan":{"anyOf":[{"type":"object","additionalProperties":false,"required":["update","text"],"properties":{"update":{"type":"string","enum":["replace"]},"text":{"type":"string","pattern":"\\S"}}},{"type":"object","additionalProperties":false,"required":["update","text"],"properties":{"update":{"type":"string","enum":["keep"]},"text":{"type":"null"}}},{"type":"object","additionalProperties":false,"required":["update","text"],"properties":{"update":{"type":"string","enum":["withdraw"]},"text":{"type":"null"}}}]}}}"#
 }

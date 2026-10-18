@@ -1,0 +1,565 @@
+[0/1] Planning build
+Building for debugging...
+[0/6] Write swift-version--58304C5D6DBC2206.txt
+Build complete! (0.22s)
+Test Suite 'All tests' started at 2026-10-18 10:37:17.755.
+Test Suite 'BridgeTeacherPackageTests.xctest' started at 2026-10-18 10:37:17.755.
+Test Suite 'AnalysisMarkdownDocumentTests' started at 2026-10-18 10:37:17.756.
+Test Case '-[BridgeTeacherMacTests.AnalysisMarkdownDocumentTests testInlineFormattingRemovesCommonMarkersAndPreservesUnfinishedText]' started.
+Test Case '-[BridgeTeacherMacTests.AnalysisMarkdownDocumentTests testInlineFormattingRemovesCommonMarkersAndPreservesUnfinishedText]' passed (0.002 seconds).
+Test Case '-[BridgeTeacherMacTests.AnalysisMarkdownDocumentTests testParsesGFMTableWithoutOuterPipesAndKeepsEscapedCellPipes]' started.
+Test Case '-[BridgeTeacherMacTests.AnalysisMarkdownDocumentTests testParsesGFMTableWithoutOuterPipesAndKeepsEscapedCellPipes]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.AnalysisMarkdownDocumentTests testParsesHeadingsParagraphsListsAndTables]' started.
+Test Case '-[BridgeTeacherMacTests.AnalysisMarkdownDocumentTests testParsesHeadingsParagraphsListsAndTables]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.AnalysisMarkdownDocumentTests testPlainTextAndIncompleteMarkdownRemainReadable]' started.
+Test Case '-[BridgeTeacherMacTests.AnalysisMarkdownDocumentTests testPlainTextAndIncompleteMarkdownRemainReadable]' passed (0.000 seconds).
+Test Suite 'AnalysisMarkdownDocumentTests' passed at 2026-10-18 10:37:17.759.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 0.003 (0.003) seconds
+Test Suite 'AuctionRecordTests' started at 2026-10-18 10:37:17.759.
+Test Case '-[BridgeTeacherCoreTests.AuctionRecordTests testChangingStartingSeatRecomputesDerivedSeats]' started.
+Test Case '-[BridgeTeacherCoreTests.AuctionRecordTests testChangingStartingSeatRecomputesDerivedSeats]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherCoreTests.AuctionRecordTests testChoosingStartingSeatInfersPreviouslyUnassignedCompleteEntries]' started.
+Test Case '-[BridgeTeacherCoreTests.AuctionRecordTests testChoosingStartingSeatInfersPreviouslyUnassignedCompleteEntries]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.AuctionRecordTests testEntryIDsAndMeaningNotesStayWithTheirOccurrenceAcrossEdits]' started.
+Test Case '-[BridgeTeacherCoreTests.AuctionRecordTests testEntryIDsAndMeaningNotesStayWithTheirOccurrenceAcrossEdits]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.AuctionRecordTests testLegacyAuctionRecordDefaultsToCompleteSequenceBehavior]' started.
+Test Case '-[BridgeTeacherCoreTests.AuctionRecordTests testLegacyAuctionRecordDefaultsToCompleteSequenceBehavior]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherCoreTests.AuctionRecordTests testMeaningNotesAreConditionalUserContextAndBlankNotesDoNotBlockRequests]' started.
+Test Case '-[BridgeTeacherCoreTests.AuctionRecordTests testMeaningNotesAreConditionalUserContextAndBlankNotesDoNotBlockRequests]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.AuctionRecordTests testOldAuctionEntryWithoutIdentityOrMeaningNoteDecodesSafely]' started.
+Test Case '-[BridgeTeacherCoreTests.AuctionRecordTests testOldAuctionEntryWithoutIdentityOrMeaningNoteDecodesSafely]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.AuctionRecordTests testOnlyConflictingSeatsInCompleteSequencesAreRejected]' started.
+Test Case '-[BridgeTeacherCoreTests.AuctionRecordTests testOnlyConflictingSeatsInCompleteSequencesAreRejected]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.AuctionRecordTests testPartialCompleteRoundTripRestoresSequenceDerivedSeatsForTableAndRequest]' started.
+Test Case '-[BridgeTeacherCoreTests.AuctionRecordTests testPartialCompleteRoundTripRestoresSequenceDerivedSeatsForTableAndRequest]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.AuctionRecordTests testPartialRecordKeepsUnknownSeatUnknownAndRequiresPerItemReview]' started.
+Test Case '-[BridgeTeacherCoreTests.AuctionRecordTests testPartialRecordKeepsUnknownSeatUnknownAndRequiresPerItemReview]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.AuctionRecordTests testPartialRecordWithKnownStartDoesNotInferSeatsOrMissingCalls]' started.
+Test Case '-[BridgeTeacherCoreTests.AuctionRecordTests testPartialRecordWithKnownStartDoesNotInferSeatsOrMissingCalls]' passed (0.000 seconds).
+Test Suite 'AuctionRecordTests' passed at 2026-10-18 10:37:17.763.
+	 Executed 10 tests, with 0 failures (0 unexpected) in 0.004 (0.004) seconds
+Test Suite 'AuctionTableBehaviorTests' started at 2026-10-18 10:37:17.763.
+Test Case '-[BridgeTeacherMacTests.AuctionTableBehaviorTests testCallInkUsesSuitColorsAndGreenPass]' started.
+Test Case '-[BridgeTeacherMacTests.AuctionTableBehaviorTests testCallInkUsesSuitColorsAndGreenPass]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.AuctionTableBehaviorTests testCornerPartialUnknownSeatRemainsLabeledSequenceWithoutInventedColumns]' started.
+Test Case '-[BridgeTeacherMacTests.AuctionTableBehaviorTests testCornerPartialUnknownSeatRemainsLabeledSequenceWithoutInventedColumns]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.AuctionTableBehaviorTests testCornerShowsActualLatestRowsAndRetainsCallIdentityAndNotes]' started.
+Test Case '-[BridgeTeacherMacTests.AuctionTableBehaviorTests testCornerShowsActualLatestRowsAndRetainsCallIdentityAndNotes]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.AuctionTableBehaviorTests testLongAuctionProjectsAllEntriesAcrossFixedSeatColumns]' started.
+Test Case '-[BridgeTeacherMacTests.AuctionTableBehaviorTests testLongAuctionProjectsAllEntriesAcrossFixedSeatColumns]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.AuctionTableBehaviorTests testPartialTranscriptProjectsExplicitSeatsAsSparseRowsInVisibleOrder]' started.
+Test Case '-[BridgeTeacherMacTests.AuctionTableBehaviorTests testPartialTranscriptProjectsExplicitSeatsAsSparseRowsInVisibleOrder]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.AuctionTableBehaviorTests testProjectionKeepsCallIdentityAndNoteMarkerInTheAssignedRoundColumn]' started.
+Test Case '-[BridgeTeacherMacTests.AuctionTableBehaviorTests testProjectionKeepsCallIdentityAndNoteMarkerInTheAssignedRoundColumn]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.AuctionTableBehaviorTests testUnassignedPartialAuctionDoesNotInventAColumnLayout]' started.
+Test Case '-[BridgeTeacherMacTests.AuctionTableBehaviorTests testUnassignedPartialAuctionDoesNotInventAColumnLayout]' passed (0.000 seconds).
+Test Suite 'AuctionTableBehaviorTests' passed at 2026-10-18 10:37:17.765.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 0.001 (0.002) seconds
+Test Suite 'AutonomousPlayWorkflowTests' started at 2026-10-18 10:37:17.765.
+Test Case '-[BridgeTeacherMacTests.AutonomousPlayWorkflowTests testAllThirteenTricksFinishAndEveryOriginalCardIsPlayedExactlyOnce]' started.
+Test Case '-[BridgeTeacherMacTests.AutonomousPlayWorkflowTests testAllThirteenTricksFinishAndEveryOriginalCardIsPlayedExactlyOnce]' passed (0.009 seconds).
+Test Case '-[BridgeTeacherMacTests.AutonomousPlayWorkflowTests testExplicitSuppliedLeadIsValidatedPlayedOnceAndOriginalRemainsIntact]' started.
+Test Case '-[BridgeTeacherMacTests.AutonomousPlayWorkflowTests testExplicitSuppliedLeadIsValidatedPlayedOnceAndOriginalRemainsIntact]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherMacTests.AutonomousPlayWorkflowTests testLateTeachingResponseCannotBecomeCurrentAfterPlayChanges]' started.
+Test Case '-[BridgeTeacherMacTests.AutonomousPlayWorkflowTests testLateTeachingResponseCannotBecomeCurrentAfterPlayChanges]' passed (0.002 seconds).
+Test Case '-[BridgeTeacherMacTests.AutonomousPlayWorkflowTests testOriginalOrContractEditRequiresExplicitResetAndCancellationPreservesEverything]' started.
+Test Case '-[BridgeTeacherMacTests.AutonomousPlayWorkflowTests testOriginalOrContractEditRequiresExplicitResetAndCancellationPreservesEverything]' passed (0.002 seconds).
+Test Case '-[BridgeTeacherMacTests.AutonomousPlayWorkflowTests testPlayArchiveKeepsOriginalAndRemainingSeparateAndRestoresTeachingProjection]' started.
+Test Case '-[BridgeTeacherMacTests.AutonomousPlayWorkflowTests testPlayArchiveKeepsOriginalAndRemainingSeparateAndRestoresTeachingProjection]' passed (0.007 seconds).
+Test Case '-[BridgeTeacherMacTests.AutonomousPlayWorkflowTests testReplacedOpeningLeadRejectsOldPositionAndArchiveRestorationUsesSameGuard]' started.
+Test Case '-[BridgeTeacherMacTests.AutonomousPlayWorkflowTests testReplacedOpeningLeadRejectsOldPositionAndArchiveRestorationUsesSameGuard]' passed (0.004 seconds).
+Test Case '-[BridgeTeacherMacTests.AutonomousPlayWorkflowTests testReplacingScreenshotWithPlayProgressCanBeCancelledBeforeChangingSource]' started.
+Test Case '-[BridgeTeacherMacTests.AutonomousPlayWorkflowTests testReplacingScreenshotWithPlayProgressCanBeCancelledBeforeChangingSource]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherMacTests.AutonomousPlayWorkflowTests testStartRequiresCompleteValidKnownHandsContractAndReviewedScreenshot]' started.
+Test Case '-[BridgeTeacherMacTests.AutonomousPlayWorkflowTests testStartRequiresCompleteValidKnownHandsContractAndReviewedScreenshot]' passed (0.002 seconds).
+Test Case '-[BridgeTeacherMacTests.AutonomousPlayWorkflowTests testTeachingRequestsUseSelectedRemainingHandsPublicHistoryAndBecomeOutdated]' started.
+Test Case '-[BridgeTeacherMacTests.AutonomousPlayWorkflowTests testTeachingRequestsUseSelectedRemainingHandsPublicHistoryAndBecomeOutdated]' passed (0.002 seconds).
+Test Case '-[BridgeTeacherMacTests.AutonomousPlayWorkflowTests testTurnFollowingSuitAndManualCollectionUseTrumpAndNoTrumpWinners]' started.
+Test Case '-[BridgeTeacherMacTests.AutonomousPlayWorkflowTests testTurnFollowingSuitAndManualCollectionUseTrumpAndNoTrumpWinners]' passed (0.002 seconds).
+Test Case '-[BridgeTeacherMacTests.AutonomousPlayWorkflowTests testUIWarningAndSubmissionUseRemainingHandsForVisibleCardInPartialTrick]' started.
+Test Case '-[BridgeTeacherMacTests.AutonomousPlayWorkflowTests testUIWarningAndSubmissionUseRemainingHandsForVisibleCardInPartialTrick]' passed (0.002 seconds).
+Test Suite 'AutonomousPlayWorkflowTests' passed at 2026-10-18 10:37:17.800.
+	 Executed 11 tests, with 0 failures (0 unexpected) in 0.034 (0.035) seconds
+Test Suite 'BridgeCoupUpdateWorkflowTests' started at 2026-10-18 10:37:17.800.
+Test Case '-[BridgeTeacherMacTests.BridgeCoupUpdateWorkflowTests testBetaOffersHighestNumberedBetaThenStableAndOpensOnlyOfficialPage]' started.
+Test Case '-[BridgeTeacherMacTests.BridgeCoupUpdateWorkflowTests testBetaOffersHighestNumberedBetaThenStableAndOpensOnlyOfficialPage]' passed (0.002 seconds).
+Test Case '-[BridgeTeacherMacTests.BridgeCoupUpdateWorkflowTests testBrowserFailureIsVisibleAndDoesNotChangeInstalledIdentity]' started.
+Test Case '-[BridgeTeacherMacTests.BridgeCoupUpdateWorkflowTests testBrowserFailureIsVisibleAndDoesNotChangeInstalledIdentity]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.BridgeCoupUpdateWorkflowTests testEmptyFeedAndIncompleteReleasesHaveDistinctResults]' started.
+Test Case '-[BridgeTeacherMacTests.BridgeCoupUpdateWorkflowTests testEmptyFeedAndIncompleteReleasesHaveDistinctResults]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.BridgeCoupUpdateWorkflowTests testIncompleteStableReleaseFromBetaCanBeRetriedAfterAssetPublication]' started.
+Test Case '-[BridgeTeacherMacTests.BridgeCoupUpdateWorkflowTests testIncompleteStableReleaseFromBetaCanBeRetriedAfterAssetPublication]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.BridgeCoupUpdateWorkflowTests testInvalidReleasePageFailsWithoutOpeningBrowser]' started.
+Test Case '-[BridgeTeacherMacTests.BridgeCoupUpdateWorkflowTests testInvalidReleasePageFailsWithoutOpeningBrowser]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.BridgeCoupUpdateWorkflowTests testMalformedMetadataTimeoutOfflineAndRateLimitRemainFailuresAndCanRetry]' started.
+Test Case '-[BridgeTeacherMacTests.BridgeCoupUpdateWorkflowTests testMalformedMetadataTimeoutOfflineAndRateLimitRemainFailuresAndCanRetry]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.BridgeCoupUpdateWorkflowTests testMenuActionShowsUpdateSheetWhileControlledCheckRuns]' started.
+Test Case '-[BridgeTeacherMacTests.BridgeCoupUpdateWorkflowTests testMenuActionShowsUpdateSheetWhileControlledCheckRuns]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.BridgeCoupUpdateWorkflowTests testMissingAssetsRespectChannelDraftAndPrereleaseEligibility]' started.
+Test Case '-[BridgeTeacherMacTests.BridgeCoupUpdateWorkflowTests testMissingAssetsRespectChannelDraftAndPrereleaseEligibility]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.BridgeCoupUpdateWorkflowTests testMixedFeedStillOffersHighestCompleteNewerRelease]' started.
+Test Case '-[BridgeTeacherMacTests.BridgeCoupUpdateWorkflowTests testMixedFeedStillOffersHighestCompleteNewerRelease]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.BridgeCoupUpdateWorkflowTests testMixedFeedWithNewerMissingDMGDoesNotReportUpToDateOrOpenAnOlderRelease]' started.
+Test Case '-[BridgeTeacherMacTests.BridgeCoupUpdateWorkflowTests testMixedFeedWithNewerMissingDMGDoesNotReportUpToDateOrOpenAnOlderRelease]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherMacTests.BridgeCoupUpdateWorkflowTests testNumericBetaOrderingAndNoDowngrade]' started.
+Test Case '-[BridgeTeacherMacTests.BridgeCoupUpdateWorkflowTests testNumericBetaOrderingAndNoDowngrade]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.BridgeCoupUpdateWorkflowTests testStableChannelSkipsBetasAndSameVersionIsUpToDate]' started.
+Test Case '-[BridgeTeacherMacTests.BridgeCoupUpdateWorkflowTests testStableChannelSkipsBetasAndSameVersionIsUpToDate]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.BridgeCoupUpdateWorkflowTests testUnknownOrMismatchedInstalledChannelFailsBeforeFetch]' started.
+Test Case '-[BridgeTeacherMacTests.BridgeCoupUpdateWorkflowTests testUnknownOrMismatchedInstalledChannelFailsBeforeFetch]' passed (0.000 seconds).
+Test Suite 'BridgeCoupUpdateWorkflowTests' passed at 2026-10-18 10:37:17.807.
+	 Executed 13 tests, with 0 failures (0 unexpected) in 0.006 (0.007) seconds
+Test Suite 'BridgeTeacherContractSelectionTests' started at 2026-10-18 10:37:17.807.
+Test Case '-[BridgeTeacherMacTests.BridgeTeacherContractSelectionTests testCallMeaningNoteChangeInvalidatesSharedDeclarerAndKeyPlayAnalyses]' started.
+Test Case '-[BridgeTeacherMacTests.BridgeTeacherContractSelectionTests testCallMeaningNoteChangeInvalidatesSharedDeclarerAndKeyPlayAnalyses]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.BridgeTeacherContractSelectionTests testCancellingContractSelectionPreservesExistingDraftAndVersion]' started.
+Test Case '-[BridgeTeacherMacTests.BridgeTeacherContractSelectionTests testCancellingContractSelectionPreservesExistingDraftAndVersion]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.BridgeTeacherContractSelectionTests testClearingContractPreservesOtherReviewContextAndInvalidatesContract]' started.
+Test Case '-[BridgeTeacherMacTests.BridgeTeacherContractSelectionTests testClearingContractPreservesOtherReviewContextAndInvalidatesContract]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.BridgeTeacherContractSelectionTests testContractGridNavigationMovesOneCellAndClampsAtGridEdges]' started.
+Test Case '-[BridgeTeacherMacTests.BridgeTeacherContractSelectionTests testContractGridNavigationMovesOneCellAndClampsAtGridEdges]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.BridgeTeacherContractSelectionTests testOpeningLeadShortcutsNormalizeInEditableReviewDraft]' started.
+Test Case '-[BridgeTeacherMacTests.BridgeTeacherContractSelectionTests testOpeningLeadShortcutsNormalizeInEditableReviewDraft]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.BridgeTeacherContractSelectionTests testSelectingContractUpdatesReviewAndDoubleDummyContextAtomically]' started.
+Test Case '-[BridgeTeacherMacTests.BridgeTeacherContractSelectionTests testSelectingContractUpdatesReviewAndDoubleDummyContextAtomically]' passed (0.000 seconds).
+Test Suite 'BridgeTeacherContractSelectionTests' passed at 2026-10-18 10:37:17.809.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.002 (0.002) seconds
+Test Suite 'CodexModelSelectionPreferencesTests' started at 2026-10-18 10:37:17.809.
+Test Case '-[BridgeTeacherMacTests.CodexModelSelectionPreferencesTests testMigratedOldSolPreferenceCanBeSavedAndRestoredForNextLaunch]' started.
+Test Case '-[BridgeTeacherMacTests.CodexModelSelectionPreferencesTests testMigratedOldSolPreferenceCanBeSavedAndRestoredForNextLaunch]' passed (0.002 seconds).
+Test Case '-[BridgeTeacherMacTests.CodexModelSelectionPreferencesTests testSelectionAndEffortSurviveCreatingPreferencesForTheNextLaunch]' started.
+Test Case '-[BridgeTeacherMacTests.CodexModelSelectionPreferencesTests testSelectionAndEffortSurviveCreatingPreferencesForTheNextLaunch]' passed (0.002 seconds).
+Test Suite 'CodexModelSelectionPreferencesTests' passed at 2026-10-18 10:37:17.813.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.004 (0.004) seconds
+Test Suite 'CodexModelSettingsTests' started at 2026-10-18 10:37:17.813.
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testAllAndOnlyRuntimeAdvertisedEffortsAreAvailable]' started.
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testAllAndOnlyRuntimeAdvertisedEffortsAreAvailable]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testAmbiguousDuplicateRuntimeIdentifiersDoNotSelectOne]' started.
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testAmbiguousDuplicateRuntimeIdentifiersDoNotSelectOne]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testChangingModelKeepsAValidEffortAndExplainsFallbackWhenNeeded]' started.
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testChangingModelKeepsAValidEffortAndExplainsFallbackWhenNeeded]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testFirstRunSelectsLunaMediumWhenRuntimeAdvertisesIt]' started.
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testFirstRunSelectsLunaMediumWhenRuntimeAdvertisesIt]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testGPT6SelectionIgnoresSameFamilyGPT56Entries]' started.
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testGPT6SelectionIgnoresSameFamilyGPT56Entries]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testModelSwitchUsesAdvertisedRuntimeDefaultIncludingUltra]' started.
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testModelSwitchUsesAdvertisedRuntimeDefaultIncludingUltra]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testOlderStoredResponsesDecodeWithoutRequestProvenanceFields]' started.
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testOlderStoredResponsesDecodeWithoutRequestProvenanceFields]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testOldSolCannotSilentlyFallBackWhenNewModelOrEffortIsMissing]' started.
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testOldSolCannotSilentlyFallBackWhenNewModelOrEffortIsMissing]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testOldSolMigratesOnlyToAvailableNewSolWithSameEffortAndVisibleNotice]' started.
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testOldSolMigratesOnlyToAvailableNewSolWithSameEffortAndVisibleNotice]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testOnlyCanonicalGPT6FamilyIdentifiersAreAccepted]' started.
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testOnlyCanonicalGPT6FamilyIdentifiersAreAccepted]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testOnlyGPT56FamilyEntriesAreExcludedAndExplainWhyUnavailable]' started.
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testOnlyGPT56FamilyEntriesAreExcludedAndExplainWhyUnavailable]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testSavedSelectionIsRestoredOnlyWhenCurrentRuntimeStillSupportsIt]' started.
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testSavedSelectionIsRestoredOnlyWhenCurrentRuntimeStillSupportsIt]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testScreenshotCapabilityComesFromTheSelectedRuntimeModel]' started.
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testScreenshotCapabilityComesFromTheSelectedRuntimeModel]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testTurnStartFieldsCarryTheExactSelectedRuntimeModelAndEffort]' started.
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testTurnStartFieldsCarryTheExactSelectedRuntimeModelAndEffort]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testUnavailableInitialLunaMediumDoesNotSilentlyChooseAnotherConfiguration]' started.
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testUnavailableInitialLunaMediumDoesNotSilentlyChooseAnotherConfiguration]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testUnsupportedEffortDoesNotReplaceTheSelectedConfiguration]' started.
+Test Case '-[BridgeTeacherCoreTests.CodexModelSettingsTests testUnsupportedEffortDoesNotReplaceTheSelectedConfiguration]' passed (0.000 seconds).
+Test Suite 'CodexModelSettingsTests' passed at 2026-10-18 10:37:17.817.
+	 Executed 16 tests, with 0 failures (0 unexpected) in 0.003 (0.004) seconds
+Test Suite 'CodexRuntimeDiscoveryTests' started at 2026-10-18 10:37:17.817.
+Test Case '-[BridgeTeacherMacTests.CodexRuntimeDiscoveryTests testActualExecutableHandshakeAndLoginProbe]' started.
+Test Case '-[BridgeTeacherMacTests.CodexRuntimeDiscoveryTests testActualExecutableHandshakeAndLoginProbe]' passed (0.157 seconds).
+Test Case '-[BridgeTeacherMacTests.CodexRuntimeDiscoveryTests testActualExecutableWithMalformedProtocolIsRejectedAndSearchContinues]' started.
+Test Case '-[BridgeTeacherMacTests.CodexRuntimeDiscoveryTests testActualExecutableWithMalformedProtocolIsRejectedAndSearchContinues]' passed (0.486 seconds).
+Test Case '-[BridgeTeacherMacTests.CodexRuntimeDiscoveryTests testCannotRunFailureIsDifferentFromProtocolFailureAndCandidatesAreDeduplicated]' started.
+Test Case '-[BridgeTeacherMacTests.CodexRuntimeDiscoveryTests testCannotRunFailureIsDifferentFromProtocolFailureAndCandidatesAreDeduplicated]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.CodexRuntimeDiscoveryTests testInvalidSavedExecutableAndUnavailableProtocolDoNotBlockLaterCandidate]' started.
+Test Case '-[BridgeTeacherMacTests.CodexRuntimeDiscoveryTests testInvalidSavedExecutableAndUnavailableProtocolDoNotBlockLaterCandidate]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.CodexRuntimeDiscoveryTests testNoRuntimeReturnsConcreteSuggestionsMarkedAsMissing]' started.
+Test Case '-[BridgeTeacherMacTests.CodexRuntimeDiscoveryTests testNoRuntimeReturnsConcreteSuggestionsMarkedAsMissing]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.CodexRuntimeDiscoveryTests testProtocolThatNeverRepliesTimesOutAndSearchContinues]' started.
+Test Case '-[BridgeTeacherMacTests.CodexRuntimeDiscoveryTests testProtocolThatNeverRepliesTimesOutAndSearchContinues]' passed (5.406 seconds).
+Test Case '-[BridgeTeacherMacTests.CodexRuntimeDiscoveryTests testSearchPreservesWorkingManualCandidateBeforeAutomaticInstallation]' started.
+Test Case '-[BridgeTeacherMacTests.CodexRuntimeDiscoveryTests testSearchPreservesWorkingManualCandidateBeforeAutomaticInstallation]' passed (0.208 seconds).
+Test Suite 'CodexRuntimeDiscoveryTests' passed at 2026-10-18 10:37:24.075.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 6.258 (6.259) seconds
+Test Suite 'CodexRuntimeModelCatalogTests' started at 2026-10-18 10:37:24.075.
+Test Case '-[BridgeTeacherMacTests.CodexRuntimeModelCatalogTests testGPT56CatalogEntriesStayOutOfGPT6FamilyChoices]' started.
+Test Case '-[BridgeTeacherMacTests.CodexRuntimeModelCatalogTests testGPT56CatalogEntriesStayOutOfGPT6FamilyChoices]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.CodexRuntimeModelCatalogTests testMissingImageCapabilityIsNotInferredFromModelName]' started.
+Test Case '-[BridgeTeacherMacTests.CodexRuntimeModelCatalogTests testMissingImageCapabilityIsNotInferredFromModelName]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.CodexRuntimeModelCatalogTests testRuntimeCatalogPreservesActualModelIDEffortsDefaultsAndInputModalities]' started.
+Test Case '-[BridgeTeacherMacTests.CodexRuntimeModelCatalogTests testRuntimeCatalogPreservesActualModelIDEffortsDefaultsAndInputModalities]' passed (0.000 seconds).
+Test Suite 'CodexRuntimeModelCatalogTests' passed at 2026-10-18 10:37:24.077.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'CodexTeachingServiceRequestTests' started at 2026-10-18 10:37:24.077.
+Test Case '-[BridgeTeacherMacTests.CodexTeachingServiceRequestTests testAbsentRuntimeModelDoesNotInventAnEffectiveModelIdentity]' started.
+Test Case '-[BridgeTeacherMacTests.CodexTeachingServiceRequestTests testAbsentRuntimeModelDoesNotInventAnEffectiveModelIdentity]' passed (0.059 seconds).
+Test Case '-[BridgeTeacherMacTests.CodexTeachingServiceRequestTests testActiveTeachingResponseMayFinishAfterTheOldTotalDeadlineWithoutChangingSelection]' started.
+Test Case '-[BridgeTeacherMacTests.CodexTeachingServiceRequestTests testActiveTeachingResponseMayFinishAfterTheOldTotalDeadlineWithoutChangingSelection]' passed (0.456 seconds).
+Test Case '-[BridgeTeacherMacTests.CodexTeachingServiceRequestTests testBackendFailureRemainsAFailureUnderTheExtendedActiveWaitPolicy]' started.
+Test Case '-[BridgeTeacherMacTests.CodexTeachingServiceRequestTests testBackendFailureRemainsAFailureUnderTheExtendedActiveWaitPolicy]' passed (0.058 seconds).
+Test Case '-[BridgeTeacherMacTests.CodexTeachingServiceRequestTests testCatalogRefreshInvalidatesSavedRequestConfiguration]' started.
+Test Case '-[BridgeTeacherMacTests.CodexTeachingServiceRequestTests testCatalogRefreshInvalidatesSavedRequestConfiguration]' passed (0.048 seconds).
+Test Case '-[BridgeTeacherMacTests.CodexTeachingServiceRequestTests testChangingSelectionDuringARequestOnlyChangesTheNextRequest]' started.
+Test Case '-[BridgeTeacherMacTests.CodexTeachingServiceRequestTests testChangingSelectionDuringARequestOnlyChangesTheNextRequest]' passed (0.047 seconds).
+Test Case '-[BridgeTeacherMacTests.CodexTeachingServiceRequestTests testContinuouslyActiveRequestStillHasAFiniteOverallLimit]' started.
+Test Case '-[BridgeTeacherMacTests.CodexTeachingServiceRequestTests testContinuouslyActiveRequestStillHasAFiniteOverallLimit]' passed (0.306 seconds).
+Test Case '-[BridgeTeacherMacTests.CodexTeachingServiceRequestTests testFollowUpRequestUsesTheCurrentSelection]' started.
+Test Case '-[BridgeTeacherMacTests.CodexTeachingServiceRequestTests testFollowUpRequestUsesTheCurrentSelection]' passed (0.065 seconds).
+Test Case '-[BridgeTeacherMacTests.CodexTeachingServiceRequestTests testRuntimeModelOrEffortMismatchCannotBecomeASuccessfulTeachingResult]' started.
+Test Case '-[BridgeTeacherMacTests.CodexTeachingServiceRequestTests testRuntimeModelOrEffortMismatchCannotBecomeASuccessfulTeachingResult]' passed (0.099 seconds).
+Test Case '-[BridgeTeacherMacTests.CodexTeachingServiceRequestTests testScreenshotRecognitionStopsWhenSelectedModelDoesNotAdvertiseImageInput]' started.
+Test Case '-[BridgeTeacherMacTests.CodexTeachingServiceRequestTests testScreenshotRecognitionStopsWhenSelectedModelDoesNotAdvertiseImageInput]' passed (0.043 seconds).
+Test Case '-[BridgeTeacherMacTests.CodexTeachingServiceRequestTests testScreenshotRecognitionUsesTheSelectedConfigurationAndRecordsIt]' started.
+Test Case '-[BridgeTeacherMacTests.CodexTeachingServiceRequestTests testScreenshotRecognitionUsesTheSelectedConfigurationAndRecordsIt]' passed (0.040 seconds).
+Test Case '-[BridgeTeacherMacTests.CodexTeachingServiceRequestTests testSilentOrUnrelatedNotificationsDoNotKeepAStalledRequestAlive]' started.
+Test Case '-[BridgeTeacherMacTests.CodexTeachingServiceRequestTests testSilentOrUnrelatedNotificationsDoNotKeepAStalledRequestAlive]' passed (0.818 seconds).
+Test Case '-[BridgeTeacherMacTests.CodexTeachingServiceRequestTests testTeachingRequestUsesTheSelectedModelAndEffortAtTurnStart]' started.
+Test Case '-[BridgeTeacherMacTests.CodexTeachingServiceRequestTests testTeachingRequestUsesTheSelectedModelAndEffortAtTurnStart]' passed (0.055 seconds).
+Test Case '-[BridgeTeacherMacTests.CodexTeachingServiceRequestTests testUnavailableOrLegacySelectionIsRejectedBeforeAnyRequest]' started.
+Test Case '-[BridgeTeacherMacTests.CodexTeachingServiceRequestTests testUnavailableOrLegacySelectionIsRejectedBeforeAnyRequest]' passed (0.037 seconds).
+Test Suite 'CodexTeachingServiceRequestTests' passed at 2026-10-18 10:37:26.211.
+	 Executed 13 tests, with 0 failures (0 unexpected) in 2.132 (2.134) seconds
+Test Suite 'DeclarerPlanRequestBuilderTests' started at 2026-10-18 10:37:26.211.
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanRequestBuilderTests testAllFourStartingSeatsAlignColumnsAndUnknownSeatIsNeverDefaultedToNorth]' started.
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanRequestBuilderTests testAllFourStartingSeatsAlignColumnsAndUnknownSeatIsNeverDefaultedToNorth]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanRequestBuilderTests testBlankHoldingStaysUnknownWhileDashRecordsKnownVoid]' started.
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanRequestBuilderTests testBlankHoldingStaysUnknownWhileDashRecordsKnownVoid]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanRequestBuilderTests testCompleteAuctionSeatConflictBlocksPlanRequestButPartialExcerptRemainsUsable]' started.
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanRequestBuilderTests testCompleteAuctionSeatConflictBlocksPlanRequestButPartialExcerptRemainsUsable]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanRequestBuilderTests testDuplicateKnownCardsAreRejectedBeforeRequestCreation]' started.
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanRequestBuilderTests testDuplicateKnownCardsAreRejectedBeforeRequestCreation]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanRequestBuilderTests testFollowUpKeepsCurrentPlanAndSeparatesHypothesesFromConfirmedInformation]' started.
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanRequestBuilderTests testFollowUpKeepsCurrentPlanAndSeparatesHypothesesFromConfirmedInformation]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanRequestBuilderTests testInvalidOpeningLeadIsRejectedWithActionableFeedback]' started.
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanRequestBuilderTests testInvalidOpeningLeadIsRejectedWithActionableFeedback]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanRequestBuilderTests testManualAuctionAndVulnerabilityReachRequestWithUnknownPassAndLayoutDistinct]' started.
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanRequestBuilderTests testManualAuctionAndVulnerabilityReachRequestWithUnknownPassAndLayoutDistinct]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanRequestBuilderTests testMoreThanThirteenKnownCardsInOneHandIsRejected]' started.
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanRequestBuilderTests testMoreThanThirteenKnownCardsInOneHandIsRejected]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanRequestBuilderTests testOmittedAuctionAndVulnerabilityStayUnknownWithoutBlockingPlanRequest]' started.
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanRequestBuilderTests testOmittedAuctionAndVulnerabilityStayUnknownWithoutBlockingPlanRequest]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanRequestBuilderTests testOpeningLeadShortcutsNormalizeInTeachingRequest]' started.
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanRequestBuilderTests testOpeningLeadShortcutsNormalizeInTeachingRequest]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanRequestBuilderTests testUnenteredHandsRemainUnknownInDecisionTimeRequest]' started.
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanRequestBuilderTests testUnenteredHandsRemainUnknownInDecisionTimeRequest]' passed (0.000 seconds).
+Test Suite 'DeclarerPlanRequestBuilderTests' passed at 2026-10-18 10:37:26.218.
+	 Executed 11 tests, with 0 failures (0 unexpected) in 0.005 (0.007) seconds
+Test Suite 'DeclarerPlanWorkflowTests' started at 2026-10-18 10:37:26.218.
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanWorkflowTests testCorrectionExpiresPlanAndIgnoresLateFollowUpBeforeCleanReanalysis]' started.
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanWorkflowTests testCorrectionExpiresPlanAndIgnoresLateFollowUpBeforeCleanReanalysis]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanWorkflowTests testFollowUpFailureCanBeRetriedWithoutDuplicatingTheExchange]' started.
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanWorkflowTests testFollowUpFailureCanBeRetriedWithoutDuplicatingTheExchange]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanWorkflowTests testLatePlanResponseCannotReplaceAnalysisAfterAuctionAndVulnerabilityCorrection]' started.
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanWorkflowTests testLatePlanResponseCannotReplaceAnalysisAfterAuctionAndVulnerabilityCorrection]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanWorkflowTests testMeaningNoteChangeInvalidatesPlanAndRejectsLateResponseForRepeatedCalls]' started.
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanWorkflowTests testMeaningNoteChangeInvalidatesPlanAndRejectsLateResponseForRepeatedCalls]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanWorkflowTests testMeaningNoteCorrectionOutdatesAnExistingAnalysis]' started.
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanWorkflowTests testMeaningNoteCorrectionOutdatesAnExistingAnalysis]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanWorkflowTests testReplacementPlanExpiresInFlightFollowUpAndAllowsNextQuestion]' started.
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanWorkflowTests testReplacementPlanExpiresInFlightFollowUpAndAllowsNextQuestion]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanWorkflowTests testRuntimeFailurePreservesInputAndAllowsRetry]' started.
+Test Case '-[BridgeTeacherCoreTests.DeclarerPlanWorkflowTests testRuntimeFailurePreservesInputAndAllowsRetry]' passed (0.000 seconds).
+Test Suite 'DeclarerPlanWorkflowTests' passed at 2026-10-18 10:37:26.223.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 0.005 (0.005) seconds
+Test Suite 'DoubleDummySolverIntegrationTests' started at 2026-10-18 10:37:26.223.
+Test Case '-[BridgeTeacherCoreTests.DoubleDummySolverIntegrationTests testBundledDDSFindsThirteenTricksInIndependentlyKnownDeal]' started.
+/Users/tingranwang/.codex/worktrees/stage1-correction-expert/bridge-coup/Tests/BridgeTeacherCoreTests/DoubleDummySolverIntegrationTests.swift:178: -[BridgeTeacherCoreTests.DoubleDummySolverIntegrationTests testBundledDDSFindsThirteenTricksInIndependentlyKnownDeal] : Test skipped - Run Scripts/build-dds-helper.sh to build the pinned DDS helper for real-solver integration tests.
+Test Case '-[BridgeTeacherCoreTests.DoubleDummySolverIntegrationTests testBundledDDSFindsThirteenTricksInIndependentlyKnownDeal]' skipped (0.001 seconds).
+Test Case '-[BridgeTeacherCoreTests.DoubleDummySolverIntegrationTests testBundledDDSHandlesPartialTrickAndDefenderToAct]' started.
+/Users/tingranwang/.codex/worktrees/stage1-correction-expert/bridge-coup/Tests/BridgeTeacherCoreTests/DoubleDummySolverIntegrationTests.swift:178: -[BridgeTeacherCoreTests.DoubleDummySolverIntegrationTests testBundledDDSHandlesPartialTrickAndDefenderToAct] : Test skipped - Run Scripts/build-dds-helper.sh to build the pinned DDS helper for real-solver integration tests.
+Test Case '-[BridgeTeacherCoreTests.DoubleDummySolverIntegrationTests testBundledDDSHandlesPartialTrickAndDefenderToAct]' skipped (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.DoubleDummySolverIntegrationTests testBundledDDSUsesEachSelectedStrain]' started.
+/Users/tingranwang/.codex/worktrees/stage1-correction-expert/bridge-coup/Tests/BridgeTeacherCoreTests/DoubleDummySolverIntegrationTests.swift:178: -[BridgeTeacherCoreTests.DoubleDummySolverIntegrationTests testBundledDDSUsesEachSelectedStrain] : Test skipped - Run Scripts/build-dds-helper.sh to build the pinned DDS helper for real-solver integration tests.
+Test Case '-[BridgeTeacherCoreTests.DoubleDummySolverIntegrationTests testBundledDDSUsesEachSelectedStrain]' skipped (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.DoubleDummySolverIntegrationTests testOriginalTableDistinguishesDeclarersByActualOpeningLeaderAndFullContractNotation]' started.
+/Users/tingranwang/.codex/worktrees/stage1-correction-expert/bridge-coup/Tests/BridgeTeacherCoreTests/DoubleDummySolverIntegrationTests.swift:178: -[BridgeTeacherCoreTests.DoubleDummySolverIntegrationTests testOriginalTableDistinguishesDeclarersByActualOpeningLeaderAndFullContractNotation] : Test skipped - Run Scripts/build-dds-helper.sh to build the pinned DDS helper for real-solver integration tests.
+Test Case '-[BridgeTeacherCoreTests.DoubleDummySolverIntegrationTests testOriginalTableDistinguishesDeclarersByActualOpeningLeaderAndFullContractNotation]' skipped (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.DoubleDummySolverIntegrationTests testOriginalTableShowsSmallSlamAtTwelveTricks]' started.
+/Users/tingranwang/.codex/worktrees/stage1-correction-expert/bridge-coup/Tests/BridgeTeacherCoreTests/DoubleDummySolverIntegrationTests.swift:178: -[BridgeTeacherCoreTests.DoubleDummySolverIntegrationTests testOriginalTableShowsSmallSlamAtTwelveTricks] : Test skipped - Run Scripts/build-dds-helper.sh to build the pinned DDS helper for real-solver integration tests.
+Test Case '-[BridgeTeacherCoreTests.DoubleDummySolverIntegrationTests testOriginalTableShowsSmallSlamAtTwelveTricks]' skipped (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.DoubleDummySolverIntegrationTests testOriginalTwentyCellTableMatchesIndependentPureSuitDeal]' started.
+/Users/tingranwang/.codex/worktrees/stage1-correction-expert/bridge-coup/Tests/BridgeTeacherCoreTests/DoubleDummySolverIntegrationTests.swift:178: -[BridgeTeacherCoreTests.DoubleDummySolverIntegrationTests testOriginalTwentyCellTableMatchesIndependentPureSuitDeal] : Test skipped - Run Scripts/build-dds-helper.sh to build the pinned DDS helper for real-solver integration tests.
+Test Case '-[BridgeTeacherCoreTests.DoubleDummySolverIntegrationTests testOriginalTwentyCellTableMatchesIndependentPureSuitDeal]' skipped (0.000 seconds).
+Test Suite 'DoubleDummySolverIntegrationTests' passed at 2026-10-18 10:37:26.226.
+	 Executed 6 tests, with 6 tests skipped and 0 failures (0 unexpected) in 0.002 (0.003) seconds
+Test Suite 'DoubleDummyVerificationTests' started at 2026-10-18 10:37:26.226.
+Test Case '-[BridgeTeacherCoreTests.DoubleDummyVerificationTests testDefenderToMoveResultIsConvertedToDeclarerTricksAndContractOutcome]' started.
+Test Case '-[BridgeTeacherCoreTests.DoubleDummyVerificationTests testDefenderToMoveResultIsConvertedToDeclarerTricksAndContractOutcome]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.DoubleDummyVerificationTests testEquivalentCardsAreExpandedAndEveryLegalCardMustHaveAResult]' started.
+Test Case '-[BridgeTeacherCoreTests.DoubleDummyVerificationTests testEquivalentCardsAreExpandedAndEveryLegalCardMustHaveAResult]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.DoubleDummyVerificationTests testIncompletePositionNeverCallsSolverAndReportsSpecificMissingHolding]' started.
+Test Case '-[BridgeTeacherCoreTests.DoubleDummyVerificationTests testIncompletePositionNeverCallsSolverAndReportsSpecificMissingHolding]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.DoubleDummyVerificationTests testOffSuitCardIsRejectedWhenThatPlayerStillHasLedSuit]' started.
+Test Case '-[BridgeTeacherCoreTests.DoubleDummyVerificationTests testOffSuitCardIsRejectedWhenThatPlayerStillHasLedSuit]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.DoubleDummyVerificationTests testPartialTrickDeterminesActorAndFollowingSuitLegalCards]' started.
+Test Case '-[BridgeTeacherCoreTests.DoubleDummyVerificationTests testPartialTrickDeterminesActorAndFollowingSuitLegalCards]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.DoubleDummyVerificationTests testSolverFailureDoesNotExposeNumericResult]' started.
+Test Case '-[BridgeTeacherCoreTests.DoubleDummyVerificationTests testSolverFailureDoesNotExposeNumericResult]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.DoubleDummyVerificationTests testVerifiedResultBecomesOutdatedAfterAnyCorrection]' started.
+Test Case '-[BridgeTeacherCoreTests.DoubleDummyVerificationTests testVerifiedResultBecomesOutdatedAfterAnyCorrection]' passed (0.001 seconds).
+Test Suite 'DoubleDummyVerificationTests' passed at 2026-10-18 10:37:26.230.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 0.003 (0.003) seconds
+Test Suite 'FullBoardTests' started at 2026-10-18 10:37:26.230.
+Test Case '-[BridgePlayingTests.FullBoardTests testFullDriverRequiresInitialPlanThenLabelsForcedActionsAndCountsPrefix]' started.
+Test Case '-[BridgePlayingTests.FullBoardTests testFullDriverRequiresInitialPlanThenLabelsForcedActionsAndCountsPrefix]' passed (0.005 seconds).
+Test Case '-[BridgePlayingTests.FullBoardTests testFullTrumpDriverConsumesFiftyTwoCardsAndCreditsAllThirteenTricks]' started.
+Test Case '-[BridgePlayingTests.FullBoardTests testFullTrumpDriverConsumesFiftyTwoCardsAndCreditsAllThirteenTricks]' passed (0.005 seconds).
+Test Case '-[BridgePlayingTests.FullBoardTests testLegalChoiceSchemaUsesCompleteAuthoritativeFollowSuitSet]' started.
+Test Case '-[BridgePlayingTests.FullBoardTests testLegalChoiceSchemaUsesCompleteAuthoritativeFollowSuitSet]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.FullBoardTests testLiteralThirteenTricksConsumeAllCardsAndFinishedBoardRejectsMoreWork]' started.
+Test Case '-[BridgePlayingTests.FullBoardTests testLiteralThirteenTricksConsumeAllCardsAndFinishedBoardRejectsMoreWork]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.FullBoardTests testNestedRuntimeCannotHoldOutputPipePastRequestDeadline]' started.
+Test Case '-[BridgePlayingTests.FullBoardTests testNestedRuntimeCannotHoldOutputPipePastRequestDeadline]' passed (0.825 seconds).
+Test Case '-[BridgePlayingTests.FullBoardTests testPavlicekPolicyDucksFirstHonorButCoversNineAgainstActualLegalState]' started.
+Test Case '-[BridgePlayingTests.FullBoardTests testPavlicekPolicyDucksFirstHonorButCoversNineAgainstActualLegalState]' passed (0.002 seconds).
+Test Case '-[BridgePlayingTests.FullBoardTests testRunBudgetStopsBeforeExecutionAndPreservesUnexecutedDecision]' started.
+Test Case '-[BridgePlayingTests.FullBoardTests testRunBudgetStopsBeforeExecutionAndPreservesUnexecutedDecision]' passed (0.047 seconds).
+Test Case '-[BridgePlayingTests.FullBoardTests testUnresponsiveRuntimeCannotIgnoreRequestDeadline]' started.
+Test Case '-[BridgePlayingTests.FullBoardTests testUnresponsiveRuntimeCannotIgnoreRequestDeadline]' passed (0.271 seconds).
+Test Case '-[BridgePlayingTests.FullBoardTests testWorkedTrumpAndNotrumpWinnersAndNoObligationToRuffOrOverruff]' started.
+Test Case '-[BridgePlayingTests.FullBoardTests testWorkedTrumpAndNotrumpWinnersAndNoObligationToRuffOrOverruff]' passed (0.001 seconds).
+Test Suite 'FullBoardTests' passed at 2026-10-18 10:37:27.388.
+	 Executed 9 tests, with 0 failures (0 unexpected) in 1.157 (1.158) seconds
+Test Suite 'KeyPlayAnalysisTests' started at 2026-10-18 10:37:27.388.
+Test Case '-[BridgeTeacherCoreTests.KeyPlayAnalysisTests testAllowsOffSuitCandidateOnlyWhenVoidIsConfirmed]' started.
+Test Case '-[BridgeTeacherCoreTests.KeyPlayAnalysisTests testAllowsOffSuitCandidateOnlyWhenVoidIsConfirmed]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.KeyPlayAnalysisTests testBuildsKeyPlayRequestFromConfirmedNodeAndVisibleHands]' started.
+Test Case '-[BridgeTeacherCoreTests.KeyPlayAnalysisTests testBuildsKeyPlayRequestFromConfirmedNodeAndVisibleHands]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherCoreTests.KeyPlayAnalysisTests testChangingAnalysisPointOutdatesOldResultAndUsesNewNodeOnRetry]' started.
+Test Case '-[BridgeTeacherCoreTests.KeyPlayAnalysisTests testChangingAnalysisPointOutdatesOldResultAndUsesNewNodeOnRetry]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherCoreTests.KeyPlayAnalysisTests testCompleteAuctionSeatConflictBlocksKeyPlayRequest]' started.
+Test Case '-[BridgeTeacherCoreTests.KeyPlayAnalysisTests testCompleteAuctionSeatConflictBlocksKeyPlayRequest]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.KeyPlayAnalysisTests testDoesNotAssertOffSuitCandidateIsLegalWhenLedSuitHoldingIsUnknown]' started.
+Test Case '-[BridgeTeacherCoreTests.KeyPlayAnalysisTests testDoesNotAssertOffSuitCandidateIsLegalWhenLedSuitHoldingIsUnknown]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.KeyPlayAnalysisTests testKeyPlayRequestCarriesOccurrenceScopedUserMeaningNote]' started.
+Test Case '-[BridgeTeacherCoreTests.KeyPlayAnalysisTests testKeyPlayRequestCarriesOccurrenceScopedUserMeaningNote]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.KeyPlayAnalysisTests testKeyPlayRequestUsesCanonicalOpeningLeadAndRejectsInvalidInput]' started.
+Test Case '-[BridgeTeacherCoreTests.KeyPlayAnalysisTests testKeyPlayRequestUsesCanonicalOpeningLeadAndRejectsInvalidInput]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.KeyPlayAnalysisTests testMeaningNoteChangeInvalidatesKeyPlayAndRejectsLateResponse]' started.
+Test Case '-[BridgeTeacherCoreTests.KeyPlayAnalysisTests testMeaningNoteChangeInvalidatesKeyPlayAndRejectsLateResponse]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherCoreTests.KeyPlayAnalysisTests testMissingNodeHistoryStaysUnknownAndRequestsClarificationWhenNeeded]' started.
+Test Case '-[BridgeTeacherCoreTests.KeyPlayAnalysisTests testMissingNodeHistoryStaysUnknownAndRequestsClarificationWhenNeeded]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.KeyPlayAnalysisTests testRejectsCandidateThatIsNotInTheActingHand]' started.
+Test Case '-[BridgeTeacherCoreTests.KeyPlayAnalysisTests testRejectsCandidateThatIsNotInTheActingHand]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.KeyPlayAnalysisTests testRejectsCurrentTrickCardThatIsStillListedInRemainingHand]' started.
+Test Case '-[BridgeTeacherCoreTests.KeyPlayAnalysisTests testRejectsCurrentTrickCardThatIsStillListedInRemainingHand]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.KeyPlayAnalysisTests testRejectsOffSuitCandidateWhenTheActingHandMustFollowSuit]' started.
+Test Case '-[BridgeTeacherCoreTests.KeyPlayAnalysisTests testRejectsOffSuitCandidateWhenTheActingHandMustFollowSuit]' passed (0.000 seconds).
+Test Suite 'KeyPlayAnalysisTests' passed at 2026-10-18 10:37:27.393.
+	 Executed 12 tests, with 0 failures (0 unexpected) in 0.004 (0.005) seconds
+Test Suite 'OriginalContractTableApplicationTests' started at 2026-10-18 10:37:27.393.
+Test Case '-[BridgeTeacherMacTests.OriginalContractTableApplicationTests testCompleteSharedOriginalHandsAllowTableWithoutContractAndOtherWorkflowsDoNotInvalidateIt]' started.
+Test Case '-[BridgeTeacherMacTests.OriginalContractTableApplicationTests testCompleteSharedOriginalHandsAllowTableWithoutContractAndOtherWorkflowsDoNotInvalidateIt]' passed (0.010 seconds).
+Test Case '-[BridgeTeacherMacTests.OriginalContractTableApplicationTests testOriginalInputChangeImmediatelyInvalidatesTheTableAndRecomputesForTheNewVersion]' started.
+Test Case '-[BridgeTeacherMacTests.OriginalContractTableApplicationTests testOriginalInputChangeImmediatelyInvalidatesTheTableAndRecomputesForTheNewVersion]' passed (0.018 seconds).
+Test Suite 'OriginalContractTableApplicationTests' passed at 2026-10-18 10:37:27.420.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.028 (0.028) seconds
+Test Suite 'OriginalContractTableWorkflowTests' started at 2026-10-18 10:37:27.420.
+Test Case '-[BridgeTeacherCoreTests.OriginalContractTableWorkflowTests testFailureHidesPartialAnswersAndRetryProducesTheCompleteTable]' started.
+Test Case '-[BridgeTeacherCoreTests.OriginalContractTableWorkflowTests testFailureHidesPartialAnswersAndRetryProducesTheCompleteTable]' passed (0.010 seconds).
+Test Case '-[BridgeTeacherCoreTests.OriginalContractTableWorkflowTests testIncompleteDuplicateAndUnreviewedBoardsExplainWhyWithoutSolving]' started.
+Test Case '-[BridgeTeacherCoreTests.OriginalContractTableWorkflowTests testIncompleteDuplicateAndUnreviewedBoardsExplainWhyWithoutSolving]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.OriginalContractTableWorkflowTests testOldAsyncCompletionCannotReplaceNewBoardTable]' started.
+Test Case '-[BridgeTeacherCoreTests.OriginalContractTableWorkflowTests testOldAsyncCompletionCannotReplaceNewBoardTable]' passed (0.010 seconds).
+Test Case '-[BridgeTeacherCoreTests.OriginalContractTableWorkflowTests testOriginalTableUsesBestDefenseAndCorrectOpeningLeaderForEachDeclarer]' started.
+Test Case '-[BridgeTeacherCoreTests.OriginalContractTableWorkflowTests testOriginalTableUsesBestDefenseAndCorrectOpeningLeaderForEachDeclarer]' passed (0.009 seconds).
+Test Case '-[BridgeTeacherCoreTests.OriginalContractTableWorkflowTests testSameOriginalBoardReusesTableAndChangingBoardInvalidatesBeforeRecomputation]' started.
+Test Case '-[BridgeTeacherCoreTests.OriginalContractTableWorkflowTests testSameOriginalBoardReusesTableAndChangingBoardInvalidatesBeforeRecomputation]' passed (0.018 seconds).
+Test Suite 'OriginalContractTableWorkflowTests' passed at 2026-10-18 10:37:27.469.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.048 (0.048) seconds
+Test Suite 'PlanContractTests' started at 2026-10-18 10:37:27.469.
+Test Case '-[BridgePlayingTests.PlanContractTests testFourHistoricalAmbiguousPlansRemainFailuresWithOriginalOutputAndNoRetry]' started.
+Test Case '-[BridgePlayingTests.PlanContractTests testFourHistoricalAmbiguousPlansRemainFailuresWithOriginalOutputAndNoRetry]' passed (0.008 seconds).
+Test Case '-[BridgePlayingTests.PlanContractTests testPublicContextIdentifiesLeadAndThirdHandWithoutRepeatingHoldings]' started.
+Test Case '-[BridgePlayingTests.PlanContractTests testPublicContextIdentifiesLeadAndThirdHandWithoutRepeatingHoldings]' passed (0.002 seconds).
+Test Case '-[BridgePlayingTests.PlanContractTests testSerializedAppServerSchemaExcludesAmbiguousPlansAndKeepsLifecycle]' started.
+Test Case '-[BridgePlayingTests.PlanContractTests testSerializedAppServerSchemaExcludesAmbiguousPlansAndKeepsLifecycle]' passed (0.221 seconds).
+Test Suite 'PlanContractTests' passed at 2026-10-18 10:37:27.700.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.231 (0.231) seconds
+Test Suite 'PlayCardResultsWorkflowTests' started at 2026-10-18 10:37:27.700.
+Test Case '-[BridgeTeacherMacTests.PlayCardResultsWorkflowTests testFailureClearsLabelsAndRetryComputesCurrentPosition]' started.
+Test Case '-[BridgeTeacherMacTests.PlayCardResultsWorkflowTests testFailureClearsLabelsAndRetryComputesCurrentPosition]' passed (0.010 seconds).
+Test Case '-[BridgeTeacherMacTests.PlayCardResultsWorkflowTests testLateResultCannotOverwriteExternalRestoredPositionOrToggleOff]' started.
+Test Case '-[BridgeTeacherMacTests.PlayCardResultsWorkflowTests testLateResultCannotOverwriteExternalRestoredPositionOrToggleOff]' passed (0.028 seconds).
+Test Case '-[BridgeTeacherMacTests.PlayCardResultsWorkflowTests testRealDDSLabelsAllEquivalentCardsAcrossFiveStrainsFromDeclarerPerspective]' started.
+/Users/tingranwang/.codex/worktrees/stage1-correction-expert/bridge-coup/Tests/BridgeTeacherMacTests/PlayCardResultsWorkflowTests.swift:224: -[BridgeTeacherMacTests.PlayCardResultsWorkflowTests testRealDDSLabelsAllEquivalentCardsAcrossFiveStrainsFromDeclarerPerspective] : Test skipped - Real bundled DDS helper required; build it or set BRIDGE_TEACHER_DDS_HELPER.
+Test Case '-[BridgeTeacherMacTests.PlayCardResultsWorkflowTests testRealDDSLabelsAllEquivalentCardsAcrossFiveStrainsFromDeclarerPerspective]' skipped (0.001 seconds).
+Test Case '-[BridgeTeacherMacTests.PlayCardResultsWorkflowTests testRealDDSPartialTrickDefenderAndCollectedDeclarerTricksStayInTotal]' started.
+/Users/tingranwang/.codex/worktrees/stage1-correction-expert/bridge-coup/Tests/BridgeTeacherMacTests/PlayCardResultsWorkflowTests.swift:224: -[BridgeTeacherMacTests.PlayCardResultsWorkflowTests testRealDDSPartialTrickDefenderAndCollectedDeclarerTricksStayInTotal] : Test skipped - Real bundled DDS helper required; build it or set BRIDGE_TEACHER_DDS_HELPER.
+Test Case '-[BridgeTeacherMacTests.PlayCardResultsWorkflowTests testRealDDSPartialTrickDefenderAndCollectedDeclarerTricksStayInTotal]' skipped (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.PlayCardResultsWorkflowTests testToggleHidesResultsWithoutBlockingLegalPlayAndNeverUsesEditableLegacyDDS]' started.
+Test Case '-[BridgeTeacherMacTests.PlayCardResultsWorkflowTests testToggleHidesResultsWithoutBlockingLegalPlayAndNeverUsesEditableLegacyDDS]' passed (0.005 seconds).
+Test Case '-[BridgeTeacherMacTests.PlayCardResultsWorkflowTests testVisibleTeachingRequestExcludesHiddenHandsAndDDSLabelsAfterResultsAreReady]' started.
+Test Case '-[BridgeTeacherMacTests.PlayCardResultsWorkflowTests testVisibleTeachingRequestExcludesHiddenHandsAndDDSLabelsAfterResultsAreReady]' passed (0.004 seconds).
+Test Case '-[BridgeTeacherMacTests.PlayCardResultsWorkflowTests testWaitingCollectionAndCompleteClearLabelsAndDoNotShowDDSAsActualResult]' started.
+Test Case '-[BridgeTeacherMacTests.PlayCardResultsWorkflowTests testWaitingCollectionAndCompleteClearLabelsAndDoNotShowDDSAsActualResult]' passed (0.011 seconds).
+Test Suite 'PlayCardResultsWorkflowTests' passed at 2026-10-18 10:37:27.760.
+	 Executed 7 tests, with 2 tests skipped and 0 failures (0 unexpected) in 0.059 (0.060) seconds
+Test Suite 'PlayHistoryWorkflowTests' started at 2026-10-18 10:37:27.760.
+Test Case '-[BridgeTeacherMacTests.PlayHistoryWorkflowTests testCompletionCanBeRewoundThroughCollectionAndLastCard]' started.
+Test Case '-[BridgeTeacherMacTests.PlayHistoryWorkflowTests testCompletionCanBeRewoundThroughCollectionAndLastCard]' passed (0.008 seconds).
+Test Case '-[BridgeTeacherMacTests.PlayHistoryWorkflowTests testConfirmedSourceChangeClearsHistoryWhileCancelKeepsIt]' started.
+Test Case '-[BridgeTeacherMacTests.PlayHistoryWorkflowTests testConfirmedSourceChangeClearsHistoryWhileCancelKeepsIt]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherMacTests.PlayHistoryWorkflowTests testHistoryTravelInvalidatesTeachingAndKeepsCurrentProjection]' started.
+Test Case '-[BridgeTeacherMacTests.PlayHistoryWorkflowTests testHistoryTravelInvalidatesTeachingAndKeepsCurrentProjection]' passed (0.002 seconds).
+Test Case '-[BridgeTeacherMacTests.PlayHistoryWorkflowTests testNewLegalBranchClearsRedoWhileRejectedMovePreservesIt]' started.
+Test Case '-[BridgeTeacherMacTests.PlayHistoryWorkflowTests testNewLegalBranchClearsRedoWhileRejectedMovePreservesIt]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherMacTests.PlayHistoryWorkflowTests testOpenRestoresOnlySavedPositionAndClearsInMemoryHistory]' started.
+Test Case '-[BridgeTeacherMacTests.PlayHistoryWorkflowTests testOpenRestoresOnlySavedPositionAndClearsInMemoryHistory]' passed (0.004 seconds).
+Test Case '-[BridgeTeacherMacTests.PlayHistoryWorkflowTests testRestartPreservesSameSourceVisibilityAndSuppliedLeadAndCanBeUndone]' started.
+Test Case '-[BridgeTeacherMacTests.PlayHistoryWorkflowTests testRestartPreservesSameSourceVisibilityAndSuppliedLeadAndCanBeUndone]' passed (0.002 seconds).
+Test Case '-[BridgeTeacherMacTests.PlayHistoryWorkflowTests testUndoAcrossCollectBoundaryRestoresFullTrickScoresLeaderAndCards]' started.
+Test Case '-[BridgeTeacherMacTests.PlayHistoryWorkflowTests testUndoAcrossCollectBoundaryRestoresFullTrickScoresLeaderAndCards]' passed (0.002 seconds).
+Test Case '-[BridgeTeacherMacTests.PlayHistoryWorkflowTests testUndoRedoRestoreCompletePositionAndRevisionWithoutTouchingOriginal]' started.
+Test Case '-[BridgeTeacherMacTests.PlayHistoryWorkflowTests testUndoRedoRestoreCompletePositionAndRevisionWithoutTouchingOriginal]' passed (0.001 seconds).
+Test Suite 'PlayHistoryWorkflowTests' passed at 2026-10-18 10:37:27.782.
+	 Executed 8 tests, with 0 failures (0 unexpected) in 0.021 (0.022) seconds
+Test Suite 'PlayWorkspaceIntegrationTests' started at 2026-10-18 10:37:27.782.
+Test Case '-[BridgeTeacherMacTests.PlayWorkspaceIntegrationTests testReviewedImportRealDDSHistoryArchiveAndTeachingKeepOneOriginalBoard]' started.
+/Users/tingranwang/.codex/worktrees/stage1-correction-expert/bridge-coup/Tests/BridgeTeacherMacTests/PlayWorkspaceIntegrationTests.swift:12: -[BridgeTeacherMacTests.PlayWorkspaceIntegrationTests testReviewedImportRealDDSHistoryArchiveAndTeachingKeepOneOriginalBoard] : Test skipped - Actual bundled DDS is required for integrated numerical acceptance.
+Test Case '-[BridgeTeacherMacTests.PlayWorkspaceIntegrationTests testReviewedImportRealDDSHistoryArchiveAndTeachingKeepOneOriginalBoard]' skipped (0.000 seconds).
+Test Suite 'PlayWorkspaceIntegrationTests' passed at 2026-10-18 10:37:27.782.
+	 Executed 1 test, with 1 test skipped and 0 failures (0 unexpected) in 0.000 (0.001) seconds
+Test Suite 'PlayingCoreTests' started at 2026-10-18 10:37:27.782.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testAmbiguousExtraExecutableFieldFailsWithoutApplyingAnything]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testAmbiguousExtraExecutableFieldFailsWithoutApplyingAnything]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testAuthorizedSnapshotRejectsOpponentTurnsWithoutExposingTheirLegalChoices]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testAuthorizedSnapshotRejectsOpponentTurnsWithoutExposingTheirLegalChoices]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testChangedObjectiveCannotSilentlyReuseContinuingThread]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testChangedObjectiveCannotSilentlyReuseContinuingThread]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testCLIRecordsMalformedCompletedAnswerAsInvalidOutput]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testCLIRecordsMalformedCompletedAnswerAsInvalidOutput]' passed (0.289 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testContinuationUsesActualDeltaAndRetainsPlanSourceWithFreshDecisionSession]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testContinuationUsesActualDeltaAndRetainsPlanSourceWithFreshDecisionSession]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testIllegalCurrentActionStopsDriverWithOriginalOutputAndNoExecution]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testIllegalCurrentActionStopsDriverWithOriginalOutputAndNoExecution]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testNonAdjacentTurnReuseCannotBecomeAThirdDecision]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testNonAdjacentTurnReuseCannotBecomeAThirdDecision]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testOneThreadRejectsOverlapStaleAndCrossBoardRequests]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testOneThreadRejectsOverlapStaleAndCrossBoardRequests]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testOpeningLeadExposesDummyAndCurrentActionAppliesOnlyToItsSnapshot]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testOpeningLeadExposesDummyAndCurrentActionAppliesOnlyToItsSnapshot]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testPlanReplacementChangesSourceAndWithdrawalClearsIt]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testPlanReplacementChangesSourceAndWithdrawalClearsIt]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testPublicDriverExecutesEveryDummyChoiceAndRecordsOpponentDelta]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testPublicDriverExecutesEveryDummyChoiceAndRecordsOpponentDelta]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testPublicExpertInitialDecisionKeepsFactsSeparateFromAdvice]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testPublicExpertInitialDecisionKeepsFactsSeparateFromAdvice]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testRuntimeTimeoutAlsoBoundsVersionProbeAndPreservesFailure]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testRuntimeTimeoutAlsoBoundsVersionProbeAndPreservesFailure]' passed (0.112 seconds).
+Test Suite 'PlayingCoreTests' passed at 2026-10-18 10:37:28.195.
+	 Executed 13 tests, with 0 failures (0 unexpected) in 0.411 (0.413) seconds
+Test Suite 'ReviewSessionArchiveTests' started at 2026-10-18 10:37:28.195.
+Test Case '-[BridgeTeacherCoreTests.ReviewSessionArchiveTests testArchiveWithPreKindAuctionRecordDefaultsToCallsAndKeepsConfirmedOwners]' started.
+Test Case '-[BridgeTeacherCoreTests.ReviewSessionArchiveTests testArchiveWithPreKindAuctionRecordDefaultsToCallsAndKeepsConfirmedOwners]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherCoreTests.ReviewSessionArchiveTests testClearedScreenshotAuctionCandidateAndEditStateSurviveArchiveReopen]' started.
+Test Case '-[BridgeTeacherCoreTests.ReviewSessionArchiveTests testClearedScreenshotAuctionCandidateAndEditStateSurviveArchiveReopen]' passed (0.004 seconds).
+Test Case '-[BridgeTeacherCoreTests.ReviewSessionArchiveTests testConfirmedNoAuctionStateSurvivesArchiveRoundTrip]' started.
+Test Case '-[BridgeTeacherCoreTests.ReviewSessionArchiveTests testConfirmedNoAuctionStateSurvivesArchiveRoundTrip]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.ReviewSessionArchiveTests testLegacyArchiveWithoutManualAuctionFieldsKeepsThemUnknown]' started.
+Test Case '-[BridgeTeacherCoreTests.ReviewSessionArchiveTests testLegacyArchiveWithoutManualAuctionFieldsKeepsThemUnknown]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.ReviewSessionArchiveTests testLegacyScreenshotArchiveDefaultsManualEditTrackingToEmpty]' started.
+Test Case '-[BridgeTeacherCoreTests.ReviewSessionArchiveTests testLegacyScreenshotArchiveDefaultsManualEditTrackingToEmpty]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.ReviewSessionArchiveTests testLegacyScreenshotAuctionCandidateArchiveDefaultsToComplete]' started.
+Test Case '-[BridgeTeacherCoreTests.ReviewSessionArchiveTests testLegacyScreenshotAuctionCandidateArchiveDefaultsToComplete]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.ReviewSessionArchiveTests testLocalReviewStorePreservesRepeatedCallIDsAndIndependentNotes]' started.
+Test Case '-[BridgeTeacherCoreTests.ReviewSessionArchiveTests testLocalReviewStorePreservesRepeatedCallIDsAndIndependentNotes]' passed (0.002 seconds).
+Test Case '-[BridgeTeacherCoreTests.ReviewSessionArchiveTests testNormalizedOpeningLeadSurvivesSaveReopenAndTeachingRequest]' started.
+Test Case '-[BridgeTeacherCoreTests.ReviewSessionArchiveTests testNormalizedOpeningLeadSurvivesSaveReopenAndTeachingRequest]' passed (0.002 seconds).
+Test Case '-[BridgeTeacherCoreTests.ReviewSessionArchiveTests testReopenedInFlightPlanAndFollowUpReturnToRetryableState]' started.
+Test Case '-[BridgeTeacherCoreTests.ReviewSessionArchiveTests testReopenedInFlightPlanAndFollowUpReturnToRetryableState]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.ReviewSessionArchiveTests testRepeatedSaveOfOpenedReviewKeepsItsScreenshotReadable]' started.
+Test Case '-[BridgeTeacherCoreTests.ReviewSessionArchiveTests testRepeatedSaveOfOpenedReviewKeepsItsScreenshotReadable]' passed (0.004 seconds).
+Test Case '-[BridgeTeacherCoreTests.ReviewSessionArchiveTests testSavedReviewReopensWithScreenshotDecisionContextConversationAndAnalysisStates]' started.
+Test Case '-[BridgeTeacherCoreTests.ReviewSessionArchiveTests testSavedReviewReopensWithScreenshotDecisionContextConversationAndAnalysisStates]' passed (0.006 seconds).
+Test Suite 'ReviewSessionArchiveTests' passed at 2026-10-18 10:37:28.216.
+	 Executed 11 tests, with 0 failures (0 unexpected) in 0.020 (0.021) seconds
+Test Suite 'ReviewSourceRegressionTests' started at 2026-10-18 10:37:28.216.
+Test Case '-[BridgeTeacherMacTests.ReviewSourceRegressionTests testConfirmedRecognitionClearsOldPlayAndHistoryAndRequiresReviewBeforeStarting]' started.
+Test Case '-[BridgeTeacherMacTests.ReviewSourceRegressionTests testConfirmedRecognitionClearsOldPlayAndHistoryAndRequiresReviewBeforeStarting]' passed (0.003 seconds).
+Test Case '-[BridgeTeacherMacTests.ReviewSourceRegressionTests testFirstRecognitionDuringPlayStagesResetAndCancelPreservesSourcePositionAndHistory]' started.
+Test Case '-[BridgeTeacherMacTests.ReviewSourceRegressionTests testFirstRecognitionDuringPlayStagesResetAndCancelPreservesSourcePositionAndHistory]' passed (0.002 seconds).
+Test Case '-[BridgeTeacherMacTests.ReviewSourceRegressionTests testIndependentDDSChoiceSurvivesAllPlayAndInputTransitionsAndReopen]' started.
+Test Case '-[BridgeTeacherMacTests.ReviewSourceRegressionTests testIndependentDDSChoiceSurvivesAllPlayAndInputTransitionsAndReopen]' passed (0.013 seconds).
+Test Case '-[BridgeTeacherMacTests.ReviewSourceRegressionTests testLateRecognitionCannotChangeReopenedRecordOrManualCorrections]' started.
+Test Case '-[BridgeTeacherMacTests.ReviewSourceRegressionTests testLateRecognitionCannotChangeReopenedRecordOrManualCorrections]' passed (0.005 seconds).
+Test Case '-[BridgeTeacherMacTests.ReviewSourceRegressionTests testManualPlayResetWinsOverInflightRecognitionOnCancelAndConfirm]' started.
+Test Case '-[BridgeTeacherMacTests.ReviewSourceRegressionTests testManualPlayResetWinsOverInflightRecognitionOnCancelAndConfirm]' passed (0.007 seconds).
+Test Case '-[BridgeTeacherMacTests.ReviewSourceRegressionTests testRecognitionStartedBeforePlayStillStagesWhenResponseArrives]' started.
+Test Case '-[BridgeTeacherMacTests.ReviewSourceRegressionTests testRecognitionStartedBeforePlayStillStagesWhenResponseArrives]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherMacTests.ReviewSourceRegressionTests testStagedScreenshotReplacementWinsOverInflightRecognitionOnCancelAndConfirm]' started.
+Test Case '-[BridgeTeacherMacTests.ReviewSourceRegressionTests testStagedScreenshotReplacementWinsOverInflightRecognitionOnCancelAndConfirm]' passed (0.003 seconds).
+Test Case '-[BridgeTeacherMacTests.ReviewSourceRegressionTests testStalePositionCannotAcceptCardsOrCollectAfterDirectSourceChange]' started.
+Test Case '-[BridgeTeacherMacTests.ReviewSourceRegressionTests testStalePositionCannotAcceptCardsOrCollectAfterDirectSourceChange]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherMacTests.ReviewSourceRegressionTests testUnresolvedLegacyDDSIsPreservedWhenPlayStartsAndReviewIsSaved]' started.
+Test Case '-[BridgeTeacherMacTests.ReviewSourceRegressionTests testUnresolvedLegacyDDSIsPreservedWhenPlayStartsAndReviewIsSaved]' passed (0.003 seconds).
+Test Suite 'ReviewSourceRegressionTests' passed at 2026-10-18 10:37:28.255.
+	 Executed 9 tests, with 0 failures (0 unexpected) in 0.038 (0.039) seconds
+Test Suite 'ScreenshotRecognitionRetryTests' started at 2026-10-18 10:37:28.255.
+Test Case '-[BridgeTeacherMacTests.ScreenshotRecognitionRetryTests testManualClearThroughApplicationModelSurvivesRetryAfterRecognitionFailure]' started.
+Test Case '-[BridgeTeacherMacTests.ScreenshotRecognitionRetryTests testManualClearThroughApplicationModelSurvivesRetryAfterRecognitionFailure]' passed (0.001 seconds).
+Test Suite 'ScreenshotRecognitionRetryTests' passed at 2026-10-18 10:37:28.256.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'ScreenshotReviewWorkflowTests' started at 2026-10-18 10:37:28.256.
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testCompleteScreenshotCandidateKeepsContiguousSeatInference]' started.
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testCompleteScreenshotCandidateKeepsContiguousSeatInference]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testContradictoryVisibleScreenshotCandidatesAreRejectedBeforeTeaching]' started.
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testContradictoryVisibleScreenshotCandidatesAreRejectedBeforeTeaching]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testCroppedAuctionKeepsOnlyVisibleCallsWithoutInsertingOmittedTurns]' started.
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testCroppedAuctionKeepsOnlyVisibleCallsWithoutInsertingOmittedTurns]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testEmptyAuctionCandidateCreatesNoCallsAndNeverInventsPassOrNoAuction]' started.
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testEmptyAuctionCandidateCreatesNoCallsAndNeverInventsPassOrNoAuction]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testFailureRetryPreservesIndividuallyClearedRecognitionFields]' started.
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testFailureRetryPreservesIndividuallyClearedRecognitionFields]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testKeyPlayModeCannotUseUnconfirmedScreenshotOrUnselectedHands]' started.
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testKeyPlayModeCannotUseUnconfirmedScreenshotOrUnselectedHands]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testLateRecognitionCannotOverwriteCorrectionOnCurrentScreenshot]' started.
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testLateRecognitionCannotOverwriteCorrectionOnCurrentScreenshot]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testLateRecognitionFromPreviousScreenshotCannotReplaceNewScreenshotOrEdits]' started.
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testLateRecognitionFromPreviousScreenshotCannotReplaceNewScreenshotOrEdits]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testPartialScreenshotCandidateNeverInfersMissingSeatFromKnownStartOrIndex]' started.
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testPartialScreenshotCandidateNeverInfersMissingSeatFromKnownStartOrIndex]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testReapplyingRecognitionCannotRestoreManuallyClearedAuctionOrVulnerability]' started.
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testReapplyingRecognitionCannotRestoreManuallyClearedAuctionOrVulnerability]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testRecognitionCandidateCodableMatchesObjectShapedRuntimeSchema]' started.
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testRecognitionCandidateCodableMatchesObjectShapedRuntimeSchema]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testRecognitionFailureKeepsImageAndManualFactsAndRetryFillsOnlyMissingFields]' started.
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testRecognitionFailureKeepsImageAndManualFactsAndRetryFillsOnlyMissingFields]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testRecognitionIsOnlyACandidateAndPlanUsesOnlyCorrectedConfirmedHands]' started.
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testRecognitionIsOnlyACandidateAndPlanUsesOnlyCorrectedConfirmedHands]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testRecognitionPreservesExistingManualAuctionAndVulnerability]' started.
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testRecognitionPreservesExistingManualAuctionAndVulnerability]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testScreenshotAuctionCandidateCanBeCorrectedAndIsGatedUntilExplicitReview]' started.
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testScreenshotAuctionCandidateCanBeCorrectedAndIsGatedUntilExplicitReview]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testUnknownScreenshotDeclarerStaysUnknownUntilPlayerSelectsOne]' started.
+Test Case '-[BridgeTeacherCoreTests.ScreenshotReviewWorkflowTests testUnknownScreenshotDeclarerStaysUnknownUntilPlayerSelectsOne]' passed (0.000 seconds).
+Test Suite 'ScreenshotReviewWorkflowTests' passed at 2026-10-18 10:37:28.263.
+	 Executed 16 tests, with 0 failures (0 unexpected) in 0.006 (0.007) seconds
+Test Suite 'SharedOriginalHandsWorkflowTests' started at 2026-10-18 10:37:28.263.
+Test Case '-[BridgeTeacherMacTests.SharedOriginalHandsWorkflowTests testDerivedRemainingHandsNeverOverwriteOriginalAndOriginalEditStalesDDSAndTeaching]' started.
+Test Case '-[BridgeTeacherMacTests.SharedOriginalHandsWorkflowTests testDerivedRemainingHandsNeverOverwriteOriginalAndOriginalEditStalesDDSAndTeaching]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherMacTests.SharedOriginalHandsWorkflowTests testEnteredBoardFeedsDDSWithoutRepeatedEntryAndVisibilityDoesNotInvalidateSource]' started.
+Test Case '-[BridgeTeacherMacTests.SharedOriginalHandsWorkflowTests testEnteredBoardFeedsDDSWithoutRepeatedEntryAndVisibilityDoesNotInvalidateSource]' passed (0.002 seconds).
+Test Case '-[BridgeTeacherMacTests.SharedOriginalHandsWorkflowTests testLegacyConflictPreservesBothInputsUntilExplicitChoiceAndNewDerivedArchiveRoundTrips]' started.
+Test Case '-[BridgeTeacherMacTests.SharedOriginalHandsWorkflowTests testLegacyConflictPreservesBothInputsUntilExplicitChoiceAndNewDerivedArchiveRoundTrips]' passed (0.004 seconds).
+Test Case '-[BridgeTeacherMacTests.SharedOriginalHandsWorkflowTests testPartialTeachingKeepsUnknownDistinctFromVoidAndDDSDoesNotFillMissingCards]' started.
+Test Case '-[BridgeTeacherMacTests.SharedOriginalHandsWorkflowTests testPartialTeachingKeepsUnknownDistinctFromVoidAndDDSDoesNotFillMissingCards]' passed (0.000 seconds).
+Test Case '-[BridgeTeacherMacTests.SharedOriginalHandsWorkflowTests testRevokingConfirmationClearsPreviousDDSResultEvenWhenHandsAreUnchanged]' started.
+Test Case '-[BridgeTeacherMacTests.SharedOriginalHandsWorkflowTests testRevokingConfirmationClearsPreviousDDSResultEvenWhenHandsAreUnchanged]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherMacTests.SharedOriginalHandsWorkflowTests testScreenshotRecognitionSharesCandidateButRequiresConfirmationBeforeDDS]' started.
+Test Case '-[BridgeTeacherMacTests.SharedOriginalHandsWorkflowTests testScreenshotRecognitionSharesCandidateButRequiresConfirmationBeforeDDS]' passed (0.001 seconds).
+Test Case '-[BridgeTeacherMacTests.SharedOriginalHandsWorkflowTests testSharedImportedBoardRunsRealDDSWithoutIndependentInput]' started.
+/Users/tingranwang/.codex/worktrees/stage1-correction-expert/bridge-coup/Tests/BridgeTeacherMacTests/SharedOriginalHandsWorkflowTests.swift:12: -[BridgeTeacherMacTests.SharedOriginalHandsWorkflowTests testSharedImportedBoardRunsRealDDSWithoutIndependentInput] : Test skipped - Build the real DDS helper before accepting this integration check.
+Test Case '-[BridgeTeacherMacTests.SharedOriginalHandsWorkflowTests testSharedImportedBoardRunsRealDDSWithoutIndependentInput]' skipped (0.000 seconds).
+Test Suite 'SharedOriginalHandsWorkflowTests' passed at 2026-10-18 10:37:28.273.
+	 Executed 7 tests, with 1 test skipped and 0 failures (0 unexpected) in 0.010 (0.010) seconds
+Test Suite 'BridgeTeacherPackageTests.xctest' passed at 2026-10-18 10:37:28.273.
+	 Executed 227 tests, with 10 tests skipped and 0 failures (0 unexpected) in 10.497 (10.518) seconds
+Test Suite 'All tests' passed at 2026-10-18 10:37:28.273.
+	 Executed 227 tests, with 10 tests skipped and 0 failures (0 unexpected) in 10.497 (10.519) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

@@ -1,0 +1,35 @@
+[0/1] Planning build
+Building for debugging...
+[0/8] Write sources
+[2/8] Write swift-version--58304C5D6DBC2206.txt
+[4/8] Emitting module BridgeExpert
+[5/8] Compiling BridgeExpert Expert.swift
+[6/10] Compiling BridgeDriver BoardDriver.swift
+[7/10] Emitting module BridgeDriver
+[8/18] Emitting module BridgePlayCLI
+[9/18] Compiling BridgePlayCLI BridgePlayMain.swift
+[9/18] Write Objects.LinkFileList
+[10/18] Linking bridge-play
+[11/18] Applying bridge-play
+[13/18] Emitting module BridgePlayingTests
+[14/18] Compiling BridgePlayingTests PlayingCoreTests.swift
+[15/18] Compiling BridgePlayingTests PlanContractTests.swift
+[16/18] Compiling BridgePlayingTests FullBoardTests.swift
+[16/18] Write Objects.LinkFileList
+[17/18] Linking BridgeTeacherPackageTests
+Build complete! (2.64s)
+Test Suite 'Selected tests' started at 2026-10-18 10:35:57.150.
+Test Suite 'BridgeTeacherPackageTests.xctest' started at 2026-10-18 10:35:57.151.
+Test Suite 'PlanContractTests' started at 2026-10-18 10:35:57.151.
+Test Case '-[BridgePlayingTests.PlanContractTests testPublicContextIdentifiesLeadAndThirdHandWithoutRepeatingHoldings]' started.
+Test Case '-[BridgePlayingTests.PlanContractTests testPublicContextIdentifiesLeadAndThirdHandWithoutRepeatingHoldings]' passed (0.003 seconds).
+Test Suite 'PlanContractTests' passed at 2026-10-18 10:35:57.155.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.003 (0.004) seconds
+Test Suite 'BridgeTeacherPackageTests.xctest' passed at 2026-10-18 10:35:57.155.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.003 (0.004) seconds
+Test Suite 'Selected tests' passed at 2026-10-18 10:35:57.155.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.003 (0.005) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.
