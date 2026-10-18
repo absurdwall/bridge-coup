@@ -50,16 +50,20 @@ public struct BoardState: Sendable {
         let event = PlayEvent(sequence: events.count, seat: seat, card: card)
         events.append(event); currentTrick.append(event)
         if currentTrick.count == 4 {
-            let led = currentTrick[0].card.suit
-            let trump = contract.strain.trump
-            func strength(_ card: Card) -> Int {
-                (card.suit == trump ? 200 : card.suit == led ? 100 : 0) + card.rank
-            }
-            let winner = currentTrick.max { strength($0.card) < strength($1.card) }!.seat
+            let winner = winningPlay(in: currentTrick)!.seat
             if winner == contract.declarer || winner == contract.declarer.partner { declarerTricks += 1 }
             else { defenderTricks += 1 }
             leader = winner; currentTrick = []
         }
+    }
+
+    /// Basic trick rule shared with the environment policy; no strategic analysis.
+    public func winningPlay(in trick: [PlayEvent]) -> PlayEvent? {
+        guard let led = trick.first?.card.suit else { return nil }
+        func strength(_ card: Card) -> Int {
+            (card.suit == contract.strain.trump ? 200 : card.suit == led ? 100 : 0) + card.rank
+        }
+        return trick.max { strength($0.card) < strength($1.card) }
     }
 
     public func snapshot(controller: Seat) throws -> DecisionSnapshot {
@@ -69,7 +73,7 @@ public struct BoardState: Sendable {
                                 contract: contract, vulnerability: vulnerability, scoring: scoring, objective: objective,
                                 publicBackground: publicBackground,
                                 hands: [controller, controller.partner].map { Hand(seat: $0, cards: hands[$0]!) },
-                                events: events, currentTrick: currentTrick, declarerTricks: declarerTricks, defenderTricks: defenderTricks)
+                                events: events, currentTrick: currentTrick, declarerTricks: declarerTricks, defenderTricks: defenderTricks, legalCards: try legalCards())
     }
 
     public mutating func apply(_ action: CurrentAction) throws {

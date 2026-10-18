@@ -1,0 +1,394 @@
+{
+  "candidate": "stage1-legal-selectedCard-v3",
+  "app_server_turn_start_count": 20,
+  "expert_attempt_count": 20,
+  "wire_payload_count": 20,
+  "one_thread": true,
+  "distinct_turns": true,
+  "distinct_sessions": true,
+  "checks": [
+    {
+      "request": 0,
+      "schema_order": [
+        "plan",
+        "publicReason",
+        "selectedCard"
+      ],
+      "enum_matches_complete_engine_snapshot": true,
+      "selected_card_in_enum": true,
+      "exact_user_history": true,
+      "prior_public_outputs_retained": true,
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "medium",
+        "context": "all_turns"
+      },
+      "no_chinese_in_public_input_or_answer": true,
+      "user_input_characters": 441
+    },
+    {
+      "request": 1,
+      "schema_order": [
+        "plan",
+        "publicReason",
+        "selectedCard"
+      ],
+      "enum_matches_complete_engine_snapshot": true,
+      "selected_card_in_enum": true,
+      "exact_user_history": true,
+      "prior_public_outputs_retained": true,
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "medium",
+        "context": "all_turns"
+      },
+      "no_chinese_in_public_input_or_answer": true,
+      "user_input_characters": 298
+    },
+    {
+      "request": 2,
+      "schema_order": [
+        "plan",
+        "publicReason",
+        "selectedCard"
+      ],
+      "enum_matches_complete_engine_snapshot": true,
+      "selected_card_in_enum": true,
+      "exact_user_history": true,
+      "prior_public_outputs_retained": true,
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "medium",
+        "context": "all_turns"
+      },
+      "no_chinese_in_public_input_or_answer": true,
+      "user_input_characters": 249
+    },
+    {
+      "request": 3,
+      "schema_order": [
+        "plan",
+        "publicReason",
+        "selectedCard"
+      ],
+      "enum_matches_complete_engine_snapshot": true,
+      "selected_card_in_enum": true,
+      "exact_user_history": true,
+      "prior_public_outputs_retained": true,
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "medium",
+        "context": "all_turns"
+      },
+      "no_chinese_in_public_input_or_answer": true,
+      "user_input_characters": 289
+    },
+    {
+      "request": 4,
+      "schema_order": [
+        "plan",
+        "publicReason",
+        "selectedCard"
+      ],
+      "enum_matches_complete_engine_snapshot": true,
+      "selected_card_in_enum": true,
+      "exact_user_history": true,
+      "prior_public_outputs_retained": true,
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "medium",
+        "context": "all_turns"
+      },
+      "no_chinese_in_public_input_or_answer": true,
+      "user_input_characters": 272
+    },
+    {
+      "request": 5,
+      "schema_order": [
+        "plan",
+        "publicReason",
+        "selectedCard"
+      ],
+      "enum_matches_complete_engine_snapshot": true,
+      "selected_card_in_enum": true,
+      "exact_user_history": true,
+      "prior_public_outputs_retained": true,
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "medium",
+        "context": "all_turns"
+      },
+      "no_chinese_in_public_input_or_answer": true,
+      "user_input_characters": 290
+    },
+    {
+      "request": 6,
+      "schema_order": [
+        "plan",
+        "publicReason",
+        "selectedCard"
+      ],
+      "enum_matches_complete_engine_snapshot": true,
+      "selected_card_in_enum": true,
+      "exact_user_history": true,
+      "prior_public_outputs_retained": true,
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "medium",
+        "context": "all_turns"
+      },
+      "no_chinese_in_public_input_or_answer": true,
+      "user_input_characters": 275
+    },
+    {
+      "request": 7,
+      "schema_order": [
+        "plan",
+        "publicReason",
+        "selectedCard"
+      ],
+      "enum_matches_complete_engine_snapshot": true,
+      "selected_card_in_enum": true,
+      "exact_user_history": true,
+      "prior_public_outputs_retained": true,
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "medium",
+        "context": "all_turns"
+      },
+      "no_chinese_in_public_input_or_answer": true,
+      "user_input_characters": 292
+    },
+    {
+      "request": 8,
+      "schema_order": [
+        "plan",
+        "publicReason",
+        "selectedCard"
+      ],
+      "enum_matches_complete_engine_snapshot": true,
+      "selected_card_in_enum": true,
+      "exact_user_history": true,
+      "prior_public_outputs_retained": true,
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "medium",
+        "context": "all_turns"
+      },
+      "no_chinese_in_public_input_or_answer": true,
+      "user_input_characters": 275
+    },
+    {
+      "request": 9,
+      "schema_order": [
+        "plan",
+        "publicReason",
+        "selectedCard"
+      ],
+      "enum_matches_complete_engine_snapshot": true,
+      "selected_card_in_enum": true,
+      "exact_user_history": true,
+      "prior_public_outputs_retained": true,
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "medium",
+        "context": "all_turns"
+      },
+      "no_chinese_in_public_input_or_answer": true,
+      "user_input_characters": 353
+    },
+    {
+      "request": 10,
+      "schema_order": [
+        "plan",
+        "publicReason",
+        "selectedCard"
+      ],
+      "enum_matches_complete_engine_snapshot": true,
+      "selected_card_in_enum": true,
+      "exact_user_history": true,
+      "prior_public_outputs_retained": true,
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "medium",
+        "context": "all_turns"
+      },
+      "no_chinese_in_public_input_or_answer": true,
+      "user_input_characters": 301
+    },
+    {
+      "request": 11,
+      "schema_order": [
+        "plan",
+        "publicReason",
+        "selectedCard"
+      ],
+      "enum_matches_complete_engine_snapshot": true,
+      "selected_card_in_enum": true,
+      "exact_user_history": true,
+      "prior_public_outputs_retained": true,
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "medium",
+        "context": "all_turns"
+      },
+      "no_chinese_in_public_input_or_answer": true,
+      "user_input_characters": 348
+    },
+    {
+      "request": 12,
+      "schema_order": [
+        "plan",
+        "publicReason",
+        "selectedCard"
+      ],
+      "enum_matches_complete_engine_snapshot": true,
+      "selected_card_in_enum": true,
+      "exact_user_history": true,
+      "prior_public_outputs_retained": true,
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "medium",
+        "context": "all_turns"
+      },
+      "no_chinese_in_public_input_or_answer": true,
+      "user_input_characters": 282
+    },
+    {
+      "request": 13,
+      "schema_order": [
+        "plan",
+        "publicReason",
+        "selectedCard"
+      ],
+      "enum_matches_complete_engine_snapshot": true,
+      "selected_card_in_enum": true,
+      "exact_user_history": true,
+      "prior_public_outputs_retained": true,
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "medium",
+        "context": "all_turns"
+      },
+      "no_chinese_in_public_input_or_answer": true,
+      "user_input_characters": 298
+    },
+    {
+      "request": 14,
+      "schema_order": [
+        "plan",
+        "publicReason",
+        "selectedCard"
+      ],
+      "enum_matches_complete_engine_snapshot": true,
+      "selected_card_in_enum": true,
+      "exact_user_history": true,
+      "prior_public_outputs_retained": true,
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "medium",
+        "context": "all_turns"
+      },
+      "no_chinese_in_public_input_or_answer": true,
+      "user_input_characters": 292
+    },
+    {
+      "request": 15,
+      "schema_order": [
+        "plan",
+        "publicReason",
+        "selectedCard"
+      ],
+      "enum_matches_complete_engine_snapshot": true,
+      "selected_card_in_enum": true,
+      "exact_user_history": true,
+      "prior_public_outputs_retained": true,
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "medium",
+        "context": "all_turns"
+      },
+      "no_chinese_in_public_input_or_answer": true,
+      "user_input_characters": 275
+    },
+    {
+      "request": 16,
+      "schema_order": [
+        "plan",
+        "publicReason",
+        "selectedCard"
+      ],
+      "enum_matches_complete_engine_snapshot": true,
+      "selected_card_in_enum": true,
+      "exact_user_history": true,
+      "prior_public_outputs_retained": true,
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "medium",
+        "context": "all_turns"
+      },
+      "no_chinese_in_public_input_or_answer": true,
+      "user_input_characters": 292
+    },
+    {
+      "request": 17,
+      "schema_order": [
+        "plan",
+        "publicReason",
+        "selectedCard"
+      ],
+      "enum_matches_complete_engine_snapshot": true,
+      "selected_card_in_enum": true,
+      "exact_user_history": true,
+      "prior_public_outputs_retained": true,
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "medium",
+        "context": "all_turns"
+      },
+      "no_chinese_in_public_input_or_answer": true,
+      "user_input_characters": 275
+    },
+    {
+      "request": 18,
+      "schema_order": [
+        "plan",
+        "publicReason",
+        "selectedCard"
+      ],
+      "enum_matches_complete_engine_snapshot": true,
+      "selected_card_in_enum": true,
+      "exact_user_history": true,
+      "prior_public_outputs_retained": true,
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "medium",
+        "context": "all_turns"
+      },
+      "no_chinese_in_public_input_or_answer": true,
+      "user_input_characters": 292
+    },
+    {
+      "request": 19,
+      "schema_order": [
+        "plan",
+        "publicReason",
+        "selectedCard"
+      ],
+      "enum_matches_complete_engine_snapshot": true,
+      "selected_card_in_enum": true,
+      "exact_user_history": true,
+      "prior_public_outputs_retained": true,
+      "model": "gpt-6-luna",
+      "reasoning": {
+        "effort": "medium",
+        "context": "all_turns"
+      },
+      "no_chinese_in_public_input_or_answer": true,
+      "user_input_characters": 372
+    }
+  ],
+  "effective_request_limit": "As in v2, runtime still injects catalog built-ins and collaboration role/mode. No Engine/Knowledge tool or hidden holdings, no grader/case material, and no observed tool invocation. This is not a claim of a fully empty effective tool list.",
+  "model_legality": "Constrained by current complete legal-card enum; this does not establish unconstrained model rule recall or prose correctness.",
+  "wire_proxy": "Transparent provider routing difference recorded in capture-config.json; request bytes forwarded unchanged."
+}

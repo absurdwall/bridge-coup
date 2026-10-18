@@ -27,14 +27,14 @@ def read_decision(directory):
 def deterministic_checks(record):
     checks = {}
     version = record.get('wireContractVersion', 'stage1-currentCard-plan-publicReason-v1')
-    card_key = 'selectedCard' if version == 'stage1-plan-publicReason-selectedCard-v2' else 'currentCard'
+    card_key = 'selectedCard' if version in ('stage1-plan-publicReason-selectedCard-v2', 'stage1-legal-selectedCard-v3') else 'currentCard'
     def add(name, condition, fact):
         checks[name] = {'status': 'pass' if condition else 'fail', 'fact': fact}
     snapshot = record['snapshot']
     try:
         answer = json.loads(record['rawOutput'])
         plan = answer['plan']
-        valid = (version in ('stage1-currentCard-plan-publicReason-v1', 'stage1-plan-publicReason-selectedCard-v2') and set(answer) == {card_key, 'publicReason', 'plan'} and
+        valid = (version in ('stage1-currentCard-plan-publicReason-v1', 'stage1-plan-publicReason-selectedCard-v2', 'stage1-legal-selectedCard-v3') and set(answer) == {card_key, 'publicReason', 'plan'} and
                  isinstance(answer['publicReason'], str) and bool(answer['publicReason'].strip()) and
                  set(plan) == {'update', 'text'} and plan['update'] in ('replace', 'keep', 'withdraw') and
                  ((plan['update'] == 'replace' and isinstance(plan['text'], str) and bool(plan['text'].strip())) or
