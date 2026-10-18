@@ -1,0 +1,13 @@
+.F.
+======================================================================
+FAIL: test_changed_frozen_case_is_material_error_and_cannot_silently_redefine_acceptance (test_corpus.CorpusPublicEntryTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tingranwang/.codex/worktrees/stage1-ticket41/bridge-coup/evals/stage1/tests/test_corpus.py", line 54, in test_changed_frozen_case_is_material_error_and_cannot_silently_redefine_acceptance
+    self.assertIn('Frozen asset changed', report['error'])
+AssertionError: 'Frozen asset changed' not found in "'/var/folders/1l/xh7kf4ss1rqg3vxjr17q9_0w0000gn/T/tmpe47ynyd6/corpus/boards/pavlicek-deep-finesse.json' is not in the subpath of '/Users/tingranwang/.codex/worktrees/stage1-ticket41/bridge-coup/evals/stage1' OR one path is relative and the other is absolute."
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.134s
+
+FAILED (failures=1)
