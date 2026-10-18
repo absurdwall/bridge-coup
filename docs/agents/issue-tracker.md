@@ -3,20 +3,6 @@
 Specs and implementation tickets live in GitHub Issues for
 `absurdwall/bridge-coup`. Use the `gh` CLI for tracker operations.
 
-## Write pacing
-
-Within this project's publication or update batch, serialize GitHub writes
-and wait at least two seconds after each write finishes before starting the
-next. This includes issue/PR creation, comments, edits, closures, label and
-relationship changes, and, as a project convention, `git push`. Read-only
-verification may run between writes.
-
-Follow [GitHub's retry instructions](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api#exceeding-the-rate-limit)
-if rate limited; two-second pacing does not override hourly limits or longer
-server-requested waits. This per-project convention does not require a
-cross-project queue or a local hourly write counter. See
-[GitHub's write-pacing guidance](https://docs.github.com/en/rest/using-the-rest-api/best-practices-for-using-the-rest-api#pause-between-mutative-requests).
-
 ## Conventions
 
 - Publish a spec as a GitHub issue.
