@@ -1,0 +1,63 @@
+{
+  "issue": 39,
+  "engineering": "implemented and reviewed; merged integration 7a55ea9 into own branch",
+  "quality": "failed; no stage acceptance",
+  "wire_contract": "stage1-plan-publicReason-selectedCard-v2",
+  "attempt_policy": "one predeclared attempt per development scenario, no rerolls",
+  "reserved_acceptance_board": "not played or tuned",
+  "execution": "within-board sequential; three boards concurrent, timings exploratory",
+  "tests": {
+    "swift_full_before_last_two_guard_fixes": {
+      "tests": 211,
+      "skipped": 10,
+      "failed": 0
+    },
+    "swift_final_public_playing_tests": {
+      "tests": 11,
+      "failed": 0
+    },
+    "python_combined_after_integration_merge": {
+      "tests": 16,
+      "failed": 0
+    }
+  },
+  "runs": [
+    {
+      "run": "short2",
+      "model_requests": 8,
+      "legal_controlled_actions": 8,
+      "opponent_actions_after_initial_lead": 6,
+      "mechanical_actions": 0,
+      "elapsed_seconds": 37.08271300792694,
+      "quality_pass": 6,
+      "quality_fail": 2,
+      "unresolved_grades": 0,
+      "coverage": "observed"
+    },
+    {
+      "run": "short3",
+      "model_requests": 12,
+      "legal_controlled_actions": 11,
+      "opponent_actions_after_initial_lead": 10,
+      "mechanical_actions": 0,
+      "elapsed_seconds": 52.74146795272827,
+      "quality_pass": 0,
+      "quality_fail": 12,
+      "unresolved_grades": 0,
+      "coverage": "observed"
+    },
+    {
+      "run": "short4",
+      "model_requests": 1,
+      "legal_controlled_actions": 0,
+      "opponent_actions_after_initial_lead": 0,
+      "mechanical_actions": 0,
+      "elapsed_seconds": 10.016103982925415,
+      "quality_pass": 0,
+      "quality_fail": 1,
+      "unresolved_grades": 0,
+      "coverage": "not reached due to initial illegal action"
+    }
+  ],
+  "impact": "Versioned model-facing wire changed once before these runs. Later defensive invalid-context/turn-reuse guards and evaluator citation parsing do not alter any recorded valid request. No live playing revalidation needed for those guards."
+}
