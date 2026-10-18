@@ -15,6 +15,8 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
     private let timeout: Double
     private let queue = DispatchQueue(label: "bridge.playing.codex")
     private var process: Process?
+    private var ownedProcessGroup: pid_t?
+    private var requestDeadline: DispatchTime?
     private var input: FileHandle?
     private var output: FileHandle?
     private var buffer = Data()
@@ -45,7 +47,7 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
     }
 
     deinit {
-        process?.terminate()
+        terminateRuntime(force: true)
         try? FileManager.default.removeItem(at: runtimeDirectory)
     }
 
@@ -59,15 +61,17 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
     }
 
     private func perform(_ request: PlayingRequest) throws -> PlayingReply {
-        let alarm = DispatchWorkItem { [weak self] in self?.process?.terminate() }
-        let hardStop = DispatchWorkItem { [weak self] in
-            guard let process = self?.process, process.isRunning else { return }
-            kill(process.processIdentifier, SIGKILL)
-        }
+        let alarm = DispatchWorkItem { [weak self] in self?.terminateRuntime(force: false) }
+        let hardStop = DispatchWorkItem { [weak self] in self?.terminateRuntime(force: true) }
         let deadline = min(timeout, request.timeoutSeconds)
+        requestDeadline = .now() + deadline
+        var succeeded = false
         DispatchQueue.global().asyncAfter(deadline: .now() + deadline, execute: alarm)
         DispatchQueue.global().asyncAfter(deadline: .now() + deadline + 0.2, execute: hardStop)
-        defer { alarm.cancel(); hardStop.cancel() }
+        defer {
+            alarm.cancel(); hardStop.cancel(); requestDeadline = nil
+            if !succeeded { terminateRuntime(force: true) }
+        }
         if process == nil { try start() }
         if threadID == nil {
             let result = try rpc("thread/start", ["cwd": runtimeDirectory.appendingPathComponent("cwd").path,
@@ -108,6 +112,7 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
             }
             let identity = RuntimeIdentity(requestedModel: Self.model, requestedEffort: Self.effort, runtimeVersion: runtimeVersion,
                                            observedModel: observedModel, threadID: threadID!, turnID: turnID)
+            succeeded = true
             return PlayingReply(rawOutput: text, identity: identity)
         }
     }
@@ -117,7 +122,8 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
         versionProcess.executableURL = executable; versionProcess.arguments = ["--version"]
         versionProcess.standardOutput = versionPipe; versionProcess.standardError = FileHandle.nullDevice
         process = versionProcess
-        try versionProcess.run(); versionProcess.waitUntilExit()
+        ownedProcessGroup = nil
+        try versionProcess.run(); trackProcessGroup(versionProcess); versionProcess.waitUntilExit()
         guard versionProcess.terminationStatus == 0 else { throw CodexPlayingError.failure("Runtime version unavailable") }
         runtimeVersion = String(decoding: versionPipe.fileHandleForReading.readDataToEndOfFile(), as: UTF8.self).trimmingCharacters(in: .whitespacesAndNewlines)
         let child = Process(); let stdin = Pipe(); let stdout = Pipe()
@@ -130,7 +136,8 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
         child.standardInput = stdin; child.standardOutput = stdout
         child.standardError = FileHandle.nullDevice
         process = child; input = stdin.fileHandleForWriting; output = stdout.fileHandleForReading
-        try child.run()
+        ownedProcessGroup = nil
+        try child.run(); trackProcessGroup(child)
         _ = try rpc("initialize", ["clientInfo": ["name": "bridge-declarer", "version": "1"], "capabilities": ["experimentalApi": true]])
         try send(["method": "initialized", "params": [:]])
         let models = try rpc("model/list", ["includeHidden": true])
@@ -141,6 +148,18 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
             throw CodexPlayingError.failure("Requested gpt-6-luna / medium configuration unavailable")
         }
         try log("catalogAcknowledgement", model)
+    }
+
+    private func trackProcessGroup(_ child: Process) {
+        let pid = child.processIdentifier
+        // Foundation normally creates a new group. Verify ownership before group signals.
+        ownedProcessGroup = getpgid(pid) == pid ? pid : nil
+    }
+
+    private func terminateRuntime(force: Bool) {
+        let signal = force ? SIGKILL : SIGTERM
+        if let group = ownedProcessGroup { kill(-group, signal) }
+        else if let process, process.isRunning { kill(process.processIdentifier, signal) }
     }
 
     private func rpc(_ method: String, _ params: [String: Any]) throws -> [String: Any] {
@@ -169,7 +188,16 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
                 if let object = try JSONSerialization.jsonObject(with: line) as? [String: Any] { return object }
                 throw CodexPlayingError.failure("Malformed app-server message")
             }
-            guard let data = output?.availableData, !data.isEmpty else { throw CodexPlayingError.failure("App-server exited or request timed out") }
+            guard let output, let deadline = requestDeadline else { throw CodexPlayingError.failure("Missing runtime output or request deadline") }
+            let now = DispatchTime.now().uptimeNanoseconds
+            guard now < deadline.uptimeNanoseconds else { throw CodexPlayingError.failure("App-server request timed out") }
+            let milliseconds = Int32(min(UInt64(Int32.max), max(1, (deadline.uptimeNanoseconds - now) / 1_000_000)))
+            var descriptor = pollfd(fd: output.fileDescriptor, events: Int16(POLLIN), revents: 0)
+            let ready = poll(&descriptor, 1, milliseconds)
+            if ready < 0 && errno == EINTR { continue }
+            guard ready > 0 else { throw CodexPlayingError.failure("App-server request timed out or output unavailable") }
+            let data = output.availableData
+            guard !data.isEmpty else { throw CodexPlayingError.failure("App-server exited or request timed out") }
             buffer.append(data)
         }
     }
