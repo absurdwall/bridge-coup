@@ -93,3 +93,14 @@ Current wire contract `stage1-legal-selectedCard-v3` preserves plan → publicRe
 Operational bounds are independent of the later three-minute experience target. Each production request, including version discovery, receives the lesser of its configured limit and the remaining run budget. The adapter sends termination at that deadline, then SIGKILL after 0.2 seconds if necessary; observed process teardown adds a small scheduling/cleanup margin. Late results cannot execute. Timeout/failure preserves input, actual prefix, saved decisions and failure, with no regeneration or replacement action. A fresh run needs a new output directory.
 
 The limited `pavlicek-entry` environment policy implements the frozen short-5 manifest: East ducks a low diamond under North's first DK/DQ while retaining DA/DJ, and covers North D9 with DJ when held. Other choices use the legal state-aware conserve-high policy. It is a teaching-case policy, not a general defense platform. Engine's basic trick-winner rule is shared with this policy. No reserved-board playing attempt occurs in ticket 40.
+
+## Finite final acceptance
+
+`acceptance.py` freezes one committed candidate and executes the corpus's 22 predeclared attempts sequentially. Use a freshly built production `bridge-play` binary from that source commit. It refuses changed source/binary/runtime or a changed run schedule; it never retries an answer or resumes an already started matrix.
+
+```sh
+python3 evals/stage1/acceptance.py freeze --binary /absolute/path/to/bridge-play --codex /absolute/path/to/bin/codex --output /absolute/new/evidence-directory
+python3 evals/stage1/acceptance.py run --output /absolute/new/evidence-directory
+```
+
+Each attempt saves an exact-byte wire audit, production trace, independent replay, original independent grade, timings and summary. The top-level report includes every attempt and all four full-board durations. Complex trigger predicates remain pending independent review. A completed board or a legal selected-card enum does not imply correct public plans/reasons; no-go and disputed results remain visible. An operationally interrupted matrix is incomplete evidence and cannot be restarted over its existing attempt directories.

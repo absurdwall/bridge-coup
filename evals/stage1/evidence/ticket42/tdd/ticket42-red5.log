@@ -1,0 +1,13 @@
+......E...
+======================================================================
+ERROR: test_outer_command_deadline_terminates_unresponsive_process_group (test_acceptance.AcceptanceTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tingranwang/.codex/worktrees/stage1-ticket42/bridge-coup/evals/stage1/tests/test_acceptance.py", line 116, in test_outer_command_deadline_terminates_unresponsive_process_group
+    acceptance.bounded_command([sys.executable, '-c', 'import signal,time;signal.signal(signal.SIGTERM,signal.SIG_IGN);time.sleep(2)'], sink, sink, 0.05)
+AttributeError: module 'acceptance' has no attribute 'bounded_command'
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.079s
+
+FAILED (errors=1)
