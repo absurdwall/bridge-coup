@@ -32,6 +32,7 @@ Pass its printed wrapper path as the driver's `--codex` value. Keep the proxy ru
 Issue 38 adds a standard-library Python entry. It reads saved Expert decisions and actual RPC/execution evidence; it never invokes the playing model. From the repository root:
 
 ```sh
+python3 -m pip install -r evals/stage1/requirements-test.txt
 python3 -m unittest discover -s evals/stage1/tests -v
 python3 evals/stage1/evaluate.py grade \
   --decision evals/stage1/evidence/ticket37/live2 \
