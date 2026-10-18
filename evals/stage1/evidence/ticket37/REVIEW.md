@@ -33,3 +33,5 @@ BridgeDomain contains values, public events, immutable snapshots and program-own
 TDD logs record public legal-execution, Expert request/advice, strict output-readability and transport-timeout slices. The input-representation change is covered at the public Expert entry. A timeout also bounds the version probe, and transport failures retain actual input and elapsed duration. This ticket does not establish continuous thread recall, full-board success, advanced trump rules acceptance, grader calibration or the finite stage quality bar; those remain downstream work.
 
 Final full Swift suite: 206 tests, 10 pre-existing DDS/runtime skips, zero failures. See full-tests.log. Skips do not establish stage acceptance.
+
+Premerge review repair: require exactly four hand records before building the seat dictionary. A five-record fixture containing a duplicated seat now exits unsuccessfully with preserved invalidDeal failure.json before transport startup; no model inference occurred. See duplicate-seat-check.json.

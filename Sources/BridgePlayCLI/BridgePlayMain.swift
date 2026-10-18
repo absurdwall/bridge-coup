@@ -32,7 +32,7 @@ private struct BoardInput: Codable {
             try FileManager.default.createDirectory(at: output, withIntermediateDirectories: true)
             let fixtureData = try Data(contentsOf: URL(fileURLWithPath: fixture))
             let supplied = try JSONDecoder().decode(BoardInput.self, from: fixtureData)
-            guard Set(supplied.hands.map(\.seat)).count == 4 else { throw DomainError.invalidDeal }
+            guard supplied.hands.count == 4, Set(supplied.hands.map(\.seat)).count == 4 else { throw DomainError.invalidDeal }
             let deal = Dictionary(uniqueKeysWithValues: supplied.hands.map { ($0.seat, $0.cards) })
             var board = try BoardState(deal: deal, contract: supplied.contract, vulnerability: supplied.vulnerability,
                                        scoring: supplied.scoring, objective: supplied.objective, publicBackground: supplied.publicBackground)
