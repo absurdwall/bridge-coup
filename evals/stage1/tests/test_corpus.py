@@ -24,7 +24,7 @@ class CorpusPublicEntryTests(unittest.TestCase):
         self.assertEqual(report['short_cases'], 6)
         self.assertEqual(report['full_boards'], 2)
         self.assertTrue(report['regression_distinct'])
-        self.assertEqual(report['rubric_version'], 'stage1-basic-v3')
+        self.assertEqual(report['rubric_version'], 'stage1-basic-v4')
         self.assertEqual(report['corpus_version'], 'stage1-finite-v2')
         manifest = json.loads((ROOT / 'corpus/manifest.json').read_text())
         case = next(c for c in manifest['cases'] if c['id'] == 'full-reserved')

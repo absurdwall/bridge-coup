@@ -110,7 +110,7 @@ def grader_package(decisions):
         allowed = {declarer, seats[(seats.index(declarer) + 2) % 4]}
         if any(h['seat'] not in allowed for h in record['snapshot']['hands']):
             raise ValueError('Decision snapshot contains unauthorized defender holdings')
-    return {'rubric_version': 'stage1-basic-v3', 'rubric': Path(__file__).with_name('rubric.txt').read_text(),
+    return {'rubric_version': 'stage1-basic-v4', 'rubric': Path(__file__).with_name('rubric.txt').read_text(),
             'decisions': [{'id': identifier, 'authorized_input': record['input'], 'playing_identity': record.get('identity'),
                            'playing_instructions': record['instructions'], 'wire_contract': record.get('wireContractVersion', 'stage1-currentCard-plan-publicReason-v1'), 'raw_output': record['rawOutput'],
                            'effective_plan': record.get('effectivePlan'),

@@ -115,7 +115,7 @@ def validate(manifest_path):
     full = [c for c in cases if c['kind'] == 'full']
     if len(short) != 6 or len(full) != 2 or {c['role'] for c in full} != {'development', 'regression'}:
         raise ValueError('Finite corpus requires six short, one development and one used regression board')
-    if manifest['corpus_version'] != 'stage1-finite-v2' or manifest['rubric_version'] != 'stage1-basic-v3':
+    if manifest['corpus_version'] != 'stage1-finite-v2' or manifest['rubric_version'] != 'stage1-basic-v4':
         raise ValueError('Unreviewed rubric version')
     starts, fingerprints = {}, {}
     for case in cases:
