@@ -202,8 +202,12 @@ public actor ExpertSession {
         } else {
             phase = "leads a new trick"
         }
-        return ["Current action: \(seat) (\(role)) \(phase).",
-                "Legal current choices: " + snapshot.legalCards.map(\.description).joined(separator: ", ") + "."]
+        var lines = ["Current action: \(seat) (\(role)) \(phase).",
+                     "Legal current choices: " + snapshot.legalCards.map(\.description).joined(separator: ", ") + "."]
+        if let winning = snapshot.currentWinningPlay {
+            lines.append("Current winning play so far: \(winning.seat.rawValue.capitalized) \(winning.card).")
+        }
+        return lines
     }
 
     private static func initialInput(_ snapshot: DecisionSnapshot) -> String {

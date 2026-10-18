@@ -1,0 +1,163 @@
+{
+  "rubric_version": "stage1-basic-v4",
+  "results": [
+    {
+      "id": "decision-0001",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "route and entries",
+          "fact": "The diamond play and club-development route are feasible.",
+          "explanation": "D3 is legal over West's DQ, and South holds both diamond honors. South can cash CA and CK, then lead a low club to dummy's CQ. HA provides an available return to South. The initial eight top tricks can be supplemented by establishing clubs, conditional on their distribution.",
+          "quotes": [
+            "Play D3 from dummy.",
+            "Then cash CA, CK and CQ, using the club suit to seek an extra trick if the defenders’ clubs split favorably."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0002",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "current winner and plan consistency",
+          "fact": "DK wins the actual diamond trick and follows the retained plan.",
+          "explanation": "The current trick contains DQ, D3 and D4. South's DK beats all three, while DA remains available. The plan's initial D3 play is already completed history.",
+          "quotes": [
+            "East’s D4 is below both of South’s honors, so win with DK and preserve DA as a later control."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0003",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "club route",
+          "fact": "The proposed club sequence has the necessary cards and entries.",
+          "explanation": "After winning DK, South holds CA, CK and three low clubs, while North holds CQ and two low clubs. Cashing CA and CK followed by a low club to CQ is feasible; the omitted low-club lead is obvious. HA and HK support subsequent movement between the hands.",
+          "quotes": [
+            "lead CA, then CK and CQ to cash the club honors and test the club split.",
+            "Avoid assuming unknown defenders’ cards or a favorable split."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0004",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "current-trick reasoning",
+          "fact": "The reason incorrectly assigns control of the current trick to CK.",
+          "explanation": "South has already played CA to this trick, which guarantees the winner. CK remains in South's hand and cannot be played to the same trick. Although C2 appropriately preserves CQ, the stated justification invokes an unavailable current-trick resource.",
+          "quotes": [
+            "South still has CK to control this trick"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0005",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "continuing route",
+          "fact": "CK followed by a separate CQ winner remains feasible.",
+          "explanation": "CA has already won, South retains CK and three low clubs, and dummy retains CQ and C7. Dummy can follow CK with C7, after which South can lead a low club to CQ. Completed earlier steps need not be replayed.",
+          "quotes": [
+            "Lead CK to take the next club winner, then use dummy’s CQ while preserving the lower clubs for possible establishment."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0006",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "winner identification and plan consistency",
+          "fact": "The answer overlooks South's winning CK and spends CQ on the same trick.",
+          "explanation": "The current trick already contains South's CK and West's C9; CA was previously played. Neither CJ nor CT can beat CK, and CQ cannot win over its partner's king. Playing C7 preserves the separate CQ winner required by the retained plan.",
+          "quotes": [
+            "Play CQ over West’s C9: it may win if East holds a lower honor such as CJ or CT, while C7 cannot.",
+            "If East has a higher club, the queen cannot save the trick."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0007",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "remaining winners and internal consistency",
+          "fact": "The plan calls for cashing a club that is not yet established.",
+          "explanation": "The public club plays are CA, C3, C2, C5, CK, C9, CQ and CT. CJ remains outstanding and exceeds every remaining declarer club. Leading C8 can establish C6 and C4 by losing to CJ, but it cannot be treated as cashing a winner. The reason's testing language does not resolve the active plan's false winner premise.",
+          "quotes": [
+            "cash a remaining club and reassess the defenders’ responses.",
+            "Lead C8 to test whether the lower clubs are now winners after CA, CK and CQ have been played."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0008",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "current action and feasible remainder",
+          "fact": "D5 is legal, and actual events now support the retained plan's remaining route to nine.",
+          "explanation": "North holds D8, D6 and D5 against West's DJ, and South retains DA. CJ has now been played, establishing South's C6 and C4. With three tricks already won, DA, SA, HA, HK and those two clubs supply six more tricks. The earlier club lead is completed history.",
+          "quotes": [
+            "Play D5 to preserve dummy’s higher diamonds. South has DA to control West’s DJ if needed.",
+            "Then count the available top tricks—SA, DA, HA and dummy’s HK—and use the remaining red-suit winners or established clubs to reach nine, preserving entries as needed."
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Small-sample basic evaluation; no claim of broad grading reliability."
+}

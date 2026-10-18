@@ -74,7 +74,7 @@ public struct BoardState: Sendable {
                                 contract: contract, vulnerability: vulnerability, scoring: scoring, objective: objective,
                                 publicBackground: publicBackground,
                                 hands: [controller, controller.partner].map { Hand(seat: $0, cards: hands[$0]!) },
-                                events: events, currentTrick: currentTrick, declarerTricks: declarerTricks, defenderTricks: defenderTricks, legalCards: try legalCards())
+                                events: events, currentTrick: currentTrick, declarerTricks: declarerTricks, defenderTricks: defenderTricks, legalCards: try legalCards(), currentWinningPlay: winningPlay(in: currentTrick))
     }
 
     public mutating func apply(_ action: CurrentAction) throws {
