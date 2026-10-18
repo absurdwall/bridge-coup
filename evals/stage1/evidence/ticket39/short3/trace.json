@@ -1,0 +1,3213 @@
+{
+  "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+  "complete" : false,
+  "controlledActions" : 11,
+  "elapsedSeconds" : 52.74146795272827,
+  "mechanicalActions" : 0,
+  "modelRequests" : 12,
+  "opponentActions" : 10,
+  "steps" : [
+    {
+      "actualEvents" : [
+        {
+          "card" : "DQ",
+          "seat" : "west",
+          "sequence" : 0
+        },
+        {
+          "card" : "D6",
+          "seat" : "north",
+          "sequence" : 1
+        }
+      ],
+      "decision" : {
+        "action" : {
+          "actingSeat" : "north",
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "card" : "D6",
+          "controller" : "south",
+          "revision" : 1,
+          "snapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:1:south"
+        },
+        "advice" : {
+          "plan" : {
+            "text" : "Win the diamond lead in dummy with the ace, then use the club suit as the main source of tricks. Preserve dummy’s heart king and spade stoppers; develop clubs while watching entries and avoid committing to overtricks before the contract is secure.",
+            "update" : "replace"
+          },
+          "publicReason" : "Dummy has D8653; play the D6 under West’s queen, keeping the D8 as an entry-preserving card if needed. South’s AK will take the trick, so there is no need to spend dummy’s higher diamonds.",
+          "selectedCard" : "D6"
+        },
+        "effectivePlan" : "Win the diamond lead in dummy with the ace, then use the club suit as the main source of tricks. Preserve dummy’s heart king and spade stoppers; develop clubs while watching entries and avoid committing to overtricks before the contract is secure.",
+        "elapsedSeconds" : 10.39252507686615,
+        "identity" : {
+          "observedModel" : "gpt-6-luna",
+          "requestedEffort" : "medium",
+          "requestedModel" : "gpt-6-luna",
+          "runtimeVersion" : "codex-cli 0.160.0",
+          "threadID" : "01a14e01-54a5-7d21-9786-3b5a13dc2281",
+          "turnID" : "01a14e01-60e8-7662-9d7a-34fc80138baf"
+        },
+        "input" : "Contract: 3NT by South. Scoring: IMP. Vulnerability: neither.\nObjective: Normal IMP strategy, weighing contract risk and overtricks.\nDecision controller: South (declarer).\nActing hand: North (dummy).\nSouth (declarer): S A94 \/ H A63 \/ D AK \/ C AK864\nNorth (dummy): S 862 \/ H K74 \/ D 8653 \/ C Q72\nActual plays in order: West DQ.\nTricks won: declarer 0, defenders 0.\nAdditional public background: Auction and defensive methods are not provided.",
+        "instructions" : "Play declarer and dummy using the supplied decision-time information. Write in English and pursue the stated objective. selectedCard is the single card from the acting hand to play now; publicReason briefly explains it. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide an initial concrete plan before dummy's first play. Unknown cards remain unknown.",
+        "planAssociation" : {
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "controller" : "south",
+          "sourceSessionID" : "36FE6915-8A53-437C-BEB6-D888CE4EB0CC",
+          "sourceSnapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:1:south",
+          "text" : "Win the diamond lead in dummy with the ace, then use the club suit as the main source of tricks. Preserve dummy’s heart king and spade stoppers; develop clubs while watching entries and avoid committing to overtricks before the contract is secure."
+        },
+        "rawOutput" : "{\"plan\":{\"text\":\"Win the diamond lead in dummy with the ace, then use the club suit as the main source of tricks. Preserve dummy’s heart king and spade stoppers; develop clubs while watching entries and avoid committing to overtricks before the contract is secure.\",\"update\":\"replace\"},\"publicReason\":\"Dummy has D8653; play the D6 under West’s queen, keeping the D8 as an entry-preserving card if needed. South’s AK will take the trick, so there is no need to spend dummy’s higher diamonds.\",\"selectedCard\":\"D6\"}",
+        "session" : {
+          "id" : "36FE6915-8A53-437C-BEB6-D888CE4EB0CC",
+          "snapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:1:south"
+        },
+        "snapshot" : {
+          "actingSeat" : "north",
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "contract" : {
+            "declarer" : "south",
+            "level" : 3,
+            "strain" : "noTrump"
+          },
+          "controller" : "south",
+          "currentTrick" : [
+            {
+              "card" : "DQ",
+              "seat" : "west",
+              "sequence" : 0
+            }
+          ],
+          "declarerTricks" : 0,
+          "defenderTricks" : 0,
+          "events" : [
+            {
+              "card" : "DQ",
+              "seat" : "west",
+              "sequence" : 0
+            }
+          ],
+          "hands" : [
+            {
+              "cards" : [
+                "SA",
+                "S9",
+                "S4",
+                "HA",
+                "H6",
+                "H3",
+                "DA",
+                "DK",
+                "CA",
+                "CK",
+                "C8",
+                "C6",
+                "C4"
+              ],
+              "seat" : "south"
+            },
+            {
+              "cards" : [
+                "S8",
+                "S6",
+                "S2",
+                "HK",
+                "H7",
+                "H4",
+                "D8",
+                "D6",
+                "D5",
+                "D3",
+                "CQ",
+                "C7",
+                "C2"
+              ],
+              "seat" : "north"
+            }
+          ],
+          "objective" : "Normal IMP strategy, weighing contract risk and overtricks.",
+          "revision" : 1,
+          "scoring" : "IMP",
+          "vulnerability" : "neither"
+        },
+        "wireContractVersion" : "stage1-plan-publicReason-selectedCard-v2"
+      },
+      "execution" : {
+        "event" : {
+          "card" : "D6",
+          "seat" : "north",
+          "sequence" : 1
+        },
+        "source" : "model"
+      }
+    },
+    {
+      "actualEvents" : [
+        {
+          "card" : "DQ",
+          "seat" : "west",
+          "sequence" : 0
+        },
+        {
+          "card" : "D6",
+          "seat" : "north",
+          "sequence" : 1
+        },
+        {
+          "card" : "D4",
+          "seat" : "east",
+          "sequence" : 2
+        }
+      ],
+      "execution" : {
+        "event" : {
+          "card" : "D4",
+          "seat" : "east",
+          "sequence" : 2
+        },
+        "source" : "opponent"
+      }
+    },
+    {
+      "actualEvents" : [
+        {
+          "card" : "DQ",
+          "seat" : "west",
+          "sequence" : 0
+        },
+        {
+          "card" : "D6",
+          "seat" : "north",
+          "sequence" : 1
+        },
+        {
+          "card" : "D4",
+          "seat" : "east",
+          "sequence" : 2
+        },
+        {
+          "card" : "DA",
+          "seat" : "south",
+          "sequence" : 3
+        }
+      ],
+      "decision" : {
+        "action" : {
+          "actingSeat" : "south",
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "card" : "DA",
+          "controller" : "south",
+          "revision" : 3,
+          "snapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:3:south"
+        },
+        "advice" : {
+          "plan" : {
+            "update" : "keep"
+          },
+          "publicReason" : "The D6 has lost to West’s queen, and South can win the trick with the ace while preserving the king for a later entry.",
+          "selectedCard" : "DA"
+        },
+        "effectivePlan" : "Win the diamond lead in dummy with the ace, then use the club suit as the main source of tricks. Preserve dummy’s heart king and spade stoppers; develop clubs while watching entries and avoid committing to overtricks before the contract is secure.",
+        "elapsedSeconds" : 3.4494590759277344,
+        "identity" : {
+          "observedModel" : "gpt-6-luna",
+          "requestedEffort" : "medium",
+          "requestedModel" : "gpt-6-luna",
+          "runtimeVersion" : "codex-cli 0.160.0",
+          "threadID" : "01a14e01-54a5-7d21-9786-3b5a13dc2281",
+          "turnID" : "01a14e01-6fe8-7cf3-8767-7d5ffa968bdd"
+        },
+        "input" : "Decision snapshot: 3931F592-82D3-445B-9C94-5535B5CFE89D:3:south. Controller: South. Acting hand: South.\nPrevious suggestion actually executed: yes.\nNew actual plays in order:\n1: North D6 (model).\n2: East D4 (opponent).\nCurrent trick: West DQ; North D6; East D4.\nTricks won: declarer 0, defenders 0.",
+        "instructions" : "Play declarer and dummy using the supplied decision-time information. Write in English and pursue the stated objective. selectedCard is the single card from the acting hand to play now; publicReason briefly explains it. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide an initial concrete plan before dummy's first play. Unknown cards remain unknown.",
+        "planAssociation" : {
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "controller" : "south",
+          "sourceSessionID" : "36FE6915-8A53-437C-BEB6-D888CE4EB0CC",
+          "sourceSnapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:1:south",
+          "text" : "Win the diamond lead in dummy with the ace, then use the club suit as the main source of tricks. Preserve dummy’s heart king and spade stoppers; develop clubs while watching entries and avoid committing to overtricks before the contract is secure."
+        },
+        "rawOutput" : "{\"plan\":{\"text\":null,\"update\":\"keep\"},\"publicReason\":\"The D6 has lost to West’s queen, and South can win the trick with the ace while preserving the king for a later entry.\",\"selectedCard\":\"DA\"}",
+        "session" : {
+          "id" : "A4B40316-23A6-4ABC-B759-9970B18E8099",
+          "snapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:3:south"
+        },
+        "snapshot" : {
+          "actingSeat" : "south",
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "contract" : {
+            "declarer" : "south",
+            "level" : 3,
+            "strain" : "noTrump"
+          },
+          "controller" : "south",
+          "currentTrick" : [
+            {
+              "card" : "DQ",
+              "seat" : "west",
+              "sequence" : 0
+            },
+            {
+              "card" : "D6",
+              "seat" : "north",
+              "sequence" : 1
+            },
+            {
+              "card" : "D4",
+              "seat" : "east",
+              "sequence" : 2
+            }
+          ],
+          "declarerTricks" : 0,
+          "defenderTricks" : 0,
+          "events" : [
+            {
+              "card" : "DQ",
+              "seat" : "west",
+              "sequence" : 0
+            },
+            {
+              "card" : "D6",
+              "seat" : "north",
+              "sequence" : 1
+            },
+            {
+              "card" : "D4",
+              "seat" : "east",
+              "sequence" : 2
+            }
+          ],
+          "hands" : [
+            {
+              "cards" : [
+                "SA",
+                "S9",
+                "S4",
+                "HA",
+                "H6",
+                "H3",
+                "DA",
+                "DK",
+                "CA",
+                "CK",
+                "C8",
+                "C6",
+                "C4"
+              ],
+              "seat" : "south"
+            },
+            {
+              "cards" : [
+                "S8",
+                "S6",
+                "S2",
+                "HK",
+                "H7",
+                "H4",
+                "D8",
+                "D5",
+                "D3",
+                "CQ",
+                "C7",
+                "C2"
+              ],
+              "seat" : "north"
+            }
+          ],
+          "objective" : "Normal IMP strategy, weighing contract risk and overtricks.",
+          "revision" : 3,
+          "scoring" : "IMP",
+          "vulnerability" : "neither"
+        },
+        "wireContractVersion" : "stage1-plan-publicReason-selectedCard-v2"
+      },
+      "execution" : {
+        "event" : {
+          "card" : "DA",
+          "seat" : "south",
+          "sequence" : 3
+        },
+        "source" : "model"
+      }
+    },
+    {
+      "actualEvents" : [
+        {
+          "card" : "DQ",
+          "seat" : "west",
+          "sequence" : 0
+        },
+        {
+          "card" : "D6",
+          "seat" : "north",
+          "sequence" : 1
+        },
+        {
+          "card" : "D4",
+          "seat" : "east",
+          "sequence" : 2
+        },
+        {
+          "card" : "DA",
+          "seat" : "south",
+          "sequence" : 3
+        },
+        {
+          "card" : "C4",
+          "seat" : "south",
+          "sequence" : 4
+        }
+      ],
+      "decision" : {
+        "action" : {
+          "actingSeat" : "south",
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "card" : "C4",
+          "controller" : "south",
+          "revision" : 4,
+          "snapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:4:south"
+        },
+        "advice" : {
+          "plan" : {
+            "update" : "keep"
+          },
+          "publicReason" : "Lead a low club toward dummy’s queen to try to establish the suit while preserving the ace and king as controls.",
+          "selectedCard" : "C4"
+        },
+        "effectivePlan" : "Win the diamond lead in dummy with the ace, then use the club suit as the main source of tricks. Preserve dummy’s heart king and spade stoppers; develop clubs while watching entries and avoid committing to overtricks before the contract is secure.",
+        "elapsedSeconds" : 3.760301113128662,
+        "identity" : {
+          "observedModel" : "gpt-6-luna",
+          "requestedEffort" : "medium",
+          "requestedModel" : "gpt-6-luna",
+          "runtimeVersion" : "codex-cli 0.160.0",
+          "threadID" : "01a14e01-54a5-7d21-9786-3b5a13dc2281",
+          "turnID" : "01a14e01-7d61-7df0-b537-b56b22154a1e"
+        },
+        "input" : "Decision snapshot: 3931F592-82D3-445B-9C94-5535B5CFE89D:4:south. Controller: South. Acting hand: South.\nPrevious suggestion actually executed: yes.\nNew actual plays in order:\n3: South DA (model).\nCurrent trick: .\nTricks won: declarer 1, defenders 0.",
+        "instructions" : "Play declarer and dummy using the supplied decision-time information. Write in English and pursue the stated objective. selectedCard is the single card from the acting hand to play now; publicReason briefly explains it. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide an initial concrete plan before dummy's first play. Unknown cards remain unknown.",
+        "planAssociation" : {
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "controller" : "south",
+          "sourceSessionID" : "36FE6915-8A53-437C-BEB6-D888CE4EB0CC",
+          "sourceSnapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:1:south",
+          "text" : "Win the diamond lead in dummy with the ace, then use the club suit as the main source of tricks. Preserve dummy’s heart king and spade stoppers; develop clubs while watching entries and avoid committing to overtricks before the contract is secure."
+        },
+        "rawOutput" : "{\"plan\":{\"text\":null,\"update\":\"keep\"},\"publicReason\":\"Lead a low club toward dummy’s queen to try to establish the suit while preserving the ace and king as controls.\",\"selectedCard\":\"C4\"}",
+        "session" : {
+          "id" : "8BF7B6DA-1525-4B13-B352-B411F233A18E",
+          "snapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:4:south"
+        },
+        "snapshot" : {
+          "actingSeat" : "south",
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "contract" : {
+            "declarer" : "south",
+            "level" : 3,
+            "strain" : "noTrump"
+          },
+          "controller" : "south",
+          "currentTrick" : [
+
+          ],
+          "declarerTricks" : 1,
+          "defenderTricks" : 0,
+          "events" : [
+            {
+              "card" : "DQ",
+              "seat" : "west",
+              "sequence" : 0
+            },
+            {
+              "card" : "D6",
+              "seat" : "north",
+              "sequence" : 1
+            },
+            {
+              "card" : "D4",
+              "seat" : "east",
+              "sequence" : 2
+            },
+            {
+              "card" : "DA",
+              "seat" : "south",
+              "sequence" : 3
+            }
+          ],
+          "hands" : [
+            {
+              "cards" : [
+                "SA",
+                "S9",
+                "S4",
+                "HA",
+                "H6",
+                "H3",
+                "DK",
+                "CA",
+                "CK",
+                "C8",
+                "C6",
+                "C4"
+              ],
+              "seat" : "south"
+            },
+            {
+              "cards" : [
+                "S8",
+                "S6",
+                "S2",
+                "HK",
+                "H7",
+                "H4",
+                "D8",
+                "D5",
+                "D3",
+                "CQ",
+                "C7",
+                "C2"
+              ],
+              "seat" : "north"
+            }
+          ],
+          "objective" : "Normal IMP strategy, weighing contract risk and overtricks.",
+          "revision" : 4,
+          "scoring" : "IMP",
+          "vulnerability" : "neither"
+        },
+        "wireContractVersion" : "stage1-plan-publicReason-selectedCard-v2"
+      },
+      "execution" : {
+        "event" : {
+          "card" : "C4",
+          "seat" : "south",
+          "sequence" : 4
+        },
+        "source" : "model"
+      }
+    },
+    {
+      "actualEvents" : [
+        {
+          "card" : "DQ",
+          "seat" : "west",
+          "sequence" : 0
+        },
+        {
+          "card" : "D6",
+          "seat" : "north",
+          "sequence" : 1
+        },
+        {
+          "card" : "D4",
+          "seat" : "east",
+          "sequence" : 2
+        },
+        {
+          "card" : "DA",
+          "seat" : "south",
+          "sequence" : 3
+        },
+        {
+          "card" : "C4",
+          "seat" : "south",
+          "sequence" : 4
+        },
+        {
+          "card" : "C9",
+          "seat" : "west",
+          "sequence" : 5
+        }
+      ],
+      "execution" : {
+        "event" : {
+          "card" : "C9",
+          "seat" : "west",
+          "sequence" : 5
+        },
+        "source" : "opponent"
+      }
+    },
+    {
+      "actualEvents" : [
+        {
+          "card" : "DQ",
+          "seat" : "west",
+          "sequence" : 0
+        },
+        {
+          "card" : "D6",
+          "seat" : "north",
+          "sequence" : 1
+        },
+        {
+          "card" : "D4",
+          "seat" : "east",
+          "sequence" : 2
+        },
+        {
+          "card" : "DA",
+          "seat" : "south",
+          "sequence" : 3
+        },
+        {
+          "card" : "C4",
+          "seat" : "south",
+          "sequence" : 4
+        },
+        {
+          "card" : "C9",
+          "seat" : "west",
+          "sequence" : 5
+        },
+        {
+          "card" : "CQ",
+          "seat" : "north",
+          "sequence" : 6
+        }
+      ],
+      "decision" : {
+        "action" : {
+          "actingSeat" : "north",
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "card" : "CQ",
+          "controller" : "south",
+          "revision" : 6,
+          "snapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:6:south"
+        },
+        "advice" : {
+          "plan" : {
+            "update" : "keep"
+          },
+          "publicReason" : "Dummy can cover West’s C9 with the queen, forcing a higher club if East has one and retaining dummy’s small clubs if the queen holds.",
+          "selectedCard" : "CQ"
+        },
+        "effectivePlan" : "Win the diamond lead in dummy with the ace, then use the club suit as the main source of tricks. Preserve dummy’s heart king and spade stoppers; develop clubs while watching entries and avoid committing to overtricks before the contract is secure.",
+        "elapsedSeconds" : 3.7577741146087646,
+        "identity" : {
+          "observedModel" : "gpt-6-luna",
+          "requestedEffort" : "medium",
+          "requestedModel" : "gpt-6-luna",
+          "runtimeVersion" : "codex-cli 0.160.0",
+          "threadID" : "01a14e01-54a5-7d21-9786-3b5a13dc2281",
+          "turnID" : "01a14e01-8c13-7451-970d-925285e719f4"
+        },
+        "input" : "Decision snapshot: 3931F592-82D3-445B-9C94-5535B5CFE89D:6:south. Controller: South. Acting hand: North.\nPrevious suggestion actually executed: yes.\nNew actual plays in order:\n4: South C4 (model).\n5: West C9 (opponent).\nCurrent trick: South C4; West C9.\nTricks won: declarer 1, defenders 0.",
+        "instructions" : "Play declarer and dummy using the supplied decision-time information. Write in English and pursue the stated objective. selectedCard is the single card from the acting hand to play now; publicReason briefly explains it. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide an initial concrete plan before dummy's first play. Unknown cards remain unknown.",
+        "planAssociation" : {
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "controller" : "south",
+          "sourceSessionID" : "36FE6915-8A53-437C-BEB6-D888CE4EB0CC",
+          "sourceSnapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:1:south",
+          "text" : "Win the diamond lead in dummy with the ace, then use the club suit as the main source of tricks. Preserve dummy’s heart king and spade stoppers; develop clubs while watching entries and avoid committing to overtricks before the contract is secure."
+        },
+        "rawOutput" : "{\"plan\":{\"text\":null,\"update\":\"keep\"},\"publicReason\":\"Dummy can cover West’s C9 with the queen, forcing a higher club if East has one and retaining dummy’s small clubs if the queen holds.\",\"selectedCard\":\"CQ\"}",
+        "session" : {
+          "id" : "CCC56E75-34AC-45FB-BDD2-A8E8D0EDE04D",
+          "snapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:6:south"
+        },
+        "snapshot" : {
+          "actingSeat" : "north",
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "contract" : {
+            "declarer" : "south",
+            "level" : 3,
+            "strain" : "noTrump"
+          },
+          "controller" : "south",
+          "currentTrick" : [
+            {
+              "card" : "C4",
+              "seat" : "south",
+              "sequence" : 4
+            },
+            {
+              "card" : "C9",
+              "seat" : "west",
+              "sequence" : 5
+            }
+          ],
+          "declarerTricks" : 1,
+          "defenderTricks" : 0,
+          "events" : [
+            {
+              "card" : "DQ",
+              "seat" : "west",
+              "sequence" : 0
+            },
+            {
+              "card" : "D6",
+              "seat" : "north",
+              "sequence" : 1
+            },
+            {
+              "card" : "D4",
+              "seat" : "east",
+              "sequence" : 2
+            },
+            {
+              "card" : "DA",
+              "seat" : "south",
+              "sequence" : 3
+            },
+            {
+              "card" : "C4",
+              "seat" : "south",
+              "sequence" : 4
+            },
+            {
+              "card" : "C9",
+              "seat" : "west",
+              "sequence" : 5
+            }
+          ],
+          "hands" : [
+            {
+              "cards" : [
+                "SA",
+                "S9",
+                "S4",
+                "HA",
+                "H6",
+                "H3",
+                "DK",
+                "CA",
+                "CK",
+                "C8",
+                "C6"
+              ],
+              "seat" : "south"
+            },
+            {
+              "cards" : [
+                "S8",
+                "S6",
+                "S2",
+                "HK",
+                "H7",
+                "H4",
+                "D8",
+                "D5",
+                "D3",
+                "CQ",
+                "C7",
+                "C2"
+              ],
+              "seat" : "north"
+            }
+          ],
+          "objective" : "Normal IMP strategy, weighing contract risk and overtricks.",
+          "revision" : 6,
+          "scoring" : "IMP",
+          "vulnerability" : "neither"
+        },
+        "wireContractVersion" : "stage1-plan-publicReason-selectedCard-v2"
+      },
+      "execution" : {
+        "event" : {
+          "card" : "CQ",
+          "seat" : "north",
+          "sequence" : 6
+        },
+        "source" : "model"
+      }
+    },
+    {
+      "actualEvents" : [
+        {
+          "card" : "DQ",
+          "seat" : "west",
+          "sequence" : 0
+        },
+        {
+          "card" : "D6",
+          "seat" : "north",
+          "sequence" : 1
+        },
+        {
+          "card" : "D4",
+          "seat" : "east",
+          "sequence" : 2
+        },
+        {
+          "card" : "DA",
+          "seat" : "south",
+          "sequence" : 3
+        },
+        {
+          "card" : "C4",
+          "seat" : "south",
+          "sequence" : 4
+        },
+        {
+          "card" : "C9",
+          "seat" : "west",
+          "sequence" : 5
+        },
+        {
+          "card" : "CQ",
+          "seat" : "north",
+          "sequence" : 6
+        },
+        {
+          "card" : "C5",
+          "seat" : "east",
+          "sequence" : 7
+        }
+      ],
+      "execution" : {
+        "event" : {
+          "card" : "C5",
+          "seat" : "east",
+          "sequence" : 7
+        },
+        "source" : "opponent"
+      }
+    },
+    {
+      "actualEvents" : [
+        {
+          "card" : "DQ",
+          "seat" : "west",
+          "sequence" : 0
+        },
+        {
+          "card" : "D6",
+          "seat" : "north",
+          "sequence" : 1
+        },
+        {
+          "card" : "D4",
+          "seat" : "east",
+          "sequence" : 2
+        },
+        {
+          "card" : "DA",
+          "seat" : "south",
+          "sequence" : 3
+        },
+        {
+          "card" : "C4",
+          "seat" : "south",
+          "sequence" : 4
+        },
+        {
+          "card" : "C9",
+          "seat" : "west",
+          "sequence" : 5
+        },
+        {
+          "card" : "CQ",
+          "seat" : "north",
+          "sequence" : 6
+        },
+        {
+          "card" : "C5",
+          "seat" : "east",
+          "sequence" : 7
+        },
+        {
+          "card" : "C7",
+          "seat" : "north",
+          "sequence" : 8
+        }
+      ],
+      "decision" : {
+        "action" : {
+          "actingSeat" : "north",
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "card" : "C7",
+          "controller" : "south",
+          "revision" : 8,
+          "snapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:8:south"
+        },
+        "advice" : {
+          "plan" : {
+            "update" : "keep"
+          },
+          "publicReason" : "The queen held. Cash dummy’s remaining club to test the suit and continue establishing South’s clubs while dummy still has an entry.",
+          "selectedCard" : "C7"
+        },
+        "effectivePlan" : "Win the diamond lead in dummy with the ace, then use the club suit as the main source of tricks. Preserve dummy’s heart king and spade stoppers; develop clubs while watching entries and avoid committing to overtricks before the contract is secure.",
+        "elapsedSeconds" : 3.6774810552597046,
+        "identity" : {
+          "observedModel" : "gpt-6-luna",
+          "requestedEffort" : "medium",
+          "requestedModel" : "gpt-6-luna",
+          "runtimeVersion" : "codex-cli 0.160.0",
+          "threadID" : "01a14e01-54a5-7d21-9786-3b5a13dc2281",
+          "turnID" : "01a14e01-9ac8-78a0-858a-34086f94cf23"
+        },
+        "input" : "Decision snapshot: 3931F592-82D3-445B-9C94-5535B5CFE89D:8:south. Controller: South. Acting hand: North.\nPrevious suggestion actually executed: yes.\nNew actual plays in order:\n6: North CQ (model).\n7: East C5 (opponent).\nCurrent trick: .\nTricks won: declarer 2, defenders 0.",
+        "instructions" : "Play declarer and dummy using the supplied decision-time information. Write in English and pursue the stated objective. selectedCard is the single card from the acting hand to play now; publicReason briefly explains it. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide an initial concrete plan before dummy's first play. Unknown cards remain unknown.",
+        "planAssociation" : {
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "controller" : "south",
+          "sourceSessionID" : "36FE6915-8A53-437C-BEB6-D888CE4EB0CC",
+          "sourceSnapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:1:south",
+          "text" : "Win the diamond lead in dummy with the ace, then use the club suit as the main source of tricks. Preserve dummy’s heart king and spade stoppers; develop clubs while watching entries and avoid committing to overtricks before the contract is secure."
+        },
+        "rawOutput" : "{\"plan\":{\"text\":null,\"update\":\"keep\"},\"publicReason\":\"The queen held. Cash dummy’s remaining club to test the suit and continue establishing South’s clubs while dummy still has an entry.\",\"selectedCard\":\"C7\"}",
+        "session" : {
+          "id" : "060F9B69-4577-457D-BEFE-AA74C336B3E2",
+          "snapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:8:south"
+        },
+        "snapshot" : {
+          "actingSeat" : "north",
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "contract" : {
+            "declarer" : "south",
+            "level" : 3,
+            "strain" : "noTrump"
+          },
+          "controller" : "south",
+          "currentTrick" : [
+
+          ],
+          "declarerTricks" : 2,
+          "defenderTricks" : 0,
+          "events" : [
+            {
+              "card" : "DQ",
+              "seat" : "west",
+              "sequence" : 0
+            },
+            {
+              "card" : "D6",
+              "seat" : "north",
+              "sequence" : 1
+            },
+            {
+              "card" : "D4",
+              "seat" : "east",
+              "sequence" : 2
+            },
+            {
+              "card" : "DA",
+              "seat" : "south",
+              "sequence" : 3
+            },
+            {
+              "card" : "C4",
+              "seat" : "south",
+              "sequence" : 4
+            },
+            {
+              "card" : "C9",
+              "seat" : "west",
+              "sequence" : 5
+            },
+            {
+              "card" : "CQ",
+              "seat" : "north",
+              "sequence" : 6
+            },
+            {
+              "card" : "C5",
+              "seat" : "east",
+              "sequence" : 7
+            }
+          ],
+          "hands" : [
+            {
+              "cards" : [
+                "SA",
+                "S9",
+                "S4",
+                "HA",
+                "H6",
+                "H3",
+                "DK",
+                "CA",
+                "CK",
+                "C8",
+                "C6"
+              ],
+              "seat" : "south"
+            },
+            {
+              "cards" : [
+                "S8",
+                "S6",
+                "S2",
+                "HK",
+                "H7",
+                "H4",
+                "D8",
+                "D5",
+                "D3",
+                "C7",
+                "C2"
+              ],
+              "seat" : "north"
+            }
+          ],
+          "objective" : "Normal IMP strategy, weighing contract risk and overtricks.",
+          "revision" : 8,
+          "scoring" : "IMP",
+          "vulnerability" : "neither"
+        },
+        "wireContractVersion" : "stage1-plan-publicReason-selectedCard-v2"
+      },
+      "execution" : {
+        "event" : {
+          "card" : "C7",
+          "seat" : "north",
+          "sequence" : 8
+        },
+        "source" : "model"
+      }
+    },
+    {
+      "actualEvents" : [
+        {
+          "card" : "DQ",
+          "seat" : "west",
+          "sequence" : 0
+        },
+        {
+          "card" : "D6",
+          "seat" : "north",
+          "sequence" : 1
+        },
+        {
+          "card" : "D4",
+          "seat" : "east",
+          "sequence" : 2
+        },
+        {
+          "card" : "DA",
+          "seat" : "south",
+          "sequence" : 3
+        },
+        {
+          "card" : "C4",
+          "seat" : "south",
+          "sequence" : 4
+        },
+        {
+          "card" : "C9",
+          "seat" : "west",
+          "sequence" : 5
+        },
+        {
+          "card" : "CQ",
+          "seat" : "north",
+          "sequence" : 6
+        },
+        {
+          "card" : "C5",
+          "seat" : "east",
+          "sequence" : 7
+        },
+        {
+          "card" : "C7",
+          "seat" : "north",
+          "sequence" : 8
+        },
+        {
+          "card" : "CT",
+          "seat" : "east",
+          "sequence" : 9
+        }
+      ],
+      "execution" : {
+        "event" : {
+          "card" : "CT",
+          "seat" : "east",
+          "sequence" : 9
+        },
+        "source" : "opponent"
+      }
+    },
+    {
+      "actualEvents" : [
+        {
+          "card" : "DQ",
+          "seat" : "west",
+          "sequence" : 0
+        },
+        {
+          "card" : "D6",
+          "seat" : "north",
+          "sequence" : 1
+        },
+        {
+          "card" : "D4",
+          "seat" : "east",
+          "sequence" : 2
+        },
+        {
+          "card" : "DA",
+          "seat" : "south",
+          "sequence" : 3
+        },
+        {
+          "card" : "C4",
+          "seat" : "south",
+          "sequence" : 4
+        },
+        {
+          "card" : "C9",
+          "seat" : "west",
+          "sequence" : 5
+        },
+        {
+          "card" : "CQ",
+          "seat" : "north",
+          "sequence" : 6
+        },
+        {
+          "card" : "C5",
+          "seat" : "east",
+          "sequence" : 7
+        },
+        {
+          "card" : "C7",
+          "seat" : "north",
+          "sequence" : 8
+        },
+        {
+          "card" : "CT",
+          "seat" : "east",
+          "sequence" : 9
+        },
+        {
+          "card" : "C6",
+          "seat" : "south",
+          "sequence" : 10
+        }
+      ],
+      "decision" : {
+        "action" : {
+          "actingSeat" : "south",
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "card" : "C6",
+          "controller" : "south",
+          "revision" : 10,
+          "snapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:10:south"
+        },
+        "advice" : {
+          "plan" : {
+            "update" : "keep"
+          },
+          "publicReason" : "East’s ten is winning this trick; discard the low club rather than waste an honor, preserving South’s remaining club controls.",
+          "selectedCard" : "C6"
+        },
+        "effectivePlan" : "Win the diamond lead in dummy with the ace, then use the club suit as the main source of tricks. Preserve dummy’s heart king and spade stoppers; develop clubs while watching entries and avoid committing to overtricks before the contract is secure.",
+        "elapsedSeconds" : 3.7852710485458374,
+        "identity" : {
+          "observedModel" : "gpt-6-luna",
+          "requestedEffort" : "medium",
+          "requestedModel" : "gpt-6-luna",
+          "runtimeVersion" : "codex-cli 0.160.0",
+          "threadID" : "01a14e01-54a5-7d21-9786-3b5a13dc2281",
+          "turnID" : "01a14e01-a92a-72e2-aa19-405fa8296268"
+        },
+        "input" : "Decision snapshot: 3931F592-82D3-445B-9C94-5535B5CFE89D:10:south. Controller: South. Acting hand: South.\nPrevious suggestion actually executed: yes.\nNew actual plays in order:\n8: North C7 (model).\n9: East CT (opponent).\nCurrent trick: North C7; East CT.\nTricks won: declarer 2, defenders 0.",
+        "instructions" : "Play declarer and dummy using the supplied decision-time information. Write in English and pursue the stated objective. selectedCard is the single card from the acting hand to play now; publicReason briefly explains it. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide an initial concrete plan before dummy's first play. Unknown cards remain unknown.",
+        "planAssociation" : {
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "controller" : "south",
+          "sourceSessionID" : "36FE6915-8A53-437C-BEB6-D888CE4EB0CC",
+          "sourceSnapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:1:south",
+          "text" : "Win the diamond lead in dummy with the ace, then use the club suit as the main source of tricks. Preserve dummy’s heart king and spade stoppers; develop clubs while watching entries and avoid committing to overtricks before the contract is secure."
+        },
+        "rawOutput" : "{\"plan\":{\"text\":null,\"update\":\"keep\"},\"publicReason\":\"East’s ten is winning this trick; discard the low club rather than waste an honor, preserving South’s remaining club controls.\",\"selectedCard\":\"C6\"}",
+        "session" : {
+          "id" : "CCF6DE2B-0D57-4F89-9C4C-CE57A06617CA",
+          "snapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:10:south"
+        },
+        "snapshot" : {
+          "actingSeat" : "south",
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "contract" : {
+            "declarer" : "south",
+            "level" : 3,
+            "strain" : "noTrump"
+          },
+          "controller" : "south",
+          "currentTrick" : [
+            {
+              "card" : "C7",
+              "seat" : "north",
+              "sequence" : 8
+            },
+            {
+              "card" : "CT",
+              "seat" : "east",
+              "sequence" : 9
+            }
+          ],
+          "declarerTricks" : 2,
+          "defenderTricks" : 0,
+          "events" : [
+            {
+              "card" : "DQ",
+              "seat" : "west",
+              "sequence" : 0
+            },
+            {
+              "card" : "D6",
+              "seat" : "north",
+              "sequence" : 1
+            },
+            {
+              "card" : "D4",
+              "seat" : "east",
+              "sequence" : 2
+            },
+            {
+              "card" : "DA",
+              "seat" : "south",
+              "sequence" : 3
+            },
+            {
+              "card" : "C4",
+              "seat" : "south",
+              "sequence" : 4
+            },
+            {
+              "card" : "C9",
+              "seat" : "west",
+              "sequence" : 5
+            },
+            {
+              "card" : "CQ",
+              "seat" : "north",
+              "sequence" : 6
+            },
+            {
+              "card" : "C5",
+              "seat" : "east",
+              "sequence" : 7
+            },
+            {
+              "card" : "C7",
+              "seat" : "north",
+              "sequence" : 8
+            },
+            {
+              "card" : "CT",
+              "seat" : "east",
+              "sequence" : 9
+            }
+          ],
+          "hands" : [
+            {
+              "cards" : [
+                "SA",
+                "S9",
+                "S4",
+                "HA",
+                "H6",
+                "H3",
+                "DK",
+                "CA",
+                "CK",
+                "C8",
+                "C6"
+              ],
+              "seat" : "south"
+            },
+            {
+              "cards" : [
+                "S8",
+                "S6",
+                "S2",
+                "HK",
+                "H7",
+                "H4",
+                "D8",
+                "D5",
+                "D3",
+                "C2"
+              ],
+              "seat" : "north"
+            }
+          ],
+          "objective" : "Normal IMP strategy, weighing contract risk and overtricks.",
+          "revision" : 10,
+          "scoring" : "IMP",
+          "vulnerability" : "neither"
+        },
+        "wireContractVersion" : "stage1-plan-publicReason-selectedCard-v2"
+      },
+      "execution" : {
+        "event" : {
+          "card" : "C6",
+          "seat" : "south",
+          "sequence" : 10
+        },
+        "source" : "model"
+      }
+    },
+    {
+      "actualEvents" : [
+        {
+          "card" : "DQ",
+          "seat" : "west",
+          "sequence" : 0
+        },
+        {
+          "card" : "D6",
+          "seat" : "north",
+          "sequence" : 1
+        },
+        {
+          "card" : "D4",
+          "seat" : "east",
+          "sequence" : 2
+        },
+        {
+          "card" : "DA",
+          "seat" : "south",
+          "sequence" : 3
+        },
+        {
+          "card" : "C4",
+          "seat" : "south",
+          "sequence" : 4
+        },
+        {
+          "card" : "C9",
+          "seat" : "west",
+          "sequence" : 5
+        },
+        {
+          "card" : "CQ",
+          "seat" : "north",
+          "sequence" : 6
+        },
+        {
+          "card" : "C5",
+          "seat" : "east",
+          "sequence" : 7
+        },
+        {
+          "card" : "C7",
+          "seat" : "north",
+          "sequence" : 8
+        },
+        {
+          "card" : "CT",
+          "seat" : "east",
+          "sequence" : 9
+        },
+        {
+          "card" : "C6",
+          "seat" : "south",
+          "sequence" : 10
+        },
+        {
+          "card" : "C3",
+          "seat" : "west",
+          "sequence" : 11
+        }
+      ],
+      "execution" : {
+        "event" : {
+          "card" : "C3",
+          "seat" : "west",
+          "sequence" : 11
+        },
+        "source" : "opponent"
+      }
+    },
+    {
+      "actualEvents" : [
+        {
+          "card" : "DQ",
+          "seat" : "west",
+          "sequence" : 0
+        },
+        {
+          "card" : "D6",
+          "seat" : "north",
+          "sequence" : 1
+        },
+        {
+          "card" : "D4",
+          "seat" : "east",
+          "sequence" : 2
+        },
+        {
+          "card" : "DA",
+          "seat" : "south",
+          "sequence" : 3
+        },
+        {
+          "card" : "C4",
+          "seat" : "south",
+          "sequence" : 4
+        },
+        {
+          "card" : "C9",
+          "seat" : "west",
+          "sequence" : 5
+        },
+        {
+          "card" : "CQ",
+          "seat" : "north",
+          "sequence" : 6
+        },
+        {
+          "card" : "C5",
+          "seat" : "east",
+          "sequence" : 7
+        },
+        {
+          "card" : "C7",
+          "seat" : "north",
+          "sequence" : 8
+        },
+        {
+          "card" : "CT",
+          "seat" : "east",
+          "sequence" : 9
+        },
+        {
+          "card" : "C6",
+          "seat" : "south",
+          "sequence" : 10
+        },
+        {
+          "card" : "C3",
+          "seat" : "west",
+          "sequence" : 11
+        },
+        {
+          "card" : "D9",
+          "seat" : "east",
+          "sequence" : 12
+        }
+      ],
+      "execution" : {
+        "event" : {
+          "card" : "D9",
+          "seat" : "east",
+          "sequence" : 12
+        },
+        "source" : "opponent"
+      }
+    },
+    {
+      "actualEvents" : [
+        {
+          "card" : "DQ",
+          "seat" : "west",
+          "sequence" : 0
+        },
+        {
+          "card" : "D6",
+          "seat" : "north",
+          "sequence" : 1
+        },
+        {
+          "card" : "D4",
+          "seat" : "east",
+          "sequence" : 2
+        },
+        {
+          "card" : "DA",
+          "seat" : "south",
+          "sequence" : 3
+        },
+        {
+          "card" : "C4",
+          "seat" : "south",
+          "sequence" : 4
+        },
+        {
+          "card" : "C9",
+          "seat" : "west",
+          "sequence" : 5
+        },
+        {
+          "card" : "CQ",
+          "seat" : "north",
+          "sequence" : 6
+        },
+        {
+          "card" : "C5",
+          "seat" : "east",
+          "sequence" : 7
+        },
+        {
+          "card" : "C7",
+          "seat" : "north",
+          "sequence" : 8
+        },
+        {
+          "card" : "CT",
+          "seat" : "east",
+          "sequence" : 9
+        },
+        {
+          "card" : "C6",
+          "seat" : "south",
+          "sequence" : 10
+        },
+        {
+          "card" : "C3",
+          "seat" : "west",
+          "sequence" : 11
+        },
+        {
+          "card" : "D9",
+          "seat" : "east",
+          "sequence" : 12
+        },
+        {
+          "card" : "DK",
+          "seat" : "south",
+          "sequence" : 13
+        }
+      ],
+      "decision" : {
+        "action" : {
+          "actingSeat" : "south",
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "card" : "DK",
+          "controller" : "south",
+          "revision" : 13,
+          "snapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:13:south"
+        },
+        "advice" : {
+          "plan" : {
+            "update" : "keep"
+          },
+          "publicReason" : "East has led the D9; win with the king, preserving the spade ace and heart ace as stoppers.",
+          "selectedCard" : "DK"
+        },
+        "effectivePlan" : "Win the diamond lead in dummy with the ace, then use the club suit as the main source of tricks. Preserve dummy’s heart king and spade stoppers; develop clubs while watching entries and avoid committing to overtricks before the contract is secure.",
+        "elapsedSeconds" : 3.7184020280838013,
+        "identity" : {
+          "observedModel" : "gpt-6-luna",
+          "requestedEffort" : "medium",
+          "requestedModel" : "gpt-6-luna",
+          "runtimeVersion" : "codex-cli 0.160.0",
+          "threadID" : "01a14e01-54a5-7d21-9786-3b5a13dc2281",
+          "turnID" : "01a14e01-b7f7-7e62-bd36-e0579027da57"
+        },
+        "input" : "Decision snapshot: 3931F592-82D3-445B-9C94-5535B5CFE89D:13:south. Controller: South. Acting hand: South.\nPrevious suggestion actually executed: yes.\nNew actual plays in order:\n10: South C6 (model).\n11: West C3 (opponent).\n12: East D9 (opponent).\nCurrent trick: East D9.\nTricks won: declarer 2, defenders 1.",
+        "instructions" : "Play declarer and dummy using the supplied decision-time information. Write in English and pursue the stated objective. selectedCard is the single card from the acting hand to play now; publicReason briefly explains it. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide an initial concrete plan before dummy's first play. Unknown cards remain unknown.",
+        "planAssociation" : {
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "controller" : "south",
+          "sourceSessionID" : "36FE6915-8A53-437C-BEB6-D888CE4EB0CC",
+          "sourceSnapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:1:south",
+          "text" : "Win the diamond lead in dummy with the ace, then use the club suit as the main source of tricks. Preserve dummy’s heart king and spade stoppers; develop clubs while watching entries and avoid committing to overtricks before the contract is secure."
+        },
+        "rawOutput" : "{\"plan\":{\"text\":null,\"update\":\"keep\"},\"publicReason\":\"East has led the D9; win with the king, preserving the spade ace and heart ace as stoppers.\",\"selectedCard\":\"DK\"}",
+        "session" : {
+          "id" : "26CB9CAA-CF8F-4A9C-B93B-8883D14A9449",
+          "snapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:13:south"
+        },
+        "snapshot" : {
+          "actingSeat" : "south",
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "contract" : {
+            "declarer" : "south",
+            "level" : 3,
+            "strain" : "noTrump"
+          },
+          "controller" : "south",
+          "currentTrick" : [
+            {
+              "card" : "D9",
+              "seat" : "east",
+              "sequence" : 12
+            }
+          ],
+          "declarerTricks" : 2,
+          "defenderTricks" : 1,
+          "events" : [
+            {
+              "card" : "DQ",
+              "seat" : "west",
+              "sequence" : 0
+            },
+            {
+              "card" : "D6",
+              "seat" : "north",
+              "sequence" : 1
+            },
+            {
+              "card" : "D4",
+              "seat" : "east",
+              "sequence" : 2
+            },
+            {
+              "card" : "DA",
+              "seat" : "south",
+              "sequence" : 3
+            },
+            {
+              "card" : "C4",
+              "seat" : "south",
+              "sequence" : 4
+            },
+            {
+              "card" : "C9",
+              "seat" : "west",
+              "sequence" : 5
+            },
+            {
+              "card" : "CQ",
+              "seat" : "north",
+              "sequence" : 6
+            },
+            {
+              "card" : "C5",
+              "seat" : "east",
+              "sequence" : 7
+            },
+            {
+              "card" : "C7",
+              "seat" : "north",
+              "sequence" : 8
+            },
+            {
+              "card" : "CT",
+              "seat" : "east",
+              "sequence" : 9
+            },
+            {
+              "card" : "C6",
+              "seat" : "south",
+              "sequence" : 10
+            },
+            {
+              "card" : "C3",
+              "seat" : "west",
+              "sequence" : 11
+            },
+            {
+              "card" : "D9",
+              "seat" : "east",
+              "sequence" : 12
+            }
+          ],
+          "hands" : [
+            {
+              "cards" : [
+                "SA",
+                "S9",
+                "S4",
+                "HA",
+                "H6",
+                "H3",
+                "DK",
+                "CA",
+                "CK",
+                "C8"
+              ],
+              "seat" : "south"
+            },
+            {
+              "cards" : [
+                "S8",
+                "S6",
+                "S2",
+                "HK",
+                "H7",
+                "H4",
+                "D8",
+                "D5",
+                "D3",
+                "C2"
+              ],
+              "seat" : "north"
+            }
+          ],
+          "objective" : "Normal IMP strategy, weighing contract risk and overtricks.",
+          "revision" : 13,
+          "scoring" : "IMP",
+          "vulnerability" : "neither"
+        },
+        "wireContractVersion" : "stage1-plan-publicReason-selectedCard-v2"
+      },
+      "execution" : {
+        "event" : {
+          "card" : "DK",
+          "seat" : "south",
+          "sequence" : 13
+        },
+        "source" : "model"
+      }
+    },
+    {
+      "actualEvents" : [
+        {
+          "card" : "DQ",
+          "seat" : "west",
+          "sequence" : 0
+        },
+        {
+          "card" : "D6",
+          "seat" : "north",
+          "sequence" : 1
+        },
+        {
+          "card" : "D4",
+          "seat" : "east",
+          "sequence" : 2
+        },
+        {
+          "card" : "DA",
+          "seat" : "south",
+          "sequence" : 3
+        },
+        {
+          "card" : "C4",
+          "seat" : "south",
+          "sequence" : 4
+        },
+        {
+          "card" : "C9",
+          "seat" : "west",
+          "sequence" : 5
+        },
+        {
+          "card" : "CQ",
+          "seat" : "north",
+          "sequence" : 6
+        },
+        {
+          "card" : "C5",
+          "seat" : "east",
+          "sequence" : 7
+        },
+        {
+          "card" : "C7",
+          "seat" : "north",
+          "sequence" : 8
+        },
+        {
+          "card" : "CT",
+          "seat" : "east",
+          "sequence" : 9
+        },
+        {
+          "card" : "C6",
+          "seat" : "south",
+          "sequence" : 10
+        },
+        {
+          "card" : "C3",
+          "seat" : "west",
+          "sequence" : 11
+        },
+        {
+          "card" : "D9",
+          "seat" : "east",
+          "sequence" : 12
+        },
+        {
+          "card" : "DK",
+          "seat" : "south",
+          "sequence" : 13
+        },
+        {
+          "card" : "D2",
+          "seat" : "west",
+          "sequence" : 14
+        }
+      ],
+      "execution" : {
+        "event" : {
+          "card" : "D2",
+          "seat" : "west",
+          "sequence" : 14
+        },
+        "source" : "opponent"
+      }
+    },
+    {
+      "actualEvents" : [
+        {
+          "card" : "DQ",
+          "seat" : "west",
+          "sequence" : 0
+        },
+        {
+          "card" : "D6",
+          "seat" : "north",
+          "sequence" : 1
+        },
+        {
+          "card" : "D4",
+          "seat" : "east",
+          "sequence" : 2
+        },
+        {
+          "card" : "DA",
+          "seat" : "south",
+          "sequence" : 3
+        },
+        {
+          "card" : "C4",
+          "seat" : "south",
+          "sequence" : 4
+        },
+        {
+          "card" : "C9",
+          "seat" : "west",
+          "sequence" : 5
+        },
+        {
+          "card" : "CQ",
+          "seat" : "north",
+          "sequence" : 6
+        },
+        {
+          "card" : "C5",
+          "seat" : "east",
+          "sequence" : 7
+        },
+        {
+          "card" : "C7",
+          "seat" : "north",
+          "sequence" : 8
+        },
+        {
+          "card" : "CT",
+          "seat" : "east",
+          "sequence" : 9
+        },
+        {
+          "card" : "C6",
+          "seat" : "south",
+          "sequence" : 10
+        },
+        {
+          "card" : "C3",
+          "seat" : "west",
+          "sequence" : 11
+        },
+        {
+          "card" : "D9",
+          "seat" : "east",
+          "sequence" : 12
+        },
+        {
+          "card" : "DK",
+          "seat" : "south",
+          "sequence" : 13
+        },
+        {
+          "card" : "D2",
+          "seat" : "west",
+          "sequence" : 14
+        },
+        {
+          "card" : "D3",
+          "seat" : "north",
+          "sequence" : 15
+        }
+      ],
+      "decision" : {
+        "action" : {
+          "actingSeat" : "north",
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "card" : "D3",
+          "controller" : "south",
+          "revision" : 15,
+          "snapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:15:south"
+        },
+        "advice" : {
+          "plan" : {
+            "update" : "keep"
+          },
+          "publicReason" : "Dummy has only small diamonds, so follow with the lowest one and preserve the 8 and 5 for later discards or entries.",
+          "selectedCard" : "D3"
+        },
+        "effectivePlan" : "Win the diamond lead in dummy with the ace, then use the club suit as the main source of tricks. Preserve dummy’s heart king and spade stoppers; develop clubs while watching entries and avoid committing to overtricks before the contract is secure.",
+        "elapsedSeconds" : 3.6050100326538086,
+        "identity" : {
+          "observedModel" : "gpt-6-luna",
+          "requestedEffort" : "medium",
+          "requestedModel" : "gpt-6-luna",
+          "runtimeVersion" : "codex-cli 0.160.0",
+          "threadID" : "01a14e01-54a5-7d21-9786-3b5a13dc2281",
+          "turnID" : "01a14e01-c686-76e0-9a0c-87b1f65cdef7"
+        },
+        "input" : "Decision snapshot: 3931F592-82D3-445B-9C94-5535B5CFE89D:15:south. Controller: South. Acting hand: North.\nPrevious suggestion actually executed: yes.\nNew actual plays in order:\n13: South DK (model).\n14: West D2 (opponent).\nCurrent trick: East D9; South DK; West D2.\nTricks won: declarer 2, defenders 1.",
+        "instructions" : "Play declarer and dummy using the supplied decision-time information. Write in English and pursue the stated objective. selectedCard is the single card from the acting hand to play now; publicReason briefly explains it. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide an initial concrete plan before dummy's first play. Unknown cards remain unknown.",
+        "planAssociation" : {
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "controller" : "south",
+          "sourceSessionID" : "36FE6915-8A53-437C-BEB6-D888CE4EB0CC",
+          "sourceSnapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:1:south",
+          "text" : "Win the diamond lead in dummy with the ace, then use the club suit as the main source of tricks. Preserve dummy’s heart king and spade stoppers; develop clubs while watching entries and avoid committing to overtricks before the contract is secure."
+        },
+        "rawOutput" : "{\"plan\":{\"text\":null,\"update\":\"keep\"},\"publicReason\":\"Dummy has only small diamonds, so follow with the lowest one and preserve the 8 and 5 for later discards or entries.\",\"selectedCard\":\"D3\"}",
+        "session" : {
+          "id" : "1F7CBD03-9160-4FFD-BF69-2EC4E52E3A66",
+          "snapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:15:south"
+        },
+        "snapshot" : {
+          "actingSeat" : "north",
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "contract" : {
+            "declarer" : "south",
+            "level" : 3,
+            "strain" : "noTrump"
+          },
+          "controller" : "south",
+          "currentTrick" : [
+            {
+              "card" : "D9",
+              "seat" : "east",
+              "sequence" : 12
+            },
+            {
+              "card" : "DK",
+              "seat" : "south",
+              "sequence" : 13
+            },
+            {
+              "card" : "D2",
+              "seat" : "west",
+              "sequence" : 14
+            }
+          ],
+          "declarerTricks" : 2,
+          "defenderTricks" : 1,
+          "events" : [
+            {
+              "card" : "DQ",
+              "seat" : "west",
+              "sequence" : 0
+            },
+            {
+              "card" : "D6",
+              "seat" : "north",
+              "sequence" : 1
+            },
+            {
+              "card" : "D4",
+              "seat" : "east",
+              "sequence" : 2
+            },
+            {
+              "card" : "DA",
+              "seat" : "south",
+              "sequence" : 3
+            },
+            {
+              "card" : "C4",
+              "seat" : "south",
+              "sequence" : 4
+            },
+            {
+              "card" : "C9",
+              "seat" : "west",
+              "sequence" : 5
+            },
+            {
+              "card" : "CQ",
+              "seat" : "north",
+              "sequence" : 6
+            },
+            {
+              "card" : "C5",
+              "seat" : "east",
+              "sequence" : 7
+            },
+            {
+              "card" : "C7",
+              "seat" : "north",
+              "sequence" : 8
+            },
+            {
+              "card" : "CT",
+              "seat" : "east",
+              "sequence" : 9
+            },
+            {
+              "card" : "C6",
+              "seat" : "south",
+              "sequence" : 10
+            },
+            {
+              "card" : "C3",
+              "seat" : "west",
+              "sequence" : 11
+            },
+            {
+              "card" : "D9",
+              "seat" : "east",
+              "sequence" : 12
+            },
+            {
+              "card" : "DK",
+              "seat" : "south",
+              "sequence" : 13
+            },
+            {
+              "card" : "D2",
+              "seat" : "west",
+              "sequence" : 14
+            }
+          ],
+          "hands" : [
+            {
+              "cards" : [
+                "SA",
+                "S9",
+                "S4",
+                "HA",
+                "H6",
+                "H3",
+                "CA",
+                "CK",
+                "C8"
+              ],
+              "seat" : "south"
+            },
+            {
+              "cards" : [
+                "S8",
+                "S6",
+                "S2",
+                "HK",
+                "H7",
+                "H4",
+                "D8",
+                "D5",
+                "D3",
+                "C2"
+              ],
+              "seat" : "north"
+            }
+          ],
+          "objective" : "Normal IMP strategy, weighing contract risk and overtricks.",
+          "revision" : 15,
+          "scoring" : "IMP",
+          "vulnerability" : "neither"
+        },
+        "wireContractVersion" : "stage1-plan-publicReason-selectedCard-v2"
+      },
+      "execution" : {
+        "event" : {
+          "card" : "D3",
+          "seat" : "north",
+          "sequence" : 15
+        },
+        "source" : "model"
+      }
+    },
+    {
+      "actualEvents" : [
+        {
+          "card" : "DQ",
+          "seat" : "west",
+          "sequence" : 0
+        },
+        {
+          "card" : "D6",
+          "seat" : "north",
+          "sequence" : 1
+        },
+        {
+          "card" : "D4",
+          "seat" : "east",
+          "sequence" : 2
+        },
+        {
+          "card" : "DA",
+          "seat" : "south",
+          "sequence" : 3
+        },
+        {
+          "card" : "C4",
+          "seat" : "south",
+          "sequence" : 4
+        },
+        {
+          "card" : "C9",
+          "seat" : "west",
+          "sequence" : 5
+        },
+        {
+          "card" : "CQ",
+          "seat" : "north",
+          "sequence" : 6
+        },
+        {
+          "card" : "C5",
+          "seat" : "east",
+          "sequence" : 7
+        },
+        {
+          "card" : "C7",
+          "seat" : "north",
+          "sequence" : 8
+        },
+        {
+          "card" : "CT",
+          "seat" : "east",
+          "sequence" : 9
+        },
+        {
+          "card" : "C6",
+          "seat" : "south",
+          "sequence" : 10
+        },
+        {
+          "card" : "C3",
+          "seat" : "west",
+          "sequence" : 11
+        },
+        {
+          "card" : "D9",
+          "seat" : "east",
+          "sequence" : 12
+        },
+        {
+          "card" : "DK",
+          "seat" : "south",
+          "sequence" : 13
+        },
+        {
+          "card" : "D2",
+          "seat" : "west",
+          "sequence" : 14
+        },
+        {
+          "card" : "D3",
+          "seat" : "north",
+          "sequence" : 15
+        },
+        {
+          "card" : "CA",
+          "seat" : "south",
+          "sequence" : 16
+        }
+      ],
+      "decision" : {
+        "action" : {
+          "actingSeat" : "south",
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "card" : "CA",
+          "controller" : "south",
+          "revision" : 16,
+          "snapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:16:south"
+        },
+        "advice" : {
+          "plan" : {
+            "update" : "keep"
+          },
+          "publicReason" : "Cash the remaining club honor to establish South’s clubs while dummy’s C2 remains available as a discard later.",
+          "selectedCard" : "CA"
+        },
+        "effectivePlan" : "Win the diamond lead in dummy with the ace, then use the club suit as the main source of tricks. Preserve dummy’s heart king and spade stoppers; develop clubs while watching entries and avoid committing to overtricks before the contract is secure.",
+        "elapsedSeconds" : 3.607741951942444,
+        "identity" : {
+          "observedModel" : "gpt-6-luna",
+          "requestedEffort" : "medium",
+          "requestedModel" : "gpt-6-luna",
+          "runtimeVersion" : "codex-cli 0.160.0",
+          "threadID" : "01a14e01-54a5-7d21-9786-3b5a13dc2281",
+          "turnID" : "01a14e01-d4a1-7323-8df4-7e7a1296b355"
+        },
+        "input" : "Decision snapshot: 3931F592-82D3-445B-9C94-5535B5CFE89D:16:south. Controller: South. Acting hand: South.\nPrevious suggestion actually executed: yes.\nNew actual plays in order:\n15: North D3 (model).\nCurrent trick: .\nTricks won: declarer 3, defenders 1.",
+        "instructions" : "Play declarer and dummy using the supplied decision-time information. Write in English and pursue the stated objective. selectedCard is the single card from the acting hand to play now; publicReason briefly explains it. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide an initial concrete plan before dummy's first play. Unknown cards remain unknown.",
+        "planAssociation" : {
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "controller" : "south",
+          "sourceSessionID" : "36FE6915-8A53-437C-BEB6-D888CE4EB0CC",
+          "sourceSnapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:1:south",
+          "text" : "Win the diamond lead in dummy with the ace, then use the club suit as the main source of tricks. Preserve dummy’s heart king and spade stoppers; develop clubs while watching entries and avoid committing to overtricks before the contract is secure."
+        },
+        "rawOutput" : "{\"plan\":{\"text\":null,\"update\":\"keep\"},\"publicReason\":\"Cash the remaining club honor to establish South’s clubs while dummy’s C2 remains available as a discard later.\",\"selectedCard\":\"CA\"}",
+        "session" : {
+          "id" : "719B081A-E4FA-4C61-ACEF-83BCBFC1BC7A",
+          "snapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:16:south"
+        },
+        "snapshot" : {
+          "actingSeat" : "south",
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "contract" : {
+            "declarer" : "south",
+            "level" : 3,
+            "strain" : "noTrump"
+          },
+          "controller" : "south",
+          "currentTrick" : [
+
+          ],
+          "declarerTricks" : 3,
+          "defenderTricks" : 1,
+          "events" : [
+            {
+              "card" : "DQ",
+              "seat" : "west",
+              "sequence" : 0
+            },
+            {
+              "card" : "D6",
+              "seat" : "north",
+              "sequence" : 1
+            },
+            {
+              "card" : "D4",
+              "seat" : "east",
+              "sequence" : 2
+            },
+            {
+              "card" : "DA",
+              "seat" : "south",
+              "sequence" : 3
+            },
+            {
+              "card" : "C4",
+              "seat" : "south",
+              "sequence" : 4
+            },
+            {
+              "card" : "C9",
+              "seat" : "west",
+              "sequence" : 5
+            },
+            {
+              "card" : "CQ",
+              "seat" : "north",
+              "sequence" : 6
+            },
+            {
+              "card" : "C5",
+              "seat" : "east",
+              "sequence" : 7
+            },
+            {
+              "card" : "C7",
+              "seat" : "north",
+              "sequence" : 8
+            },
+            {
+              "card" : "CT",
+              "seat" : "east",
+              "sequence" : 9
+            },
+            {
+              "card" : "C6",
+              "seat" : "south",
+              "sequence" : 10
+            },
+            {
+              "card" : "C3",
+              "seat" : "west",
+              "sequence" : 11
+            },
+            {
+              "card" : "D9",
+              "seat" : "east",
+              "sequence" : 12
+            },
+            {
+              "card" : "DK",
+              "seat" : "south",
+              "sequence" : 13
+            },
+            {
+              "card" : "D2",
+              "seat" : "west",
+              "sequence" : 14
+            },
+            {
+              "card" : "D3",
+              "seat" : "north",
+              "sequence" : 15
+            }
+          ],
+          "hands" : [
+            {
+              "cards" : [
+                "SA",
+                "S9",
+                "S4",
+                "HA",
+                "H6",
+                "H3",
+                "CA",
+                "CK",
+                "C8"
+              ],
+              "seat" : "south"
+            },
+            {
+              "cards" : [
+                "S8",
+                "S6",
+                "S2",
+                "HK",
+                "H7",
+                "H4",
+                "D8",
+                "D5",
+                "C2"
+              ],
+              "seat" : "north"
+            }
+          ],
+          "objective" : "Normal IMP strategy, weighing contract risk and overtricks.",
+          "revision" : 16,
+          "scoring" : "IMP",
+          "vulnerability" : "neither"
+        },
+        "wireContractVersion" : "stage1-plan-publicReason-selectedCard-v2"
+      },
+      "execution" : {
+        "event" : {
+          "card" : "CA",
+          "seat" : "south",
+          "sequence" : 16
+        },
+        "source" : "model"
+      }
+    },
+    {
+      "actualEvents" : [
+        {
+          "card" : "DQ",
+          "seat" : "west",
+          "sequence" : 0
+        },
+        {
+          "card" : "D6",
+          "seat" : "north",
+          "sequence" : 1
+        },
+        {
+          "card" : "D4",
+          "seat" : "east",
+          "sequence" : 2
+        },
+        {
+          "card" : "DA",
+          "seat" : "south",
+          "sequence" : 3
+        },
+        {
+          "card" : "C4",
+          "seat" : "south",
+          "sequence" : 4
+        },
+        {
+          "card" : "C9",
+          "seat" : "west",
+          "sequence" : 5
+        },
+        {
+          "card" : "CQ",
+          "seat" : "north",
+          "sequence" : 6
+        },
+        {
+          "card" : "C5",
+          "seat" : "east",
+          "sequence" : 7
+        },
+        {
+          "card" : "C7",
+          "seat" : "north",
+          "sequence" : 8
+        },
+        {
+          "card" : "CT",
+          "seat" : "east",
+          "sequence" : 9
+        },
+        {
+          "card" : "C6",
+          "seat" : "south",
+          "sequence" : 10
+        },
+        {
+          "card" : "C3",
+          "seat" : "west",
+          "sequence" : 11
+        },
+        {
+          "card" : "D9",
+          "seat" : "east",
+          "sequence" : 12
+        },
+        {
+          "card" : "DK",
+          "seat" : "south",
+          "sequence" : 13
+        },
+        {
+          "card" : "D2",
+          "seat" : "west",
+          "sequence" : 14
+        },
+        {
+          "card" : "D3",
+          "seat" : "north",
+          "sequence" : 15
+        },
+        {
+          "card" : "CA",
+          "seat" : "south",
+          "sequence" : 16
+        },
+        {
+          "card" : "CJ",
+          "seat" : "west",
+          "sequence" : 17
+        }
+      ],
+      "execution" : {
+        "event" : {
+          "card" : "CJ",
+          "seat" : "west",
+          "sequence" : 17
+        },
+        "source" : "opponent"
+      }
+    },
+    {
+      "actualEvents" : [
+        {
+          "card" : "DQ",
+          "seat" : "west",
+          "sequence" : 0
+        },
+        {
+          "card" : "D6",
+          "seat" : "north",
+          "sequence" : 1
+        },
+        {
+          "card" : "D4",
+          "seat" : "east",
+          "sequence" : 2
+        },
+        {
+          "card" : "DA",
+          "seat" : "south",
+          "sequence" : 3
+        },
+        {
+          "card" : "C4",
+          "seat" : "south",
+          "sequence" : 4
+        },
+        {
+          "card" : "C9",
+          "seat" : "west",
+          "sequence" : 5
+        },
+        {
+          "card" : "CQ",
+          "seat" : "north",
+          "sequence" : 6
+        },
+        {
+          "card" : "C5",
+          "seat" : "east",
+          "sequence" : 7
+        },
+        {
+          "card" : "C7",
+          "seat" : "north",
+          "sequence" : 8
+        },
+        {
+          "card" : "CT",
+          "seat" : "east",
+          "sequence" : 9
+        },
+        {
+          "card" : "C6",
+          "seat" : "south",
+          "sequence" : 10
+        },
+        {
+          "card" : "C3",
+          "seat" : "west",
+          "sequence" : 11
+        },
+        {
+          "card" : "D9",
+          "seat" : "east",
+          "sequence" : 12
+        },
+        {
+          "card" : "DK",
+          "seat" : "south",
+          "sequence" : 13
+        },
+        {
+          "card" : "D2",
+          "seat" : "west",
+          "sequence" : 14
+        },
+        {
+          "card" : "D3",
+          "seat" : "north",
+          "sequence" : 15
+        },
+        {
+          "card" : "CA",
+          "seat" : "south",
+          "sequence" : 16
+        },
+        {
+          "card" : "CJ",
+          "seat" : "west",
+          "sequence" : 17
+        },
+        {
+          "card" : "C2",
+          "seat" : "north",
+          "sequence" : 18
+        }
+      ],
+      "decision" : {
+        "action" : {
+          "actingSeat" : "north",
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "card" : "C2",
+          "controller" : "south",
+          "revision" : 18,
+          "snapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:18:south"
+        },
+        "advice" : {
+          "plan" : {
+            "update" : "keep"
+          },
+          "publicReason" : "Follow low under South’s ace, preserving dummy’s C2 and avoiding an unnecessary club honor.",
+          "selectedCard" : "C2"
+        },
+        "effectivePlan" : "Win the diamond lead in dummy with the ace, then use the club suit as the main source of tricks. Preserve dummy’s heart king and spade stoppers; develop clubs while watching entries and avoid committing to overtricks before the contract is secure.",
+        "elapsedSeconds" : 4.1702059507369995,
+        "identity" : {
+          "observedModel" : "gpt-6-luna",
+          "requestedEffort" : "medium",
+          "requestedModel" : "gpt-6-luna",
+          "runtimeVersion" : "codex-cli 0.160.0",
+          "threadID" : "01a14e01-54a5-7d21-9786-3b5a13dc2281",
+          "turnID" : "01a14e01-e2c3-7bf0-9ef1-bb5f56be20d6"
+        },
+        "input" : "Decision snapshot: 3931F592-82D3-445B-9C94-5535B5CFE89D:18:south. Controller: South. Acting hand: North.\nPrevious suggestion actually executed: yes.\nNew actual plays in order:\n16: South CA (model).\n17: West CJ (opponent).\nCurrent trick: South CA; West CJ.\nTricks won: declarer 3, defenders 1.",
+        "instructions" : "Play declarer and dummy using the supplied decision-time information. Write in English and pursue the stated objective. selectedCard is the single card from the acting hand to play now; publicReason briefly explains it. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide an initial concrete plan before dummy's first play. Unknown cards remain unknown.",
+        "planAssociation" : {
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "controller" : "south",
+          "sourceSessionID" : "36FE6915-8A53-437C-BEB6-D888CE4EB0CC",
+          "sourceSnapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:1:south",
+          "text" : "Win the diamond lead in dummy with the ace, then use the club suit as the main source of tricks. Preserve dummy’s heart king and spade stoppers; develop clubs while watching entries and avoid committing to overtricks before the contract is secure."
+        },
+        "rawOutput" : "{\"plan\":{\"text\":null,\"update\":\"keep\"},\"publicReason\":\"Follow low under South’s ace, preserving dummy’s C2 and avoiding an unnecessary club honor.\",\"selectedCard\":\"C2\"}",
+        "session" : {
+          "id" : "41BC363B-0198-44A3-A8F6-E50F98D93662",
+          "snapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:18:south"
+        },
+        "snapshot" : {
+          "actingSeat" : "north",
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "contract" : {
+            "declarer" : "south",
+            "level" : 3,
+            "strain" : "noTrump"
+          },
+          "controller" : "south",
+          "currentTrick" : [
+            {
+              "card" : "CA",
+              "seat" : "south",
+              "sequence" : 16
+            },
+            {
+              "card" : "CJ",
+              "seat" : "west",
+              "sequence" : 17
+            }
+          ],
+          "declarerTricks" : 3,
+          "defenderTricks" : 1,
+          "events" : [
+            {
+              "card" : "DQ",
+              "seat" : "west",
+              "sequence" : 0
+            },
+            {
+              "card" : "D6",
+              "seat" : "north",
+              "sequence" : 1
+            },
+            {
+              "card" : "D4",
+              "seat" : "east",
+              "sequence" : 2
+            },
+            {
+              "card" : "DA",
+              "seat" : "south",
+              "sequence" : 3
+            },
+            {
+              "card" : "C4",
+              "seat" : "south",
+              "sequence" : 4
+            },
+            {
+              "card" : "C9",
+              "seat" : "west",
+              "sequence" : 5
+            },
+            {
+              "card" : "CQ",
+              "seat" : "north",
+              "sequence" : 6
+            },
+            {
+              "card" : "C5",
+              "seat" : "east",
+              "sequence" : 7
+            },
+            {
+              "card" : "C7",
+              "seat" : "north",
+              "sequence" : 8
+            },
+            {
+              "card" : "CT",
+              "seat" : "east",
+              "sequence" : 9
+            },
+            {
+              "card" : "C6",
+              "seat" : "south",
+              "sequence" : 10
+            },
+            {
+              "card" : "C3",
+              "seat" : "west",
+              "sequence" : 11
+            },
+            {
+              "card" : "D9",
+              "seat" : "east",
+              "sequence" : 12
+            },
+            {
+              "card" : "DK",
+              "seat" : "south",
+              "sequence" : 13
+            },
+            {
+              "card" : "D2",
+              "seat" : "west",
+              "sequence" : 14
+            },
+            {
+              "card" : "D3",
+              "seat" : "north",
+              "sequence" : 15
+            },
+            {
+              "card" : "CA",
+              "seat" : "south",
+              "sequence" : 16
+            },
+            {
+              "card" : "CJ",
+              "seat" : "west",
+              "sequence" : 17
+            }
+          ],
+          "hands" : [
+            {
+              "cards" : [
+                "SA",
+                "S9",
+                "S4",
+                "HA",
+                "H6",
+                "H3",
+                "CK",
+                "C8"
+              ],
+              "seat" : "south"
+            },
+            {
+              "cards" : [
+                "S8",
+                "S6",
+                "S2",
+                "HK",
+                "H7",
+                "H4",
+                "D8",
+                "D5",
+                "C2"
+              ],
+              "seat" : "north"
+            }
+          ],
+          "objective" : "Normal IMP strategy, weighing contract risk and overtricks.",
+          "revision" : 18,
+          "scoring" : "IMP",
+          "vulnerability" : "neither"
+        },
+        "wireContractVersion" : "stage1-plan-publicReason-selectedCard-v2"
+      },
+      "execution" : {
+        "event" : {
+          "card" : "C2",
+          "seat" : "north",
+          "sequence" : 18
+        },
+        "source" : "model"
+      }
+    },
+    {
+      "actualEvents" : [
+        {
+          "card" : "DQ",
+          "seat" : "west",
+          "sequence" : 0
+        },
+        {
+          "card" : "D6",
+          "seat" : "north",
+          "sequence" : 1
+        },
+        {
+          "card" : "D4",
+          "seat" : "east",
+          "sequence" : 2
+        },
+        {
+          "card" : "DA",
+          "seat" : "south",
+          "sequence" : 3
+        },
+        {
+          "card" : "C4",
+          "seat" : "south",
+          "sequence" : 4
+        },
+        {
+          "card" : "C9",
+          "seat" : "west",
+          "sequence" : 5
+        },
+        {
+          "card" : "CQ",
+          "seat" : "north",
+          "sequence" : 6
+        },
+        {
+          "card" : "C5",
+          "seat" : "east",
+          "sequence" : 7
+        },
+        {
+          "card" : "C7",
+          "seat" : "north",
+          "sequence" : 8
+        },
+        {
+          "card" : "CT",
+          "seat" : "east",
+          "sequence" : 9
+        },
+        {
+          "card" : "C6",
+          "seat" : "south",
+          "sequence" : 10
+        },
+        {
+          "card" : "C3",
+          "seat" : "west",
+          "sequence" : 11
+        },
+        {
+          "card" : "D9",
+          "seat" : "east",
+          "sequence" : 12
+        },
+        {
+          "card" : "DK",
+          "seat" : "south",
+          "sequence" : 13
+        },
+        {
+          "card" : "D2",
+          "seat" : "west",
+          "sequence" : 14
+        },
+        {
+          "card" : "D3",
+          "seat" : "north",
+          "sequence" : 15
+        },
+        {
+          "card" : "CA",
+          "seat" : "south",
+          "sequence" : 16
+        },
+        {
+          "card" : "CJ",
+          "seat" : "west",
+          "sequence" : 17
+        },
+        {
+          "card" : "C2",
+          "seat" : "north",
+          "sequence" : 18
+        },
+        {
+          "card" : "H2",
+          "seat" : "east",
+          "sequence" : 19
+        }
+      ],
+      "execution" : {
+        "event" : {
+          "card" : "H2",
+          "seat" : "east",
+          "sequence" : 19
+        },
+        "source" : "opponent"
+      }
+    },
+    {
+      "actualEvents" : [
+        {
+          "card" : "DQ",
+          "seat" : "west",
+          "sequence" : 0
+        },
+        {
+          "card" : "D6",
+          "seat" : "north",
+          "sequence" : 1
+        },
+        {
+          "card" : "D4",
+          "seat" : "east",
+          "sequence" : 2
+        },
+        {
+          "card" : "DA",
+          "seat" : "south",
+          "sequence" : 3
+        },
+        {
+          "card" : "C4",
+          "seat" : "south",
+          "sequence" : 4
+        },
+        {
+          "card" : "C9",
+          "seat" : "west",
+          "sequence" : 5
+        },
+        {
+          "card" : "CQ",
+          "seat" : "north",
+          "sequence" : 6
+        },
+        {
+          "card" : "C5",
+          "seat" : "east",
+          "sequence" : 7
+        },
+        {
+          "card" : "C7",
+          "seat" : "north",
+          "sequence" : 8
+        },
+        {
+          "card" : "CT",
+          "seat" : "east",
+          "sequence" : 9
+        },
+        {
+          "card" : "C6",
+          "seat" : "south",
+          "sequence" : 10
+        },
+        {
+          "card" : "C3",
+          "seat" : "west",
+          "sequence" : 11
+        },
+        {
+          "card" : "D9",
+          "seat" : "east",
+          "sequence" : 12
+        },
+        {
+          "card" : "DK",
+          "seat" : "south",
+          "sequence" : 13
+        },
+        {
+          "card" : "D2",
+          "seat" : "west",
+          "sequence" : 14
+        },
+        {
+          "card" : "D3",
+          "seat" : "north",
+          "sequence" : 15
+        },
+        {
+          "card" : "CA",
+          "seat" : "south",
+          "sequence" : 16
+        },
+        {
+          "card" : "CJ",
+          "seat" : "west",
+          "sequence" : 17
+        },
+        {
+          "card" : "C2",
+          "seat" : "north",
+          "sequence" : 18
+        },
+        {
+          "card" : "H2",
+          "seat" : "east",
+          "sequence" : 19
+        },
+        {
+          "card" : "CK",
+          "seat" : "south",
+          "sequence" : 20
+        }
+      ],
+      "decision" : {
+        "action" : {
+          "actingSeat" : "south",
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "card" : "CK",
+          "controller" : "south",
+          "revision" : 20,
+          "snapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:20:south"
+        },
+        "advice" : {
+          "plan" : {
+            "update" : "keep"
+          },
+          "publicReason" : "West’s jack fell under the ace, so South’s remaining clubs are established; cash the club king to take a sure trick before shifting to stoppers.",
+          "selectedCard" : "CK"
+        },
+        "effectivePlan" : "Win the diamond lead in dummy with the ace, then use the club suit as the main source of tricks. Preserve dummy’s heart king and spade stoppers; develop clubs while watching entries and avoid committing to overtricks before the contract is secure.",
+        "elapsedSeconds" : 5.062230110168457,
+        "identity" : {
+          "observedModel" : "gpt-6-luna",
+          "requestedEffort" : "medium",
+          "requestedModel" : "gpt-6-luna",
+          "runtimeVersion" : "codex-cli 0.160.0",
+          "threadID" : "01a14e01-54a5-7d21-9786-3b5a13dc2281",
+          "turnID" : "01a14e01-f316-77f3-a1b6-11c6a52af03d"
+        },
+        "input" : "Decision snapshot: 3931F592-82D3-445B-9C94-5535B5CFE89D:20:south. Controller: South. Acting hand: South.\nPrevious suggestion actually executed: yes.\nNew actual plays in order:\n18: North C2 (model).\n19: East H2 (opponent).\nCurrent trick: .\nTricks won: declarer 4, defenders 1.",
+        "instructions" : "Play declarer and dummy using the supplied decision-time information. Write in English and pursue the stated objective. selectedCard is the single card from the acting hand to play now; publicReason briefly explains it. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide an initial concrete plan before dummy's first play. Unknown cards remain unknown.",
+        "planAssociation" : {
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "controller" : "south",
+          "sourceSessionID" : "36FE6915-8A53-437C-BEB6-D888CE4EB0CC",
+          "sourceSnapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:1:south",
+          "text" : "Win the diamond lead in dummy with the ace, then use the club suit as the main source of tricks. Preserve dummy’s heart king and spade stoppers; develop clubs while watching entries and avoid committing to overtricks before the contract is secure."
+        },
+        "rawOutput" : "{\"plan\":{\"text\":null,\"update\":\"keep\"},\"publicReason\":\"West’s jack fell under the ace, so South’s remaining clubs are established; cash the club king to take a sure trick before shifting to stoppers.\",\"selectedCard\":\"CK\"}",
+        "session" : {
+          "id" : "EBE70467-CC77-464F-B6B1-15D9DEEAC22D",
+          "snapshotID" : "3931F592-82D3-445B-9C94-5535B5CFE89D:20:south"
+        },
+        "snapshot" : {
+          "actingSeat" : "south",
+          "boardID" : "3931F592-82D3-445B-9C94-5535B5CFE89D",
+          "contract" : {
+            "declarer" : "south",
+            "level" : 3,
+            "strain" : "noTrump"
+          },
+          "controller" : "south",
+          "currentTrick" : [
+
+          ],
+          "declarerTricks" : 4,
+          "defenderTricks" : 1,
+          "events" : [
+            {
+              "card" : "DQ",
+              "seat" : "west",
+              "sequence" : 0
+            },
+            {
+              "card" : "D6",
+              "seat" : "north",
+              "sequence" : 1
+            },
+            {
+              "card" : "D4",
+              "seat" : "east",
+              "sequence" : 2
+            },
+            {
+              "card" : "DA",
+              "seat" : "south",
+              "sequence" : 3
+            },
+            {
+              "card" : "C4",
+              "seat" : "south",
+              "sequence" : 4
+            },
+            {
+              "card" : "C9",
+              "seat" : "west",
+              "sequence" : 5
+            },
+            {
+              "card" : "CQ",
+              "seat" : "north",
+              "sequence" : 6
+            },
+            {
+              "card" : "C5",
+              "seat" : "east",
+              "sequence" : 7
+            },
+            {
+              "card" : "C7",
+              "seat" : "north",
+              "sequence" : 8
+            },
+            {
+              "card" : "CT",
+              "seat" : "east",
+              "sequence" : 9
+            },
+            {
+              "card" : "C6",
+              "seat" : "south",
+              "sequence" : 10
+            },
+            {
+              "card" : "C3",
+              "seat" : "west",
+              "sequence" : 11
+            },
+            {
+              "card" : "D9",
+              "seat" : "east",
+              "sequence" : 12
+            },
+            {
+              "card" : "DK",
+              "seat" : "south",
+              "sequence" : 13
+            },
+            {
+              "card" : "D2",
+              "seat" : "west",
+              "sequence" : 14
+            },
+            {
+              "card" : "D3",
+              "seat" : "north",
+              "sequence" : 15
+            },
+            {
+              "card" : "CA",
+              "seat" : "south",
+              "sequence" : 16
+            },
+            {
+              "card" : "CJ",
+              "seat" : "west",
+              "sequence" : 17
+            },
+            {
+              "card" : "C2",
+              "seat" : "north",
+              "sequence" : 18
+            },
+            {
+              "card" : "H2",
+              "seat" : "east",
+              "sequence" : 19
+            }
+          ],
+          "hands" : [
+            {
+              "cards" : [
+                "SA",
+                "S9",
+                "S4",
+                "HA",
+                "H6",
+                "H3",
+                "CK",
+                "C8"
+              ],
+              "seat" : "south"
+            },
+            {
+              "cards" : [
+                "S8",
+                "S6",
+                "S2",
+                "HK",
+                "H7",
+                "H4",
+                "D8",
+                "D5"
+              ],
+              "seat" : "north"
+            }
+          ],
+          "objective" : "Normal IMP strategy, weighing contract risk and overtricks.",
+          "revision" : 20,
+          "scoring" : "IMP",
+          "vulnerability" : "neither"
+        },
+        "wireContractVersion" : "stage1-plan-publicReason-selectedCard-v2"
+      },
+      "execution" : {
+        "event" : {
+          "card" : "CK",
+          "seat" : "south",
+          "sequence" : 20
+        },
+        "source" : "model"
+      }
+    },
+    {
+      "actualEvents" : [
+        {
+          "card" : "DQ",
+          "seat" : "west",
+          "sequence" : 0
+        },
+        {
+          "card" : "D6",
+          "seat" : "north",
+          "sequence" : 1
+        },
+        {
+          "card" : "D4",
+          "seat" : "east",
+          "sequence" : 2
+        },
+        {
+          "card" : "DA",
+          "seat" : "south",
+          "sequence" : 3
+        },
+        {
+          "card" : "C4",
+          "seat" : "south",
+          "sequence" : 4
+        },
+        {
+          "card" : "C9",
+          "seat" : "west",
+          "sequence" : 5
+        },
+        {
+          "card" : "CQ",
+          "seat" : "north",
+          "sequence" : 6
+        },
+        {
+          "card" : "C5",
+          "seat" : "east",
+          "sequence" : 7
+        },
+        {
+          "card" : "C7",
+          "seat" : "north",
+          "sequence" : 8
+        },
+        {
+          "card" : "CT",
+          "seat" : "east",
+          "sequence" : 9
+        },
+        {
+          "card" : "C6",
+          "seat" : "south",
+          "sequence" : 10
+        },
+        {
+          "card" : "C3",
+          "seat" : "west",
+          "sequence" : 11
+        },
+        {
+          "card" : "D9",
+          "seat" : "east",
+          "sequence" : 12
+        },
+        {
+          "card" : "DK",
+          "seat" : "south",
+          "sequence" : 13
+        },
+        {
+          "card" : "D2",
+          "seat" : "west",
+          "sequence" : 14
+        },
+        {
+          "card" : "D3",
+          "seat" : "north",
+          "sequence" : 15
+        },
+        {
+          "card" : "CA",
+          "seat" : "south",
+          "sequence" : 16
+        },
+        {
+          "card" : "CJ",
+          "seat" : "west",
+          "sequence" : 17
+        },
+        {
+          "card" : "C2",
+          "seat" : "north",
+          "sequence" : 18
+        },
+        {
+          "card" : "H2",
+          "seat" : "east",
+          "sequence" : 19
+        },
+        {
+          "card" : "CK",
+          "seat" : "south",
+          "sequence" : 20
+        },
+        {
+          "card" : "H5",
+          "seat" : "west",
+          "sequence" : 21
+        }
+      ],
+      "execution" : {
+        "event" : {
+          "card" : "H5",
+          "seat" : "west",
+          "sequence" : 21
+        },
+        "source" : "opponent"
+      }
+    }
+  ]
+}

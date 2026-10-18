@@ -1,0 +1,25 @@
+[0/1] Planning build
+Building for debugging...
+[0/7] Write sources
+[1/7] Write swift-version--58304C5D6DBC2206.txt
+[3/5] Emitting module BridgePlayingTests
+[4/5] Compiling BridgePlayingTests PlayingCoreTests.swift
+[4/6] Write Objects.LinkFileList
+[5/6] Linking BridgeTeacherPackageTests
+Build complete! (1.73s)
+Test Suite 'Selected tests' started at 2026-10-18 03:59:09.664.
+Test Suite 'BridgeTeacherPackageTests.xctest' started at 2026-10-18 03:59:09.665.
+Test Suite 'PlayingCoreTests' started at 2026-10-18 03:59:09.665.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testNonAdjacentTurnReuseCannotBecomeAThirdDecision]' started.
+/Users/tingranwang/.codex/worktrees/stage1-ticket39/bridge-coup/Tests/BridgePlayingTests/PlayingCoreTests.swift:187: error: -[BridgePlayingTests.PlayingCoreTests testNonAdjacentTurnReuseCannotBecomeAThirdDecision] : failed - Each decision needs a previously unused turn
+Test Case '-[BridgePlayingTests.PlayingCoreTests testNonAdjacentTurnReuseCannotBecomeAThirdDecision]' failed (0.113 seconds).
+Test Suite 'PlayingCoreTests' failed at 2026-10-18 03:59:09.778.
+	 Executed 1 test, with 1 failure (0 unexpected) in 0.113 (0.113) seconds
+Test Suite 'BridgeTeacherPackageTests.xctest' failed at 2026-10-18 03:59:09.778.
+	 Executed 1 test, with 1 failure (0 unexpected) in 0.113 (0.113) seconds
+Test Suite 'Selected tests' failed at 2026-10-18 03:59:09.778.
+	 Executed 1 test, with 1 failure (0 unexpected) in 0.113 (0.114) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

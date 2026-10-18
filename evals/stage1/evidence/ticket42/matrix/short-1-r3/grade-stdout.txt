@@ -1,0 +1,25 @@
+{
+  "rubric_version": "stage1-basic-v2",
+  "results": [
+    {
+      "id": "play",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "Card ownership, trick winner, and plan consistency",
+          "fact": "The answer places the diamond ace in dummy and incorrectly claims the opening trick can be won there.",
+          "explanation": "North holds D8653; South holds DAK. The selected D8 is legal but cannot beat West’s DQ or keep the lead in dummy. Winning with the ace requires South to play it, leaving South on lead. Thus the stated opening route and reason materially contradict the authorized hands and selected action.",
+          "quotes": [
+            "Win the opening diamond lead in dummy with the ace, then establish and run the club suit, preserving South’s diamond king as an entry.",
+            "The diamond ace wins the trick and keeps the lead in dummy for the club continuation."
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Small-sample basic evaluation; no claim of broad grading reliability."
+}

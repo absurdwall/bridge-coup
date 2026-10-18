@@ -1,0 +1,19 @@
+{
+  "candidate": "stage1-legal-selectedCard-v3",
+  "note": "Hashes recorded after the development invocation; source was unchanged between final checks, invocation and this manifest. Evidence and documentation were added afterwards. This is not a pre-invocation signed freeze.",
+  "sha256": {
+    "Package.swift": "f509bf679813d80e9f01ff1fdae3b9d450fd4df43a83ea44ed7b4be1698f8256",
+    "Sources/BridgeDomain/BridgeValues.swift": "5cbffd202f6d3be06e349ed32995e58750f890843848e7fb80fa20239a646def",
+    "Sources/BridgeEngine/BoardState.swift": "1697b7995350a94c7aee1c3e94ca5de389fc10fc2bf3a9eeccf0ee280487aca9",
+    "Sources/BridgeExpert/Expert.swift": "75ded5c3197cd3c795679e31d69ef2605e666b4e8965be8f845111651747e72e",
+    "Sources/BridgeDriver/BoardDriver.swift": "b83b26424dd179bdc45027ad4c026e405a73e962c7072335f4e980ded2feed90",
+    "Sources/BridgeCodex/CodexTransport.swift": "404e4a5f865fedce69929bdfd47c287e3a5e283366735282d15f71ea96e22005",
+    "Sources/BridgePlayCLI/BridgePlayMain.swift": "0bebfe2228098135def3158fb2f907350035a627c94f0f4cffd2c09894b0359c",
+    "Tests/BridgePlayingTests/FullBoardTests.swift": "96847ab525bc62da4fbe77109cd9a46b9a56bc8f286ad1a6c93df1dc0885824c",
+    "evals/stage1/evaluate.py": "b8394a949da7a20873003e2c0bab5aa14cc1c17ede8fd1646fd7d4352ffcac41",
+    "evals/stage1/corpus.py": "aaa0f203335f461edb0153ad20bafbd12fc6dcede027074e62c2e9dec60d2c06",
+    "evals/stage1/rubric.txt": "1b022c06373808dbaf2f8cf372f76cf5f9f90c5666f32a8f60575700a1a65403",
+    "evals/stage1/corpus/manifest.json": "fdb7bd58af3ba5a282e6c2da4a5f4405c85d2cd1c0db0a3a1857af6cdad47b47",
+    "evals/stage1/corpus/boards/synthetic.json": "b37080a2bc16df91dd1991ef60ec6487558a3fc1ee8f8352819747cfd953d077"
+  }
+}

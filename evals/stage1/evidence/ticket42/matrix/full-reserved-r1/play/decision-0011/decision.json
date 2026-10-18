@@ -1,0 +1,218 @@
+{
+  "action" : {
+    "actingSeat" : "north",
+    "boardID" : "E16B17A6-B731-4F45-B9FA-2048A7AD20DF",
+    "card" : "C6",
+    "controller" : "south",
+    "revision" : 24,
+    "snapshotID" : "E16B17A6-B731-4F45-B9FA-2048A7AD20DF:24:south"
+  },
+  "advice" : {
+    "plan" : {
+      "update" : "keep"
+    },
+    "publicReason" : "Lead the last dummy club toward South’s king-queen to cash another club winner.",
+    "selectedCard" : "C6"
+  },
+  "effectivePlan" : "Cash the club ace, then lead the remaining club toward South’s king-queen. Follow with the top spades and diamond ace, aiming to reach nine tricks without risking a finesse.",
+  "elapsedSeconds" : 3.8820239305496216,
+  "identity" : {
+    "observedModel" : "gpt-6-luna",
+    "requestedEffort" : "medium",
+    "requestedModel" : "gpt-6-luna",
+    "runtimeVersion" : "codex-cli 0.160.0",
+    "threadID" : "01a14e3b-9db7-7f83-9632-572717e1eed9",
+    "turnID" : "01a14e3c-5d6e-7681-9184-768343b069aa"
+  },
+  "input" : "Decision snapshot: E16B17A6-B731-4F45-B9FA-2048A7AD20DF:24:south. Controller: South. Acting hand: North.\nPrevious suggestion actually executed: yes.\nNew actual plays in order:\n22: South C8 (model).\n23: West C7 (opponent).\nCurrent trick: .\nTricks won: declarer 4, defenders 2.",
+  "instructions" : "Play declarer and dummy using the supplied decision-time information. Write in English and pursue the stated objective. selectedCard is the single card from the acting hand to play now; publicReason briefly explains it. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide an initial concrete plan before dummy's first play. Unknown cards remain unknown.",
+  "planAssociation" : {
+    "boardID" : "E16B17A6-B731-4F45-B9FA-2048A7AD20DF",
+    "controller" : "south",
+    "sourceSessionID" : "020FD4B6-964D-4505-B5B6-69C3CF1221DD",
+    "sourceSnapshotID" : "E16B17A6-B731-4F45-B9FA-2048A7AD20DF:20:south",
+    "text" : "Cash the club ace, then lead the remaining club toward South’s king-queen. Follow with the top spades and diamond ace, aiming to reach nine tricks without risking a finesse."
+  },
+  "rawOutput" : "{\"plan\":{\"text\":null,\"update\":\"keep\"},\"publicReason\":\"Lead the last dummy club toward South’s king-queen to cash another club winner.\",\"selectedCard\":\"C6\"}",
+  "session" : {
+    "id" : "E84C3C12-7C23-49E2-A1C3-E7E8BBE47BA4",
+    "snapshotID" : "E16B17A6-B731-4F45-B9FA-2048A7AD20DF:24:south"
+  },
+  "snapshot" : {
+    "actingSeat" : "north",
+    "boardID" : "E16B17A6-B731-4F45-B9FA-2048A7AD20DF",
+    "contract" : {
+      "declarer" : "south",
+      "level" : 3,
+      "strain" : "noTrump"
+    },
+    "controller" : "south",
+    "currentTrick" : [
+
+    ],
+    "declarerTricks" : 4,
+    "defenderTricks" : 2,
+    "events" : [
+      {
+        "card" : "HJ",
+        "seat" : "west",
+        "sequence" : 0
+      },
+      {
+        "card" : "H4",
+        "seat" : "north",
+        "sequence" : 1
+      },
+      {
+        "card" : "H2",
+        "seat" : "east",
+        "sequence" : 2
+      },
+      {
+        "card" : "HA",
+        "seat" : "south",
+        "sequence" : 3
+      },
+      {
+        "card" : "C3",
+        "seat" : "south",
+        "sequence" : 4
+      },
+      {
+        "card" : "C4",
+        "seat" : "west",
+        "sequence" : 5
+      },
+      {
+        "card" : "C5",
+        "seat" : "north",
+        "sequence" : 6
+      },
+      {
+        "card" : "CT",
+        "seat" : "east",
+        "sequence" : 7
+      },
+      {
+        "card" : "HT",
+        "seat" : "east",
+        "sequence" : 8
+      },
+      {
+        "card" : "HK",
+        "seat" : "south",
+        "sequence" : 9
+      },
+      {
+        "card" : "H3",
+        "seat" : "west",
+        "sequence" : 10
+      },
+      {
+        "card" : "H8",
+        "seat" : "north",
+        "sequence" : 11
+      },
+      {
+        "card" : "D2",
+        "seat" : "south",
+        "sequence" : 12
+      },
+      {
+        "card" : "D5",
+        "seat" : "west",
+        "sequence" : 13
+      },
+      {
+        "card" : "DQ",
+        "seat" : "north",
+        "sequence" : 14
+      },
+      {
+        "card" : "DK",
+        "seat" : "east",
+        "sequence" : 15
+      },
+      {
+        "card" : "H9",
+        "seat" : "east",
+        "sequence" : 16
+      },
+      {
+        "card" : "H5",
+        "seat" : "south",
+        "sequence" : 17
+      },
+      {
+        "card" : "H6",
+        "seat" : "west",
+        "sequence" : 18
+      },
+      {
+        "card" : "HQ",
+        "seat" : "north",
+        "sequence" : 19
+      },
+      {
+        "card" : "CA",
+        "seat" : "north",
+        "sequence" : 20
+      },
+      {
+        "card" : "C2",
+        "seat" : "east",
+        "sequence" : 21
+      },
+      {
+        "card" : "C8",
+        "seat" : "south",
+        "sequence" : 22
+      },
+      {
+        "card" : "C7",
+        "seat" : "west",
+        "sequence" : 23
+      }
+    ],
+    "hands" : [
+      {
+        "cards" : [
+          "SA",
+          "S6",
+          "S4",
+          "DA",
+          "D7",
+          "CK",
+          "CQ"
+        ],
+        "seat" : "south"
+      },
+      {
+        "cards" : [
+          "SK",
+          "S7",
+          "S2",
+          "DJ",
+          "D9",
+          "D3",
+          "C6"
+        ],
+        "seat" : "north"
+      }
+    ],
+    "legalCards" : [
+      "SK",
+      "S7",
+      "S2",
+      "DJ",
+      "D9",
+      "D3",
+      "C6"
+    ],
+    "objective" : "Normal IMP strategy, weighing contract risk and overtricks.",
+    "revision" : 24,
+    "scoring" : "IMP",
+    "vulnerability" : "neither"
+  },
+  "wireContractVersion" : "stage1-legal-selectedCard-v3"
+}

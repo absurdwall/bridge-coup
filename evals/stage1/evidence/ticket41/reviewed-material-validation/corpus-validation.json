@@ -1,0 +1,718 @@
+{
+  "status": "pass",
+  "corpus_version": "stage1-finite-v1",
+  "rubric_version": "stage1-basic-v2",
+  "short_cases": 6,
+  "full_boards": 2,
+  "reserved_distinct": true,
+  "playing_model_called": false,
+  "grading_model_called": false,
+  "demonstration": {
+    "status": "legal-authored-example",
+    "tricks": [
+      10,
+      3
+    ],
+    "model_performance": false
+  },
+  "sha256": {
+    "@rubric": "1b022c06373808dbaf2f8cf372f76cf5f9f90c5666f32a8f60575700a1a65403",
+    "manifest.json": "fdb7bd58af3ba5a282e6c2da4a5f4405c85d2cd1c0db0a3a1857af6cdad47b47",
+    "synthetic-demonstration.json": "b5bb5702ac62f4bbdbe24863375c3c05c59a579157767d1715fbfde6519474a5",
+    "boards/synthetic.json": "b37080a2bc16df91dd1991ef60ec6487558a3fc1ee8f8352819747cfd953d077",
+    "boards/reserved-acceptance.json": "446a1020cc7295d6e6d9f58adca1ff040dd1671f5d9a3664bba30cf5d8d53f03",
+    "boards/pavlicek-deep-finesse.json": "45db555b83a7f74ebd3cd843b043007c1ad27c6b1a6e7b33048b83fc34122580",
+    "boards/walker-holdup-adapted.json": "1ee7dd3747426124dee7cd29f914aa8677818ad6558e2e5a327373cdacbea208"
+  },
+  "authorized_starts": {
+    "short-1": {
+      "boardID": "short-1",
+      "revision": 1,
+      "controller": "south",
+      "contract": {
+        "level": 3,
+        "strain": "noTrump",
+        "declarer": "south"
+      },
+      "scoring": "IMP",
+      "vulnerability": "neither",
+      "objective": "Normal IMP strategy, weighing contract risk and overtricks.",
+      "events": [
+        {
+          "sequence": 0,
+          "seat": "west",
+          "card": "DQ"
+        }
+      ],
+      "actingSeat": "north",
+      "currentTrick": [
+        {
+          "sequence": 0,
+          "seat": "west",
+          "card": "DQ"
+        }
+      ],
+      "declarerTricks": 0,
+      "defenderTricks": 0,
+      "hands": [
+        {
+          "seat": "south",
+          "cards": [
+            "C4",
+            "C6",
+            "C8",
+            "CA",
+            "CK",
+            "DA",
+            "DK",
+            "H3",
+            "H6",
+            "HA",
+            "S4",
+            "S9",
+            "SA"
+          ]
+        },
+        {
+          "seat": "north",
+          "cards": [
+            "C2",
+            "C7",
+            "CQ",
+            "D3",
+            "D5",
+            "D6",
+            "D8",
+            "H4",
+            "H7",
+            "HK",
+            "S2",
+            "S6",
+            "S8"
+          ]
+        }
+      ]
+    },
+    "short-2": {
+      "boardID": "short-2",
+      "revision": 1,
+      "controller": "south",
+      "contract": {
+        "level": 3,
+        "strain": "noTrump",
+        "declarer": "south"
+      },
+      "scoring": "IMP",
+      "vulnerability": "neither",
+      "objective": "Normal IMP strategy, weighing contract risk and overtricks.",
+      "events": [
+        {
+          "sequence": 0,
+          "seat": "west",
+          "card": "DQ"
+        }
+      ],
+      "actingSeat": "north",
+      "currentTrick": [
+        {
+          "sequence": 0,
+          "seat": "west",
+          "card": "DQ"
+        }
+      ],
+      "declarerTricks": 0,
+      "defenderTricks": 0,
+      "hands": [
+        {
+          "seat": "south",
+          "cards": [
+            "C4",
+            "C6",
+            "C8",
+            "CA",
+            "CK",
+            "DA",
+            "DK",
+            "H3",
+            "H6",
+            "HA",
+            "S4",
+            "S9",
+            "SA"
+          ]
+        },
+        {
+          "seat": "north",
+          "cards": [
+            "C2",
+            "C7",
+            "CQ",
+            "D3",
+            "D5",
+            "D6",
+            "D8",
+            "H4",
+            "H7",
+            "HK",
+            "S2",
+            "S6",
+            "S8"
+          ]
+        }
+      ]
+    },
+    "short-3": {
+      "boardID": "short-3",
+      "revision": 1,
+      "controller": "south",
+      "contract": {
+        "level": 3,
+        "strain": "noTrump",
+        "declarer": "south"
+      },
+      "scoring": "IMP",
+      "vulnerability": "neither",
+      "objective": "Normal IMP strategy, weighing contract risk and overtricks.",
+      "events": [
+        {
+          "sequence": 0,
+          "seat": "west",
+          "card": "DQ"
+        }
+      ],
+      "actingSeat": "north",
+      "currentTrick": [
+        {
+          "sequence": 0,
+          "seat": "west",
+          "card": "DQ"
+        }
+      ],
+      "declarerTricks": 0,
+      "defenderTricks": 0,
+      "hands": [
+        {
+          "seat": "south",
+          "cards": [
+            "C4",
+            "C6",
+            "C8",
+            "CA",
+            "CK",
+            "DA",
+            "DK",
+            "H3",
+            "H6",
+            "HA",
+            "S4",
+            "S9",
+            "SA"
+          ]
+        },
+        {
+          "seat": "north",
+          "cards": [
+            "C2",
+            "C7",
+            "CQ",
+            "D3",
+            "D5",
+            "D6",
+            "D8",
+            "H4",
+            "H7",
+            "HK",
+            "S2",
+            "S6",
+            "S8"
+          ]
+        }
+      ]
+    },
+    "short-4": {
+      "boardID": "short-4",
+      "revision": 1,
+      "controller": "south",
+      "contract": {
+        "level": 3,
+        "strain": "noTrump",
+        "declarer": "south"
+      },
+      "scoring": "IMP",
+      "vulnerability": "neither",
+      "objective": "Normal IMP strategy, weighing contract risk and overtricks.",
+      "events": [
+        {
+          "sequence": 0,
+          "seat": "west",
+          "card": "DQ"
+        }
+      ],
+      "actingSeat": "north",
+      "currentTrick": [
+        {
+          "sequence": 0,
+          "seat": "west",
+          "card": "DQ"
+        }
+      ],
+      "declarerTricks": 0,
+      "defenderTricks": 0,
+      "hands": [
+        {
+          "seat": "south",
+          "cards": [
+            "C4",
+            "C6",
+            "C8",
+            "CA",
+            "CK",
+            "DA",
+            "DK",
+            "H3",
+            "H6",
+            "HA",
+            "S4",
+            "S9",
+            "SA"
+          ]
+        },
+        {
+          "seat": "north",
+          "cards": [
+            "C2",
+            "C7",
+            "CQ",
+            "D3",
+            "D5",
+            "D6",
+            "D8",
+            "H4",
+            "H7",
+            "HK",
+            "S2",
+            "S6",
+            "S8"
+          ]
+        }
+      ]
+    },
+    "short-5": {
+      "boardID": "short-5",
+      "revision": 4,
+      "controller": "south",
+      "contract": {
+        "level": 3,
+        "strain": "noTrump",
+        "declarer": "south"
+      },
+      "scoring": "IMP",
+      "vulnerability": "neither",
+      "objective": "Normal IMP strategy, weighing contract risk and overtricks.",
+      "events": [
+        {
+          "sequence": 0,
+          "seat": "west",
+          "card": "SJ"
+        },
+        {
+          "sequence": 1,
+          "seat": "north",
+          "card": "S3"
+        },
+        {
+          "sequence": 2,
+          "seat": "east",
+          "card": "SK"
+        },
+        {
+          "sequence": 3,
+          "seat": "south",
+          "card": "SA"
+        }
+      ],
+      "actingSeat": "south",
+      "currentTrick": [],
+      "declarerTricks": 1,
+      "defenderTricks": 0,
+      "hands": [
+        {
+          "seat": "south",
+          "cards": [
+            "C3",
+            "C7",
+            "CK",
+            "D3",
+            "D4",
+            "H2",
+            "H6",
+            "HA",
+            "HK",
+            "S4",
+            "S7",
+            "SQ"
+          ]
+        },
+        {
+          "seat": "north",
+          "cards": [
+            "C4",
+            "CA",
+            "CT",
+            "D5",
+            "D7",
+            "D9",
+            "DK",
+            "DQ",
+            "H3",
+            "H4",
+            "S5",
+            "S6"
+          ]
+        }
+      ]
+    },
+    "short-6": {
+      "boardID": "short-6",
+      "revision": 1,
+      "controller": "south",
+      "contract": {
+        "level": 3,
+        "strain": "noTrump",
+        "declarer": "south"
+      },
+      "scoring": "IMP",
+      "vulnerability": "neither",
+      "objective": "Normal IMP strategy, weighing contract risk and overtricks.",
+      "events": [
+        {
+          "sequence": 0,
+          "seat": "west",
+          "card": "SK"
+        }
+      ],
+      "actingSeat": "north",
+      "currentTrick": [
+        {
+          "sequence": 0,
+          "seat": "west",
+          "card": "SK"
+        }
+      ],
+      "declarerTricks": 0,
+      "defenderTricks": 0,
+      "hands": [
+        {
+          "seat": "south",
+          "cards": [
+            "C6",
+            "CA",
+            "CJ",
+            "D2",
+            "D3",
+            "D4",
+            "D5",
+            "HJ",
+            "HK",
+            "HQ",
+            "S3",
+            "S9",
+            "SA"
+          ]
+        },
+        {
+          "seat": "north",
+          "cards": [
+            "C4",
+            "C5",
+            "CT",
+            "D9",
+            "DJ",
+            "DK",
+            "DQ",
+            "DT",
+            "H3",
+            "H4",
+            "HA",
+            "S7",
+            "S8"
+          ]
+        }
+      ]
+    },
+    "full-development": {
+      "boardID": "full-development",
+      "revision": 1,
+      "controller": "south",
+      "contract": {
+        "level": 3,
+        "strain": "noTrump",
+        "declarer": "south"
+      },
+      "scoring": "IMP",
+      "vulnerability": "neither",
+      "objective": "Normal IMP strategy, weighing contract risk and overtricks.",
+      "events": [
+        {
+          "sequence": 0,
+          "seat": "west",
+          "card": "DQ"
+        }
+      ],
+      "actingSeat": "north",
+      "currentTrick": [
+        {
+          "sequence": 0,
+          "seat": "west",
+          "card": "DQ"
+        }
+      ],
+      "declarerTricks": 0,
+      "defenderTricks": 0,
+      "hands": [
+        {
+          "seat": "south",
+          "cards": [
+            "C4",
+            "C6",
+            "C8",
+            "CA",
+            "CK",
+            "DA",
+            "DK",
+            "H3",
+            "H6",
+            "HA",
+            "S4",
+            "S9",
+            "SA"
+          ]
+        },
+        {
+          "seat": "north",
+          "cards": [
+            "C2",
+            "C7",
+            "CQ",
+            "D3",
+            "D5",
+            "D6",
+            "D8",
+            "H4",
+            "H7",
+            "HK",
+            "S2",
+            "S6",
+            "S8"
+          ]
+        }
+      ]
+    },
+    "full-reserved": {
+      "boardID": "full-reserved",
+      "revision": 1,
+      "controller": "south",
+      "contract": {
+        "level": 3,
+        "strain": "noTrump",
+        "declarer": "south"
+      },
+      "scoring": "IMP",
+      "vulnerability": "neither",
+      "objective": "Normal IMP strategy, weighing contract risk and overtricks.",
+      "events": [
+        {
+          "sequence": 0,
+          "seat": "west",
+          "card": "HJ"
+        }
+      ],
+      "actingSeat": "north",
+      "currentTrick": [
+        {
+          "sequence": 0,
+          "seat": "west",
+          "card": "HJ"
+        }
+      ],
+      "declarerTricks": 0,
+      "defenderTricks": 0,
+      "hands": [
+        {
+          "seat": "south",
+          "cards": [
+            "C3",
+            "C8",
+            "CK",
+            "CQ",
+            "D2",
+            "D7",
+            "DA",
+            "H5",
+            "HA",
+            "HK",
+            "S4",
+            "S6",
+            "SA"
+          ]
+        },
+        {
+          "seat": "north",
+          "cards": [
+            "C5",
+            "C6",
+            "CA",
+            "D3",
+            "D9",
+            "DJ",
+            "DQ",
+            "H4",
+            "H8",
+            "HQ",
+            "S2",
+            "S7",
+            "SK"
+          ]
+        }
+      ]
+    }
+  },
+  "case_rules": [
+    {
+      "id": "short-1",
+      "properties": [
+        "If initial top winners are counted, there are eight: one spade, two hearts, two diamonds and three clubs.",
+        "Conditional club establishment on 3-2 can supply five club tricks and ten total."
+      ],
+      "acceptable_alternatives": [
+        "Any lawful North diamond spot.",
+        "Low club to CQ then back to AK, or AK then low to CQ with heart return to South."
+      ],
+      "severe_errors": [
+        "Invent a ninth immediate winner or a nonexistent card.",
+        "Claim the opening DQ proves club distribution."
+      ],
+      "coverage_trigger": "Initial plan before the first North play.",
+      "hard_gate": "Only verified basic facts, legal physical routes, visibility and material consistency; unresolved strategic alternatives are uncertain. Winner counts below refer only to the initial case state; later decisions use actual remaining cards and won tricks. Concise answers need not repeat a winner count every turn."
+    },
+    {
+      "id": "short-2",
+      "properties": [
+        "Use only the same live run previous plan and actual executed events.",
+        "Retain a still-applicable concrete route, or explain a justified replacement."
+      ],
+      "acceptable_alternatives": [
+        "Keep or replace when consistent with actual state.",
+        "Different lawful spot cards or feasible club routes."
+      ],
+      "severe_errors": [
+        "Invent prior execution or revive consumed cards.",
+        "Contradict actual current card or active plan."
+      ],
+      "coverage_trigger": "At least three model decisions with an actual previous plan and no newly disproved premise; otherwise uncovered.",
+      "hard_gate": "Only verified basic facts, legal physical routes, visibility and material consistency; unresolved strategic alternatives are uncertain. Winner counts below refer only to the initial case state; later decisions use actual remaining cards and won tricks. Concise answers need not repeat a winner count every turn."
+    },
+    {
+      "id": "short-3",
+      "properties": [
+        "Two club rounds with both defenders following prove 3-2 already.",
+        "The defender showing a third club localizes the length before the other defender discards.",
+        "Assess keep or replace against actual newly visible information."
+      ],
+      "acceptable_alternatives": [
+        "Justified retention when original plan anticipated the break.",
+        "Revised route conditional on actual observed cards."
+      ],
+      "severe_errors": [
+        "Require both defenders to follow three club rounds with five missing clubs.",
+        "Invent the other defender specific discard before it occurs."
+      ],
+      "coverage_trigger": "Both defenders actually follow two club rounds during this live run; otherwise uncovered.",
+      "hard_gate": "Only verified basic facts, legal physical routes, visibility and material consistency; unresolved strategic alternatives are uncertain. Winner counts below refer only to the initial case state; later decisions use actual remaining cards and won tricks. Concise answers need not repeat a winner count every turn."
+    },
+    {
+      "id": "short-4",
+      "properties": [
+        "Track which top clubs and heart entries remain at each actual decision.",
+        "Explain physically available transport for any remaining established clubs."
+      ],
+      "acceptable_alternatives": [
+        "Either reviewed club route and any other concretely feasible entry route.",
+        "Concise prose may omit an obvious available entry."
+      ],
+      "severe_errors": [
+        "Reuse a played card or name a nonexistent necessary entry.",
+        "Cash winners in the opposite hand without a route to that hand."
+      ],
+      "coverage_trigger": "Club establishment is actually attempted and a later model decision has consumed club honors plus a remaining entry decision; otherwise uncovered.",
+      "hard_gate": "Only verified basic facts, legal physical routes, visibility and material consistency; unresolved strategic alternatives are uncertain. Winner counts below refer only to the initial case state; later decisions use actual remaining cards and won tricks. Concise answers need not repeat a winner count every turn."
+    },
+    {
+      "id": "short-5",
+      "properties": [
+        "Start after actual SJ-S3-SK-SA. SQ is now a winner.",
+        "At the case initial state six sure tricks include the SA already won, SQ, HA, HK, CA and CK.",
+        "Preserve communication to North long diamonds while losing necessary diamond tricks."
+      ],
+      "acceptable_alternatives": [
+        "Either South low diamond; a deep-finesse or early-concession route preserving CA.",
+        "Other lines with demonstrably sufficient actual entries; unclear strategic alternatives require review."
+      ],
+      "severe_errors": [
+        "Treat any unobserved defender holding as known decision-time information.",
+        "Claim a required entry still exists after spending it."
+      ],
+      "coverage_trigger": "A diamond establishment attempt while North CA remains, followed by a real defensive response and later controlled decision; gifts or avoidance mean uncovered.",
+      "hard_gate": "Only verified basic facts, legal physical routes, visibility and material consistency; unresolved strategic alternatives are uncertain. Winner counts below refer only to the initial case state; later decisions use actual remaining cards and won tricks. Concise answers need not repeat a winner count every turn."
+    },
+    {
+      "id": "short-6",
+      "properties": [
+        "At the case initial state five immediate cashing tricks are SA, three hearts and CA.",
+        "A hold-up may sever defender communication before losing to DA; length and location remain hypotheses.",
+        "North HA is an entry for established diamonds."
+      ],
+      "acceptable_alternatives": [
+        "Low spade spot variants and justified conditional hold-up timing.",
+        "Different lines only after concrete adjudication; no unconditional always-duck-twice rule."
+      ],
+      "severe_errors": [
+        "Count four separate heart tricks from two three-card holdings.",
+        "Assert East is known void after all defenders follow to three spade rounds.",
+        "Assert hidden DA location as fact."
+      ],
+      "coverage_trigger": "Defenders continue spades while legally possible, then a diamond establishment attempt creates an actual defensive response; gifts or avoidance mean uncovered.",
+      "hard_gate": "Only verified basic facts, legal physical routes, visibility and material consistency; unresolved strategic alternatives are uncertain. Winner counts below refer only to the initial case state; later decisions use actual remaining cards and won tricks. Concise answers need not repeat a winner count every turn."
+    },
+    {
+      "id": "full-development",
+      "properties": [
+        "Finish all thirteen tricks legally using actual choices.",
+        "Judge factual accuracy, concrete feasibility, visibility and consistency under ordinary IMP strategy."
+      ],
+      "acceptable_alternatives": [
+        "Any basic sound legal route; making the contract is neither sufficient nor necessary for an ex-ante quality pass."
+      ],
+      "severe_errors": [
+        "Nonforced controlled substitution, invented cards, false winners, impossible entries or hidden-hand certainty."
+      ],
+      "coverage_trigger": "All 52 cards actually consumed in thirteen tricks.",
+      "hard_gate": "Only verified basic facts, legal physical routes, visibility and material consistency; unresolved strategic alternatives are uncertain. Winner counts below refer only to the initial case state; later decisions use actual remaining cards and won tricks. Concise answers need not repeat a winner count every turn."
+    },
+    {
+      "id": "full-reserved",
+      "properties": [
+        "Finish all thirteen tricks legally using actual choices.",
+        "Judge factual accuracy, concrete feasibility, visibility and consistency under ordinary IMP strategy."
+      ],
+      "acceptable_alternatives": [
+        "Any basic sound legal route; making the contract is neither sufficient nor necessary for an ex-ante quality pass."
+      ],
+      "severe_errors": [
+        "Nonforced controlled substitution, invented cards, false winners, impossible entries or hidden-hand certainty."
+      ],
+      "coverage_trigger": "All 52 cards actually consumed in thirteen tricks.",
+      "hard_gate": "Only verified basic facts, legal physical routes, visibility and material consistency; unresolved strategic alternatives are uncertain. Winner counts below refer only to the initial case state; later decisions use actual remaining cards and won tricks. Concise answers need not repeat a winner count every turn."
+    }
+  ]
+}

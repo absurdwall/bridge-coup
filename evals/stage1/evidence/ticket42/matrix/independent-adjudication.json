@@ -1,0 +1,1926 @@
+{
+  "reviewer": "Root independent agent, not a claim of human expert signoff",
+  "source": "Root coordination messages following independent inspection of the original answers, grades and actual visible facts; each entry records its scope.",
+  "candidate_commit": "826694746507e5e8e19b40d8238716fbbbd9acb9",
+  "originals_preserved": true,
+  "reviews": [
+    {
+      "attempt": "short-1-r1",
+      "decision": "play",
+      "reviewed_status": "fail",
+      "reason": "North lacks DK; selected D5 cannot win West DQ. Public plan/reason invent dummy DK and contradict actual card.",
+      "original_evaluation_sha256": "89dcb501d4ee075f557b6859796c7d3e91a5fd2fd17b06417f4b3a34cb9159e1"
+    },
+    {
+      "attempt": "short-1-r2",
+      "decision": "play",
+      "reviewed_status": "pending",
+      "reason": "Original grader fail preserved. Use high diamonds to establish the suit is ambiguous natural prose and may loosely mean cash AK; absent losses/entries alone is not a severe error under concise-prose rule. A literal establishment claim is unsupported with JT9 outstanding, but wording does not resolve this dispute. Not passed.",
+      "original_evaluation_sha256": "17c37581b373cf9815f6d4f7c76520a3e19eee0cfc43423f26912b11bde16de0"
+    },
+    {
+      "attempt": "short-1-r3",
+      "decision": "play",
+      "reviewed_status": "fail",
+      "reason": "North lacks DA; selected D8 cannot beat West DQ or retain lead in dummy.",
+      "original_evaluation_sha256": "0be80ff10577c1ed074bb120e312462059b578fbdfa32edaaf768da2a3d63efe"
+    },
+    {
+      "attempt": "short-2-r1",
+      "decision": "decision-0001",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "0eb70a55a4ecc2487323723ffd975d50f5ce57db5957aa1ed1e6cbf19b2df41c",
+      "reason": "Root independently checked the actual visible state and found the original passing factual explanation grounded; no dispute."
+    },
+    {
+      "attempt": "short-2-r1",
+      "decision": "decision-0002",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "0eb70a55a4ecc2487323723ffd975d50f5ce57db5957aa1ed1e6cbf19b2df41c",
+      "reason": "Root independently checked the actual visible state and found the original passing factual explanation grounded; no dispute."
+    },
+    {
+      "attempt": "short-2-r1",
+      "decision": "decision-0003",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "0eb70a55a4ecc2487323723ffd975d50f5ce57db5957aa1ed1e6cbf19b2df41c",
+      "reason": "Root independently checked the actual visible state and found the original passing factual explanation grounded; no dispute."
+    },
+    {
+      "attempt": "short-2-r1",
+      "decision": "decision-0004",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "0eb70a55a4ecc2487323723ffd975d50f5ce57db5957aa1ed1e6cbf19b2df41c",
+      "reason": "Root independently checked the actual visible state and found the original passing factual explanation grounded; no dispute."
+    },
+    {
+      "attempt": "short-2-r1",
+      "decision": "decision-0005",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "0eb70a55a4ecc2487323723ffd975d50f5ce57db5957aa1ed1e6cbf19b2df41c",
+      "reason": "Root independently reviewed all eight actual decisions and agrees with the original verdict. Decision 5 falsely treats North C7 as later entry/stopper: C2 is led to a South honor and C7 must follow; South AK86 and outstanding CJ do not make that route valid."
+    },
+    {
+      "attempt": "short-2-r1",
+      "decision": "decision-0006",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "0eb70a55a4ecc2487323723ffd975d50f5ce57db5957aa1ed1e6cbf19b2df41c",
+      "reason": "Root independently checked the actual visible state and found the original passing factual explanation grounded; no dispute."
+    },
+    {
+      "attempt": "short-2-r1",
+      "decision": "decision-0007",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "0eb70a55a4ecc2487323723ffd975d50f5ce57db5957aa1ed1e6cbf19b2df41c",
+      "reason": "Root independently checked the actual visible state and found the original passing factual explanation grounded; no dispute."
+    },
+    {
+      "attempt": "short-2-r1",
+      "decision": "decision-0008",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "0eb70a55a4ecc2487323723ffd975d50f5ce57db5957aa1ed1e6cbf19b2df41c",
+      "reason": "Root independently checked the actual visible state and found the original passing factual explanation grounded; no dispute."
+    },
+    {
+      "attempt": "short-2-r2",
+      "decision": "decision-0001",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "fd186a0f9042b0b573d83826eb23c10258706a440c2002cad40574122654dac4",
+      "reason": "Root independently confirms a live severe defect: invented dummy DA at opening (#1/#2), or asserted void/discard while diamonds remain and selected action is a diamond (#4/#7)."
+    },
+    {
+      "attempt": "short-2-r2",
+      "decision": "decision-0002",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "fd186a0f9042b0b573d83826eb23c10258706a440c2002cad40574122654dac4",
+      "reason": "Root independently confirms a live severe defect: invented dummy DA at opening (#1/#2), or asserted void/discard while diamonds remain and selected action is a diamond (#4/#7)."
+    },
+    {
+      "attempt": "short-2-r2",
+      "decision": "decision-0003",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "fd186a0f9042b0b573d83826eb23c10258706a440c2002cad40574122654dac4",
+      "reason": "Original grader fail preserved. Finding concerns only an already-completed false opening step retained in a plan. Advice is not fact, and ordinary continuation need not rewrite completed steps; future club route may still apply. Root leaves this disputed per-decision finding pending, not passed."
+    },
+    {
+      "attempt": "short-2-r2",
+      "decision": "decision-0004",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "fd186a0f9042b0b573d83826eb23c10258706a440c2002cad40574122654dac4",
+      "reason": "Root independently confirms a live severe defect: invented dummy DA at opening (#1/#2), or asserted void/discard while diamonds remain and selected action is a diamond (#4/#7)."
+    },
+    {
+      "attempt": "short-2-r2",
+      "decision": "decision-0005",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "fd186a0f9042b0b573d83826eb23c10258706a440c2002cad40574122654dac4",
+      "reason": "Original grader fail preserved. Finding concerns only an already-completed false opening step retained in a plan. Advice is not fact, and ordinary continuation need not rewrite completed steps; future club route may still apply. Root leaves this disputed per-decision finding pending, not passed."
+    },
+    {
+      "attempt": "short-2-r2",
+      "decision": "decision-0006",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "fd186a0f9042b0b573d83826eb23c10258706a440c2002cad40574122654dac4",
+      "reason": "Original grader fail preserved. Finding concerns only an already-completed false opening step retained in a plan. Advice is not fact, and ordinary continuation need not rewrite completed steps; future club route may still apply. Root leaves this disputed per-decision finding pending, not passed."
+    },
+    {
+      "attempt": "short-2-r2",
+      "decision": "decision-0007",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "fd186a0f9042b0b573d83826eb23c10258706a440c2002cad40574122654dac4",
+      "reason": "Root independently confirms a live severe defect: invented dummy DA at opening (#1/#2), or asserted void/discard while diamonds remain and selected action is a diamond (#4/#7)."
+    },
+    {
+      "attempt": "short-2-r2",
+      "decision": "decision-0008",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "fd186a0f9042b0b573d83826eb23c10258706a440c2002cad40574122654dac4",
+      "reason": "Original grader fail preserved. Finding concerns only an already-completed false opening step retained in a plan. Advice is not fact, and ordinary continuation need not rewrite completed steps; future club route may still apply. Root leaves this disputed per-decision finding pending, not passed."
+    },
+    {
+      "attempt": "short-2-r3",
+      "decision": "decision-0001",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "288f4620f5ba82b2b4b2b2e88e35fb8fa2a1e5c3c1eb1cbe60290e03dd0a42b3",
+      "reason": "Root confirms severe current wrong-hand/direction claims (#1/#2/#3) or a reason naming HK while South selects H3 (#7)."
+    },
+    {
+      "attempt": "short-2-r3",
+      "decision": "decision-0002",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "288f4620f5ba82b2b4b2b2e88e35fb8fa2a1e5c3c1eb1cbe60290e03dd0a42b3",
+      "reason": "Root confirms severe current wrong-hand/direction claims (#1/#2/#3) or a reason naming HK while South selects H3 (#7)."
+    },
+    {
+      "attempt": "short-2-r3",
+      "decision": "decision-0003",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "288f4620f5ba82b2b4b2b2e88e35fb8fa2a1e5c3c1eb1cbe60290e03dd0a42b3",
+      "reason": "Root confirms severe current wrong-hand/direction claims (#1/#2/#3) or a reason naming HK while South selects H3 (#7)."
+    },
+    {
+      "attempt": "short-2-r3",
+      "decision": "decision-0004",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "288f4620f5ba82b2b4b2b2e88e35fb8fa2a1e5c3c1eb1cbe60290e03dd0a42b3",
+      "reason": "Root independently agrees with the basic pass; decision 6 has imprecise heart-honor wording but no material route failure."
+    },
+    {
+      "attempt": "short-2-r3",
+      "decision": "decision-0005",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "288f4620f5ba82b2b4b2b2e88e35fb8fa2a1e5c3c1eb1cbe60290e03dd0a42b3",
+      "reason": "Original uncertain preserved. Root resolves to basic pass: H4 toward HA is a feasible alternative; HA, then South low heart to HK, then North low club back to South AK can still establish clubs on 3-2. The rubric does not require clubs before cashing a heart or tempo optimality; vague tests wording alone is not a severe error."
+    },
+    {
+      "attempt": "short-2-r3",
+      "decision": "decision-0006",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "288f4620f5ba82b2b4b2b2e88e35fb8fa2a1e5c3c1eb1cbe60290e03dd0a42b3",
+      "reason": "Root independently agrees with the basic pass; decision 6 has imprecise heart-honor wording but no material route failure."
+    },
+    {
+      "attempt": "short-2-r3",
+      "decision": "decision-0007",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "288f4620f5ba82b2b4b2b2e88e35fb8fa2a1e5c3c1eb1cbe60290e03dd0a42b3",
+      "reason": "Root confirms severe current wrong-hand/direction claims (#1/#2/#3) or a reason naming HK while South selects H3 (#7)."
+    },
+    {
+      "attempt": "short-2-r3",
+      "decision": "decision-0008",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "288f4620f5ba82b2b4b2b2e88e35fb8fa2a1e5c3c1eb1cbe60290e03dd0a42b3",
+      "reason": "Root independently agrees with the basic pass; decision 6 has imprecise heart-honor wording but no material route failure."
+    },
+    {
+      "attempt": "short-3-r1",
+      "decision": "decision-0001",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "a480995015f7ca81e2ce4da7e7232b9267309e07eeff4638e9d82953d73b9dd2",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent spec-review inspection of all 12 actual answers/snapshots. Conditional first-plan branch remains pending; #4/#8/#10 have concrete current severe errors; #12 is a physically possible duck with unresolved strategic risk. Other decisions pass independent basic review, while seven original evaluator-format issues remain preserved separately."
+    },
+    {
+      "attempt": "short-3-r1",
+      "decision": "decision-0002",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "a480995015f7ca81e2ce4da7e7232b9267309e07eeff4638e9d82953d73b9dd2",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent spec-review inspection of all 12 actual answers/snapshots. Conditional first-plan branch remains pending; #4/#8/#10 have concrete current severe errors; #12 is a physically possible duck with unresolved strategic risk. Other decisions pass independent basic review, while seven original evaluator-format issues remain preserved separately."
+    },
+    {
+      "attempt": "short-3-r1",
+      "decision": "decision-0003",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "a480995015f7ca81e2ce4da7e7232b9267309e07eeff4638e9d82953d73b9dd2",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent spec-review inspection of all 12 actual answers/snapshots. Conditional first-plan branch remains pending; #4/#8/#10 have concrete current severe errors; #12 is a physically possible duck with unresolved strategic risk. Other decisions pass independent basic review, while seven original evaluator-format issues remain preserved separately."
+    },
+    {
+      "attempt": "short-3-r1",
+      "decision": "decision-0004",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "a480995015f7ca81e2ce4da7e7232b9267309e07eeff4638e9d82953d73b9dd2",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent spec-review inspection of all 12 actual answers/snapshots. Conditional first-plan branch remains pending; #4/#8/#10 have concrete current severe errors; #12 is a physically possible duck with unresolved strategic risk. Other decisions pass independent basic review, while seven original evaluator-format issues remain preserved separately."
+    },
+    {
+      "attempt": "short-3-r1",
+      "decision": "decision-0005",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "a480995015f7ca81e2ce4da7e7232b9267309e07eeff4638e9d82953d73b9dd2",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent spec-review inspection of all 12 actual answers/snapshots. Conditional first-plan branch remains pending; #4/#8/#10 have concrete current severe errors; #12 is a physically possible duck with unresolved strategic risk. Other decisions pass independent basic review, while seven original evaluator-format issues remain preserved separately."
+    },
+    {
+      "attempt": "short-3-r1",
+      "decision": "decision-0006",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "a480995015f7ca81e2ce4da7e7232b9267309e07eeff4638e9d82953d73b9dd2",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent spec-review inspection of all 12 actual answers/snapshots. Conditional first-plan branch remains pending; #4/#8/#10 have concrete current severe errors; #12 is a physically possible duck with unresolved strategic risk. Other decisions pass independent basic review, while seven original evaluator-format issues remain preserved separately."
+    },
+    {
+      "attempt": "short-3-r1",
+      "decision": "decision-0007",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "a480995015f7ca81e2ce4da7e7232b9267309e07eeff4638e9d82953d73b9dd2",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent spec-review inspection of all 12 actual answers/snapshots. Conditional first-plan branch remains pending; #4/#8/#10 have concrete current severe errors; #12 is a physically possible duck with unresolved strategic risk. Other decisions pass independent basic review, while seven original evaluator-format issues remain preserved separately."
+    },
+    {
+      "attempt": "short-3-r1",
+      "decision": "decision-0008",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "a480995015f7ca81e2ce4da7e7232b9267309e07eeff4638e9d82953d73b9dd2",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent spec-review inspection of all 12 actual answers/snapshots. Conditional first-plan branch remains pending; #4/#8/#10 have concrete current severe errors; #12 is a physically possible duck with unresolved strategic risk. Other decisions pass independent basic review, while seven original evaluator-format issues remain preserved separately."
+    },
+    {
+      "attempt": "short-3-r1",
+      "decision": "decision-0009",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "a480995015f7ca81e2ce4da7e7232b9267309e07eeff4638e9d82953d73b9dd2",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent spec-review inspection of all 12 actual answers/snapshots. Conditional first-plan branch remains pending; #4/#8/#10 have concrete current severe errors; #12 is a physically possible duck with unresolved strategic risk. Other decisions pass independent basic review, while seven original evaluator-format issues remain preserved separately."
+    },
+    {
+      "attempt": "short-3-r1",
+      "decision": "decision-0010",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "a480995015f7ca81e2ce4da7e7232b9267309e07eeff4638e9d82953d73b9dd2",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent spec-review inspection of all 12 actual answers/snapshots. Conditional first-plan branch remains pending; #4/#8/#10 have concrete current severe errors; #12 is a physically possible duck with unresolved strategic risk. Other decisions pass independent basic review, while seven original evaluator-format issues remain preserved separately."
+    },
+    {
+      "attempt": "short-3-r1",
+      "decision": "decision-0011",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "a480995015f7ca81e2ce4da7e7232b9267309e07eeff4638e9d82953d73b9dd2",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent spec-review inspection of all 12 actual answers/snapshots. Conditional first-plan branch remains pending; #4/#8/#10 have concrete current severe errors; #12 is a physically possible duck with unresolved strategic risk. Other decisions pass independent basic review, while seven original evaluator-format issues remain preserved separately."
+    },
+    {
+      "attempt": "short-3-r1",
+      "decision": "decision-0012",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "a480995015f7ca81e2ce4da7e7232b9267309e07eeff4638e9d82953d73b9dd2",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent spec-review inspection of all 12 actual answers/snapshots. Conditional first-plan branch remains pending; #4/#8/#10 have concrete current severe errors; #12 is a physically possible duck with unresolved strategic risk. Other decisions pass independent basic review, while seven original evaluator-format issues remain preserved separately."
+    },
+    {
+      "attempt": "short-3-r2",
+      "decision": "decision-0001",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "1c1fb41b069560dd8fa93db13afa9ec3ad5acb2d36fa1cda9b93144758a70630",
+      "original_evaluator_error": null,
+      "reason": "Root independently reviewed all five records. #1 conditional South low-diamond branch remains pending; #2 replacement corrects the plan and #2/#3/#4 are basic feasible passes. Final non-null keep text is a definite unexecuted invalidOutput product failure; its no-card-to-play reason also contradicts actual North turn and selected D8."
+    },
+    {
+      "attempt": "short-3-r2",
+      "decision": "decision-0002",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "1c1fb41b069560dd8fa93db13afa9ec3ad5acb2d36fa1cda9b93144758a70630",
+      "original_evaluator_error": null,
+      "reason": "Root independently reviewed all five records. #1 conditional South low-diamond branch remains pending; #2 replacement corrects the plan and #2/#3/#4 are basic feasible passes. Final non-null keep text is a definite unexecuted invalidOutput product failure; its no-card-to-play reason also contradicts actual North turn and selected D8."
+    },
+    {
+      "attempt": "short-3-r2",
+      "decision": "decision-0003",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "1c1fb41b069560dd8fa93db13afa9ec3ad5acb2d36fa1cda9b93144758a70630",
+      "original_evaluator_error": null,
+      "reason": "Root independently reviewed all five records. #1 conditional South low-diamond branch remains pending; #2 replacement corrects the plan and #2/#3/#4 are basic feasible passes. Final non-null keep text is a definite unexecuted invalidOutput product failure; its no-card-to-play reason also contradicts actual North turn and selected D8."
+    },
+    {
+      "attempt": "short-3-r2",
+      "decision": "decision-0004",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "1c1fb41b069560dd8fa93db13afa9ec3ad5acb2d36fa1cda9b93144758a70630",
+      "original_evaluator_error": null,
+      "reason": "Root independently reviewed all five records. #1 conditional South low-diamond branch remains pending; #2 replacement corrects the plan and #2/#3/#4 are basic feasible passes. Final non-null keep text is a definite unexecuted invalidOutput product failure; its no-card-to-play reason also contradicts actual North turn and selected D8."
+    },
+    {
+      "attempt": "short-3-r2",
+      "decision": "play",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "1c1fb41b069560dd8fa93db13afa9ec3ad5acb2d36fa1cda9b93144758a70630",
+      "original_evaluator_error": null,
+      "reason": "Root independently reviewed all five records. #1 conditional South low-diamond branch remains pending; #2 replacement corrects the plan and #2/#3/#4 are basic feasible passes. Final non-null keep text is a definite unexecuted invalidOutput product failure; its no-card-to-play reason also contradicts actual North turn and selected D8."
+    },
+    {
+      "attempt": "short-3-r3",
+      "decision": "decision-0001",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "94ca8fff81901057b25429df3a48a8ff9329f3f4433c2b0b37b777ff4b741592",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent spec-review inspection of all 12 actual answers and snapshots: initial unconditional dummy DK and later explicit void/card-reason contradictions are severe failures. Five basic passes remain separate from the five original empty-findings evaluator defects. Source review note: /tmp/bridge-stage1-research/short3-r3-independent-review.md."
+    },
+    {
+      "attempt": "short-3-r3",
+      "decision": "decision-0002",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "94ca8fff81901057b25429df3a48a8ff9329f3f4433c2b0b37b777ff4b741592",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent spec-review inspection of all 12 actual answers and snapshots: initial unconditional dummy DK and later explicit void/card-reason contradictions are severe failures. Five basic passes remain separate from the five original empty-findings evaluator defects. Source review note: /tmp/bridge-stage1-research/short3-r3-independent-review.md."
+    },
+    {
+      "attempt": "short-3-r3",
+      "decision": "decision-0003",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "94ca8fff81901057b25429df3a48a8ff9329f3f4433c2b0b37b777ff4b741592",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent spec-review inspection of all 12 actual answers and snapshots: initial unconditional dummy DK and later explicit void/card-reason contradictions are severe failures. Five basic passes remain separate from the five original empty-findings evaluator defects. Source review note: /tmp/bridge-stage1-research/short3-r3-independent-review.md."
+    },
+    {
+      "attempt": "short-3-r3",
+      "decision": "decision-0004",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "94ca8fff81901057b25429df3a48a8ff9329f3f4433c2b0b37b777ff4b741592",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent spec-review inspection of all 12 actual answers and snapshots: initial unconditional dummy DK and later explicit void/card-reason contradictions are severe failures. Five basic passes remain separate from the five original empty-findings evaluator defects. Source review note: /tmp/bridge-stage1-research/short3-r3-independent-review.md."
+    },
+    {
+      "attempt": "short-3-r3",
+      "decision": "decision-0005",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "94ca8fff81901057b25429df3a48a8ff9329f3f4433c2b0b37b777ff4b741592",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent spec-review inspection of all 12 actual answers and snapshots: initial unconditional dummy DK and later explicit void/card-reason contradictions are severe failures. Five basic passes remain separate from the five original empty-findings evaluator defects. Source review note: /tmp/bridge-stage1-research/short3-r3-independent-review.md."
+    },
+    {
+      "attempt": "short-3-r3",
+      "decision": "decision-0006",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "94ca8fff81901057b25429df3a48a8ff9329f3f4433c2b0b37b777ff4b741592",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent spec-review inspection of all 12 actual answers and snapshots: initial unconditional dummy DK and later explicit void/card-reason contradictions are severe failures. Five basic passes remain separate from the five original empty-findings evaluator defects. Source review note: /tmp/bridge-stage1-research/short3-r3-independent-review.md."
+    },
+    {
+      "attempt": "short-3-r3",
+      "decision": "decision-0007",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "94ca8fff81901057b25429df3a48a8ff9329f3f4433c2b0b37b777ff4b741592",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent spec-review inspection of all 12 actual answers and snapshots: initial unconditional dummy DK and later explicit void/card-reason contradictions are severe failures. Five basic passes remain separate from the five original empty-findings evaluator defects. Source review note: /tmp/bridge-stage1-research/short3-r3-independent-review.md."
+    },
+    {
+      "attempt": "short-3-r3",
+      "decision": "decision-0008",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "94ca8fff81901057b25429df3a48a8ff9329f3f4433c2b0b37b777ff4b741592",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent spec-review inspection of all 12 actual answers and snapshots: initial unconditional dummy DK and later explicit void/card-reason contradictions are severe failures. Five basic passes remain separate from the five original empty-findings evaluator defects. Source review note: /tmp/bridge-stage1-research/short3-r3-independent-review.md."
+    },
+    {
+      "attempt": "short-3-r3",
+      "decision": "decision-0009",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "94ca8fff81901057b25429df3a48a8ff9329f3f4433c2b0b37b777ff4b741592",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent spec-review inspection of all 12 actual answers and snapshots: initial unconditional dummy DK and later explicit void/card-reason contradictions are severe failures. Five basic passes remain separate from the five original empty-findings evaluator defects. Source review note: /tmp/bridge-stage1-research/short3-r3-independent-review.md."
+    },
+    {
+      "attempt": "short-3-r3",
+      "decision": "decision-0010",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "94ca8fff81901057b25429df3a48a8ff9329f3f4433c2b0b37b777ff4b741592",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent spec-review inspection of all 12 actual answers and snapshots: initial unconditional dummy DK and later explicit void/card-reason contradictions are severe failures. Five basic passes remain separate from the five original empty-findings evaluator defects. Source review note: /tmp/bridge-stage1-research/short3-r3-independent-review.md."
+    },
+    {
+      "attempt": "short-3-r3",
+      "decision": "decision-0011",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "94ca8fff81901057b25429df3a48a8ff9329f3f4433c2b0b37b777ff4b741592",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent spec-review inspection of all 12 actual answers and snapshots: initial unconditional dummy DK and later explicit void/card-reason contradictions are severe failures. Five basic passes remain separate from the five original empty-findings evaluator defects. Source review note: /tmp/bridge-stage1-research/short3-r3-independent-review.md."
+    },
+    {
+      "attempt": "short-3-r3",
+      "decision": "decision-0012",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "94ca8fff81901057b25429df3a48a8ff9329f3f4433c2b0b37b777ff4b741592",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent spec-review inspection of all 12 actual answers and snapshots: initial unconditional dummy DK and later explicit void/card-reason contradictions are severe failures. Five basic passes remain separate from the five original empty-findings evaluator defects. Source review note: /tmp/bridge-stage1-research/short3-r3-independent-review.md."
+    },
+    {
+      "attempt": "short-4-r1",
+      "decision": "decision-0001",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "c6d67379a171a21a919f9da0d6529d27d4d4f2362d506a6637465c67a3e21c77",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent standards-review inspection. Raw rank findings in #4/#7 remain pending: deliberate-duck wording is not necessarily a literal queen-below-nine/jack claim. Decisions #1/#5/#8/#9/#10 have confirmed material errors; #2/#3/#6 are basic passes. Final request has definite structural failure but semantic quality remains pending. Details: independent-reviews/short4-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-4-r1",
+      "decision": "decision-0002",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "c6d67379a171a21a919f9da0d6529d27d4d4f2362d506a6637465c67a3e21c77",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent standards-review inspection. Raw rank findings in #4/#7 remain pending: deliberate-duck wording is not necessarily a literal queen-below-nine/jack claim. Decisions #1/#5/#8/#9/#10 have confirmed material errors; #2/#3/#6 are basic passes. Final request has definite structural failure but semantic quality remains pending. Details: independent-reviews/short4-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-4-r1",
+      "decision": "decision-0003",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "c6d67379a171a21a919f9da0d6529d27d4d4f2362d506a6637465c67a3e21c77",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent standards-review inspection. Raw rank findings in #4/#7 remain pending: deliberate-duck wording is not necessarily a literal queen-below-nine/jack claim. Decisions #1/#5/#8/#9/#10 have confirmed material errors; #2/#3/#6 are basic passes. Final request has definite structural failure but semantic quality remains pending. Details: independent-reviews/short4-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-4-r1",
+      "decision": "decision-0004",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "c6d67379a171a21a919f9da0d6529d27d4d4f2362d506a6637465c67a3e21c77",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent standards-review inspection. Raw rank findings in #4/#7 remain pending: deliberate-duck wording is not necessarily a literal queen-below-nine/jack claim. Decisions #1/#5/#8/#9/#10 have confirmed material errors; #2/#3/#6 are basic passes. Final request has definite structural failure but semantic quality remains pending. Details: independent-reviews/short4-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-4-r1",
+      "decision": "decision-0005",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "c6d67379a171a21a919f9da0d6529d27d4d4f2362d506a6637465c67a3e21c77",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent standards-review inspection. Raw rank findings in #4/#7 remain pending: deliberate-duck wording is not necessarily a literal queen-below-nine/jack claim. Decisions #1/#5/#8/#9/#10 have confirmed material errors; #2/#3/#6 are basic passes. Final request has definite structural failure but semantic quality remains pending. Details: independent-reviews/short4-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-4-r1",
+      "decision": "decision-0006",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "c6d67379a171a21a919f9da0d6529d27d4d4f2362d506a6637465c67a3e21c77",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent standards-review inspection. Raw rank findings in #4/#7 remain pending: deliberate-duck wording is not necessarily a literal queen-below-nine/jack claim. Decisions #1/#5/#8/#9/#10 have confirmed material errors; #2/#3/#6 are basic passes. Final request has definite structural failure but semantic quality remains pending. Details: independent-reviews/short4-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-4-r1",
+      "decision": "decision-0007",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "c6d67379a171a21a919f9da0d6529d27d4d4f2362d506a6637465c67a3e21c77",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent standards-review inspection. Raw rank findings in #4/#7 remain pending: deliberate-duck wording is not necessarily a literal queen-below-nine/jack claim. Decisions #1/#5/#8/#9/#10 have confirmed material errors; #2/#3/#6 are basic passes. Final request has definite structural failure but semantic quality remains pending. Details: independent-reviews/short4-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-4-r1",
+      "decision": "decision-0008",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "c6d67379a171a21a919f9da0d6529d27d4d4f2362d506a6637465c67a3e21c77",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent standards-review inspection. Raw rank findings in #4/#7 remain pending: deliberate-duck wording is not necessarily a literal queen-below-nine/jack claim. Decisions #1/#5/#8/#9/#10 have confirmed material errors; #2/#3/#6 are basic passes. Final request has definite structural failure but semantic quality remains pending. Details: independent-reviews/short4-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-4-r1",
+      "decision": "decision-0009",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "c6d67379a171a21a919f9da0d6529d27d4d4f2362d506a6637465c67a3e21c77",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent standards-review inspection. Raw rank findings in #4/#7 remain pending: deliberate-duck wording is not necessarily a literal queen-below-nine/jack claim. Decisions #1/#5/#8/#9/#10 have confirmed material errors; #2/#3/#6 are basic passes. Final request has definite structural failure but semantic quality remains pending. Details: independent-reviews/short4-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-4-r1",
+      "decision": "decision-0010",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "c6d67379a171a21a919f9da0d6529d27d4d4f2362d506a6637465c67a3e21c77",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent standards-review inspection. Raw rank findings in #4/#7 remain pending: deliberate-duck wording is not necessarily a literal queen-below-nine/jack claim. Decisions #1/#5/#8/#9/#10 have confirmed material errors; #2/#3/#6 are basic passes. Final request has definite structural failure but semantic quality remains pending. Details: independent-reviews/short4-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-4-r1",
+      "decision": "play",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "c6d67379a171a21a919f9da0d6529d27d4d4f2362d506a6637465c67a3e21c77",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent standards-review inspection. Raw rank findings in #4/#7 remain pending: deliberate-duck wording is not necessarily a literal queen-below-nine/jack claim. Decisions #1/#5/#8/#9/#10 have confirmed material errors; #2/#3/#6 are basic passes. Final request has definite structural failure but semantic quality remains pending. Details: independent-reviews/short4-r1-independent-review.md.",
+      "reviewed_mechanical": "fail",
+      "reviewed_overall": "fail"
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0001",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "9f14df8d2b8a3d1bc78dd435bb2332441cde97d49049c9c7f3fc193cc2fd176e",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent inspection; detailed explanations in independent-reviews/short4-r2-independent-review.md. The original grade is preserved; pending is not passed."
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0002",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "9f14df8d2b8a3d1bc78dd435bb2332441cde97d49049c9c7f3fc193cc2fd176e",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent inspection; detailed explanations in independent-reviews/short4-r2-independent-review.md. The original grade is preserved; pending is not passed."
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0003",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "9f14df8d2b8a3d1bc78dd435bb2332441cde97d49049c9c7f3fc193cc2fd176e",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent inspection; detailed explanations in independent-reviews/short4-r2-independent-review.md. The original grade is preserved; pending is not passed."
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0004",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "9f14df8d2b8a3d1bc78dd435bb2332441cde97d49049c9c7f3fc193cc2fd176e",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent inspection; detailed explanations in independent-reviews/short4-r2-independent-review.md. The original grade is preserved; pending is not passed."
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0005",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "9f14df8d2b8a3d1bc78dd435bb2332441cde97d49049c9c7f3fc193cc2fd176e",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent inspection; detailed explanations in independent-reviews/short4-r2-independent-review.md. The original grade is preserved; pending is not passed."
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0006",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "9f14df8d2b8a3d1bc78dd435bb2332441cde97d49049c9c7f3fc193cc2fd176e",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent inspection; detailed explanations in independent-reviews/short4-r2-independent-review.md. The original grade is preserved; pending is not passed."
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0007",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "9f14df8d2b8a3d1bc78dd435bb2332441cde97d49049c9c7f3fc193cc2fd176e",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent inspection; detailed explanations in independent-reviews/short4-r2-independent-review.md. The original grade is preserved; pending is not passed."
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0008",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "9f14df8d2b8a3d1bc78dd435bb2332441cde97d49049c9c7f3fc193cc2fd176e",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent inspection; detailed explanations in independent-reviews/short4-r2-independent-review.md. The original grade is preserved; pending is not passed."
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0009",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "9f14df8d2b8a3d1bc78dd435bb2332441cde97d49049c9c7f3fc193cc2fd176e",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent inspection; detailed explanations in independent-reviews/short4-r2-independent-review.md. The original grade is preserved; pending is not passed."
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0010",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "9f14df8d2b8a3d1bc78dd435bb2332441cde97d49049c9c7f3fc193cc2fd176e",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent inspection; detailed explanations in independent-reviews/short4-r2-independent-review.md. The original grade is preserved; pending is not passed."
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0011",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "9f14df8d2b8a3d1bc78dd435bb2332441cde97d49049c9c7f3fc193cc2fd176e",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent inspection; detailed explanations in independent-reviews/short4-r2-independent-review.md. The original grade is preserved; pending is not passed."
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0012",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "9f14df8d2b8a3d1bc78dd435bb2332441cde97d49049c9c7f3fc193cc2fd176e",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent inspection; detailed explanations in independent-reviews/short4-r2-independent-review.md. The original grade is preserved; pending is not passed."
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0013",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "9f14df8d2b8a3d1bc78dd435bb2332441cde97d49049c9c7f3fc193cc2fd176e",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent inspection; detailed explanations in independent-reviews/short4-r2-independent-review.md. The original grade is preserved; pending is not passed."
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0014",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "9f14df8d2b8a3d1bc78dd435bb2332441cde97d49049c9c7f3fc193cc2fd176e",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent inspection; detailed explanations in independent-reviews/short4-r2-independent-review.md. The original grade is preserved; pending is not passed."
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0015",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "9f14df8d2b8a3d1bc78dd435bb2332441cde97d49049c9c7f3fc193cc2fd176e",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent inspection; detailed explanations in independent-reviews/short4-r2-independent-review.md. The original grade is preserved; pending is not passed."
+    },
+    {
+      "attempt": "short-4-r2",
+      "decision": "decision-0016",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "9f14df8d2b8a3d1bc78dd435bb2332441cde97d49049c9c7f3fc193cc2fd176e",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent inspection; detailed explanations in independent-reviews/short4-r2-independent-review.md. The original grade is preserved; pending is not passed."
+    },
+    {
+      "attempt": "short-4-r3",
+      "decision": "decision-0001",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "78f3d290037a31a0163b2fcfb95e65d5655e7e1e934cf385296480669e5b3623",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent inspection; detailed explanations in independent-reviews/short4-r3-independent-review.md. The original grade is preserved; pending is not passed."
+    },
+    {
+      "attempt": "short-4-r3",
+      "decision": "play",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "78f3d290037a31a0163b2fcfb95e65d5655e7e1e934cf385296480669e5b3623",
+      "original_evaluator_error": null,
+      "reason": "Root accepted definite unexecuted structural invalidOutput failure on request 2; semantic quality remains pending. Decision 1 independently fails. No clubs occurred before the stop.",
+      "reviewed_mechanical": "fail",
+      "reviewed_overall": "fail"
+    },
+    {
+      "attempt": "short-5-r1",
+      "decision": "decision-0001",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "5e603973a2ef7b51bb43872d9e189b0a7c904e555e2746a02e009b41d1757bfa",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review; pending remains unresolved, not passed. See independent-reviews/short5-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-5-r1",
+      "decision": "decision-0002",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "5e603973a2ef7b51bb43872d9e189b0a7c904e555e2746a02e009b41d1757bfa",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review; pending remains unresolved, not passed. See independent-reviews/short5-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-5-r1",
+      "decision": "decision-0003",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "5e603973a2ef7b51bb43872d9e189b0a7c904e555e2746a02e009b41d1757bfa",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review; pending remains unresolved, not passed. See independent-reviews/short5-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-5-r1",
+      "decision": "decision-0004",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "5e603973a2ef7b51bb43872d9e189b0a7c904e555e2746a02e009b41d1757bfa",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review; pending remains unresolved, not passed. See independent-reviews/short5-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-5-r1",
+      "decision": "decision-0005",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "5e603973a2ef7b51bb43872d9e189b0a7c904e555e2746a02e009b41d1757bfa",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review; pending remains unresolved, not passed. See independent-reviews/short5-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-5-r1",
+      "decision": "decision-0006",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "5e603973a2ef7b51bb43872d9e189b0a7c904e555e2746a02e009b41d1757bfa",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review; pending remains unresolved, not passed. See independent-reviews/short5-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-5-r1",
+      "decision": "decision-0007",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "5e603973a2ef7b51bb43872d9e189b0a7c904e555e2746a02e009b41d1757bfa",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review; pending remains unresolved, not passed. See independent-reviews/short5-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-5-r1",
+      "decision": "decision-0008",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "5e603973a2ef7b51bb43872d9e189b0a7c904e555e2746a02e009b41d1757bfa",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review; pending remains unresolved, not passed. See independent-reviews/short5-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-5-r1",
+      "decision": "decision-0009",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "5e603973a2ef7b51bb43872d9e189b0a7c904e555e2746a02e009b41d1757bfa",
+      "original_evaluator_error": null,
+      "reason": "Root overrides the independent reviewer fail to pending while retaining both original judgments. Conceding the setting fifth defensive trick while winners remain does not alone prove avoidable failure if the actual position is already down. The spec separates going down from ex-ante error; a material worsening or feasible alternative proof is missing."
+    },
+    {
+      "attempt": "short-5-r1",
+      "decision": "decision-0010",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "5e603973a2ef7b51bb43872d9e189b0a7c904e555e2746a02e009b41d1757bfa",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review; pending remains unresolved, not passed. See independent-reviews/short5-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-5-r1",
+      "decision": "decision-0011",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "5e603973a2ef7b51bb43872d9e189b0a7c904e555e2746a02e009b41d1757bfa",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review; pending remains unresolved, not passed. See independent-reviews/short5-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-5-r1",
+      "decision": "decision-0012",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "5e603973a2ef7b51bb43872d9e189b0a7c904e555e2746a02e009b41d1757bfa",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review; pending remains unresolved, not passed. See independent-reviews/short5-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0001",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "0554a89d48919114f77af415eb8a29e3da3da3ea0ed99219e0b4190bf6c3243c",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review; pending remains unresolved, not passed. See independent-reviews/short5-r2-independent-review.md."
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0002",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "0554a89d48919114f77af415eb8a29e3da3da3ea0ed99219e0b4190bf6c3243c",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review; pending remains unresolved, not passed. See independent-reviews/short5-r2-independent-review.md."
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0003",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "0554a89d48919114f77af415eb8a29e3da3da3ea0ed99219e0b4190bf6c3243c",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review; pending remains unresolved, not passed. See independent-reviews/short5-r2-independent-review.md."
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0004",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "0554a89d48919114f77af415eb8a29e3da3da3ea0ed99219e0b4190bf6c3243c",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review; pending remains unresolved, not passed. See independent-reviews/short5-r2-independent-review.md."
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0005",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "0554a89d48919114f77af415eb8a29e3da3da3ea0ed99219e0b4190bf6c3243c",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review; pending remains unresolved, not passed. See independent-reviews/short5-r2-independent-review.md."
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0006",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "0554a89d48919114f77af415eb8a29e3da3da3ea0ed99219e0b4190bf6c3243c",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review; pending remains unresolved, not passed. See independent-reviews/short5-r2-independent-review.md."
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0007",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "0554a89d48919114f77af415eb8a29e3da3da3ea0ed99219e0b4190bf6c3243c",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review; pending remains unresolved, not passed. See independent-reviews/short5-r2-independent-review.md."
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0008",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "0554a89d48919114f77af415eb8a29e3da3da3ea0ed99219e0b4190bf6c3243c",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review; pending remains unresolved, not passed. See independent-reviews/short5-r2-independent-review.md."
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0009",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "0554a89d48919114f77af415eb8a29e3da3da3ea0ed99219e0b4190bf6c3243c",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review; pending remains unresolved, not passed. See independent-reviews/short5-r2-independent-review.md."
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0010",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "0554a89d48919114f77af415eb8a29e3da3da3ea0ed99219e0b4190bf6c3243c",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review; pending remains unresolved, not passed. See independent-reviews/short5-r2-independent-review.md."
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0011",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "0554a89d48919114f77af415eb8a29e3da3da3ea0ed99219e0b4190bf6c3243c",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review; pending remains unresolved, not passed. See independent-reviews/short5-r2-independent-review.md."
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0012",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "0554a89d48919114f77af415eb8a29e3da3da3ea0ed99219e0b4190bf6c3243c",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review; pending remains unresolved, not passed. See independent-reviews/short5-r2-independent-review.md."
+    },
+    {
+      "attempt": "short-5-r3",
+      "decision": "decision-0001",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "6be81b33b40007b8e580010c221e6f692ea65a7a41aeef724fe8e6af8e070792",
+      "original_evaluator_error": null,
+      "reason": "Root independently finds the retained wording ambiguous: avoiding a lead concession before diamonds develop can mean avoiding unnecessary outside concessions rather than forbidding necessary DA loss. Low diamond toward KQ and preservation of CA is concrete; D5 early concession is feasible; SQ is a real winner; omitting S5 beside S6 concerns equivalent losers under SQ. Original fails remain, but these disputed semantic findings are not unqualified severe errors."
+    },
+    {
+      "attempt": "short-5-r3",
+      "decision": "decision-0002",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "6be81b33b40007b8e580010c221e6f692ea65a7a41aeef724fe8e6af8e070792",
+      "original_evaluator_error": null,
+      "reason": "Root independently finds the retained wording ambiguous: avoiding a lead concession before diamonds develop can mean avoiding unnecessary outside concessions rather than forbidding necessary DA loss. Low diamond toward KQ and preservation of CA is concrete; D5 early concession is feasible; SQ is a real winner; omitting S5 beside S6 concerns equivalent losers under SQ. Original fails remain, but these disputed semantic findings are not unqualified severe errors."
+    },
+    {
+      "attempt": "short-5-r3",
+      "decision": "decision-0003",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "6be81b33b40007b8e580010c221e6f692ea65a7a41aeef724fe8e6af8e070792",
+      "original_evaluator_error": null,
+      "reason": "Root independently finds the retained wording ambiguous: avoiding a lead concession before diamonds develop can mean avoiding unnecessary outside concessions rather than forbidding necessary DA loss. Low diamond toward KQ and preservation of CA is concrete; D5 early concession is feasible; SQ is a real winner; omitting S5 beside S6 concerns equivalent losers under SQ. Original fails remain, but these disputed semantic findings are not unqualified severe errors."
+    },
+    {
+      "attempt": "short-5-r3",
+      "decision": "decision-0004",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "6be81b33b40007b8e580010c221e6f692ea65a7a41aeef724fe8e6af8e070792",
+      "original_evaluator_error": null,
+      "reason": "Root independently finds the retained wording ambiguous: avoiding a lead concession before diamonds develop can mean avoiding unnecessary outside concessions rather than forbidding necessary DA loss. Low diamond toward KQ and preservation of CA is concrete; D5 early concession is feasible; SQ is a real winner; omitting S5 beside S6 concerns equivalent losers under SQ. Original fails remain, but these disputed semantic findings are not unqualified severe errors."
+    },
+    {
+      "attempt": "short-5-r3",
+      "decision": "play",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "6be81b33b40007b8e580010c221e6f692ea65a7a41aeef724fe8e6af8e070792",
+      "original_evaluator_error": null,
+      "reason": "Definite unexecuted structural invalidOutput: keep with non-null text. The selected D4 and public low-diamond route are physically feasible, so semantic quality remains pending rather than automatically inheriting the protocol failure.",
+      "reviewed_mechanical": "fail",
+      "reviewed_overall": "fail"
+    },
+    {
+      "attempt": "short-6-r1",
+      "decision": "decision-0001",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "128e3a464fdabffb6ab29524b275f22ff4f5a74765c2628b01dde74f6e576e00",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review. Clear current card/reason and opposing-control contradictions are hard failures. Pending is not a pass; do not turn a guarded branch or ambiguous ace-is-out wording into an unqualified false ownership claim. See independent-reviews/short6-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r1",
+      "decision": "decision-0002",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "128e3a464fdabffb6ab29524b275f22ff4f5a74765c2628b01dde74f6e576e00",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review. Clear current card/reason and opposing-control contradictions are hard failures. Pending is not a pass; do not turn a guarded branch or ambiguous ace-is-out wording into an unqualified false ownership claim. See independent-reviews/short6-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r1",
+      "decision": "decision-0003",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "128e3a464fdabffb6ab29524b275f22ff4f5a74765c2628b01dde74f6e576e00",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review. Clear current card/reason and opposing-control contradictions are hard failures. Pending is not a pass; do not turn a guarded branch or ambiguous ace-is-out wording into an unqualified false ownership claim. See independent-reviews/short6-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r1",
+      "decision": "decision-0004",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "128e3a464fdabffb6ab29524b275f22ff4f5a74765c2628b01dde74f6e576e00",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review. Clear current card/reason and opposing-control contradictions are hard failures. Pending is not a pass; do not turn a guarded branch or ambiguous ace-is-out wording into an unqualified false ownership claim. See independent-reviews/short6-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r1",
+      "decision": "decision-0005",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "128e3a464fdabffb6ab29524b275f22ff4f5a74765c2628b01dde74f6e576e00",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review. Clear current card/reason and opposing-control contradictions are hard failures. Pending is not a pass; do not turn a guarded branch or ambiguous ace-is-out wording into an unqualified false ownership claim. See independent-reviews/short6-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r1",
+      "decision": "decision-0006",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "128e3a464fdabffb6ab29524b275f22ff4f5a74765c2628b01dde74f6e576e00",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review. Clear current card/reason and opposing-control contradictions are hard failures. Pending is not a pass; do not turn a guarded branch or ambiguous ace-is-out wording into an unqualified false ownership claim. See independent-reviews/short6-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r1",
+      "decision": "decision-0007",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "128e3a464fdabffb6ab29524b275f22ff4f5a74765c2628b01dde74f6e576e00",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review. Clear current card/reason and opposing-control contradictions are hard failures. Pending is not a pass; do not turn a guarded branch or ambiguous ace-is-out wording into an unqualified false ownership claim. See independent-reviews/short6-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r1",
+      "decision": "decision-0008",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "128e3a464fdabffb6ab29524b275f22ff4f5a74765c2628b01dde74f6e576e00",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review. Clear current card/reason and opposing-control contradictions are hard failures. Pending is not a pass; do not turn a guarded branch or ambiguous ace-is-out wording into an unqualified false ownership claim. See independent-reviews/short6-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r1",
+      "decision": "decision-0009",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "128e3a464fdabffb6ab29524b275f22ff4f5a74765c2628b01dde74f6e576e00",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review. Clear current card/reason and opposing-control contradictions are hard failures. Pending is not a pass; do not turn a guarded branch or ambiguous ace-is-out wording into an unqualified false ownership claim. See independent-reviews/short6-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r1",
+      "decision": "decision-0010",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "128e3a464fdabffb6ab29524b275f22ff4f5a74765c2628b01dde74f6e576e00",
+      "original_evaluator_error": null,
+      "reason": "Root leaves may draw the last diamond pending: no defenders remain with diamonds, but the conditional may wording does not unambiguously assert a present outstanding card."
+    },
+    {
+      "attempt": "short-6-r1",
+      "decision": "decision-0011",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "128e3a464fdabffb6ab29524b275f22ff4f5a74765c2628b01dde74f6e576e00",
+      "original_evaluator_error": null,
+      "reason": "Root leaves ace-is-out wording pending: North HA is still held, but out may mean outside South/outstanding rather than already played."
+    },
+    {
+      "attempt": "short-6-r1",
+      "decision": "decision-0012",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "128e3a464fdabffb6ab29524b275f22ff4f5a74765c2628b01dde74f6e576e00",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review. Clear current card/reason and opposing-control contradictions are hard failures. Pending is not a pass; do not turn a guarded branch or ambiguous ace-is-out wording into an unqualified false ownership claim. See independent-reviews/short6-r1-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r2",
+      "decision": "decision-0001",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "be810599c839cbb4859fff9706c60443fd1f94bb07bedfc053fa6ae008e6f757",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent standards review of all 12 actual records. Definite current errors: #1 selects S8 while explaining retention, #11 gives a club-discard reason although North is club-void and selects H3. Other disputed findings stay pending; six basic passes are preserved. Details: independent-reviews/short6-r2-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r2",
+      "decision": "decision-0002",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "be810599c839cbb4859fff9706c60443fd1f94bb07bedfc053fa6ae008e6f757",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent standards review of all 12 actual records. Definite current errors: #1 selects S8 while explaining retention, #11 gives a club-discard reason although North is club-void and selects H3. Other disputed findings stay pending; six basic passes are preserved. Details: independent-reviews/short6-r2-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r2",
+      "decision": "decision-0003",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "be810599c839cbb4859fff9706c60443fd1f94bb07bedfc053fa6ae008e6f757",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent standards review of all 12 actual records. Definite current errors: #1 selects S8 while explaining retention, #11 gives a club-discard reason although North is club-void and selects H3. Other disputed findings stay pending; six basic passes are preserved. Details: independent-reviews/short6-r2-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r2",
+      "decision": "decision-0004",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "be810599c839cbb4859fff9706c60443fd1f94bb07bedfc053fa6ae008e6f757",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent standards review of all 12 actual records. Definite current errors: #1 selects S8 while explaining retention, #11 gives a club-discard reason although North is club-void and selects H3. Other disputed findings stay pending; six basic passes are preserved. Details: independent-reviews/short6-r2-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r2",
+      "decision": "decision-0005",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "be810599c839cbb4859fff9706c60443fd1f94bb07bedfc053fa6ae008e6f757",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent standards review of all 12 actual records. Definite current errors: #1 selects S8 while explaining retention, #11 gives a club-discard reason although North is club-void and selects H3. Other disputed findings stay pending; six basic passes are preserved. Details: independent-reviews/short6-r2-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r2",
+      "decision": "decision-0006",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "be810599c839cbb4859fff9706c60443fd1f94bb07bedfc053fa6ae008e6f757",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent standards review of all 12 actual records. Definite current errors: #1 selects S8 while explaining retention, #11 gives a club-discard reason although North is club-void and selects H3. Other disputed findings stay pending; six basic passes are preserved. Details: independent-reviews/short6-r2-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r2",
+      "decision": "decision-0007",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "be810599c839cbb4859fff9706c60443fd1f94bb07bedfc053fa6ae008e6f757",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent standards review of all 12 actual records. Definite current errors: #1 selects S8 while explaining retention, #11 gives a club-discard reason although North is club-void and selects H3. Other disputed findings stay pending; six basic passes are preserved. Details: independent-reviews/short6-r2-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r2",
+      "decision": "decision-0008",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "be810599c839cbb4859fff9706c60443fd1f94bb07bedfc053fa6ae008e6f757",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent standards review of all 12 actual records. Definite current errors: #1 selects S8 while explaining retention, #11 gives a club-discard reason although North is club-void and selects H3. Other disputed findings stay pending; six basic passes are preserved. Details: independent-reviews/short6-r2-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r2",
+      "decision": "decision-0009",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "be810599c839cbb4859fff9706c60443fd1f94bb07bedfc053fa6ae008e6f757",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent standards review of all 12 actual records. Definite current errors: #1 selects S8 while explaining retention, #11 gives a club-discard reason although North is club-void and selects H3. Other disputed findings stay pending; six basic passes are preserved. Details: independent-reviews/short6-r2-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r2",
+      "decision": "decision-0010",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "be810599c839cbb4859fff9706c60443fd1f94bb07bedfc053fa6ae008e6f757",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent standards review of all 12 actual records. Definite current errors: #1 selects S8 while explaining retention, #11 gives a club-discard reason although North is club-void and selects H3. Other disputed findings stay pending; six basic passes are preserved. Details: independent-reviews/short6-r2-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r2",
+      "decision": "decision-0011",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "be810599c839cbb4859fff9706c60443fd1f94bb07bedfc053fa6ae008e6f757",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent standards review of all 12 actual records. Definite current errors: #1 selects S8 while explaining retention, #11 gives a club-discard reason although North is club-void and selects H3. Other disputed findings stay pending; six basic passes are preserved. Details: independent-reviews/short6-r2-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r2",
+      "decision": "decision-0012",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "be810599c839cbb4859fff9706c60443fd1f94bb07bedfc053fa6ae008e6f757",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent standards review of all 12 actual records. Definite current errors: #1 selects S8 while explaining retention, #11 gives a club-discard reason although North is club-void and selects H3. Other disputed findings stay pending; six basic passes are preserved. Details: independent-reviews/short6-r2-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r3",
+      "decision": "decision-0001",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "763820cadcdf78ce1b365e10e6e0de67a27cbb42563f94c38c4ab122641c56f9",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review of all actual answers and snapshots. Six basic passes and one pending remain separate from five definite failures. See independent-reviews/short6-r3-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r3",
+      "decision": "decision-0002",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "763820cadcdf78ce1b365e10e6e0de67a27cbb42563f94c38c4ab122641c56f9",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review of all actual answers and snapshots. Six basic passes and one pending remain separate from five definite failures. See independent-reviews/short6-r3-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r3",
+      "decision": "decision-0003",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "763820cadcdf78ce1b365e10e6e0de67a27cbb42563f94c38c4ab122641c56f9",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review of all actual answers and snapshots. Six basic passes and one pending remain separate from five definite failures. See independent-reviews/short6-r3-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r3",
+      "decision": "decision-0004",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "763820cadcdf78ce1b365e10e6e0de67a27cbb42563f94c38c4ab122641c56f9",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review of all actual answers and snapshots. Six basic passes and one pending remain separate from five definite failures. See independent-reviews/short6-r3-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r3",
+      "decision": "decision-0005",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "763820cadcdf78ce1b365e10e6e0de67a27cbb42563f94c38c4ab122641c56f9",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review of all actual answers and snapshots. Six basic passes and one pending remain separate from five definite failures. See independent-reviews/short6-r3-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r3",
+      "decision": "decision-0006",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "763820cadcdf78ce1b365e10e6e0de67a27cbb42563f94c38c4ab122641c56f9",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review of all actual answers and snapshots. Six basic passes and one pending remain separate from five definite failures. See independent-reviews/short6-r3-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r3",
+      "decision": "decision-0007",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "763820cadcdf78ce1b365e10e6e0de67a27cbb42563f94c38c4ab122641c56f9",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review of all actual answers and snapshots. Six basic passes and one pending remain separate from five definite failures. See independent-reviews/short6-r3-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r3",
+      "decision": "decision-0008",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "763820cadcdf78ce1b365e10e6e0de67a27cbb42563f94c38c4ab122641c56f9",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review of all actual answers and snapshots. Six basic passes and one pending remain separate from five definite failures. See independent-reviews/short6-r3-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r3",
+      "decision": "decision-0009",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "763820cadcdf78ce1b365e10e6e0de67a27cbb42563f94c38c4ab122641c56f9",
+      "original_evaluator_error": null,
+      "reason": "Root independently verifies a material avoidable contract risk from the visible position: over current C4-East C7, South CA wins; D4 to North DKQT supplies three diamond tricks, and three hearts through HA/H3 give ten total with three already won. Ducking instead exposes a coherent unseen West QJT / East S5 route for five defensive tricks. This does not use the actual hidden defenders or infer error merely from going down."
+    },
+    {
+      "attempt": "short-6-r3",
+      "decision": "decision-0010",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "763820cadcdf78ce1b365e10e6e0de67a27cbb42563f94c38c4ab122641c56f9",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review of all actual answers and snapshots. Six basic passes and one pending remain separate from five definite failures. See independent-reviews/short6-r3-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r3",
+      "decision": "decision-0011",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "763820cadcdf78ce1b365e10e6e0de67a27cbb42563f94c38c4ab122641c56f9",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review of all actual answers and snapshots. Six basic passes and one pending remain separate from five definite failures. See independent-reviews/short6-r3-independent-review.md."
+    },
+    {
+      "attempt": "short-6-r3",
+      "decision": "decision-0012",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "763820cadcdf78ce1b365e10e6e0de67a27cbb42563f94c38c4ab122641c56f9",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent detailed review of all actual answers and snapshots. Six basic passes and one pending remain separate from five definite failures. See independent-reviews/short6-r3-independent-review.md."
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0001",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "1566d1e1f3160d06682602ad316f7246ea9a8f3eb16695b553aeee71d04859b2",
+      "original_evaluator_error": null,
+      "reason": "Root and independent spec reviewer agree with the original basic verdict, except decisions 3/6 remain pending as a physically feasible but inferior CQ-unblocking tradeoff rather than a severe failure merely for nonoptimality. Seven concrete failures include decision 10 losing an available cash-nine route by consuming HK, plus later false card/void/reason claims. Original grade remains unchanged."
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0002",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "1566d1e1f3160d06682602ad316f7246ea9a8f3eb16695b553aeee71d04859b2",
+      "original_evaluator_error": null,
+      "reason": "Root and independent spec reviewer agree with the original basic verdict, except decisions 3/6 remain pending as a physically feasible but inferior CQ-unblocking tradeoff rather than a severe failure merely for nonoptimality. Seven concrete failures include decision 10 losing an available cash-nine route by consuming HK, plus later false card/void/reason claims. Original grade remains unchanged."
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0003",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "1566d1e1f3160d06682602ad316f7246ea9a8f3eb16695b553aeee71d04859b2",
+      "original_evaluator_error": null,
+      "reason": "Root and independent spec reviewer agree with the original basic verdict, except decisions 3/6 remain pending as a physically feasible but inferior CQ-unblocking tradeoff rather than a severe failure merely for nonoptimality. Seven concrete failures include decision 10 losing an available cash-nine route by consuming HK, plus later false card/void/reason claims. Original grade remains unchanged."
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0004",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "1566d1e1f3160d06682602ad316f7246ea9a8f3eb16695b553aeee71d04859b2",
+      "original_evaluator_error": null,
+      "reason": "Root and independent spec reviewer agree with the original basic verdict, except decisions 3/6 remain pending as a physically feasible but inferior CQ-unblocking tradeoff rather than a severe failure merely for nonoptimality. Seven concrete failures include decision 10 losing an available cash-nine route by consuming HK, plus later false card/void/reason claims. Original grade remains unchanged."
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0005",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "1566d1e1f3160d06682602ad316f7246ea9a8f3eb16695b553aeee71d04859b2",
+      "original_evaluator_error": null,
+      "reason": "Root and independent spec reviewer agree with the original basic verdict, except decisions 3/6 remain pending as a physically feasible but inferior CQ-unblocking tradeoff rather than a severe failure merely for nonoptimality. Seven concrete failures include decision 10 losing an available cash-nine route by consuming HK, plus later false card/void/reason claims. Original grade remains unchanged."
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0006",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "1566d1e1f3160d06682602ad316f7246ea9a8f3eb16695b553aeee71d04859b2",
+      "original_evaluator_error": null,
+      "reason": "Root and independent spec reviewer agree with the original basic verdict, except decisions 3/6 remain pending as a physically feasible but inferior CQ-unblocking tradeoff rather than a severe failure merely for nonoptimality. Seven concrete failures include decision 10 losing an available cash-nine route by consuming HK, plus later false card/void/reason claims. Original grade remains unchanged."
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0007",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "1566d1e1f3160d06682602ad316f7246ea9a8f3eb16695b553aeee71d04859b2",
+      "original_evaluator_error": null,
+      "reason": "Root and independent spec reviewer agree with the original basic verdict, except decisions 3/6 remain pending as a physically feasible but inferior CQ-unblocking tradeoff rather than a severe failure merely for nonoptimality. Seven concrete failures include decision 10 losing an available cash-nine route by consuming HK, plus later false card/void/reason claims. Original grade remains unchanged."
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0008",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "1566d1e1f3160d06682602ad316f7246ea9a8f3eb16695b553aeee71d04859b2",
+      "original_evaluator_error": null,
+      "reason": "Root and independent spec reviewer agree with the original basic verdict, except decisions 3/6 remain pending as a physically feasible but inferior CQ-unblocking tradeoff rather than a severe failure merely for nonoptimality. Seven concrete failures include decision 10 losing an available cash-nine route by consuming HK, plus later false card/void/reason claims. Original grade remains unchanged."
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0009",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "1566d1e1f3160d06682602ad316f7246ea9a8f3eb16695b553aeee71d04859b2",
+      "original_evaluator_error": null,
+      "reason": "Root and independent spec reviewer agree with the original basic verdict, except decisions 3/6 remain pending as a physically feasible but inferior CQ-unblocking tradeoff rather than a severe failure merely for nonoptimality. Seven concrete failures include decision 10 losing an available cash-nine route by consuming HK, plus later false card/void/reason claims. Original grade remains unchanged."
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0010",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "1566d1e1f3160d06682602ad316f7246ea9a8f3eb16695b553aeee71d04859b2",
+      "original_evaluator_error": null,
+      "reason": "Root and independent spec reviewer agree with the original basic verdict, except decisions 3/6 remain pending as a physically feasible but inferior CQ-unblocking tradeoff rather than a severe failure merely for nonoptimality. Seven concrete failures include decision 10 losing an available cash-nine route by consuming HK, plus later false card/void/reason claims. Original grade remains unchanged."
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0011",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "1566d1e1f3160d06682602ad316f7246ea9a8f3eb16695b553aeee71d04859b2",
+      "original_evaluator_error": null,
+      "reason": "Root and independent spec reviewer agree with the original basic verdict, except decisions 3/6 remain pending as a physically feasible but inferior CQ-unblocking tradeoff rather than a severe failure merely for nonoptimality. Seven concrete failures include decision 10 losing an available cash-nine route by consuming HK, plus later false card/void/reason claims. Original grade remains unchanged."
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0012",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "1566d1e1f3160d06682602ad316f7246ea9a8f3eb16695b553aeee71d04859b2",
+      "original_evaluator_error": null,
+      "reason": "Root and independent spec reviewer agree with the original basic verdict, except decisions 3/6 remain pending as a physically feasible but inferior CQ-unblocking tradeoff rather than a severe failure merely for nonoptimality. Seven concrete failures include decision 10 losing an available cash-nine route by consuming HK, plus later false card/void/reason claims. Original grade remains unchanged."
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0013",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "1566d1e1f3160d06682602ad316f7246ea9a8f3eb16695b553aeee71d04859b2",
+      "original_evaluator_error": null,
+      "reason": "Root and independent spec reviewer agree with the original basic verdict, except decisions 3/6 remain pending as a physically feasible but inferior CQ-unblocking tradeoff rather than a severe failure merely for nonoptimality. Seven concrete failures include decision 10 losing an available cash-nine route by consuming HK, plus later false card/void/reason claims. Original grade remains unchanged."
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0014",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "1566d1e1f3160d06682602ad316f7246ea9a8f3eb16695b553aeee71d04859b2",
+      "original_evaluator_error": null,
+      "reason": "Root and independent spec reviewer agree with the original basic verdict, except decisions 3/6 remain pending as a physically feasible but inferior CQ-unblocking tradeoff rather than a severe failure merely for nonoptimality. Seven concrete failures include decision 10 losing an available cash-nine route by consuming HK, plus later false card/void/reason claims. Original grade remains unchanged."
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0015",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "1566d1e1f3160d06682602ad316f7246ea9a8f3eb16695b553aeee71d04859b2",
+      "original_evaluator_error": null,
+      "reason": "Root and independent spec reviewer agree with the original basic verdict, except decisions 3/6 remain pending as a physically feasible but inferior CQ-unblocking tradeoff rather than a severe failure merely for nonoptimality. Seven concrete failures include decision 10 losing an available cash-nine route by consuming HK, plus later false card/void/reason claims. Original grade remains unchanged."
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0016",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "1566d1e1f3160d06682602ad316f7246ea9a8f3eb16695b553aeee71d04859b2",
+      "original_evaluator_error": null,
+      "reason": "Root and independent spec reviewer agree with the original basic verdict, except decisions 3/6 remain pending as a physically feasible but inferior CQ-unblocking tradeoff rather than a severe failure merely for nonoptimality. Seven concrete failures include decision 10 losing an available cash-nine route by consuming HK, plus later false card/void/reason claims. Original grade remains unchanged."
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0017",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "1566d1e1f3160d06682602ad316f7246ea9a8f3eb16695b553aeee71d04859b2",
+      "original_evaluator_error": null,
+      "reason": "Root and independent spec reviewer agree with the original basic verdict, except decisions 3/6 remain pending as a physically feasible but inferior CQ-unblocking tradeoff rather than a severe failure merely for nonoptimality. Seven concrete failures include decision 10 losing an available cash-nine route by consuming HK, plus later false card/void/reason claims. Original grade remains unchanged."
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0018",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "1566d1e1f3160d06682602ad316f7246ea9a8f3eb16695b553aeee71d04859b2",
+      "original_evaluator_error": null,
+      "reason": "Root and independent spec reviewer agree with the original basic verdict, except decisions 3/6 remain pending as a physically feasible but inferior CQ-unblocking tradeoff rather than a severe failure merely for nonoptimality. Seven concrete failures include decision 10 losing an available cash-nine route by consuming HK, plus later false card/void/reason claims. Original grade remains unchanged."
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0019",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "1566d1e1f3160d06682602ad316f7246ea9a8f3eb16695b553aeee71d04859b2",
+      "original_evaluator_error": null,
+      "reason": "Root and independent spec reviewer agree with the original basic verdict, except decisions 3/6 remain pending as a physically feasible but inferior CQ-unblocking tradeoff rather than a severe failure merely for nonoptimality. Seven concrete failures include decision 10 losing an available cash-nine route by consuming HK, plus later false card/void/reason claims. Original grade remains unchanged."
+    },
+    {
+      "attempt": "full-development-r1",
+      "decision": "decision-0020",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "1566d1e1f3160d06682602ad316f7246ea9a8f3eb16695b553aeee71d04859b2",
+      "original_evaluator_error": null,
+      "reason": "Root and independent spec reviewer agree with the original basic verdict, except decisions 3/6 remain pending as a physically feasible but inferior CQ-unblocking tradeoff rather than a severe failure merely for nonoptimality. Seven concrete failures include decision 10 losing an available cash-nine route by consuming HK, plus later false card/void/reason claims. Original grade remains unchanged."
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0001",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "c5de613a0322172766d0053fe09d81bce657dd805f18bc77bd28351f2fdde4c9",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent review of all 20 actual answers/snapshots: 5 basic passes, 13 definite failures and 2 pending. Five original missing-citation evaluator defects are retained separately from manual passes. Details: independent-reviews/full-development-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0002",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "c5de613a0322172766d0053fe09d81bce657dd805f18bc77bd28351f2fdde4c9",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 20 actual answers/snapshots: 5 basic passes, 13 definite failures and 2 pending. Five original missing-citation evaluator defects are retained separately from manual passes. Details: independent-reviews/full-development-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0003",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "c5de613a0322172766d0053fe09d81bce657dd805f18bc77bd28351f2fdde4c9",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent review of all 20 actual answers/snapshots: 5 basic passes, 13 definite failures and 2 pending. Five original missing-citation evaluator defects are retained separately from manual passes. Details: independent-reviews/full-development-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0004",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "c5de613a0322172766d0053fe09d81bce657dd805f18bc77bd28351f2fdde4c9",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent review of all 20 actual answers/snapshots: 5 basic passes, 13 definite failures and 2 pending. Five original missing-citation evaluator defects are retained separately from manual passes. Details: independent-reviews/full-development-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0005",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "c5de613a0322172766d0053fe09d81bce657dd805f18bc77bd28351f2fdde4c9",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent review of all 20 actual answers/snapshots: 5 basic passes, 13 definite failures and 2 pending. Five original missing-citation evaluator defects are retained separately from manual passes. Details: independent-reviews/full-development-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0006",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "c5de613a0322172766d0053fe09d81bce657dd805f18bc77bd28351f2fdde4c9",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent review of all 20 actual answers/snapshots: 5 basic passes, 13 definite failures and 2 pending. Five original missing-citation evaluator defects are retained separately from manual passes. Details: independent-reviews/full-development-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0007",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "c5de613a0322172766d0053fe09d81bce657dd805f18bc77bd28351f2fdde4c9",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent review of all 20 actual answers/snapshots: 5 basic passes, 13 definite failures and 2 pending. Five original missing-citation evaluator defects are retained separately from manual passes. Details: independent-reviews/full-development-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0008",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "c5de613a0322172766d0053fe09d81bce657dd805f18bc77bd28351f2fdde4c9",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent review of all 20 actual answers/snapshots: 5 basic passes, 13 definite failures and 2 pending. Five original missing-citation evaluator defects are retained separately from manual passes. Details: independent-reviews/full-development-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0009",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "c5de613a0322172766d0053fe09d81bce657dd805f18bc77bd28351f2fdde4c9",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent review of all 20 actual answers/snapshots: 5 basic passes, 13 definite failures and 2 pending. Five original missing-citation evaluator defects are retained separately from manual passes. Details: independent-reviews/full-development-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0010",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "c5de613a0322172766d0053fe09d81bce657dd805f18bc77bd28351f2fdde4c9",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 20 actual answers/snapshots: 5 basic passes, 13 definite failures and 2 pending. Five original missing-citation evaluator defects are retained separately from manual passes. Details: independent-reviews/full-development-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0011",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "c5de613a0322172766d0053fe09d81bce657dd805f18bc77bd28351f2fdde4c9",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent review of all 20 actual answers/snapshots: 5 basic passes, 13 definite failures and 2 pending. Five original missing-citation evaluator defects are retained separately from manual passes. Details: independent-reviews/full-development-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0012",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "c5de613a0322172766d0053fe09d81bce657dd805f18bc77bd28351f2fdde4c9",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 20 actual answers/snapshots: 5 basic passes, 13 definite failures and 2 pending. Five original missing-citation evaluator defects are retained separately from manual passes. Details: independent-reviews/full-development-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0013",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "c5de613a0322172766d0053fe09d81bce657dd805f18bc77bd28351f2fdde4c9",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 20 actual answers/snapshots: 5 basic passes, 13 definite failures and 2 pending. Five original missing-citation evaluator defects are retained separately from manual passes. Details: independent-reviews/full-development-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0014",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "c5de613a0322172766d0053fe09d81bce657dd805f18bc77bd28351f2fdde4c9",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent review of all 20 actual answers/snapshots: 5 basic passes, 13 definite failures and 2 pending. Five original missing-citation evaluator defects are retained separately from manual passes. Details: independent-reviews/full-development-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0015",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "c5de613a0322172766d0053fe09d81bce657dd805f18bc77bd28351f2fdde4c9",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent review of all 20 actual answers/snapshots: 5 basic passes, 13 definite failures and 2 pending. Five original missing-citation evaluator defects are retained separately from manual passes. Details: independent-reviews/full-development-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0016",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "c5de613a0322172766d0053fe09d81bce657dd805f18bc77bd28351f2fdde4c9",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent review of all 20 actual answers/snapshots: 5 basic passes, 13 definite failures and 2 pending. Five original missing-citation evaluator defects are retained separately from manual passes. Details: independent-reviews/full-development-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0017",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "c5de613a0322172766d0053fe09d81bce657dd805f18bc77bd28351f2fdde4c9",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 20 actual answers/snapshots: 5 basic passes, 13 definite failures and 2 pending. Five original missing-citation evaluator defects are retained separately from manual passes. Details: independent-reviews/full-development-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0018",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "c5de613a0322172766d0053fe09d81bce657dd805f18bc77bd28351f2fdde4c9",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent review of all 20 actual answers/snapshots: 5 basic passes, 13 definite failures and 2 pending. Five original missing-citation evaluator defects are retained separately from manual passes. Details: independent-reviews/full-development-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0019",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "c5de613a0322172766d0053fe09d81bce657dd805f18bc77bd28351f2fdde4c9",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent review of all 20 actual answers/snapshots: 5 basic passes, 13 definite failures and 2 pending. Five original missing-citation evaluator defects are retained separately from manual passes. Details: independent-reviews/full-development-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-development-r2",
+      "decision": "decision-0020",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "c5de613a0322172766d0053fe09d81bce657dd805f18bc77bd28351f2fdde4c9",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent review of all 20 actual answers/snapshots: 5 basic passes, 13 definite failures and 2 pending. Five original missing-citation evaluator defects are retained separately from manual passes. Details: independent-reviews/full-development-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0001",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "13f14c53b9ee6de2225933d86bdf706be784b945750f76e1127ee28179179f95",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 21 actual records. Sixteen missing-citation evaluator defects remain preserved separately from independent basic passes. Decision 4 requires an impossible second South play in the same club trick: South C3 and West C4 have already occurred when North selects C5, but the reason says South K/Q can take this trick if East does not cover. Decision 7 counting/extra-trick strategy and #17\u201319 guarded fallback branches remain pending. Details: independent-reviews/full-reserved-r1-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0002",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "13f14c53b9ee6de2225933d86bdf706be784b945750f76e1127ee28179179f95",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 21 actual records. Sixteen missing-citation evaluator defects remain preserved separately from independent basic passes. Decision 4 requires an impossible second South play in the same club trick: South C3 and West C4 have already occurred when North selects C5, but the reason says South K/Q can take this trick if East does not cover. Decision 7 counting/extra-trick strategy and #17\u201319 guarded fallback branches remain pending. Details: independent-reviews/full-reserved-r1-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0003",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "13f14c53b9ee6de2225933d86bdf706be784b945750f76e1127ee28179179f95",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 21 actual records. Sixteen missing-citation evaluator defects remain preserved separately from independent basic passes. Decision 4 requires an impossible second South play in the same club trick: South C3 and West C4 have already occurred when North selects C5, but the reason says South K/Q can take this trick if East does not cover. Decision 7 counting/extra-trick strategy and #17\u201319 guarded fallback branches remain pending. Details: independent-reviews/full-reserved-r1-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0004",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "13f14c53b9ee6de2225933d86bdf706be784b945750f76e1127ee28179179f95",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent review of all 21 actual records. Sixteen missing-citation evaluator defects remain preserved separately from independent basic passes. Decision 4 requires an impossible second South play in the same club trick: South C3 and West C4 have already occurred when North selects C5, but the reason says South K/Q can take this trick if East does not cover. Decision 7 counting/extra-trick strategy and #17\u201319 guarded fallback branches remain pending. Details: independent-reviews/full-reserved-r1-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0005",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "13f14c53b9ee6de2225933d86bdf706be784b945750f76e1127ee28179179f95",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 21 actual records. Sixteen missing-citation evaluator defects remain preserved separately from independent basic passes. Decision 4 requires an impossible second South play in the same club trick: South C3 and West C4 have already occurred when North selects C5, but the reason says South K/Q can take this trick if East does not cover. Decision 7 counting/extra-trick strategy and #17\u201319 guarded fallback branches remain pending. Details: independent-reviews/full-reserved-r1-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0006",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "13f14c53b9ee6de2225933d86bdf706be784b945750f76e1127ee28179179f95",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 21 actual records. Sixteen missing-citation evaluator defects remain preserved separately from independent basic passes. Decision 4 requires an impossible second South play in the same club trick: South C3 and West C4 have already occurred when North selects C5, but the reason says South K/Q can take this trick if East does not cover. Decision 7 counting/extra-trick strategy and #17\u201319 guarded fallback branches remain pending. Details: independent-reviews/full-reserved-r1-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0007",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "13f14c53b9ee6de2225933d86bdf706be784b945750f76e1127ee28179179f95",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent review of all 21 actual records. Sixteen missing-citation evaluator defects remain preserved separately from independent basic passes. Decision 4 requires an impossible second South play in the same club trick: South C3 and West C4 have already occurred when North selects C5, but the reason says South K/Q can take this trick if East does not cover. Decision 7 counting/extra-trick strategy and #17\u201319 guarded fallback branches remain pending. Details: independent-reviews/full-reserved-r1-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0008",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "13f14c53b9ee6de2225933d86bdf706be784b945750f76e1127ee28179179f95",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 21 actual records. Sixteen missing-citation evaluator defects remain preserved separately from independent basic passes. Decision 4 requires an impossible second South play in the same club trick: South C3 and West C4 have already occurred when North selects C5, but the reason says South K/Q can take this trick if East does not cover. Decision 7 counting/extra-trick strategy and #17\u201319 guarded fallback branches remain pending. Details: independent-reviews/full-reserved-r1-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0009",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "13f14c53b9ee6de2225933d86bdf706be784b945750f76e1127ee28179179f95",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 21 actual records. Sixteen missing-citation evaluator defects remain preserved separately from independent basic passes. Decision 4 requires an impossible second South play in the same club trick: South C3 and West C4 have already occurred when North selects C5, but the reason says South K/Q can take this trick if East does not cover. Decision 7 counting/extra-trick strategy and #17\u201319 guarded fallback branches remain pending. Details: independent-reviews/full-reserved-r1-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0010",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "13f14c53b9ee6de2225933d86bdf706be784b945750f76e1127ee28179179f95",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 21 actual records. Sixteen missing-citation evaluator defects remain preserved separately from independent basic passes. Decision 4 requires an impossible second South play in the same club trick: South C3 and West C4 have already occurred when North selects C5, but the reason says South K/Q can take this trick if East does not cover. Decision 7 counting/extra-trick strategy and #17\u201319 guarded fallback branches remain pending. Details: independent-reviews/full-reserved-r1-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0011",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "13f14c53b9ee6de2225933d86bdf706be784b945750f76e1127ee28179179f95",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 21 actual records. Sixteen missing-citation evaluator defects remain preserved separately from independent basic passes. Decision 4 requires an impossible second South play in the same club trick: South C3 and West C4 have already occurred when North selects C5, but the reason says South K/Q can take this trick if East does not cover. Decision 7 counting/extra-trick strategy and #17\u201319 guarded fallback branches remain pending. Details: independent-reviews/full-reserved-r1-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0012",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "13f14c53b9ee6de2225933d86bdf706be784b945750f76e1127ee28179179f95",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 21 actual records. Sixteen missing-citation evaluator defects remain preserved separately from independent basic passes. Decision 4 requires an impossible second South play in the same club trick: South C3 and West C4 have already occurred when North selects C5, but the reason says South K/Q can take this trick if East does not cover. Decision 7 counting/extra-trick strategy and #17\u201319 guarded fallback branches remain pending. Details: independent-reviews/full-reserved-r1-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0013",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "13f14c53b9ee6de2225933d86bdf706be784b945750f76e1127ee28179179f95",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 21 actual records. Sixteen missing-citation evaluator defects remain preserved separately from independent basic passes. Decision 4 requires an impossible second South play in the same club trick: South C3 and West C4 have already occurred when North selects C5, but the reason says South K/Q can take this trick if East does not cover. Decision 7 counting/extra-trick strategy and #17\u201319 guarded fallback branches remain pending. Details: independent-reviews/full-reserved-r1-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0014",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "13f14c53b9ee6de2225933d86bdf706be784b945750f76e1127ee28179179f95",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 21 actual records. Sixteen missing-citation evaluator defects remain preserved separately from independent basic passes. Decision 4 requires an impossible second South play in the same club trick: South C3 and West C4 have already occurred when North selects C5, but the reason says South K/Q can take this trick if East does not cover. Decision 7 counting/extra-trick strategy and #17\u201319 guarded fallback branches remain pending. Details: independent-reviews/full-reserved-r1-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0015",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "13f14c53b9ee6de2225933d86bdf706be784b945750f76e1127ee28179179f95",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 21 actual records. Sixteen missing-citation evaluator defects remain preserved separately from independent basic passes. Decision 4 requires an impossible second South play in the same club trick: South C3 and West C4 have already occurred when North selects C5, but the reason says South K/Q can take this trick if East does not cover. Decision 7 counting/extra-trick strategy and #17\u201319 guarded fallback branches remain pending. Details: independent-reviews/full-reserved-r1-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0016",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "13f14c53b9ee6de2225933d86bdf706be784b945750f76e1127ee28179179f95",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 21 actual records. Sixteen missing-citation evaluator defects remain preserved separately from independent basic passes. Decision 4 requires an impossible second South play in the same club trick: South C3 and West C4 have already occurred when North selects C5, but the reason says South K/Q can take this trick if East does not cover. Decision 7 counting/extra-trick strategy and #17\u201319 guarded fallback branches remain pending. Details: independent-reviews/full-reserved-r1-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0017",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "13f14c53b9ee6de2225933d86bdf706be784b945750f76e1127ee28179179f95",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent review of all 21 actual records. Sixteen missing-citation evaluator defects remain preserved separately from independent basic passes. Decision 4 requires an impossible second South play in the same club trick: South C3 and West C4 have already occurred when North selects C5, but the reason says South K/Q can take this trick if East does not cover. Decision 7 counting/extra-trick strategy and #17\u201319 guarded fallback branches remain pending. Details: independent-reviews/full-reserved-r1-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0018",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "13f14c53b9ee6de2225933d86bdf706be784b945750f76e1127ee28179179f95",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent review of all 21 actual records. Sixteen missing-citation evaluator defects remain preserved separately from independent basic passes. Decision 4 requires an impossible second South play in the same club trick: South C3 and West C4 have already occurred when North selects C5, but the reason says South K/Q can take this trick if East does not cover. Decision 7 counting/extra-trick strategy and #17\u201319 guarded fallback branches remain pending. Details: independent-reviews/full-reserved-r1-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0019",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "13f14c53b9ee6de2225933d86bdf706be784b945750f76e1127ee28179179f95",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent review of all 21 actual records. Sixteen missing-citation evaluator defects remain preserved separately from independent basic passes. Decision 4 requires an impossible second South play in the same club trick: South C3 and West C4 have already occurred when North selects C5, but the reason says South K/Q can take this trick if East does not cover. Decision 7 counting/extra-trick strategy and #17\u201319 guarded fallback branches remain pending. Details: independent-reviews/full-reserved-r1-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0020",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "13f14c53b9ee6de2225933d86bdf706be784b945750f76e1127ee28179179f95",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 21 actual records. Sixteen missing-citation evaluator defects remain preserved separately from independent basic passes. Decision 4 requires an impossible second South play in the same club trick: South C3 and West C4 have already occurred when North selects C5, but the reason says South K/Q can take this trick if East does not cover. Decision 7 counting/extra-trick strategy and #17\u201319 guarded fallback branches remain pending. Details: independent-reviews/full-reserved-r1-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "decision": "decision-0021",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "13f14c53b9ee6de2225933d86bdf706be784b945750f76e1127ee28179179f95",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 21 actual records. Sixteen missing-citation evaluator defects remain preserved separately from independent basic passes. Decision 4 requires an impossible second South play in the same club trick: South C3 and West C4 have already occurred when North selects C5, but the reason says South K/Q can take this trick if East does not cover. Decision 7 counting/extra-trick strategy and #17\u201319 guarded fallback branches remain pending. Details: independent-reviews/full-reserved-r1-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0001",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "5d1c92fc3f5167d104e093c6deb20e6a019b360f3770e52222827d870ad91a8a",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent review of all 19 actual answers/snapshots. Definite current history/void/winner contradictions in #3/#18/#19; guarded #1/#12, deictic #5 and unnecessary-honor #13 remain pending because they do not establish an impossible route under their exact wording. A real ten-trick route remains for #13. Twelve missing-citation evaluator defects are preserved separately from manual passes. Details: independent-reviews/full-reserved-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0002",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "5d1c92fc3f5167d104e093c6deb20e6a019b360f3770e52222827d870ad91a8a",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 19 actual answers/snapshots. Definite current history/void/winner contradictions in #3/#18/#19; guarded #1/#12, deictic #5 and unnecessary-honor #13 remain pending because they do not establish an impossible route under their exact wording. A real ten-trick route remains for #13. Twelve missing-citation evaluator defects are preserved separately from manual passes. Details: independent-reviews/full-reserved-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0003",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "5d1c92fc3f5167d104e093c6deb20e6a019b360f3770e52222827d870ad91a8a",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent review of all 19 actual answers/snapshots. Definite current history/void/winner contradictions in #3/#18/#19; guarded #1/#12, deictic #5 and unnecessary-honor #13 remain pending because they do not establish an impossible route under their exact wording. A real ten-trick route remains for #13. Twelve missing-citation evaluator defects are preserved separately from manual passes. Details: independent-reviews/full-reserved-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0004",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "5d1c92fc3f5167d104e093c6deb20e6a019b360f3770e52222827d870ad91a8a",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 19 actual answers/snapshots. Definite current history/void/winner contradictions in #3/#18/#19; guarded #1/#12, deictic #5 and unnecessary-honor #13 remain pending because they do not establish an impossible route under their exact wording. A real ten-trick route remains for #13. Twelve missing-citation evaluator defects are preserved separately from manual passes. Details: independent-reviews/full-reserved-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0005",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "5d1c92fc3f5167d104e093c6deb20e6a019b360f3770e52222827d870ad91a8a",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent review of all 19 actual answers/snapshots. Definite current history/void/winner contradictions in #3/#18/#19; guarded #1/#12, deictic #5 and unnecessary-honor #13 remain pending because they do not establish an impossible route under their exact wording. A real ten-trick route remains for #13. Twelve missing-citation evaluator defects are preserved separately from manual passes. Details: independent-reviews/full-reserved-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0006",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "5d1c92fc3f5167d104e093c6deb20e6a019b360f3770e52222827d870ad91a8a",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 19 actual answers/snapshots. Definite current history/void/winner contradictions in #3/#18/#19; guarded #1/#12, deictic #5 and unnecessary-honor #13 remain pending because they do not establish an impossible route under their exact wording. A real ten-trick route remains for #13. Twelve missing-citation evaluator defects are preserved separately from manual passes. Details: independent-reviews/full-reserved-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0007",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "5d1c92fc3f5167d104e093c6deb20e6a019b360f3770e52222827d870ad91a8a",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 19 actual answers/snapshots. Definite current history/void/winner contradictions in #3/#18/#19; guarded #1/#12, deictic #5 and unnecessary-honor #13 remain pending because they do not establish an impossible route under their exact wording. A real ten-trick route remains for #13. Twelve missing-citation evaluator defects are preserved separately from manual passes. Details: independent-reviews/full-reserved-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0008",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "5d1c92fc3f5167d104e093c6deb20e6a019b360f3770e52222827d870ad91a8a",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 19 actual answers/snapshots. Definite current history/void/winner contradictions in #3/#18/#19; guarded #1/#12, deictic #5 and unnecessary-honor #13 remain pending because they do not establish an impossible route under their exact wording. A real ten-trick route remains for #13. Twelve missing-citation evaluator defects are preserved separately from manual passes. Details: independent-reviews/full-reserved-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0009",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "5d1c92fc3f5167d104e093c6deb20e6a019b360f3770e52222827d870ad91a8a",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 19 actual answers/snapshots. Definite current history/void/winner contradictions in #3/#18/#19; guarded #1/#12, deictic #5 and unnecessary-honor #13 remain pending because they do not establish an impossible route under their exact wording. A real ten-trick route remains for #13. Twelve missing-citation evaluator defects are preserved separately from manual passes. Details: independent-reviews/full-reserved-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0010",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "5d1c92fc3f5167d104e093c6deb20e6a019b360f3770e52222827d870ad91a8a",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 19 actual answers/snapshots. Definite current history/void/winner contradictions in #3/#18/#19; guarded #1/#12, deictic #5 and unnecessary-honor #13 remain pending because they do not establish an impossible route under their exact wording. A real ten-trick route remains for #13. Twelve missing-citation evaluator defects are preserved separately from manual passes. Details: independent-reviews/full-reserved-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0011",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "5d1c92fc3f5167d104e093c6deb20e6a019b360f3770e52222827d870ad91a8a",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 19 actual answers/snapshots. Definite current history/void/winner contradictions in #3/#18/#19; guarded #1/#12, deictic #5 and unnecessary-honor #13 remain pending because they do not establish an impossible route under their exact wording. A real ten-trick route remains for #13. Twelve missing-citation evaluator defects are preserved separately from manual passes. Details: independent-reviews/full-reserved-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0012",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "5d1c92fc3f5167d104e093c6deb20e6a019b360f3770e52222827d870ad91a8a",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent review of all 19 actual answers/snapshots. Definite current history/void/winner contradictions in #3/#18/#19; guarded #1/#12, deictic #5 and unnecessary-honor #13 remain pending because they do not establish an impossible route under their exact wording. A real ten-trick route remains for #13. Twelve missing-citation evaluator defects are preserved separately from manual passes. Details: independent-reviews/full-reserved-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0013",
+      "reviewed_status": "pending",
+      "original_evaluation_sha256": "5d1c92fc3f5167d104e093c6deb20e6a019b360f3770e52222827d870ad91a8a",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent review of all 19 actual answers/snapshots. Definite current history/void/winner contradictions in #3/#18/#19; guarded #1/#12, deictic #5 and unnecessary-honor #13 remain pending because they do not establish an impossible route under their exact wording. A real ten-trick route remains for #13. Twelve missing-citation evaluator defects are preserved separately from manual passes. Details: independent-reviews/full-reserved-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0014",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "5d1c92fc3f5167d104e093c6deb20e6a019b360f3770e52222827d870ad91a8a",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 19 actual answers/snapshots. Definite current history/void/winner contradictions in #3/#18/#19; guarded #1/#12, deictic #5 and unnecessary-honor #13 remain pending because they do not establish an impossible route under their exact wording. A real ten-trick route remains for #13. Twelve missing-citation evaluator defects are preserved separately from manual passes. Details: independent-reviews/full-reserved-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0015",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "5d1c92fc3f5167d104e093c6deb20e6a019b360f3770e52222827d870ad91a8a",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 19 actual answers/snapshots. Definite current history/void/winner contradictions in #3/#18/#19; guarded #1/#12, deictic #5 and unnecessary-honor #13 remain pending because they do not establish an impossible route under their exact wording. A real ten-trick route remains for #13. Twelve missing-citation evaluator defects are preserved separately from manual passes. Details: independent-reviews/full-reserved-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0016",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "5d1c92fc3f5167d104e093c6deb20e6a019b360f3770e52222827d870ad91a8a",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 19 actual answers/snapshots. Definite current history/void/winner contradictions in #3/#18/#19; guarded #1/#12, deictic #5 and unnecessary-honor #13 remain pending because they do not establish an impossible route under their exact wording. A real ten-trick route remains for #13. Twelve missing-citation evaluator defects are preserved separately from manual passes. Details: independent-reviews/full-reserved-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0017",
+      "reviewed_status": "pass",
+      "original_evaluation_sha256": "5d1c92fc3f5167d104e093c6deb20e6a019b360f3770e52222827d870ad91a8a",
+      "original_evaluator_error": "Missing status or cited findings",
+      "reason": "Root accepted independent review of all 19 actual answers/snapshots. Definite current history/void/winner contradictions in #3/#18/#19; guarded #1/#12, deictic #5 and unnecessary-honor #13 remain pending because they do not establish an impossible route under their exact wording. A real ten-trick route remains for #13. Twelve missing-citation evaluator defects are preserved separately from manual passes. Details: independent-reviews/full-reserved-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0018",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "5d1c92fc3f5167d104e093c6deb20e6a019b360f3770e52222827d870ad91a8a",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent review of all 19 actual answers/snapshots. Definite current history/void/winner contradictions in #3/#18/#19; guarded #1/#12, deictic #5 and unnecessary-honor #13 remain pending because they do not establish an impossible route under their exact wording. A real ten-trick route remains for #13. Twelve missing-citation evaluator defects are preserved separately from manual passes. Details: independent-reviews/full-reserved-r2-independent-review.md."
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "decision": "decision-0019",
+      "reviewed_status": "fail",
+      "original_evaluation_sha256": "5d1c92fc3f5167d104e093c6deb20e6a019b360f3770e52222827d870ad91a8a",
+      "original_evaluator_error": null,
+      "reason": "Root accepted independent review of all 19 actual answers/snapshots. Definite current history/void/winner contradictions in #3/#18/#19; guarded #1/#12, deictic #5 and unnecessary-honor #13 remain pending because they do not establish an impossible route under their exact wording. A real ten-trick route remains for #13. Twelve missing-citation evaluator defects are preserved separately from manual passes. Details: independent-reviews/full-reserved-r2-independent-review.md."
+    }
+  ],
+  "coverage_reviews": [
+    {
+      "attempt": "short-2-r1",
+      "reviewed_status": "covered",
+      "reason": "At least three actual decisions; valid #2/#3/#4 retain the still-applicable initial club route before the second club round produces new information. No newly disproved initial premise in that continuation segment."
+    },
+    {
+      "attempt": "short-2-r2",
+      "reviewed_status": "pending",
+      "reason": "Multiple real continuation decisions occurred, but applicability of the initial false premise remains disputed. Not silently counted as demonstrated good plan continuation."
+    },
+    {
+      "attempt": "short-2-r3",
+      "reviewed_status": "pending",
+      "reason": "Initial false premise and current direction issues prevent treating the observed continuation as three demonstrated still-applicable plan continuations without further evidence."
+    },
+    {
+      "attempt": "short-3-r1",
+      "reviewed_status": "covered",
+      "reason": "Actual full club rounds at sequence 4\u20137 and 8\u201311, followed by model decision 7 at revision 12, demonstrate the public-information trigger."
+    },
+    {
+      "attempt": "short-3-r2",
+      "reviewed_status": "uncovered",
+      "reason": "Only one club round occurred before the typed invalidOutput stop."
+    },
+    {
+      "attempt": "short-3-r3",
+      "reviewed_status": "covered",
+      "reason": "Both defenders followed the two full club rounds at 8\u201311 and 12\u201315, followed by decision 9 at revision 16. No assertion of third-round defender localization before it occurs."
+    },
+    {
+      "attempt": "short-4-r1",
+      "reviewed_status": "uncovered",
+      "reason": "No CA, CK or CQ was consumed before the stop; club attempts alone do not satisfy the consumed-honor/remaining-entry trigger."
+    },
+    {
+      "attempt": "short-4-r2",
+      "reviewed_status": "covered-limited",
+      "reason": "CQ was consumed and actual decision 14 has North facing the HK entry choice over West HT while South remaining club honors need tracking. The manifest does not require at least two consumed honors; automatic helper result is preserved but this actual one-honor/heart-entry facet is covered. No claim of post-two-honor or endgame transport coverage."
+    },
+    {
+      "attempt": "short-4-r3",
+      "reviewed_status": "uncovered",
+      "reason": "Only DQ/D8/D4 occurred before the request-2 stop; no club establishment or later entry trigger."
+    },
+    {
+      "attempt": "short-5-r1",
+      "reviewed_status": "covered-limited",
+      "reason": "Actual diamond attempt while North CA remains, followed by a real defensive response and later controlled decision. No claim that establishment completed or the DA-duck branch was demonstrated."
+    },
+    {
+      "attempt": "short-5-r2",
+      "reviewed_status": "covered",
+      "reason": "Actual DQ duck and DK taken by DA, followed by a spade return and later controlled decision, demonstrate the timing/entry trigger."
+    },
+    {
+      "attempt": "short-5-r3",
+      "reviewed_status": "covered-limited",
+      "reason": "D3-D6-D5-D8 is an actual establishment attempt/defensive reply, followed by decision 3 while North CA remains. No claim of DA-duck or completed diamond establishment."
+    },
+    {
+      "attempt": "short-6-r1",
+      "reviewed_status": "uncovered",
+      "reason": "Specialized hold-up/communication trigger not demonstrated: immediate SA, followed by actual East S6 / South S3 / West S2 / North S7, gifts dummy an entry. The later diamond/DA response facet occurs, but this does not prove a hold-up communication test. Early SA is not itself penalized as an alternative solely for differing from a two-duck reference."
+    },
+    {
+      "attempt": "short-6-r2",
+      "reviewed_status": "uncovered",
+      "reason": "Actual SA at sequence 3 precedes diamonds 4\u20137, before continued spades 8+. Only the broad post-DA defensive-response/entry facet is observed. The specialized hold-up communication trigger is not demonstrated; this does not assert that early SA is invalid or impose a unique two-duck route."
+    },
+    {
+      "attempt": "short-6-r3",
+      "reviewed_status": "uncovered",
+      "reason": "The specialized hold-up/communication condition before losing to DA was not demonstrated; only a later post-club spade-pressure facet occurred."
+    },
+    {
+      "attempt": "full-development-r1",
+      "reviewed_status": "covered",
+      "reason": "Independent replay confirms all 52 unique cards, thirteen tricks, NS 8 / EW 5, 20 actual model actions plus 6 forced, 25 driver opponents plus 1 opening prefix. Coverage is legal completion, not quality acceptance."
+    },
+    {
+      "attempt": "full-development-r2",
+      "reviewed_status": "covered",
+      "reason": "Independent replay verifies 52 unique cards, empty holdings, thirteen tricks 7:6, one continuing thread with 20 unique turns/sessions, 20 model actions plus 6 forced. HTTP response metadata capture gap remains unknown and is not repaired by a replay."
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "reviewed_status": "covered",
+      "reason": "Independent replay verifies all 52 cards, thirteen tricks 10:3, 21 model plus 5 forced actions. Full driver 97.664126 seconds and last controlled action 97.656635 seconds are distinct; making the contract does not erase the impossible current-trick explanation."
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "reviewed_status": "covered",
+      "reason": "Independent replay verifies 52 unique cards, empty holdings, thirteen tricks 9:4, 19 model plus 7 forced actions, one continuing thread/19 turns and saved sessions. All 19 recorded HTTP statuses are 200. Request sum 87.766667 plus overhead 0.273582 equals full driver 88.040249 seconds."
+    }
+  ],
+  "status": "All 22 attempt reviews accepted by root independent reviewer; pending findings remain unresolved, not passed.",
+  "reviewed_status_definition": "Semantic basic quality except where an explicit reviewed_mechanical/reviewed_overall field separates a structural failure. Final overall aggregation also honors the original independently verified mechanical failure."
+}

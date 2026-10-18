@@ -1,0 +1,192 @@
+{
+  "id": "short-5-r1",
+  "case_id": "short-5",
+  "kind": "short",
+  "board": "boards/pavlicek-deep-finesse.json",
+  "decisions": 12,
+  "opponent_policy": "pavlicek-entry",
+  "task_complete": true,
+  "legal_execution": "pass",
+  "quality": "fail",
+  "playing": {
+    "exit_code": 0,
+    "wall_seconds": 56.03
+  },
+  "grading": {
+    "exit_code": 0,
+    "grading_evidence_available": true
+  },
+  "coverage": {
+    "status": "pending",
+    "basis": "Diamond attempt, retained North CA and later controlled decision observed; gift/entry meaning requires independent review."
+  },
+  "counts": {
+    "actual_events": 33,
+    "complete": false,
+    "tricks": [
+      3,
+      5
+    ],
+    "model_request_attempts": 12,
+    "actual_rpc_requests": 12,
+    "model_actions": 12,
+    "forced_actions": 3,
+    "driver_opponent_actions": 14,
+    "initial_controlled_actions": 2,
+    "initial_opponent_actions": 2,
+    "retries": 0
+  },
+  "wire": {
+    "upstream_request_attempts": 12,
+    "http_statuses": {
+      "200": 12
+    },
+    "transport_errors": [],
+    "missing_response_metadata": [],
+    "observed_response_models": [
+      "gpt-6-luna"
+    ]
+  },
+  "timing": {
+    "elapsedSeconds": 55.79526090621948,
+    "lastControlledActionSeconds": 55.79302394390106,
+    "environmentOverheadSeconds": 0.09485399723052979,
+    "initialRequestSeconds": 14.066022992134094,
+    "subsequentRequestSeconds": [
+      3.974141001701355,
+      3.9774279594421387,
+      3.7134870290756226,
+      3.6653209924697876,
+      3.7275320291519165,
+      3.935802936553955,
+      3.868320941925049,
+      3.617666006088257,
+      3.4931650161743164,
+      3.8611429929733276,
+      3.8003770112991333
+    ],
+    "failedRequestSeconds": null
+  },
+  "quality_counts": {
+    "pass": 6,
+    "fail": 6,
+    "uncertain": 0
+  },
+  "review_required": [
+    {
+      "id": "decision-0002",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "wrong_winner",
+          "fact": "West has already played D6; the selected D5 cannot beat it.",
+          "explanation": "The reason describes the selected card as winning, although it is below the current winning card and East has yet to play.",
+          "quotes": [
+            "Dummy should play the lowest diamond that wins the trick, preserving the king and queen to force out the ace and continue establishing the suit."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0007",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "physical_route",
+          "fact": "North holds H43 and CA10; a heart lead requires North to follow hearts.",
+          "explanation": "Leading H2 cannot lead toward or reach North’s club honors. The proposed explanation supplies no feasible connection to a club continuation and conflicts with the retained diamond plan.",
+          "quotes": [
+            "Lead a low heart toward dummy’s ace-ten clubs; a club continuation can help establish the suit while retaining the heart honors."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0008",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "invented_cards",
+          "fact": "North’s only hearts are H4 and H3; its ten is CT.",
+          "explanation": "The explanation treats North as having a ten or honor relevant to following hearts, although neither legal heart is an honor.",
+          "quotes": [
+            "Dummy should play the lowest heart; preserve the ten and avoid spending an honor while East is still to play."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0009",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "trick_counting",
+          "fact": "Defenders have four tricks; South can beat HQ with HA or HK, while North has only H4.",
+          "explanation": "Playing H6 concedes the setting fifth trick despite two available winners. Preserving both honors supplies no concrete compensating route and abandons the stated development plan.",
+          "quotes": [
+            "Follow hearts with the six, preserving the ace and king to regain the lead later."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0010",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "winner_and_consistency",
+          "fact": "The current trick contains only East’s HT; South holds HA and HK and selects HA.",
+          "explanation": "HA wins this trick. The reason incorrectly declares it lost and says to retain the very ace being played.",
+          "quotes": [
+            "The defenders have won this heart trick; retain the heart ace and king for control."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0011",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "invented_card_and_action_consistency",
+          "fact": "North’s H4 was played on the preceding trick; North is now void in hearts and selects D7.",
+          "explanation": "The reason invents an available H4 and instructs a different suit and card from the actual selection.",
+          "quotes": [
+            "Dummy should follow with its last heart, the four."
+          ]
+        }
+      ]
+    }
+  ],
+  "plan_updates": {
+    "keep": 11,
+    "replace": 1,
+    "withdraw": 0
+  },
+  "failures": [],
+  "outcome": "fail"
+}

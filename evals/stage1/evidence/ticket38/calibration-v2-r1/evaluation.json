@@ -1,0 +1,121 @@
+{
+  "rubric_version": "stage1-basic-v2",
+  "results": [
+    {
+      "id": "A",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "route_and_trick_count",
+          "fact": "The authorized hands provide eight top tricks and five club tricks on a 3-2 break.",
+          "explanation": "D3 legally follows the opening diamond. South can win, lead to North's CQ, return to CA and cash CK and the established clubs. The stated conditional route yields ten tricks with available heart transportation for HK.",
+          "quotes": [
+            "There are eight top tricks: SA, HA, HK, DA, DK, CA, CK, CQ.",
+            "Win the opening diamond in South, then lead a low club to CQ. Return a club to CA, cash CK and, if clubs prove 3-2, the remaining two clubs."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "route_and_entries",
+          "fact": "North holds CQ72 and H74 alongside HK; South holds CAK864 and HA.",
+          "explanation": "D8 legally follows suit. North can play C2 and C7 under CA and CK, win the third club with CQ, and return a low heart to HA. On the explicitly conditional 3-2 break, South can cash two long clubs, giving ten total tricks.",
+          "quotes": [
+            "Win DA, cash CA and CK, playing low clubs from dummy. Then lead a low club to CQ.",
+            "If clubs split 3-2, the opponents have no clubs left; lead a low heart from dummy to HA and cash the two long clubs."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "invented_card_and_trick_count",
+          "fact": "South holds SA94, with no SJ; the combined hands have eight top tricks.",
+          "explanation": "The plan invents SJ and counts it as an immediate winner, materially overstating the available tricks and claiming an unsupported certain contract.",
+          "quotes": [
+            "There are nine immediate top tricks, including the SJ in South.",
+            "I will cash SA, SJ, HA, HK, DA, DK, CA, CK and CQ without needing to establish any suit.",
+            "Follow suit; the contract is already certain on top tricks."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "incoherent_condition",
+          "fact": "South has five clubs and North three, leaving only five clubs for the defenders.",
+          "explanation": "Both defenders following to three club rounds would require six defensive clubs. The impossible condition prevents the plan from identifying the ordinary 3-2 break under which the long clubs become winners.",
+          "quotes": [
+            "If both defenders follow to all three rounds of clubs, cash the two long clubs for ten total tricks."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E",
+      "mechanical": "fail",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "illegal_action_and_consistency",
+          "fact": "North must act after West's DQ, holds four diamonds, and does not hold CA; CA belongs to South.",
+          "explanation": "The selected card is unavailable to the acting hand and fails to follow diamonds. The reason also proposes an immediate South action inconsistent with the current turn and the plan to win a diamond first.",
+          "quotes": [
+            "\"currentCard\": \"CA\"",
+            "Cash an ace now from South to start the long suit.",
+            "Eight top tricks; establish clubs by winning a diamond in South then low club to CQ and clubs back toward AK."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "F",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "unsupported_certainty",
+          "fact": "Only West's DQ has been played; defender hands and lead agreements are unknown.",
+          "explanation": "The diamond lead does not establish the club distribution. The route works on a 3-2 club break, but asserting that break and ten tricks as guaranteed is materially unjustified.",
+          "quotes": [
+            "The missing five clubs must be 3-2 because West led DQ, so five clubs and ten total tricks are guaranteed.",
+            "Follow diamonds now; the opening lead proves clubs are breaking."
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Small-sample basic evaluation; no claim of broad grading reliability."
+}

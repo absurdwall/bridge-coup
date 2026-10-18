@@ -1,0 +1,530 @@
+{
+  "candidate": "stage1-plan-publicReason-selectedCard-v2",
+  "observed": [
+    {
+      "run": "short2",
+      "requests": 8,
+      "recorded_decisions": 8,
+      "checks": [
+        {
+          "request": 0,
+          "exact_user_history": true,
+          "exact_prior_public_outputs": true,
+          "schema_order": [
+            "plan",
+            "publicReason",
+            "selectedCard"
+          ],
+          "model": "gpt-6-luna",
+          "reasoning": {
+            "effort": "medium",
+            "context": "all_turns"
+          },
+          "developer_item_types": [
+            "additional_tools",
+            "message",
+            "message",
+            "message"
+          ],
+          "last_input_characters": 441
+        },
+        {
+          "request": 1,
+          "exact_user_history": true,
+          "exact_prior_public_outputs": true,
+          "schema_order": [
+            "plan",
+            "publicReason",
+            "selectedCard"
+          ],
+          "model": "gpt-6-luna",
+          "reasoning": {
+            "effort": "medium",
+            "context": "all_turns"
+          },
+          "developer_item_types": [
+            "additional_tools",
+            "message",
+            "message",
+            "message"
+          ],
+          "last_input_characters": 298
+        },
+        {
+          "request": 2,
+          "exact_user_history": true,
+          "exact_prior_public_outputs": true,
+          "schema_order": [
+            "plan",
+            "publicReason",
+            "selectedCard"
+          ],
+          "model": "gpt-6-luna",
+          "reasoning": {
+            "effort": "medium",
+            "context": "all_turns"
+          },
+          "developer_item_types": [
+            "additional_tools",
+            "message",
+            "message",
+            "message"
+          ],
+          "last_input_characters": 249
+        },
+        {
+          "request": 3,
+          "exact_user_history": true,
+          "exact_prior_public_outputs": true,
+          "schema_order": [
+            "plan",
+            "publicReason",
+            "selectedCard"
+          ],
+          "model": "gpt-6-luna",
+          "reasoning": {
+            "effort": "medium",
+            "context": "all_turns"
+          },
+          "developer_item_types": [
+            "additional_tools",
+            "message",
+            "message",
+            "message"
+          ],
+          "last_input_characters": 289
+        },
+        {
+          "request": 4,
+          "exact_user_history": true,
+          "exact_prior_public_outputs": true,
+          "schema_order": [
+            "plan",
+            "publicReason",
+            "selectedCard"
+          ],
+          "model": "gpt-6-luna",
+          "reasoning": {
+            "effort": "medium",
+            "context": "all_turns"
+          },
+          "developer_item_types": [
+            "additional_tools",
+            "message",
+            "message",
+            "message"
+          ],
+          "last_input_characters": 272
+        },
+        {
+          "request": 5,
+          "exact_user_history": true,
+          "exact_prior_public_outputs": true,
+          "schema_order": [
+            "plan",
+            "publicReason",
+            "selectedCard"
+          ],
+          "model": "gpt-6-luna",
+          "reasoning": {
+            "effort": "medium",
+            "context": "all_turns"
+          },
+          "developer_item_types": [
+            "additional_tools",
+            "message",
+            "message",
+            "message"
+          ],
+          "last_input_characters": 290
+        },
+        {
+          "request": 6,
+          "exact_user_history": true,
+          "exact_prior_public_outputs": true,
+          "schema_order": [
+            "plan",
+            "publicReason",
+            "selectedCard"
+          ],
+          "model": "gpt-6-luna",
+          "reasoning": {
+            "effort": "medium",
+            "context": "all_turns"
+          },
+          "developer_item_types": [
+            "additional_tools",
+            "message",
+            "message",
+            "message"
+          ],
+          "last_input_characters": 275
+        },
+        {
+          "request": 7,
+          "exact_user_history": true,
+          "exact_prior_public_outputs": true,
+          "schema_order": [
+            "plan",
+            "publicReason",
+            "selectedCard"
+          ],
+          "model": "gpt-6-luna",
+          "reasoning": {
+            "effort": "medium",
+            "context": "all_turns"
+          },
+          "developer_item_types": [
+            "additional_tools",
+            "message",
+            "message",
+            "message"
+          ],
+          "last_input_characters": 292
+        }
+      ],
+      "one_thread": true,
+      "unique_turns": true,
+      "unique_snapshot_sessions": true,
+      "last_trace": {
+        "boardID": "E33DBAEB-B006-476C-9047-1D30CFAD814E",
+        "complete": false,
+        "controlledActions": 8,
+        "elapsedSeconds": 37.08271300792694,
+        "mechanicalActions": 0,
+        "modelRequests": 8,
+        "opponentActions": 6
+      },
+      "failure": false
+    },
+    {
+      "run": "short3",
+      "requests": 12,
+      "recorded_decisions": 12,
+      "checks": [
+        {
+          "request": 0,
+          "exact_user_history": true,
+          "exact_prior_public_outputs": true,
+          "schema_order": [
+            "plan",
+            "publicReason",
+            "selectedCard"
+          ],
+          "model": "gpt-6-luna",
+          "reasoning": {
+            "effort": "medium",
+            "context": "all_turns"
+          },
+          "developer_item_types": [
+            "additional_tools",
+            "message",
+            "message",
+            "message"
+          ],
+          "last_input_characters": 441
+        },
+        {
+          "request": 1,
+          "exact_user_history": true,
+          "exact_prior_public_outputs": true,
+          "schema_order": [
+            "plan",
+            "publicReason",
+            "selectedCard"
+          ],
+          "model": "gpt-6-luna",
+          "reasoning": {
+            "effort": "medium",
+            "context": "all_turns"
+          },
+          "developer_item_types": [
+            "additional_tools",
+            "message",
+            "message",
+            "message"
+          ],
+          "last_input_characters": 298
+        },
+        {
+          "request": 2,
+          "exact_user_history": true,
+          "exact_prior_public_outputs": true,
+          "schema_order": [
+            "plan",
+            "publicReason",
+            "selectedCard"
+          ],
+          "model": "gpt-6-luna",
+          "reasoning": {
+            "effort": "medium",
+            "context": "all_turns"
+          },
+          "developer_item_types": [
+            "additional_tools",
+            "message",
+            "message",
+            "message"
+          ],
+          "last_input_characters": 249
+        },
+        {
+          "request": 3,
+          "exact_user_history": true,
+          "exact_prior_public_outputs": true,
+          "schema_order": [
+            "plan",
+            "publicReason",
+            "selectedCard"
+          ],
+          "model": "gpt-6-luna",
+          "reasoning": {
+            "effort": "medium",
+            "context": "all_turns"
+          },
+          "developer_item_types": [
+            "additional_tools",
+            "message",
+            "message",
+            "message"
+          ],
+          "last_input_characters": 289
+        },
+        {
+          "request": 4,
+          "exact_user_history": true,
+          "exact_prior_public_outputs": true,
+          "schema_order": [
+            "plan",
+            "publicReason",
+            "selectedCard"
+          ],
+          "model": "gpt-6-luna",
+          "reasoning": {
+            "effort": "medium",
+            "context": "all_turns"
+          },
+          "developer_item_types": [
+            "additional_tools",
+            "message",
+            "message",
+            "message"
+          ],
+          "last_input_characters": 272
+        },
+        {
+          "request": 5,
+          "exact_user_history": true,
+          "exact_prior_public_outputs": true,
+          "schema_order": [
+            "plan",
+            "publicReason",
+            "selectedCard"
+          ],
+          "model": "gpt-6-luna",
+          "reasoning": {
+            "effort": "medium",
+            "context": "all_turns"
+          },
+          "developer_item_types": [
+            "additional_tools",
+            "message",
+            "message",
+            "message"
+          ],
+          "last_input_characters": 290
+        },
+        {
+          "request": 6,
+          "exact_user_history": true,
+          "exact_prior_public_outputs": true,
+          "schema_order": [
+            "plan",
+            "publicReason",
+            "selectedCard"
+          ],
+          "model": "gpt-6-luna",
+          "reasoning": {
+            "effort": "medium",
+            "context": "all_turns"
+          },
+          "developer_item_types": [
+            "additional_tools",
+            "message",
+            "message",
+            "message"
+          ],
+          "last_input_characters": 306
+        },
+        {
+          "request": 7,
+          "exact_user_history": true,
+          "exact_prior_public_outputs": true,
+          "schema_order": [
+            "plan",
+            "publicReason",
+            "selectedCard"
+          ],
+          "model": "gpt-6-luna",
+          "reasoning": {
+            "effort": "medium",
+            "context": "all_turns"
+          },
+          "developer_item_types": [
+            "additional_tools",
+            "message",
+            "message",
+            "message"
+          ],
+          "last_input_characters": 301
+        },
+        {
+          "request": 8,
+          "exact_user_history": true,
+          "exact_prior_public_outputs": true,
+          "schema_order": [
+            "plan",
+            "publicReason",
+            "selectedCard"
+          ],
+          "model": "gpt-6-luna",
+          "reasoning": {
+            "effort": "medium",
+            "context": "all_turns"
+          },
+          "developer_item_types": [
+            "additional_tools",
+            "message",
+            "message",
+            "message"
+          ],
+          "last_input_characters": 251
+        },
+        {
+          "request": 9,
+          "exact_user_history": true,
+          "exact_prior_public_outputs": true,
+          "schema_order": [
+            "plan",
+            "publicReason",
+            "selectedCard"
+          ],
+          "model": "gpt-6-luna",
+          "reasoning": {
+            "effort": "medium",
+            "context": "all_turns"
+          },
+          "developer_item_types": [
+            "additional_tools",
+            "message",
+            "message",
+            "message"
+          ],
+          "last_input_characters": 292
+        },
+        {
+          "request": 10,
+          "exact_user_history": true,
+          "exact_prior_public_outputs": true,
+          "schema_order": [
+            "plan",
+            "publicReason",
+            "selectedCard"
+          ],
+          "model": "gpt-6-luna",
+          "reasoning": {
+            "effort": "medium",
+            "context": "all_turns"
+          },
+          "developer_item_types": [
+            "additional_tools",
+            "message",
+            "message",
+            "message"
+          ],
+          "last_input_characters": 275
+        },
+        {
+          "request": 11,
+          "exact_user_history": true,
+          "exact_prior_public_outputs": true,
+          "schema_order": [
+            "plan",
+            "publicReason",
+            "selectedCard"
+          ],
+          "model": "gpt-6-luna",
+          "reasoning": {
+            "effort": "medium",
+            "context": "all_turns"
+          },
+          "developer_item_types": [
+            "additional_tools",
+            "message",
+            "message",
+            "message"
+          ],
+          "last_input_characters": 292
+        }
+      ],
+      "one_thread": true,
+      "unique_turns": true,
+      "unique_snapshot_sessions": true,
+      "last_trace": {
+        "boardID": "3931F592-82D3-445B-9C94-5535B5CFE89D",
+        "complete": false,
+        "controlledActions": 11,
+        "elapsedSeconds": 52.74146795272827,
+        "mechanicalActions": 0,
+        "modelRequests": 12,
+        "opponentActions": 10
+      },
+      "failure": true
+    },
+    {
+      "run": "short4",
+      "requests": 1,
+      "recorded_decisions": 1,
+      "checks": [
+        {
+          "request": 0,
+          "exact_user_history": true,
+          "exact_prior_public_outputs": true,
+          "schema_order": [
+            "plan",
+            "publicReason",
+            "selectedCard"
+          ],
+          "model": "gpt-6-luna",
+          "reasoning": {
+            "effort": "medium",
+            "context": "all_turns"
+          },
+          "developer_item_types": [
+            "additional_tools",
+            "message",
+            "message",
+            "message"
+          ],
+          "last_input_characters": 441
+        }
+      ],
+      "one_thread": true,
+      "unique_turns": true,
+      "unique_snapshot_sessions": true,
+      "last_trace": {
+        "boardID": "C26A3067-2ABC-4D67-9E83-0A661A7B6E79",
+        "complete": false,
+        "controlledActions": 0,
+        "elapsedSeconds": 10.016103982925415,
+        "mechanicalActions": 0,
+        "modelRequests": 1,
+        "opponentActions": 0
+      },
+      "failure": true
+    }
+  ],
+  "residual_runtime_context": "Catalog-selected built-ins and v2 collaboration role/mode remain, as already observed in ticket37; no shell/file-reading, MCP, bridge Engine/Knowledge tool, grader/rubric or hidden defender holdings in actual user history. No tool call occurred. No claim of fully empty effective tool list.",
+  "history_semantics": "Each app-server turn input is only initial position or actual delta; Codex retained prior user/assistant messages in the effective Responses payload. Histories exactly match original requests/public replies.",
+  "interpretation": "Ordering is confirmed; all failures preserved. This does not establish cause of severe basic bridge failures."
+}

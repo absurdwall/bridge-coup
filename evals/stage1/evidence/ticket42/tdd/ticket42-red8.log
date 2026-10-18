@@ -1,0 +1,13 @@
+...........E
+======================================================================
+ERROR: test_wire_attempts_remain_distinct_from_driver_retries (test_acceptance.AcceptanceTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tingranwang/.codex/worktrees/stage1-ticket42/bridge-coup/evals/stage1/tests/test_acceptance.py", line 142, in test_wire_attempts_remain_distinct_from_driver_retries
+    audit = acceptance.audit_wire(wire)
+AttributeError: module 'acceptance' has no attribute 'audit_wire'
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.349s
+
+FAILED (errors=1)
