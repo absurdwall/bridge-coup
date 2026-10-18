@@ -15,6 +15,13 @@ spec.loader.exec_module(evaluate)
 
 
 class GraderContractTests(unittest.TestCase):
+    def test_authored_retained_plan_matches_the_public_prior_advice(self):
+        records = json.loads((ROOT / 'evidence/notation-repair/calibration/answers.json').read_text())
+        package = evaluate.grader_package([(record['id'], record) for record in records])
+        for record in package['decisions']:
+            if json.loads(record['raw_output'])['plan']['update'] == 'keep':
+                self.assertIn(record['effective_plan'], record['authorized_input'], record['id'])
+
     def test_all_45_actual_empty_pass_rows_are_rejected_by_serialized_schema(self):
         schema = evaluate.read_json(ROOT / 'grader-schema.json')
         validator = jsonschema.Draft202012Validator(schema)
@@ -33,7 +40,7 @@ class GraderContractTests(unittest.TestCase):
         validator = jsonschema.Draft202012Validator(evaluate.read_json(ROOT / 'grader-schema.json'))
         record = evaluate.read_decision(ROOT / 'evidence/ticket37/live3')
         package = evaluate.grader_package([('alternative', record)])
-        self.assertEqual(package['rubric_version'], 'stage1-basic-v3')
+        self.assertEqual(package['rubric_version'], 'stage1-basic-v4')
         self.assertIn('every status', package['rubric'])
         for status in ('pass', 'fail', 'uncertain'):
             finding = {'dimension': 'current action', 'quotes': ['D3'],
