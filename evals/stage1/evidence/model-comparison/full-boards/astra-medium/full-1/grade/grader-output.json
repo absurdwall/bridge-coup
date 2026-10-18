@@ -1,0 +1,329 @@
+{
+  "results": [
+    {
+      "id": "decision-0001",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "feasibility and trick counting",
+          "fact": "The club route is feasible and the conditional trick counts are correct.",
+          "explanation": "South holds CA CK C8 C6 C4 opposite CQ C7 C2. Cashing CA, crossing to CQ and returning toward CK produces five club tricks on 3–2, or four after conceding one on 4–1. SA, HA, HK, DA and DK supply five outside winners. D3 legally follows the diamond lead.",
+          "quotes": [
+            "Cash the club ace, lead a low club to dummy's queen, then return a club toward the king, adjusting to revealed distribution.",
+            "A 3–2 break gives ten tricks; against 4–1, concede a club to establish the ninth trick."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0002",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "current action and plan consistency",
+          "fact": "DA wins the current trick and starts the feasible retained plan.",
+          "explanation": "South holds DA over the current DQ D3 D4. The partnership has five outside winners and needs four club tricks for 3NT.",
+          "quotes": [
+            "Win with the diamond ace as planned, then develop clubs for the four tricks needed alongside our five outside winners."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0003",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "suit development",
+          "fact": "Leading CA begins the stated feasible club development.",
+          "explanation": "South is on lead after winning DA and holds CA CK C8 C6 C4 opposite CQ C7 C2. Four club tricks plus the five outside winners suffice.",
+          "quotes": [
+            "Cash the club ace to begin establishing the four club tricks needed for the contract, watching both defenders' cards."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0004",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "resource preservation",
+          "fact": "C2 follows suit while preserving the planned queen entry.",
+          "explanation": "South's CA is unbeatable in the current trick. North holds CQ C7 C2, so playing C2 retains CQ and C7 for the crossing and return.",
+          "quotes": [
+            "Play low under the ace, preserving the queen as a club winner and entry for the planned club continuation."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0005",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "feasibility and visibility",
+          "fact": "C4 provides the planned crossing to CQ without assuming an unobserved break.",
+          "explanation": "West played C3 and East C5 under CA. South retains CK C8 C6 C4 and North CQ C7; no outstanding club can beat CQ.",
+          "quotes": [
+            "Lead a low club to dummy’s queen as planned. Both defenders followed to the ace; continue developing clubs while retaining the king in hand."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0006",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "winners and continuation",
+          "fact": "CQ wins and leaves a feasible club return toward CK.",
+          "explanation": "CQ beats West's C9, and the outstanding CJ and CT cannot overtake it. North retains C7 to lead toward South's CK.",
+          "quotes": [
+            "Win with the club queen as planned, then return dummy’s remaining club toward the king to continue establishing the suit."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0007",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "distribution inference and trick counting",
+          "fact": "The observed cards establish a 3–2 club break and ten available tricks.",
+          "explanation": "The defenders began with five clubs and have each followed twice: West C3 C9, East C5 CT. Only CJ remains. C7 toward CK draws it, establishing C8 C6; five club tricks plus DA DK SA HA HK total ten.",
+          "quotes": [
+            "Both defenders followed twice, so clubs are 3–2; the king will draw the remaining jack, establishing ten tricks.",
+            "Lead C7 to South's king to draw the last opposing club, then cash the two established clubs."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0008",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "authorized inference",
+          "fact": "West's remaining CJ is established by public play.",
+          "explanation": "C3 C5 C9 CT have been played, leaving CJ as the only opposing club. East's H2 discard establishes that West holds it. South's CK wins and establishes C8 C6.",
+          "quotes": [
+            "Win with the club king, drawing West’s remaining jack and establishing both remaining clubs for ten tricks."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0009",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "established winners",
+          "fact": "C8 and C6 are established winners and the ten-trick count is sound.",
+          "explanation": "West's CJ fell under CK, exhausting all opposing clubs. Declarer has four tricks, two remaining club winners, and DK SA HA HK available with heart communication.",
+          "quotes": [
+            "Cash an established club. Both remaining clubs are winners, and the top cards in the other suits ensure ten tricks."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0010",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "discard and communications",
+          "fact": "Discarding D5 preserves all resources needed for ten tricks.",
+          "explanation": "North has no clubs and may discard D5 on the established C8. North retains HK H7 H4, while South retains HA H6 H3, DK and C6.",
+          "quotes": [
+            "Discard a low diamond on the winning club, preserving the heart king and safe heart entries. Ten tricks remain assured."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0011",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "trick counting",
+          "fact": "C6 and four outside winners bring the total to ten.",
+          "explanation": "Declarer has five tricks. All opposing clubs are exhausted, so C6 wins; DK SA HA HK supply four additional tricks with available heart communication.",
+          "quotes": [
+            "Cash the last established club, then collect the four remaining top winners for ten tricks."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0012",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "discard and resource preservation",
+          "fact": "D6 is a legal discard that preserves the remaining winners and entries.",
+          "explanation": "North is void in clubs and holds D8 D6 plus HK H7 H4. Discarding D6 on South's established C6 leaves the heart communication intact.",
+          "quotes": [
+            "Discard another low diamond, keeping the heart king and heart communications intact while South cashes the last club."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0013",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "cashout feasibility",
+          "fact": "DK followed by SA and both top hearts is a feasible ten-trick cashout.",
+          "explanation": "Declarer has six tricks and South is on lead with DK SA HA H6 H3. North retains HK H7 H4, permitting HA followed by a low heart to HK.",
+          "quotes": [
+            "Cash the diamond king while in hand, then collect the spade ace and both top hearts for ten tricks."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0014",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "cashout feasibility",
+          "fact": "The three remaining top winners secure ten tricks.",
+          "explanation": "Declarer has seven tricks. South holds SA HA H6 H3 and North HK H7 H4, so SA, HA and a low heart to HK are available.",
+          "quotes": [
+            "Cash the spade ace, then the heart ace and king to secure ten tricks."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0015",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "current action and trick counting",
+          "fact": "S2 legally follows under SA and preserves the remaining cashout.",
+          "explanation": "North holds S8 S6 S2 and South's SA is unbeatable. This trick raises declarer's total from seven to eight; HA and HK remain available for ten.",
+          "quotes": [
+            "Play the lowest spade under South’s ace, preserving dummy’s higher spades. The two top hearts will then secure ten tricks."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0016",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "objective and entries",
+          "fact": "HA secures the ninth trick and a low heart reaches HK for the tenth.",
+          "explanation": "Declarer has eight tricks. South holds HA H6 H3 opposite HK H7 H4, making the stated sequence feasible without conceding the lead.",
+          "quotes": [
+            "Cash the heart ace to secure the contract, then lead a low heart to dummy’s king for the overtrick."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0017",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "winner preservation",
+          "fact": "H4 preserves HK for a separate tenth trick.",
+          "explanation": "South's HA is winning the current trick over West's H9. North can follow with H4, retaining HK while South retains H6 H3 for the crossing.",
+          "quotes": [
+            "Play low under the ace, preserving the heart king for the tenth trick."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0018",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "feasible entry",
+          "fact": "H3 reaches the remaining top heart for an overtrick.",
+          "explanation": "Declarer has nine tricks. HA has been played, South holds H6 H3, and North holds HK H7. H3 toward HK supplies the tenth trick.",
+          "quotes": [
+            "Lead a low heart to dummy’s king to collect the tenth trick and secure an overtrick."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0019",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "winner identification",
+          "fact": "HK wins the current trick for declarer's tenth.",
+          "explanation": "HA was consumed earlier. North's HK beats West's HT and every remaining heart, with declarer currently credited nine tricks.",
+          "quotes": [
+            "Win with the heart king to secure the tenth trick and an overtrick."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0020",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "remaining-card accounting",
+          "fact": "No further winner is established and a spade exit is sound.",
+          "explanation": "Declarer has ten tricks. The remaining opposing spades are SK SQ ST, all above South's S9 S4 and North's S8 S6. HQ remains outstanding above H7 H6. S6 is a legal exit.",
+          "quotes": [
+            "Ten tricks are secured. Lead a spade; the defenders’ remaining spades outrank ours, and the heart queen is still outstanding.",
+            "The planned ten tricks have been taken. Exit with a spade; no further winner is established."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0021",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "current winner",
+          "fact": "Neither available spade can beat East's ST.",
+          "explanation": "South must follow spades with S9 or S4 after North S6 and East ST. S4 is legal, and the recorded ten tricks already secure the overtrick.",
+          "quotes": [
+            "Play low: the nine cannot beat East’s ten. Ten tricks are already secured."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0022",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "discard and winner accounting",
+          "fact": "H7 is a legal discard and neither North card is established.",
+          "explanation": "North holds only S8 H7 and is void in diamonds on West's DJ lead. SK and HQ remain outstanding above those cards; declarer has already won ten tricks.",
+          "quotes": [
+            "Discard the heart seven; neither remaining card is a winner. Our ten tricks are already secure."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0023",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "discard and winner accounting",
+          "fact": "H6 is a legal discard with ten tricks already secured.",
+          "explanation": "South holds S9 H6 and cannot follow the diamond lead. West's DJ beats East's D9; neither South card can win this trick, and outstanding SK and HQ prevent either from being an established winner.",
+          "quotes": [
+            "Discard the heart six. Neither remaining card is a winner; ten tricks and the overtrick are secure."
+          ]
+        }
+      ]
+    }
+  ]
+}

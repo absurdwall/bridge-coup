@@ -1,0 +1,28 @@
+{
+  "diagnostic_only": true,
+  "source_base": "352d61f",
+  "schedule": [
+    {
+      "id": "luna-max",
+      "model": "gpt-6-luna",
+      "effort": "max"
+    },
+    {
+      "id": "sol-medium",
+      "model": "gpt-6.1-sol",
+      "effort": "medium"
+    },
+    {
+      "id": "astra-medium",
+      "model": "gpt-6-astra",
+      "effort": "medium"
+    }
+  ],
+  "attempts_per_config": 1,
+  "task": "All52cards, thirteen legal tricks, same synthetic board/conserve-high/sole-legal true. Every nonforced controlled choice via public Expert.",
+  "request_timeout_seconds": 180,
+  "run_timeout_seconds": 1800,
+  "retries": 0,
+  "evaluation": "samev4;Solactingrequiresdirectindependentreview,noselfgrade",
+  "acceptance_credit": false
+}

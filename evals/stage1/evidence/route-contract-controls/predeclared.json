@@ -1,0 +1,16 @@
+{
+  "source_commit": "44d946fc43898ff1e2c939ac8da9129c853e752a",
+  "diagnostic_only": true,
+  "acceptance_credit": false,
+  "schedule": [
+    "high",
+    "xhigh"
+  ],
+  "model": "gpt-6-luna",
+  "attempts_per_effort": 1,
+  "decisions": 8,
+  "playing_retries": 0,
+  "fixed": "Same route contract, schema, board, opponent, runtime, grading and limits.",
+  "hypothesis": "Checking rank, actual holdings, next leader and retained entries improves physical plan feasibility. This is unproven until real outputs are independently reviewed.",
+  "followup": "For independently acceptable eight-decision controls, predeclare one complete development board; no unchanged candidate rerolls."
+}

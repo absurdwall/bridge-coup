@@ -1,0 +1,164 @@
+{
+  "action" : {
+    "actingSeat" : "north",
+    "boardID" : "2B195F83-B0E6-4AA4-9BD4-FB6641307C80",
+    "card" : "C7",
+    "controller" : "south",
+    "revision" : 10,
+    "snapshotID" : "2B195F83-B0E6-4AA4-9BD4-FB6641307C80:10:south"
+  },
+  "advice" : {
+    "plan" : {
+      "update" : "keep"
+    },
+    "publicReason" : "Play C7, keeping CQ. West’s C9 is below South’s CK; if East can overtake, dummy’s queen would not prevent it, and preserving it may still provide a later club trick.",
+    "selectedCard" : "C7"
+  },
+  "effectivePlan" : "After winning the opening diamond with DK, preserve DA. Cash CA and CK, then reassess the club position and try to establish dummy’s CQ and further club length. The known top tricks include DA, SA and HA; seek the remaining tricks from clubs while retaining entries where possible.",
+  "elapsedSeconds" : 8.235051989555359,
+  "identity" : {
+    "observedModel" : "gpt-6-luna",
+    "requestedEffort" : "high",
+    "requestedModel" : "gpt-6-luna",
+    "runtimeVersion" : "codex-cli 0.160.0",
+    "threadID" : "01a15017-501a-70d1-8907-af84272c570b",
+    "turnID" : "01a15017-ec65-75e3-9e2d-a399ffa0f104"
+  },
+  "input" : "Decision snapshot: 2B195F83-B0E6-4AA4-9BD4-FB6641307C80:10:south. Controller: South. Acting hand: North.\nPrevious suggestion actually executed: yes.\nCurrent action: North (dummy) plays third in the current trick; clubs were led.\nLegal current choices: CQ, C7.\nCurrent winning play so far: South CK.\nNew actual plays in order:\n8: South CK (model).\n9: West C9 (opponent).\nCurrent trick: South CK; West C9.\nTricks won: declarer 2, defenders 0.",
+  "instructions" : "Play declarer and dummy from the supplied decision-time information, in English, pursuing the stated objective. Card codes give suit S\/H\/D\/C followed by rank; rank order is A K Q J T 9 8 7 6 5 4 3 2, high to low. A trick is won by its highest trump, or its highest card of the led suit when no trump is played. Form a concrete route to enough tricks, checking each proposed trick against card ranks, actual holdings and the hand that leads next, and retaining entries until that hand's winners can be cashed; reassess it as actual play warrants. Derive publicReason and the single selectedCard to play now from the effective plan, current trick and remaining cards of the acting hand. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide the initial plan before dummy's first play. Unknown cards remain unknown.",
+  "planAssociation" : {
+    "boardID" : "2B195F83-B0E6-4AA4-9BD4-FB6641307C80",
+    "controller" : "south",
+    "sourceSessionID" : "850DC619-992B-4F57-8A27-A240D2504358",
+    "sourceSnapshotID" : "2B195F83-B0E6-4AA4-9BD4-FB6641307C80:4:south",
+    "text" : "After winning the opening diamond with DK, preserve DA. Cash CA and CK, then reassess the club position and try to establish dummy’s CQ and further club length. The known top tricks include DA, SA and HA; seek the remaining tricks from clubs while retaining entries where possible."
+  },
+  "rawOutput" : "{\"publicReason\":\"Play C7, keeping CQ. West’s C9 is below South’s CK; if East can overtake, dummy’s queen would not prevent it, and preserving it may still provide a later club trick.\",\"plan\":{\"text\":null,\"update\":\"keep\"},\"selectedCard\":\"C7\"}",
+  "session" : {
+    "id" : "5D1BB513-697C-42DF-9980-49E69E006631",
+    "snapshotID" : "2B195F83-B0E6-4AA4-9BD4-FB6641307C80:10:south"
+  },
+  "snapshot" : {
+    "actingSeat" : "north",
+    "boardID" : "2B195F83-B0E6-4AA4-9BD4-FB6641307C80",
+    "contract" : {
+      "declarer" : "south",
+      "level" : 3,
+      "strain" : "noTrump"
+    },
+    "controller" : "south",
+    "currentTrick" : [
+      {
+        "card" : "CK",
+        "seat" : "south",
+        "sequence" : 8
+      },
+      {
+        "card" : "C9",
+        "seat" : "west",
+        "sequence" : 9
+      }
+    ],
+    "currentWinningPlay" : {
+      "card" : "CK",
+      "seat" : "south",
+      "sequence" : 8
+    },
+    "declarerTricks" : 2,
+    "defenderTricks" : 0,
+    "events" : [
+      {
+        "card" : "DQ",
+        "seat" : "west",
+        "sequence" : 0
+      },
+      {
+        "card" : "D3",
+        "seat" : "north",
+        "sequence" : 1
+      },
+      {
+        "card" : "D4",
+        "seat" : "east",
+        "sequence" : 2
+      },
+      {
+        "card" : "DK",
+        "seat" : "south",
+        "sequence" : 3
+      },
+      {
+        "card" : "CA",
+        "seat" : "south",
+        "sequence" : 4
+      },
+      {
+        "card" : "C3",
+        "seat" : "west",
+        "sequence" : 5
+      },
+      {
+        "card" : "C2",
+        "seat" : "north",
+        "sequence" : 6
+      },
+      {
+        "card" : "C5",
+        "seat" : "east",
+        "sequence" : 7
+      },
+      {
+        "card" : "CK",
+        "seat" : "south",
+        "sequence" : 8
+      },
+      {
+        "card" : "C9",
+        "seat" : "west",
+        "sequence" : 9
+      }
+    ],
+    "hands" : [
+      {
+        "cards" : [
+          "SA",
+          "S9",
+          "S4",
+          "HA",
+          "H6",
+          "H3",
+          "DA",
+          "C8",
+          "C6",
+          "C4"
+        ],
+        "seat" : "south"
+      },
+      {
+        "cards" : [
+          "S8",
+          "S6",
+          "S2",
+          "HK",
+          "H7",
+          "H4",
+          "D8",
+          "D6",
+          "D5",
+          "CQ",
+          "C7"
+        ],
+        "seat" : "north"
+      }
+    ],
+    "legalCards" : [
+      "CQ",
+      "C7"
+    ],
+    "objective" : "Normal IMP strategy, weighing contract risk and overtricks.",
+    "revision" : 10,
+    "scoring" : "IMP",
+    "vulnerability" : "neither"
+  },
+  "wireContractVersion" : "stage1-plan-variants-v4"
+}

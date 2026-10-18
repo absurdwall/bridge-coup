@@ -1,0 +1,66 @@
+{
+  "created_utc": "2026-10-18T17:19:02.481147+00:00",
+  "scope": "Independent offline replay, remaining-hand and actual-request checks for three full-board diagnostic runs; no model calls. Quality separately reviewed by coordinator and Spec reviewer. Not final22.",
+  "results": [
+    {
+      "configuration": "luna-max",
+      "events": 52,
+      "tricks": {
+        "declarer": 10,
+        "defender": 3
+      },
+      "model_decisions": 21,
+      "forced_actions": 5,
+      "offline_legality_and_state_wire_fidelity": "pass",
+      "independent_quality": {
+        "acceptable": 19,
+        "severe": 2,
+        "pending": 0
+      },
+      "severe_decisions": [
+        1,
+        4
+      ],
+      "evidence_directory": "/Users/tingranwang/.codex/worktrees/stage1-integration/bridge-coup/evals/stage1/evidence/model-comparison/full-boards/luna-max/full-1",
+      "elapsed_seconds": 374.6763598918915
+    },
+    {
+      "configuration": "sol-medium",
+      "events": 52,
+      "tricks": {
+        "declarer": 10,
+        "defender": 3
+      },
+      "model_decisions": 21,
+      "forced_actions": 5,
+      "offline_legality_and_state_wire_fidelity": "pass",
+      "independent_quality": {
+        "acceptable": 21,
+        "severe": 0,
+        "pending": 0
+      },
+      "severe_decisions": [],
+      "evidence_directory": "/Users/tingranwang/.codex/worktrees/stage1-integration/bridge-coup/evals/stage1/evidence/model-comparison/full-boards/sol-medium/full-1",
+      "elapsed_seconds": 117.4794830083847
+    },
+    {
+      "configuration": "astra-medium",
+      "events": 52,
+      "tricks": {
+        "declarer": 10,
+        "defender": 3
+      },
+      "model_decisions": 23,
+      "forced_actions": 3,
+      "offline_legality_and_state_wire_fidelity": "pass",
+      "independent_quality": {
+        "acceptable": 23,
+        "severe": 0,
+        "pending": 0
+      },
+      "severe_decisions": [],
+      "evidence_directory": "/Users/tingranwang/.codex/worktrees/stage1-integration/bridge-coup/evals/stage1/evidence/model-comparison/full-boards/astra-medium/full-1",
+      "elapsed_seconds": 116.91694498062134
+    }
+  ]
+}
