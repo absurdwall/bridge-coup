@@ -1,0 +1,20 @@
+--- 5ae7ca83df8e94dd4b465079d75e07561aab1eac/Sources/BridgeCodex/CodexTransport.swift
++++ xhigh/Sources/BridgeCodex/CodexTransport.swift
+@@ -25,7 +25,7 @@
+     private var runtimeVersion = ""
+     private var observedModel: String?
+     private static let model = "gpt-6-luna"
+-    private static let effort = "medium"
++    private static let effort = "xhigh"
+ 
+     public init(executable: URL, authenticationFile: URL, evidenceDirectory: URL, timeoutSeconds: Double = 180) throws {
+         guard timeoutSeconds > 0 && timeoutSeconds.isFinite else { throw CodexPlayingError.failure("Invalid timeout") }
+@@ -239,7 +239,7 @@
+ 
+     public static let configuration = """
+     model = "gpt-6-luna"
+-    model_reasoning_effort = "medium"
++    model_reasoning_effort = "xhigh"
+     approval_policy = "never"
+     sandbox_mode = "read-only"
+     web_search = "disabled"

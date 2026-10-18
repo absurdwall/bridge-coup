@@ -185,9 +185,9 @@ public actor ExpertSession {
         lines.append("New actual plays in order:")
         for event in delta {
             let source = executions.first(where: { $0.event.sequence == event.sequence })?.source.rawValue
-            lines.append("\(event.sequence): \(event.seat.rawValue.capitalized) \(event.card)" + (source.map { " (\($0))" } ?? "") + ".")
+            lines.append("\(event.sequence): \(event.seat.rawValue.capitalized) \(Self.cardText(event.card))" + (source.map { " (\($0))" } ?? "") + ".")
         }
-        lines.append("Current trick: " + snapshot.currentTrick.map { "\($0.seat.rawValue.capitalized) \($0.card)" }.joined(separator: "; ") + ".")
+        lines.append("Current trick: " + snapshot.currentTrick.map { "\($0.seat.rawValue.capitalized) \(Self.cardText($0.card))" }.joined(separator: "; ") + ".")
         lines.append("Tricks won: declarer \(snapshot.declarerTricks), defenders \(snapshot.defenderTricks).")
         return lines.joined(separator: "\n")
     }
@@ -203,11 +203,16 @@ public actor ExpertSession {
             phase = "leads a new trick"
         }
         var lines = ["Current action: \(seat) (\(role)) \(phase).",
-                     "Legal current choices: " + snapshot.legalCards.map(\.description).joined(separator: ", ") + "."]
+                     "Legal current choices: " + snapshot.legalCards.map(Self.cardText).joined(separator: ", ") + "."]
         if let winning = snapshot.currentWinningPlay {
-            lines.append("Current winning play so far: \(winning.seat.rawValue.capitalized) \(winning.card).")
+            lines.append("Current winning play so far: \(winning.seat.rawValue.capitalized) \(Self.cardText(winning.card)).")
         }
         return lines
+    }
+
+    private static func cardText(_ card: Card) -> String {
+        let ranks = ["Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace"]
+        return "\(card) (\(ranks[card.rank - 2]) of \(card.suit.rawValue))"
     }
 
     private static func initialInput(_ snapshot: DecisionSnapshot) -> String {
@@ -223,12 +228,12 @@ public actor ExpertSession {
         lines += currentActionInput(snapshot)
         for hand in snapshot.hands {
             let holding = Suit.allCases.map { suit in
-                let cards = hand.cards.filter { $0.suit == suit }.sorted { $0.rank > $1.rank }.map(\.description).joined(separator: " ")
+                let cards = hand.cards.filter { $0.suit == suit }.sorted { $0.rank > $1.rank }.map(Self.cardText).joined(separator: " ")
                 return "\(suit.rawValue): \(cards.isEmpty ? "-" : cards)"
             }.joined(separator: " / ")
             lines.append("\(name(hand.seat)) (\(role(hand.seat))): \(holding)")
         }
-        lines.append("Actual plays in order: " + snapshot.events.map { "\(name($0.seat)) \($0.card)" }.joined(separator: "; ") + ".")
+        lines.append("Actual plays in order: " + snapshot.events.map { "\(name($0.seat)) \(Self.cardText($0.card))" }.joined(separator: "; ") + ".")
         lines.append("Tricks won: declarer \(snapshot.declarerTricks), defenders \(snapshot.defenderTricks).")
         lines.append("Additional public background: " + (snapshot.publicBackground ?? "Auction and defensive methods are not provided."))
         return lines.joined(separator: "\n")

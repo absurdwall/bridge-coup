@@ -17,7 +17,8 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / 'evals/stage1'))
 import acceptance
 
-commit, output = sys.argv[1:]
+commit, output = sys.argv[1:3]
+hypothesis = sys.argv[3] if len(sys.argv) > 3 else 'Carrying hypothetical card consumption, the trick winner, next leader and remaining entries through the whole route improves physical plan feasibility. This is unproven until real outputs are independently reviewed.'
 commit = subprocess.check_output(['git', 'rev-parse', commit], cwd=ROOT, text=True).strip()
 assert subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip() == commit
 OUT = Path(output).resolve()
@@ -30,7 +31,7 @@ acceptance.write(OUT / 'predeclared.json', {
     'schedule': ['high', 'xhigh'], 'model': 'gpt-6-luna', 'attempts_per_effort': 1,
     'decisions': 8, 'playing_retries': 0,
     'fixed': 'Same route contract, schema, board, opponent, runtime, grading and limits.',
-    'hypothesis': 'Carrying hypothetical card consumption, the trick winner, next leader and remaining entries through the whole route improves physical plan feasibility. This is unproven until real outputs are independently reviewed.',
+    'hypothesis': hypothesis,
     'followup': 'For independently acceptable eight-decision controls, predeclare one complete development board; no unchanged candidate rerolls.',
 })
 for effort in ['high', 'xhigh']:
