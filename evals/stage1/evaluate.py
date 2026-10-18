@@ -24,6 +24,27 @@ def read_decision(directory):
             'rpc': [json.loads(line) for line in rpc_path.read_text().splitlines()] if rpc_path.exists() else None}
 
 
+def incomplete_decision_report(identifier, record):
+    """A completed invalid answer is a product failure, not a missing runtime answer."""
+    failure = record['runtimeFailure']
+    category = failure.get('category')
+    report = {'id': identifier, 'mechanical': 'uncertain', 'quality': 'uncertain', 'overall': 'fail',
+              'failure_category': category, 'failure': failure, 'evidence': record, 'findings': []}
+    if category in ('invalidOutput', 'identity'):
+        check = 'structure' if category == 'invalidOutput' else 'identity'
+        fact = ('Completed model output failed the public advice contract.' if check == 'structure'
+                else 'Returned runtime identity violated the continuing decision session.')
+        report.update(mechanical='fail', attribution='product_error',
+                      deterministic_checks={check: {'status': 'fail', 'fact': fact}})
+    elif category == 'runtime' or (category is None and not failure.get('rawOutput')):
+        report.update(attribution='runtime_failure', runtime_failure=failure)
+    else:
+        # A saved answer alone cannot distinguish validation from identity/runtime failure.
+        report.update(attribution='pending_review',
+                      review_reason='Saved failure has no recognized category; its origin requires review.')
+    return report
+
+
 def deterministic_checks(record):
     checks = {}
     version = record.get('wireContractVersion', 'stage1-currentCard-plan-publicReason-v1')
@@ -141,6 +162,37 @@ def adjudicate(package, grader_output=None, evaluator_error=None):
             'scope': 'Small-sample basic evaluation; no claim of broad grading reliability.'}
 
 
+def run_owned_runtime(command, *, env, cwd, timeout, input=None):
+    """A timeout owns the entire launched session, including the Codex native child."""
+    import os
+    import signal
+    import subprocess
+    process = subprocess.Popen(command, stdin=subprocess.PIPE if input is not None else subprocess.DEVNULL,
+                               stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env, cwd=cwd,
+                               text=True, start_new_session=True)
+    try:
+        stdout, stderr = process.communicate(input=input, timeout=timeout)
+        return subprocess.CompletedProcess(command, process.returncode, stdout, stderr)
+    except subprocess.TimeoutExpired:
+        try:
+            os.killpg(process.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+        # Bound draining too: an independently detached process cannot extend this deadline.
+        try:
+            process.communicate(timeout=1)
+        except subprocess.TimeoutExpired:
+            pass
+        raise
+    finally:
+        for stream in (process.stdin, process.stdout, process.stderr):
+            if stream is not None:
+                stream.close()
+        if process.poll() is None:
+            process.kill()
+            process.wait(timeout=1)
+
+
 def run_grader(package, output, codex='codex', timeout=180):
     import os
     import shutil
@@ -185,14 +237,14 @@ def run_grader(package, output, codex='codex', timeout=180):
             (home / 'config.toml').write_text(config)
             (output / 'runtime-config.toml').write_text(config)
             env = {'HOME': str(runtime), 'CODEX_HOME': str(home), 'PATH': str(Path(binary).parent) + ':/usr/bin:/bin:/usr/sbin:/sbin', 'TMPDIR': str(runtime)}
-            version = subprocess.run([binary, '--version'], env=env, cwd=cwd, text=True, capture_output=True, timeout=10)
+            version = run_owned_runtime([binary, '--version'], env=env, cwd=cwd, timeout=10)
             metadata['runtime_version'] = version.stdout.strip()
             command = [binary, 'exec', '--ignore-rules', '--ephemeral', '--skip-git-repo-check', '--sandbox', 'read-only',
                        '--model', 'gpt-6.1-sol', '-c', 'model_reasoning_effort="medium"',
                        '--output-schema', str(output / 'schema.json'), '--json', '--color', 'never', '--cd', str(cwd),
                        '-o', str(output / 'grader-output.json'), '-']
             metadata['command'] = command
-            process = subprocess.run(command, input=prompt, env=env, cwd=cwd, text=True, capture_output=True, timeout=timeout)
+            process = run_owned_runtime(command, input=prompt, env=env, cwd=cwd, timeout=timeout)
             metadata['exit_code'] = process.returncode
             # Persist public protocol and answer events only, never reasoning items.
             public_events = []
@@ -282,9 +334,7 @@ def main():
         decisions = [(i, r) for i, r in supplied if 'rawOutput' in r]
         for identifier, record in supplied:
             if 'rawOutput' not in record:
-                runtime_reports.append({'id': identifier, 'mechanical': 'uncertain', 'quality': 'uncertain', 'overall': 'fail',
-                                        'attribution': 'runtime_failure', 'runtime_failure': record['runtimeFailure'],
-                                        'evidence': record, 'findings': []})
+                runtime_reports.append(incomplete_decision_report(identifier, record))
         if args.answers:
             decisions += [(r['id'], r) for r in read_json(args.answers)]
         if (not decisions and not runtime_reports) or len({i for i, _ in decisions} | {r['id'] for r in runtime_reports}) != len(decisions) + len(runtime_reports):
@@ -306,7 +356,7 @@ def main():
             result = run_grader(package, args.output, args.codex, args.timeout)
         else:
             (args.output / 'input.json').write_text(json_text(package))
-            (args.output / 'run.json').write_text(json_text({'grading_model_called': False, 'playing_model_called': False, 'reason': 'No model answer exists to grade.'}))
+            (args.output / 'run.json').write_text(json_text({'grading_model_called': False, 'playing_model_called': False, 'reason': 'No complete decision snapshot is available for quality grading.'}))
             result = adjudicate(package, {'results': []})
     if runtime_reports:
         (args.output / 'runtime-failures.json').write_text(json_text(runtime_reports))

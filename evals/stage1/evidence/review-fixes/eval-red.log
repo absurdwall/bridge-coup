@@ -1,0 +1,38 @@
+.............
+======================================================================
+FAIL: test_saved_failure_origin_separates_invalid_answer_identity_runtime_and_legacy_ambiguity (test_evaluate.SavedDecisionTests) (saved={'category': 'invalidOutput', 'rawOutput': '{"selectedCard":"D3"}'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tingranwang/.codex/worktrees/stage1-reviewfix/bridge-coup/evals/stage1/tests/test_evaluate.py", line 186, in test_saved_failure_origin_separates_invalid_answer_identity_runtime_and_legacy_ambiguity
+    self.assertEqual(result['mechanical'], mechanical)
+AssertionError: 'uncertain' != 'fail'
+- uncertain
++ fail
+
+
+======================================================================
+FAIL: test_saved_failure_origin_separates_invalid_answer_identity_runtime_and_legacy_ambiguity (test_evaluate.SavedDecisionTests) (saved={'category': 'identity', 'rawOutput': '{"selectedCard": "D3", "publicReason": "Follow low.", "plan": {"update": "replace", "text": "Establish clubs."}}'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tingranwang/.codex/worktrees/stage1-reviewfix/bridge-coup/evals/stage1/tests/test_evaluate.py", line 186, in test_saved_failure_origin_separates_invalid_answer_identity_runtime_and_legacy_ambiguity
+    self.assertEqual(result['mechanical'], mechanical)
+AssertionError: 'uncertain' != 'fail'
+- uncertain
++ fail
+
+
+======================================================================
+FAIL: test_saved_failure_origin_separates_invalid_answer_identity_runtime_and_legacy_ambiguity (test_evaluate.SavedDecisionTests) (saved={'rawOutput': '{"selectedCard": "D3", "publicReason": "Follow low.", "plan": {"update": "replace", "text": "Establish clubs."}}'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tingranwang/.codex/worktrees/stage1-reviewfix/bridge-coup/evals/stage1/tests/test_evaluate.py", line 189, in test_saved_failure_origin_separates_invalid_answer_identity_runtime_and_legacy_ambiguity
+    self.assertEqual(result['attribution'], attribution)
+AssertionError: 'runtime_failure' != 'pending_review'
+- runtime_failure
++ pending_review
+
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.354s
+
+FAILED (failures=3)

@@ -163,6 +163,67 @@ class SavedDecisionTests(unittest.TestCase):
         self.assertEqual(result['attribution'], 'product_error')
 
 
+    def test_grader_timeout_stops_nested_runtime_before_returning(self):
+        import os
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / 'auth.json').write_text('{}')
+            child_pid = root / 'child.pid'
+            executable = root / 'recorded-grader'
+            executable.write_text("#!/usr/bin/python3\n" +
+                "import signal, subprocess, sys, time\n" +
+                "if '--version' in sys.argv:\n    print('recorded boundary'); sys.exit(0)\n" +
+                "signal.signal(signal.SIGTERM, signal.SIG_IGN)\n" +
+                "child = subprocess.Popen(['/usr/bin/python3', '-c', 'import signal,time; signal.signal(signal.SIGTERM, signal.SIG_IGN); time.sleep(2.5)'])\n" +
+                "open(" + repr(str(child_pid)) + ", 'w').write(str(child.pid))\n" +
+                "time.sleep(2.5)\n")
+            executable.chmod(0o700)
+            output = root / 'evaluation'
+            environment = {**os.environ, 'CODEX_HOME': str(root)}
+            run = subprocess.run([sys.executable, str(ROOT / 'evaluate.py'), 'grade', '--decision',
+                                  str(ROOT / 'evidence/ticket37/live3'), '--codex', str(executable),
+                                  '--timeout', '0.8', '--output', str(output)], env=environment, capture_output=True, text=True)
+            self.assertEqual(run.returncode, 0, run.stderr)
+            metadata = json.loads((output / 'run.json').read_text())
+            self.assertLess(metadata['elapsed_seconds'], 1.5)
+            self.assertIn('timed out', metadata['evaluator_error'])
+            result = json.loads((output / 'evaluation.json').read_text())['results'][0]
+            self.assertEqual(result['attribution'], 'evaluator_issue')
+            self.assertEqual(result['quality'], 'uncertain')
+            self.assertTrue(child_pid.exists(), 'Recorded nested runtime must have started')
+            state = subprocess.run(['/bin/ps', '-o', 'stat=', '-p', child_pid.read_text()], capture_output=True, text=True).stdout.strip()
+            self.assertTrue(not state or state.startswith('Z'), 'Timed-out grader must not leave an active descendant: ' + state)
+
+    def test_saved_failure_origin_separates_invalid_answer_identity_runtime_and_legacy_ambiguity(self):
+        valid_text = json.dumps({'selectedCard': 'D3', 'publicReason': 'Follow low.',
+                                 'plan': {'update': 'replace', 'text': 'Establish clubs.'}})
+        cases = [
+            ({'category': 'invalidOutput', 'rawOutput': '{"selectedCard":"D3"}'}, 'fail', 'product_error', 'structure'),
+            ({'category': 'identity', 'rawOutput': valid_text}, 'fail', 'product_error', 'identity'),
+            ({'category': 'runtime', 'rawOutput': ''}, 'uncertain', 'runtime_failure', None),
+            ({'rawOutput': valid_text}, 'uncertain', 'pending_review', None),
+        ]
+        for saved, mechanical, attribution, check in cases:
+            with self.subTest(saved=saved), tempfile.TemporaryDirectory() as temporary:
+                source = Path(temporary) / 'saved'
+                source.mkdir()
+                failure = {'status': 'failed', 'error': 'Recorded boundary failure', **saved}
+                (source / 'failure.json').write_text(json.dumps(failure))
+                output = Path(temporary) / 'evaluation'
+                run = subprocess.run([sys.executable, str(ROOT / 'evaluate.py'), 'grade', '--decision', str(source),
+                                      '--codex', '/no/such/codex', '--output', str(output)], capture_output=True, text=True)
+                self.assertEqual(run.returncode, 0, run.stderr)
+                result = json.loads((output / 'evaluation.json').read_text())['results'][0]
+                self.assertEqual(result['mechanical'], mechanical)
+                self.assertEqual(result['quality'], 'uncertain')
+                self.assertEqual(result['overall'], 'fail')
+                self.assertEqual(result['attribution'], attribution)
+                self.assertEqual(result['evidence']['runtimeFailure'], failure)
+                if check:
+                    self.assertEqual(result['deterministic_checks'][check]['status'], 'fail')
+                    self.assertNotIn('runtime_failure', result)
+                self.assertFalse(json.loads((output / 'run.json').read_text())['grading_model_called'])
+
     def test_pre_inference_failure_is_reported_without_requesting_a_grader(self):
         with tempfile.TemporaryDirectory() as temporary:
             output = Path(temporary) / 'runtime'

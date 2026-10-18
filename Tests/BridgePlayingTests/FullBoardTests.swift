@@ -126,6 +126,44 @@ final class FullBoardTests: XCTestCase {
         XCTAssertNotNil(trace.failure)
     }
 
+    func testNestedRuntimeCannotHoldOutputPipePastRequestDeadline() async throws {
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: root) }
+        let executable = root.appendingPathComponent("nested-runtime")
+        let childPID = root.appendingPathComponent("child.pid")
+        let script = """
+        #!/usr/bin/python3
+        import os, signal, subprocess, sys, time
+        if '--version' in sys.argv:
+            print('recorded nested boundary')
+            sys.exit(0)
+        signal.signal(signal.SIGTERM, signal.SIG_IGN)
+        child = subprocess.Popen(['/usr/bin/python3', '-c', 'import signal,time; signal.signal(signal.SIGTERM, signal.SIG_IGN); time.sleep(2.5)'])
+        with open('\(childPID.path)', 'w') as saved:
+            saved.write(str(child.pid))
+        time.sleep(2.5)
+        """
+        try script.write(to: executable, atomically: true, encoding: .utf8)
+        try FileManager.default.setAttributes([.posixPermissions: 0o700], ofItemAtPath: executable.path)
+        let auth = root.appendingPathComponent("auth.json")
+        try Data("{}".utf8).write(to: auth)
+        let transport = try CodexPlayingTransport(executable: executable, authenticationFile: auth, evidenceDirectory: root.appendingPathComponent("evidence"), timeoutSeconds: 0.8)
+        var board = try ruleBoard(strain: .noTrump, variant: "F")
+        try board.play(Card("H2"), by: .west)
+        do { _ = try await ExpertSession(transport: transport).decide(board.snapshot(controller: .south)); XCTFail("Nested runtime must time out") }
+        catch let failure as ExpertFailure { XCTAssertLessThan(failure.elapsedSeconds, 1.3) }
+        // The child is finite even on the red implementation, so this regression cannot leave a hung fixture.
+        XCTAssertTrue(FileManager.default.fileExists(atPath: childPID.path))
+        let inspection = Process(); let pipe = Pipe()
+        inspection.executableURL = URL(fileURLWithPath: "/bin/ps")
+        inspection.arguments = ["-o", "stat=", "-p", try String(contentsOf: childPID, encoding: .utf8)]
+        inspection.standardOutput = pipe; inspection.standardError = FileHandle.nullDevice
+        try inspection.run(); inspection.waitUntilExit()
+        let state = String(decoding: pipe.fileHandleForReading.readDataToEndOfFile(), as: UTF8.self).trimmingCharacters(in: .whitespacesAndNewlines)
+        XCTAssertTrue(state.isEmpty || state.hasPrefix("Z"), "Timed-out runtime must not leave an active descendant: \(state)")
+    }
+
     func testFullTrumpDriverConsumesFiftyTwoCardsAndCreditsAllThirteenTricks() async throws {
         var board = try ruleBoard(strain: .spades)
         try board.play(Card("H2"), by: .west)
