@@ -54,10 +54,17 @@ class AcceptanceTests(unittest.TestCase):
             (root / 'bridge-play').unlink()
             self.assertEqual(acceptance.changed_files(root, hashes), ['bridge-play', 'core.swift'])
 
-    def test_quality_failure_or_uncertainty_never_becomes_board_pass(self):
-        self.assertEqual(acceptance.quality_status({'results': [{'overall': 'pass'}]}), 'pass')
-        self.assertEqual(acceptance.quality_status({'results': [{'overall': 'pass'}, {'overall': 'fail'}]}), 'fail')
-        self.assertEqual(acceptance.quality_status({'results': [{'overall': 'uncertain', 'attribution': 'evaluator_issue'}]}), 'pending')
+    def test_quality_column_is_independent_from_mechanical_and_runtime_failures(self):
+        good = {'mechanical': 'pass', 'quality': 'pass', 'overall': 'pass', 'attribution': 'no_material_error_found'}
+        bad = {'mechanical': 'pass', 'quality': 'fail', 'overall': 'fail', 'attribution': 'product_error'}
+        runtime = {'mechanical': 'uncertain', 'quality': 'uncertain', 'overall': 'fail', 'attribution': 'runtime_failure'}
+        self.assertEqual(acceptance.quality_status({'results': [good]}), 'pass')
+        self.assertEqual(acceptance.quality_status({'results': [good, bad]}), 'fail')
+        self.assertEqual(acceptance.quality_status({'results': [runtime]}), 'pending')
+        self.assertTrue(acceptance.has_failed_evaluation({'results': [runtime]}))
+        binding = {'mechanical': 'fail', 'quality': 'pass', 'overall': 'fail', 'attribution': 'product_error'}
+        self.assertEqual(acceptance.quality_status({'results': [binding]}), 'pass')
+        self.assertTrue(acceptance.has_failed_evaluation({'results': [binding]}))
         self.assertEqual(acceptance.quality_status({'results': []}), 'pending')
 
     def test_failed_last_request_never_completes_short_task(self):

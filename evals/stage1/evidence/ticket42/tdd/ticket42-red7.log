@@ -1,0 +1,16 @@
+.........F.
+======================================================================
+FAIL: test_quality_column_is_independent_from_mechanical_and_runtime_failures (test_acceptance.AcceptanceTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tingranwang/.codex/worktrees/stage1-ticket42/bridge-coup/evals/stage1/tests/test_acceptance.py", line 63, in test_quality_column_is_independent_from_mechanical_and_runtime_failures
+    self.assertEqual(acceptance.quality_status({'results': [runtime]}), 'pending')
+AssertionError: 'fail' != 'pending'
+- fail
++ pending
+
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.356s
+
+FAILED (failures=1)
