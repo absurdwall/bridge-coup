@@ -87,7 +87,10 @@ def verify_case_decisions(manifest_path, case_id, decisions):
     for _, record in decisions:
         snapshot = record['snapshot']
         events = snapshot['events']
-        if events[:len(prefix)] != prefix or snapshot['contract'] != board['contract']:
+        # Codable writes the default explicitly; older fixtures omit it.
+        contract = {'doubling': 'undoubled', **snapshot['contract']}
+        expected_contract = {'doubling': 'undoubled', **board['contract']}
+        if events[:len(prefix)] != prefix or contract != expected_contract:
             raise ValueError('case/trace mismatch: initial events or contract differ')
         state = replay(board, events)
         for hand in snapshot['hands']:

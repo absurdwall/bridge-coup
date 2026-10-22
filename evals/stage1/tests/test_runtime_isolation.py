@@ -105,7 +105,7 @@ class RuntimeIsolationTests(unittest.TestCase):
         text = '\n'.join(part.get('text', '') for item in request['input']
                          if item.get('role') == 'user' for part in item.get('content', []))
         snapshot = json.loads(text)
-        self.assertEqual(set(snapshot), {'type', 'contract', 'scoring', 'vulnerability', 'controller',
+        self.assertEqual(set(snapshot), {'type', 'contract', 'scoring', 'vulnerability', 'objective', 'publicBackground', 'controller',
                          'hands', 'completedTricks', 'currentTrick', 'current', 'effectivePlan'})
         self.assertEqual(snapshot['type'], 'initial')
         self.assertEqual(snapshot['contract'], {'level':3, 'strain':'NT', 'doubling':'undoubled', 'declarer':'S'})
