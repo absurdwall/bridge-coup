@@ -1,0 +1,8 @@
+{
+  "category" : "runtime",
+  "elapsedSeconds" : 0.42694592475891113,
+  "error" : "Unsuccessful turn: {\n    additionalDetails = \"<null>\";\n    codexErrorInfo = other;\n    message = \"{\\\"error\\\":{\\\"type\\\":\\\"invalid_request_error\\\",\\\"message\\\":\\\"OFFLINE_ISOLATION_REGRESSION_NO_INFERENCE\\\"}}\";\n    misalignment = \"<null>\";\n}",
+  "input" : "{\n  \"completedTricks\" : [\n\n  ],\n  \"contract\" : {\n    \"declarer\" : \"S\",\n    \"doubling\" : \"undoubled\",\n    \"level\" : 3,\n    \"strain\" : \"NT\"\n  },\n  \"controller\" : \"S\",\n  \"current\" : {\n    \"toAct\" : \"N\",\n    \"tricksWon\" : {\n      \"declarer\" : 0,\n      \"defenders\" : 0\n    }\n  },\n  \"currentTrick\" : [\n    {\n      \"card\" : \"DQ\",\n      \"seat\" : \"W\"\n    }\n  ],\n  \"effectivePlan\" : null,\n  \"hands\" : {\n    \"N\" : {\n      \"C\" : \"Q72\",\n      \"D\" : \"8653\",\n      \"H\" : \"K74\",\n      \"S\" : \"862\"\n    },\n    \"S\" : {\n      \"C\" : \"AK864\",\n      \"D\" : \"AK\",\n      \"H\" : \"A63\",\n      \"S\" : \"A94\"\n    }\n  },\n  \"scoring\" : \"IMP\",\n  \"type\" : \"initial\",\n  \"vulnerability\" : \"neither\"\n}",
+  "rawOutput" : "",
+  "status" : "failed"
+}
