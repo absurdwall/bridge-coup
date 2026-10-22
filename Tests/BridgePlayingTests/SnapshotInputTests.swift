@@ -2,8 +2,29 @@ import XCTest
 import BridgeDomain
 import BridgeEngine
 import BridgeExpert
+import BridgeDriver
 
 final class SnapshotInputTests: XCTestCase {
+    func testDriverPreservesPublicBackgroundAndOfficialObjectiveAcrossSnapshots() async throws {
+        let background = "West opened 1NT; defensive carding agreements are unknown."
+        let objective = "Maximize the chance of making the contract."
+        var board = try fixtureBoard(objective: objective, publicBackground: background)
+        try board.play(Card("DQ"), by: .west)
+        let driver = BoardDriver(board: board, expert: ExpertSession(transport: SequencePlayTransport(outputs: [
+            try response(card: "D3", update: "replace", text: "Preserve entries."),
+            try response(card: "DA", update: "keep")
+        ])))
+        let initial = try await driver.advance()
+        _ = try await driver.advance()
+        let update = try await driver.advance()
+        for step in [initial, update] {
+            let input = try jsonInput(XCTUnwrap(step.decision))
+            XCTAssertEqual(input["publicBackground"] as? String, background)
+            XCTAssertEqual(input["objective"] as? String, objective)
+        }
+        XCTAssertEqual(update.execution.event.card, try Card("DA"))
+    }
+
     func testDoublingFromStoredContractReachesActualExpertInput() async throws {
         for doubling in ["undoubled", "doubled", "redoubled"] {
             let data = Data("{\"level\":3,\"strain\":\"noTrump\",\"declarer\":\"south\",\"doubling\":\"\(doubling)\"}".utf8)
@@ -96,11 +117,11 @@ final class SnapshotInputTests: XCTestCase {
     }
 }
 
-private func fixtureBoard(contract: Contract? = nil) throws -> BoardState {
+private func fixtureBoard(contract: Contract? = nil, objective: String = "Normal IMP strategy, weighing contract risk and overtricks.", publicBackground: String? = nil) throws -> BoardState {
     let repository = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
     let data = try Data(contentsOf: repository.appendingPathComponent("evals/stage1/corpus/boards/synthetic.json"))
     let fixture = try JSONDecoder().decode(SnapshotFixture.self, from: data)
-    return try BoardState(deal: Dictionary(uniqueKeysWithValues: fixture.hands.map { ($0.seat, $0.cards) }), contract: contract ?? fixture.contract)
+    return try BoardState(deal: Dictionary(uniqueKeysWithValues: fixture.hands.map { ($0.seat, $0.cards) }), contract: contract ?? fixture.contract, objective: objective, publicBackground: publicBackground)
 }
 private struct SnapshotFixture: Decodable { let hands: [Hand]; let contract: Contract }
 private func jsonInput(_ decision: DecisionRecord) throws -> [String: Any] {
