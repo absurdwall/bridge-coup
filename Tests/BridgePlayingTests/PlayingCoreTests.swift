@@ -43,6 +43,8 @@ final class PlayingCoreTests: XCTestCase {
         if '--version' in sys.argv:
             print('recorded boundary')
             sys.exit(0)
+        if sys.argv[1:4] == ['debug', 'models', '--bundled']:
+            print(json.dumps({'models':[{'slug':'gpt-6-luna','tool_mode':'code','experimental_supported_tools':['exec'],'apply_patch_tool_type':'freeform','shell_type':'default'}]})); sys.exit(0)
         for line in sys.stdin:
             request = json.loads(line)
             method = request.get('method')
