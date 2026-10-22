@@ -4,13 +4,15 @@
 
 Playing requests use Luna Medium. Independent semantic grading uses Sol Medium; independent code review uses Luna Max. Names describe requested and observable identities, not independently established internal service routing.
 
+For the current complete disposition, start with [REPORT.md](REPORT.md).
+
 ## Current evidence
 
 - [Frozen v3 review](matrix-v3/REVIEW.md): all 22 prescribed attempts completed legally, with 266 player requests. The four full boards took 75.214, 88.017, 106.971 and 79.604 seconds. Independent attempt disposition is **4 pass / 17 fail / 1 pending**. Original grades and exact payloads remain unchanged.
 - [Detailed matrix](matrix-v3/REPORT.md): every attempt, request/action count, timing distribution, original grade and coverage predicate.
 - [Wire and thread audit](matrix-v3/review-work/final-wire-and-thread-audit.json): 266 HTTP 200 responses, empty tools, Luna Medium, one continuing thread per board, no playing retries or public Chinese text. Internal encrypted reasoning language is not asserted.
 - [v4 output-order implementation](output-order-implementation.md): schema, existing field enumeration and examples now follow plan → selectedCard → publicReason; nested update → text and all field meanings remain unchanged. This is a consistency correction with unproven quality benefit.
-- [v4 development plan](development-v4/DEVELOPMENT-PLAN.json): three different scenarios, one fresh run each, separately frozen. These are development checks, not a final 22-attempt matrix, and cannot be combined with v3 passes.
+- [v4 development plan](development-v4/DEVELOPMENT-PLAN.json): three different scenarios, one fresh run each, separately frozen. Independent result: one basic-quality/coverage pass, one pending, one confirmed failure. See [v4 disposition](development-v4/REVIEW.md). These are development checks, not a final 22-attempt matrix, and cannot be combined with v3 passes.
 
 Current offline verification is **234 Swift tests, 10 preexisting skips, and 53 Python tests, zero failures**. The first Python run caught a stale native-boundary expectation for the old order; its failure, corrected assertion and final passing run are preserved in [tdd](tdd/). Both Luna Max review axes found no new concrete source defect. Engineering checks do not establish bridge quality.
 

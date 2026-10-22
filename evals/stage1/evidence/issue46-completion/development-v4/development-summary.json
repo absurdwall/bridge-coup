@@ -1,0 +1,587 @@
+{
+  "candidate_source": "8a0c5181901ce2bdae51442d3caf05511b86f638",
+  "attempts": [
+    {
+      "id": "short-3-r1",
+      "case_id": "short-3",
+      "kind": "short",
+      "board": "boards/synthetic.json",
+      "decisions": 12,
+      "opponent_policy": "conserve-high",
+      "task_complete": true,
+      "legal_execution": "pass",
+      "quality": "pass",
+      "playing": {
+        "exit_code": 0,
+        "wall_seconds": 44.37
+      },
+      "grading": {
+        "exit_code": 0,
+        "grading_evidence_available": true
+      },
+      "coverage": {
+        "status": "pending",
+        "basis": "Actual information windows observed; factual use, justified retention/replacement and non-invention require independent review.",
+        "facets": {
+          "two_round_break_decision_revisions": [
+            12,
+            16,
+            18,
+            20,
+            24,
+            26
+          ],
+          "third_club_before_other_defender_revisions": []
+        }
+      },
+      "counts": {
+        "actual_events": 27,
+        "complete": false,
+        "tricks": [
+          6,
+          0
+        ],
+        "model_request_attempts": 12,
+        "actual_rpc_requests": 12,
+        "model_actions": 12,
+        "forced_actions": 2,
+        "driver_opponent_actions": 12,
+        "initial_controlled_actions": 0,
+        "initial_opponent_actions": 1,
+        "retries": 0
+      },
+      "wire": {
+        "upstream_request_attempts": 12,
+        "http_statuses": {
+          "200": 12
+        },
+        "transport_errors": [],
+        "missing_response_metadata": [],
+        "observed_response_models": [
+          "gpt-6-luna"
+        ]
+      },
+      "timing": {
+        "elapsedSeconds": 44.1684809923172,
+        "lastControlledActionSeconds": 44.16663193702698,
+        "environmentOverheadSeconds": 0.11694884300231934,
+        "initialRequestSeconds": 6.942770004272461,
+        "subsequentRequestSeconds": [
+          1.5930629968643188,
+          4.091580033302307,
+          1.7325680255889893,
+          2.1978940963745117,
+          1.9452520608901978,
+          2.9133139848709106,
+          9.52747392654419,
+          3.4091789722442627,
+          5.072458028793335,
+          2.90556800365448,
+          1.720412015914917
+        ],
+        "failedRequestSeconds": null
+      },
+      "quality_counts": {
+        "pass": 12,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "review_required": [],
+      "plan_updates": {
+        "keep": 9,
+        "replace": 3,
+        "withdraw": 0
+      },
+      "failures": [],
+      "outcome": "pending"
+    },
+    {
+      "id": "short-5-r1",
+      "case_id": "short-5",
+      "kind": "short",
+      "board": "boards/pavlicek-deep-finesse.json",
+      "decisions": 12,
+      "opponent_policy": "pavlicek-entry",
+      "task_complete": true,
+      "legal_execution": "pass",
+      "quality": "fail",
+      "playing": {
+        "exit_code": 0,
+        "wall_seconds": 42.244
+      },
+      "grading": {
+        "exit_code": 0,
+        "grading_evidence_available": true
+      },
+      "coverage": {
+        "status": "pending",
+        "basis": "Diamond attempt, retained North CA and later controlled decision observed; gift/entry meaning requires independent review."
+      },
+      "counts": {
+        "actual_events": 33,
+        "complete": false,
+        "tricks": [
+          5,
+          3
+        ],
+        "model_request_attempts": 12,
+        "actual_rpc_requests": 12,
+        "model_actions": 12,
+        "forced_actions": 3,
+        "driver_opponent_actions": 14,
+        "initial_controlled_actions": 2,
+        "initial_opponent_actions": 2,
+        "retries": 0
+      },
+      "wire": {
+        "upstream_request_attempts": 12,
+        "http_statuses": {
+          "200": 12
+        },
+        "transport_errors": [],
+        "missing_response_metadata": [],
+        "observed_response_models": [
+          "gpt-6-luna"
+        ]
+      },
+      "timing": {
+        "elapsedSeconds": 41.96803689002991,
+        "lastControlledActionSeconds": 41.965900897979736,
+        "environmentOverheadSeconds": 0.12300896644592285,
+        "initialRequestSeconds": 8.173344016075134,
+        "subsequentRequestSeconds": [
+          3.647722005844116,
+          5.228672981262207,
+          4.077157020568848,
+          1.5891530513763428,
+          2.617293953895569,
+          3.9513930082321167,
+          1.9783899784088135,
+          2.9935920238494873,
+          1.4979829788208008,
+          3.314165949821472,
+          2.776160955429077
+        ],
+        "failedRequestSeconds": null
+      },
+      "quality_counts": {
+        "pass": 7,
+        "fail": 2,
+        "uncertain": 3
+      },
+      "review_required": [
+        {
+          "id": "decision-0003",
+          "mechanical": "pass",
+          "quality": "uncertain",
+          "overall": "uncertain",
+          "attribution": "pending_review",
+          "evaluator_attribution": null,
+          "evaluator_error": null,
+          "findings": [
+            {
+              "dimension": "entries and strategy",
+              "fact": "The proposed D9 continuation needs review for sufficient diamond entries.",
+              "explanation": "North has K975, South only D4, and CA is the sole assured outside entry to North. If D9 loses while DA remains outstanding, entering North to force DA can consume the entry needed for the eventual long diamonds. The answer does not resolve that communication problem or specify the favorable holding on which its alternative relies.",
+              "quotes": [
+                "Lead D9 from North now, hoping to force or finesse out the outstanding diamond honors; if it loses, reassess the defense's diamond position.",
+                "Then use the club honors and South's high hearts to regain the lead and cash established diamonds."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "decision-0007",
+          "mechanical": "pass",
+          "quality": "fail",
+          "overall": "fail",
+          "attribution": "product_error",
+          "evaluator_attribution": null,
+          "evaluator_error": null,
+          "findings": [
+            {
+              "dimension": "remaining cards",
+              "fact": "The replacement plan treats the already consumed DJ as a continuing diamond obstacle.",
+              "explanation": "The authorized history records East winning the third trick with DJ. That card cannot still obstruct North's DK or a later diamond continuation. Using it as a present reason to avoid diamonds materially misstates the remaining suit.",
+              "quotes": [
+                "Dummy's DK is another possible winner, but the outstanding DA and East's DJ make diamond continuation risky."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "decision-0008",
+          "mechanical": "pass",
+          "quality": "fail",
+          "overall": "fail",
+          "attribution": "product_error",
+          "evaluator_attribution": null,
+          "evaluator_error": null,
+          "findings": [
+            {
+              "dimension": "effective plan",
+              "fact": "Keeping the plan retains its material error about DJ.",
+              "explanation": "DJ was played and won trick three in the authorized history. Although CT legally implements the club finesse over C6, the retained advice still cites that consumed jack as a current diamond threat.",
+              "quotes": [
+                "\"update\":\"keep\"",
+                "Dummy's DK is another possible winner, but the outstanding DA and East's DJ make diamond continuation risky."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "decision-0011",
+          "mechanical": "pass",
+          "quality": "uncertain",
+          "overall": "uncertain",
+          "attribution": "pending_review",
+          "evaluator_attribution": null,
+          "evaluator_error": null,
+          "findings": [
+            {
+              "dimension": "trick sources and strategy",
+              "fact": "The replacement does not establish how its proposed sources can produce the five tricks still required.",
+              "explanation": "Four tricks are won and six remain. HK, CK and CA supply three sure tricks; DK is conditional, with DA outstanding. Review is needed to determine whether cashing HK and then using the club entry preserves a practical route to the additional diamond or heart tricks required.",
+              "quotes": [
+                "Cash HK now, then use the remaining club honors and dummy's DK to seek the five tricks still needed.",
+                "Dummy's DK may score only if DA is safely located or forced."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "decision-0012",
+          "mechanical": "pass",
+          "quality": "uncertain",
+          "overall": "uncertain",
+          "attribution": "pending_review",
+          "evaluator_attribution": null,
+          "evaluator_error": null,
+          "findings": [
+            {
+              "dimension": "effective plan and communication",
+              "fact": "The retained continuation still lacks a demonstrated route to four more tricks.",
+              "explanation": "HK has already been cashed, leaving five tricks and four needed. C7 to CA followed by C4 to CK is physically feasible, but those two club winners do not resolve how North's K75 can supply the other tricks against the outstanding DA and DT. The strategic continuation requires review.",
+              "quotes": [
+                "Lead low toward dummy's ace, keeping the club king available to capture the outstanding queen if it appears.",
+                "Dummy's DK may score only if DA is safely located or forced."
+              ]
+            }
+          ]
+        }
+      ],
+      "plan_updates": {
+        "keep": 5,
+        "replace": 7,
+        "withdraw": 0
+      },
+      "failures": [],
+      "outcome": "fail"
+    },
+    {
+      "id": "short-6-r1",
+      "case_id": "short-6",
+      "kind": "short",
+      "board": "boards/walker-holdup-adapted.json",
+      "decisions": 12,
+      "opponent_policy": "conserve-high",
+      "task_complete": true,
+      "legal_execution": "pass",
+      "quality": "fail",
+      "playing": {
+        "exit_code": 0,
+        "wall_seconds": 40.791
+      },
+      "grading": {
+        "exit_code": 0,
+        "grading_evidence_available": true
+      },
+      "coverage": {
+        "status": "pending",
+        "basis": "Actual pre-DA-loss hold-up, spade continuation, diamond response and later decision are required; communication meaning still needs independent review.",
+        "facets": {
+          "hold_up_before_diamond_ace_loss": true,
+          "spade_continuation_before_diamond_ace_loss": true,
+          "diamond_ace_defensive_response": true,
+          "later_controlled_decision": true
+        }
+      },
+      "counts": {
+        "actual_events": 28,
+        "complete": false,
+        "tricks": [
+          1,
+          6
+        ],
+        "model_request_attempts": 12,
+        "actual_rpc_requests": 12,
+        "model_actions": 12,
+        "forced_actions": 2,
+        "driver_opponent_actions": 13,
+        "initial_controlled_actions": 0,
+        "initial_opponent_actions": 1,
+        "retries": 0
+      },
+      "wire": {
+        "upstream_request_attempts": 12,
+        "http_statuses": {
+          "200": 12
+        },
+        "transport_errors": [],
+        "missing_response_metadata": [],
+        "observed_response_models": [
+          "gpt-6-luna"
+        ]
+      },
+      "timing": {
+        "elapsedSeconds": 40.556057929992676,
+        "lastControlledActionSeconds": 40.55499196052551,
+        "environmentOverheadSeconds": 0.09908699989318848,
+        "initialRequestSeconds": 7.045040011405945,
+        "subsequentRequestSeconds": [
+          3.3956559896469116,
+          3.2452930212020874,
+          3.682278037071228,
+          3.3778560161590576,
+          3.6372300386428833,
+          2.337118983268738,
+          2.2698999643325806,
+          2.4724040031433105,
+          2.2063390016555786,
+          3.121306896209717,
+          3.66654896736145
+        ],
+        "failedRequestSeconds": null
+      },
+      "quality_counts": {
+        "pass": 1,
+        "fail": 11,
+        "uncertain": 0
+      },
+      "review_required": [
+        {
+          "id": "decision-0002",
+          "mechanical": "pass",
+          "quality": "fail",
+          "overall": "fail",
+          "attribution": "product_error",
+          "evaluator_attribution": null,
+          "evaluator_error": null,
+          "findings": [
+            {
+              "dimension": "unsupported stopper",
+              "fact": "The answer treats S9 as an established additional spade stopper.",
+              "explanation": "South holds SA93, but defenders still hold SQ, SJ and ST. Only SA is a certain stopper; preserving S9 does not establish the second stopper asserted in both plan and reason.",
+              "quotes": [
+                "preserving S9 and SA as stoppers",
+                "keeping both S9 and SA available as later spade stoppers."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "decision-0003",
+          "mechanical": "pass",
+          "quality": "fail",
+          "overall": "fail",
+          "attribution": "product_error",
+          "evaluator_attribution": null,
+          "evaluator_error": null,
+          "findings": [
+            {
+              "dimension": "unavailable entry",
+              "fact": "The plan assigns South's low diamonds the role of regaining the lead.",
+              "explanation": "South's remaining diamonds are 5432, all below North's KQJT9. They can lead toward dummy, but cannot regain the lead in South through the stated diamond development. South has heart and club entries, but those do not validate the explicitly stated diamond resource.",
+              "quotes": [
+                "Then develop dummy's long diamonds, using South's remaining diamond length to regain the lead if needed."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "decision-0004",
+          "mechanical": "pass",
+          "quality": "fail",
+          "overall": "fail",
+          "attribution": "product_error",
+          "evaluator_attribution": null,
+          "evaluator_error": null,
+          "findings": [
+            {
+              "dimension": "unavailable entry",
+              "fact": "The retained plan and current reason incorrectly describe South's low diamonds as entries to South.",
+              "explanation": "South holds D5432 opposite North's DKQJT9. Leading D2 toward dummy is feasible, but the remaining low diamonds cannot regain South's lead as the retained plan specifies.",
+              "quotes": [
+                "using South's remaining diamond length to regain the lead if needed.",
+                "Lead a low diamond toward dummy’s KQJT9 to begin establishing the long suit while preserving South’s diamond entries."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "decision-0005",
+          "mechanical": "pass",
+          "quality": "fail",
+          "overall": "fail",
+          "attribution": "product_error",
+          "evaluator_attribution": null,
+          "evaluator_error": null,
+          "findings": [
+            {
+              "dimension": "unavailable entry",
+              "fact": "Keeping the plan retains an impossible diamond entry resource in South.",
+              "explanation": "South now holds D543, while North holds DKQJT9. South's diamonds cannot regain the lead in South during development of dummy's higher diamonds. The otherwise reasonable D9 play does not repair this retained instruction.",
+              "quotes": [
+                "Then develop dummy's long diamonds, using South's remaining diamond length to regain the lead if needed."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "decision-0006",
+          "mechanical": "pass",
+          "quality": "fail",
+          "overall": "fail",
+          "attribution": "product_error",
+          "evaluator_attribution": null,
+          "evaluator_error": null,
+          "findings": [
+            {
+              "dimension": "trick counting",
+              "fact": "The replacement plan incorrectly counts four heart tricks.",
+              "explanation": "North holds HA43 and South HKQJ. Both hands have only three hearts, so cashing their four honors produces at most three heart tricks.",
+              "quotes": [
+                "Cash the heart honors for four tricks and retain the club honors as additional sources."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "decision-0007",
+          "mechanical": "pass",
+          "quality": "fail",
+          "overall": "fail",
+          "attribution": "product_error",
+          "evaluator_attribution": null,
+          "evaluator_error": null,
+          "findings": [
+            {
+              "dimension": "trick counting",
+              "fact": "The retained plan still promises four heart tricks from two three-card holdings.",
+              "explanation": "North's HA43 opposite South's HKQJ yields at most three heart tricks. Discarding C5 preserves that holding but does not correct the active plan's material overcount.",
+              "quotes": [
+                "Cash the heart honors for four tricks and retain the club honors as additional sources."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "decision-0008",
+          "mechanical": "pass",
+          "quality": "fail",
+          "overall": "fail",
+          "attribution": "product_error",
+          "evaluator_attribution": null,
+          "evaluator_error": null,
+          "findings": [
+            {
+              "dimension": "plan and action consistency",
+              "fact": "The answer retains an impossible four-heart-trick plan while discarding a heart honor.",
+              "explanation": "North holds HA43 opposite South's HKQJ before the selected HJ discard. The partnership cannot take four heart tricks even before that discard. The led suit is spades, so HJ is a discard rather than following hearts as the reason suggests.",
+              "quotes": [
+                "Cash the heart honors for four tricks and retain the club honors as additional sources.",
+                "Follow with the lowest heart honor on this already-lost trick, preserving HK and HQ."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "decision-0009",
+          "mechanical": "pass",
+          "quality": "fail",
+          "overall": "fail",
+          "attribution": "product_error",
+          "evaluator_attribution": null,
+          "evaluator_error": null,
+          "findings": [
+            {
+              "dimension": "trick counting",
+              "fact": "The retained plan counts four heart tricks despite HJ having been discarded.",
+              "explanation": "The authorized history records HJ discarded on SJ. North now holds HA43 and South HKQ, allowing at most three heart tricks, not the four still specified by the active plan.",
+              "quotes": [
+                "Cash the heart honors for four tricks and retain the club honors as additional sources."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "decision-0010",
+          "mechanical": "pass",
+          "quality": "fail",
+          "overall": "fail",
+          "attribution": "product_error",
+          "evaluator_attribution": null,
+          "evaluator_error": null,
+          "findings": [
+            {
+              "dimension": "trick counting",
+              "fact": "Keeping the plan retains a material overcount of heart winners.",
+              "explanation": "North holds HA43 and South HKQ, with HJ already discarded in the completed history. These holdings cannot supply the four heart tricks promised in the unfinished plan.",
+              "quotes": [
+                "Cash the heart honors for four tricks and retain the club honors as additional sources."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "decision-0011",
+          "mechanical": "pass",
+          "quality": "fail",
+          "overall": "fail",
+          "attribution": "product_error",
+          "evaluator_attribution": null,
+          "evaluator_error": null,
+          "findings": [
+            {
+              "dimension": "wrong winner",
+              "fact": "The answer incorrectly treats West's CQ lead as a losing trick for declarer.",
+              "explanation": "South still holds CAJ and will play fourth to the club lead. CA can win regardless of East's play, so West's CQ is not an established defensive winner. This false premise materially frames the replacement plan.",
+              "quotes": [
+                "Discard dummy’s lowest heart on West’s club winner",
+                "Discard dummy’s lowest heart on the losing club trick, keeping the diamond winners intact."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "decision-0012",
+          "mechanical": "pass",
+          "quality": "fail",
+          "overall": "fail",
+          "attribution": "product_error",
+          "evaluator_attribution": null,
+          "evaluator_error": null,
+          "findings": [
+            {
+              "dimension": "unnecessary concession",
+              "fact": "The answer concedes CQ despite an available ace and a feasible route to all seven remaining tricks.",
+              "explanation": "South can win the current CQ–H3–C9 trick with CA, cash HK and HQ with North playing H4 then HA, and cash North's four established diamonds. That takes all seven remaining tricks for eight total. Playing CJ instead concedes a sixth defensive trick and contradicts the retained aim of avoiding further losses.",
+              "quotes": [
+                "Discard the club jack on West’s winning CQ",
+                "after this trick, seek to cash the established diamonds and remaining heart honors without giving up further tricks."
+              ]
+            }
+          ]
+        }
+      ],
+      "plan_updates": {
+        "keep": 7,
+        "replace": 5,
+        "withdraw": 0
+      },
+      "failures": [],
+      "outcome": "fail"
+    }
+  ],
+  "status": "development-only-no-go"
+}

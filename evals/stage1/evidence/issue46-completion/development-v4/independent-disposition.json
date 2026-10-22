@@ -1,0 +1,38 @@
+{
+  "candidate": "8a0c5181901ce2bdae51442d3caf05511b86f638",
+  "purpose": "development only",
+  "stage_disposition": "not accepted",
+  "original_artifacts_unchanged": true,
+  "attempts": [
+    {
+      "id": "short-3-r1",
+      "basic_quality": "pass",
+      "basic_trigger": "covered",
+      "stronger_third_club_model_window": "unclaimed",
+      "independent_outcome": "pass_basic_facet",
+      "original_saved_outcome": "pending"
+    },
+    {
+      "id": "short-5-r1",
+      "basic_quality": "uncertain",
+      "independent_counts": {
+        "pass": 7,
+        "fail": 0,
+        "uncertain": 5
+      },
+      "independent_outcome": "pending",
+      "original_saved_outcome": "fail"
+    },
+    {
+      "id": "short-6-r1",
+      "basic_quality": "fail",
+      "independent_counts": {
+        "pass": 1,
+        "fail": 8,
+        "uncertain": 3
+      },
+      "independent_outcome": "fail",
+      "original_saved_outcome": "fail"
+    }
+  ]
+}
