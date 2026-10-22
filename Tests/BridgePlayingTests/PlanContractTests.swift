@@ -123,6 +123,9 @@ final class PlanContractTests: XCTestCase {
             elif method == 'turn/start':
                 # Validate the actual serialized public Codex request, not a Swift schema constant.
                 schema = request['params']['outputSchema']
+                if list(schema['properties']) != ['plan', 'selectedCard', 'publicReason']:
+                    print(json.dumps({'id': request['id'], 'error': {'message': f"actual schema must follow plan, current card, then reason; received {list(schema['properties'])}"}}), flush=True)
+                    sys.exit(1)
                 assert all(list(v['properties']) == ['update', 'text'] for v in schema['properties']['plan']['anyOf']), 'actual plan schema must put operation before text'
                 jsonschema.Draft202012Validator.check_schema(schema)
                 validator = jsonschema.Draft202012Validator(schema)
