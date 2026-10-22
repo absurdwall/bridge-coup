@@ -5,6 +5,7 @@ import tempfile
 import subprocess
 import sys
 import time
+import hashlib
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('acceptance', ROOT / 'acceptance.py')
@@ -82,6 +83,27 @@ class AcceptanceTests(unittest.TestCase):
             self.assertEqual(acceptance.changed_files(root, hashes), ['core.swift'])
             (root / 'bridge-play').unlink()
             self.assertEqual(acceptance.changed_files(root, hashes), ['bridge-play', 'core.swift'])
+
+    def test_frozen_candidate_rejects_changed_bundled_catalog_without_version_change(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            codex = root / 'codex'
+            catalog = root / 'catalog.json'
+            catalog.write_text('{"models":[]}')
+            codex.write_text('#!' + sys.executable + '\nimport pathlib,sys\n'
+                             "if '--version' in sys.argv: print('recorded runtime')\n"
+                             "else: print(pathlib.Path(__file__).with_name('catalog.json').read_text())\n")
+            codex.chmod(0o700)
+            bundled = subprocess.check_output([str(codex), 'debug', 'models', '--bundled'])
+            candidate = {'source_hashes': {}, 'binary': str(codex), 'codex': str(codex),
+                         'binary_sha256': acceptance.hash_files(root, ['codex'])['codex'],
+                         'codex_sha256': acceptance.hash_files(root, ['codex'])['codex'],
+                         'runtime_version': 'recorded runtime',
+                         'runtime_catalog_sha256': hashlib.sha256(bundled).hexdigest()}
+            acceptance.preflight(candidate)
+            catalog.write_text('{"models":[{"slug":"different"}]}')
+            with self.assertRaisesRegex(ValueError, 'catalog changed'):
+                acceptance.preflight(candidate)
 
     def test_quality_column_is_independent_from_mechanical_and_runtime_failures(self):
         good = {'mechanical': 'pass', 'quality': 'pass', 'overall': 'pass', 'attribution': 'no_material_error_found'}

@@ -117,6 +117,55 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
         }
     }
 
+    private var isolatedEnvironment: [String: String] {
+        ["HOME": runtimeDirectory.path,
+         "CODEX_HOME": runtimeDirectory.appendingPathComponent("home").path,
+         "PATH": executable.deletingLastPathComponent().path + ":/usr/bin:/bin:/usr/sbin:/sbin"]
+    }
+
+    /// Uses the installed runtime's bundled metadata, without refreshing from a service.
+    /// Unsupported catalog formats fail before thread creation; there is no tool-enabled fallback.
+    private func prepareModelCatalog() throws {
+        let source = evidenceDirectory.appendingPathComponent("runtime-bundled-catalog.json")
+        _ = FileManager.default.createFile(atPath: source.path, contents: nil)
+        let saved = try FileHandle(forWritingTo: source)
+        let command = Process()
+        command.executableURL = executable; command.arguments = ["debug", "models", "--bundled"]
+        command.environment = isolatedEnvironment
+        command.currentDirectoryURL = runtimeDirectory.appendingPathComponent("cwd")
+        command.standardInput = FileHandle.nullDevice
+        command.standardOutput = saved; command.standardError = FileHandle.nullDevice
+        process = command; ownedProcessGroup = nil
+        try command.run(); trackProcessGroup(command); command.waitUntilExit()
+        try saved.close()
+        guard command.terminationStatus == 0,
+              let deadline = requestDeadline, DispatchTime.now() < deadline else {
+            throw CodexPlayingError.failure("Bundled runtime model catalog unavailable or timed out")
+        }
+        guard var catalog = try JSONSerialization.jsonObject(with: Data(contentsOf: source)) as? [String: Any],
+              var models = catalog["models"] as? [[String: Any]],
+              models.filter({ $0["slug"] as? String == Self.model }).count == 1,
+              let index = models.firstIndex(where: { $0["slug"] as? String == Self.model }),
+              ["tool_mode", "experimental_supported_tools", "apply_patch_tool_type", "shell_type"].allSatisfy({ models[index].keys.contains($0) }) else {
+            throw CodexPlayingError.failure("Installed runtime cannot provide the required no-tools model catalog")
+        }
+        models[index]["tool_mode"] = "direct"
+        models[index]["experimental_supported_tools"] = [String]()
+        models[index]["apply_patch_tool_type"] = NSNull()
+        models[index]["shell_type"] = "disabled"
+        catalog["models"] = models
+        let data = try JSONSerialization.data(withJSONObject: catalog, options: [.sortedKeys])
+        let effective = runtimeDirectory.appendingPathComponent("home/model-catalog.json")
+        try data.write(to: effective)
+        try data.write(to: evidenceDirectory.appendingPathComponent("runtime-model-catalog.json"))
+        let encoder = JSONEncoder(); encoder.outputFormatting = [.withoutEscapingSlashes]
+        let pathLiteral = String(decoding: try encoder.encode(effective.path), as: UTF8.self)
+        let configURL = runtimeDirectory.appendingPathComponent("home/config.toml")
+        let configuration = "model_catalog_json = " + pathLiteral + "\n" + (try String(contentsOf: configURL, encoding: .utf8))
+        try configuration.write(to: configURL, atomically: true, encoding: .utf8)
+        try configuration.write(to: evidenceDirectory.appendingPathComponent("runtime-config.toml"), atomically: true, encoding: .utf8)
+    }
+
     private func start() throws {
         let versionProcess = Process(); let versionPipe = Pipe()
         versionProcess.executableURL = executable; versionProcess.arguments = ["--version"]
@@ -126,12 +175,11 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
         try versionProcess.run(); trackProcessGroup(versionProcess); versionProcess.waitUntilExit()
         guard versionProcess.terminationStatus == 0 else { throw CodexPlayingError.failure("Runtime version unavailable") }
         runtimeVersion = String(decoding: versionPipe.fileHandleForReading.readDataToEndOfFile(), as: UTF8.self).trimmingCharacters(in: .whitespacesAndNewlines)
+        try prepareModelCatalog()
         let child = Process(); let stdin = Pipe(); let stdout = Pipe()
         child.executableURL = executable; child.arguments = ["app-server", "--listen", "stdio://"]
         // Deliberately pass no inherited Codex features, project paths, tool hosts, or API credentials.
-        child.environment = ["HOME": runtimeDirectory.path,
-            "CODEX_HOME": runtimeDirectory.appendingPathComponent("home").path,
-            "PATH": executable.deletingLastPathComponent().path + ":/usr/bin:/bin:/usr/sbin:/sbin"]
+        child.environment = isolatedEnvironment
         child.currentDirectoryURL = runtimeDirectory.appendingPathComponent("cwd")
         child.standardInput = stdin; child.standardOutput = stdout
         child.standardError = FileHandle.nullDevice
@@ -274,6 +322,9 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
     goals = false
     worktrees = false
     workspace_dependencies = false
+    current_time_reminder = false
+    [tools.experimental_request_user_input]
+    enabled = false
     [agents]
     enabled = false
     [orchestrator.skills]
