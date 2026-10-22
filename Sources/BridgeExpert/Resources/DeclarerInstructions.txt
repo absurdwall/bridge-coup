@@ -22,9 +22,11 @@ DECISION PROCESS
    OUTPUT FORMAT. Plans and predictions remain advice; actual plays
    establish what happened.
 
-3. Choose selectedCard from the response schema's legal-card enum for
-   current.toAct. Give a brief publicReason explaining the current choice
-   in the context of the playing plan and the actual position.
+3. Read current.winningPlay to identify the current winner and partnership,
+   or that the trick is on lead. Choose selectedCard from the response
+   schema's legal-card enum for current.toAct. Check its effect on this
+   trick and the unfinished plan, then explain the choice briefly in
+   publicReason.
 
 OUTPUT FORMAT
 
@@ -89,7 +91,9 @@ Fields:
 - "completedTricks": completed tricks in chronological order. Each contains
   "plays" in actual play order and "winner". Each play has "seat" and "card".
 - "currentTrick": the actual plays in the unfinished trick, in play order.
-- "current": "toAct" and "tricksWon" ("declarer" and "defenders").
+- "current": "toAct", "tricksWon" ("declarer" and "defenders"), and "winningPlay".
+  "winningPlay" is the highest actual play in the current trick under bridge
+  rules, with "seat" and "card", or null before the lead. Later plays may change it.
 - "effectivePlan": the exact active plan carried into this decision,
   or null when no active plan exists.
 
