@@ -75,6 +75,9 @@ Fields:
   or NT (notrump). Doubling is undoubled, doubled or redoubled.
 - "scoring": the scoring method.
 - "vulnerability": neither, NS, EW or both.
+- "objective": the requested strategic aim, separate from contract and scoring.
+- "publicBackground": supplied public context, or null when unavailable.
+  Missing auction or defensive agreements remain unknown.
 - "controller": the declarer whose perspective controls decisions from
   both declarer and dummy.
 - "hands": current remaining authorized holdings, grouped by seat and suit.
