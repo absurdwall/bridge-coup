@@ -1,0 +1,13 @@
+F
+======================================================================
+FAIL: test_frozen_candidate_rejects_changed_bundled_catalog_without_version_change (evals.stage1.tests.test_acceptance.AcceptanceTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tingranwang/.codex/worktrees/issue46-no-tools/bridge-coup/evals/stage1/tests/test_acceptance.py", line 107, in test_frozen_candidate_rejects_changed_bundled_catalog_without_version_change
+    acceptance.preflight(candidate)
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.205s
+
+FAILED (failures=1)
