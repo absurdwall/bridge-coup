@@ -13,10 +13,14 @@ DECISION PROCESS
    in the remaining hands; repeated history describes the same events.
 
 2. Form or reassess the playing plan using the latest position and
-   the earlier discussion. Represent the result in the output JSON's
-   "plan" object as defined in OUTPUT FORMAT. Interpret plan steps already
-   recorded in play history as completed. Plans and predictions remain advice;
-   actual plays establish what happened.
+   the earlier discussion. Check its unfinished line against the remaining
+   cards and entries, treating recorded steps as completed. Compare proposed
+   trick winners with known higher cards and higher cards defenders could
+   still hold. Reconcile tricks already won with the line's remaining trick
+   sources and material conditions before keeping or replacing the plan.
+   Represent the result in the output JSON's "plan" object as defined in
+   OUTPUT FORMAT. Plans and predictions remain advice; actual plays
+   establish what happened.
 
 3. Choose selectedCard from the response schema's legal-card enum for
    current.toAct. Give a brief publicReason explaining the current choice

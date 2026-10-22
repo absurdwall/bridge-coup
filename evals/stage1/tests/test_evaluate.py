@@ -158,6 +158,25 @@ class SavedDecisionTests(unittest.TestCase):
         checks = evaluate.deterministic_checks(record)
         self.assertEqual(checks['structure']['status'], 'fail')
 
+    def test_interrupted_board_certifies_only_its_own_turn_from_shared_rpc(self):
+        source = ROOT / 'evidence/issue46-completion/development-full-v1/development-full/play'
+        for wrong_thread, expected in ((False, 'pass'), (True, 'fail')):
+            with self.subTest(wrong_thread=wrong_thread), tempfile.TemporaryDirectory() as temporary:
+                board = Path(temporary)
+                saved = board / 'decision-0008'
+                saved.mkdir()
+                record = evaluate.read_json(source / 'decision-0008/decision.json')
+                if wrong_thread:
+                    record['identity']['threadID'] = 'unrelated-board-thread'
+                (saved / 'decision.json').write_text(evaluate.json_text(record))
+                (saved / 'events.json').write_text((source / 'decision-0008/events.json').read_text())
+                (board / 'rpc.jsonl').write_text((source / 'rpc.jsonl').read_text())
+                package = evaluate.grader_package([('interrupted', evaluate.read_decision(saved))])
+            checks = package['decisions'][0]['deterministic_checks']
+            self.assertIn('request_evidence', checks)
+            self.assertEqual(checks['request_evidence']['status'], expected)
+            self.assertEqual(checks['output_evidence']['status'], expected)
+
     def test_saved_multiturn_decision_cannot_borrow_another_turn_identity(self):
         source = ROOT / 'evidence/ticket40/development-v3'
         first = evaluate.read_decision(source / 'decision-0001')
