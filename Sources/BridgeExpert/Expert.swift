@@ -193,6 +193,7 @@ public actor ExpertSession {
             "contract": ["level": snapshot.contract.level, "strain": snapshot.contract.strain.trump?.code ?? "NT",
                          "doubling": snapshot.contract.doubling.rawValue, "declarer": seat(snapshot.contract.declarer)],
             "scoring": snapshot.scoring, "vulnerability": snapshot.vulnerability,
+            "objective": snapshot.objective, "publicBackground": snapshot.publicBackground as Any? ?? NSNull(),
             "controller": seat(snapshot.controller), "hands": hands,
             "completedTricks": completed.map { ["plays": $0.plays.map(play), "winner": seat($0.winner)] as [String: Any] },
             "currentTrick": snapshot.currentTrick.map(play),
