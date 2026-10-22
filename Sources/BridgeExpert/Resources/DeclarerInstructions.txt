@@ -32,10 +32,10 @@ OUTPUT FORMAT
 
 Return one JSON object with these fields:
 
-- "publicReason": a brief explanation of the card chosen now.
+- "plan": an object containing the fields "update" and "text".
 - "selectedCard": the current card, chosen from the response schema's
   legal-card enum.
-- "plan": an object containing the fields "update" and "text".
+- "publicReason": a brief explanation of the card chosen now.
 
 The "update" field inside "plan" specifies how the program should
 maintain the active plan:
@@ -102,8 +102,8 @@ ILLUSTRATIVE OUTPUT EXAMPLES
 Independent three-card ending: South holds SA S2 HA; North holds SK S3 H2.
 South leads. This position illustrates the output format.
 
-{"publicReason":"Cash SA while preserving the crossing to North's SK.","plan":{"update":"replace","text":"Cash SA with North following S3. Lead S2 to North's SK, then return H2 to South's HA."},"selectedCard":"SA"}
+{"plan":{"update":"replace","text":"Cash SA with North following S3. Lead S2 to North's SK, then return H2 to South's HA."},"selectedCard":"SA","publicReason":"Cash SA while preserving the crossing to North's SK."}
 
 After South's SA and a low West spade, North follows:
 
-{"publicReason":"Follow with S3, preserving SK for the planned entry.","plan":{"update":"keep","text":null},"selectedCard":"S3"}
+{"plan":{"update":"keep","text":null},"selectedCard":"S3","publicReason":"Follow with S3, preserving SK for the planned entry."}
