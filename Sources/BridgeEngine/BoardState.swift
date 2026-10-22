@@ -22,7 +22,7 @@ public struct BoardState: Sendable {
     }
 
     public init(id: UUID = UUID(), deal: [Seat: [Card]], contract: Contract, vulnerability: String = "neither",
-                scoring: String = "IMP", objective: String = "Normal IMP strategy, weighing contract risk and overtricks.",
+                scoring: String = "IMP", objective: String = "Choose a line that aims for the best expected result under the stated scoring conditions.",
                 publicBackground: String? = nil) throws {
         guard (1...7).contains(contract.level), Seat.allCases.allSatisfy({ deal[$0]?.count == 13 }),
               Set(deal.values.flatMap { $0 }).count == 52 else { throw DomainError.invalidDeal }
