@@ -45,6 +45,33 @@ def incomplete_decision_report(identifier, record):
     return report
 
 
+def recorded_turn(record):
+    """Correlate the sequential request/response log before checking answer text."""
+    pending, turns, completions = [], [], []
+    for position, row in enumerate(record['rpc']):
+        value = row.get('value', {})
+        if row.get('kind') == 'request' and value.get('method') == 'turn/start':
+            pending.append(value.get('params', {}))
+        elif row.get('kind') == 'response' and value.get('method') == 'turn/start':
+            # Historical response rows retain method/result but no RPC request ID.
+            # They can certify a request only when exactly one is outstanding.
+            if len(pending) == 1:
+                turns.append((pending[0], value.get('result', {}).get('turn', {}).get('id'), position))
+            pending.clear()
+        elif row.get('kind') == 'completion':
+            completions.append((value, position))
+    identity = record.get('identity', {})
+    matches = [(request, position) for request, turn_id, position in turns
+               if turn_id and turn_id == identity.get('turnID')
+               and request.get('threadId') and request['threadId'] == identity.get('threadID')]
+    if len(matches) != 1:
+        return {}, {}
+    request, response_position = matches[0]
+    completed = [value for value, position in completions
+                 if value.get('id') == identity.get('turnID') and position > response_position]
+    return request, completed[0] if len(completed) == 1 else {}
+
+
 def deterministic_checks(record):
     checks = {}
     version = record.get('wireContractVersion', 'stage1-currentCard-plan-publicReason-v1')
@@ -70,10 +97,13 @@ def deterministic_checks(record):
     if not valid:
         return checks
     if record.get('rpc') is not None:
-        turns = [e['value']['params'] for e in record['rpc'] if e.get('kind') == 'request' and e['value'].get('method') == 'turn/start']
-        completions = [item.get('text') for e in record['rpc'] if e.get('kind') == 'completion' for item in e['value'].get('items', []) if item.get('type') == 'agentMessage']
-        add('request_evidence', any(record['input'] == item.get('text') for turn in turns for item in turn.get('input', [])), 'Saved input must occur in an actual turn/start request.')
-        add('output_evidence', record['rawOutput'] in completions, 'Saved raw output must occur in actual completion evidence.')
+        request, completion = recorded_turn(record)
+        add('request_evidence', any(record['input'] == item.get('text') for item in request.get('input', [])),
+            'Saved input must match the actual request for the recorded thread and turn.')
+        add('output_evidence', completion.get('status') == 'completed' and any(
+            item.get('type') == 'agentMessage' and item.get('text') == record['rawOutput']
+            for item in completion.get('items', [])),
+            'Saved raw output must match the completed response for that same turn.')
     card = answer.get(card_key, '')
     action = record.get('action', {})
     add('current_seat', action.get('actingSeat') == snapshot['actingSeat'] and action.get('controller') == snapshot['controller'],

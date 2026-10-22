@@ -158,6 +158,43 @@ class SavedDecisionTests(unittest.TestCase):
         checks = evaluate.deterministic_checks(record)
         self.assertEqual(checks['structure']['status'], 'fail')
 
+    def test_saved_multiturn_decision_cannot_borrow_another_turn_identity(self):
+        source = ROOT / 'evidence/ticket40/development-v3'
+        first = evaluate.read_decision(source / 'decision-0001')
+        second = evaluate.read_decision(source / 'decision-0002')
+        second['identity']['turnID'] = first['identity']['turnID']
+        with tempfile.TemporaryDirectory() as temporary:
+            saved = Path(temporary)
+            (saved / 'decision.json').write_text(evaluate.json_text(second))
+            (saved / 'rpc.jsonl').write_text((source / 'rpc.jsonl').read_text())
+            package = evaluate.grader_package([('misjoined', evaluate.read_decision(saved))])
+        checks = package['decisions'][0]['deterministic_checks']
+        self.assertEqual(checks['request_evidence']['status'], 'fail')
+        self.assertEqual(checks['output_evidence']['status'], 'fail')
+
+    def test_saved_turn_rejects_completion_before_its_start_or_another_thread(self):
+        source = ROOT / 'evidence/ticket40/development-v3'
+        original = evaluate.read_decision(source / 'decision-0002')
+        for defect in ('early_completion', 'wrong_thread'):
+            with self.subTest(defect=defect), tempfile.TemporaryDirectory() as temporary:
+                saved = Path(temporary)
+                record = json.loads(evaluate.json_text(original))
+                rpc = record.pop('rpc')
+                if defect == 'wrong_thread':
+                    record['identity']['threadID'] = 'another-board-thread'
+                else:
+                    completion = next(row for row in rpc if row.get('kind') == 'completion'
+                                      and row['value'].get('id') == record['identity']['turnID'])
+                    rpc.remove(completion)
+                    rpc.insert(0, completion)
+                (saved / 'decision.json').write_text(evaluate.json_text(record))
+                (saved / 'rpc.jsonl').write_text(''.join(json.dumps(row, ensure_ascii=False) + '\n' for row in rpc))
+                package = evaluate.grader_package([('mismatched', evaluate.read_decision(saved))])
+                checks = package['decisions'][0]['deterministic_checks']
+                self.assertEqual(checks['output_evidence']['status'], 'fail')
+                if defect == 'wrong_thread':
+                    self.assertEqual(checks['request_evidence']['status'], 'fail')
+
     def test_saved_rpc_mismatch_is_visible_and_no_defender_hand_enters_grader(self):
         record = evaluate.read_decision(ROOT / 'evidence/ticket37/live3')
         self.assertEqual(evaluate.deterministic_checks(record)['request_evidence']['status'], 'pass')
