@@ -201,13 +201,13 @@ def write(path, value):
 
 
 def source_files():
-    paths = ['Package.swift', 'Scripts/capture-playing-wire.py']
+    paths = ['Package.swift', 'Scripts/capture-playing-wire.py', 'Scripts/step-playing.sh']
     for directory in ('BridgeDomain', 'BridgeEngine', 'BridgeExpert', 'BridgeCodex', 'BridgeDriver', 'BridgePlayCLI'):
         paths += [str(p.relative_to(REPO)) for p in (REPO / 'Sources' / directory).rglob('*.swift')]
     paths += [str(p.relative_to(REPO)) for p in ROOT.glob('*.py')]
     paths += [str(p.relative_to(REPO)) for p in ROOT.glob('*.toml')]
     paths += [str(p.relative_to(REPO)) for p in ROOT.glob('*schema.json')]
-    paths += ['evals/stage1/rubric.txt']
+    paths += ['evals/stage1/rubric.txt', 'Sources/BridgeExpert/Resources/DeclarerInstructions.txt']
     paths += [str(p.relative_to(REPO)) for p in (ROOT / 'corpus').rglob('*.json')]
     return sorted(set(paths))
 
@@ -230,7 +230,7 @@ def freeze(output, binary, codex):
     if dirty.strip():
         raise ValueError('Commit candidate source before freezing: ' + dirty)
     source = (REPO / 'Sources/BridgeExpert/Expert.swift').read_text()
-    instructions = re.search(r'public static let instructions = """\n(.*?)\n    """', source, re.S).group(1).strip()
+    instructions = (REPO / 'Sources/BridgeExpert/Resources/DeclarerInstructions.txt').read_text()
     schema = re.search(r'public static let outputSchema = #"(.*?)"#', source, re.S).group(1)
     candidate = {'created_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(), 'source_commit': version,
                  'source_hashes': hash_files(REPO, source_files()),

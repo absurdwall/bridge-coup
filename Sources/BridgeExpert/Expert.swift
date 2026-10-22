@@ -96,7 +96,6 @@ public struct ExpertFailure: Error, Sendable {
 public actor ExpertSession {
     private let transport: any PlayingTransport
     private var planAssociation: PlanAssociation?
-    private var previousAction: CurrentAction?
     private var previousIdentity: RuntimeIdentity?
     private var usedTurnIDs: Set<String> = []
     private var inFlight = false
@@ -132,7 +131,7 @@ public actor ExpertSession {
         inFlight = true
         defer { inFlight = false }
         let session = DecisionSession(id: UUID(), snapshotID: snapshot.id)
-        let input = previousSnapshot == nil ? Self.initialInput(snapshot) : continuationInput(snapshot, delta: delta, executions: executions)
+        let input = try snapshotInput(snapshot, initial: previousSnapshot == nil)
         let start = Date()
         let reply: PlayingReply
         do { reply = try await transport.respond(to: PlayingRequest(instructions: Self.instructions, input: input, outputSchema: try Self.outputSchema(for: snapshot, initialPlan: previousSnapshot == nil), timeoutSeconds: timeoutSeconds)) }
@@ -169,7 +168,6 @@ public actor ExpertSession {
         case .withdraw: planAssociation = nil
         }
         previousSnapshot = snapshot
-        previousAction = CurrentAction(snapshot: snapshot, card: advice.currentCard)
         previousIdentity = reply.identity
         usedTurnIDs.insert(reply.identity.turnID)
         return DecisionRecord(session: session, planAssociation: planAssociation, wireContractVersion: Self.wireContractVersion, snapshot: snapshot, instructions: Self.instructions, input: input, rawOutput: reply.rawOutput,
@@ -177,75 +175,46 @@ public actor ExpertSession {
                               effectivePlan: planAssociation?.text, elapsedSeconds: elapsed)
     }
 
-    private func continuationInput(_ snapshot: DecisionSnapshot, delta: [PlayEvent], executions: [ActualExecution]) -> String {
-        let executed = delta.first.map { $0.seat == previousAction?.actingSeat && $0.card == previousAction?.card } ?? false
-        var lines = ["Decision snapshot: \(snapshot.id). Controller: \(snapshot.controller.rawValue.capitalized). Acting hand: \(snapshot.actingSeat.rawValue.capitalized).",
-                     "Previous suggestion actually executed: \(executed ? "yes" : "no")."]
-        lines += Self.currentActionInput(snapshot)
-        lines.append("New actual plays in order:")
-        for event in delta {
-            let source = executions.first(where: { $0.event.sequence == event.sequence })?.source.rawValue
-            lines.append("\(event.sequence): \(event.seat.rawValue.capitalized) \(Self.cardText(event.card))" + (source.map { " (\($0))" } ?? "") + ".")
+    private func snapshotInput(_ snapshot: DecisionSnapshot, initial: Bool) throws -> String {
+        func seat(_ value: Seat) -> String { String(value.rawValue.prefix(1)).uppercased() }
+        func play(_ event: PlayEvent) -> [String: String] { ["seat": seat(event.seat), "card": event.card.description] }
+        let hands = Dictionary(uniqueKeysWithValues: snapshot.hands.map { hand in
+            (seat(hand.seat), Dictionary(uniqueKeysWithValues: Suit.allCases.map { suit in
+                (suit.code, hand.cards.filter { $0.suit == suit }.sorted { $0.rank > $1.rank }
+                    .map { String($0.description.dropFirst()) }.joined())
+            }))
+        })
+        let completed = snapshot.completedTricks ?? []
+        guard completed.count * 4 + snapshot.currentTrick.count == snapshot.events.count else {
+            throw ExpertSessionError.changedHistory
         }
-        lines.append("Current trick: " + snapshot.currentTrick.map { "\($0.seat.rawValue.capitalized) \(Self.cardText($0.card))" }.joined(separator: "; ") + ".")
-        lines.append("Tricks won: declarer \(snapshot.declarerTricks), defenders \(snapshot.defenderTricks).")
-        return lines.joined(separator: "\n")
-    }
-
-    private static func currentActionInput(_ snapshot: DecisionSnapshot) -> [String] {
-        let seat = snapshot.actingSeat.rawValue.capitalized
-        let role = snapshot.actingSeat == snapshot.contract.declarer ? "declarer" : "dummy"
-        let phase: String
-        if let led = snapshot.currentTrick.first?.card.suit {
-            let ordinal = ["first", "second", "third", "fourth"][snapshot.currentTrick.count]
-            phase = "plays \(ordinal) in the current trick; \(led.rawValue) were led"
-        } else {
-            phase = "leads a new trick"
-        }
-        var lines = ["Current action: \(seat) (\(role)) \(phase).",
-                     "Legal current choices: " + snapshot.legalCards.map(Self.cardText).joined(separator: ", ") + "."]
-        if let winning = snapshot.currentWinningPlay {
-            lines.append("Current winning play so far: \(winning.seat.rawValue.capitalized) \(Self.cardText(winning.card)).")
-        }
-        return lines
-    }
-
-    private static func cardText(_ card: Card) -> String {
-        let ranks = ["Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace"]
-        return "\(card) (\(ranks[card.rank - 2]) of \(card.suit.rawValue))"
-    }
-
-    private static func initialInput(_ snapshot: DecisionSnapshot) -> String {
-        func name(_ seat: Seat) -> String { seat.rawValue.capitalized }
-        func role(_ seat: Seat) -> String { seat == snapshot.contract.declarer ? "declarer" : "dummy" }
-        let strain = snapshot.contract.strain == .noTrump ? "NT" : snapshot.contract.strain.rawValue
-        var lines = [
-            "Contract: \(snapshot.contract.level)\(strain) by \(name(snapshot.contract.declarer)). Scoring: \(snapshot.scoring). Vulnerability: \(snapshot.vulnerability).",
-            "Objective: \(snapshot.objective)",
-            "Decision controller: \(name(snapshot.controller)) (declarer).",
-            "Acting hand: \(name(snapshot.actingSeat)) (\(role(snapshot.actingSeat)))."
+        let input: [String: Any] = [
+            "type": initial ? "initial" : "update",
+            "contract": ["level": snapshot.contract.level, "strain": snapshot.contract.strain.trump?.code ?? "NT",
+                         "doubling": snapshot.contract.doubling.rawValue, "declarer": seat(snapshot.contract.declarer)],
+            "scoring": snapshot.scoring, "vulnerability": snapshot.vulnerability,
+            "controller": seat(snapshot.controller), "hands": hands,
+            "completedTricks": completed.map { ["plays": $0.plays.map(play), "winner": seat($0.winner)] as [String: Any] },
+            "currentTrick": snapshot.currentTrick.map(play),
+            "current": ["toAct": seat(snapshot.actingSeat),
+                        "tricksWon": ["declarer": snapshot.declarerTricks, "defenders": snapshot.defenderTricks]],
+            "effectivePlan": planAssociation?.text as Any? ?? NSNull()
         ]
-        lines += currentActionInput(snapshot)
-        for hand in snapshot.hands {
-            let holding = Suit.allCases.map { suit in
-                let cards = hand.cards.filter { $0.suit == suit }.sorted { $0.rank > $1.rank }.map(Self.cardText).joined(separator: " ")
-                return "\(suit.rawValue): \(cards.isEmpty ? "-" : cards)"
-            }.joined(separator: " / ")
-            lines.append("\(name(hand.seat)) (\(role(hand.seat))): \(holding)")
-        }
-        lines.append("Actual plays in order: " + snapshot.events.map { "\(name($0.seat)) \(Self.cardText($0.card))" }.joined(separator: "; ") + ".")
-        lines.append("Tricks won: declarer \(snapshot.declarerTricks), defenders \(snapshot.defenderTricks).")
-        lines.append("Additional public background: " + (snapshot.publicBackground ?? "Auction and defensive methods are not provided."))
-        return lines.joined(separator: "\n")
+        return String(decoding: try JSONSerialization.data(withJSONObject: input, options: [.prettyPrinted, .sortedKeys]), as: UTF8.self)
     }
 
     private enum ValidationError: Error { case emptyReason, missingInitialPlan, missingReplacement, ambiguousPlan, unexpectedFields }
 
-    public static let wireContractVersion = "stage1-plan-variants-v4"
+    public static let wireContractVersion = "stage1-full-snapshot-v5"
 
-    public static let instructions = """
-    Play declarer and dummy from the supplied decision-time information, in English, pursuing the stated objective. Card codes give suit S/H/D/C followed by rank; rank order is A K Q J T 9 8 7 6 5 4 3 2, high to low. A trick is won by its highest trump, or its highest card of the led suit when no trump is played. Form a concrete route to enough tricks by accounting for what each proposed trick consumes from both hands, which card wins it and which hand leads next. Carry the resulting remaining cards and entries forward through the route, and reassess it as actual play warrants. Derive publicReason and the single selectedCard to play now from the effective plan, current trick and remaining cards of the acting hand. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide the initial plan before dummy's first play. Unknown cards remain unknown.
-    """
+    /// One bundled source, loaded explicitly as the thread's base instructions.
+    public static let instructions: String = {
+        guard let url = Bundle.module.url(forResource: "DeclarerInstructions", withExtension: "txt"),
+              let text = try? String(contentsOf: url, encoding: .utf8) else {
+            preconditionFailure("Missing bundled declarer instructions")
+        }
+        return text
+    }()
 
     private static func outputSchema(for snapshot: DecisionSnapshot, initialPlan: Bool) throws -> String {
         var schema = try JSONSerialization.jsonObject(with: Data(outputSchema.utf8)) as! [String: Any]
@@ -263,7 +232,18 @@ public actor ExpertSession {
         }
         schema["properties"] = properties
         func json(_ value: Any) throws -> String {
-            String(decoding: try JSONSerialization.data(withJSONObject: value, options: [.fragmentsAllowed, .sortedKeys]), as: UTF8.self)
+            if let object = value as? [String: Any] {
+                // Select the plan operation before generating its corresponding payload.
+                let keys = Set(object.keys) == ["update", "text"] ? ["update", "text"] : object.keys.sorted()
+                let members = try keys.map { key in
+                    try json(key) + ":" + json(object[key]!)
+                }.joined(separator: ",")
+                return "{" + members + "}"
+            }
+            if let array = value as? [Any] {
+                return "[" + (try array.map { try json($0) }.joined(separator: ",")) + "]"
+            }
+            return String(decoding: try JSONSerialization.data(withJSONObject: value, options: [.fragmentsAllowed]), as: UTF8.self)
         }
         // Structured generation follows this order: ground the current reason before future advice.
         let orderedProperties = try ["publicReason", "plan", "selectedCard"].map { key in

@@ -21,6 +21,11 @@ final class FullBoardTests: XCTestCase {
             XCTAssertEqual(board.actingSeat, winner, "\(variant): \(plays)")
             XCTAssertEqual(board.currentTrick.count, 0)
             XCTAssertEqual(board.declarerTricks, [.north, .south].contains(winner) ? 1 : 0)
+            if [.north, .south].contains(winner) {
+                let snapshot = try board.snapshot(controller: .south)
+                XCTAssertEqual(snapshot.completedTricks?.first?.winner, winner)
+                XCTAssertEqual(snapshot.completedTricks?.first?.plays.map(\.card.description), plays)
+            }
             XCTAssertEqual(board.events.count, 4)
             XCTAssertTrue(board.hands.values.allSatisfy { $0.count == 12 })
         }
@@ -73,7 +78,7 @@ final class FullBoardTests: XCTestCase {
         XCTAssertEqual(trace.declarerTricks + trace.defenderTricks, 13)
         XCTAssertNotNil(trace.lastControlledActionSeconds)
         XCTAssertEqual(Set(trace.steps.last!.actualEvents.map(\.card)).count, 52)
-        XCTAssertTrue(trace.steps.compactMap(\.decision).dropFirst().contains { $0.input.contains("(forced)") })
+        XCTAssertTrue(trace.steps.contains { $0.execution.source == .forced })
     }
 
     func testRunBudgetStopsBeforeExecutionAndPreservesUnexecutedDecision() async throws {
@@ -184,7 +189,7 @@ final class FullBoardTests: XCTestCase {
         try board.play(Card("DQ"), by: .west)
         let transport = SchemaCheckingTransport(expected: ["D8", "D6", "D5", "D3"], card: "D3")
         let decision = try await ExpertSession(transport: transport).decide(board.snapshot(controller: .south))
-        XCTAssertEqual(decision.wireContractVersion, "stage1-plan-variants-v4")
+        XCTAssertEqual(decision.wireContractVersion, "stage1-full-snapshot-v5")
         XCTAssertEqual(decision.snapshot.legalCards.map(\.description), ["D8", "D6", "D5", "D3"])
     }
 }

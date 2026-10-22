@@ -70,11 +70,15 @@ public struct BoardState: Sendable {
         guard controller == contract.declarer else { throw DomainError.invalidController }
         guard let acting = actingSeat else { throw DomainError.finished }
         guard acting == controller || acting == controller.partner else { throw DomainError.invalidController }
+        let completed = stride(from: 0, to: events.count - currentTrick.count, by: 4).map { start in
+            let plays = Array(events[start..<start + 4])
+            return CompletedTrick(plays: plays, winner: winningPlay(in: plays)!.seat)
+        }
         return DecisionSnapshot(boardID: id, revision: events.count, controller: controller, actingSeat: acting,
                                 contract: contract, vulnerability: vulnerability, scoring: scoring, objective: objective,
                                 publicBackground: publicBackground,
                                 hands: [controller, controller.partner].map { Hand(seat: $0, cards: hands[$0]!) },
-                                events: events, currentTrick: currentTrick, declarerTricks: declarerTricks, defenderTricks: defenderTricks, legalCards: try legalCards(), currentWinningPlay: winningPlay(in: currentTrick))
+                                events: events, currentTrick: currentTrick, declarerTricks: declarerTricks, defenderTricks: defenderTricks, legalCards: try legalCards(), currentWinningPlay: winningPlay(in: currentTrick), completedTricks: completed)
     }
 
     public mutating func apply(_ action: CurrentAction) throws {

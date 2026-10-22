@@ -14,7 +14,7 @@ let package = Package(
         .target(name: "BridgeTeacherCore"),
         .target(name: "BridgeDomain"),
         .target(name: "BridgeEngine", dependencies: ["BridgeDomain"]),
-        .target(name: "BridgeExpert", dependencies: ["BridgeDomain"]),
+        .target(name: "BridgeExpert", dependencies: ["BridgeDomain"], resources: [.process("Resources")]),
         .target(name: "BridgeDriver", dependencies: ["BridgeExpert", "BridgeEngine", "BridgeDomain"]),
         .target(name: "BridgeCodex", dependencies: ["BridgeExpert", "BridgeDomain"]),
         .executableTarget(name: "BridgePlayCLI", dependencies: ["BridgeCodex", "BridgeDriver", "BridgeExpert", "BridgeEngine", "BridgeDomain"]),

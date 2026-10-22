@@ -49,7 +49,7 @@ def deterministic_checks(record):
     checks = {}
     version = record.get('wireContractVersion', 'stage1-currentCard-plan-publicReason-v1')
     versions = ('stage1-currentCard-plan-publicReason-v1', 'stage1-plan-publicReason-selectedCard-v2',
-                'stage1-legal-selectedCard-v3', 'stage1-plan-variants-v4')
+                'stage1-legal-selectedCard-v3', 'stage1-plan-variants-v4', 'stage1-full-snapshot-v5')
     card_key = 'currentCard' if version == versions[0] else 'selectedCard'
     def add(name, condition, fact):
         checks[name] = {'status': 'pass' if condition else 'fail', 'fact': fact}

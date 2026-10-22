@@ -1,4 +1,5 @@
 import Foundation
+import Darwin
 import BridgeDomain
 import BridgeEngine
 import BridgeExpert
@@ -47,6 +48,7 @@ private struct BoardInput: Codable {
                 try board.play(lead, by: supplied.contract.declarer.next)
             } else { throw DomainError.invalidDeal }
             let fullBoard = options["--full-board"] == "true"
+            let interactive = options["--interactive"] == "true"
             let exposureTime = Date()
             guard let limit = Int(options["--decisions"] ?? (fullBoard ? "26" : "1")), (1...26).contains(limit),
                   let policy = OpponentPolicy(rawValue: options["--opponent"] ?? "low-legal") else {
@@ -78,6 +80,27 @@ private struct BoardInput: Codable {
                     let trace = await driver.trace()
                     try save(trace, to: output.appendingPathComponent("trace.json"))
                     if trace.complete { break }
+                    if interactive && step.decision != nil && (fullBoard || decisionCount < limit) {
+                        print("Waiting for next or stop; the board and model thread remain active.")
+                        fflush(stdout)
+                        while true {
+                            guard let command = readLine() else {
+                                print("Input closed; ending the board without another request.")
+                                return
+                            }
+                            switch command.trimmingCharacters(in: .whitespacesAndNewlines) {
+                            case "next": break
+                            case "stop":
+                                print("Stopped after \(decisionCount) decisions; evidence: \(output.path)")
+                                return
+                            default:
+                                print("Enter next to request one more decision, or stop to end the board.")
+                                fflush(stdout)
+                                continue
+                            }
+                            break
+                        }
+                    }
                 }
             } catch {
                 if let failure = error as? DriverFailure {
