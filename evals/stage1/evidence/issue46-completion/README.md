@@ -17,3 +17,9 @@ After snapshot, runtime and evaluator integration:233 Swift tests (10 preexistin
 ## Development playing evidence
 
 Development v1 completed8 legal Medium decisions in one thread; original case-dispatch failure remains preserved. Saved-output Sol grading after the contract-default fix is in development-v1/development-continuation/grade-after-contract-fix/. It reports6 pass and2 fail for an alleged missing ninth-trick route in a replacement plan; independent adjudication is pending. No playing answer was replaced. A separate full-board development run uses the same playing implementation, without instructions changes. No finite acceptance claim is made.
+
+## Candidate v2
+
+The general fact-checking refinement adds39 words to decision step2; exact diff and actual-wire diagnosis are retained. Final integrated offline checks:233 Swift tests (10 existing skips),53 Python tests, zero failures. Both independent Luna Max review axes find no new concrete implementation defect.
+
+The complete development-v2 board takes117.316 seconds and completes legally, but Sol Medium reports19 passes and1 failure: an unnecessary HA overtake of partner HK, with a reason focused on lower opponent H8. The next correction will make the already-computed public current winner explicit in the complete JSON snapshot. The final22-attempt matrix is still not run; no acceptance claim.
