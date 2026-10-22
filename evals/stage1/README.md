@@ -15,6 +15,8 @@ swift build --product bridge-play
 
 The fixture contains environment-only complete holdings. Only declarer/dummy holdings and actual public events enter Expert. Current authentication comes from `$CODEX_HOME/auth.json`, falling back to `~/.codex/auth.json`; the adapter copies it into a temporary isolated runtime, then removes that runtime on disposal. Saved evidence contains no authentication. The playing configuration is fixed to gpt-6-luna / medium and fails visibly when unavailable.
 
+Before starting a playing thread, the adapter reads the installed runtime's bundled catalog with `codex debug models --bundled`, under the same request deadline. It preserves the complete metadata and changes only Luna's `tool_mode`, `experimental_supported_tools`, `apply_patch_tool_type` and `shell_type` to disable tools. The runtime config also disables question tools and time reminders. There is no tool-enabled fallback if catalog discovery fails. Each run saves `runtime-bundled-catalog.json`, `runtime-model-catalog.json` and `runtime-config.toml`; the offline production-boundary regression checks that the actual HTTP request contains `additional_tools.tools: []`. This changes the tool surface, not the playing instructions or continuing reasoning-history policy.
+
 For exact effective-request auditing, start the optional transparent proxy separately:
 
 ```sh
@@ -98,6 +100,8 @@ Operational bounds are independent of the later three-minute experience target. 
 The limited `pavlicek-entry` environment policy implements the frozen short-5 manifest: East ducks a low diamond under North's first DK/DQ while retaining DA/DJ, and covers North D9 with DJ when held. Other choices use the legal state-aware conserve-high policy. It is a teaching-case policy, not a general defense platform. Engine's basic trick-winner rule is shared with this policy. No reserved-board playing attempt occurs in ticket 40.
 
 ## Finite final acceptance
+
+Freeze acceptance with the native Codex executable as `--codex` to attest the actual runtime binary. The supplied executable hash and bundled catalog hash are checked before each attempt, and the attempt's discovered catalog must match the frozen one. Supplying a launcher remains supported, but its hash alone does not attest its native child; the candidate records this limitation.
 
 `acceptance.py` freezes one committed candidate and executes the corpus's 22 predeclared attempts sequentially. Use a freshly built production `bridge-play` binary from that source commit. It refuses changed source/binary/runtime or a changed run schedule; it never retries an answer or resumes an already started matrix.
 
