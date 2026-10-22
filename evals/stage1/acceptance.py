@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Freeze and execute the finite stage-1 matrix, preserving every attempt."""
 import json
+import hashlib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -212,6 +213,16 @@ def source_files():
     return sorted(set(paths))
 
 
+def bundled_catalog(codex):
+    import subprocess
+    data = subprocess.run([str(codex), 'debug', 'models', '--bundled'],
+                          capture_output=True, check=True, timeout=10).stdout
+    catalog = json.loads(data)
+    if not isinstance(catalog.get('models'), list):
+        raise ValueError('Installed runtime has no bundled model catalog')
+    return data
+
+
 def freeze(output, binary, codex):
     import datetime
     import re
@@ -225,6 +236,8 @@ def freeze(output, binary, codex):
     output.mkdir(parents=True, exist_ok=False)
     validation = corpus.validate(ROOT / 'corpus/manifest.json')
     runtime = subprocess.run([str(codex), '--version'], text=True, capture_output=True, check=True, timeout=10).stdout.strip()
+    catalog = bundled_catalog(codex)
+    (output / 'runtime-bundled-catalog.json').write_bytes(catalog)
     version = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=REPO, text=True, capture_output=True, check=True, timeout=10).stdout.strip()
     dirty = subprocess.run(['git', 'status', '--porcelain', '--'] + source_files(), cwd=REPO, text=True, capture_output=True, check=True).stdout
     if dirty.strip():
@@ -236,6 +249,8 @@ def freeze(output, binary, codex):
                  'source_hashes': hash_files(REPO, source_files()),
                  'binary': str(binary), 'binary_sha256': hash_files(binary.parent, [binary.name])[binary.name],
                  'codex': str(codex), 'codex_sha256': hash_files(codex.parent, [codex.name])[codex.name],
+                 'runtime_catalog_sha256': hashlib.sha256(catalog).hexdigest(),
+                 'runtime_hash_scope': 'Hash covers the supplied executable. Supply the native Codex executable for native binary attestation; a launcher hash does not attest its child.',
                  'runtime_version': runtime, 'requested_play_model': 'gpt-6-luna', 'requested_play_effort': 'medium',
                  'requested_grader_model': 'gpt-6.1-sol', 'requested_grader_effort': 'medium',
                  'identity_limit': 'Requested and observable runtime identities only; hidden service resolution is not independently established.',
@@ -263,6 +278,9 @@ def preflight(candidate):
     observed = subprocess.run([candidate['codex'], '--version'], text=True, capture_output=True, check=True, timeout=10).stdout.strip()
     if observed != candidate['runtime_version']:
         raise ValueError('Codex runtime version changed')
+    catalog_hash = hashlib.sha256(bundled_catalog(candidate['codex'])).hexdigest()
+    if catalog_hash != candidate.get('runtime_catalog_sha256'):
+        raise ValueError('Codex bundled catalog changed; freeze a new candidate')
 
 
 def run_attempt(candidate, attempt, output):
@@ -293,6 +311,10 @@ def run_attempt(candidate, attempt, output):
         with (directory / 'play-stdout.txt').open('w') as stdout, (directory / 'play-stderr.txt').open('w') as stderr:
             process = bounded_command(command, stdout, stderr, candidate['run_timeout_seconds'] + 30)
         outcome = {'exit_code': process.returncode, 'wall_seconds': round(time.monotonic() - start, 3)}
+        catalog = directory / 'play/runtime-bundled-catalog.json'
+        if not catalog.is_file() or hash_files(catalog.parent, [catalog.name])[catalog.name] != candidate['runtime_catalog_sha256']:
+            outcome = {**outcome, 'exit_code': None, 'driver_exit_code': process.returncode,
+                       'runner_error': 'Playing runtime bundled catalog differs from frozen candidate'}
     except Exception as error:
         outcome = {'exit_code': None, 'runner_error': str(error), 'wall_seconds': round(time.monotonic() - start, 3)}
     finally:
@@ -411,7 +433,7 @@ def render_report(output, candidate, summaries):
               '## Review and limits', '',
               'Every non-pass grade, original cited text, evaluator error and coverage predicate is preserved in per-attempt summary.json and grade/. An independent review must decide disputed/uncertain findings before any stage-complete claim. The runner never feeds grading results into the player.', '',
               'Corpus v2 keeps the formerly reserved board as used regression material: it has already been played and inspected for correction. It is not fresh held-out evidence. These finite samples do not prove broad bridge strength or general grader reliability.', '',
-              'Wire captures preserve exact forwarded payload bytes, no authentication headers and no decrypted reasoning. The inherited runtime catalog may contain built-ins/collaboration and opaque encrypted reasoning history. This is not a claim of an entirely empty runtime tool list or a wholly public-only runtime history. Engine analysis/Knowledge tools are absent from the playing surface; verify actual captures and invocation records in independent review.', '',
+              'Wire captures preserve exact forwarded payload bytes, no authentication headers and no decrypted reasoning. The installed bundled model catalog is frozen and checked before each attempt; each playing run preserves the source and effective catalogs. The Luna entry changes only tool routing, experimental tools, apply-patch type and shell type to disable tools. Runtime configuration also disables question tools and time reminders. The public runtime-boundary regression confirms an empty additional_tools list; verify final captures independently. Opaque encrypted reasoning history can remain in continuing requests; this does not claim a wholly public-only runtime history.', '',
               'Rule and dependency review evidence, concrete failure adjudication, achieved/unachieved criteria and the final stage recommendation are recorded separately in REVIEW.md. Until then this report is a captured result, not acceptance approval.', '']
     (output / 'REPORT.md').write_text('\n'.join(lines))
 

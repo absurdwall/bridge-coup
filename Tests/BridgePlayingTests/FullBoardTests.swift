@@ -139,25 +139,28 @@ final class FullBoardTests: XCTestCase {
         let childPID = root.appendingPathComponent("child.pid")
         let script = """
         #!/usr/bin/python3
-        import os, signal, subprocess, sys, time
+        import json, os, signal, subprocess, sys, time
         if '--version' in sys.argv:
             print('recorded nested boundary')
             sys.exit(0)
+        if sys.argv[1:4] == ['debug', 'models', '--bundled']:
+            print(json.dumps({'models':[{'slug':'gpt-6-luna','tool_mode':'code','experimental_supported_tools':['exec'],'apply_patch_tool_type':'freeform','shell_type':'default'}]})); sys.exit(0)
         signal.signal(signal.SIGTERM, signal.SIG_IGN)
-        child = subprocess.Popen(['/usr/bin/python3', '-c', 'import signal,time; signal.signal(signal.SIGTERM, signal.SIG_IGN); time.sleep(2.5)'])
+        child = subprocess.Popen(['/usr/bin/python3', '-c', 'import signal,time; signal.signal(signal.SIGTERM, signal.SIG_IGN); time.sleep(4.5)'])
         with open('\(childPID.path)', 'w') as saved:
             saved.write(str(child.pid))
-        time.sleep(2.5)
+        time.sleep(4.5)
         """
         try script.write(to: executable, atomically: true, encoding: .utf8)
         try FileManager.default.setAttributes([.posixPermissions: 0o700], ofItemAtPath: executable.path)
         let auth = root.appendingPathComponent("auth.json")
         try Data("{}".utf8).write(to: auth)
-        let transport = try CodexPlayingTransport(executable: executable, authenticationFile: auth, evidenceDirectory: root.appendingPathComponent("evidence"), timeoutSeconds: 0.8)
+        // Allow the added catalog-discovery process to finish before testing an app-server descendant.
+        let transport = try CodexPlayingTransport(executable: executable, authenticationFile: auth, evidenceDirectory: root.appendingPathComponent("evidence"), timeoutSeconds: 1.8)
         var board = try ruleBoard(strain: .noTrump, variant: "F")
         try board.play(Card("H2"), by: .west)
         do { _ = try await ExpertSession(transport: transport).decide(board.snapshot(controller: .south)); XCTFail("Nested runtime must time out") }
-        catch let failure as ExpertFailure { XCTAssertLessThan(failure.elapsedSeconds, 1.3) }
+        catch let failure as ExpertFailure { XCTAssertLessThan(failure.elapsedSeconds, 2.4) }
         // The child is finite even on the red implementation, so this regression cannot leave a hung fixture.
         XCTAssertTrue(FileManager.default.fileExists(atPath: childPID.path))
         let inspection = Process(); let pipe = Pipe()

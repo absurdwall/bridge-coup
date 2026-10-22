@@ -61,6 +61,13 @@ class RuntimeIsolationTests(unittest.TestCase):
                     capture_output=True, text=True, timeout=25)
                 self.assertNotEqual(result.returncode, 0)  # Fake rejection cannot be a playing pass.
                 self.assertEqual(len(captures), 1, result.stderr)
+                source = json.loads((root/'play/runtime-bundled-catalog.json').read_text())
+                effective = json.loads((root/'play/runtime-model-catalog.json').read_text())
+                luna = next(model for model in source['models'] if model['slug'] == 'gpt-6-luna')
+                expected = {**luna, 'tool_mode': 'direct', 'experimental_supported_tools': [],
+                            'apply_patch_tool_type': None, 'shell_type': 'disabled'}
+                self.assertEqual(effective, {**source, 'models': [expected if model['slug'] == 'gpt-6-luna'
+                                                               else model for model in source['models']]})
                 request, auth_absent = captures[0]
                 self.assertTrue(auth_absent)
                 self.assertEqual(request['model'], 'gpt-6-luna')
@@ -75,7 +82,7 @@ class RuntimeIsolationTests(unittest.TestCase):
             server.server_close()
 
 
-    def test_public_expert_request_disables_collaboration_but_reports_remaining_generic_tools(self):
+    def test_public_expert_request_has_no_tools(self):
         request = self.public_request()
         tools = next(item['tools'] for item in request['input'] if item['type'] == 'additional_tools')
         names = {namespace['name'] for namespace in tools}
@@ -83,9 +90,7 @@ class RuntimeIsolationTests(unittest.TestCase):
         text = '\n'.join(part.get('text', '') for item in request['input'] for part in item.get('content', []))
         self.assertNotIn('<multi_agent_role>', text)
         self.assertNotIn('<multi_agent_mode>', text)
-        functions = next(namespace['tools'] for namespace in tools if namespace['name'] == 'functions')
-        self.assertEqual({tool['name'] for tool in functions},
-                         {'exec', 'wait', 'request_user_input', 'request_user_input_async'})
+        self.assertEqual(tools, [], 'Playing requests must not contain generic tools')
 
     def test_actual_schema_preserves_reason_and_plan_operation_order(self):
         request = self.public_request()
