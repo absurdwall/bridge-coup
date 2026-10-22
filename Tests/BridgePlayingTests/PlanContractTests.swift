@@ -99,6 +99,8 @@ final class PlanContractTests: XCTestCase {
         if '--version' in sys.argv:
             print('schema-checking external boundary')
             sys.exit(0)
+        if sys.argv[1:4] == ['debug', 'models', '--bundled']:
+            print(json.dumps({'models':[{'slug':'gpt-6-luna','tool_mode':'code','experimental_supported_tools':['exec'],'apply_patch_tool_type':'freeform','shell_type':'default'}]})); sys.exit(0)
         import jsonschema, pathlib
         historical = json.loads(pathlib.Path(__file__).with_name('historical-replies.json').read_text())
         turn = 0
