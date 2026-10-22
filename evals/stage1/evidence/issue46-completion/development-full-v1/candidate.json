@@ -1,0 +1,132 @@
+{
+  "created_utc": "2026-10-22T09:12:20.029112+00:00",
+  "source_commit": "dbc6596206949d1c2da1ec32d1ce98f75f7477ec",
+  "source_hashes": {
+    "Package.swift": "596d21a3ca0e47b874f64b56b38fa8bf5b5a7fbb127ac3eb2e47f7fcb1b351b4",
+    "Scripts/capture-playing-wire.py": "3ae9c13db5dd5f871af78239d82e7dbe4b4c36524c79a424da1189a425a0ebd0",
+    "Scripts/step-playing.sh": "6268d4e9a3c8698630d10fdd10aaf27d99e2015f7d2ef040adaa4352d1c0705d",
+    "Sources/BridgeCodex/CodexTransport.swift": "7d2621eadfb0bb2657e6de02b8c6135861cd5f43a4b3142fe1a4b79676a1a194",
+    "Sources/BridgeDomain/BridgeValues.swift": "0dfcd47274ded3059f2e0b7fd0be4c0cfa21118457576b51d2d9866424aaffcf",
+    "Sources/BridgeDriver/BoardDriver.swift": "b83b26424dd179bdc45027ad4c026e405a73e962c7072335f4e980ded2feed90",
+    "Sources/BridgeEngine/BoardState.swift": "6b1ce4ace139cce52bf3aa40cd5a493299da2c33c20e2755612554da98c6f855",
+    "Sources/BridgeExpert/Expert.swift": "d6991b491fe5148caef5d2b22c69ff438fa7f1c8151c0de3b017ac0ba20fe63f",
+    "Sources/BridgeExpert/Resources/DeclarerInstructions.txt": "19d6eba8c31784f55a3c1561cc461c596c2d2bf23405c12365e09d6f83d4d2b1",
+    "Sources/BridgePlayCLI/BridgePlayMain.swift": "407c6935efef08bf477fcc6821c4d2a644e32057ca904df1e024ec5f7496327e",
+    "evals/stage1/acceptance.py": "9ee65fb5aa5f7e48680fdf26a82c8c40b20edbadb4d4867aa3c6e24a8103a2f2",
+    "evals/stage1/corpus.py": "896b9db6b2359249f43075d1ddd33af2c3b1df327396162fbcaa50f89294c3d8",
+    "evals/stage1/corpus/boards/pavlicek-deep-finesse.json": "45db555b83a7f74ebd3cd843b043007c1ad27c6b1a6e7b33048b83fc34122580",
+    "evals/stage1/corpus/boards/reserved-acceptance.json": "446a1020cc7295d6e6d9f58adca1ff040dd1671f5d9a3664bba30cf5d8d53f03",
+    "evals/stage1/corpus/boards/synthetic.json": "b37080a2bc16df91dd1991ef60ec6487558a3fc1ee8f8352819747cfd953d077",
+    "evals/stage1/corpus/boards/walker-holdup-adapted.json": "1ee7dd3747426124dee7cd29f914aa8677818ad6558e2e5a327373cdacbea208",
+    "evals/stage1/corpus/communication-reachability.json": "0c2e605dcbd0cb5c93016e5bbc3838ccfef7e038cc78e8e22ac8844b5fd8d051",
+    "evals/stage1/corpus/frozen-sha256.json": "868c86f5029978ed5b15b19f80737b4301c04cf43caec4301adf805341061a8d",
+    "evals/stage1/corpus/manifest.json": "e749f821090242e3f2d7dcfec256743ca874bb0b4bef69f0c7d10a08e8247309",
+    "evals/stage1/corpus/synthetic-demonstration.json": "b5bb5702ac62f4bbdbe24863375c3c05c59a579157767d1715fbfde6519474a5",
+    "evals/stage1/evaluate.py": "14c37226035d6ae7404290aa09cdb84ec3940f06f985b87dc1cc69b86cd41196",
+    "evals/stage1/grader-config.toml": "8811a953948c9589fa876ecb4dc00f0c671861ee77798832dad0d2c72d1fb2c9",
+    "evals/stage1/grader-schema.json": "4110e3446c63739434ad925570137727c4ea61ded0b24d12a68330a127e4bf63",
+    "evals/stage1/rubric.txt": "e807d01437b52f7ec6e93261baa6ce0a389c064daf28b0be9b816fb70eca8e96"
+  },
+  "binary": "/Users/tingranwang/.codex/worktrees/issue46-integration/bridge-coup/.build/arm64-apple-macosx/debug/bridge-play",
+  "binary_sha256": "90202edf5e30f61baa016cdbfa6227120478a1e558f9aa5b8682139886bfe607",
+  "codex": "/Users/tingranwang/.nvm/versions/node/v24.12.0/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/bin/codex",
+  "codex_sha256": "112fae7a5a1223e673c8a1791d32338f37df8b527ff1159bb8adac6c4dbf1b4b",
+  "runtime_catalog_sha256": "262dc36e0e7beb290aef8196bd59f42acf51647b8f7b68dafa533ae7742019e6",
+  "runtime_hash_scope": "Hash covers the supplied executable. Supply the native Codex executable for native binary attestation; a launcher hash does not attest its child.",
+  "runtime_version": "codex-cli 0.160.0",
+  "requested_play_model": "gpt-6-luna",
+  "requested_play_effort": "medium",
+  "requested_grader_model": "gpt-6.1-sol",
+  "requested_grader_effort": "medium",
+  "identity_limit": "Requested and observable runtime identities only; hidden service resolution is not independently established.",
+  "request_timeout_seconds": 180,
+  "run_timeout_seconds": 1800,
+  "grader_timeout_seconds": 600,
+  "mechanical_sole_legal": true,
+  "retry_policy": "No playing retries, substitutions or answer repair.",
+  "corpus_version": "stage1-finite-v2",
+  "rubric_version": "stage1-basic-v4",
+  "english_instructions": "You are the declarer-play Expert for one bridge board and one decision controller.\nThe thread carries the board's continuing discussion across decisions.\n\nOBJECTIVE\n\nChoose a line that aims for the best expected result under the stated scoring conditions.\n\nDECISION PROCESS\n\n1. Establish the position from the latest snapshot: contract, scoring,\n   remaining authorized hands, actual plays, acting seat and tricks won.\n   Each snapshot replaces the fact view. Recorded plays are already reflected\n   in the remaining hands; repeated history describes the same events.\n\n2. Form or reassess the playing plan using the latest position and\n   the earlier discussion. Represent the result in the output JSON's\n   \"plan\" object as defined in OUTPUT FORMAT. Interpret plan steps already\n   recorded in play history as completed. Plans and predictions remain advice;\n   actual plays establish what happened.\n\n3. Choose selectedCard from the response schema's legal-card enum for\n   current.toAct. Give a brief publicReason explaining the current choice\n   in the context of the playing plan and the actual position.\n\nOUTPUT FORMAT\n\nReturn one JSON object with these fields:\n\n- \"publicReason\": a brief explanation of the card chosen now.\n- \"selectedCard\": the current card, chosen from the response schema's\n  legal-card enum.\n- \"plan\": an object containing the fields \"update\" and \"text\".\n\nThe \"update\" field inside \"plan\" specifies how the program should\nmaintain the active plan:\n\n- \"replace\": replace the active plan with the contents of \"text\".\n- \"keep\": retain the active plan; \"text\" is null.\n- \"withdraw\": clear the active plan; \"text\" is null.\n\nFor \"replace\", the \"text\" field contains the complete natural-language\ndeclarer plan for the remaining board. Explain the intended line,\nits main sources of tricks, and material contingencies.\n\nThe program carries this text verbatim into the next input's\n\"effectivePlan\" field. When revising a plan, supply the complete\nreplacement plan that subsequent decisions should use.\n\nWhen the input's \"type\" field is \"initial\", set the output plan\nobject's \"update\" field to \"replace\" and its \"text\" field to the\ninitial declarer plan.\n\nFor later snapshots, choose \"replace\", \"keep\" or \"withdraw\"\naccording to how the active plan should be maintained.\n\nINPUT REFERENCE\n\nThe user message is a complete authorized JSON snapshot.\nThe input JSON has a string field named \"type\":\n- \"initial\" identifies the first decision for this board.\n- \"update\" identifies a later complete snapshot of the same board.\n\nNotation:\n- Seats: N=North, E=East, S=South, W=West.\n- Suits: S=spades, H=hearts, D=diamonds, C=clubs.\n- Ranks, highest first: A K Q J T 9 8 7 6 5 4 3 2. T means ten.\n- Card codes combine suit and rank: DQ is the queen of diamonds;\n  SA is the ace of spades.\n- In hands, \"S\": \"A94\" means the ace, nine and four of spades.\n  An empty suit string means no remaining cards in that suit.\n  In a seat field, \"S\" means South.\n\nFields:\n- \"contract\": level, strain, doubling and declarer. Strain is S, H, D, C\n  or NT (notrump). Doubling is undoubled, doubled or redoubled.\n- \"scoring\": the scoring method.\n- \"vulnerability\": neither, NS, EW or both.\n- \"objective\": the requested strategic aim, separate from contract and scoring.\n- \"publicBackground\": supplied public context, or null when unavailable.\n  Missing auction or defensive agreements remain unknown.\n- \"controller\": the declarer whose perspective controls decisions from\n  both declarer and dummy.\n- \"hands\": current remaining authorized holdings, grouped by seat and suit.\n  Treat omitted defender holdings as unknown.\n- \"completedTricks\": completed tricks in chronological order. Each contains\n  \"plays\" in actual play order and \"winner\". Each play has \"seat\" and \"card\".\n- \"currentTrick\": the actual plays in the unfinished trick, in play order.\n- \"current\": \"toAct\" and \"tricksWon\" (\"declarer\" and \"defenders\").\n- \"effectivePlan\": the exact active plan carried into this decision,\n  or null when no active plan exists.\n\nILLUSTRATIVE OUTPUT EXAMPLES\n\nIndependent three-card ending: South holds SA S2 HA; North holds SK S3 H2.\nSouth leads. This position illustrates the output format.\n\n{\"publicReason\":\"Cash SA while preserving the crossing to North's SK.\",\"plan\":{\"update\":\"replace\",\"text\":\"Cash SA with North following S3. Lead S2 to North's SK, then return H2 to South's HA.\"},\"selectedCard\":\"SA\"}\n\nAfter South's SA and a low West spade, North follows:\n\n{\"publicReason\":\"Follow with S3, preserving SK for the planned entry.\",\"plan\":{\"update\":\"keep\",\"text\":null},\"selectedCard\":\"S3\"}\n",
+  "schema_template": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "plan",
+      "publicReason",
+      "selectedCard"
+    ],
+    "properties": {
+      "selectedCard": {
+        "type": "string",
+        "pattern": "^[SHDC][2-9TJQKA]$"
+      },
+      "publicReason": {
+        "type": "string"
+      },
+      "plan": {
+        "anyOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "update",
+              "text"
+            ],
+            "properties": {
+              "update": {
+                "type": "string",
+                "enum": [
+                  "replace"
+                ]
+              },
+              "text": {
+                "type": "string",
+                "pattern": "\\S"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "update",
+              "text"
+            ],
+            "properties": {
+              "update": {
+                "type": "string",
+                "enum": [
+                  "keep"
+                ]
+              },
+              "text": {
+                "type": "null"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "update",
+              "text"
+            ],
+            "properties": {
+              "update": {
+                "type": "string",
+                "enum": [
+                  "withdraw"
+                ]
+              },
+              "text": {
+                "type": "null"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "schema_note": "Production appends the exact complete current Engine legal-choice enum, without ranking.",
+  "proxy_note": "All playing requests use the same unchanged-byte transparent provider-routing proxy; per-attempt ports and fresh runtime paths vary."
+}
