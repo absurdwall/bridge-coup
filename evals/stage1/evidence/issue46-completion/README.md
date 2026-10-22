@@ -23,3 +23,9 @@ Development v1 completed8 legal Medium decisions in one thread; original case-di
 The general fact-checking refinement adds39 words to decision step2; exact diff and actual-wire diagnosis are retained. Final integrated offline checks:233 Swift tests (10 existing skips),53 Python tests, zero failures. Both independent Luna Max review axes find no new concrete implementation defect.
 
 The complete development-v2 board takes117.316 seconds and completes legally, but Sol Medium reports19 passes and1 failure: an unnecessary HA overtake of partner HK, with a reason focused on lower opponent H8. The next correction will make the already-computed public current winner explicit in the complete JSON snapshot. The final22-attempt matrix is still not run; no acceptance claim.
+
+## Candidate v3 ready for finite evaluation
+
+The existing public Engine currentWinningPlay is now serialized as current.winningPlay; its rationale is tracked in issue46 comment6337462204. Fixed instructions define that fact and verify current-card effect without prescribing a specific play. No model, effort, schema, objective, scorer, corpus, history or tool-policy change.
+
+Integrated checks:234 Swift tests (10 preexisting skips),53 Python tests, zero failures. Independent Luna Max standards/spec incremental reviews find no new concrete source defect. This establishes readiness to evaluate the frozen candidate, not a model-quality pass. Run the complete predefined22 attempts once, sequentially, preserving every answer and result; no pilot pass can substitute for an acceptance attempt.

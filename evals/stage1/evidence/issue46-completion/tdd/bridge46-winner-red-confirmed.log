@@ -1,0 +1,65 @@
+[0/1] Planning build
+Building for debugging...
+[0/9] Write sources
+[1/9] Write swift-version--58304C5D6DBC2206.txt
+[3/14] Compiling BridgePlayingTests SnapshotInputTests.swift
+[4/14] Emitting module BridgePlayingTests
+[5/14] Compiling BridgeTeacherCoreTests ScreenshotReviewWorkflowTests.swift
+[6/14] Emitting module BridgeTeacherCoreTests
+[7/14] Compiling BridgeTeacherMac CodexAppServer.swift
+[8/23] Compiling BridgeTeacherMac OriginalContractTableView.swift
+[9/24] Compiling BridgeTeacherMac CodexRuntimeDiscovery.swift
+[10/24] Compiling BridgeTeacherMac DoubleDummyVerificationView.swift
+[11/24] Compiling BridgeTeacherMac BridgeTeacherApplicationModel.swift
+[12/24] Compiling BridgeTeacherMac BridgeCoupUpdateView.swift
+[13/25] Compiling BridgeTeacherMac AnalysisMarkdownDocument.swift
+[14/25] Compiling BridgeTeacherMac AnalysisMarkdownView.swift
+[15/25] Compiling BridgeTeacherMac AuctionTableView.swift
+[16/25] Compiling BridgeTeacherMac AuctionCallPresentation.swift
+[17/25] Compiling BridgeTeacherMac PlayWorkspaceView.swift
+[18/25] Compiling BridgeTeacherMac UpdateCheckWorkflow.swift
+[19/25] Compiling BridgeTeacherMac BridgeTeacherMacApp.swift
+[20/25] Emitting module BridgeTeacherMac
+[20/25] Write Objects.LinkFileList
+[21/25] Linking BridgeTeacherMac
+[22/25] Applying BridgeTeacherMac
+[24/41] Compiling BridgeTeacherMacTests ScreenshotRecognitionRetryTests.swift
+[25/41] Compiling BridgeTeacherMacTests ReviewSourceRegressionTests.swift
+[26/42] Compiling BridgeTeacherMacTests PlayWorkspaceIntegrationTests.swift
+[27/42] Compiling BridgeTeacherMacTests CodexRuntimeDiscoveryTests.swift
+[28/42] Compiling BridgeTeacherMacTests CodexRuntimeModelCatalogTests.swift
+[29/42] Compiling BridgeTeacherMacTests BridgeTeacherContractSelectionTests.swift
+[30/42] Compiling BridgeTeacherMacTests CodexModelSelectionPreferencesTests.swift
+[31/42] Compiling BridgeTeacherMacTests PlayCardResultsWorkflowTests.swift
+[32/42] Compiling BridgeTeacherMacTests PlayHistoryWorkflowTests.swift
+[33/42] Compiling BridgeTeacherMacTests AutonomousPlayWorkflowTests.swift
+[34/42] Compiling BridgeTeacherMacTests BridgeCoupUpdateWorkflowTests.swift
+[35/42] Compiling BridgeTeacherMacTests AnalysisMarkdownDocumentTests.swift
+[36/42] Compiling BridgeTeacherMacTests AuctionTableBehaviorTests.swift
+[37/42] Emitting module BridgeTeacherMacTests
+[38/42] Compiling BridgeTeacherMacTests CodexTeachingServiceRequestTests.swift
+[39/42] Compiling BridgeTeacherMacTests OriginalContractTableApplicationTests.swift
+[40/42] Compiling BridgeTeacherMacTests SharedOriginalHandsWorkflowTests.swift
+[41/44] Emitting module BridgeTeacherPackageTests
+[42/44] Compiling BridgeTeacherPackageTests runner.swift
+[42/44] Write Objects.LinkFileList
+[43/44] Linking BridgeTeacherPackageTests
+Build complete! (9.21s)
+Test Suite 'Selected tests' started at 2026-10-22 05:30:20.641.
+Test Suite 'BridgeTeacherPackageTests.xctest' started at 2026-10-22 05:30:20.642.
+Test Suite 'SnapshotInputTests' started at 2026-10-22 05:30:20.642.
+Test Case '-[BridgePlayingTests.SnapshotInputTests testDriverCarriesCurrentWinningPlayOnOpeningLeadAndPartnerContinuation]' started.
+/private/tmp/bridge46-current-winner/Tests/BridgePlayingTests/SnapshotInputTests.swift:28: error: -[BridgePlayingTests.SnapshotInputTests testDriverCarriesCurrentWinningPlayOnOpeningLeadAndPartnerContinuation] : XCTAssertEqual failed: ("nil") is not equal to ("Optional(["card": "DQ", "seat": "W"])")
+/private/tmp/bridge46-current-winner/Tests/BridgePlayingTests/SnapshotInputTests.swift:33: error: -[BridgePlayingTests.SnapshotInputTests testDriverCarriesCurrentWinningPlayOnOpeningLeadAndPartnerContinuation] : XCTAssertTrue failed
+/private/tmp/bridge46-current-winner/Tests/BridgePlayingTests/SnapshotInputTests.swift:38: error: -[BridgePlayingTests.SnapshotInputTests testDriverCarriesCurrentWinningPlayOnOpeningLeadAndPartnerContinuation] : XCTAssertEqual failed: ("nil") is not equal to ("Optional(["card": "HK", "seat": "N"])")
+Test Case '-[BridgePlayingTests.SnapshotInputTests testDriverCarriesCurrentWinningPlayOnOpeningLeadAndPartnerContinuation]' failed (0.204 seconds).
+Test Suite 'SnapshotInputTests' failed at 2026-10-22 05:30:20.847.
+	 Executed 1 test, with 3 failures (0 unexpected) in 0.204 (0.204) seconds
+Test Suite 'BridgeTeacherPackageTests.xctest' failed at 2026-10-22 05:30:20.847.
+	 Executed 1 test, with 3 failures (0 unexpected) in 0.204 (0.204) seconds
+Test Suite 'Selected tests' failed at 2026-10-22 05:30:20.847.
+	 Executed 1 test, with 3 failures (0 unexpected) in 0.204 (0.205) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

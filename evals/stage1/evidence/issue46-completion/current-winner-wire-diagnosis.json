@@ -1,0 +1,38 @@
+{
+  "decision": "/Users/tingranwang/.codex/worktrees/issue46-integration/bridge-coup/evals/stage1/evidence/issue46-completion/development-full-v2/development-full/play/decision-0009/decision.json",
+  "request": "/Users/tingranwang/.codex/worktrees/issue46-integration/bridge-coup/evals/stage1/evidence/issue46-completion/development-full-v2/development-full/wire/request-8.json",
+  "request_sha256": "88023d7e39391d0f7ec5c57568b3468bfd4697767ab1be372f50d455f48b6661",
+  "actual_user_text_matches_saved_input": true,
+  "currentTrick": [
+    {
+      "card": "HK",
+      "seat": "N"
+    },
+    {
+      "card": "H8",
+      "seat": "E"
+    }
+  ],
+  "current": {
+    "toAct": "S",
+    "tricksWon": {
+      "declarer": 4,
+      "defenders": 0
+    }
+  },
+  "south_hearts": "A63",
+  "existing_engine_currentWinningPlay": {
+    "card": "HK",
+    "seat": "north",
+    "sequence": 16
+  },
+  "rawOutput": "{\"publicReason\":\"Cover East\u2019s H8 with HA to win the trick and keep the lead for declarer.\",\"plan\":{\"update\":\"keep\",\"text\":null},\"selectedCard\":\"HA\"}",
+  "requested_model": "gpt-6-luna",
+  "reasoning": {
+    "effort": "medium",
+    "context": "all_turns"
+  },
+  "tools": [
+    []
+  ]
+}
