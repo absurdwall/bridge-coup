@@ -1,0 +1,29 @@
+{
+  "id": "club-before-error-full-r1",
+  "source_decision": 11,
+  "repeat": 1,
+  "clear_effective_plan": false,
+  "include_current_winning_play": true,
+  "task": "normal-play-output",
+  "request": "requests/club-before-error-full-r1.json",
+  "sha256": "de32381d5bb6fe512d59c0cc1fda614b0f9c173a764bfb48eced3e0abbbc5615",
+  "exit_code": 0,
+  "raw_output": {
+    "plan": {
+      "update": "replace",
+      "text": "Discard H3 on West's club lead, keeping dummy's four diamond honors and the remaining heart honors. South can cover CQ with CA if needed; then use South's low diamonds to reach dummy's established diamond winners, while retaining D5 as an entry if possible. Cash the heart honors when entries permit, and use South's CJ as another potential trick. Declarer needs seven more tricks after the five defensive tricks already conceded, so avoid giving up the lead again."
+    },
+    "selectedCard": "H3",
+    "publicReason": "Discard the lowest heart, preserving dummy's diamond winners and the higher heart honors."
+  },
+  "identity": {
+    "observedModel": "gpt-6-luna",
+    "requestedEffort": "medium",
+    "requestedModel": "gpt-6-luna",
+    "runtimeVersion": "codex-cli 0.160.0",
+    "threadID": "01a163d3-d5dd-76a1-a20a-678e750c12a0",
+    "turnID": "01a163d3-d62a-7753-8a02-efcf9a373fcc"
+  },
+  "narrow_card_check": "H3",
+  "elapsed_seconds": 9.518
+}

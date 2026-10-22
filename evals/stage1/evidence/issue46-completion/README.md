@@ -8,6 +8,8 @@ For the current complete disposition, start with [REPORT.md](REPORT.md).
 
 ## Current evidence
 
+- [Luna Medium design diagnosis](design-diagnosis-20261022/REPORT.md): 42 predeclared diagnostic calls, exact request/history audits and independent reviews. Full history often preserves the wrong winner conclusion; fresh d11 can also introduce it. A sentence-only candidate failed and was not adopted. No acceptance or production-fix claim.
+
 - [Frozen v3 review](matrix-v3/REVIEW.md): all 22 prescribed attempts completed legally, with 266 player requests. The four full boards took 75.214, 88.017, 106.971 and 79.604 seconds. Independent attempt disposition is **4 pass / 17 fail / 1 pending**. Original grades and exact payloads remain unchanged.
 - [Detailed matrix](matrix-v3/REPORT.md): every attempt, request/action count, timing distribution, original grade and coverage predicate.
 - [Wire and thread audit](matrix-v3/review-work/final-wire-and-thread-audit.json): 266 HTTP 200 responses, empty tools, Luna Medium, one continuing thread per board, no playing retries or public Chinese text. Internal encrypted reasoning language is not asserted.

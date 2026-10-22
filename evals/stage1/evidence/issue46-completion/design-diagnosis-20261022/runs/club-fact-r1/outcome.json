@@ -1,0 +1,25 @@
+{
+  "id": "club-fact-r1",
+  "source_decision": 12,
+  "repeat": 1,
+  "clear_effective_plan": false,
+  "include_current_winning_play": true,
+  "task": "factual-clubs",
+  "request": "requests/club-fact-r1.json",
+  "sha256": "1a1c9819089a5c28f454e7022391a49369037b24cb833221dbe902e81cdfdc24",
+  "exit_code": 0,
+  "raw_output": {
+    "canWin": true,
+    "card": "CA"
+  },
+  "identity": {
+    "observedModel": "gpt-6-luna",
+    "requestedEffort": "medium",
+    "requestedModel": "gpt-6-luna",
+    "runtimeVersion": "codex-cli 0.160.0",
+    "threadID": "01a163d3-fbe0-7641-925f-b13ccba718cb",
+    "turnID": "01a163d3-fcbb-7cb1-8a56-dd5956eb68fb"
+  },
+  "narrow_fact_check": "pass",
+  "elapsed_seconds": 5.771
+}

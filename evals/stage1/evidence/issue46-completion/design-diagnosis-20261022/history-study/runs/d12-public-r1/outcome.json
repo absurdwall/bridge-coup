@@ -1,0 +1,33 @@
+{
+  "id": "d12-public-r1",
+  "decision": 12,
+  "history": "public",
+  "repeat": 1,
+  "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+  "seed": "/tmp/bridge46-design-diagnosis-20261022/history-study/seed-d12-public.json",
+  "exit_code": 0,
+  "raw_output": {
+    "plan": {
+      "update": "keep",
+      "text": null
+    },
+    "selectedCard": "CA",
+    "publicReason": "Win West’s club queen with the ace, gaining the lead to cash the established diamonds."
+  },
+  "identity": {
+    "observedModel": "gpt-6-luna",
+    "requestedEffort": "medium",
+    "requestedModel": "gpt-6-luna",
+    "runtimeVersion": "codex-cli 0.160.0",
+    "threadID": "01a163da-8ab9-7530-95ad-5cbe139ef0ee",
+    "turnID": "01a163da-8b9f-7162-927f-5600e2a9cff2"
+  },
+  "injection": {
+    "method": "thread/inject_items",
+    "accepted": true,
+    "error_code": null,
+    "error_message": "",
+    "item_count": 22
+  },
+  "seconds": 3.084
+}

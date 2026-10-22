@@ -1,0 +1,331 @@
+{
+  "normalization": "Remove item IDs and treat absent/null reasoning.content equivalently; all public text, item order, opaque encrypted_content and other fields are compared exactly. Client/routing/cache IDs vary by new thread.",
+  "attempts": [
+    {
+      "id": "d6-full-r1",
+      "HTTP_requests": 1,
+      "input_matches_expected_except_ids_and_absent_reasoning_content": true,
+      "current_input_exact": true,
+      "fixed_parameters_equal": {
+        "model": true,
+        "reasoning": true,
+        "text": true,
+        "tool_choice": true,
+        "parallel_tool_calls": true,
+        "store": true,
+        "stream": true,
+        "include": true
+      },
+      "schema_root_order": [
+        "plan",
+        "selectedCard",
+        "publicReason"
+      ],
+      "tool_arrays": [
+        []
+      ],
+      "reasoning_items": 5,
+      "encrypted_reasoning_sha256": [
+        "6059a6be6096b9663c548ac557ca963febec28c0607d496539e7cbb9f34235b1",
+        "a99bbddb5de300a7eac760f92bed3e94b33ce58674b7e2e6b83e4b8f2b207a34",
+        "0ba97edc1af2f26d23655bb18f47afd208d9bad4a1ed6654b0c9b19818c9cfdd",
+        "df1a03bd2ee44aae7bc2546c178e6d23eecf97f2c37d296325af7ee5610d1c4c",
+        "b3cd24ea6f183a3b3dbbf7e7ee9ee4b4ebf9a7bc37f30819d128b7cccb712256"
+      ],
+      "HTTP_statuses": [
+        200
+      ]
+    },
+    {
+      "id": "d6-fresh-r1",
+      "HTTP_requests": 1,
+      "input_matches_expected_except_ids_and_absent_reasoning_content": true,
+      "current_input_exact": true,
+      "fixed_parameters_equal": {
+        "model": true,
+        "reasoning": true,
+        "text": true,
+        "tool_choice": true,
+        "parallel_tool_calls": true,
+        "store": true,
+        "stream": true,
+        "include": true
+      },
+      "schema_root_order": [
+        "plan",
+        "selectedCard",
+        "publicReason"
+      ],
+      "tool_arrays": [
+        []
+      ],
+      "reasoning_items": 0,
+      "encrypted_reasoning_sha256": [],
+      "HTTP_statuses": [
+        200
+      ]
+    },
+    {
+      "id": "d12-full-r1",
+      "HTTP_requests": 1,
+      "input_matches_expected_except_ids_and_absent_reasoning_content": true,
+      "current_input_exact": true,
+      "fixed_parameters_equal": {
+        "model": true,
+        "reasoning": true,
+        "text": true,
+        "tool_choice": true,
+        "parallel_tool_calls": true,
+        "store": true,
+        "stream": true,
+        "include": true
+      },
+      "schema_root_order": [
+        "plan",
+        "selectedCard",
+        "publicReason"
+      ],
+      "tool_arrays": [
+        []
+      ],
+      "reasoning_items": 11,
+      "encrypted_reasoning_sha256": [
+        "6059a6be6096b9663c548ac557ca963febec28c0607d496539e7cbb9f34235b1",
+        "a99bbddb5de300a7eac760f92bed3e94b33ce58674b7e2e6b83e4b8f2b207a34",
+        "0ba97edc1af2f26d23655bb18f47afd208d9bad4a1ed6654b0c9b19818c9cfdd",
+        "df1a03bd2ee44aae7bc2546c178e6d23eecf97f2c37d296325af7ee5610d1c4c",
+        "b3cd24ea6f183a3b3dbbf7e7ee9ee4b4ebf9a7bc37f30819d128b7cccb712256",
+        "948112674e2c6739c416ed578f18f638f1f4a38fe9c19ecfb748dbb788b35283",
+        "f595f092f8e41335d1bf569a9c82d9dbeba45484066913d00de27aacfd4587dd",
+        "a0a056a49d808f3239fbfb6f309bc0fd3ba991564926910d12579b7e6eb84897",
+        "7bf7505b9c58acda6c91639bf805b8492138fe06cca9ebf51d54b62ea5cd0c07",
+        "eac07b42d1dc7143bcf4975ccfd0a87e0d1fa36e74b57a918c044754d2cafcfa",
+        "2606086fedcc91fde6c890a8565c6d9e4ac80f5d35483dacfd91dc3de82e70fa"
+      ],
+      "HTTP_statuses": [
+        200
+      ]
+    },
+    {
+      "id": "d12-public-r1",
+      "HTTP_requests": 1,
+      "input_matches_expected_except_ids_and_absent_reasoning_content": true,
+      "current_input_exact": true,
+      "fixed_parameters_equal": {
+        "model": true,
+        "reasoning": true,
+        "text": true,
+        "tool_choice": true,
+        "parallel_tool_calls": true,
+        "store": true,
+        "stream": true,
+        "include": true
+      },
+      "schema_root_order": [
+        "plan",
+        "selectedCard",
+        "publicReason"
+      ],
+      "tool_arrays": [
+        []
+      ],
+      "reasoning_items": 0,
+      "encrypted_reasoning_sha256": [],
+      "HTTP_statuses": [
+        200
+      ]
+    },
+    {
+      "id": "d12-fresh-r1",
+      "HTTP_requests": 1,
+      "input_matches_expected_except_ids_and_absent_reasoning_content": true,
+      "current_input_exact": true,
+      "fixed_parameters_equal": {
+        "model": true,
+        "reasoning": true,
+        "text": true,
+        "tool_choice": true,
+        "parallel_tool_calls": true,
+        "store": true,
+        "stream": true,
+        "include": true
+      },
+      "schema_root_order": [
+        "plan",
+        "selectedCard",
+        "publicReason"
+      ],
+      "tool_arrays": [
+        []
+      ],
+      "reasoning_items": 0,
+      "encrypted_reasoning_sha256": [],
+      "HTTP_statuses": [
+        200
+      ]
+    },
+    {
+      "id": "d12-fresh-r2",
+      "HTTP_requests": 1,
+      "input_matches_expected_except_ids_and_absent_reasoning_content": true,
+      "current_input_exact": true,
+      "fixed_parameters_equal": {
+        "model": true,
+        "reasoning": true,
+        "text": true,
+        "tool_choice": true,
+        "parallel_tool_calls": true,
+        "store": true,
+        "stream": true,
+        "include": true
+      },
+      "schema_root_order": [
+        "plan",
+        "selectedCard",
+        "publicReason"
+      ],
+      "tool_arrays": [
+        []
+      ],
+      "reasoning_items": 0,
+      "encrypted_reasoning_sha256": [],
+      "HTTP_statuses": [
+        200
+      ]
+    },
+    {
+      "id": "d12-public-r2",
+      "HTTP_requests": 1,
+      "input_matches_expected_except_ids_and_absent_reasoning_content": true,
+      "current_input_exact": true,
+      "fixed_parameters_equal": {
+        "model": true,
+        "reasoning": true,
+        "text": true,
+        "tool_choice": true,
+        "parallel_tool_calls": true,
+        "store": true,
+        "stream": true,
+        "include": true
+      },
+      "schema_root_order": [
+        "plan",
+        "selectedCard",
+        "publicReason"
+      ],
+      "tool_arrays": [
+        []
+      ],
+      "reasoning_items": 0,
+      "encrypted_reasoning_sha256": [],
+      "HTTP_statuses": [
+        200
+      ]
+    },
+    {
+      "id": "d12-full-r2",
+      "HTTP_requests": 1,
+      "input_matches_expected_except_ids_and_absent_reasoning_content": true,
+      "current_input_exact": true,
+      "fixed_parameters_equal": {
+        "model": true,
+        "reasoning": true,
+        "text": true,
+        "tool_choice": true,
+        "parallel_tool_calls": true,
+        "store": true,
+        "stream": true,
+        "include": true
+      },
+      "schema_root_order": [
+        "plan",
+        "selectedCard",
+        "publicReason"
+      ],
+      "tool_arrays": [
+        []
+      ],
+      "reasoning_items": 11,
+      "encrypted_reasoning_sha256": [
+        "6059a6be6096b9663c548ac557ca963febec28c0607d496539e7cbb9f34235b1",
+        "a99bbddb5de300a7eac760f92bed3e94b33ce58674b7e2e6b83e4b8f2b207a34",
+        "0ba97edc1af2f26d23655bb18f47afd208d9bad4a1ed6654b0c9b19818c9cfdd",
+        "df1a03bd2ee44aae7bc2546c178e6d23eecf97f2c37d296325af7ee5610d1c4c",
+        "b3cd24ea6f183a3b3dbbf7e7ee9ee4b4ebf9a7bc37f30819d128b7cccb712256",
+        "948112674e2c6739c416ed578f18f638f1f4a38fe9c19ecfb748dbb788b35283",
+        "f595f092f8e41335d1bf569a9c82d9dbeba45484066913d00de27aacfd4587dd",
+        "a0a056a49d808f3239fbfb6f309bc0fd3ba991564926910d12579b7e6eb84897",
+        "7bf7505b9c58acda6c91639bf805b8492138fe06cca9ebf51d54b62ea5cd0c07",
+        "eac07b42d1dc7143bcf4975ccfd0a87e0d1fa36e74b57a918c044754d2cafcfa",
+        "2606086fedcc91fde6c890a8565c6d9e4ac80f5d35483dacfd91dc3de82e70fa"
+      ],
+      "HTTP_statuses": [
+        200
+      ]
+    },
+    {
+      "id": "d6-fresh-r2",
+      "HTTP_requests": 1,
+      "input_matches_expected_except_ids_and_absent_reasoning_content": true,
+      "current_input_exact": true,
+      "fixed_parameters_equal": {
+        "model": true,
+        "reasoning": true,
+        "text": true,
+        "tool_choice": true,
+        "parallel_tool_calls": true,
+        "store": true,
+        "stream": true,
+        "include": true
+      },
+      "schema_root_order": [
+        "plan",
+        "selectedCard",
+        "publicReason"
+      ],
+      "tool_arrays": [
+        []
+      ],
+      "reasoning_items": 0,
+      "encrypted_reasoning_sha256": [],
+      "HTTP_statuses": [
+        200
+      ]
+    },
+    {
+      "id": "d6-full-r2",
+      "HTTP_requests": 1,
+      "input_matches_expected_except_ids_and_absent_reasoning_content": true,
+      "current_input_exact": true,
+      "fixed_parameters_equal": {
+        "model": true,
+        "reasoning": true,
+        "text": true,
+        "tool_choice": true,
+        "parallel_tool_calls": true,
+        "store": true,
+        "stream": true,
+        "include": true
+      },
+      "schema_root_order": [
+        "plan",
+        "selectedCard",
+        "publicReason"
+      ],
+      "tool_arrays": [
+        []
+      ],
+      "reasoning_items": 5,
+      "encrypted_reasoning_sha256": [
+        "6059a6be6096b9663c548ac557ca963febec28c0607d496539e7cbb9f34235b1",
+        "a99bbddb5de300a7eac760f92bed3e94b33ce58674b7e2e6b83e4b8f2b207a34",
+        "0ba97edc1af2f26d23655bb18f47afd208d9bad4a1ed6654b0c9b19818c9cfdd",
+        "df1a03bd2ee44aae7bc2546c178e6d23eecf97f2c37d296325af7ee5610d1c4c",
+        "b3cd24ea6f183a3b3dbbf7e7ee9ee4b4ebf9a7bc37f30819d128b7cccb712256"
+      ],
+      "HTTP_statuses": [
+        200
+      ]
+    }
+  ]
+}

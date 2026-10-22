@@ -1,0 +1,29 @@
+{
+  "id": "club-full-r1",
+  "source_decision": 12,
+  "repeat": 1,
+  "clear_effective_plan": false,
+  "include_current_winning_play": true,
+  "task": "normal-play-output",
+  "request": "requests/club-full-r1.json",
+  "sha256": "0a1edfd3ea002d17ca1b801199779f23ac159e9428b5254baf8a8800013394d1",
+  "exit_code": 0,
+  "raw_output": {
+    "plan": {
+      "update": "replace",
+      "text": "Win West’s CQ with South’s CA; do not discard a heart, since South can take the club trick. Then use South’s remaining clubs and diamond cards to reach dummy and cash the diamond honors KQJT, followed by the heart honors, while avoiding a further defensive trick."
+    },
+    "selectedCard": "CA",
+    "publicReason": "CA overtakes West’s CQ and preserves the chance to cash the remaining diamond and heart winners."
+  },
+  "identity": {
+    "observedModel": "gpt-6-luna",
+    "requestedEffort": "medium",
+    "requestedModel": "gpt-6-luna",
+    "runtimeVersion": "codex-cli 0.160.0",
+    "threadID": "01a163d3-279c-7ce1-b81f-d4c8b19abd47",
+    "turnID": "01a163d3-27a7-7de2-86d7-0722a97911e5"
+  },
+  "narrow_card_check": "CA",
+  "elapsed_seconds": 6.883
+}

@@ -1,0 +1,93 @@
+{
+  "purpose": "Follow-up diagnostic history replay after the fixed18 fresh-context probes; not acceptance.",
+  "runtime": "Same native0.160.0 and production CodexPlayingTransport/LunaMedium/no-tools; temporary RPC relay uses locally generated supported method thread/inject_items.",
+  "schedule": [
+    {
+      "id": "d6-full-r1",
+      "decision": 6,
+      "history": "full",
+      "repeat": 1,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/heart-full-r1.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/history-study/seed-d6-full.json"
+    },
+    {
+      "id": "d6-fresh-r1",
+      "decision": 6,
+      "history": "fresh",
+      "repeat": 1,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/heart-full-r1.json",
+      "seed": null
+    },
+    {
+      "id": "d12-full-r1",
+      "decision": 12,
+      "history": "full",
+      "repeat": 1,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/history-study/seed-d12-full.json"
+    },
+    {
+      "id": "d12-public-r1",
+      "decision": 12,
+      "history": "public",
+      "repeat": 1,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/history-study/seed-d12-public.json"
+    },
+    {
+      "id": "d12-fresh-r1",
+      "decision": 12,
+      "history": "fresh",
+      "repeat": 1,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+      "seed": null
+    },
+    {
+      "id": "d12-fresh-r2",
+      "decision": 12,
+      "history": "fresh",
+      "repeat": 2,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+      "seed": null
+    },
+    {
+      "id": "d12-public-r2",
+      "decision": 12,
+      "history": "public",
+      "repeat": 2,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/history-study/seed-d12-public.json"
+    },
+    {
+      "id": "d12-full-r2",
+      "decision": 12,
+      "history": "full",
+      "repeat": 2,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/history-study/seed-d12-full.json"
+    },
+    {
+      "id": "d6-fresh-r2",
+      "decision": 6,
+      "history": "fresh",
+      "repeat": 2,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/heart-full-r1.json",
+      "seed": null
+    },
+    {
+      "id": "d6-full-r2",
+      "decision": 6,
+      "history": "full",
+      "repeat": 2,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/heart-full-r1.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/history-study/seed-d6-full.json"
+    }
+  ],
+  "count": 10,
+  "predictions": [
+    "If the original history causes the error, full seeded history should reproduce it more often than fresh context with the same current input/instructions/schema.",
+    "If opaque reasoning history is specifically important, public-only history should differ from full seeded history at decision12."
+  ],
+  "policy": "Two predetermined replicates per named condition; sequential, no retries/fallback/answer repair. History contains only the actual original authorized prefix, never a desired answer. Every injected/fresh HTTP request must be audited before interpreting content.",
+  "limits": "History injection is diagnostic, not a product recovery feature. New sampling/time still vary; two samples per cell cannot establish reliability or exact probability. A failed injected request remains an unsuccessful probe; no silent fallback."
+}

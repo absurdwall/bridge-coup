@@ -1,0 +1,33 @@
+{
+  "id": "d6-full-r1",
+  "decision": 6,
+  "history": "full",
+  "repeat": 1,
+  "request": "/tmp/bridge46-design-diagnosis-20261022/requests/heart-full-r1.json",
+  "seed": "/tmp/bridge46-design-diagnosis-20261022/history-study/seed-d6-full.json",
+  "exit_code": 0,
+  "raw_output": {
+    "plan": {
+      "update": "replace",
+      "text": "Discard a low heart on the spade return, preserving dummy's diamond honors and club length. The diamond ace has been forced out, so use dummy's KQJT to establish the remaining diamonds; retain South's small diamonds as entries or discards. Cash the heart and club honors for the remaining tricks, while avoiding further spade losses."
+    },
+    "selectedCard": "H3",
+    "publicReason": "Discard the smallest heart, keeping dummy’s diamond honors and club cards intact to build tricks after the ace has gone."
+  },
+  "identity": {
+    "observedModel": "gpt-6-luna",
+    "requestedEffort": "medium",
+    "requestedModel": "gpt-6-luna",
+    "runtimeVersion": "codex-cli 0.160.0",
+    "threadID": "01a163da-45b8-7301-9c3b-76646ec6a907",
+    "turnID": "01a163da-46a7-7780-bd6f-b06ecca09b74"
+  },
+  "injection": {
+    "method": "thread/inject_items",
+    "accepted": true,
+    "error_code": null,
+    "error_message": "",
+    "item_count": 15
+  },
+  "seconds": 5.046
+}

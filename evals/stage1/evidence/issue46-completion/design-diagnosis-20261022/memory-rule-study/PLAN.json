@@ -1,0 +1,66 @@
+{
+  "purpose": "Predeclared6-request memory-contract instruction diagnostic. No production edit, acceptance claim or card-specific hint.",
+  "runtime": "Same native0.160.0 and production CodexPlayingTransport/LunaMedium/no-tools; temporary RPC relay uses locally generated supported method thread/inject_items.",
+  "schedule": [
+    {
+      "id": "d12-control-r1",
+      "decision": 12,
+      "history": "full",
+      "variant": "control",
+      "repeat": 1,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/memory-rule-study/seed-d12-full.json"
+    },
+    {
+      "id": "d12-memory-rule-r1",
+      "decision": 12,
+      "history": "full",
+      "variant": "memory-rule",
+      "repeat": 1,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-memory-rule.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/memory-rule-study/seed-d12-full.json"
+    },
+    {
+      "id": "d12-memory-rule-r2",
+      "decision": 12,
+      "history": "full",
+      "variant": "memory-rule",
+      "repeat": 2,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-memory-rule.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/memory-rule-study/seed-d12-full.json"
+    },
+    {
+      "id": "d12-control-r2",
+      "decision": 12,
+      "history": "full",
+      "variant": "control",
+      "repeat": 2,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/memory-rule-study/seed-d12-full.json"
+    },
+    {
+      "id": "d12-control-r3",
+      "decision": 12,
+      "history": "full",
+      "variant": "control",
+      "repeat": 3,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/memory-rule-study/seed-d12-full.json"
+    },
+    {
+      "id": "d12-memory-rule-r3",
+      "decision": 12,
+      "history": "full",
+      "variant": "memory-rule",
+      "repeat": 3,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-memory-rule.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/memory-rule-study/seed-d12-full.json"
+    }
+  ],
+  "count": 6,
+  "predictions": [
+    "If explicit fallibility of earlier assistant responses/reasoning helps reassessment, the candidate should choose CA more often than contemporaneous controls under the same full original history. Inspect reasons/remaining plan as well; a card alone is not overall quality acceptance."
+  ],
+  "policy": "Three predetermined replicates per named condition; sequential, no retries/fallback/answer repair. History contains only the actual original authorized prefix, never a desired answer. Every injected/fresh HTTP request must be audited before interpreting content.",
+  "limits": "History injection is diagnostic, not a product recovery feature. New sampling/time still vary; three samples per cell cannot establish reliability or exact probability. A failed injected request remains an unsuccessful probe; no silent fallback."
+}

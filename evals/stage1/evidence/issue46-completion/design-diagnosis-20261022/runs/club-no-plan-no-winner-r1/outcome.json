@@ -1,0 +1,29 @@
+{
+  "id": "club-no-plan-no-winner-r1",
+  "source_decision": 12,
+  "repeat": 1,
+  "clear_effective_plan": true,
+  "include_current_winning_play": false,
+  "task": "normal-play-output",
+  "request": "requests/club-no-plan-no-winner-r1.json",
+  "sha256": "a52fd121509912f783427be7ece69cbae0b4c5369c4a61e52d8df4231509f9d1",
+  "exit_code": 0,
+  "raw_output": {
+    "plan": {
+      "update": "replace",
+      "text": "Win the current club trick with CA. The contract is no longer makeable, so prioritize taking the remaining tricks: use South's heart honors and lead diamonds toward North's KQJT, using HA as an entry if needed. Avoid unnecessary risks; the defenders' remaining cards are unknown."
+    },
+    "selectedCard": "CA",
+    "publicReason": "CA wins the current trick over CQ and C9; South must follow clubs."
+  },
+  "identity": {
+    "observedModel": "gpt-6-luna",
+    "requestedEffort": "medium",
+    "requestedModel": "gpt-6-luna",
+    "runtimeVersion": "codex-cli 0.160.0",
+    "threadID": "01a163d3-9642-7813-b361-d862157648b0",
+    "turnID": "01a163d3-96b4-7170-a639-b1ba008c72fc"
+  },
+  "narrow_card_check": "CA",
+  "elapsed_seconds": 8.213
+}

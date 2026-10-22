@@ -1,0 +1,29 @@
+{
+  "id": "heart-no-plan-r2",
+  "source_decision": 6,
+  "repeat": 2,
+  "clear_effective_plan": true,
+  "include_current_winning_play": true,
+  "task": "normal-play-output",
+  "request": "requests/heart-no-plan-r2.json",
+  "sha256": "c4da950ff05ac68f614d3cd99ba1618d2823be0e95b27363c360c45741002b96",
+  "exit_code": 0,
+  "raw_output": {
+    "plan": {
+      "update": "replace",
+      "text": "After West wins this spade trick, preserve North's diamond honors and both hands' heart honors. If the defense does not cash enough spades to defeat the contract, use North's D-KQJT as four likely tricks once the outstanding ace is gone, and add South's H-KQJ with North's H-A and the club ace; manage entries and cash winners promptly. The exact route depends on the defenders' next lead and remaining cards."
+    },
+    "selectedCard": "C4",
+    "publicReason": "Discard the low C4, keeping North's diamond sequence and the heart honors intact."
+  },
+  "identity": {
+    "observedModel": "gpt-6-luna",
+    "requestedEffort": "medium",
+    "requestedModel": "gpt-6-luna",
+    "runtimeVersion": "codex-cli 0.160.0",
+    "threadID": "01a163d4-2671-7501-a99b-91dca12f2943",
+    "turnID": "01a163d4-2693-7dd1-87de-e3ece8188b6f"
+  },
+  "narrow_card_check": "C4",
+  "elapsed_seconds": 8.816
+}

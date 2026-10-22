@@ -1,0 +1,306 @@
+{
+  "attempts": [
+    {
+      "id": "d6-full-r1",
+      "decision": 6,
+      "history": "full",
+      "repeat": 1,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/heart-full-r1.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/history-study/seed-d6-full.json",
+      "exit_code": 0,
+      "raw_output": {
+        "plan": {
+          "update": "replace",
+          "text": "Discard a low heart on the spade return, preserving dummy's diamond honors and club length. The diamond ace has been forced out, so use dummy's KQJT to establish the remaining diamonds; retain South's small diamonds as entries or discards. Cash the heart and club honors for the remaining tricks, while avoiding further spade losses."
+        },
+        "selectedCard": "H3",
+        "publicReason": "Discard the smallest heart, keeping dummy’s diamond honors and club cards intact to build tricks after the ace has gone."
+      },
+      "identity": {
+        "observedModel": "gpt-6-luna",
+        "requestedEffort": "medium",
+        "requestedModel": "gpt-6-luna",
+        "runtimeVersion": "codex-cli 0.160.0",
+        "threadID": "01a163da-45b8-7301-9c3b-76646ec6a907",
+        "turnID": "01a163da-46a7-7780-bd6f-b06ecca09b74"
+      },
+      "injection": {
+        "method": "thread/inject_items",
+        "accepted": true,
+        "error_code": null,
+        "error_message": "",
+        "item_count": 15
+      },
+      "seconds": 5.046
+    },
+    {
+      "id": "d6-fresh-r1",
+      "decision": 6,
+      "history": "fresh",
+      "repeat": 1,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/heart-full-r1.json",
+      "seed": null,
+      "exit_code": 0,
+      "raw_output": {
+        "plan": {
+          "update": "replace",
+          "text": "The planned SA stop is no longer available: South has already played SA, and North is void in spades. Discard low from North on this trick, preserving the heart ace and diamond honors. After the spade trick, seek entries to cash the heart and club honors and establish dummy's remaining diamonds; defenders' unseen cards and entries determine whether enough tricks remain for game."
+        },
+        "selectedCard": "C4",
+        "publicReason": "West already wins the spade trick, so discard the lowest club and preserve North's heart ace and diamond honors."
+      },
+      "identity": {
+        "observedModel": "gpt-6-luna",
+        "requestedEffort": "medium",
+        "requestedModel": "gpt-6-luna",
+        "runtimeVersion": "codex-cli 0.160.0",
+        "threadID": "01a163da-59e6-73b0-88aa-a10a9943386c",
+        "turnID": "01a163da-5a0c-7b60-aa9d-7c7b11cb0439"
+      },
+      "seconds": 8.608
+    },
+    {
+      "id": "d12-full-r1",
+      "decision": 12,
+      "history": "full",
+      "repeat": 1,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/history-study/seed-d12-full.json",
+      "exit_code": 0,
+      "raw_output": {
+        "plan": {
+          "update": "keep",
+          "text": null
+        },
+        "selectedCard": "CJ",
+        "publicReason": "Follow with CJ on the club trick, overtaking the defenders’ C9 and CQ to win a second declarer trick."
+      },
+      "identity": {
+        "observedModel": "gpt-6-luna",
+        "requestedEffort": "medium",
+        "requestedModel": "gpt-6-luna",
+        "runtimeVersion": "codex-cli 0.160.0",
+        "threadID": "01a163da-7b1c-7e40-bfda-8dffff5090b2",
+        "turnID": "01a163da-7c19-7b61-b5e3-435a0d7ad4cb"
+      },
+      "injection": {
+        "method": "thread/inject_items",
+        "accepted": true,
+        "error_code": null,
+        "error_message": "",
+        "item_count": 33
+      },
+      "seconds": 4.004
+    },
+    {
+      "id": "d12-public-r1",
+      "decision": 12,
+      "history": "public",
+      "repeat": 1,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/history-study/seed-d12-public.json",
+      "exit_code": 0,
+      "raw_output": {
+        "plan": {
+          "update": "keep",
+          "text": null
+        },
+        "selectedCard": "CA",
+        "publicReason": "Win West’s club queen with the ace, gaining the lead to cash the established diamonds."
+      },
+      "identity": {
+        "observedModel": "gpt-6-luna",
+        "requestedEffort": "medium",
+        "requestedModel": "gpt-6-luna",
+        "runtimeVersion": "codex-cli 0.160.0",
+        "threadID": "01a163da-8ab9-7530-95ad-5cbe139ef0ee",
+        "turnID": "01a163da-8b9f-7162-927f-5600e2a9cff2"
+      },
+      "injection": {
+        "method": "thread/inject_items",
+        "accepted": true,
+        "error_code": null,
+        "error_message": "",
+        "item_count": 22
+      },
+      "seconds": 3.084
+    },
+    {
+      "id": "d12-fresh-r1",
+      "decision": 12,
+      "history": "fresh",
+      "repeat": 1,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+      "seed": null,
+      "exit_code": 0,
+      "raw_output": {
+        "plan": {
+          "update": "replace",
+          "text": "Follow suit with a club, using the ace if it can win; the defenders have already taken five tricks, so the contract is no longer makeable. If declarer regains the lead, cash the remaining diamond honors from dummy and preserve the heart honors where possible to maximize tricks."
+        },
+        "selectedCard": "CA",
+        "publicReason": "South must follow to West’s club. The ace is the best chance to beat CQ and take this trick."
+      },
+      "identity": {
+        "observedModel": "gpt-6-luna",
+        "requestedEffort": "medium",
+        "requestedModel": "gpt-6-luna",
+        "runtimeVersion": "codex-cli 0.160.0",
+        "threadID": "01a163da-9664-74f3-9e93-a7ba04b1f538",
+        "turnID": "01a163da-966f-78c1-972e-af9d3d90fd0c"
+      },
+      "seconds": 27.85
+    },
+    {
+      "id": "d12-fresh-r2",
+      "decision": 12,
+      "history": "fresh",
+      "repeat": 2,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+      "seed": null,
+      "exit_code": 0,
+      "raw_output": {
+        "plan": {
+          "update": "keep",
+          "text": null
+        },
+        "selectedCard": "CA",
+        "publicReason": "Win West’s club lead with the ace; dummy has already discarded a heart, and this preserves the jack while retaining the chance to cash diamonds and heart honors."
+      },
+      "identity": {
+        "observedModel": "gpt-6-luna",
+        "requestedEffort": "medium",
+        "requestedModel": "gpt-6-luna",
+        "runtimeVersion": "codex-cli 0.160.0",
+        "threadID": "01a163db-03b3-7a63-97c7-c53814be9d46",
+        "turnID": "01a163db-03ce-7d82-8868-fbe13542e31a"
+      },
+      "seconds": 8.815
+    },
+    {
+      "id": "d12-public-r2",
+      "decision": 12,
+      "history": "public",
+      "repeat": 2,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/history-study/seed-d12-public.json",
+      "exit_code": 0,
+      "raw_output": {
+        "plan": {
+          "update": "replace",
+          "text": "Win the current club trick with CA. Then cash the remaining high hearts and use the diamond honors in dummy, retaining South's low diamonds as possible entries. The defense already has five tricks; prioritize securing every remaining trick to limit the set."
+        },
+        "selectedCard": "CA",
+        "publicReason": "Cover West’s CQ with CA to win the trick rather than surrendering another one."
+      },
+      "identity": {
+        "observedModel": "gpt-6-luna",
+        "requestedEffort": "medium",
+        "requestedModel": "gpt-6-luna",
+        "runtimeVersion": "codex-cli 0.160.0",
+        "threadID": "01a163db-26a7-77f3-b0fc-3d9c16a474ac",
+        "turnID": "01a163db-279a-7c31-9b24-2dae82a566c5"
+      },
+      "injection": {
+        "method": "thread/inject_items",
+        "accepted": true,
+        "error_code": null,
+        "error_message": "",
+        "item_count": 22
+      },
+      "seconds": 4.556
+    },
+    {
+      "id": "d12-full-r2",
+      "decision": 12,
+      "history": "full",
+      "repeat": 2,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/history-study/seed-d12-full.json",
+      "exit_code": 0,
+      "raw_output": {
+        "plan": {
+          "update": "keep",
+          "text": null
+        },
+        "selectedCard": "CJ",
+        "publicReason": "South still has clubs and must follow suit; play CJ under West’s CQ, preserving CA."
+      },
+      "identity": {
+        "observedModel": "gpt-6-luna",
+        "requestedEffort": "medium",
+        "requestedModel": "gpt-6-luna",
+        "runtimeVersion": "codex-cli 0.160.0",
+        "threadID": "01a163db-37cd-79d0-a986-803c5916ac38",
+        "turnID": "01a163db-38ba-7732-be6e-9a652e4ad7e1"
+      },
+      "injection": {
+        "method": "thread/inject_items",
+        "accepted": true,
+        "error_code": null,
+        "error_message": "",
+        "item_count": 33
+      },
+      "seconds": 7.202
+    },
+    {
+      "id": "d6-fresh-r2",
+      "decision": 6,
+      "history": "fresh",
+      "repeat": 2,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/heart-full-r1.json",
+      "seed": null,
+      "exit_code": 0,
+      "raw_output": {
+        "plan": {
+          "update": "replace",
+          "text": "The current spade trick is lost, so discard a low club from North and preserve the heart and diamond holdings. South has already lost a diamond to East's ace; North's remaining KQJT are now top diamonds and can provide four tricks if entries permit. Use South's heart honors to reach North's HA and develop/cash the diamond winners; cash the remaining heart and club honors for the tricks needed, recognizing defenders have already won two tricks and are winning this one."
+        },
+        "selectedCard": "C4",
+        "publicReason": "The spade trick cannot be won from North; discard the least useful club and retain the heart and diamond cards that provide entries and winners."
+      },
+      "identity": {
+        "observedModel": "gpt-6-luna",
+        "requestedEffort": "medium",
+        "requestedModel": "gpt-6-luna",
+        "runtimeVersion": "codex-cli 0.160.0",
+        "threadID": "01a163db-539b-7e30-be2a-b36f706312da",
+        "turnID": "01a163db-53a6-7002-8d4b-a999a868ef45"
+      },
+      "seconds": 8.121
+    },
+    {
+      "id": "d6-full-r2",
+      "decision": 6,
+      "history": "full",
+      "repeat": 2,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/heart-full-r1.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/history-study/seed-d6-full.json",
+      "exit_code": 0,
+      "raw_output": {
+        "plan": {
+          "update": "replace",
+          "text": "Spades are exhausted in both declarer hands, and the diamond ace has been forced. Discard a low club on this spade trick, then use dummy's KQJT diamonds to develop tricks; retain the heart ace as an entry and cash the heart honors and club honors for additional tricks. Track the defenders' remaining diamonds and entries as the suit is established."
+        },
+        "selectedCard": "C4",
+        "publicReason": "Discard a low club while preserving dummy’s diamond honors and heart entry."
+      },
+      "identity": {
+        "observedModel": "gpt-6-luna",
+        "requestedEffort": "medium",
+        "requestedModel": "gpt-6-luna",
+        "runtimeVersion": "codex-cli 0.160.0",
+        "threadID": "01a163db-73b3-7640-ad85-077ef80421ef",
+        "turnID": "01a163db-748d-7e32-ad49-a70b9fed8395"
+      },
+      "injection": {
+        "method": "thread/inject_items",
+        "accepted": true,
+        "error_code": null,
+        "error_message": "",
+        "item_count": 15
+      },
+      "seconds": 4.07
+    }
+  ]
+}

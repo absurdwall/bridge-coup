@@ -1,0 +1,84 @@
+{
+  "httpStatus": 200,
+  "id": "resp_0a2d724cbaf5fd56016ada1192fb08819791f02685e642cc67",
+  "model": "gpt-6-luna",
+  "status": "completed",
+  "usage": {
+    "input_tokens": 2303,
+    "input_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0
+    },
+    "output_tokens": 439,
+    "output_tokens_details": {
+      "reasoning_tokens": 300
+    },
+    "total_tokens": 2742,
+    "attribution": {
+      "items": {
+        "at_a049a4e3-1336-5dbd-af44-a1417a59a9f0": {
+          "input_tokens": 4,
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "output_tokens": 0
+        },
+        "msg_01a163d4-a3f2-7c91-87c3-32985600dd48": {
+          "input_tokens": 975,
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "output_tokens": 0,
+          "content": [
+            {
+              "input_tokens": 975,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "output_tokens": 0
+            }
+          ]
+        },
+        "msg_0a2d724cbaf5fd56016ada1197f1ac81978d532917e20b33f4": {
+          "input_tokens": 0,
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "output_tokens": 139,
+          "content": [
+            {
+              "input_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "output_tokens": 139
+            }
+          ]
+        },
+        "msg_8bf7079b-d676-592b-a3d0-177c46eccf74": {
+          "input_tokens": 1199,
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "output_tokens": 0,
+          "content": [
+            {
+              "input_tokens": 1199,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "output_tokens": 0
+            }
+          ]
+        },
+        "rs_0a2d724cbaf5fd56016ada1197c6708197b87d38f7f89661d9": {
+          "input_tokens": 2,
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "output_tokens": 300
+        }
+      },
+      "request_fields": {
+        "text.format": {
+          "input_tokens": 123,
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "output_tokens": 0
+        }
+      }
+    }
+  }
+}

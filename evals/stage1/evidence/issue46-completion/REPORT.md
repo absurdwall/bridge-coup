@@ -45,7 +45,7 @@ The three v4 durations are short scenarios, not full-board performance measureme
 
 The structural/core/evaluation work is implemented and tested. #40's quality requirement and #36/#42's final semantic gate remain unmet; #46 does not waive them. Issues #36–42 and #46 remain open. No stage-complete or merge approval is claimed.
 
-The finite v3 matrix and separately versioned v4 check are preserved; passes from different candidates are not combined. A known-failing unchanged candidate was not rerolled into apparent acceptance. Further work needs a justified new correction or an agreed model/design direction; the user has been asked to choose that direction. The current instruction/schema order fix is retained as a consistency improvement, with no causal quality guarantee.
+The finite v3 matrix and separately versioned v4 check are preserved; passes from different candidates are not combined. A known-failing unchanged candidate was not rerolled into apparent acceptance. The user chose to retain Luna Medium and investigate design/failure causes. A subsequent 42-request bounded diagnosis is preserved separately; it does not change acceptance or justify a production prompt patch. The current instruction/schema order fix is retained as a consistency improvement, with no causal quality guarantee.
 
 ## Evidence map
 
@@ -53,3 +53,7 @@ The finite v3 matrix and separately versioned v4 check are preserved; passes fro
 - [v4 development plan](development-v4/DEVELOPMENT-PLAN.json), [quality disposition and exact examples](development-v4/REVIEW.md), [wire/thread audit](development-v4/wire-and-thread-audit.json)
 - [Standards review](standards-review-v4.md), [spec review](spec-review-v4.md), [offline red/green logs](tdd/)
 - Earlier baseline/corrections/calibration remain indexed in [README.md](README.md). Original user worktrees, teaching notes and manual-session artifacts were preserved; only this task's clean integrated implementer worktrees are cleaned up.
+
+## Subsequent design diagnosis
+
+[2026-10-22 diagnosis](design-diagnosis-20261022/REPORT.md) separates first-error forecasting/counting from historical error persistence. Same-current-input fresh d12 chooses CA 4/4; full-history controls choose CJ 6/7 and CA 1/7. Public-only results are mixed, and a generic reassessment sentence failed 3/3. No production source/instruction change, model substitution, or acceptance rerun was made.

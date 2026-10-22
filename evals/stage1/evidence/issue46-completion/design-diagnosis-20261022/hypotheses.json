@@ -1,0 +1,24 @@
+[
+  {
+    "rank": 1,
+    "hypothesis": "Incorrect effectivePlan anchors later responses despite correct current facts.",
+    "prediction": "At decision12, clearing only effectivePlan improves CA choice relative to carrying the actual false plan, within the same winningPlay condition."
+  },
+  {
+    "rank": 2,
+    "hypothesis": "The derived winningPlay field/reference primes final-winner interpretation.",
+    "prediction": "At decision12, removing that redundant field and its reference improves CA choice within the same plan condition. The actual currentTrick remains unchanged."
+  },
+  {
+    "rank": 3,
+    "hypothesis": "Continuing history contributes to the recorded errors.",
+    "prediction": "Fresh one-turn requests with byte-identical current input, instructions and schema semantics make fewer observed mistakes than saved continuous turns.",
+    "limit": "History is not replayed exactly; stochastic new sampling and time/routing changes prevent a clean causal attribution from this comparison."
+  },
+  {
+    "rank": 4,
+    "hypothesis": "Basic knowledge is available when directly requested but not reliably applied during planning.",
+    "prediction": "Factual count/rank questions are correct even if normal-play responses in the same study err.",
+    "limit": "Changing the task and schema is a positive-control competence probe, not a production fix or isolated proof about prompt length."
+  }
+]
