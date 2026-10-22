@@ -17,7 +17,7 @@ def read_decision(directory):
                 'runtime_config': (directory / 'runtime-config.toml').read_text() if (directory / 'runtime-config.toml').exists() else None}
     record = read_json(directory / 'decision.json')
     rpc_path = directory / 'rpc.jsonl'
-    if not rpc_path.exists() and (directory.parent / 'trace.json').exists():
+    if not rpc_path.exists() and (directory.parent / 'rpc.jsonl').is_file():
         rpc_path = directory.parent / 'rpc.jsonl'
     return {**record, 'executionEvents': read_json(directory / 'events.json') if (directory / 'events.json').exists() else None,
             'runtimeFailure': read_json(directory / 'failure.json') if (directory / 'failure.json').exists() else None,
