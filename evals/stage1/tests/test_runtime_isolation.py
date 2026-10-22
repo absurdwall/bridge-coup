@@ -6,7 +6,6 @@ service: a loopback provider captures the request and immediately rejects it.
 import http.server
 import json
 import os
-import re
 from pathlib import Path
 import shlex
 import shutil
@@ -88,26 +87,32 @@ class RuntimeIsolationTests(unittest.TestCase):
         self.assertEqual({tool['name'] for tool in functions},
                          {'exec', 'wait', 'request_user_input', 'request_user_input_async'})
 
-    def test_current_public_reason_precedes_future_plan_in_actual_output_schema(self):
+    def test_actual_schema_preserves_reason_and_plan_operation_order(self):
         request = self.public_request()
         self.assertEqual(list(request['text']['format']['schema']['properties']),
                          ['publicReason', 'plan', 'selectedCard'])
+        for variant in request['text']['format']['schema']['properties']['plan']['anyOf']:
+            self.assertEqual(list(variant['properties']), ['update', 'text'])
 
-    def test_public_card_names_preserve_codes_visibility_and_legal_actions(self):
+    def test_complete_json_snapshot_preserves_visibility_and_schema_legal_actions(self):
         fixture_path = 'evals/stage1/corpus/boards/walker-holdup-adapted.json'
         request = self.public_request(fixture_path)
         text = '\n'.join(part.get('text', '') for item in request['input']
                          if item.get('role') == 'user' for part in item.get('content', []))
-        labels = dict(re.findall(r'\b([SHDC][2-9TJQKA]) \(([^)]+)\)', text))
-        fixture = json.loads((ROOT/fixture_path).read_text())
-        public_cards = {card for hand in fixture['hands'] if hand['seat'] in ('north', 'south')
-                        for card in hand['cards']} | {'SK'}
-        self.assertEqual(set(labels), public_cards, 'Name every authorized card without exposing hidden hands')
-        for code, name in {'SA': 'Ace of spades', 'DK': 'King of diamonds',
-                           'DQ': 'Queen of diamonds', 'DJ': 'Jack of diamonds',
-                           'DT': 'Ten of diamonds', 'S3': 'Three of spades'}.items():
-            self.assertEqual(labels[code], name)
-        self.assertIn('Current winning play so far: West SK (King of spades).', text)
-        self.assertIn('Actual plays in order: West SK (King of spades).', text)
-        self.assertEqual(request['text']['format']['schema']['properties']['selectedCard']['enum'],
-                         ['S8', 'S7'])
+        snapshot = json.loads(text)
+        self.assertEqual(set(snapshot), {'type', 'contract', 'scoring', 'vulnerability', 'controller',
+                         'hands', 'completedTricks', 'currentTrick', 'current', 'effectivePlan'})
+        self.assertEqual(snapshot['type'], 'initial')
+        self.assertEqual(snapshot['contract'], {'level':3, 'strain':'NT', 'doubling':'undoubled', 'declarer':'S'})
+        self.assertEqual(set(snapshot['hands']), {'N', 'S'})
+        self.assertEqual(snapshot['hands']['S'], {'S':'A93', 'H':'KQJ', 'D':'5432', 'C':'AJ6'})
+        self.assertEqual(snapshot['hands']['N'], {'S':'87', 'H':'A43', 'D':'KQJT9', 'C':'T54'})
+        self.assertEqual(snapshot['currentTrick'], [{'seat':'W', 'card':'SK'}])
+        self.assertEqual(snapshot['completedTricks'], [])
+        self.assertEqual(snapshot['current'], {'toAct':'N', 'tricksWon':{'declarer':0, 'defenders':0}})
+        self.assertIsNone(snapshot['effectivePlan'])
+        self.assertEqual(request['text']['format']['schema']['properties']['selectedCard']['enum'], ['S8', 'S7'])
+        instructions = (ROOT/'Sources/BridgeExpert/Resources/DeclarerInstructions.txt').read_text()
+        developer = [part.get('text', '') for item in request['input'] if item.get('role') == 'developer'
+                     for part in item.get('content', [])]
+        self.assertIn(instructions, developer, 'The actual request explicitly loads the single fixed source')

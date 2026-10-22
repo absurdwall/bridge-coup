@@ -13,6 +13,18 @@ spec.loader.exec_module(evaluate)
 
 
 class SavedDecisionTests(unittest.TestCase):
+    def test_v5_snapshot_contract_preserves_execution_checks(self):
+        record = evaluate.read_decision(ROOT / 'evidence/ticket37/live3')
+        record['wireContractVersion'] = 'stage1-full-snapshot-v5'
+        record.pop('rpc')  # Historical request is not evidence for this version.
+        answer = json.loads(record['rawOutput'])
+        answer['selectedCard'] = answer.pop('currentCard')
+        record['rawOutput'] = json.dumps(answer)
+        checks = evaluate.deterministic_checks(record)
+        self.assertEqual(checks['structure']['status'], 'pass')
+        self.assertEqual(checks['action_binding']['status'], 'pass')
+        self.assertEqual(checks['execution']['status'], 'pass')
+
     def test_v4_plan_variants_keep_replace_withdraw_use_the_same_saved_output_boundary(self):
         record = evaluate.read_decision(ROOT / 'evidence/ticket37/live3')
         record['wireContractVersion'] = 'stage1-plan-variants-v4'

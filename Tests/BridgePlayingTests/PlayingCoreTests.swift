@@ -83,9 +83,18 @@ final class PlayingCoreTests: XCTestCase {
         let snapshot = try board.snapshot(controller: .south)
         let expert = ExpertSession(transport: RecordedPlayTransport(output: #"{"selectedCard":"D3","publicReason":"Follow low from dummy, preserving the diamond winners in South.","plan":{"update":"replace","text":"Establish clubs for the ninth trick, retaining a heart entry to South."}}"#))
         let decision = try await expert.decide(snapshot)
-        XCTAssertTrue(decision.input.contains("Acting hand: North (dummy)"))
-        XCTAssertTrue(decision.input.contains("North (dummy): spades: S8 (Eight of spades) S6 (Six of spades) S2 (Two of spades) / hearts: HK (King of hearts) H7 (Seven of hearts) H4 (Four of hearts) / diamonds: D8 (Eight of diamonds) D6 (Six of diamonds) D5 (Five of diamonds) D3 (Three of diamonds) / clubs: CQ (Queen of clubs) C7 (Seven of clubs) C2 (Two of clubs)"))
-        XCTAssertFalse(decision.input.contains("East: S"))
+        let input = try JSONSerialization.jsonObject(with: Data(decision.input.utf8)) as! [String: Any]
+        XCTAssertEqual(input["type"] as? String, "initial")
+        XCTAssertTrue(input["effectivePlan"] is NSNull)
+        XCTAssertEqual(input["controller"] as? String, "S")
+        let hands = input["hands"] as! [String: [String: String]]
+        XCTAssertEqual(Set(hands.keys), ["S", "N"])
+        XCTAssertEqual(hands["N"], ["S": "862", "H": "K74", "D": "8653", "C": "Q72"])
+        XCTAssertEqual(hands["S"], ["S": "A94", "H": "A63", "D": "AK", "C": "AK864"])
+        XCTAssertEqual(input["currentTrick"] as? [[String: String]], [["seat": "W", "card": "DQ"]])
+        XCTAssertEqual((input["contract"] as? [String: Any])?["doubling"] as? String, "undoubled")
+        XCTAssertEqual((input["current"] as? [String: Any])?["toAct"] as? String, "N")
+        XCTAssertNil(input["legalCards"])
         XCTAssertEqual(decision.action.card, try Card("D3"))
         XCTAssertEqual(decision.effectivePlan, "Establish clubs for the ninth trick, retaining a heart entry to South.")
         XCTAssertEqual(board.events.count, 1)
@@ -93,7 +102,7 @@ final class PlayingCoreTests: XCTestCase {
         XCTAssertEqual(board.events.last?.card, try Card("D3"))
     }
 
-    func testContinuationUsesActualDeltaAndRetainsPlanSourceWithFreshDecisionSession() async throws {
+    func testContinuationUsesCompleteFactsAndRetainsPlanSourceWithFreshDecisionSession() async throws {
         var board = try BoardState(deal: syntheticDeal(), contract: .init(level: 3, strain: .noTrump, declarer: .south))
         try board.play(Card("DQ"), by: .west)
         let expert = ExpertSession(transport: SequencePlayTransport(outputs: [
@@ -110,11 +119,13 @@ final class PlayingCoreTests: XCTestCase {
         XCTAssertEqual(second.session.snapshotID, second.snapshot.id)
         XCTAssertEqual(second.planAssociation, first.planAssociation)
         XCTAssertEqual(second.planAssociation?.sourceSnapshotID, first.snapshot.id)
-        XCTAssertTrue(second.input.contains("Previous suggestion actually executed: yes"))
-        XCTAssertTrue(second.input.contains("North D3"))
-        XCTAssertFalse(second.input.contains("S A94 /"))
-        XCTAssertFalse(second.input.contains("Establish clubs while"))
-        XCTAssertFalse(second.input.contains("0: West DQ"))
+        let input = try JSONSerialization.jsonObject(with: Data(second.input.utf8)) as! [String: Any]
+        XCTAssertEqual(input["type"] as? String, "update")
+        XCTAssertEqual(input["effectivePlan"] as? String, first.effectivePlan)
+        let plays = input["currentTrick"] as! [[String:String]]
+        XCTAssertEqual(plays.prefix(2), [["seat":"W","card":"DQ"], ["seat":"N","card":"D3"]])
+        XCTAssertEqual(plays.count, 3)
+        XCTAssertEqual((input["hands"] as! [String:[String:String]])["N"]?["D"], "865")
         try board.apply(second.action)
     }
 
@@ -146,7 +157,8 @@ final class PlayingCoreTests: XCTestCase {
         XCTAssertEqual(opponent.execution.source, .opponent)
         let declarer = try await driver.advance()
         XCTAssertEqual(declarer.execution.source, .model)
-        XCTAssertTrue(declarer.decision!.input.contains("(opponent)"))
+        let input = try JSONSerialization.jsonObject(with: Data(declarer.decision!.input.utf8)) as! [String:Any]
+        XCTAssertEqual((input["currentTrick"] as! [[String:String]]).last?["seat"], "E")
         XCTAssertEqual(declarer.decision!.snapshot.events.count, 3)
         let trace = await driver.trace()
         XCTAssertEqual(trace.modelRequests, 2)
@@ -187,7 +199,9 @@ final class PlayingCoreTests: XCTestCase {
         try board.play(Card("D5"), by: .north)
         try board.play(board.legalCards()[0], by: .east)
         let second = try await expert.decide(board.snapshot(controller: .south))
-        XCTAssertTrue(second.input.contains("Previous suggestion actually executed: no"))
+        let input = try JSONSerialization.jsonObject(with: Data(second.input.utf8)) as! [String:Any]
+        XCTAssertEqual((input["currentTrick"] as! [[String:String]])[1], ["seat":"N","card":"D5"])
+        XCTAssertEqual((input["hands"] as! [String:[String:String]])["N"]?["D"], "863")
         XCTAssertEqual(second.planAssociation?.sourceSnapshotID, second.snapshot.id)
         XCTAssertNotEqual(first.planAssociation?.sourceSnapshotID, second.planAssociation?.sourceSnapshotID)
         try board.apply(second.action)

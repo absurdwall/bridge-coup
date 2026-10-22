@@ -32,12 +32,23 @@ public struct Card: Hashable, Codable, Sendable, CustomStringConvertible {
 }
 
 public struct Contract: Codable, Equatable, Sendable {
+    public enum Doubling: String, Codable, Sendable { case undoubled, doubled, redoubled }
     public let level: Int
     public let strain: Strain
     public let declarer: Seat
-    public init(level: Int, strain: Strain, declarer: Seat) throws {
+    public let doubling: Doubling
+    public init(level: Int, strain: Strain, declarer: Seat, doubling: Doubling = .undoubled) throws {
         guard (1...7).contains(level) else { throw DomainError.invalidContract }
-        self.level = level; self.strain = strain; self.declarer = declarer
+        self.level = level; self.strain = strain; self.declarer = declarer; self.doubling = doubling
+    }
+
+    private enum CodingKeys: String, CodingKey { case level, strain, declarer, doubling }
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        try self.init(level: values.decode(Int.self, forKey: .level),
+                      strain: values.decode(Strain.self, forKey: .strain),
+                      declarer: values.decode(Seat.self, forKey: .declarer),
+                      doubling: values.decodeIfPresent(Doubling.self, forKey: .doubling) ?? .undoubled)
     }
 }
 
@@ -54,6 +65,13 @@ public struct PlayEvent: Codable, Equatable, Sendable {
     public init(sequence: Int, seat: Seat, card: Card) { self.sequence = sequence; self.seat = seat; self.card = card }
 }
 
+/// A completed actual trick, with its winner supplied by Engine's public rules.
+public struct CompletedTrick: Codable, Equatable, Sendable {
+    public let plays: [PlayEvent]
+    public let winner: Seat
+    public init(plays: [PlayEvent], winner: Seat) { self.plays = plays; self.winner = winner }
+}
+
 /// Decision-time facts only. Suggested cards and public plans never enter this record.
 public struct DecisionSnapshot: Codable, Equatable, Sendable {
     public let boardID: UUID
@@ -68,6 +86,8 @@ public struct DecisionSnapshot: Codable, Equatable, Sendable {
     public let hands: [Hand]
     public let events: [PlayEvent]
     public let currentTrick: [PlayEvent]
+    /// Nil only in archived snapshots created before full-snapshot input was introduced.
+    public let completedTricks: [CompletedTrick]?
     /// Highest actual play so far, derived from public trick rules; later cards may change it.
     public let currentWinningPlay: PlayEvent?
     /// Complete current legal choices, derived by Engine from the acting hand.
@@ -78,11 +98,12 @@ public struct DecisionSnapshot: Codable, Equatable, Sendable {
 
     public init(boardID: UUID, revision: Int, controller: Seat, actingSeat: Seat, contract: Contract,
                 vulnerability: String, scoring: String, objective: String, publicBackground: String?, hands: [Hand],
-                events: [PlayEvent], currentTrick: [PlayEvent], declarerTricks: Int, defenderTricks: Int, legalCards: [Card] = [], currentWinningPlay: PlayEvent? = nil) {
+                events: [PlayEvent], currentTrick: [PlayEvent], declarerTricks: Int, defenderTricks: Int, legalCards: [Card] = [], currentWinningPlay: PlayEvent? = nil, completedTricks: [CompletedTrick]? = nil) {
         self.boardID = boardID; self.revision = revision; self.controller = controller; self.actingSeat = actingSeat
         self.contract = contract; self.vulnerability = vulnerability; self.scoring = scoring; self.objective = objective
         self.publicBackground = publicBackground; self.hands = hands; self.events = events
         self.currentTrick = currentTrick; self.legalCards = legalCards; self.declarerTricks = declarerTricks; self.defenderTricks = defenderTricks
+        self.completedTricks = completedTricks
         self.currentWinningPlay = currentWinningPlay
     }
 }

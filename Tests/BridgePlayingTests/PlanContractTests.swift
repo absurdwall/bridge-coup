@@ -5,7 +5,7 @@ import BridgeExpert
 import BridgeCodex
 
 final class PlanContractTests: XCTestCase {
-    func testPublicExpertReceivesRuleDerivedCurrentWinningPlay() async throws {
+    func testPublicExpertReceivesCompleteTricksAndCurrentPlays() async throws {
         var board = try BoardState(deal: syntheticDeal(), contract: .init(level: 3, strain: .noTrump, declarer: .south))
         try board.play(Card("DQ"), by: .west)
         let expert = ExpertSession(transport: SequencePlayTransport(outputs: [
@@ -13,17 +13,20 @@ final class PlanContractTests: XCTestCase {
             #"{"plan":{"update":"keep","text":null},"publicReason":"Follow under partner's ace.","selectedCard":"C2"}"#
         ]))
         let initial = try await expert.decide(board.snapshot(controller: .south))
-        XCTAssertTrue(initial.input.contains("Current winning play so far: West DQ (Queen of diamonds)."), initial.input)
+        let initialInput = try JSONSerialization.jsonObject(with: Data(initial.input.utf8)) as! [String:Any]
+        XCTAssertEqual(initialInput["currentTrick"] as? [[String:String]], [["seat":"W", "card":"DQ"]])
         try board.apply(initial.action)
         try board.play(Card("D4"), by: .east)
         try board.play(Card("DK"), by: .south)
         try board.play(Card("CA"), by: .south)
         try board.play(board.legalCards()[0], by: .west)
         let continuation = try await expert.decide(board.snapshot(controller: .south))
-        XCTAssertTrue(continuation.input.contains("Current winning play so far: South CA (Ace of clubs)."), continuation.input)
-        XCTAssertTrue(continuation.input.contains("South DK (King of diamonds)"), continuation.input)
-        XCTAssertFalse(continuation.input.contains("South (declarer):"))
-        XCTAssertFalse(continuation.input.contains("North (dummy):"))
+        let input = try JSONSerialization.jsonObject(with: Data(continuation.input.utf8)) as! [String:Any]
+        let tricks = input["completedTricks"] as! [[String:Any]]
+        XCTAssertEqual(tricks.first?["winner"] as? String, "S")
+        XCTAssertEqual((tricks.first?["plays"] as? [[String:String]])?.last, ["seat":"S", "card":"DK"])
+        XCTAssertEqual((input["currentTrick"] as! [[String:String]]).first, ["seat":"S", "card":"CA"])
+        XCTAssertEqual((input["hands"] as! [String:[String:String]])["S"]?["D"], "A")
     }
 
     func testFourHistoricalAmbiguousPlansRemainFailuresWithOriginalOutputAndNoRetry() async throws {
@@ -37,7 +40,7 @@ final class PlanContractTests: XCTestCase {
             let failure = try JSONDecoder().decode(SavedFailure.self, from: Data(contentsOf: directory.appendingPathComponent("play/failure.json")))
             let records = trace.steps.compactMap(\.decision)
             let expert = ExpertSession(transport: SequencePlayTransport(outputs: records.map(\.rawOutput) + [failure.rawOutput]))
-            for record in records { _ = try await expert.decide(record.snapshot) }
+            for record in records { _ = try await expert.decide(restoredSnapshot(record.snapshot, fixture: fixture)) }
             var board = try BoardState(id: trace.boardID, deal: Dictionary(uniqueKeysWithValues: fixture.hands.map { ($0.seat, $0.cards) }), contract: fixture.contract, vulnerability: fixture.vulnerability, scoring: fixture.scoring, objective: fixture.objective, publicBackground: fixture.publicBackground)
             for event in trace.initialEvents + trace.steps.map({ $0.execution.event }) { try board.play(event.card, by: event.seat) }
             let eventsBefore = board.events
@@ -56,29 +59,27 @@ final class PlanContractTests: XCTestCase {
         }
     }
 
-    func testPublicContextIdentifiesLeadAndThirdHandWithoutRepeatingHoldings() async throws {
+    func testHistoricalPositionsNowReceiveCompleteAuthorizedSnapshotsAndActivePlan() async throws {
         let repository = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
         let matrix = repository.appendingPathComponent("evals/stage1/evidence/ticket42/matrix")
-        for (attempt, decision, expectedPhase, expectedChoices) in [
-            ("short-2-r3", 7, "Current action: South (declarer) leads a new trick.", "Legal current choices: SA (Ace of spades), S9 (Nine of spades), S4 (Four of spades), H6 (Six of hearts), H3 (Three of hearts), DK (King of diamonds), CA (Ace of clubs), CK (King of clubs), C8 (Eight of clubs), C6 (Six of clubs)."),
-            ("full-reserved-r1", 4, "Current action: North (dummy) plays third in the current trick; clubs were led.", "Legal current choices: CA (Ace of clubs), C6 (Six of clubs), C5 (Five of clubs).")
-        ] {
+        for (attempt, decision, toAct) in [("short-2-r3", 7, "S"), ("full-reserved-r1", 4, "N")] {
             let play = matrix.appendingPathComponent(attempt + "/play")
+            let specification = try JSONDecoder().decode(SavedAttempt.self, from: Data(contentsOf: matrix.appendingPathComponent(attempt + "/attempt.json")))
+            let fixture = try JSONDecoder().decode(SavedFixture.self, from: Data(contentsOf: repository.appendingPathComponent("evals/stage1/corpus/" + specification.board)))
             let first = try JSONDecoder().decode(DecisionRecord.self, from: Data(contentsOf: play.appendingPathComponent("decision-0001/decision.json")))
             let current = try JSONDecoder().decode(DecisionRecord.self, from: Data(contentsOf: play.appendingPathComponent(String(format: "decision-%04d/decision.json", decision))))
             let reply = try JSONSerialization.data(withJSONObject: ["plan": ["update": "keep", "text": NSNull()], "selectedCard": current.action.card.description, "publicReason": "Play the current legal card from the acting hand."])
             let expert = ExpertSession(transport: SequencePlayTransport(outputs: [first.rawOutput, String(decoding: reply, as: UTF8.self)]))
-            let initial = try await expert.decide(first.snapshot)
-            XCTAssertTrue(initial.input.contains("diamonds: DA (Ace of diamonds) DK (King of diamonds)") || initial.input.contains("diamonds: DA (Ace of diamonds) D7 (Seven of diamonds) D2 (Two of diamonds)"))
-            let result = try await expert.decide(current.snapshot)
-            XCTAssertTrue(result.input.contains(expectedPhase), result.input)
-            XCTAssertTrue(result.input.contains(expectedChoices), result.input)
-            if decision == 4 { XCTAssertTrue(result.input.contains("Current trick: South C3 (Three of clubs); West C4 (Four of clubs).")) }
-            XCTAssertFalse(result.input.contains("South (declarer):"))
-            XCTAssertFalse(result.input.contains("North (dummy):"))
-            XCTAssertFalse(result.input.contains("East ("))
-            XCTAssertFalse(result.input.contains("West ("))
-            XCTAssertFalse(result.input.contains(first.effectivePlan!))
+            let initial = try await expert.decide(restoredSnapshot(first.snapshot, fixture: fixture))
+            let result = try await expert.decide(restoredSnapshot(current.snapshot, fixture: fixture))
+            let input = try JSONSerialization.jsonObject(with: Data(result.input.utf8)) as! [String:Any]
+            XCTAssertEqual(input["type"] as? String, "update")
+            XCTAssertEqual(input["effectivePlan"] as? String, initial.effectivePlan)
+            XCTAssertEqual((input["current"] as! [String:Any])["toAct"] as? String, toAct)
+            XCTAssertEqual(Set((input["hands"] as! [String:Any]).keys), ["S", "N"])
+            if decision == 4 {
+                XCTAssertEqual(input["currentTrick"] as? [[String:String]], [["seat":"S","card":"C3"],["seat":"W","card":"C4"]])
+            }
         }
     }
 
@@ -120,6 +121,7 @@ final class PlanContractTests: XCTestCase {
             elif method == 'turn/start':
                 # Validate the actual serialized public Codex request, not a Swift schema constant.
                 schema = request['params']['outputSchema']
+                assert all(list(v['properties']) == ['update', 'text'] for v in schema['properties']['plan']['anyOf']), 'actual plan schema must put operation before text'
                 jsonschema.Draft202012Validator.check_schema(schema)
                 validator = jsonschema.Draft202012Validator(schema)
                 plan_validator = jsonschema.Draft202012Validator(schema['properties']['plan'])
@@ -205,4 +207,14 @@ private struct SavedTrace: Decodable {
 private struct SavedStep: Decodable {
     let execution: ActualExecution
     let decision: DecisionRecord?
+}
+
+// Archived records remain unchanged; replay actual events through today's Engine
+// before presenting a historical position through today's public Expert boundary.
+private func restoredSnapshot(_ snapshot: DecisionSnapshot, fixture: SavedFixture) throws -> DecisionSnapshot {
+    var board = try BoardState(id: snapshot.boardID, deal: Dictionary(uniqueKeysWithValues: fixture.hands.map { ($0.seat, $0.cards) }),
+                               contract: fixture.contract, vulnerability: fixture.vulnerability, scoring: fixture.scoring,
+                               objective: fixture.objective, publicBackground: fixture.publicBackground)
+    for event in snapshot.events { try board.play(event.card, by: event.seat) }
+    return try board.snapshot(controller: snapshot.controller)
 }
