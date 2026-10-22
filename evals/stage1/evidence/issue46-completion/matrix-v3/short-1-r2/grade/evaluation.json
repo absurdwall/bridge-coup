@@ -1,0 +1,33 @@
+{
+  "rubric_version": "stage1-basic-v4",
+  "results": [
+    {
+      "id": "play",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "legal play and factual accuracy",
+          "fact": "North can legally follow D3, and South can win the opening diamond trick with DA.",
+          "explanation": "West led DQ; North holds D8653 and South holds DAK. The selected card follows suit, and the proposed winner is valid.",
+          "quotes": [
+            "Play the low D3 under West’s queen, preserving dummy’s higher diamonds while South can take the trick with an ace."
+          ]
+        },
+        {
+          "dimension": "plan feasibility",
+          "fact": "The club development route is feasible with the authorized cards and entries.",
+          "explanation": "South holds CAK864 and North CQ72. After CA and CK, South can lead a club to CQ; North's HK and South's HA provide the return route. A 3–2 club split yields five club tricks and ten total. The answer leaves distribution conditional and claims no unsupported ninth immediate winner.",
+          "quotes": [
+            "Develop the five-card club suit by cashing CA and CK and continuing clubs, adapting to the defenders’ distribution and retaining dummy entries where possible."
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Small-sample basic evaluation; no claim of broad grading reliability."
+}

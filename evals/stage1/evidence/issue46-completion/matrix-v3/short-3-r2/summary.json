@@ -1,0 +1,174 @@
+{
+  "id": "short-3-r2",
+  "case_id": "short-3",
+  "kind": "short",
+  "board": "boards/synthetic.json",
+  "decisions": 12,
+  "opponent_policy": "conserve-high",
+  "task_complete": true,
+  "legal_execution": "pass",
+  "quality": "fail",
+  "playing": {
+    "exit_code": 0,
+    "wall_seconds": 43.997
+  },
+  "grading": {
+    "exit_code": 0,
+    "grading_evidence_available": true
+  },
+  "coverage": {
+    "status": "pending",
+    "basis": "Actual information windows observed; factual use, justified retention/replacement and non-invention require independent review.",
+    "facets": {
+      "two_round_break_decision_revisions": [
+        16,
+        20,
+        22,
+        24,
+        26
+      ],
+      "third_club_before_other_defender_revisions": []
+    }
+  },
+  "counts": {
+    "actual_events": 27,
+    "complete": false,
+    "tricks": [
+      5,
+      1
+    ],
+    "model_request_attempts": 12,
+    "actual_rpc_requests": 12,
+    "model_actions": 12,
+    "forced_actions": 2,
+    "driver_opponent_actions": 12,
+    "initial_controlled_actions": 0,
+    "initial_opponent_actions": 1,
+    "retries": 0
+  },
+  "wire": {
+    "upstream_request_attempts": 12,
+    "http_statuses": {
+      "200": 12
+    },
+    "transport_errors": [],
+    "missing_response_metadata": [],
+    "observed_response_models": [
+      "gpt-6-luna"
+    ]
+  },
+  "timing": {
+    "elapsedSeconds": 43.83263099193573,
+    "lastControlledActionSeconds": 43.83180594444275,
+    "environmentOverheadSeconds": 0.06366729736328125,
+    "initialRequestSeconds": 5.74535596370697,
+    "subsequentRequestSeconds": [
+      3.945189952850342,
+      5.72278106212616,
+      3.2338240146636963,
+      4.636392951011658,
+      3.6332058906555176,
+      2.1968820095062256,
+      3.1655449867248535,
+      5.223474979400635,
+      2.44861900806427,
+      2.174312949180603,
+      1.6433799266815186
+    ],
+    "failedRequestSeconds": null
+  },
+  "quality_counts": {
+    "pass": 8,
+    "fail": 4,
+    "uncertain": 0
+  },
+  "review_required": [
+    {
+      "id": "decision-0004",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "action_plan_consistency",
+          "fact": "The selected duck contradicts the retained instruction to win this club trick with CQ.",
+          "explanation": "The active plan explicitly directs C4 to dummy’s CQ. With C4 and West’s C9 already played, North instead selects C2 and keeps that plan. This materially changes the intended club route without replacing its advice.",
+          "quotes": [
+            "Let West’s C9 take this trick rather than spend dummy’s queen; South still holds the club ace and king.",
+            "\"update\":\"keep\""
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0006",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "physical_route",
+          "fact": "The specified consecutive CA–CK route cannot preserve dummy’s CQ.",
+          "explanation": "North has only CQ7. After following C7 to CA, North must play CQ on CK. The explicit order therefore consumes the queen under the king, contradicting the instruction to preserve it. A different order could preserve CQ but does not validate the stated route.",
+          "quotes": [
+            "Cash CA, then continue with CK and assess the defenders’ club holdings and discards.",
+            "Preserve dummy’s CQ"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0007",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "retained_plan_feasibility",
+          "fact": "Keeping the plan retains an impossible instruction to preserve CQ through the next CK.",
+          "explanation": "C7 is a sensible legal follow to South’s CA, but it leaves North with singleton CQ. The retained plan next directs CK while also requiring CQ to be preserved; North will be forced to follow with that queen.",
+          "quotes": [
+            "Follow with C7, preserving dummy’s queen while South’s ace holds the trick.",
+            "\"update\":\"keep\""
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0008",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "remaining_cards_and_ordering",
+          "fact": "Cashing CK necessarily consumes dummy’s singleton CQ immediately.",
+          "explanation": "North’s only remaining club is CQ, so it must follow to the selected CK. The reason’s proposed later access to that queen and the retained preservation instruction are physically impossible.",
+          "quotes": [
+            "Cash the club king, another sure winner, before deciding how best to reach dummy’s remaining club queen.",
+            "\"update\":\"keep\""
+          ]
+        }
+      ]
+    }
+  ],
+  "plan_updates": {
+    "keep": 7,
+    "replace": 5,
+    "withdraw": 0
+  },
+  "failures": [],
+  "outcome": "fail"
+}

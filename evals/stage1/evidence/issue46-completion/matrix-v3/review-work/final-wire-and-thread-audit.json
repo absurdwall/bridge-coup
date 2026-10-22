@@ -1,0 +1,54 @@
+{
+  "candidate": "7129ffd352ee332c50b08db9d71a62d069afaaeb",
+  "attempts": 22,
+  "actual_requests": 266,
+  "requested_models": {
+    "gpt-6-luna": 266
+  },
+  "reasoning": {
+    "{'effort': 'medium', 'context': 'all_turns'}": 266
+  },
+  "schema_property_orders": {
+    "['publicReason', 'plan', 'selectedCard']": 266
+  },
+  "raw_output_orders": {
+    "['publicReason', 'plan', 'selectedCard']": 266
+  },
+  "plan_operations": {
+    "replace": 97,
+    "keep": 169
+  },
+  "unexpected_requests": [],
+  "thread_counts_by_attempt": {
+    "short-1-r1": 1,
+    "short-1-r2": 1,
+    "short-1-r3": 1,
+    "short-2-r1": 1,
+    "short-2-r2": 1,
+    "short-2-r3": 1,
+    "short-3-r1": 1,
+    "short-3-r2": 1,
+    "short-3-r3": 1,
+    "short-4-r1": 1,
+    "short-4-r2": 1,
+    "short-4-r3": 1,
+    "short-5-r1": 1,
+    "short-5-r2": 1,
+    "short-5-r3": 1,
+    "short-6-r1": 1,
+    "short-6-r2": 1,
+    "short-6-r3": 1,
+    "full-development-r1": 1,
+    "full-development-r2": 1,
+    "full-reserved-r1": 1,
+    "full-reserved-r2": 1
+  },
+  "unique_board_threads": 22,
+  "public_input_output_cjk_hits": [],
+  "http_requests": 266,
+  "http_statuses": {
+    "200": 266
+  },
+  "playing_retries": 0,
+  "limits": "Public text and captured requested/observable identities only. No decrypted hidden reasoning or proof of internal service routing."
+}

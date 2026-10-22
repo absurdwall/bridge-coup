@@ -1,31 +1,26 @@
-# Issue 46 completion evidence
+# Issue 46 implementation and evaluation evidence
 
-This candidate applies the approved complete-snapshot protocol to the Stage 1 core. Historical failures remain unchanged. No stage acceptance is claimed by these preparatory results.
+**Stage 1 has not passed acceptance.** PR #47 remains draft; neither it nor PR #45 may be merged without explicit user approval.
 
-The playing model is gpt-6-luna / medium. Independent grading uses gpt-6.1-sol / medium; independent code review uses Luna / max. Model identities describe requested and observable identities only. PR #45 and this work require explicit user approval before merge.
+Playing requests use Luna Medium. Independent semantic grading uses Sol Medium; independent code review uses Luna Max. Names describe requested and observable identities, not independently established internal service routing.
 
-## Fresh grader calibration
+## Current evidence
 
-Two independent grades of the same six reviewed authored answers use the unchanged stage1-basic-v4 rubric and schema. Both runs classify A/B pass and C–F fail, with exact citations and no evaluator error. These are calibration answers, not player-performance samples. The original raw grades, runtime commands, inputs, public events and local adjudications are preserved in calibration-r1 and calibration-r2. The first temporary directory carried an obsolete v3 label; the saved rubric and result in both runs are v4.
+- [Frozen v3 review](matrix-v3/REVIEW.md): all 22 prescribed attempts completed legally, with 266 player requests. The four full boards took 75.214, 88.017, 106.971 and 79.604 seconds. Independent attempt disposition is **4 pass / 17 fail / 1 pending**. Original grades and exact payloads remain unchanged.
+- [Detailed matrix](matrix-v3/REPORT.md): every attempt, request/action count, timing distribution, original grade and coverage predicate.
+- [Wire and thread audit](matrix-v3/review-work/final-wire-and-thread-audit.json): 266 HTTP 200 responses, empty tools, Luna Medium, one continuing thread per board, no playing retries or public Chinese text. Internal encrypted reasoning language is not asserted.
+- [v4 output-order implementation](output-order-implementation.md): schema, existing field enumeration and examples now follow plan → selectedCard → publicReason; nested update → text and all field meanings remain unchanged. This is a consistency correction with unproven quality benefit.
+- [v4 development plan](development-v4/DEVELOPMENT-PLAN.json): three different scenarios, one fresh run each, separately frozen. These are development checks, not a final 22-attempt matrix, and cannot be combined with v3 passes.
 
-Offline baseline before completing the production no-tools path: 231 Swift tests (10 preexisting skips), 48 Python tests, zero failures. This establishes the starting engineering baseline, not bridge quality.
+Current offline verification is **234 Swift tests, 10 preexisting skips, and 53 Python tests, zero failures**. The first Python run caught a stale native-boundary expectation for the old order; its failure, corrected assertion and final passing run are preserved in [tdd](tdd/). Both Luna Max review axes found no new concrete source defect. Engineering checks do not establish bridge quality.
 
-## Integrated engineering checks
+## Earlier development and calibration
 
-After snapshot, runtime and evaluator integration:233 Swift tests (10 preexisting skips) and52 Python tests pass. Public-seam regressions cover preserved caller context, MP default objective, empty runtime tool catalog, frozen catalog mutation, same-turn request/output evidence and default doubling. Red/green logs are retained in tdd/.
+Two independent grades of the same six reviewed calibration answers use the unchanged stage1-basic-v4 rubric: A/B pass, C–F fail, exact citations, no evaluator errors. [Calibration 1](calibration-r1/) and [calibration 2](calibration-r2/) preserve commands, packages and judgments. The first temporary directory had an obsolete v3 name; the actual rubric/results are v4. This bounded calibration does not establish universal grader accuracy.
 
-## Development playing evidence
+- `development-v1`: eight legal Medium decisions; the original contract-default grading dispatch error is preserved alongside saved-output regrading and independent review.
+- `development-full-v1`: interrupted after explicit known-rank/consumed-card defects. Saved evidence was retained; no final trace or repaired answer was synthesized.
+- `development-full-v2`: legal completion in 117.316 seconds; independent review confirms an unnecessary HA overtake of partner HK. This motivated exposing the Engine's existing public current winner, not adding strategic analysis.
+- v3 added `current.winningPlay`, with rationale in issue #46 comment 6337462204. The subsequent full matrix still failed basic semantic quality.
 
-Development v1 completed8 legal Medium decisions in one thread; original case-dispatch failure remains preserved. Saved-output Sol grading after the contract-default fix is in development-v1/development-continuation/grade-after-contract-fix/. It reports6 pass and2 fail for an alleged missing ninth-trick route in a replacement plan; independent adjudication is pending. No playing answer was replaced. A separate full-board development run uses the same playing implementation, without instructions changes. No finite acceptance claim is made.
-
-## Candidate v2
-
-The general fact-checking refinement adds39 words to decision step2; exact diff and actual-wire diagnosis are retained. Final integrated offline checks:233 Swift tests (10 existing skips),53 Python tests, zero failures. Both independent Luna Max review axes find no new concrete implementation defect.
-
-The complete development-v2 board takes117.316 seconds and completes legally, but Sol Medium reports19 passes and1 failure: an unnecessary HA overtake of partner HK, with a reason focused on lower opponent H8. The next correction will make the already-computed public current winner explicit in the complete JSON snapshot. The final22-attempt matrix is still not run; no acceptance claim.
-
-## Candidate v3 ready for finite evaluation
-
-The existing public Engine currentWinningPlay is now serialized as current.winningPlay; its rationale is tracked in issue46 comment6337462204. Fixed instructions define that fact and verify current-card effect without prescribing a specific play. No model, effort, schema, objective, scorer, corpus, history or tool-policy change.
-
-Integrated checks:234 Swift tests (10 preexisting skips),53 Python tests, zero failures. Independent Luna Max standards/spec incremental reviews find no new concrete source defect. This establishes readiness to evaluate the frozen candidate, not a model-quality pass. Run the complete predefined22 attempts once, sequentially, preserving every answer and result; no pilot pass can substitute for an acceptance attempt.
+Caller objective/public background, scoring-neutral defaults, the production no-tools path and same-turn evaluator evidence were repaired before the frozen matrix. Their implementation notes, public-boundary regressions and red/green logs remain in this directory. Original manual worktrees and unrelated user work were preserved. No UI work or new in-play reasoner was added.

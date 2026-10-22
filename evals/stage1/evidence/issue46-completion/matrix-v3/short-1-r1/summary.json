@@ -1,0 +1,71 @@
+{
+  "id": "short-1-r1",
+  "case_id": "short-1",
+  "kind": "short",
+  "board": "boards/synthetic.json",
+  "decisions": 1,
+  "opponent_policy": "conserve-high",
+  "task_complete": true,
+  "legal_execution": "pass",
+  "quality": "pass",
+  "playing": {
+    "exit_code": 0,
+    "wall_seconds": 9.14
+  },
+  "grading": {
+    "exit_code": 0,
+    "grading_evidence_available": true
+  },
+  "coverage": {
+    "status": "covered",
+    "basis": "Initial actual model plan before the first controlled action."
+  },
+  "counts": {
+    "actual_events": 2,
+    "complete": false,
+    "tricks": [
+      0,
+      0
+    ],
+    "model_request_attempts": 1,
+    "actual_rpc_requests": 1,
+    "model_actions": 1,
+    "forced_actions": 0,
+    "driver_opponent_actions": 0,
+    "initial_controlled_actions": 0,
+    "initial_opponent_actions": 1,
+    "retries": 0
+  },
+  "wire": {
+    "upstream_request_attempts": 1,
+    "http_statuses": {
+      "200": 1
+    },
+    "transport_errors": [],
+    "missing_response_metadata": [],
+    "observed_response_models": [
+      "gpt-6-luna"
+    ]
+  },
+  "timing": {
+    "elapsedSeconds": 8.920099020004272,
+    "lastControlledActionSeconds": 8.919171929359436,
+    "environmentOverheadSeconds": 0.008088946342468262,
+    "initialRequestSeconds": 8.912010073661804,
+    "subsequentRequestSeconds": [],
+    "failedRequestSeconds": null
+  },
+  "quality_counts": {
+    "pass": 1,
+    "fail": 0,
+    "uncertain": 0
+  },
+  "review_required": [],
+  "plan_updates": {
+    "keep": 0,
+    "replace": 1,
+    "withdraw": 0
+  },
+  "failures": [],
+  "outcome": "pass"
+}

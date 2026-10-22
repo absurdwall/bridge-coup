@@ -1,0 +1,164 @@
+{
+  "rubric_version": "stage1-basic-v4",
+  "results": [
+    {
+      "id": "decision-0001",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "physical feasibility",
+          "fact": "The proposed diamond hold-up cannot preserve both South honors for a later continuation.",
+          "explanation": "South holds only DA and DK and must play one on the opening diamond trick. If West subsequently continues diamonds, South can play the remaining honor but cannot retain another diamond honor as instructed. D8 itself is legal.",
+          "quotes": [
+            "Duck West’s opening DQ with D8.",
+            "If West continues diamonds, win with South’s ace or king as appropriate, retaining the other honor as control."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0002",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "active plan consistency",
+          "fact": "Keeping the plan retains an impossible future diamond-control instruction.",
+          "explanation": "DA legally wins the current trick and leaves South with singleton DK. The retained instruction to win a subsequent West diamond continuation while retaining another honor is therefore impossible.",
+          "quotes": [
+            "Win West’s queen with the ace, keeping the king as a second diamond control.",
+            "\"update\":\"keep\"",
+            "If West continues diamonds, win with South’s ace or king as appropriate, retaining the other honor as control."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0003",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "winner identification",
+          "fact": "The proposed queen play is not a finesse against the club jack.",
+          "explanation": "South holds CA and CK, and North holds CQ. No defender can beat CQ on the proposed low-club lead, regardless of CJ's location. The losing-finesse contingency rests on an impossible winner assessment.",
+          "quotes": [
+            "Lead C4 toward North’s CQ, taking the finesse if the club jack is placed favorably.",
+            "If the finesse loses, use South’s remaining diamond king and major-suit aces to regain the lead and reassess"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0004",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "play order",
+          "fact": "South cannot cover East's club on this trick.",
+          "explanation": "South has already led C4, West has played C9, and North acts before East. South gets no further play this trick. Playing C2 also abandons the retained instruction to play toward CQ, which would necessarily win with CA and CK held by South.",
+          "quotes": [
+            "preserve the queen until East’s play is known, while South can still cover a higher club."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0005",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "physical feasibility",
+          "fact": "South cannot retain DK for a later diamond.",
+          "explanation": "West has led DJ and South's only remaining diamond is DK. After North follows with D3, South must follow with DK on this same trick.",
+          "quotes": [
+            "dummy’s low card preserves South’s king as a later stopper.",
+            "On West’s DJ, play D3 from dummy and retain South’s DK to stop a later diamond."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0006",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "feasible continuation",
+          "fact": "CA is a sure winner and begins a feasible club development route.",
+          "explanation": "South holds CAK86 opposite CQ7. Cashing CA while preserving CQ permits subsequent club development, with major-suit entries available. The completed history already accounts for DK; its earlier plan reference need not instruct replaying it. Calling the earlier club duck a finesse is imprecise but does not invalidate this continuation.",
+          "quotes": [
+            "Cash the club ace to take a sure trick and begin testing the suit",
+            "use the remaining club honors carefully, and develop North’s CQ only if it can be reached safely."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0007",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "winner preservation",
+          "fact": "C7 legally follows under CA and preserves CQ.",
+          "explanation": "South's CA is unbeatable in notrump, and North holds CQ7. Following with C7 preserves CQ for a subsequent low-club lead from South's remaining K86, consistent with the unfinished club plan.",
+          "quotes": [
+            "Follow low under South’s ace, preserving dummy’s queen for a later club lead."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0008",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "feasible continuation",
+          "fact": "CK is an assured winner and establishes South's remaining clubs.",
+          "explanation": "CA has been played, North holds singleton CQ, and the only outstanding defender club is CJ: C9, C5, C3 and CT have appeared. CK draws CQ and CJ, leaving C8 and C6 winners. Together with three tricks already won and HA, HK and SA, this provides nine tricks.",
+          "quotes": [
+            "Cash the club king while it is an assured winner; the defenders’ ten and nine have both appeared."
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Small-sample basic evaluation; no claim of broad grading reliability."
+}

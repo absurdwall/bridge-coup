@@ -1,0 +1,134 @@
+{
+  "id": "short-3-r3",
+  "case_id": "short-3",
+  "kind": "short",
+  "board": "boards/synthetic.json",
+  "decisions": 12,
+  "opponent_policy": "conserve-high",
+  "task_complete": true,
+  "legal_execution": "pass",
+  "quality": "fail",
+  "playing": {
+    "exit_code": 0,
+    "wall_seconds": 67.772
+  },
+  "grading": {
+    "exit_code": 0,
+    "grading_evidence_available": true
+  },
+  "coverage": {
+    "status": "pending",
+    "basis": "Actual information windows observed; factual use, justified retention/replacement and non-invention require independent review.",
+    "facets": {
+      "two_round_break_decision_revisions": [
+        12,
+        16,
+        18,
+        20,
+        22,
+        24
+      ],
+      "third_club_before_other_defender_revisions": []
+    }
+  },
+  "counts": {
+    "actual_events": 25,
+    "complete": false,
+    "tricks": [
+      6,
+      0
+    ],
+    "model_request_attempts": 12,
+    "actual_rpc_requests": 12,
+    "model_actions": 12,
+    "forced_actions": 1,
+    "driver_opponent_actions": 11,
+    "initial_controlled_actions": 0,
+    "initial_opponent_actions": 1,
+    "retries": 0
+  },
+  "wire": {
+    "upstream_request_attempts": 12,
+    "http_statuses": {
+      "200": 12
+    },
+    "transport_errors": [],
+    "missing_response_metadata": [],
+    "observed_response_models": [
+      "gpt-6-luna"
+    ]
+  },
+  "timing": {
+    "elapsedSeconds": 67.48642194271088,
+    "lastControlledActionSeconds": 67.48464000225067,
+    "environmentOverheadSeconds": 0.09771192073822021,
+    "initialRequestSeconds": 10.447071075439453,
+    "subsequentRequestSeconds": [
+      3.4642540216445923,
+      6.912879943847656,
+      4.724739909172058,
+      4.9208279848098755,
+      3.9830819368362427,
+      3.583598017692566,
+      4.491788983345032,
+      3.1336140632629395,
+      5.486464977264404,
+      3.391524076461792,
+      12.848865032196045
+    ],
+    "failedRequestSeconds": null
+  },
+  "quality_counts": {
+    "pass": 10,
+    "fail": 2,
+    "uncertain": 0
+  },
+  "review_required": [
+    {
+      "id": "decision-0003",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "honor_relationships",
+          "fact": "The proposed finesse against CJ cannot lose as described.",
+          "explanation": "South holds CA and CK, and North holds CQ. Consequently, CQ is the highest club available to either defender and cannot lose to CJ, regardless of its location. The plan materially misstates the mechanism and contingency of its main suit.",
+          "quotes": [
+            "Lead C4 toward North's CQ for a finesse against CJ; South's CA and CK remain controls if the finesse loses.",
+            "The club trick count depends on the defenders' club division and honor location."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0012",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "invented_resources",
+          "fact": "The replacement plan attributes nonexistent spade honors to North.",
+          "explanation": "North's authorized remaining spades are S862, with no spade honor; its only remaining honor is HK. Although cashing South's DK, HA and SA would secure nine tricks from six already won, the explicit advice to preserve North's spade honors invents an unavailable follow-up resource.",
+          "quotes": [
+            "Preserve North's heart and spade honors as useful follow-ups; the defenders' intervening cards may affect which side-suit honor is safest to cash first."
+          ]
+        }
+      ]
+    }
+  ],
+  "plan_updates": {
+    "keep": 6,
+    "replace": 6,
+    "withdraw": 0
+  },
+  "failures": [],
+  "outcome": "fail"
+}

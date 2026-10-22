@@ -1,0 +1,236 @@
+{
+  "results": [
+    {
+      "id": "decision-0001",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "feasible route and trick counting",
+          "fact": "The diamond play and conditional nine-trick route are feasible.",
+          "explanation": "North holds D3 and South holds DA and DK. With clubs AK864 opposite Q72, five club tricks are possible on a favorable division; adding two diamonds, HA and SA gives nine. HK also supplies an available fallback winner.",
+          "quotes": [
+            "On the diamond lead, play low from dummy and let South win with DA, preserving DK as a second diamond winner.",
+            "combine those with DA, DK, HA and SA for nine."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0002",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "physical route",
+          "fact": "Winning DA and leading a low club to CQ provides a feasible start.",
+          "explanation": "South holds DA and clubs AK864; North holds CQ72. CQ is a top winner because South holds CA and CK, and North can return a club to South's honors. The finesse terminology is inaccurate but does not invalidate this concrete route or its conditional five-club count.",
+          "quotes": [
+            "Win the opening diamond with DA, preserving DK.",
+            "Develop clubs by leading a low club from South toward dummy’s CQ; if it wins, use the return to continue the suit"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0003",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "action and retained route",
+          "fact": "C4 legally starts the retained club route.",
+          "explanation": "South is on lead holding CA, CK, C8, C6 and C4, opposite North's CQ72. C4 toward CQ is physically feasible, with a club return to South available. Calling it a finesse is inaccurate terminology, but the prescribed play is sound.",
+          "quotes": [
+            "Lead C4 toward dummy’s CQ to try the club finesse while preserving CA and CK as controls."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0004",
+      "status": "fail",
+      "findings": [
+        {
+          "dimension": "card ranking and current-trick reasoning",
+          "fact": "The answer falsely says C9 beats CQ.",
+          "explanation": "North holds CQ and can beat West's C9. South holds CA and CK, so East cannot overtake CQ. The false ranking directly motivates surrendering a trick and declaring the club attempt lost.",
+          "quotes": [
+            "West’s C9 already beats it, so playing CQ gains nothing.",
+            "The first club finesse has lost"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0005",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "current action and feasible remainder",
+          "fact": "D5 follows suit while preserving the available winners and heart crossing.",
+          "explanation": "North holds D865, South holds DK, and West has led DJ. The retained plan's remaining plays using CA, CK and a heart toward North's HK are physically available. The earlier club concession is now completed history.",
+          "quotes": [
+            "Follow with D5, preserving dummy’s higher diamonds; South can decide whether to take West’s DJ with DK."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0006",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "physical transport",
+          "fact": "H3 supplies a valid crossing to North's HK while retaining HA.",
+          "explanation": "South is on lead with HA63 opposite HK74. HK is a guaranteed winner because HA is in South, and North can subsequently return a club toward South's CA and CK. The finesse label does not change the feasible prescribed movement.",
+          "quotes": [
+            "Lead H3 toward dummy’s HK to take the planned heart finesse; South can retain HA as a control."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0007",
+      "status": "fail",
+      "findings": [
+        {
+          "dimension": "card ranking and play order",
+          "fact": "The stated conditional continuation is impossible.",
+          "explanation": "HQ cannot cover HK. Moreover, South already led H3 on this trick and cannot play HA after East's fourth-hand play. With HA in South, North's HK is certain to win.",
+          "quotes": [
+            "if East covers with HQ, South can win with HA; otherwise dummy’s king may win."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0008",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "club development and transport",
+          "fact": "The proposed club continuation has a feasible four-trick route.",
+          "explanation": "North holds CQ7 and South CAK86. C7 can reach a South honor, a low club can then reach CQ, and North's remaining hearts or spades provide an obvious return to HA or SA. Four club tricks remain possible, subject to defender length.",
+          "quotes": [
+            "Lead C7 toward South’s club honors, then use CA and CK to control the suit and establish further club tricks; aim for at least four club tricks.",
+            "while watching for defensive club length and retaining entries to South."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0009",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "current winner and retained route",
+          "fact": "CA wins CT and preserves the resources needed to continue clubs.",
+          "explanation": "South holds CAK86 and East has played CT. CA is unbeatable. North retains CQ, and South retains low clubs plus HA and SA for the subsequent crossings.",
+          "quotes": [
+            "Cover East’s CT with CA to win the trick and retain CK as a further club control."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0010",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "physical transport",
+          "fact": "C6 reaches CQ without consuming CK, and a return entry remains available.",
+          "explanation": "South holds CK86 opposite North's singleton CQ. CA has already been played, so CQ will win. North can then lead a heart to HA or a spade to SA, allowing South to cash its remaining clubs.",
+          "quotes": [
+            "Lead C6 toward dummy’s singleton CQ to try to establish it as another club winner, keeping CK as a control."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0011",
+      "status": "fail",
+      "findings": [
+        {
+          "dimension": "remaining winners and trick counting",
+          "fact": "The replacement plan wrongly excludes South's established C8.",
+          "explanation": "The completed tricks contain every defender club: C9, C5, CT, C3 and CJ. South retains CK8, both winners. H4 to HA supplies entry, after which HA, SA, CK and C8 provide the four tricks needed from five already won.",
+          "quotes": [
+            "Dummy is now out of clubs, so do not count further club tricks beyond CK.",
+            "seek the remaining tricks by developing South’s spades"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0012",
+      "status": "fail",
+      "findings": [
+        {
+          "dimension": "retained plan and remaining winners",
+          "fact": "Keeping the plan retains its material exclusion of the established C8.",
+          "explanation": "All five defender clubs have already appeared, while South holds CK8. Winning HA reaches both club winners. The retained instruction to count only CK therefore replaces a certain nine-trick route with an unnecessary search in spades.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "Dummy is now out of clubs, so do not count further club tricks beyond CK."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0013",
+      "status": "fail",
+      "findings": [
+        {
+          "dimension": "trick counting and contract objective",
+          "fact": "The replacement plan overlooks the established ninth trick in C8.",
+          "explanation": "Six tricks are won and South is on lead holding SA and CK8. Every defender club has been played, so these three cards make nine immediately. Seeking another trick through spade development materially misidentifies the remaining task.",
+          "quotes": [
+            "Six tricks are won; take SA and CK for two more, then seek the ninth by developing spades or forcing a defensive honor."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0014",
+      "status": "fail",
+      "findings": [
+        {
+          "dimension": "retained trick count",
+          "fact": "The retained plan still overlooks C8 as the certain ninth trick.",
+          "explanation": "SA is winning the current trick, and South retains CK8 with all defender clubs exhausted. After SA, those two club winners complete nine. The legal S2 play does not correct the active plan's unnecessary search for a ninth trick.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "then seek the ninth by developing spades or forcing a defensive honor."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0015",
+      "status": "fail",
+      "findings": [
+        {
+          "dimension": "remaining winners",
+          "fact": "The answer fails to recognize that retained C8 already supplies the ninth trick.",
+          "explanation": "Seven tricks are won, South is on lead with CK8, and every defender club has appeared in completed tricks. Cashing CK and C8 guarantees the contract; the current reason and retained plan instead continue seeking a ninth trick elsewhere.",
+          "quotes": [
+            "Cash CK for the eighth trick; retain C8 and the remaining spades while seeking the ninth."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0016",
+      "status": "fail",
+      "findings": [
+        {
+          "dimension": "retained plan and established winner",
+          "fact": "The active plan continues to seek a ninth trick despite South's established C8.",
+          "explanation": "CK is winning the eighth declarer trick, West has discarded D2, and East previously showed out of clubs. South retains C8 and will remain on lead, so it can immediately cash the ninth trick. Keeping the spade-development plan preserves a material counting error.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "then seek the ninth by developing spades or forcing a defensive honor."
+          ]
+        }
+      ]
+    }
+  ]
+}

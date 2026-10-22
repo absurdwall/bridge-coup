@@ -1,0 +1,162 @@
+{
+  "action" : {
+    "actingSeat" : "south",
+    "boardID" : "FCB662BB-601C-471A-8E40-8869F1BD4C3D",
+    "card" : "C3",
+    "controller" : "south",
+    "revision" : 4,
+    "snapshotID" : "FCB662BB-601C-471A-8E40-8869F1BD4C3D:4:south"
+  },
+  "advice" : {
+    "plan" : {
+      "text" : "Lead C3 to dummy’s CA, then use the club honors and spade AK as reliable sources while preserving entries. Keep HA and North’s HQ as heart winners; seek additional tricks by establishing diamonds, mindful that the missing DK may take a winner. We have one trick; develop the remaining sources toward the eight more needed.",
+      "update" : "replace"
+    },
+    "publicReason" : "Lead C3 to dummy’s CA, beginning to cash the club tops while retaining South’s club honors.",
+    "selectedCard" : "C3"
+  },
+  "effectivePlan" : "Lead C3 to dummy’s CA, then use the club honors and spade AK as reliable sources while preserving entries. Keep HA and North’s HQ as heart winners; seek additional tricks by establishing diamonds, mindful that the missing DK may take a winner. We have one trick; develop the remaining sources toward the eight more needed.",
+  "elapsedSeconds" : 6.281213998794556,
+  "identity" : {
+    "observedModel" : "gpt-6-luna",
+    "requestedEffort" : "medium",
+    "requestedModel" : "gpt-6-luna",
+    "runtimeVersion" : "codex-cli 0.160.0",
+    "threadID" : "01a1631f-d0d1-73e3-920f-9b8d1d7cc589",
+    "turnID" : "01a16320-02a0-7c31-9cb6-c3fba8e47fbc"
+  },
+  "input" : "{\n  \"completedTricks\" : [\n    {\n      \"plays\" : [\n        {\n          \"card\" : \"HJ\",\n          \"seat\" : \"W\"\n        },\n        {\n          \"card\" : \"H4\",\n          \"seat\" : \"N\"\n        },\n        {\n          \"card\" : \"H2\",\n          \"seat\" : \"E\"\n        },\n        {\n          \"card\" : \"HK\",\n          \"seat\" : \"S\"\n        }\n      ],\n      \"winner\" : \"S\"\n    }\n  ],\n  \"contract\" : {\n    \"declarer\" : \"S\",\n    \"doubling\" : \"undoubled\",\n    \"level\" : 3,\n    \"strain\" : \"NT\"\n  },\n  \"controller\" : \"S\",\n  \"current\" : {\n    \"toAct\" : \"S\",\n    \"tricksWon\" : {\n      \"declarer\" : 1,\n      \"defenders\" : 0\n    },\n    \"winningPlay\" : null\n  },\n  \"currentTrick\" : [\n\n  ],\n  \"effectivePlan\" : \"Follow low on West’s heart lead, preserving North’s H Q. Use South’s H A\\\/K to capture the lead or a later heart honor as needed, then aim to establish nine tricks from the club and spade tops, heart honors, and diamond winners; develop diamonds carefully, allowing for the missing D K and the defenders’ unknown holdings.\",\n  \"hands\" : {\n    \"N\" : {\n      \"C\" : \"A65\",\n      \"D\" : \"QJ93\",\n      \"H\" : \"Q8\",\n      \"S\" : \"K72\"\n    },\n    \"S\" : {\n      \"C\" : \"KQ83\",\n      \"D\" : \"A72\",\n      \"H\" : \"A5\",\n      \"S\" : \"A64\"\n    }\n  },\n  \"objective\" : \"Normal IMP strategy, weighing contract risk and overtricks.\",\n  \"publicBackground\" : null,\n  \"scoring\" : \"IMP\",\n  \"type\" : \"update\",\n  \"vulnerability\" : \"neither\"\n}",
+  "instructions" : "You are the declarer-play Expert for one bridge board and one decision controller.\nThe thread carries the board's continuing discussion across decisions.\n\nOBJECTIVE\n\nChoose a line that aims for the best expected result under the stated scoring conditions.\n\nDECISION PROCESS\n\n1. Establish the position from the latest snapshot: contract, scoring,\n   remaining authorized hands, actual plays, acting seat and tricks won.\n   Each snapshot replaces the fact view. Recorded plays are already reflected\n   in the remaining hands; repeated history describes the same events.\n\n2. Form or reassess the playing plan using the latest position and\n   the earlier discussion. Check its unfinished line against the remaining\n   cards and entries, treating recorded steps as completed. Compare proposed\n   trick winners with known higher cards and higher cards defenders could\n   still hold. Reconcile tricks already won with the line's remaining trick\n   sources and material conditions before keeping or replacing the plan.\n   Represent the result in the output JSON's \"plan\" object as defined in\n   OUTPUT FORMAT. Plans and predictions remain advice; actual plays\n   establish what happened.\n\n3. Read current.winningPlay to identify the current winner and partnership,\n   or that the trick is on lead. Choose selectedCard from the response\n   schema's legal-card enum for current.toAct. Check its effect on this\n   trick and the unfinished plan, then explain the choice briefly in\n   publicReason.\n\nOUTPUT FORMAT\n\nReturn one JSON object with these fields:\n\n- \"publicReason\": a brief explanation of the card chosen now.\n- \"selectedCard\": the current card, chosen from the response schema's\n  legal-card enum.\n- \"plan\": an object containing the fields \"update\" and \"text\".\n\nThe \"update\" field inside \"plan\" specifies how the program should\nmaintain the active plan:\n\n- \"replace\": replace the active plan with the contents of \"text\".\n- \"keep\": retain the active plan; \"text\" is null.\n- \"withdraw\": clear the active plan; \"text\" is null.\n\nFor \"replace\", the \"text\" field contains the complete natural-language\ndeclarer plan for the remaining board. Explain the intended line,\nits main sources of tricks, and material contingencies.\n\nThe program carries this text verbatim into the next input's\n\"effectivePlan\" field. When revising a plan, supply the complete\nreplacement plan that subsequent decisions should use.\n\nWhen the input's \"type\" field is \"initial\", set the output plan\nobject's \"update\" field to \"replace\" and its \"text\" field to the\ninitial declarer plan.\n\nFor later snapshots, choose \"replace\", \"keep\" or \"withdraw\"\naccording to how the active plan should be maintained.\n\nINPUT REFERENCE\n\nThe user message is a complete authorized JSON snapshot.\nThe input JSON has a string field named \"type\":\n- \"initial\" identifies the first decision for this board.\n- \"update\" identifies a later complete snapshot of the same board.\n\nNotation:\n- Seats: N=North, E=East, S=South, W=West.\n- Suits: S=spades, H=hearts, D=diamonds, C=clubs.\n- Ranks, highest first: A K Q J T 9 8 7 6 5 4 3 2. T means ten.\n- Card codes combine suit and rank: DQ is the queen of diamonds;\n  SA is the ace of spades.\n- In hands, \"S\": \"A94\" means the ace, nine and four of spades.\n  An empty suit string means no remaining cards in that suit.\n  In a seat field, \"S\" means South.\n\nFields:\n- \"contract\": level, strain, doubling and declarer. Strain is S, H, D, C\n  or NT (notrump). Doubling is undoubled, doubled or redoubled.\n- \"scoring\": the scoring method.\n- \"vulnerability\": neither, NS, EW or both.\n- \"objective\": the requested strategic aim, separate from contract and scoring.\n- \"publicBackground\": supplied public context, or null when unavailable.\n  Missing auction or defensive agreements remain unknown.\n- \"controller\": the declarer whose perspective controls decisions from\n  both declarer and dummy.\n- \"hands\": current remaining authorized holdings, grouped by seat and suit.\n  Treat omitted defender holdings as unknown.\n- \"completedTricks\": completed tricks in chronological order. Each contains\n  \"plays\" in actual play order and \"winner\". Each play has \"seat\" and \"card\".\n- \"currentTrick\": the actual plays in the unfinished trick, in play order.\n- \"current\": \"toAct\", \"tricksWon\" (\"declarer\" and \"defenders\"), and \"winningPlay\".\n  \"winningPlay\" is the highest actual play in the current trick under bridge\n  rules, with \"seat\" and \"card\", or null before the lead. Later plays may change it.\n- \"effectivePlan\": the exact active plan carried into this decision,\n  or null when no active plan exists.\n\nILLUSTRATIVE OUTPUT EXAMPLES\n\nIndependent three-card ending: South holds SA S2 HA; North holds SK S3 H2.\nSouth leads. This position illustrates the output format.\n\n{\"publicReason\":\"Cash SA while preserving the crossing to North's SK.\",\"plan\":{\"update\":\"replace\",\"text\":\"Cash SA with North following S3. Lead S2 to North's SK, then return H2 to South's HA.\"},\"selectedCard\":\"SA\"}\n\nAfter South's SA and a low West spade, North follows:\n\n{\"publicReason\":\"Follow with S3, preserving SK for the planned entry.\",\"plan\":{\"update\":\"keep\",\"text\":null},\"selectedCard\":\"S3\"}\n",
+  "planAssociation" : {
+    "boardID" : "FCB662BB-601C-471A-8E40-8869F1BD4C3D",
+    "controller" : "south",
+    "sourceSessionID" : "A8354BB5-7EEA-488C-8AA4-B016901E1E7E",
+    "sourceSnapshotID" : "FCB662BB-601C-471A-8E40-8869F1BD4C3D:4:south",
+    "text" : "Lead C3 to dummy’s CA, then use the club honors and spade AK as reliable sources while preserving entries. Keep HA and North’s HQ as heart winners; seek additional tricks by establishing diamonds, mindful that the missing DK may take a winner. We have one trick; develop the remaining sources toward the eight more needed."
+  },
+  "rawOutput" : "{\"publicReason\":\"Lead C3 to dummy’s CA, beginning to cash the club tops while retaining South’s club honors.\",\"plan\":{\"update\":\"replace\",\"text\":\"Lead C3 to dummy’s CA, then use the club honors and spade AK as reliable sources while preserving entries. Keep HA and North’s HQ as heart winners; seek additional tricks by establishing diamonds, mindful that the missing DK may take a winner. We have one trick; develop the remaining sources toward the eight more needed.\"},\"selectedCard\":\"C3\"}",
+  "session" : {
+    "id" : "A8354BB5-7EEA-488C-8AA4-B016901E1E7E",
+    "snapshotID" : "FCB662BB-601C-471A-8E40-8869F1BD4C3D:4:south"
+  },
+  "snapshot" : {
+    "actingSeat" : "south",
+    "boardID" : "FCB662BB-601C-471A-8E40-8869F1BD4C3D",
+    "completedTricks" : [
+      {
+        "plays" : [
+          {
+            "card" : "HJ",
+            "seat" : "west",
+            "sequence" : 0
+          },
+          {
+            "card" : "H4",
+            "seat" : "north",
+            "sequence" : 1
+          },
+          {
+            "card" : "H2",
+            "seat" : "east",
+            "sequence" : 2
+          },
+          {
+            "card" : "HK",
+            "seat" : "south",
+            "sequence" : 3
+          }
+        ],
+        "winner" : "south"
+      }
+    ],
+    "contract" : {
+      "declarer" : "south",
+      "doubling" : "undoubled",
+      "level" : 3,
+      "strain" : "noTrump"
+    },
+    "controller" : "south",
+    "currentTrick" : [
+
+    ],
+    "declarerTricks" : 1,
+    "defenderTricks" : 0,
+    "events" : [
+      {
+        "card" : "HJ",
+        "seat" : "west",
+        "sequence" : 0
+      },
+      {
+        "card" : "H4",
+        "seat" : "north",
+        "sequence" : 1
+      },
+      {
+        "card" : "H2",
+        "seat" : "east",
+        "sequence" : 2
+      },
+      {
+        "card" : "HK",
+        "seat" : "south",
+        "sequence" : 3
+      }
+    ],
+    "hands" : [
+      {
+        "cards" : [
+          "SA",
+          "S6",
+          "S4",
+          "HA",
+          "H5",
+          "DA",
+          "D7",
+          "D2",
+          "CK",
+          "CQ",
+          "C8",
+          "C3"
+        ],
+        "seat" : "south"
+      },
+      {
+        "cards" : [
+          "SK",
+          "S7",
+          "S2",
+          "HQ",
+          "H8",
+          "DQ",
+          "DJ",
+          "D9",
+          "D3",
+          "CA",
+          "C6",
+          "C5"
+        ],
+        "seat" : "north"
+      }
+    ],
+    "legalCards" : [
+      "SA",
+      "S6",
+      "S4",
+      "HA",
+      "H5",
+      "DA",
+      "D7",
+      "D2",
+      "CK",
+      "CQ",
+      "C8",
+      "C3"
+    ],
+    "objective" : "Normal IMP strategy, weighing contract risk and overtricks.",
+    "revision" : 4,
+    "scoring" : "IMP",
+    "vulnerability" : "neither"
+  },
+  "wireContractVersion" : "stage1-full-snapshot-v5"
+}

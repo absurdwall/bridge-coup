@@ -1,0 +1,17 @@
+diff --git a/evals/stage1/tests/test_runtime_isolation.py b/evals/stage1/tests/test_runtime_isolation.py
+index 66625b1..fd456cc 100644
+--- a/evals/stage1/tests/test_runtime_isolation.py
++++ b/evals/stage1/tests/test_runtime_isolation.py
+@@ -92,10 +92,10 @@ class RuntimeIsolationTests(unittest.TestCase):
+         self.assertNotIn('<multi_agent_mode>', text)
+         self.assertEqual(tools, [], 'Playing requests must not contain generic tools')
+ 
+-    def test_actual_schema_preserves_reason_and_plan_operation_order(self):
++    def test_actual_schema_preserves_plan_card_reason_and_update_text_order(self):
+         request = self.public_request()
+         self.assertEqual(list(request['text']['format']['schema']['properties']),
+-                         ['publicReason', 'plan', 'selectedCard'])
++                         ['plan', 'selectedCard', 'publicReason'])
+         for variant in request['text']['format']['schema']['properties']['plan']['anyOf']:
+             self.assertEqual(list(variant['properties']), ['update', 'text'])
+ 

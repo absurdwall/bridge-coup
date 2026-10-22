@@ -1,0 +1,187 @@
+{
+  "id": "short-6-r2",
+  "case_id": "short-6",
+  "kind": "short",
+  "board": "boards/walker-holdup-adapted.json",
+  "decisions": 12,
+  "opponent_policy": "conserve-high",
+  "task_complete": true,
+  "legal_execution": "pass",
+  "quality": "fail",
+  "playing": {
+    "exit_code": 0,
+    "wall_seconds": 46.039
+  },
+  "grading": {
+    "exit_code": 0,
+    "grading_evidence_available": true
+  },
+  "coverage": {
+    "status": "uncovered",
+    "basis": "Actual pre-DA-loss hold-up, spade continuation, diamond response and later decision are required; communication meaning still needs independent review.",
+    "facets": {
+      "hold_up_before_diamond_ace_loss": false,
+      "spade_continuation_before_diamond_ace_loss": false,
+      "diamond_ace_defensive_response": true,
+      "later_controlled_decision": true
+    }
+  },
+  "counts": {
+    "actual_events": 32,
+    "complete": false,
+    "tricks": [
+      2,
+      6
+    ],
+    "model_request_attempts": 12,
+    "actual_rpc_requests": 12,
+    "model_actions": 12,
+    "forced_actions": 4,
+    "driver_opponent_actions": 15,
+    "initial_controlled_actions": 0,
+    "initial_opponent_actions": 1,
+    "retries": 0
+  },
+  "wire": {
+    "upstream_request_attempts": 12,
+    "http_statuses": {
+      "200": 12
+    },
+    "transport_errors": [],
+    "missing_response_metadata": [],
+    "observed_response_models": [
+      "gpt-6-luna"
+    ]
+  },
+  "timing": {
+    "elapsedSeconds": 45.80686795711517,
+    "lastControlledActionSeconds": 45.804847955703735,
+    "environmentOverheadSeconds": 0.14260578155517578,
+    "initialRequestSeconds": 7.0323100090026855,
+    "subsequentRequestSeconds": [
+      2.8143930435180664,
+      3.677372097969055,
+      3.9483009576797485,
+      4.3361300230026245,
+      3.673768997192383,
+      4.075796961784363,
+      3.93683397769928,
+      3.211453080177307,
+      3.093284010887146,
+      3.10145902633667,
+      2.763159990310669
+    ],
+    "failedRequestSeconds": null
+  },
+  "quality_counts": {
+    "pass": 7,
+    "fail": 5,
+    "uncertain": 0
+  },
+  "review_required": [
+    {
+      "id": "decision-0001",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "Stoppers and entries",
+          "fact": "The plan treats South’s small spades as available entries or stoppers after spending SA.",
+          "explanation": "South holds SA93 and North S87. After SA wins the opening SK, defenders still hold SQ, SJ and ST; S93 supplies no established stopper or entry. The stated preservation advice materially misrepresents declarer’s protection while losing to DA.",
+          "quotes": [
+            "Preserve South’s remaining spades as entries/stoppers"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0002",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "Effective plan",
+          "fact": "Keeping the plan retains an unsupported spade stopper and entry claim.",
+          "explanation": "SA correctly beats the current SK, but playing it leaves South with S93 against outstanding SQJT. The retained plan incorrectly relies on those remaining spades as entries or stoppers.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "Preserve South’s remaining spades as entries/stoppers"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0003",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "Winner identification",
+          "fact": "The replacement plan incorrectly identifies South’s remaining spades as additional winners.",
+          "explanation": "SA has already been played, leaving South S93 and North S8. Defenders’ SQJT remain outstanding, so South’s spades are not established winners or available entries. CJ is also not established against outstanding CKQ.",
+          "quotes": [
+            "South’s remaining spades, heart honors, and club AJ are additional winners and possible entries."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0004",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "Effective plan",
+          "fact": "The retained plan continues to count unsupported spade winners and entries.",
+          "explanation": "D9 is a sound equivalent diamond play from KQJT9 over D6, but keeping the plan retains its material misdescription of South’s S93 with defenders’ SQJT still outstanding.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "South’s remaining spades, heart honors, and club AJ are additional winners and possible entries."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0010",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "Current winner",
+          "fact": "The answer incorrectly claims CA can win a spade trick.",
+          "explanation": "West led S2, which remains the authorized current winner in 3NT. East’s C7 is a discard. South’s CA is also a discard and cannot beat S2; playing it throws away a sure future winner.",
+          "quotes": [
+            "Take East’s C7 with CA; it is the surest chance to win this trick and retain CJ for a later club winner."
+          ]
+        }
+      ]
+    }
+  ],
+  "plan_updates": {
+    "keep": 8,
+    "replace": 4,
+    "withdraw": 0
+  },
+  "failures": [],
+  "outcome": "fail"
+}

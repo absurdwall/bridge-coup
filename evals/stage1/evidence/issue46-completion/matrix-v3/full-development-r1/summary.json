@@ -1,0 +1,350 @@
+{
+  "id": "full-development-r1",
+  "case_id": "full-development",
+  "kind": "full",
+  "board": "boards/synthetic.json",
+  "decisions": null,
+  "opponent_policy": "conserve-high",
+  "task_complete": true,
+  "legal_execution": "pass",
+  "quality": "fail",
+  "playing": {
+    "exit_code": 0,
+    "wall_seconds": 75.465
+  },
+  "grading": {
+    "exit_code": 0,
+    "grading_evidence_available": true
+  },
+  "coverage": {
+    "status": "covered",
+    "basis": "All 52 actual cards consumed in thirteen independently replayed tricks."
+  },
+  "counts": {
+    "actual_events": 52,
+    "complete": true,
+    "tricks": [
+      7,
+      6
+    ],
+    "model_request_attempts": 19,
+    "actual_rpc_requests": 19,
+    "model_actions": 19,
+    "forced_actions": 7,
+    "driver_opponent_actions": 25,
+    "initial_controlled_actions": 0,
+    "initial_opponent_actions": 1,
+    "retries": 0
+  },
+  "wire": {
+    "upstream_request_attempts": 19,
+    "http_statuses": {
+      "200": 19
+    },
+    "transport_errors": [],
+    "missing_response_metadata": [],
+    "observed_response_models": [
+      "gpt-6-luna"
+    ]
+  },
+  "timing": {
+    "elapsedSeconds": 75.21407699584961,
+    "lastControlledActionSeconds": 75.21407699584961,
+    "environmentOverheadSeconds": 0.31833910942077637,
+    "initialRequestSeconds": 7.7916319370269775,
+    "subsequentRequestSeconds": [
+      3.4888360500335693,
+      4.271404981613159,
+      3.191259026527405,
+      2.9677900075912476,
+      2.9964840412139893,
+      5.282853960990906,
+      2.9370310306549072,
+      3.8228440284729004,
+      6.169197916984558,
+      3.7457770109176636,
+      5.5418819189071655,
+      3.375559091567993,
+      3.962584972381592,
+      3.525691032409668,
+      3.012753963470459,
+      3.4216009378433228,
+      3.175341010093689,
+      2.215214967727661
+    ],
+    "failedRequestSeconds": null
+  },
+  "quality_counts": {
+    "pass": 6,
+    "fail": 13,
+    "uncertain": 0
+  },
+  "review_required": [
+    {
+      "id": "decision-0007",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "card ranking",
+          "fact": "The answer incorrectly treats CJ as a threat to CQ.",
+          "explanation": "CA and CK have already been played, leaving North’s CQ as the highest remaining club. CJ ranks below CQ regardless of which defender holds it. This false ranking materially redirects the replacement plan.",
+          "quotes": [
+            "the defenders’ club plays leave CQ potentially vulnerable to CJ",
+            "CJ is unaccounted for, so do not count CQ as certain until its location is clearer."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0008",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "retained plan accuracy",
+          "fact": "Keeping the plan retains its false claim that the missing CJ makes CQ uncertain.",
+          "explanation": "The authorized history shows CA and CK already consumed, and North still holds CQ. CQ is therefore a certain club winner; CJ cannot beat it. The legal D5 follow does not repair the active plan.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "CJ is unaccounted for, so do not count CQ as certain until its location is clearer."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0009",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "retained plan accuracy",
+          "fact": "The answer retains an erroneous assessment of CQ despite leading toward it.",
+          "explanation": "CA and CK have already won, so North’s remaining CQ is the highest outstanding club. The retained warning about CJ is materially false, even though C8 toward CQ is feasible.",
+          "quotes": [
+            "Lead C8 toward dummy’s CQ, attempting to establish it while South retains lower clubs.",
+            "CJ is unaccounted for, so do not count CQ as certain until its location is clearer."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0010",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "remaining resources and trick counting",
+          "fact": "The replacement plan falsely declares clubs exhausted and excludes two established winners.",
+          "explanation": "South explicitly retains C64. The history accounts for every other club, including CJ on the CQ trick, so both remaining clubs are winners. Five tricks plus HK, HA and SA total eight, leaving one trick needed for 3NT, rather than the stated two.",
+          "quotes": [
+            "Seek the remaining two tricks from the major-suit holdings; the defenders’ CJ has now been forced out, but the clubs are exhausted, so avoid counting further club winners."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0011",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "winner accuracy and action consistency",
+          "fact": "HA unnecessarily overtakes an unbeatable HK and contradicts the retained separate heart-winner plan.",
+          "explanation": "North’s HK is currently winning and South owns the only higher heart, HA. West cannot hold a higher heart than HK. Playing H3 or H6 preserves HA as a separate winner; playing HA consumes both honors on one trick.",
+          "quotes": [
+            "HA secures it against any higher card from West.",
+            "cash HK from dummy and use South’s HA and SA for two more sure tricks."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0012",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "established winners",
+          "fact": "The replacement plan falsely denies established club winners.",
+          "explanation": "South holds C64, and the completed club tricks account for all eleven other clubs. Both clubs are therefore established winners. With six tricks won, South can cash SA and C64 to make 3NT immediately.",
+          "quotes": [
+            "Cash SA, the remaining sure winner.",
+            "The remaining hearts and clubs offer no established winners;"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0013",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "retained plan accuracy",
+          "fact": "The retained plan overlooks South’s two established club winners.",
+          "explanation": "South retains C64, with every other club accounted for in completed tricks. SA is currently winning, so those clubs provide the two further tricks needed after it. Following S2 is sound, but keeping the false resource assessment is material.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "The remaining hearts and clubs offer no established winners;"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0014",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "contract objective and retained plan",
+          "fact": "The answer pursues speculative spade development while denying two cashable club winners.",
+          "explanation": "Seven tricks are won and South is on lead with C64. Every other club has been played, so cashing those cards guarantees nine tricks. The retained false assessment materially drives the S9 choice.",
+          "quotes": [
+            "Lead S9 toward dummy’s S8, hoping to establish another spade trick while preserving the remaining low cards.",
+            "The remaining hearts and clubs offer no established winners;"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0015",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "retained plan accuracy",
+          "fact": "Keeping the plan continues to misidentify South’s established clubs.",
+          "explanation": "South still holds C64, and completed tricks account for every other club. These are established winners if South regains the lead. The accurate S6 follow beneath West’s SQ does not correct the active plan’s material false statement.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "The remaining hearts and clubs offer no established winners;"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0016",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "retained plan accuracy",
+          "fact": "The active plan still falsely excludes established club winners.",
+          "explanation": "South retains C64, while all other clubs appear in completed tricks. They remain established winners, although reaching South now depends on subsequent play. The legal D6 follow does not repair that false assessment.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "The remaining hearts and clubs offer no established winners;"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0017",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "retained plan accuracy",
+          "fact": "The answer retains the false claim that South’s clubs are unestablished.",
+          "explanation": "South holds C64 and no defender can retain a club: all eleven other clubs are recorded in completed tricks. Discarding H3 legally preserves those winners, but the retained plan still materially misstates the available trick source.",
+          "quotes": [
+            "Discard H3 on the losing diamond trick, keeping the other suits’ low cards available.",
+            "The remaining hearts and clubs offer no established winners;"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0018",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "resource preservation and retained plan",
+          "fact": "The answer discards an established club winner while retaining a plan that denies its value.",
+          "explanation": "South holds C64 and every other club has already been consumed. C4 is therefore an established winner. Discarding it reduces the available club winners from two to one while declarer still needs two tricks.",
+          "quotes": [
+            "Discard C4 on the losing diamond trick, keeping the remaining cards in the other suits.",
+            "The remaining hearts and clubs offer no established winners;"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0019",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "retained plan accuracy",
+          "fact": "The retained plan still falsely denies an established club winner.",
+          "explanation": "South’s remaining C6 is the only unplayed club: the completed history includes all other clubs, including South’s C4 discard. C6 is established, although access to South is uncertain. The legal H4 follow does not correct the active plan.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "The remaining hearts and clubs offer no established winners;"
+          ]
+        }
+      ]
+    }
+  ],
+  "plan_updates": {
+    "keep": 15,
+    "replace": 4,
+    "withdraw": 0
+  },
+  "failures": [],
+  "outcome": "fail"
+}

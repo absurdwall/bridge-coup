@@ -1,0 +1,233 @@
+{
+  "id": "short-3-r1",
+  "case_id": "short-3",
+  "kind": "short",
+  "board": "boards/synthetic.json",
+  "decisions": 12,
+  "opponent_policy": "conserve-high",
+  "task_complete": true,
+  "legal_execution": "pass",
+  "quality": "fail",
+  "playing": {
+    "exit_code": 0,
+    "wall_seconds": 63.825
+  },
+  "grading": {
+    "exit_code": 0,
+    "grading_evidence_available": true
+  },
+  "coverage": {
+    "status": "pending",
+    "basis": "Actual information windows observed; factual use, justified retention/replacement and non-invention require independent review.",
+    "facets": {
+      "two_round_break_decision_revisions": [
+        12,
+        16,
+        18,
+        20,
+        22,
+        24
+      ],
+      "third_club_before_other_defender_revisions": []
+    }
+  },
+  "counts": {
+    "actual_events": 25,
+    "complete": false,
+    "tricks": [
+      6,
+      0
+    ],
+    "model_request_attempts": 12,
+    "actual_rpc_requests": 12,
+    "model_actions": 12,
+    "forced_actions": 1,
+    "driver_opponent_actions": 11,
+    "initial_controlled_actions": 0,
+    "initial_opponent_actions": 1,
+    "retries": 0
+  },
+  "wire": {
+    "upstream_request_attempts": 12,
+    "http_statuses": {
+      "200": 12
+    },
+    "transport_errors": [],
+    "missing_response_metadata": [],
+    "observed_response_models": [
+      "gpt-6-luna"
+    ]
+  },
+  "timing": {
+    "elapsedSeconds": 63.543667912483215,
+    "lastControlledActionSeconds": 63.5428329706192,
+    "environmentOverheadSeconds": 0.05790293216705322,
+    "initialRequestSeconds": 12.292750000953674,
+    "subsequentRequestSeconds": [
+      4.240216970443726,
+      4.678140997886658,
+      3.054237961769104,
+      4.329527974128723,
+      3.4116510152816772,
+      5.304633021354675,
+      6.796375036239624,
+      3.7918089628219604,
+      6.381669044494629,
+      3.9551730155944824,
+      5.249580979347229
+    ],
+    "failedRequestSeconds": null
+  },
+  "quality_counts": {
+    "pass": 5,
+    "fail": 7,
+    "uncertain": 0
+  },
+  "review_required": [
+    {
+      "id": "decision-0001",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "physical feasibility",
+          "fact": "South cannot let DQ win the opening trick.",
+          "explanation": "South holds only DA and DK in diamonds and must follow suit. Either card beats West's DQ, so the installed duck-and-win-continuation route is impossible.",
+          "quotes": [
+            "Let West's DQ take the first trick by following low in dummy. Win the continuation with an appropriate diamond honor if available"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0002",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "action-plan consistency",
+          "fact": "Winning with DA contradicts the retained instruction to let DQ win this still-unfinished trick.",
+          "explanation": "The current trick is DQ-D3-D4, with South to play from DA-DK. The chosen DA correctly wins, but keep retains an impossible instruction for this same trick.",
+          "quotes": [
+            "Win West's DQ with DA, securing the trick while retaining DK for a later diamond winner.",
+            "\"update\":\"keep\"",
+            "Let West's DQ take the first trick by following low in dummy."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0008",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "remaining resources and trick counting",
+          "fact": "The established club suit is not exhausted.",
+          "explanation": "South still holds C8 and C6. The completed club rounds account for every defender club, so both are established winners. Together with HA, HK, DK and SA, they provide six remaining winners after four tricks won. The replacement plan materially discards this known source.",
+          "quotes": [
+            "the defenders' club honors have been removed, but the established club suit is exhausted."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0009",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "retained plan accuracy",
+          "fact": "The retained plan falsely treats South's established clubs as exhausted.",
+          "explanation": "HA legally beats East's H8, but keep retains the material resource error. South still holds C8 and C6, and the completed club rounds prove that no defender clubs remain.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "the defenders' club honors have been removed, but the established club suit is exhausted."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0010",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "trick counting",
+          "fact": "The fourth needed trick is already available from established clubs.",
+          "explanation": "With five tricks won, South retains two certain club winners, C8 and C6, alongside DK and SA, while North has HK. These are five known remaining winners. Calling the fourth needed trick uncertain materially miscounts the available contract route.",
+          "quotes": [
+            "The fourth needed trick is uncertain: test for an extra heart or spade winner"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0011",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "retained trick count",
+          "fact": "The retained plan overlooks two established club winners.",
+          "explanation": "HK correctly beats H9, with HA already played. However, South still holds C8 and C6 and all defender clubs have been played. Keeping the plan preserves its materially false claim that an additional heart or spade trick is needed.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "The fourth needed trick is uncertain: test for an extra heart or spade winner"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0012",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "retained contract route",
+          "fact": "The retained plan still incorrectly treats a necessary winner as uncertain.",
+          "explanation": "Six tricks are won, and South has four certain winners: DK, SA, C8 and C6. D5 toward DK is feasible, but keeping the plan retains the material omission of established clubs and an unnecessary search for another heart or spade winner.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "The fourth needed trick is uncertain: test for an extra heart or spade winner"
+          ]
+        }
+      ]
+    }
+  ],
+  "plan_updates": {
+    "keep": 9,
+    "replace": 3,
+    "withdraw": 0
+  },
+  "failures": [],
+  "outcome": "fail"
+}
