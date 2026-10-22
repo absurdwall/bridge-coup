@@ -1,0 +1,125 @@
+{
+  "rubric_version": "stage1-basic-v4",
+  "results": [
+    {
+      "id": "A",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "feasible_route_and_count",
+          "fact": "The stated club route is feasible and produces ten tricks on a 3-2 break.",
+          "explanation": "South holds CAK864 and North CQ72, allowing low to CQ, a club back to CA, then CK and two established clubs. Five clubs plus SA, HA, HK, DA and DK total ten. The answer correctly treats the unknown break as conditional; D3 legally follows the diamond lead.",
+          "quotes": [
+            "Win the opening diamond in South, then lead a low club to CQ. Return a club to CA, cash CK and, if clubs prove 3-2, the remaining two clubs.",
+            "If a bad break appears, reassess from actual cards; 3-2 is an assumption, not known."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "feasible_route_and_entries",
+          "fact": "The alternative club order preserves a valid return to South.",
+          "explanation": "North can play C2 and C7 under South's CA and CK, then win the third club with CQ. North's H4 or H7 then reaches South's HA to cash the two established clubs on a 3-2 break. HK remains accessible through South's remaining low hearts, giving ten tricks with SA and both diamond honors. D8 legally follows suit.",
+          "quotes": [
+            "Win DA, cash CA and CK, playing low clubs from dummy. Then lead a low club to CQ.",
+            "If clubs split 3-2, the opponents have no clubs left; lead a low heart from dummy to HA and cash the two long clubs."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "invented_card_and_trick_count",
+          "fact": "The plan invents SJ and incorrectly claims nine immediate winners.",
+          "explanation": "South's authorized spades are SA, S9 and S4; neither visible hand contains SJ. The partnership has eight top tricks, and even a held SJ would not be an immediate winner beneath the missing SK and SQ.",
+          "quotes": [
+            "There are nine immediate top tricks, including the SJ in South.",
+            "I will cash SA, SJ, HA, HK, DA, DK, CA, CK and CQ without needing to establish any suit."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "D",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "incoherent_condition",
+          "fact": "The stated condition for cashing the long clubs is impossible.",
+          "explanation": "South has five clubs and North three, leaving only five opposing clubs. Both defenders following to all three rounds would require six opposing clubs. On the intended 3-2 break, one defender must show out on round three.",
+          "quotes": [
+            "If both defenders follow to all three rounds of clubs, cash the two long clubs for ten total tricks."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E",
+      "mechanical": "fail",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "illegal_current_action",
+          "fact": "CA cannot be played by the current actor and does not follow the diamond lead.",
+          "explanation": "North must act after West's DQ and holds D8, D6, D5 and D3. CA belongs to South. South's control of both hands does not permit playing from South out of turn.",
+          "quotes": [
+            "\"currentCard\": \"CA\"",
+            "Cash an ace now from South to start the long suit."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "F",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "unjustified_certainty",
+          "fact": "The diamond lead does not establish a 3-2 club break.",
+          "explanation": "Only West's DQ has been observed, and auction and lead agreements are unknown. The five missing clubs can have other distributions, so the claimed five club tricks and ten total tricks are not guaranteed.",
+          "quotes": [
+            "The missing five clubs must be 3-2 because West led DQ, so five clubs and ten total tricks are guaranteed.",
+            "Follow diamonds now; the opening lead proves clubs are breaking."
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Small-sample basic evaluation; no claim of broad grading reliability."
+}
