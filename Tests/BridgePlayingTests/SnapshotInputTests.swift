@@ -5,6 +5,42 @@ import BridgeExpert
 import BridgeDriver
 
 final class SnapshotInputTests: XCTestCase {
+    func testDriverCarriesCurrentWinningPlayOnOpeningLeadAndPartnerContinuation() async throws {
+        var board = try fixtureBoard()
+        try board.play(Card("DQ"), by: .west)
+        let driver = BoardDriver(board: board, expert: ExpertSession(transport: SequencePlayTransport(outputs: [
+            try response(card: "D3", update: "replace", text: "Preserve entries."),
+            try response(card: "DA", update: "keep"),
+            try response(card: "C4", update: "keep"),
+            try response(card: "CQ", update: "keep"),
+            try response(card: "HK", update: "keep"),
+            try response(card: "H6", update: "keep")
+        ])), opponent: .lowLegal)
+        var decisions: [DecisionRecord] = []
+        for _ in 0..<10 {
+            let step = try await driver.advance()
+            if let decision = step.decision { decisions.append(decision) }
+        }
+        XCTAssertEqual(decisions.count, 6)
+        guard decisions.count == 6 else { return }
+        let opening = try jsonInput(decisions[0])
+        XCTAssertEqual(opening["type"] as? String, "initial")
+        XCTAssertEqual((opening["current"] as! [String: Any])["winningPlay"] as? [String: String],
+                       ["seat": "W", "card": "DQ"])
+        let onLead = try jsonInput(decisions[2])
+        XCTAssertEqual(onLead["type"] as? String, "update")
+        XCTAssertEqual((onLead["currentTrick"] as! [Any]).count, 0)
+        XCTAssertTrue((onLead["current"] as! [String: Any])["winningPlay"] is NSNull)
+        let partnerWinning = try jsonInput(decisions[5])
+        XCTAssertEqual(partnerWinning["currentTrick"] as? [[String: String]], [
+            ["seat": "N", "card": "HK"], ["seat": "E", "card": "H2"]
+        ])
+        XCTAssertEqual((partnerWinning["current"] as! [String: Any])["winningPlay"] as? [String: String],
+                       ["seat": "N", "card": "HK"])
+        XCTAssertEqual(decisions[5].action.card, try Card("H6"))
+        XCTAssertEqual(decisions[5].identity.threadID, decisions[0].identity.threadID)
+    }
+
     func testDriverPreservesPublicBackgroundAndOfficialObjectiveAcrossSnapshots() async throws {
         let background = "West opened 1NT; defensive carding agreements are unknown."
         let objective = "Maximize the chance of making the contract."

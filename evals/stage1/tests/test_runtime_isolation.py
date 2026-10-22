@@ -114,7 +114,8 @@ class RuntimeIsolationTests(unittest.TestCase):
         self.assertEqual(snapshot['hands']['N'], {'S':'87', 'H':'A43', 'D':'KQJT9', 'C':'T54'})
         self.assertEqual(snapshot['currentTrick'], [{'seat':'W', 'card':'SK'}])
         self.assertEqual(snapshot['completedTricks'], [])
-        self.assertEqual(snapshot['current'], {'toAct':'N', 'tricksWon':{'declarer':0, 'defenders':0}})
+        self.assertEqual(snapshot['current'], {'toAct':'N', 'tricksWon':{'declarer':0, 'defenders':0},
+                                               'winningPlay':{'seat':'W', 'card':'SK'}})
         self.assertIsNone(snapshot['effectivePlan'])
         self.assertEqual(request['text']['format']['schema']['properties']['selectedCard']['enum'], ['S8', 'S7'])
         instructions = (ROOT/'Sources/BridgeExpert/Resources/DeclarerInstructions.txt').read_text()

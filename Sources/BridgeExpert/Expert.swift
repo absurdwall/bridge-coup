@@ -198,6 +198,7 @@ public actor ExpertSession {
             "completedTricks": completed.map { ["plays": $0.plays.map(play), "winner": seat($0.winner)] as [String: Any] },
             "currentTrick": snapshot.currentTrick.map(play),
             "current": ["toAct": seat(snapshot.actingSeat),
+                        "winningPlay": snapshot.currentWinningPlay.map(play) as Any? ?? NSNull(),
                         "tricksWon": ["declarer": snapshot.declarerTricks, "defenders": snapshot.defenderTricks]],
             "effectivePlan": planAssociation?.text as Any? ?? NSNull()
         ]
