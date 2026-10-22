@@ -247,8 +247,8 @@ public actor ExpertSession {
             }
             return String(decoding: try JSONSerialization.data(withJSONObject: value, options: [.fragmentsAllowed]), as: UTF8.self)
         }
-        // Structured generation follows this order: ground the current reason before future advice.
-        let orderedProperties = try ["publicReason", "plan", "selectedCard"].map { key in
+        // Match the decision process: plan, current card, then its reason.
+        let orderedProperties = try ["plan", "selectedCard", "publicReason"].map { key in
             try json(key) + ":" + json(properties[key]!)
         }.joined(separator: ",")
         let members = try schema.keys.sorted().map { key in
