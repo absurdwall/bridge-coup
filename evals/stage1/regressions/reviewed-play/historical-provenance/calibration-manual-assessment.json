@@ -1,0 +1,19 @@
+{
+  "evaluationScope": "Manual review of six raw outputs against fixed public inputs and the predeclared user-approved quality boundary; no new model calls.",
+  "late-club": {
+    "before": "Correctly blocks CT and requests C5, with valid public inference and both final-trick branches.",
+    "after": "Same valid interception; no material factual error found."
+  },
+  "incomplete-initial": {
+    "before": "Correctly requests a meaningful complete route. Counts three hearts and correctly explains the fourth-round diamond-ace/entry risk. No four-heart error this run.",
+    "after": "Correctly identifies missing stopper/diamond-concession timing and counts three hearts. No four-heart error this run."
+  },
+  "reasonable-alternative": {
+    "before": "Blocks the second-round spade-ace strategy because of a possible 5–3 layout. Conditional bridge analysis is valid, but exceeds the agreed blocking threshold.",
+    "after": "Still blocks for the same conditional communication risk. No improvement on the agreed overblocking criterion; this is not a fabricated holding or false card-count finding."
+  },
+  "conclusion": "No demonstrated comparative quality improvement in this single paired run. Actual-loss detection retained. Prior factual error did not recur in either version; cannot attribute its disappearance to calibration. Overblocking persists.",
+  "cardExecution": false,
+  "playerFeedbackSent": false,
+  "automaticRevisionsOrRetries": 0
+}

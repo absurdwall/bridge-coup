@@ -1,0 +1,114 @@
+{
+  "version": "issue48-review-regression-provenance-v1",
+  "created_date": "2026-10-23",
+  "purpose": "Offline fixed public-input regression assets; not acceptance results or prompts to inject into live play.",
+  "source_byte_preservation": "Each copied asset matches the original sha256 and byte count; new expected adjudications are separate and do not rewrite source labels.",
+  "assets": [
+    {
+      "path": "feedback-seed/initial-snapshot.json",
+      "original_path": "/tmp/bridge46-feedback-loop-sol61-20261023/initial-snapshot.json",
+      "sha256": "d0a974a46219b56cfa159ece76d33cc57f0ed218a7106f9f337b086934d39e34",
+      "bytes": 800
+    },
+    {
+      "path": "feedback-seed/seed-proposal.json",
+      "original_path": "/tmp/bridge46-feedback-loop-sol61-20261023/seed-proposal.json",
+      "sha256": "97edce5cede70d968a72b82218e3471b448e395e92deaa12e60a8ec906d1e771",
+      "bytes": 994
+    },
+    {
+      "path": "feedback-seed/seed-review.json",
+      "original_path": "/tmp/bridge46-feedback-loop-sol61-20261023/seed-review.json",
+      "sha256": "059aa26d124db2e5eb45e7946276a505dc1ce17cb163b2c840453367b31ea10e",
+      "bytes": 745
+    },
+    {
+      "path": "fixed-review/late-club-input.json",
+      "original_path": "/tmp/bridge46-reviewer-calibration-eval-20261023/late-club-input.json",
+      "sha256": "30a1c49fcbc1a1f05274f87195d52a65b4d17cdd9fec61b66adb5dcd75380fec",
+      "bytes": 5812
+    },
+    {
+      "path": "fixed-review/incomplete-initial-input.json",
+      "original_path": "/tmp/bridge46-reviewer-calibration-eval-20261023/incomplete-initial-input.json",
+      "sha256": "b843ad7ac9f119a0ad3aa6e78cce8886c1b6277ca90af538cc1faea3b03ae00f",
+      "bytes": 1412
+    },
+    {
+      "path": "fixed-review/second-round-spade-input.json",
+      "original_path": "/tmp/bridge46-reviewer-calibration-eval-20261023/reasonable-alternative-input.json",
+      "sha256": "a3c4bfa88a2d9d252cbc27d0723191e86e32ee39cbfd8d11129234bb2e6d9916",
+      "bytes": 2858
+    },
+    {
+      "path": "public-proof/late-club-branches.json",
+      "original_path": "/tmp/bridge46-reviewed-fullboards-20261023/B-final-two-trick-public-proof.json",
+      "sha256": "115fb01d20e5f3eb3d5b46f9775dd7508340c2871d3dac1ca01d7237a337af6c",
+      "bytes": 3114
+    },
+    {
+      "path": "historical-provenance/calibration-manifest.json",
+      "original_path": "/tmp/bridge46-reviewer-calibration-eval-20261023/manifest.json",
+      "sha256": "7937f3582a8f2c03b7a38a9a2e861c0d3647d258bbb1437fab52b789e722dfb7",
+      "bytes": 2294
+    },
+    {
+      "path": "historical-provenance/calibration-manual-assessment.json",
+      "original_path": "/tmp/bridge46-reviewer-calibration-eval-20261023/manual-assessment.json",
+      "sha256": "3f3e7ef88be4607d156447426a4559ae227ddd089c7b8846bd19dda769cfbd5f",
+      "bytes": 1457
+    },
+    {
+      "path": "historical-provenance/feedback-manifest.json",
+      "original_path": "/tmp/bridge46-feedback-loop-sol61-20261023/manifest.json",
+      "sha256": "817651505df233c4221a6704dbd61390fd4e9b0d9a70858cf3af8d4fb07fdb52",
+      "bytes": 1583
+    },
+    {
+      "path": "historical-provenance/feedback-manual-assessment.json",
+      "original_path": "/tmp/bridge46-feedback-loop-sol61-20261023/manual-assessment.json",
+      "sha256": "68b444cabd85d1f4a4642c351f9f9b2a61b17422d5b04dc64d483cb777a2653d",
+      "bytes": 798
+    }
+  ],
+  "expected_adjudication": {
+    "late-club": {
+      "verdict": "revise",
+      "required_basis": "CT destroys the only extra club winner; West has just discarded SJ on CJ, so West is void in clubs. C5 preserves CT and guarantees 11 total against either East club. Explanation-only correction is insufficient.",
+      "origin": "Historical public late-club branch proof and independently reviewed fixed-input calibration manual assessment; offline check replays all supplied branches using repository corpus reducer."
+    },
+    "incomplete-initial": {
+      "verdict": "revise",
+      "required_basis": "A complete initial partnership route is required; immediate card plus vague establish-and-cash is incomplete. Count three heart tricks, not four, from HA43 opposite HKQJ; account for diamond concession, stopper timing and entry.",
+      "origin": "User-approved complete-plan requirement in #48; fixed calibration manual assessment. Avoid prescribing one unique legal strategy."
+    },
+    "second-round-spade": {
+      "verdict": "revise",
+      "required_basis": "Accepted material communication concern: conditional W five/E three spades with E DA makes second-round SA leave spade return after DA; two ducks can exhaust East. Treat defender layout as hypothesis, not known holdings. Preserve complete partnership plan and entry accounting.",
+      "origin": "Later user clarification recorded in feedback-seed manifest qualityBoundary, feedback manual-assessment policy, and #48 implementation handoff. Original calibration label describing overblocking is superseded.",
+      "old_overblocking_label_superseded": true
+    },
+    "feedback-seed": {
+      "classification": "synthetic fixed proposal plus genuine recorded reviewer findings, delivered historically to fresh correction player session; no card/plan committed",
+      "expected_use": "Offline envelope/binding/provenance regression only; not natural continuity or acceptance. Historical observed one revision then approval is not convergence reliability.",
+      "origin": "feedback manifest sessionProvenance and manual assessment; #48 handoff."
+    }
+  },
+  "authored_assets": [
+    {
+      "path": "README.md",
+      "sha256": "f7dabed484aca19f41b2e826ccf0115e913854d15a0be7e17d3605ee44defbca",
+      "bytes": 5661
+    },
+    {
+      "path": "check_public_proof.py",
+      "sha256": "5e1eed1a488c9af196aa65c04d99999164bb6d7a23ec3d6360934e6f2b9bbe79",
+      "bytes": 4432
+    },
+    {
+      "path": "offline-check.json",
+      "sha256": "c51b9ee0eaaf615ac3888c65a3d2d9364ad51029e83d55df39d79e17aaebe869",
+      "bytes": 799
+    }
+  ]
+}

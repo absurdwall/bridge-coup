@@ -19,7 +19,18 @@ def read_decision(directory):
     rpc_path = directory / 'rpc.jsonl'
     if not rpc_path.exists() and (directory.parent / 'rpc.jsonl').is_file():
         rpc_path = directory.parent / 'rpc.jsonl'
-    return {**record, 'executionEvents': read_json(directory / 'events.json') if (directory / 'events.json').exists() else None,
+    play_root = rpc_path.parent
+    review_rpc = {}
+    for review_path in sorted((play_root / 'reviewer').glob('*/rpc.jsonl')):
+        rows = [json.loads(line) for line in review_path.read_text().splitlines()]
+        for row in rows:
+            value = row.get('value', {})
+            if row.get('kind') == 'request' and value.get('method') == 'turn/start':
+                thread = value.get('params', {}).get('threadId')
+                if thread:
+                    review_rpc.setdefault(thread, []).extend(rows)
+                    break
+    return {**record, 'review_rpc': review_rpc, 'executionEvents': read_json(directory / 'events.json') if (directory / 'events.json').exists() else None,
             'runtimeFailure': read_json(directory / 'failure.json') if (directory / 'failure.json').exists() else None,
             'rpc': [json.loads(line) for line in rpc_path.read_text().splitlines()] if rpc_path.exists() else None}
 
@@ -36,6 +47,8 @@ def incomplete_decision_report(identifier, record):
                 else 'Returned runtime identity violated the continuing decision session.')
         report.update(mechanical='fail', attribution='product_error',
                       deterministic_checks={check: {'status': 'fail', 'fact': fact}})
+    elif category == 'needsInput':
+        report.update(attribution='needs_input', review_reason='Required public facts remain missing; no execution or quality pass.')
     elif category == 'runtime' or (category is None and not failure.get('rawOutput')):
         report.update(attribution='runtime_failure', runtime_failure=failure)
     else:
@@ -126,6 +139,9 @@ def deterministic_checks(record):
     else:
         expected = snapshot['events'] + [{'card': card, 'seat': snapshot['actingSeat'], 'sequence': len(snapshot['events'])}]
         add('execution', events == expected, 'Actual events must be prior events plus exactly the proposed card once.')
+    if record.get('pending') is not None or record.get('reviewRounds') is not None:
+        import reviewed_evidence
+        checks.update(reviewed_evidence.checks(record, recorded_turn))
     return checks
 
 
@@ -141,7 +157,10 @@ def grader_package(decisions):
         if any(h['seat'] not in allowed for h in record['snapshot']['hands']):
             raise ValueError('Decision snapshot contains unauthorized defender holdings')
     return {'rubric_version': 'stage1-basic-v4', 'rubric': Path(__file__).with_name('rubric.txt').read_text(),
-            'decisions': [{'id': identifier, 'authorized_input': record['input'], 'playing_identity': record.get('identity'),
+            'decisions': [{'id': identifier, 'authorized_input': record.get('canonicalInput') or record['input'],
+                           'actual_player_input': record['input'],
+                           'input_authority': 'Only authorized_input and decision_time_facts establish public facts. actual_player_input is exact provenance; feedback envelopes contain non-authoritative reviewer assertions and rejected drafts. Grade only raw_output and its effective_plan. Runtime approval or contested authorization is never a quality label.',
+                           'playing_identity': record.get('identity'),
                            'playing_instructions': record['instructions'], 'wire_contract': record.get('wireContractVersion', 'stage1-currentCard-plan-publicReason-v1'), 'raw_output': record['rawOutput'],
                            'effective_plan': record.get('effectivePlan'),
                            'decision_time_facts': record['snapshot'],
@@ -234,7 +253,7 @@ def run_grader(package, output, codex='codex', timeout=180):
     import time
     output = Path(output).resolve()
     (output / 'input.json').write_text(json_text(package))
-    prompt = 'Apply this rubric independently to every supplied decision. Return only the required structured result.\n' + json_text(package)
+    prompt = 'Apply this rubric independently to every supplied delivered decision. Grade raw_output and effective_plan only. Canonical authorized_input/decision_time_facts are authoritative; actual_player_input may preserve rejected drafts and non-authoritative reviewer assertions. Neither runtime approval nor contested authorization establishes quality. Return only the required structured result.\n' + json_text(package)
     (output / 'prompt.txt').write_text(prompt)
     schema = read_json(Path(__file__).with_name('grader-schema.json'))
     (output / 'schema.json').write_text(json_text(schema))
@@ -296,6 +315,7 @@ def run_grader(package, output, codex='codex', timeout=180):
                 elif kind.startswith('item.') and item.get('type') not in ('reasoning', 'agent_reasoning'):
                     tools.append(item.get('type', 'unknown'))
             metadata['observed_tool_items'] = tools
+            metadata['observed_usage'] = [e['usage'] for e in public_events if e.get('type') == 'turn.completed' and e.get('usage') is not None] or None
             (output / 'public-events.jsonl').write_text(''.join(json.dumps(e, ensure_ascii=False) + '\n' for e in public_events))
             (output / 'stderr.txt').write_text(process.stderr)
             if process.returncode:
@@ -364,10 +384,16 @@ def main():
         (args.output / 'regrade-source.json').write_text(json_text({'source_run': str(args.run.resolve()), 'model_called': False, 'reviewed_parser_fix': args.reviewed_parser_fix}))
     else:
         supplied = [(p.name, read_decision(p)) for p in args.decision]
-        decisions = [(i, r) for i, r in supplied if 'rawOutput' in r]
+        def gradable(record):
+            # Historical authored/saved calibration records may lack execution.
+            # New reviewed candidates are delivered only with actual events.
+            legacy = not any(record.get(key) is not None for key in ('pending', 'reviewRounds', 'requestEvidence'))
+            return 'rawOutput' in record and not record.get('runtimeFailure') and (record.get('executionEvents') is not None or legacy)
+        decisions = [(i, r) for i, r in supplied if gradable(r)]
         for identifier, record in supplied:
-            if 'rawOutput' not in record:
-                runtime_reports.append(incomplete_decision_report(identifier, record))
+            if not gradable(record):
+                failure_record = {**record, 'runtimeFailure': record.get('runtimeFailure') or {'status': 'failed', 'error': 'No delivered execution is recorded.', 'rawOutput': record.get('rawOutput', '')}}
+                runtime_reports.append(incomplete_decision_report(identifier, failure_record))
         if args.answers:
             decisions += [(r['id'], r) for r in read_json(args.answers)]
         if (not decisions and not runtime_reports) or len({i for i, _ in decisions} | {r['id'] for r in runtime_reports}) != len(decisions) + len(runtime_reports):

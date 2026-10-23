@@ -1,0 +1,47 @@
+{
+  "completedTricks": [],
+  "contract": {
+    "declarer": "S",
+    "doubling": "undoubled",
+    "level": 3,
+    "strain": "NT"
+  },
+  "controller": "S",
+  "current": {
+    "toAct": "N",
+    "tricksWon": {
+      "declarer": 0,
+      "defenders": 0
+    },
+    "winningPlay": {
+      "card": "SK",
+      "seat": "W"
+    }
+  },
+  "currentTrick": [
+    {
+      "card": "SK",
+      "seat": "W"
+    }
+  ],
+  "effectivePlan": null,
+  "hands": {
+    "N": {
+      "C": "T54",
+      "D": "KQJT9",
+      "H": "A43",
+      "S": "87"
+    },
+    "S": {
+      "C": "AJ6",
+      "D": "5432",
+      "H": "KQJ",
+      "S": "A93"
+    }
+  },
+  "objective": "Normal IMP strategy, weighing contract risk and overtricks.",
+  "publicBackground": null,
+  "scoring": "IMP",
+  "type": "initial",
+  "vulnerability": "neither"
+}
