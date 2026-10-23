@@ -16,6 +16,7 @@ final class PlanContractTests: XCTestCase {
         let initialInput = try JSONSerialization.jsonObject(with: Data(initial.input.utf8)) as! [String:Any]
         XCTAssertEqual(initialInput["currentTrick"] as? [[String:String]], [["seat":"W", "card":"DQ"]])
         try board.apply(initial.action)
+        try await expert.commit(initial, execution: ActualExecution(event: board.events.last!, source: .model))
         try board.play(Card("D4"), by: .east)
         try board.play(Card("DK"), by: .south)
         try board.play(Card("CA"), by: .south)
@@ -40,7 +41,10 @@ final class PlanContractTests: XCTestCase {
             let failure = try JSONDecoder().decode(SavedFailure.self, from: Data(contentsOf: directory.appendingPathComponent("play/failure.json")))
             let records = trace.steps.compactMap(\.decision)
             let expert = ExpertSession(transport: SequencePlayTransport(outputs: records.map(\.rawOutput) + [failure.rawOutput]))
-            for record in records { _ = try await expert.decide(restoredSnapshot(record.snapshot, fixture: fixture)) }
+            for record in records {
+                let approved = try await expert.decide(restoredSnapshot(record.snapshot, fixture: fixture))
+                try await expert.commit(approved, execution: ActualExecution(event: .init(sequence: approved.snapshot.events.count, seat: approved.action.actingSeat, card: approved.action.card), source: .model))
+            }
             var board = try BoardState(id: trace.boardID, deal: Dictionary(uniqueKeysWithValues: fixture.hands.map { ($0.seat, $0.cards) }), contract: fixture.contract, vulnerability: fixture.vulnerability, scoring: fixture.scoring, objective: fixture.objective, publicBackground: fixture.publicBackground)
             for event in trace.initialEvents + trace.steps.map({ $0.execution.event }) { try board.play(event.card, by: event.seat) }
             let eventsBefore = board.events
@@ -71,6 +75,7 @@ final class PlanContractTests: XCTestCase {
             let reply = try JSONSerialization.data(withJSONObject: ["plan": ["update": "keep", "text": NSNull()], "selectedCard": current.action.card.description, "publicReason": "Play the current legal card from the acting hand."])
             let expert = ExpertSession(transport: SequencePlayTransport(outputs: [first.rawOutput, String(decoding: reply, as: UTF8.self)]))
             let initial = try await expert.decide(restoredSnapshot(first.snapshot, fixture: fixture))
+            try await expert.commit(initial, execution: ActualExecution(event: .init(sequence: initial.snapshot.events.count, seat: initial.action.actingSeat, card: initial.action.card), source: .model))
             let result = try await expert.decide(restoredSnapshot(current.snapshot, fixture: fixture))
             let input = try JSONSerialization.jsonObject(with: Data(result.input.utf8)) as! [String:Any]
             XCTAssertEqual(input["type"] as? String, "update")
@@ -100,7 +105,7 @@ final class PlanContractTests: XCTestCase {
             print('schema-checking external boundary')
             sys.exit(0)
         if sys.argv[1:4] == ['debug', 'models', '--bundled']:
-            print(json.dumps({'models':[{'slug':'gpt-6-luna','tool_mode':'code','experimental_supported_tools':['exec'],'apply_patch_tool_type':'freeform','shell_type':'default'}]})); sys.exit(0)
+            print(json.dumps({'models':[{'slug':'gpt-6.1-sol','tool_mode':'code','experimental_supported_tools':['exec'],'apply_patch_tool_type':'freeform','shell_type':'default'}]})); sys.exit(0)
         import jsonschema, pathlib
         historical = json.loads(pathlib.Path(__file__).with_name('historical-replies.json').read_text())
         turn = 0
@@ -117,9 +122,9 @@ final class PlanContractTests: XCTestCase {
             method = request.get('method')
             result = {}
             if method == 'model/list':
-                result = {'data': [{'model': 'gpt-6-luna', 'supportedReasoningEfforts': [{'reasoningEffort': 'medium'}]}]}
+                result = {'data': [{'model': 'gpt-6.1-sol', 'supportedReasoningEfforts': [{'reasoningEffort': 'medium'}]}]}
             elif method == 'thread/start':
-                result = {'thread': {'id': 'schema-thread'}, 'model': 'gpt-6-luna'}
+                result = {'thread': {'id': 'schema-thread'}, 'model': 'gpt-6.1-sol', 'reasoningEffort': 'medium'}
             elif method == 'turn/start':
                 # Validate the actual serialized public Codex request, not a Swift schema constant.
                 schema = request['params']['outputSchema']
@@ -165,14 +170,17 @@ final class PlanContractTests: XCTestCase {
         try board.play(Card("DQ"), by: .west)
         let initial = try await expert.decide(board.snapshot(controller: .south))
         try board.apply(initial.action)
+        try await expert.commit(initial, execution: ActualExecution(event: board.events.last!, source: .model))
         try board.play(board.legalCards()[0], by: .east)
         let kept = try await expert.decide(board.snapshot(controller: .south))
         XCTAssertEqual(kept.planAssociation, initial.planAssociation)
         try board.apply(kept.action)
+        try await expert.commit(kept, execution: ActualExecution(event: board.events.last!, source: .model))
         let replaced = try await expert.decide(board.snapshot(controller: .south))
         XCTAssertEqual(replaced.effectivePlan, "Start clubs while keeping entries.")
         XCTAssertNotEqual(replaced.planAssociation?.sourceSessionID, initial.planAssociation?.sourceSessionID)
         try board.apply(replaced.action)
+        try await expert.commit(replaced, execution: ActualExecution(event: board.events.last!, source: .model))
         try board.play(board.legalCards()[0], by: .west)
         let withdrawn = try await expert.decide(board.snapshot(controller: .south))
         XCTAssertNil(withdrawn.planAssociation)

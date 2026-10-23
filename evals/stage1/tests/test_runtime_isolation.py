@@ -63,14 +63,14 @@ class RuntimeIsolationTests(unittest.TestCase):
                 self.assertEqual(len(captures), 1, result.stderr)
                 source = json.loads((root/'play/runtime-bundled-catalog.json').read_text())
                 effective = json.loads((root/'play/runtime-model-catalog.json').read_text())
-                luna = next(model for model in source['models'] if model['slug'] == 'gpt-6-luna')
+                luna = next(model for model in source['models'] if model['slug'] == 'gpt-6.1-sol')
                 expected = {**luna, 'tool_mode': 'direct', 'experimental_supported_tools': [],
                             'apply_patch_tool_type': None, 'shell_type': 'disabled'}
-                self.assertEqual(effective, {**source, 'models': [expected if model['slug'] == 'gpt-6-luna'
+                self.assertEqual(effective, {**source, 'models': [expected if model['slug'] == 'gpt-6.1-sol'
                                                                else model for model in source['models']]})
                 request, auth_absent = captures[0]
                 self.assertTrue(auth_absent)
-                self.assertEqual(request['model'], 'gpt-6-luna')
+                self.assertEqual(request['model'], 'gpt-6.1-sol')
                 self.assertEqual(request['reasoning']['effort'], 'medium')
                 rows = [json.loads(line) for line in (root/'play/rpc.jsonl').read_text().splitlines()]
                 sent = next(row['value']['params']['outputSchema'] for row in rows

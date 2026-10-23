@@ -132,8 +132,11 @@ public actor BoardDriver {
                     throw DriverFailure(decision: decision!, detail: "Run wall-clock budget expired before execution")
                 }
                 pending = []
-                do { try board.apply(decision!.action) }
+                var nextBoard = board
+                do { try nextBoard.apply(decision!.action) }
                 catch { throw DriverFailure(decision: decision!, detail: String(describing: error)) }
+                try await expert.commit(decision!, execution: ActualExecution(event: nextBoard.events.last!, source: .model))
+                board = nextBoard
                 hasInitialPlan = true
                 source = .model
             } else {
@@ -152,6 +155,7 @@ public actor BoardDriver {
             steps.append(step)
             return step
         } catch {
+            await expert.abandonPending()
             failed = true
             failureDetail = String(describing: error)
             if let failure = error as? ExpertFailure { failedRequestSeconds = failure.elapsedSeconds }

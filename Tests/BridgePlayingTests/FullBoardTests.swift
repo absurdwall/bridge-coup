@@ -144,7 +144,7 @@ final class FullBoardTests: XCTestCase {
             print('recorded nested boundary')
             sys.exit(0)
         if sys.argv[1:4] == ['debug', 'models', '--bundled']:
-            print(json.dumps({'models':[{'slug':'gpt-6-luna','tool_mode':'code','experimental_supported_tools':['exec'],'apply_patch_tool_type':'freeform','shell_type':'default'}]})); sys.exit(0)
+            print(json.dumps({'models':[{'slug':'gpt-6.1-sol','tool_mode':'code','experimental_supported_tools':['exec'],'apply_patch_tool_type':'freeform','shell_type':'default'}]})); sys.exit(0)
         signal.signal(signal.SIGTERM, signal.SIG_IGN)
         child = subprocess.Popen(['/usr/bin/python3', '-c', 'import signal,time; signal.signal(signal.SIGTERM, signal.SIG_IGN); time.sleep(4.5)'])
         with open('\(childPID.path)', 'w') as saved:
@@ -205,7 +205,7 @@ struct SchemaCheckingTransport: PlayingTransport {
         let properties = schema["properties"] as! [String: Any]
         let selected = properties["selectedCard"] as! [String: Any]
         XCTAssertEqual(selected["enum"] as? [String], expected)
-        return PlayingReply(rawOutput: "{\"plan\":{\"update\":\"replace\",\"text\":\"Use the actual available entries.\"},\"publicReason\":\"Follow suit.\",\"selectedCard\":\"\(card)\"}", identity: .init(requestedModel: "gpt-6-luna", requestedEffort: "medium", runtimeVersion: "recorded boundary", observedModel: nil, threadID: "schema", turnID: "1"))
+        return PlayingReply(rawOutput: "{\"plan\":{\"update\":\"replace\",\"text\":\"Use the actual available entries.\"},\"publicReason\":\"Follow suit.\",\"selectedCard\":\"\(card)\"}", identity: .init(requestedModel: "gpt-6.1-sol", requestedEffort: "medium", runtimeVersion: "recorded boundary", observedModel: "gpt-6.1-sol", observedEffort: "medium", threadID: "schema", turnID: "1"), requestID: request.id)
     }
 }
 
@@ -234,7 +234,7 @@ actor FirstLegalTransport: PlayingTransport {
         let card = (selected["enum"] as! [String])[0]
         turn += 1
         let plan = turn == 1 ? "{\"update\":\"replace\",\"text\":\"Use actual legal cards.\"}" : "{\"update\":\"keep\",\"text\":null}"
-        return PlayingReply(rawOutput: "{\"plan\":\(plan),\"publicReason\":\"Play an available card.\",\"selectedCard\":\"\(card)\"}", identity: .init(requestedModel: "gpt-6-luna", requestedEffort: "medium", runtimeVersion: "rule fixture only", observedModel: nil, threadID: "rules", turnID: "\(turn)"))
+        return PlayingReply(rawOutput: "{\"plan\":\(plan),\"publicReason\":\"Play an available card.\",\"selectedCard\":\"\(card)\"}", identity: .init(requestedModel: "gpt-6.1-sol", requestedEffort: "medium", runtimeVersion: "rule fixture only", observedModel: "gpt-6.1-sol", observedEffort: "medium", threadID: "rules", turnID: "\(turn)"), requestID: request.id)
     }
 }
 
