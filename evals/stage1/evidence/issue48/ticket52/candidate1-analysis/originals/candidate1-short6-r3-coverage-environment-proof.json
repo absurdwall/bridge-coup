@@ -1,0 +1,53 @@
+{
+  "scope": "Evaluator-only environment material-coverage replay performed after public-quality assessment; no live role or decision fact.",
+  "attempt": "short-6-r3",
+  "fixture": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/corpus/boards/walker-holdup-adapted.json",
+  "fixture_sha256": "1ee7dd3747426124dee7cd29f914aa8677818ad6558e2e5a327373cdacbea208",
+  "trace_sha256": "6aab80e215cffd7aac9339e78fdfa0b815f44b42500e2113e59f30d6c8e0ac69",
+  "reducer_sha256": "5028d0dbc8a9f633932f8d8989fe0169e9166bc51738c22fa9e8ac64c27c626a",
+  "DA_sequence": 15,
+  "actual_initial_spades": {
+    "east": [
+      "S4",
+      "S5",
+      "S6"
+    ],
+    "west": [
+      "S2",
+      "SJ",
+      "SK",
+      "SQ",
+      "ST"
+    ]
+  },
+  "remaining_after_DA": {
+    "east": [
+      "C7",
+      "C9",
+      "CK",
+      "D7",
+      "D8",
+      "H2",
+      "H8",
+      "H9",
+      "HT"
+    ],
+    "west": [
+      "C2",
+      "C3",
+      "C8",
+      "CQ",
+      "H5",
+      "H6",
+      "H7",
+      "S2",
+      "ST"
+    ]
+  },
+  "east_spade_return_legal": false,
+  "actual_next_event": {
+    "card": "HT",
+    "seat": "east",
+    "sequence": 16
+  }
+}
