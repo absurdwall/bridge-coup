@@ -1,15 +1,15 @@
 {
-  "scope": "Post-cycle analysis utilities, immutable originals, portable runtime and report; separate from frozen production candidate.",
+  "scope": "Post-cycle analysis utilities, immutable originals, portable frozen source/runtime and report; separate from production candidate. Historical helpers use archived source, not current checkout bytes.",
   "files": [
     {
       "path": "README.md",
-      "bytes": 1813,
-      "sha256": "0de22715db8a3d4be68a8613b126f83fd82a7c5115e49e0d3273e9b13363e539"
+      "bytes": 3772,
+      "sha256": "f787c8d9976ee1a98834f2c48531698f08846b6a663b6e7f1c28808672606faf"
     },
     {
       "path": "REPORT.md",
-      "bytes": 13650,
-      "sha256": "71a8c913b0a9e7d59449d5a9cf1a27536d49bd9ac75001c4b1c95404a7729369"
+      "bytes": 14215,
+      "sha256": "fed436ae4846d620554470414a40c92d279b307ad49f0d56f3bfc10c44baf225"
     },
     {
       "path": "aggregate.json",
@@ -27,14 +27,34 @@
       "sha256": "94061e38afcf84e26885e290f0fd1db2220454b0494d9a73e978c7818248312d"
     },
     {
+      "path": "check_lifetime_portability.py",
+      "bytes": 2475,
+      "sha256": "07991cb29d407afb7d75db79d87b9e1a65be3ec038525f24fa842012c766d35c"
+    },
+    {
       "path": "external-preservation.json",
       "bytes": 10657,
       "sha256": "7d0308c029bcc02a2e2dfa2d615a3fb0b8ee366c2b63b6f8c257d440b9eac25b"
     },
     {
+      "path": "frozen_sources.py",
+      "bytes": 1547,
+      "sha256": "6a5a854aba0f8171bf51e258f50a734fab334616e0a00a6a27a52216813cf268"
+    },
+    {
+      "path": "historical-audit-verification.json",
+      "bytes": 489,
+      "sha256": "68da438d553708e6c219b70d3cea689004fae62930239c620cdd6062d09ef4a6"
+    },
+    {
       "path": "legacy-obligations-at-start.md",
       "bytes": 17171,
       "sha256": "2bc40fdefce602f6a6052e0fb049b7fd09b7938e0a550d097cfe52c974cfa128"
+    },
+    {
+      "path": "lifetime-portability-verification.json",
+      "bytes": 554,
+      "sha256": "4d826935376fda0bf5232a930c0683fc7fcf2668092741eb4bc4fd7b495bced4"
     },
     {
       "path": "native-plan-encoding.json",
@@ -228,8 +248,8 @@
     },
     {
       "path": "preservation-verification.json",
-      "bytes": 349,
-      "sha256": "30867f309c026087ffe2ce4a938b4e99a57ec98b984d7d268f96493e00606a15"
+      "bytes": 488,
+      "sha256": "ba0c89378790bec566c10625f45a18eaede27cc10610b328b40fde04f87a5fb9"
     },
     {
       "path": "proof-verification.json",
@@ -257,14 +277,24 @@
       "sha256": "c9d3d6613aee44695a26816581d39c3fa2fa0816844a0365ef53e327c1b14004"
     },
     {
+      "path": "runtime/candidate1-source-archive.json",
+      "bytes": 6066,
+      "sha256": "b9b55a048134832d2ff3b0c9cf57f9da1b355c5289cf1bb6dc4ed9f8f3915f21"
+    },
+    {
+      "path": "runtime/candidate1-source.tar.gz",
+      "bytes": 76268,
+      "sha256": "d7ddce0a8b908d5389b0e13dc4e81d0cc0201ea6983f9ea387435e1624d25ea8"
+    },
+    {
       "path": "verify_adjudication_proofs.py",
-      "bytes": 7657,
-      "sha256": "a13642bd1d30954a22c5740e26947ca7d0adc561ab0ef45d201f76a76248b39f"
+      "bytes": 7746,
+      "sha256": "8d260c70fd8261c89df248d19b011c46bcc09a661d028211bb5392865ad52163"
     },
     {
       "path": "verify_preservation.py",
-      "bytes": 2870,
-      "sha256": "31dfcc929a238d1aff3342fdcddefb9cf54e4ca8a849fb1103e656d2c0b0734c"
+      "bytes": 3337,
+      "sha256": "fc84e0e9b52fc59c43119fcfabd1ee6522e3ac77f78e9f44ea8f86d33d6319e8"
     }
   ]
 }
