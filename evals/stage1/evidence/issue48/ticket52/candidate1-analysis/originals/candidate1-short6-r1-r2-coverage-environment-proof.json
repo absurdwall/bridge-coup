@@ -1,0 +1,114 @@
+{
+  "scope": "Evaluator-only environment replay; excluded from decision quality and all live inputs.",
+  "reducer_sha256": "5028d0dbc8a9f633932f8d8989fe0169e9166bc51738c22fa9e8ac64c27c626a",
+  "attempts": [
+    {
+      "attempt": "short-6-r1",
+      "purpose": "Evaluator-only material coverage, never a decision-time fact or live role input.",
+      "fixture": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/corpus/boards/walker-holdup-adapted.json",
+      "fixture_sha256": "1ee7dd3747426124dee7cd29f914aa8677818ad6558e2e5a327373cdacbea208",
+      "trace_sha256": "681cf5dd259f1bcf9750298bb036070d1f8c84c6ca05f0f4bf81d818a49003c6",
+      "initial_environment_defender_spades": {
+        "east": [
+          "S4",
+          "S5",
+          "S6"
+        ],
+        "west": [
+          "S2",
+          "SJ",
+          "SK",
+          "SQ",
+          "ST"
+        ]
+      },
+      "diamond_ace_sequence": 15,
+      "post_DA_actor": "east",
+      "environment_only_remaining_hands": {
+        "east": [
+          "C7",
+          "C9",
+          "CK",
+          "D7",
+          "D8",
+          "H2",
+          "H8",
+          "H9",
+          "HT"
+        ],
+        "west": [
+          "C2",
+          "C3",
+          "C8",
+          "CQ",
+          "H5",
+          "H6",
+          "H7",
+          "S2",
+          "ST"
+        ]
+      },
+      "east_can_return_spade": false,
+      "actual_next_event": {
+        "card": "HT",
+        "seat": "east",
+        "sequence": 16
+      },
+      "interpretation": "Actual East was the three-spade defender and held DA. Three spade rounds exhausted East before DA won; a spade return was legally unavailable. HT is one of several legal nonspade cards, not a voluntary abandonment of an available spade return."
+    },
+    {
+      "attempt": "short-6-r2",
+      "purpose": "Evaluator-only material coverage, never a decision-time fact or live role input.",
+      "fixture": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/corpus/boards/walker-holdup-adapted.json",
+      "fixture_sha256": "1ee7dd3747426124dee7cd29f914aa8677818ad6558e2e5a327373cdacbea208",
+      "trace_sha256": "19513be62f973a7d3f651c23736a3a120e2c46cd0af35881ae202eb727614f0c",
+      "initial_environment_defender_spades": {
+        "east": [
+          "S4",
+          "S5",
+          "S6"
+        ],
+        "west": [
+          "S2",
+          "SJ",
+          "SK",
+          "SQ",
+          "ST"
+        ]
+      },
+      "diamond_ace_sequence": 15,
+      "post_DA_actor": "east",
+      "environment_only_remaining_hands": {
+        "east": [
+          "C7",
+          "C9",
+          "CK",
+          "D7",
+          "D8",
+          "H2",
+          "H8",
+          "H9",
+          "HT"
+        ],
+        "west": [
+          "C2",
+          "C3",
+          "C8",
+          "CQ",
+          "H5",
+          "H6",
+          "H7",
+          "S2",
+          "ST"
+        ]
+      },
+      "east_can_return_spade": false,
+      "actual_next_event": {
+        "card": "HT",
+        "seat": "east",
+        "sequence": 16
+      },
+      "interpretation": "Actual East was the three-spade defender and held DA. Three spade rounds exhausted East before DA won; a spade return was legally unavailable. HT is one of several legal nonspade cards, not a voluntary abandonment of an available spade return."
+    }
+  ]
+}
