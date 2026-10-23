@@ -1,0 +1,515 @@
+{
+  "completed": 22,
+  "attempts": [
+    {
+      "id": "short-1-r1",
+      "task": true,
+      "legal": "pass",
+      "raw_quality": "pass",
+      "raw_outcome": "pass",
+      "coverage": "covered",
+      "counts": {
+        "pass": 1,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "board_complete": false,
+      "tricks": [
+        0,
+        0
+      ],
+      "model_actions": 1,
+      "forced_actions": 0,
+      "rpc_requests": 2,
+      "automatic_seconds": 42.84546601772308,
+      "artifact": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate3/short-1-r1"
+    },
+    {
+      "id": "short-1-r2",
+      "task": true,
+      "legal": "pass",
+      "raw_quality": "pass",
+      "raw_outcome": "pass",
+      "coverage": "covered",
+      "counts": {
+        "pass": 1,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "board_complete": false,
+      "tricks": [
+        0,
+        0
+      ],
+      "model_actions": 1,
+      "forced_actions": 0,
+      "rpc_requests": 2,
+      "automatic_seconds": 57.750572085380554,
+      "artifact": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate3/short-1-r2"
+    },
+    {
+      "id": "short-1-r3",
+      "task": true,
+      "legal": "pass",
+      "raw_quality": "pass",
+      "raw_outcome": "pass",
+      "coverage": "covered",
+      "counts": {
+        "pass": 1,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "board_complete": false,
+      "tricks": [
+        0,
+        0
+      ],
+      "model_actions": 1,
+      "forced_actions": 0,
+      "rpc_requests": 4,
+      "automatic_seconds": 99.9314090013504,
+      "artifact": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate3/short-1-r3"
+    },
+    {
+      "id": "short-2-r1",
+      "task": true,
+      "legal": "pass",
+      "raw_quality": "pass",
+      "raw_outcome": "pending",
+      "coverage": "pending",
+      "counts": {
+        "pass": 8,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "board_complete": false,
+      "tricks": [
+        3,
+        0
+      ],
+      "model_actions": 8,
+      "forced_actions": 0,
+      "rpc_requests": 16,
+      "automatic_seconds": 203.87819707393646,
+      "artifact": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate3/short-2-r1"
+    },
+    {
+      "id": "short-2-r2",
+      "task": true,
+      "legal": "pass",
+      "raw_quality": "pass",
+      "raw_outcome": "pending",
+      "coverage": "pending",
+      "counts": {
+        "pass": 8,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "board_complete": false,
+      "tricks": [
+        3,
+        0
+      ],
+      "model_actions": 8,
+      "forced_actions": 0,
+      "rpc_requests": 16,
+      "automatic_seconds": 136.15099799633026,
+      "artifact": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate3/short-2-r2"
+    },
+    {
+      "id": "short-2-r3",
+      "task": true,
+      "legal": "pass",
+      "raw_quality": "pass",
+      "raw_outcome": "pending",
+      "coverage": "pending",
+      "counts": {
+        "pass": 8,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "board_complete": false,
+      "tricks": [
+        3,
+        0
+      ],
+      "model_actions": 8,
+      "forced_actions": 0,
+      "rpc_requests": 16,
+      "automatic_seconds": 132.8266509771347,
+      "artifact": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate3/short-2-r3"
+    },
+    {
+      "id": "short-3-r1",
+      "task": true,
+      "legal": "pass",
+      "raw_quality": "pass",
+      "raw_outcome": "pending",
+      "coverage": "pending",
+      "counts": {
+        "pass": 12,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "board_complete": false,
+      "tricks": [
+        5,
+        0
+      ],
+      "model_actions": 12,
+      "forced_actions": 0,
+      "rpc_requests": 24,
+      "automatic_seconds": 198.76078498363495,
+      "artifact": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate3/short-3-r1"
+    },
+    {
+      "id": "short-3-r2",
+      "task": true,
+      "legal": "pass",
+      "raw_quality": "pass",
+      "raw_outcome": "pending",
+      "coverage": "pending",
+      "counts": {
+        "pass": 12,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "board_complete": false,
+      "tricks": [
+        5,
+        0
+      ],
+      "model_actions": 12,
+      "forced_actions": 0,
+      "rpc_requests": 26,
+      "automatic_seconds": 255.5016679763794,
+      "artifact": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate3/short-3-r2"
+    },
+    {
+      "id": "short-3-r3",
+      "task": true,
+      "legal": "pass",
+      "raw_quality": "pass",
+      "raw_outcome": "pending",
+      "coverage": "pending",
+      "counts": {
+        "pass": 12,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "board_complete": false,
+      "tricks": [
+        4,
+        1
+      ],
+      "model_actions": 12,
+      "forced_actions": 0,
+      "rpc_requests": 26,
+      "automatic_seconds": 264.09673595428467,
+      "artifact": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate3/short-3-r3"
+    },
+    {
+      "id": "short-4-r1",
+      "task": true,
+      "legal": "pass",
+      "raw_quality": "pass",
+      "raw_outcome": "pending",
+      "coverage": "pending",
+      "counts": {
+        "pass": 16,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "board_complete": false,
+      "tricks": [
+        7,
+        1
+      ],
+      "model_actions": 16,
+      "forced_actions": 1,
+      "rpc_requests": 32,
+      "automatic_seconds": 213.7575659751892,
+      "artifact": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate3/short-4-r1"
+    },
+    {
+      "id": "short-4-r2",
+      "task": true,
+      "legal": "pass",
+      "raw_quality": "pass",
+      "raw_outcome": "pending",
+      "coverage": "pending",
+      "counts": {
+        "pass": 16,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "board_complete": false,
+      "tricks": [
+        8,
+        0
+      ],
+      "model_actions": 16,
+      "forced_actions": 1,
+      "rpc_requests": 32,
+      "automatic_seconds": 260.5594049692154,
+      "artifact": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate3/short-4-r2"
+    },
+    {
+      "id": "short-4-r3",
+      "task": true,
+      "legal": "pass",
+      "raw_quality": "pass",
+      "raw_outcome": "pending",
+      "coverage": "pending",
+      "counts": {
+        "pass": 16,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "board_complete": false,
+      "tricks": [
+        7,
+        1
+      ],
+      "model_actions": 16,
+      "forced_actions": 1,
+      "rpc_requests": 32,
+      "automatic_seconds": 247.14072501659393,
+      "artifact": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate3/short-4-r3"
+    },
+    {
+      "id": "short-5-r1",
+      "task": true,
+      "legal": "pass",
+      "raw_quality": "pass",
+      "raw_outcome": "pending",
+      "coverage": "pending",
+      "counts": {
+        "pass": 12,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "board_complete": false,
+      "tricks": [
+        4,
+        3
+      ],
+      "model_actions": 12,
+      "forced_actions": 1,
+      "rpc_requests": 28,
+      "automatic_seconds": 359.7702189683914,
+      "artifact": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate3/short-5-r1"
+    },
+    {
+      "id": "short-5-r2",
+      "task": true,
+      "legal": "pass",
+      "raw_quality": "fail",
+      "raw_outcome": "fail",
+      "coverage": "pending",
+      "counts": {
+        "pass": 1,
+        "fail": 11,
+        "uncertain": 0
+      },
+      "board_complete": false,
+      "tricks": [
+        4,
+        2
+      ],
+      "model_actions": 12,
+      "forced_actions": 0,
+      "rpc_requests": 26,
+      "automatic_seconds": 332.1148509979248,
+      "artifact": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate3/short-5-r2"
+    },
+    {
+      "id": "short-5-r3",
+      "task": true,
+      "legal": "pass",
+      "raw_quality": "pass",
+      "raw_outcome": "pending",
+      "coverage": "pending",
+      "counts": {
+        "pass": 12,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "board_complete": false,
+      "tricks": [
+        4,
+        2
+      ],
+      "model_actions": 12,
+      "forced_actions": 0,
+      "rpc_requests": 26,
+      "automatic_seconds": 333.1993179321289,
+      "artifact": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate3/short-5-r3"
+    },
+    {
+      "id": "short-6-r1",
+      "task": true,
+      "legal": "pass",
+      "raw_quality": "pass",
+      "raw_outcome": "pending",
+      "coverage": "pending",
+      "counts": {
+        "pass": 12,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "board_complete": false,
+      "tricks": [
+        4,
+        3
+      ],
+      "model_actions": 12,
+      "forced_actions": 2,
+      "rpc_requests": 26,
+      "automatic_seconds": 186.5908819437027,
+      "artifact": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate3/short-6-r1"
+    },
+    {
+      "id": "short-6-r2",
+      "task": true,
+      "legal": "pass",
+      "raw_quality": "pass",
+      "raw_outcome": "pending",
+      "coverage": "pending",
+      "counts": {
+        "pass": 12,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "board_complete": false,
+      "tricks": [
+        4,
+        3
+      ],
+      "model_actions": 12,
+      "forced_actions": 3,
+      "rpc_requests": 24,
+      "automatic_seconds": 201.7787790298462,
+      "artifact": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate3/short-6-r2"
+    },
+    {
+      "id": "short-6-r3",
+      "task": true,
+      "legal": "pass",
+      "raw_quality": "pass",
+      "raw_outcome": "pending",
+      "coverage": "pending",
+      "counts": {
+        "pass": 12,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "board_complete": false,
+      "tricks": [
+        4,
+        3
+      ],
+      "model_actions": 12,
+      "forced_actions": 2,
+      "rpc_requests": 26,
+      "automatic_seconds": 200.94693207740784,
+      "artifact": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate3/short-6-r3"
+    },
+    {
+      "id": "full-development-r1",
+      "task": true,
+      "legal": "pass",
+      "raw_quality": "pass",
+      "raw_outcome": "pass",
+      "coverage": "covered",
+      "counts": {
+        "pass": 23,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "board_complete": true,
+      "tricks": [
+        10,
+        3
+      ],
+      "model_actions": 23,
+      "forced_actions": 3,
+      "rpc_requests": 46,
+      "automatic_seconds": 292.618155002594,
+      "artifact": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate3/full-development-r1"
+    },
+    {
+      "id": "full-development-r2",
+      "task": true,
+      "legal": "pass",
+      "raw_quality": "pass",
+      "raw_outcome": "pass",
+      "coverage": "covered",
+      "counts": {
+        "pass": 22,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "board_complete": true,
+      "tricks": [
+        10,
+        3
+      ],
+      "model_actions": 22,
+      "forced_actions": 4,
+      "rpc_requests": 44,
+      "automatic_seconds": 275.45129001140594,
+      "artifact": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate3/full-development-r2"
+    },
+    {
+      "id": "full-reserved-r1",
+      "task": true,
+      "legal": "pass",
+      "raw_quality": "pass",
+      "raw_outcome": "pass",
+      "coverage": "covered",
+      "counts": {
+        "pass": 21,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "board_complete": true,
+      "tricks": [
+        12,
+        1
+      ],
+      "model_actions": 21,
+      "forced_actions": 5,
+      "rpc_requests": 44,
+      "automatic_seconds": 264.0440809726715,
+      "artifact": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate3/full-reserved-r1"
+    },
+    {
+      "id": "full-reserved-r2",
+      "task": true,
+      "legal": "pass",
+      "raw_quality": "pass",
+      "raw_outcome": "pass",
+      "coverage": "covered",
+      "counts": {
+        "pass": 21,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "board_complete": true,
+      "tricks": [
+        13,
+        0
+      ],
+      "model_actions": 21,
+      "forced_actions": 5,
+      "rpc_requests": 42,
+      "automatic_seconds": 252.70271801948547,
+      "artifact": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate3/full-reserved-r2"
+    }
+  ],
+  "started_unfinished": [],
+  "runner_alive": false,
+  "runner": "",
+  "execution_finished": true
+}

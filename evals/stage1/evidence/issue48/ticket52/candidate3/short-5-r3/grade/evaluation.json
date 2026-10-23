@@ -1,0 +1,237 @@
+{
+  "rubric_version": "stage1-basic-v4",
+  "results": [
+    {
+      "id": "decision-0001",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "trick counting and entries",
+          "fact": "The conditional diamond route preserves a feasible entry and supplies the required nine tricks.",
+          "explanation": "Authorized holdings are North DKQ975 and CA, South D43, CK and HAK, with SA already won and SQ established. Ducking one diamond before playing toward the honors permits three diamond tricks on a 3–3 break while retaining CA until the concessions finish. Two spades, two hearts, two clubs and three diamonds total nine.",
+          "quotes": [
+            "Lead D3 and duck in dummy, normally playing D5, to concede a diamond before spending either honor.",
+            "On a 3–3 break, if that honor loses to the ace, enter dummy with CA and cash its remaining honor and two long diamonds.",
+            "If the honor wins, continue the other honor to force out the ace, then use CA to cash the two established diamonds."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0002",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "action and plan consistency",
+          "fact": "D5 implements the planned early diamond concession without consuming an honor or the entry.",
+          "explanation": "The authorized current trick is South D3, West D6; North holds DKQ975 and CA. D5 follows suit below D6, retaining KQ and CA. South still holds D4 for the next lead toward the honors.",
+          "quotes": [
+            "Duck as planned, preserving both diamond honors and the club-ace entry. This keeps three diamond tricks reachable on a 3–3 break."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0003",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "winner identification and inference",
+          "fact": "SQ is a winner, and the stated limit on West's spade length follows from the known cards.",
+          "explanation": "Authorized history shows SA beating SK, and East has now played SK and S2. North–South originally held seven spades, leaving six for the defenders; East's two observed spades leave West at most four. Winning SQ leaves South able to lead its remaining D4 as planned.",
+          "quotes": [
+            "Win with the queen and continue diamonds. East has now shown a second spade, ruling out a five-card spade holding with West."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0004",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "legal continuation and entries",
+          "fact": "Following S5 preserves South's winning lead and the feasible diamond continuation.",
+          "explanation": "The authorized trick is S2–SQ–S8 with North holding S65. S5 legally follows under SQ. South retains D4, North retains DKQ97 and CA, so the unfinished diamond route remains available.",
+          "quotes": [
+            "Follow low under South's winning queen, retaining the planned diamond continuation and club-ace entry."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0005",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "development and communication",
+          "fact": "Leading D4 continues the stated establishment route with the reserved entry intact.",
+          "explanation": "Authorized history records the first diamond concession and South's SQ winner. South now holds only D4 in diamonds; North holds DKQ97 and CA. Leading D4 toward the honors is feasible and retains CA for the established length.",
+          "quotes": [
+            "Lead the remaining diamond toward dummy's honors, continuing establishment while preserving the club ace as the eventual entry."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0006",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "action and conditional continuation",
+          "fact": "DK legally covers DT and fits both branches of the retained plan.",
+          "explanation": "The authorized trick is D4–DT, and North holds DKQ97 and CA. DK either loses to the outstanding ace or wins, after which the plan continues DQ to dislodge that ace. On the stated 3–3 hypothesis, CA remains available after the necessary concessions.",
+          "quotes": [
+            "Cover the ten with the king, forcing East's ace if held there.",
+            "If the honor wins, continue the other honor to force out the ace, then use CA to cash the two established diamonds."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0007",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "control and conditional trick source",
+          "fact": "HA wins the switch while the diamond continuation remains correctly conditional.",
+          "explanation": "Authorized history records losses to D8 and DA, and the current lead is HQ. South holds HA; North retains DQ97 and CA. On a 3–3 diamond break, cashing DQ removes the defenders' final diamonds and establishes D9 and D7.",
+          "quotes": [
+            "Win the heart switch, retaining control. Both diamond concessions are complete; reach dummy with the club ace and cash the diamonds if the suit breaks 3–3."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0008",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "winner preservation and entry",
+          "fact": "H3 follows legally without disturbing the reserved club entry.",
+          "explanation": "The authorized trick is HQ–HA–H5, with North holding H43. H3 leaves HA winning. North still holds CA and DQ97, and South has low clubs to reach North.",
+          "quotes": [
+            "Follow low under the ace. The club ace remains available to reach dummy and test the diamond break."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0009",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "physical route and communication",
+          "fact": "C3 reaches the diamond hand while preserving a return to South's winners.",
+          "explanation": "Authorized holdings give South CK73 and HK, North CAT4 and DQ97. C3 toward CA provides the planned entry; North can subsequently lead C4 toward CK to reach HK after cashing the available diamonds.",
+          "quotes": [
+            "Lead to dummy's club ace, then cash the diamond queen to test whether the remaining diamonds run. Keep the club king as the return entry to South."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0010",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "entry timing",
+          "fact": "Taking CA now executes the reserved entry after both diamond concessions.",
+          "explanation": "Authorized history records the losses to D8 and DA. The current trick is C3–C6, and North holds CA and DQ97. CA wins and enables DQ; North's remaining C4 and South's CK provide a feasible later transfer to HK.",
+          "quotes": [
+            "Take the reserved entry now and test diamonds with the queen. South's club king remains available to reach the heart king afterward."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0011",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "conditional counting",
+          "fact": "The proposed diamond test and conditional nine-trick count are sound.",
+          "explanation": "Authorized facts show four declarer tricks already won, North on lead with DQ97, and South holding CK and HK. Each defender has followed to two diamond rounds. If both follow to DQ, all six defensive diamonds have been played, making D9 and D7 winners. Those three diamonds plus the two kings bring the total to nine.",
+          "quotes": [
+            "Cash the queen to test the diamond break. If both defenders follow, the nine and seven are winners, giving nine tricks with South's club and heart kings."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0012",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "remaining winners and resource preservation",
+          "fact": "The diamond winners are now established, and S4 preserves the necessary side winners and communication.",
+          "explanation": "Authorized history and current play account for DA, DK, DQ, DJ, DT and D8. North holds D9 and D7; the only remaining defensive diamonds can be D2 alone or no diamonds after West follows. Neither can beat D7. South is void in diamonds and can legally discard S4 while retaining CK, HK and C7; North retains C4 for the transfer to CK.",
+          "quotes": [
+            "Discard a losing spade, preserving both kings and the club connection. East's jack falls under the queen; dummy's nine and seven are now winning diamonds."
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Small-sample basic evaluation; no claim of broad grading reliability."
+}

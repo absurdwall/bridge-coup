@@ -1,0 +1,24 @@
+[
+  {
+    "script": "aggregate.py",
+    "exit_code": 0,
+    "result_status": null,
+    "raw_counts": {
+      "pass": 259,
+      "uncertain": 0,
+      "fail": 11
+    }
+  },
+  {
+    "script": "audit_native_plan_encoding.py",
+    "exit_code": 0,
+    "result_status": "pass",
+    "raw_counts": null
+  },
+  {
+    "script": "verify_public_windows.py",
+    "exit_code": 0,
+    "result_status": "public_facts_verified",
+    "raw_counts": null
+  }
+]

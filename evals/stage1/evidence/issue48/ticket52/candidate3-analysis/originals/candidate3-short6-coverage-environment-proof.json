@@ -1,0 +1,825 @@
+{
+  "scope": "Evaluator-only exact frozen environment coverage after all three public quality reports were finalized. Never feed complete holdings into a role.",
+  "frozen_source_commit": "3f0fc65470633dd90363ad0417b29a9f7f68be18",
+  "frozen_archive": "evals/stage1/evidence/issue48/ticket52/candidate3-analysis/runtime/candidate3-source.tar.gz",
+  "frozen_archive_sha256": "0bb2e7f987adae2c1c8923ddf10db6cda8e1045125667536ef34eda1aaab3206",
+  "candidate_metadata_sha256": "777457fae544dc6eb45b77343cdb9bdbbd4eda31f9941638a1917e6dec574720",
+  "frozen_archive_manifest_sha256": "552f961389481a9f16b517cec51554b2588da9875526071db3cbafa64516ff0b",
+  "verified_frozen_source_member_count": 50,
+  "fixture_archive_member": "evals/stage1/corpus/boards/walker-holdup-adapted.json",
+  "fixture_sha256": "1ee7dd3747426124dee7cd29f914aa8677818ad6558e2e5a327373cdacbea208",
+  "replay_reducer_archive_member": "evals/stage1/corpus.py",
+  "replay_reducer_sha256": "5028d0dbc8a9f633932f8d8989fe0169e9166bc51738c22fa9e8ac64c27c626a",
+  "attempts": [
+    {
+      "attempt": "short-6-r1",
+      "trace": "evals/stage1/evidence/issue48/ticket52/candidate3/short-6-r1/play/trace.json",
+      "trace_sha256": "0efc152c0e602c82c400ae41839539477e49fd014b67e5476f15a72da2a601d9",
+      "grade_input_sha256": "edf686adcc38a6b908b00767fccdac5548d68f3dff0c015136c4cbf97a574633",
+      "public_quality_report": {
+        "file": "candidate3-short-6-r1-review.md",
+        "sha256": "7063b14bb12949ccedf9c6bca787c30c0b3707556d6a3b8c6c23cdbb8c4d879e"
+      },
+      "events_count": 28,
+      "recorded_events": [
+        {
+          "card": "SK",
+          "seat": "west",
+          "sequence": 0
+        },
+        {
+          "card": "S7",
+          "seat": "north",
+          "sequence": 1
+        },
+        {
+          "card": "S4",
+          "seat": "east",
+          "sequence": 2
+        },
+        {
+          "card": "S3",
+          "seat": "south",
+          "sequence": 3
+        },
+        {
+          "card": "SQ",
+          "seat": "west",
+          "sequence": 4
+        },
+        {
+          "card": "S8",
+          "seat": "north",
+          "sequence": 5
+        },
+        {
+          "card": "S5",
+          "seat": "east",
+          "sequence": 6
+        },
+        {
+          "card": "S9",
+          "seat": "south",
+          "sequence": 7
+        },
+        {
+          "card": "SJ",
+          "seat": "west",
+          "sequence": 8
+        },
+        {
+          "card": "C4",
+          "seat": "north",
+          "sequence": 9
+        },
+        {
+          "card": "S6",
+          "seat": "east",
+          "sequence": 10
+        },
+        {
+          "card": "SA",
+          "seat": "south",
+          "sequence": 11
+        },
+        {
+          "card": "HK",
+          "seat": "south",
+          "sequence": 12
+        },
+        {
+          "card": "H5",
+          "seat": "west",
+          "sequence": 13
+        },
+        {
+          "card": "H3",
+          "seat": "north",
+          "sequence": 14
+        },
+        {
+          "card": "H2",
+          "seat": "east",
+          "sequence": 15
+        },
+        {
+          "card": "HQ",
+          "seat": "south",
+          "sequence": 16
+        },
+        {
+          "card": "H6",
+          "seat": "west",
+          "sequence": 17
+        },
+        {
+          "card": "H4",
+          "seat": "north",
+          "sequence": 18
+        },
+        {
+          "card": "H8",
+          "seat": "east",
+          "sequence": 19
+        },
+        {
+          "card": "D2",
+          "seat": "south",
+          "sequence": 20
+        },
+        {
+          "card": "D6",
+          "seat": "west",
+          "sequence": 21
+        },
+        {
+          "card": "DK",
+          "seat": "north",
+          "sequence": 22
+        },
+        {
+          "card": "DA",
+          "seat": "east",
+          "sequence": 23
+        },
+        {
+          "card": "CK",
+          "seat": "east",
+          "sequence": 24
+        },
+        {
+          "card": "CA",
+          "seat": "south",
+          "sequence": 25
+        },
+        {
+          "card": "C2",
+          "seat": "west",
+          "sequence": 26
+        },
+        {
+          "card": "C5",
+          "seat": "north",
+          "sequence": 27
+        }
+      ],
+      "all_actual_event_prefixes_legally_replayed": true,
+      "all_12_public_decision_snapshots_match_fixture_replay": true,
+      "two_hold_up_south_cards": [
+        "S3",
+        "S9"
+      ],
+      "third_spade_won_by": "SA",
+      "diamond_ace_sequence": 23,
+      "after_diamond_ace_next_actor": "east",
+      "after_diamond_ace_tricks": [
+        3,
+        3
+      ],
+      "actual_switch": {
+        "card": "CK",
+        "seat": "east",
+        "sequence": 24
+      },
+      "environment_only_remaining_hands_before_switch": {
+        "north": [
+          "C5",
+          "CT",
+          "D9",
+          "DJ",
+          "DQ",
+          "DT",
+          "HA"
+        ],
+        "east": [
+          "C7",
+          "C9",
+          "CK",
+          "D7",
+          "D8",
+          "H9",
+          "HT"
+        ],
+        "south": [
+          "C6",
+          "CA",
+          "CJ",
+          "D3",
+          "D4",
+          "D5",
+          "HJ"
+        ],
+        "west": [
+          "C2",
+          "C3",
+          "C8",
+          "CQ",
+          "H7",
+          "S2",
+          "ST"
+        ]
+      },
+      "environment_only_east_remaining_spades": [],
+      "environment_only_west_remaining_spades": [
+        "S2",
+        "ST"
+      ],
+      "environment_only_east_legal_leads_before_switch": [
+        "C7",
+        "C9",
+        "CK",
+        "D7",
+        "D8",
+        "H9",
+        "HT"
+      ],
+      "environment_only_east_could_legally_return_a_spade": false,
+      "environment_only_actual_spade_communications_severed": true,
+      "final_actual_tricks": [
+        4,
+        3
+      ],
+      "final_actual_hands": {
+        "north": [
+          "CT",
+          "D9",
+          "DJ",
+          "DQ",
+          "DT",
+          "HA"
+        ],
+        "east": [
+          "C7",
+          "C9",
+          "D7",
+          "D8",
+          "H9",
+          "HT"
+        ],
+        "south": [
+          "C6",
+          "CJ",
+          "D3",
+          "D4",
+          "D5",
+          "HJ"
+        ],
+        "west": [
+          "C3",
+          "C8",
+          "CQ",
+          "H7",
+          "S2",
+          "ST"
+        ]
+      },
+      "board_complete": false,
+      "limits": "Hidden-environment reachability only. East void was not established by a public show-out. This does not change player knowledge, quality labels, or prove unplayed heart/diamond/club continuation."
+    },
+    {
+      "attempt": "short-6-r2",
+      "trace": "evals/stage1/evidence/issue48/ticket52/candidate3/short-6-r2/play/trace.json",
+      "trace_sha256": "3ef0319affe86f9ea1b05d1f5169d97ad2e59e8edcabf4f44459b2c92394c1c8",
+      "grade_input_sha256": "d3a54d4f1a419a48e8e9c8a1de4535858506d6566cfa28dd98299522775f445a",
+      "public_quality_report": {
+        "file": "candidate3-short-6-r2-review.md",
+        "sha256": "4fb7b2c3c9a019608690bbcfc3db0584331ed149e27e49fbc34fa27922bd2a09"
+      },
+      "events_count": 29,
+      "recorded_events": [
+        {
+          "card": "SK",
+          "seat": "west",
+          "sequence": 0
+        },
+        {
+          "card": "S7",
+          "seat": "north",
+          "sequence": 1
+        },
+        {
+          "card": "S4",
+          "seat": "east",
+          "sequence": 2
+        },
+        {
+          "card": "S3",
+          "seat": "south",
+          "sequence": 3
+        },
+        {
+          "card": "SQ",
+          "seat": "west",
+          "sequence": 4
+        },
+        {
+          "card": "S8",
+          "seat": "north",
+          "sequence": 5
+        },
+        {
+          "card": "S5",
+          "seat": "east",
+          "sequence": 6
+        },
+        {
+          "card": "S9",
+          "seat": "south",
+          "sequence": 7
+        },
+        {
+          "card": "SJ",
+          "seat": "west",
+          "sequence": 8
+        },
+        {
+          "card": "C4",
+          "seat": "north",
+          "sequence": 9
+        },
+        {
+          "card": "S6",
+          "seat": "east",
+          "sequence": 10
+        },
+        {
+          "card": "SA",
+          "seat": "south",
+          "sequence": 11
+        },
+        {
+          "card": "D2",
+          "seat": "south",
+          "sequence": 12
+        },
+        {
+          "card": "D6",
+          "seat": "west",
+          "sequence": 13
+        },
+        {
+          "card": "DK",
+          "seat": "north",
+          "sequence": 14
+        },
+        {
+          "card": "DA",
+          "seat": "east",
+          "sequence": 15
+        },
+        {
+          "card": "HT",
+          "seat": "east",
+          "sequence": 16
+        },
+        {
+          "card": "HJ",
+          "seat": "south",
+          "sequence": 17
+        },
+        {
+          "card": "H5",
+          "seat": "west",
+          "sequence": 18
+        },
+        {
+          "card": "H3",
+          "seat": "north",
+          "sequence": 19
+        },
+        {
+          "card": "HK",
+          "seat": "south",
+          "sequence": 20
+        },
+        {
+          "card": "H6",
+          "seat": "west",
+          "sequence": 21
+        },
+        {
+          "card": "H4",
+          "seat": "north",
+          "sequence": 22
+        },
+        {
+          "card": "H2",
+          "seat": "east",
+          "sequence": 23
+        },
+        {
+          "card": "HQ",
+          "seat": "south",
+          "sequence": 24
+        },
+        {
+          "card": "H7",
+          "seat": "west",
+          "sequence": 25
+        },
+        {
+          "card": "HA",
+          "seat": "north",
+          "sequence": 26
+        },
+        {
+          "card": "H8",
+          "seat": "east",
+          "sequence": 27
+        },
+        {
+          "card": "DQ",
+          "seat": "north",
+          "sequence": 28
+        }
+      ],
+      "all_actual_event_prefixes_legally_replayed": true,
+      "all_12_public_decision_snapshots_match_fixture_replay": true,
+      "two_hold_up_south_cards": [
+        "S3",
+        "S9"
+      ],
+      "third_spade_won_by": "SA",
+      "diamond_ace_sequence": 15,
+      "after_diamond_ace_next_actor": "east",
+      "after_diamond_ace_tricks": [
+        1,
+        3
+      ],
+      "actual_switch": {
+        "card": "HT",
+        "seat": "east",
+        "sequence": 16
+      },
+      "environment_only_remaining_hands_before_switch": {
+        "north": [
+          "C5",
+          "CT",
+          "D9",
+          "DJ",
+          "DQ",
+          "DT",
+          "H3",
+          "H4",
+          "HA"
+        ],
+        "east": [
+          "C7",
+          "C9",
+          "CK",
+          "D7",
+          "D8",
+          "H2",
+          "H8",
+          "H9",
+          "HT"
+        ],
+        "south": [
+          "C6",
+          "CA",
+          "CJ",
+          "D3",
+          "D4",
+          "D5",
+          "HJ",
+          "HK",
+          "HQ"
+        ],
+        "west": [
+          "C2",
+          "C3",
+          "C8",
+          "CQ",
+          "H5",
+          "H6",
+          "H7",
+          "S2",
+          "ST"
+        ]
+      },
+      "environment_only_east_remaining_spades": [],
+      "environment_only_west_remaining_spades": [
+        "S2",
+        "ST"
+      ],
+      "environment_only_east_legal_leads_before_switch": [
+        "C7",
+        "C9",
+        "CK",
+        "D7",
+        "D8",
+        "H2",
+        "H8",
+        "H9",
+        "HT"
+      ],
+      "environment_only_east_could_legally_return_a_spade": false,
+      "environment_only_actual_spade_communications_severed": true,
+      "final_actual_tricks": [
+        4,
+        3
+      ],
+      "final_actual_hands": {
+        "north": [
+          "C5",
+          "CT",
+          "D9",
+          "DJ",
+          "DT"
+        ],
+        "east": [
+          "C7",
+          "C9",
+          "CK",
+          "D7",
+          "D8",
+          "H9"
+        ],
+        "south": [
+          "C6",
+          "CA",
+          "CJ",
+          "D3",
+          "D4",
+          "D5"
+        ],
+        "west": [
+          "C2",
+          "C3",
+          "C8",
+          "CQ",
+          "S2",
+          "ST"
+        ]
+      },
+      "board_complete": false,
+      "limits": "Hidden-environment reachability only. East void was not established by a public show-out. This does not change player knowledge, quality labels, or prove unplayed heart/diamond/club continuation."
+    },
+    {
+      "attempt": "short-6-r3",
+      "trace": "evals/stage1/evidence/issue48/ticket52/candidate3/short-6-r3/play/trace.json",
+      "trace_sha256": "33d7995eee011cc85650d833a36b27edf5165f234de154708056d21580a8456f",
+      "grade_input_sha256": "a55a8482e4843fddbf1c00ead1e0a0be7ff9212cb28b33ababc4ea60200c1a61",
+      "public_quality_report": {
+        "file": "candidate3-short-6-r3-review.md",
+        "sha256": "021c465e1159dd9d709229defaa63edac7dfab926aa75ca40b4ac5c651f8c0f4"
+      },
+      "events_count": 28,
+      "recorded_events": [
+        {
+          "card": "SK",
+          "seat": "west",
+          "sequence": 0
+        },
+        {
+          "card": "S7",
+          "seat": "north",
+          "sequence": 1
+        },
+        {
+          "card": "S4",
+          "seat": "east",
+          "sequence": 2
+        },
+        {
+          "card": "S3",
+          "seat": "south",
+          "sequence": 3
+        },
+        {
+          "card": "SQ",
+          "seat": "west",
+          "sequence": 4
+        },
+        {
+          "card": "S8",
+          "seat": "north",
+          "sequence": 5
+        },
+        {
+          "card": "S5",
+          "seat": "east",
+          "sequence": 6
+        },
+        {
+          "card": "S9",
+          "seat": "south",
+          "sequence": 7
+        },
+        {
+          "card": "SJ",
+          "seat": "west",
+          "sequence": 8
+        },
+        {
+          "card": "C4",
+          "seat": "north",
+          "sequence": 9
+        },
+        {
+          "card": "S6",
+          "seat": "east",
+          "sequence": 10
+        },
+        {
+          "card": "SA",
+          "seat": "south",
+          "sequence": 11
+        },
+        {
+          "card": "HK",
+          "seat": "south",
+          "sequence": 12
+        },
+        {
+          "card": "H5",
+          "seat": "west",
+          "sequence": 13
+        },
+        {
+          "card": "H3",
+          "seat": "north",
+          "sequence": 14
+        },
+        {
+          "card": "H2",
+          "seat": "east",
+          "sequence": 15
+        },
+        {
+          "card": "HQ",
+          "seat": "south",
+          "sequence": 16
+        },
+        {
+          "card": "H6",
+          "seat": "west",
+          "sequence": 17
+        },
+        {
+          "card": "H4",
+          "seat": "north",
+          "sequence": 18
+        },
+        {
+          "card": "H8",
+          "seat": "east",
+          "sequence": 19
+        },
+        {
+          "card": "D2",
+          "seat": "south",
+          "sequence": 20
+        },
+        {
+          "card": "D6",
+          "seat": "west",
+          "sequence": 21
+        },
+        {
+          "card": "DK",
+          "seat": "north",
+          "sequence": 22
+        },
+        {
+          "card": "DA",
+          "seat": "east",
+          "sequence": 23
+        },
+        {
+          "card": "CK",
+          "seat": "east",
+          "sequence": 24
+        },
+        {
+          "card": "CA",
+          "seat": "south",
+          "sequence": 25
+        },
+        {
+          "card": "C2",
+          "seat": "west",
+          "sequence": 26
+        },
+        {
+          "card": "C5",
+          "seat": "north",
+          "sequence": 27
+        }
+      ],
+      "all_actual_event_prefixes_legally_replayed": true,
+      "all_12_public_decision_snapshots_match_fixture_replay": true,
+      "two_hold_up_south_cards": [
+        "S3",
+        "S9"
+      ],
+      "third_spade_won_by": "SA",
+      "diamond_ace_sequence": 23,
+      "after_diamond_ace_next_actor": "east",
+      "after_diamond_ace_tricks": [
+        3,
+        3
+      ],
+      "actual_switch": {
+        "card": "CK",
+        "seat": "east",
+        "sequence": 24
+      },
+      "environment_only_remaining_hands_before_switch": {
+        "north": [
+          "C5",
+          "CT",
+          "D9",
+          "DJ",
+          "DQ",
+          "DT",
+          "HA"
+        ],
+        "east": [
+          "C7",
+          "C9",
+          "CK",
+          "D7",
+          "D8",
+          "H9",
+          "HT"
+        ],
+        "south": [
+          "C6",
+          "CA",
+          "CJ",
+          "D3",
+          "D4",
+          "D5",
+          "HJ"
+        ],
+        "west": [
+          "C2",
+          "C3",
+          "C8",
+          "CQ",
+          "H7",
+          "S2",
+          "ST"
+        ]
+      },
+      "environment_only_east_remaining_spades": [],
+      "environment_only_west_remaining_spades": [
+        "S2",
+        "ST"
+      ],
+      "environment_only_east_legal_leads_before_switch": [
+        "C7",
+        "C9",
+        "CK",
+        "D7",
+        "D8",
+        "H9",
+        "HT"
+      ],
+      "environment_only_east_could_legally_return_a_spade": false,
+      "environment_only_actual_spade_communications_severed": true,
+      "final_actual_tricks": [
+        4,
+        3
+      ],
+      "final_actual_hands": {
+        "north": [
+          "CT",
+          "D9",
+          "DJ",
+          "DQ",
+          "DT",
+          "HA"
+        ],
+        "east": [
+          "C7",
+          "C9",
+          "D7",
+          "D8",
+          "H9",
+          "HT"
+        ],
+        "south": [
+          "C6",
+          "CJ",
+          "D3",
+          "D4",
+          "D5",
+          "HJ"
+        ],
+        "west": [
+          "C3",
+          "C8",
+          "CQ",
+          "H7",
+          "S2",
+          "ST"
+        ]
+      },
+      "board_complete": false,
+      "limits": "Hidden-environment reachability only. East void was not established by a public show-out. This does not change player knowledge, quality labels, or prove unplayed heart/diamond/club continuation."
+    }
+  ],
+  "conclusion": "All three actual attempts legally reached East winning DA after South ducked twice and won the third spade. East then held no spades, so a spade return was impossible in this exact environment; r1/r3 switched CK and r2 switched HT. This actual environment fact is distinct from public decision-time knowledge."
+}

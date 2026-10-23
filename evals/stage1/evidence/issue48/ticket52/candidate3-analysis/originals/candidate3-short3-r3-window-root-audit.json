@@ -1,0 +1,161 @@
+{
+  "source_commit": "3f0fc65470633dd90363ad0417b29a9f7f68be18",
+  "attempt": "short-3-r3",
+  "all12_public_prefixes_match": true,
+  "actual_public_events": [
+    {
+      "card": "DQ",
+      "seat": "west",
+      "sequence": 0
+    },
+    {
+      "card": "D3",
+      "seat": "north",
+      "sequence": 1
+    },
+    {
+      "card": "D4",
+      "seat": "east",
+      "sequence": 2
+    },
+    {
+      "card": "DA",
+      "seat": "south",
+      "sequence": 3
+    },
+    {
+      "card": "CA",
+      "seat": "south",
+      "sequence": 4
+    },
+    {
+      "card": "C3",
+      "seat": "west",
+      "sequence": 5
+    },
+    {
+      "card": "C2",
+      "seat": "north",
+      "sequence": 6
+    },
+    {
+      "card": "C5",
+      "seat": "east",
+      "sequence": 7
+    },
+    {
+      "card": "C4",
+      "seat": "south",
+      "sequence": 8
+    },
+    {
+      "card": "C9",
+      "seat": "west",
+      "sequence": 9
+    },
+    {
+      "card": "C7",
+      "seat": "north",
+      "sequence": 10
+    },
+    {
+      "card": "CT",
+      "seat": "east",
+      "sequence": 11
+    },
+    {
+      "card": "D9",
+      "seat": "east",
+      "sequence": 12
+    },
+    {
+      "card": "DK",
+      "seat": "south",
+      "sequence": 13
+    },
+    {
+      "card": "D2",
+      "seat": "west",
+      "sequence": 14
+    },
+    {
+      "card": "D5",
+      "seat": "north",
+      "sequence": 15
+    },
+    {
+      "card": "C6",
+      "seat": "south",
+      "sequence": 16
+    },
+    {
+      "card": "CJ",
+      "seat": "west",
+      "sequence": 17
+    },
+    {
+      "card": "CQ",
+      "seat": "north",
+      "sequence": 18
+    },
+    {
+      "card": "H2",
+      "seat": "east",
+      "sequence": 19
+    },
+    {
+      "card": "HK",
+      "seat": "north",
+      "sequence": 20
+    },
+    {
+      "card": "H8",
+      "seat": "east",
+      "sequence": 21
+    },
+    {
+      "card": "H3",
+      "seat": "south",
+      "sequence": 22
+    }
+  ],
+  "frozen_screen": {
+    "status": "pending",
+    "basis": "Public two-round and first-show-out opportunities only; actual semantic use and prior equivalent deductions require independent review.",
+    "predicate_version": "public-first-club-showout-v2",
+    "public_count_basis": {
+      "initial_outside_clubs": 5,
+      "second_complete_club_round_end": 11
+    },
+    "facets": {
+      "two_round_break_decision_revisions": [
+        13,
+        15,
+        16,
+        18,
+        20,
+        22
+      ],
+      "third_club_before_other_defender_revisions": [
+        18
+      ],
+      "third_club_event_only_revisions": [],
+      "third_club_event_windows": [
+        {
+          "defender": "west",
+          "third_club_sequence": 17,
+          "other_first_club_showout": 19,
+          "controlled_action_revisions": [
+            18
+          ],
+          "actual_model_revisions": [
+            18
+          ]
+        }
+      ]
+    }
+  },
+  "trace_sha256": "6af7c57ae2adedc49bae1f4b79085bcb7ed2c93545683e852cbb02d3660f4620",
+  "frozen_screen_sha256": "141801c5dcc34a6c076341c856e9ebe02af87b22d2c43bded4269ca35d745e39",
+  "semantic_verdict": "pending independent actual meaning adjudication; eligibility alone is not use"
+}

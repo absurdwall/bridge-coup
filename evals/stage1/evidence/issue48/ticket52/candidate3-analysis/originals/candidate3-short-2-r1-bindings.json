@@ -1,0 +1,165 @@
+{
+  "frozen_source": "3f0fc65470633dd90363ad0417b29a9f7f68be18",
+  "attempt": "short-2-r1",
+  "scope": "read-only final-delivery/public-prefix binding, not semantic proof",
+  "files": {
+    "grade/input.json": "27ee132c856645bc357b9be40e8223b1ef557748bb39419f45bea2a6b49900b4",
+    "grade/grader-output.json": "e054e1604802c3f1e103b99e8939e6180698efc0baf939f8e49a0876b0cbf96e",
+    "summary.json": "bda0e4ba442579494acd0847831d72b3ba617c0dfe8cf68d59141a5c5f7f6269",
+    "play/trace.json": "96080bc2b36dd24c68c8406bf595d5da3f94c07eb3f9e8ea6de3c0f1261d778b"
+  },
+  "decisions": [
+    {
+      "id": "decision-0001",
+      "revision": 1,
+      "record_sha256": "580c93cc048bb404383a973a0a8e88187a19b0fd2f8032b64020dc163d937374",
+      "events_sha256": "3aba378fe8f4beadee810017fce1ae77a4247e79a6d9f3e61545fe08a348a34f",
+      "canonical_input_utf8_sha256": "aa5e6e45c657361a857a7942b98a3af77843754ef005d78283bc58f88c1f72b2",
+      "actual_input_utf8_sha256": "aa5e6e45c657361a857a7942b98a3af77843754ef005d78283bc58f88c1f72b2",
+      "raw_output_utf8_sha256": "a8b0ae483caec651ebfd07a7bcc041fb92fcfa3e31e3a648c7bd9f7a442b07cd",
+      "effective_plan_utf8_sha256": "6c08bdb35bba9b87edbc78e062f94470554772ccf57458c705278fecccdcc49f",
+      "checks": {
+        "canonical_input_exact": true,
+        "actual_player_input_exact": true,
+        "raw_output_exact": true,
+        "effective_plan_exact": true,
+        "snapshot_public_prefix_exact": true,
+        "executed_once": true,
+        "action_card_bound": true
+      }
+    },
+    {
+      "id": "decision-0002",
+      "revision": 3,
+      "record_sha256": "f3715e6b8688d230a876395a872c1f6e2988316186f8f4033304a4e7f773fed1",
+      "events_sha256": "3eecd88c579d7a69942ca83b1bf934d8c47d710c54a2b5cf8cd5818e56477d8d",
+      "canonical_input_utf8_sha256": "15f5ba12a55db10e9b00a5dbfd9e1c093741b29bd4d06f9bcdc455a0f2a3518b",
+      "actual_input_utf8_sha256": "15f5ba12a55db10e9b00a5dbfd9e1c093741b29bd4d06f9bcdc455a0f2a3518b",
+      "raw_output_utf8_sha256": "08b7868f3f895ee27f8202ec9836765958c7c1c07d771c36b75f10fb6875dc57",
+      "effective_plan_utf8_sha256": "6c08bdb35bba9b87edbc78e062f94470554772ccf57458c705278fecccdcc49f",
+      "checks": {
+        "canonical_input_exact": true,
+        "actual_player_input_exact": true,
+        "raw_output_exact": true,
+        "effective_plan_exact": true,
+        "snapshot_public_prefix_exact": true,
+        "executed_once": true,
+        "action_card_bound": true
+      }
+    },
+    {
+      "id": "decision-0003",
+      "revision": 4,
+      "record_sha256": "977c150f82068138f32ac802c249b4dd90045d01066c3129170d47e8758e8f8e",
+      "events_sha256": "247ebd252f0651e44afa0b100efc425855905f77cc0f6f3ebafe9e5eb0ff87fc",
+      "canonical_input_utf8_sha256": "fd0c2c33c7f3c5c82a1f8d908d06f81b2b835974e7935eb72547240467cd820f",
+      "actual_input_utf8_sha256": "fd0c2c33c7f3c5c82a1f8d908d06f81b2b835974e7935eb72547240467cd820f",
+      "raw_output_utf8_sha256": "8367b9df26610da0bd19c1e597a3b7396d362002014bfa1197ba26a3b6372b50",
+      "effective_plan_utf8_sha256": "6c08bdb35bba9b87edbc78e062f94470554772ccf57458c705278fecccdcc49f",
+      "checks": {
+        "canonical_input_exact": true,
+        "actual_player_input_exact": true,
+        "raw_output_exact": true,
+        "effective_plan_exact": true,
+        "snapshot_public_prefix_exact": true,
+        "executed_once": true,
+        "action_card_bound": true
+      }
+    },
+    {
+      "id": "decision-0004",
+      "revision": 6,
+      "record_sha256": "d2e58d38182775562fcbd23c1a91893b83e6c09cbe074cf3968488ed9487bd3d",
+      "events_sha256": "9823545970257ccbbfa92cf391442c5195f301ecf80433ab2e9206f9d33468e3",
+      "canonical_input_utf8_sha256": "6cd0c8a6aba292e8f231accae2a5b644536093d8b77dadd06f178aceca3128d5",
+      "actual_input_utf8_sha256": "6cd0c8a6aba292e8f231accae2a5b644536093d8b77dadd06f178aceca3128d5",
+      "raw_output_utf8_sha256": "8596f10cee001b34b9b734fcf1a263a15c5543f731e3b845e39ed714bd3682d1",
+      "effective_plan_utf8_sha256": "6c08bdb35bba9b87edbc78e062f94470554772ccf57458c705278fecccdcc49f",
+      "checks": {
+        "canonical_input_exact": true,
+        "actual_player_input_exact": true,
+        "raw_output_exact": true,
+        "effective_plan_exact": true,
+        "snapshot_public_prefix_exact": true,
+        "executed_once": true,
+        "action_card_bound": true
+      }
+    },
+    {
+      "id": "decision-0005",
+      "revision": 8,
+      "record_sha256": "7fd61f72a5d7ba62867a94bee78d515a712120ee0a8da820e28f14437aff7cad",
+      "events_sha256": "8be39fc4ef2106d9babaf87d3d568cacc174801ed80b5924ad3c1948bcb6e7f0",
+      "canonical_input_utf8_sha256": "f69f4b46d54b5b2a2f3562332614c82cf1d02fe6b68203822feec6c2dca3a477",
+      "actual_input_utf8_sha256": "f69f4b46d54b5b2a2f3562332614c82cf1d02fe6b68203822feec6c2dca3a477",
+      "raw_output_utf8_sha256": "014d55aeed30f9b8f0436d63468a6ef004f9dc49d05875064f5532c88da32375",
+      "effective_plan_utf8_sha256": "6c08bdb35bba9b87edbc78e062f94470554772ccf57458c705278fecccdcc49f",
+      "checks": {
+        "canonical_input_exact": true,
+        "actual_player_input_exact": true,
+        "raw_output_exact": true,
+        "effective_plan_exact": true,
+        "snapshot_public_prefix_exact": true,
+        "executed_once": true,
+        "action_card_bound": true
+      }
+    },
+    {
+      "id": "decision-0006",
+      "revision": 10,
+      "record_sha256": "4f183bac100e133c37a4292bec5c7d0b66e1a8171b8f4049f7935f080159c2fc",
+      "events_sha256": "8ba9e6cc2543b1df8cc2196e84cc2d53f666a1d2dc3fefbb49c8bea5be4742c7",
+      "canonical_input_utf8_sha256": "e122debd75559aa13ffba44019e0b976512abd98e0aa09cd3081973b44a9b8a9",
+      "actual_input_utf8_sha256": "e122debd75559aa13ffba44019e0b976512abd98e0aa09cd3081973b44a9b8a9",
+      "raw_output_utf8_sha256": "fdccc5ca8c3082a06f13802c26cd12b2a38fcb8692bfe11f5135f100d0e46878",
+      "effective_plan_utf8_sha256": "6c08bdb35bba9b87edbc78e062f94470554772ccf57458c705278fecccdcc49f",
+      "checks": {
+        "canonical_input_exact": true,
+        "actual_player_input_exact": true,
+        "raw_output_exact": true,
+        "effective_plan_exact": true,
+        "snapshot_public_prefix_exact": true,
+        "executed_once": true,
+        "action_card_bound": true
+      }
+    },
+    {
+      "id": "decision-0007",
+      "revision": 12,
+      "record_sha256": "ad598cd72f62af506dc597b71c698d0d81d7a413f85f70989fe00959eac9f518",
+      "events_sha256": "67c242ff1c639b2f795e3104cc0e3b095453fb56ff9224a11fa8ae7042bbe53d",
+      "canonical_input_utf8_sha256": "3dc5f35a422a8290a076ceb6ef19752f571537a5a3f3c812a1876d08d812354a",
+      "actual_input_utf8_sha256": "3dc5f35a422a8290a076ceb6ef19752f571537a5a3f3c812a1876d08d812354a",
+      "raw_output_utf8_sha256": "a97eb8756eef6a31a42cee6236f10ca893947e3d489603efd7a9542d5f571ed9",
+      "effective_plan_utf8_sha256": "6c08bdb35bba9b87edbc78e062f94470554772ccf57458c705278fecccdcc49f",
+      "checks": {
+        "canonical_input_exact": true,
+        "actual_player_input_exact": true,
+        "raw_output_exact": true,
+        "effective_plan_exact": true,
+        "snapshot_public_prefix_exact": true,
+        "executed_once": true,
+        "action_card_bound": true
+      }
+    },
+    {
+      "id": "decision-0008",
+      "revision": 14,
+      "record_sha256": "00b1d5f918b23a82780595dcde8afe2ceb1340731f37591322ac756a007791aa",
+      "events_sha256": "6b5cf07a6f0fc83683e0c50695e7ae4a5216e4474bd56653577ac97b8f9bb1ab",
+      "canonical_input_utf8_sha256": "c04830f26f3420a7121db07679b1bd65016e956ffa91fe7c17aa2dfe72f103fc",
+      "actual_input_utf8_sha256": "c04830f26f3420a7121db07679b1bd65016e956ffa91fe7c17aa2dfe72f103fc",
+      "raw_output_utf8_sha256": "ce425488de757f403a65d46cbf34dea73b7fcc3243382d3f7c5107ce7e29914c",
+      "effective_plan_utf8_sha256": "bdb9bade5cf1b836d1ca18bc1013cf11381c5e7b0f14444be46d1e799c13997b",
+      "checks": {
+        "canonical_input_exact": true,
+        "actual_player_input_exact": true,
+        "raw_output_exact": true,
+        "effective_plan_exact": true,
+        "snapshot_public_prefix_exact": true,
+        "executed_once": true,
+        "action_card_bound": true
+      }
+    }
+  ]
+}

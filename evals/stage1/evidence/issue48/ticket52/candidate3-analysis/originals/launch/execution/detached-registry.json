@@ -1,0 +1,88 @@
+{
+  "utc": "2026-10-23T21:31:18.390464+00:00",
+  "state": "spawned",
+  "launcher_pid": 88931,
+  "launcher_pgid": 88931,
+  "interpreter": "/tmp/bridge-coup-issue48-context/venv/bin/python",
+  "interpreter_realpath": "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+  "interpreter_sha256": "87d4df53fd91304be5bac391fb204643c36b7df2023c04a0953bcbc7d4fdf634",
+  "launcher_path": "/private/tmp/bridge-coup-issue48-context/candidate3-launch/launch_candidate3.py",
+  "launcher_sha256": "cdca0b9d1b49eac65fa286760bc27d16cf8faa850e6d6b66eb4691a99496b1ce",
+  "command": [
+    "/tmp/bridge-coup-issue48-context/venv/bin/python",
+    "-u",
+    "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/acceptance.py",
+    "run",
+    "--output",
+    "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate3"
+  ],
+  "cwd": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup",
+  "attestation": {
+    "source_commit": "3f0fc65470633dd90363ad0417b29a9f7f68be18",
+    "candidate": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate3",
+    "candidate_sha256": "777457fae544dc6eb45b77343cdb9bdbbd4eda31f9941638a1917e6dec574720",
+    "plan_sha256": "58b3533f16f33276fce8c072abd0a55b9a49779e863245dd11afbdec3e798791",
+    "schedule_ids": [
+      "short-1-r1",
+      "short-1-r2",
+      "short-1-r3",
+      "short-2-r1",
+      "short-2-r2",
+      "short-2-r3",
+      "short-3-r1",
+      "short-3-r2",
+      "short-3-r3",
+      "short-4-r1",
+      "short-4-r2",
+      "short-4-r3",
+      "short-5-r1",
+      "short-5-r2",
+      "short-5-r3",
+      "short-6-r1",
+      "short-6-r2",
+      "short-6-r3",
+      "full-development-r1",
+      "full-development-r2",
+      "full-reserved-r1",
+      "full-reserved-r2"
+    ],
+    "cycle": {
+      "cycle": 3,
+      "maximumCycles": 3,
+      "authorization": "Root explicitly authorized final reviewed integration3f0fc654 build/freeze/archive after clear Standards/Spec/WFA and merger validation; model execution awaits independent archive validation and separate launch authorization.",
+      "source_commit": "3f0fc65470633dd90363ad0417b29a9f7f68be18",
+      "scope": "Last substantive frozen candidate. Exactly22 strict sequential original-pipeline attempts with unchanged case-execution-v1/bounds/material/rubric/models and no tools. No probes/rerolls/source changes/feedback or resumption.",
+      "prior_cycles": "Candidate1 immutable NO-GO; candidate2 immutable interrupted NO-GO. Neither interruption nor supplemental diagnosis refunds the budget."
+    },
+    "cycle_sha256": "88e41ecc352d60e0a4c1c294a5b3d53d403b897903592c3bbcd40d4cdfe54ee9",
+    "original_verify_schedule": "pass",
+    "source_archive_sha256": "0bb2e7f987adae2c1c8923ddf10db6cda8e1045125667536ef34eda1aaab3206",
+    "runtime_archive_sha256": "186741545c0b3eb3590cec6297ff81a5a2c1e6facf38a43edf1c4ea75898ff5f",
+    "binary_sha256": "69fb6cee9a510470f600b90ce777579414615dae8c0d0ec827052da9d1e387c8",
+    "instruction_sha256": {
+      "player": "87df545b7fb9d9e443be3ab1c8e8183bfae0eb7965b927faa465cde75d8e18d8",
+      "reviewer": "be4edb3055da50aab8299f10b890a5936a09ff09e9cfbf5f9489df8790e11fb3"
+    },
+    "native_sha256": "112fae7a5a1223e673c8a1791d32338f37df8b527ff1159bb8adac6c4dbf1b4b",
+    "runner_sha256": "6398a909b51d8da6dbe1461830208b361268b28c2ffe99fc0005acfbd756b063",
+    "command": [
+      "/tmp/bridge-coup-issue48-context/venv/bin/python",
+      "-u",
+      "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/acceptance.py",
+      "run",
+      "--output",
+      "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate3"
+    ]
+  },
+  "selected_environment": {
+    "SDKROOT": "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONUNBUFFERED": "1"
+  },
+  "scope": "Fresh original acceptance.py run, once, strict22; no resume/retry/supervisor/product restart feature.",
+  "pid": 88935,
+  "pgid": 88935,
+  "session": 88935,
+  "stdout_stderr": "/private/tmp/bridge-coup-issue48-context/candidate3-launch/execution/runner.stdout-stderr.log",
+  "actual_exit": null
+}
