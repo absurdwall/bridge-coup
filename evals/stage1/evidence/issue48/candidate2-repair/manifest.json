@@ -56,5 +56,21 @@
     "full-reserved-r2": "c7fa91a4d4642d6d2b6ded7925ed7c463c6c768bffc2ab6da898740c76b6cec1"
   },
   "configurationVersion": "stage1-reviewed-case-execution-v1",
-  "predicateVersion": "public-first-club-showout-v2"
+  "predicateVersion": "public-first-club-showout-v2",
+  "sourceImplementationCommit": "939434a45de498620ddf38869686b0f8a5cd91f3",
+  "preservedIntegrationCommit": "f586cef58b9b004afef1aac97150616b5f5d6ba2",
+  "integrationMergeCommit": "f8dd7ae5749904e2723098592bf44786707c6485",
+  "postMergeValidation": {
+    "swift": {
+      "tests": 255,
+      "skipped": 10,
+      "failures": 0
+    },
+    "python": {
+      "tests": 74,
+      "failures": 0
+    },
+    "order": "Swift, then Python sequentially"
+  },
+  "existingCandidate1EvidenceDifferenceFromPreservedTip": "none (git diff --name-only f586cef5 -- evals/stage1/evidence/issue48/ticket52)"
 }
