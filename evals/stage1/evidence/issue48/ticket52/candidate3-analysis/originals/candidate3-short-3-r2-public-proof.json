@@ -1,0 +1,365 @@
+{
+  "scope": "Public facts, bindings and actual window eligibility only. Semantic quality/core conclusions remain in the independent report; no hidden fixture is read.",
+  "attempt": "short-3-r2",
+  "source_commit": "3f0fc65470633dd90363ad0417b29a9f7f68be18",
+  "candidate_metadata_sha256": "777457fae544dc6eb45b77343cdb9bdbbd4eda31f9941638a1917e6dec574720",
+  "trace_sha256": "54fb77458e39c2a825275df4445ebb4d50a9f0d7f3b434318ef03d61d6a96a26",
+  "grade_input_sha256": "b73ea739a896f27109c5d91d9ec06d4067f0f4fea64696ceb67a04717a12dab4",
+  "raw_grader_sha256": "de071fb87f7c97d7ee2bcf6a91aad6d84e78027e3eba57fdc1140ac65cd91191",
+  "evaluation_sha256": "74a0c6e318f30f40171ca63ecfc56edb8f26d4401e9b62ecec07b0f46c772afc",
+  "initial_partnership_clubs": 8,
+  "initial_defender_clubs": 5,
+  "all12_model_records": [
+    {
+      "id": "decision-0001",
+      "revision": 1,
+      "selectedCard": "D3",
+      "plan_operation": "replace",
+      "publicReason": "Play low and win in hand, then test clubs with the ace. Four club tricks suffice; a 5-0 break requires a separate, uncertain recovery rather than the previously claimed guarantee.",
+      "actual_input_type": "revision",
+      "semantic_review_rounds": 2,
+      "decision_sha256": "afbc95aee8877e5edbb5e9c0d143bdfa041259094c9fb7d4791ce4c3c4c92c7c",
+      "authorized_input_sha256": "aa5e6e45c657361a857a7942b98a3af77843754ef005d78283bc58f88c1f72b2",
+      "raw_output_sha256": "31eb000b7d4f8ca97bffc06a7af6e93e36a7eeb18139e07d991bd9d370fd3a0c",
+      "exact_prefix_and_once_execution_bound": true
+    },
+    {
+      "id": "decision-0002",
+      "revision": 3,
+      "selectedCard": "DK",
+      "plan_operation": "keep",
+      "publicReason": "Win the diamond lead, then test clubs with the ace while preserving dummy's heart entry.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "0f4d432e173b46d425ee21165718c1c438f35bda4445f4dcd5ce6514f1084fe7",
+      "authorized_input_sha256": "df6ba36d925b79275b94c9244d7cafebbae56912fd1e44e68003a0b76c88afcc",
+      "raw_output_sha256": "e2115eebef49939b4b994b3cc9ffe0b3bad520e09d0a8168d55df6128075cb5f",
+      "exact_prefix_and_once_execution_bound": true
+    },
+    {
+      "id": "decision-0003",
+      "revision": 4,
+      "selectedCard": "CA",
+      "plan_operation": "keep",
+      "publicReason": "Start establishing clubs while retaining all remaining side-suit controls. The ace tests for a possible 5-0 break.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "15ac1b5f7f66565ccca9126599dd11bd1b1b4a2c8c44ae6ad2be49c5fcb82755",
+      "authorized_input_sha256": "4d6c4f397325602c811cde71614d309aa698e9f44447e6035137b4f070f2f2dc",
+      "raw_output_sha256": "7a4fa56139fba394538b2a6ef5458bc6506177913cef940971e02738e0e6d19f",
+      "exact_prefix_and_once_execution_bound": true
+    },
+    {
+      "id": "decision-0004",
+      "revision": 6,
+      "selectedCard": "C2",
+      "plan_operation": "keep",
+      "publicReason": "Follow low under the ace, preserving dummy's queen for the next club round. West has followed; East's club holding remains unknown.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "920985d3083f270ec570877d9c34a6f211545a25127fd1a6a68917d8720e971d",
+      "authorized_input_sha256": "2f62c9268a604addb1adbfc293d0894bc71cc0e33d583da2cc6835826a10b5cb",
+      "raw_output_sha256": "70ff70c195e6a1f2a706b59fff653b2dad79a599cd25f84e52b671e6e9b20c58",
+      "exact_prefix_and_once_execution_bound": true
+    },
+    {
+      "id": "decision-0005",
+      "revision": 8,
+      "selectedCard": "C4",
+      "plan_operation": "keep",
+      "publicReason": "Both defenders followed, ruling out 5-0 clubs. Lead to dummy's queen, then back to the king; even a 4-1 break provides the four club tricks needed.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "cba1235a4d85a488111f591aa37af656590e676d77dd70bd23a62724b4d19ee8",
+      "authorized_input_sha256": "218f673121b00ba6d97f32bad2e93a57c9bf79b56395dd0c967832c36b93bea4",
+      "raw_output_sha256": "a3f8b64f8d5a5d90e759bbb451044ea59159ce32276512792bed8e06a4f7885a",
+      "exact_prefix_and_once_execution_bound": true
+    },
+    {
+      "id": "decision-0006",
+      "revision": 10,
+      "selectedCard": "CQ",
+      "plan_operation": "keep",
+      "publicReason": "Win with the queen, preserving the planned club return toward South's king. East's play will clarify the club break.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "465f1433a1b2de79b22d3c9442e3f0729ba6af0daec3664a09b116ba3cb50f40",
+      "authorized_input_sha256": "b3f473e2d4f7c05f1cb2199bf15a98239416e7fc6ae4b8761d80fb30385617eb",
+      "raw_output_sha256": "fb0945b3457195482d24380fa1e73f86770e402710317dbe7d83366a5c510c47",
+      "exact_prefix_and_once_execution_bound": true
+    },
+    {
+      "id": "decision-0007",
+      "revision": 12,
+      "selectedCard": "C7",
+      "plan_operation": "keep",
+      "publicReason": "Both defenders followed twice, so clubs are 3-2. Lead to the king to draw the remaining jack, establishing all five club tricks.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "6f48a16e425a502805596dacbd2a655fb59b4e8d385cb6ae32c5d862651d8b5a",
+      "authorized_input_sha256": "c005e66c06d5146799bd7e05d5105093e9b7919cb68062ad9c5a81bbb9a2f025",
+      "raw_output_sha256": "0ee57749ddf2e313e1f6d8a0d214ab7abd8c3d67f7fa56fc6ac8dabb5d521273",
+      "exact_prefix_and_once_execution_bound": true
+    },
+    {
+      "id": "decision-0008",
+      "revision": 14,
+      "selectedCard": "CK",
+      "plan_operation": "keep",
+      "publicReason": "East is out of clubs, so West holds the remaining jack. Cash the king to draw it, leaving the eight and six as winners.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "bf53f40b2e9917db6696f9b844e2fb156e315b0a335a658fd48a1a45074af874",
+      "authorized_input_sha256": "b29a77506587b51e46a0791c01cb495bfed07c3be8de3ac0d98db4a6dc4df42b",
+      "raw_output_sha256": "3c18db24225a666d8c8ad0bcdea8f15bd46e2c2e593f6706294491569c4a38df",
+      "exact_prefix_and_once_execution_bound": true
+    },
+    {
+      "id": "decision-0009",
+      "revision": 16,
+      "selectedCard": "C8",
+      "plan_operation": "keep",
+      "publicReason": "Cash the established clubs, discarding dummy's low diamonds. With four side-suit winners still available, ten tricks are secure.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "2f0fb06d12ed1702578bf89effe063e1daef3fd11d755eba74aa55f268dd62a5",
+      "authorized_input_sha256": "9ba03e7befd60d40564d8cf696364130aa3067b38a0e34d0c9afa23180745701",
+      "raw_output_sha256": "36f98e3c0bae1838a493166fda2ac341d5fecaae6d16415719f3c9ab857cf89d",
+      "exact_prefix_and_once_execution_bound": true
+    },
+    {
+      "id": "decision-0010",
+      "revision": 18,
+      "selectedCard": "D5",
+      "plan_operation": "keep",
+      "publicReason": "Discard a low diamond, preserving both hearts and spades while South cashes the established clubs.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "4f7f5b0187dacfda07b5d856f4b2e05e7bdd9d1acd6db1a2c00ca228c05e9a2c",
+      "authorized_input_sha256": "1bbdd5ddef5d337694cfbf1347a7e6fb1ea78470006dd0a999ce1ed1e9d38dd8",
+      "raw_output_sha256": "00d1b3ee785021a72312776fea22cdf096280a08f0bccfe839e32e22f6235db9",
+      "exact_prefix_and_once_execution_bound": true
+    },
+    {
+      "id": "decision-0011",
+      "revision": 20,
+      "selectedCard": "C6",
+      "plan_operation": "keep",
+      "publicReason": "Cash the last club winner, discarding another low diamond from dummy. Four side-suit winners remain for ten tricks.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "9777bf16699486e5559e52412e801f27d697de0d6b50af678c013b19ebff555d",
+      "authorized_input_sha256": "13bc33d2521864989139db0d61808acb1af4a27341a5d85638454ef11951e93a",
+      "raw_output_sha256": "4c5e0ea0cf3c19c278eed8440423db5d035ca826a37ac4b1671955311420b854",
+      "exact_prefix_and_once_execution_bound": true
+    },
+    {
+      "id": "decision-0012",
+      "revision": 22,
+      "selectedCard": "D6",
+      "plan_operation": "keep",
+      "publicReason": "Discard the low diamond, retaining dummy's heart king and both major-suit lengths. The remaining side-suit winners secure ten tricks.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "9ab237e71393c6de7c9319dcf89a80fe63e79a9619cd9b5c920bf632321a41d0",
+      "authorized_input_sha256": "35a67c155874383b7162fea5c3a7d403a39e5932f85d0b26dd27799495e8b606",
+      "raw_output_sha256": "49bc6b9b63531963222f90ec58b2d1298904342b01e7721c1500a4a855119495",
+      "exact_prefix_and_once_execution_bound": true
+    }
+  ],
+  "actual_events": [
+    {
+      "card": "DQ",
+      "seat": "west",
+      "sequence": 0
+    },
+    {
+      "card": "D3",
+      "seat": "north",
+      "sequence": 1
+    },
+    {
+      "card": "D4",
+      "seat": "east",
+      "sequence": 2
+    },
+    {
+      "card": "DK",
+      "seat": "south",
+      "sequence": 3
+    },
+    {
+      "card": "CA",
+      "seat": "south",
+      "sequence": 4
+    },
+    {
+      "card": "C3",
+      "seat": "west",
+      "sequence": 5
+    },
+    {
+      "card": "C2",
+      "seat": "north",
+      "sequence": 6
+    },
+    {
+      "card": "C5",
+      "seat": "east",
+      "sequence": 7
+    },
+    {
+      "card": "C4",
+      "seat": "south",
+      "sequence": 8
+    },
+    {
+      "card": "C9",
+      "seat": "west",
+      "sequence": 9
+    },
+    {
+      "card": "CQ",
+      "seat": "north",
+      "sequence": 10
+    },
+    {
+      "card": "CT",
+      "seat": "east",
+      "sequence": 11
+    },
+    {
+      "card": "C7",
+      "seat": "north",
+      "sequence": 12
+    },
+    {
+      "card": "H2",
+      "seat": "east",
+      "sequence": 13
+    },
+    {
+      "card": "CK",
+      "seat": "south",
+      "sequence": 14
+    },
+    {
+      "card": "CJ",
+      "seat": "west",
+      "sequence": 15
+    },
+    {
+      "card": "C8",
+      "seat": "south",
+      "sequence": 16
+    },
+    {
+      "card": "D2",
+      "seat": "west",
+      "sequence": 17
+    },
+    {
+      "card": "D5",
+      "seat": "north",
+      "sequence": 18
+    },
+    {
+      "card": "S3",
+      "seat": "east",
+      "sequence": 19
+    },
+    {
+      "card": "C6",
+      "seat": "south",
+      "sequence": 20
+    },
+    {
+      "card": "H5",
+      "seat": "west",
+      "sequence": 21
+    },
+    {
+      "card": "D6",
+      "seat": "north",
+      "sequence": 22
+    }
+  ],
+  "defender_club_events": {
+    "west": [
+      {
+        "card": "C3",
+        "seat": "west",
+        "sequence": 5
+      },
+      {
+        "card": "C9",
+        "seat": "west",
+        "sequence": 9
+      },
+      {
+        "card": "CJ",
+        "seat": "west",
+        "sequence": 15
+      }
+    ],
+    "east": [
+      {
+        "card": "C5",
+        "seat": "east",
+        "sequence": 7
+      },
+      {
+        "card": "CT",
+        "seat": "east",
+        "sequence": 11
+      }
+    ]
+  },
+  "first_club_showouts": {
+    "west": {
+      "card": "D2",
+      "seat": "west",
+      "sequence": 17
+    },
+    "east": {
+      "card": "H2",
+      "seat": "east",
+      "sequence": 13
+    }
+  },
+  "second_complete_club_round_end_sequence": 11,
+  "public_possible_lengths_after_two_rounds": [
+    {
+      "west": 3,
+      "east": 2
+    },
+    {
+      "west": 2,
+      "east": 3
+    }
+  ],
+  "remaining_club_after_two_rounds": "CJ",
+  "owner_after_east_first_showout_at_sequence13": "west",
+  "first_model_owner_localization": {
+    "id": "decision-0008",
+    "revision": 14,
+    "selectedCard": "CK",
+    "plan_operation": "keep",
+    "publicReason": "East is out of clubs, so West holds the remaining jack. Cash the king to draw it, leaving the eight and six as winners.",
+    "actual_input_type": "update",
+    "semantic_review_rounds": 1,
+    "decision_sha256": "bf53f40b2e9917db6696f9b844e2fb156e315b0a335a658fd48a1a45074af874",
+    "authorized_input_sha256": "b29a77506587b51e46a0791c01cb495bfed07c3be8de3ac0d98db4a6dc4df42b",
+    "raw_output_sha256": "3c18db24225a666d8c8ad0bcdea8f15bd46e2c2e593f6706294491569c4a38df",
+    "exact_prefix_and_once_execution_bound": true
+  },
+  "eligible_third_club_before_other_first_showout_event_windows": [],
+  "eligible_third_club_model_windows": [],
+  "prior_equivalent_localization_before_west_third_club": {
+    "established_by": "East H2 discard on club C7 at sequence13",
+    "model_revision": 14,
+    "third_west_club_sequence": 15
+  },
+  "facet_result": "unexercised: first other-defender show-out precedes third club; correct post-show-out localization is outside the fixed stronger facet",
+  "limits": "No matrix-level cohort result is inferred; the other fixed repetitions are unreviewed here. No phrase/length/forced-replace gate is applied."
+}

@@ -1,0 +1,165 @@
+{
+  "frozen_source": "3f0fc65470633dd90363ad0417b29a9f7f68be18",
+  "attempt": "short-2-r2",
+  "scope": "actual delivered records/public prefix/single execution; semantic review separate",
+  "files": {
+    "grade/input.json": "c921d291e2778cf3d244f4f1d50ace390699c377ec33bd73ac4b9432cde4417f",
+    "grade/grader-output.json": "3011d015904322ed0fbc96e4b2baecdcee77a1a39f353c74ec062df006929647",
+    "summary.json": "56d25a3eb7b0ab5696fb8b69100eec4ded7eb9634a7ca3bf614dcd95d19305ac",
+    "play/trace.json": "80269c1a99e15642846d2588ddf4c5c3e915407346de9eeb05a1434cc792a980"
+  },
+  "decisions": [
+    {
+      "id": "decision-0001",
+      "revision": 1,
+      "record_sha256": "3895d2e3ffda6b2a06d5355992b2ca1faf99e677e7a1dff155e127a1f72e17b6",
+      "events_sha256": "3aba378fe8f4beadee810017fce1ae77a4247e79a6d9f3e61545fe08a348a34f",
+      "canonical_utf8_sha256": "aa5e6e45c657361a857a7942b98a3af77843754ef005d78283bc58f88c1f72b2",
+      "actual_utf8_sha256": "aa5e6e45c657361a857a7942b98a3af77843754ef005d78283bc58f88c1f72b2",
+      "raw_output_utf8_sha256": "fe39a5bab93faaee7c025166b83720edb7e56d4d3b58a5013d8eb0006e420d7c",
+      "effective_plan_utf8_sha256": "4d50978e80f9ebdabcad43e1d87fbcaa18a2b0f790ee3a187fe61084cdde2945",
+      "checks": {
+        "canonical_input_exact": true,
+        "actual_input_exact": true,
+        "raw_output_exact": true,
+        "effective_plan_exact": true,
+        "public_prefix_exact": true,
+        "single_execution": true,
+        "action_bound": true
+      }
+    },
+    {
+      "id": "decision-0002",
+      "revision": 3,
+      "record_sha256": "fe6d40d55082103d4ebfef95db993b3e81a9b16db896f5d3f8fdb088c7897932",
+      "events_sha256": "3eecd88c579d7a69942ca83b1bf934d8c47d710c54a2b5cf8cd5818e56477d8d",
+      "canonical_utf8_sha256": "298e3fe46f012b6ff209685af0106277d456c7cab2066336253f3290dca8ce8c",
+      "actual_utf8_sha256": "298e3fe46f012b6ff209685af0106277d456c7cab2066336253f3290dca8ce8c",
+      "raw_output_utf8_sha256": "7bcc9e6a8a6de35716e7d3b935d5c8020f63cdf192d2b4bf045341e6c9b98d8f",
+      "effective_plan_utf8_sha256": "4d50978e80f9ebdabcad43e1d87fbcaa18a2b0f790ee3a187fe61084cdde2945",
+      "checks": {
+        "canonical_input_exact": true,
+        "actual_input_exact": true,
+        "raw_output_exact": true,
+        "effective_plan_exact": true,
+        "public_prefix_exact": true,
+        "single_execution": true,
+        "action_bound": true
+      }
+    },
+    {
+      "id": "decision-0003",
+      "revision": 4,
+      "record_sha256": "ee5b75f0ff27f38beed2dfd567ba2ff229e571a3ca2fb8431b4bac00f2664a67",
+      "events_sha256": "247ebd252f0651e44afa0b100efc425855905f77cc0f6f3ebafe9e5eb0ff87fc",
+      "canonical_utf8_sha256": "d3d3e4ed495a619ed0e4eebe32a96d493c3beef455e525e2aff1bb1a5fcbd5a5",
+      "actual_utf8_sha256": "d3d3e4ed495a619ed0e4eebe32a96d493c3beef455e525e2aff1bb1a5fcbd5a5",
+      "raw_output_utf8_sha256": "01f9c6a8ce2661b8f1feae9849f0b6f71e523a8573808c447f13cec3c726f374",
+      "effective_plan_utf8_sha256": "4d50978e80f9ebdabcad43e1d87fbcaa18a2b0f790ee3a187fe61084cdde2945",
+      "checks": {
+        "canonical_input_exact": true,
+        "actual_input_exact": true,
+        "raw_output_exact": true,
+        "effective_plan_exact": true,
+        "public_prefix_exact": true,
+        "single_execution": true,
+        "action_bound": true
+      }
+    },
+    {
+      "id": "decision-0004",
+      "revision": 6,
+      "record_sha256": "4e0e6420133a33775ec7021092c3ce16f3db71f6e7e4e0d30e41e945d182d2a2",
+      "events_sha256": "9823545970257ccbbfa92cf391442c5195f301ecf80433ab2e9206f9d33468e3",
+      "canonical_utf8_sha256": "fd7c82e2a383dc89af393bfbb9bb74cad4cef1de2e596d17403b41ab7c7ee897",
+      "actual_utf8_sha256": "fd7c82e2a383dc89af393bfbb9bb74cad4cef1de2e596d17403b41ab7c7ee897",
+      "raw_output_utf8_sha256": "94484c264f2f984fb814e7a0be8048ddd006081b4d5d1a64e36d54f35e0cb9f0",
+      "effective_plan_utf8_sha256": "4d50978e80f9ebdabcad43e1d87fbcaa18a2b0f790ee3a187fe61084cdde2945",
+      "checks": {
+        "canonical_input_exact": true,
+        "actual_input_exact": true,
+        "raw_output_exact": true,
+        "effective_plan_exact": true,
+        "public_prefix_exact": true,
+        "single_execution": true,
+        "action_bound": true
+      }
+    },
+    {
+      "id": "decision-0005",
+      "revision": 8,
+      "record_sha256": "47294216a17567d9e77575d6889ee30f3d4a2980de7a07d0e4d691e9eaf71520",
+      "events_sha256": "8be39fc4ef2106d9babaf87d3d568cacc174801ed80b5924ad3c1948bcb6e7f0",
+      "canonical_utf8_sha256": "1ed4dc1e29146e92e1475440827d269cb27016cee42fedfaf0fcf0383c7e6efd",
+      "actual_utf8_sha256": "1ed4dc1e29146e92e1475440827d269cb27016cee42fedfaf0fcf0383c7e6efd",
+      "raw_output_utf8_sha256": "c540ca7b5a4a56c076a364370b0d3a8a915a7f30e533efc9ced25d96911bd82d",
+      "effective_plan_utf8_sha256": "4d50978e80f9ebdabcad43e1d87fbcaa18a2b0f790ee3a187fe61084cdde2945",
+      "checks": {
+        "canonical_input_exact": true,
+        "actual_input_exact": true,
+        "raw_output_exact": true,
+        "effective_plan_exact": true,
+        "public_prefix_exact": true,
+        "single_execution": true,
+        "action_bound": true
+      }
+    },
+    {
+      "id": "decision-0006",
+      "revision": 10,
+      "record_sha256": "62d1b27f6d8482a950c766c589cda9d06103a0de3b3a9dab68677dc592d73692",
+      "events_sha256": "8ba9e6cc2543b1df8cc2196e84cc2d53f666a1d2dc3fefbb49c8bea5be4742c7",
+      "canonical_utf8_sha256": "c65d4ea8a9f57472486d966506f13908c2e464510a1b6b750e2c896812abdde8",
+      "actual_utf8_sha256": "c65d4ea8a9f57472486d966506f13908c2e464510a1b6b750e2c896812abdde8",
+      "raw_output_utf8_sha256": "6cde1f3dbf25b8ebbff8fd04e206ec2b44a7b5616c1cf1d2a190622bf04e483a",
+      "effective_plan_utf8_sha256": "4d50978e80f9ebdabcad43e1d87fbcaa18a2b0f790ee3a187fe61084cdde2945",
+      "checks": {
+        "canonical_input_exact": true,
+        "actual_input_exact": true,
+        "raw_output_exact": true,
+        "effective_plan_exact": true,
+        "public_prefix_exact": true,
+        "single_execution": true,
+        "action_bound": true
+      }
+    },
+    {
+      "id": "decision-0007",
+      "revision": 12,
+      "record_sha256": "85190dc85751067b4d75ee0d549a6512af09562700120652d1b55b419c695c1b",
+      "events_sha256": "67c242ff1c639b2f795e3104cc0e3b095453fb56ff9224a11fa8ae7042bbe53d",
+      "canonical_utf8_sha256": "da3445e26564bddb7685f5497ed53891bd0bc85a994189b90010e74890b09308",
+      "actual_utf8_sha256": "da3445e26564bddb7685f5497ed53891bd0bc85a994189b90010e74890b09308",
+      "raw_output_utf8_sha256": "19f38bcfb8ec32f0ddec9f12a8bce7686c9d7542b81ab325157e7a850fc9d34d",
+      "effective_plan_utf8_sha256": "4d50978e80f9ebdabcad43e1d87fbcaa18a2b0f790ee3a187fe61084cdde2945",
+      "checks": {
+        "canonical_input_exact": true,
+        "actual_input_exact": true,
+        "raw_output_exact": true,
+        "effective_plan_exact": true,
+        "public_prefix_exact": true,
+        "single_execution": true,
+        "action_bound": true
+      }
+    },
+    {
+      "id": "decision-0008",
+      "revision": 14,
+      "record_sha256": "ebb5438a634212c1db7d750a852a7dcb8fb4b759587d167d189041ca27f1559e",
+      "events_sha256": "6b5cf07a6f0fc83683e0c50695e7ae4a5216e4474bd56653577ac97b8f9bb1ab",
+      "canonical_utf8_sha256": "8861ac78d4fb37ada6bf92d623ac27501e4246d2e7ba3a952525c82931bce3e9",
+      "actual_utf8_sha256": "8861ac78d4fb37ada6bf92d623ac27501e4246d2e7ba3a952525c82931bce3e9",
+      "raw_output_utf8_sha256": "30abe168bb77170afd64e272c153d39a82618e65d908e6fd39128feefefb7d1d",
+      "effective_plan_utf8_sha256": "4d50978e80f9ebdabcad43e1d87fbcaa18a2b0f790ee3a187fe61084cdde2945",
+      "checks": {
+        "canonical_input_exact": true,
+        "actual_input_exact": true,
+        "raw_output_exact": true,
+        "effective_plan_exact": true,
+        "public_prefix_exact": true,
+        "single_execution": true,
+        "action_bound": true
+      }
+    }
+  ]
+}

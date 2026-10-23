@@ -1,0 +1,66 @@
+# Candidate 3 short-5-r2 independent adjudication
+
+Frozen source `3f0fc65470633dd90363ad0417b29a9f7f68be18`. **Quality FAIL: 7 pass / 5 fail / 0 uncertain final delivered decisions. One distinct material cause at D7, propagated by D8–D11 keeps; D12 replaces and repairs it. Core establishment/two-concession/last-entry coverage COVERED.** Raw grade is1 pass/11 fail; agree with D7–D12 dispositions, dispute D1–D6 failures. Original raw artifacts are unchanged. Overall acceptance remains separate.
+
+Read all12 final answers, effective plan lifecycle, canonical authorized snapshots and actual final player inputs, public histories/execution records, the complete frozen rubric/case and every raw finding. One D12 rejected proposal was revised before delivery; it is not a quality failure. Final operations are3 replaces/9 keeps. All cases below use only facts authorized at each decision, not actual future defender holdings.
+
+## Confirmed material delivered-plan failure
+
+D7 installs this exact conditional instruction, retained through D11:
+
+> If a defender shows out on DK, diamonds supply only one immediate winner; retain D9 behind the outstanding jack and reassess chances of developing extra club or heart tricks before conceding another trick.
+
+At D7 the public diamond history is D3–D6–D5–D8 and D4–DT–DQ–DA. North has K97, and only **J2** remain outside. “A defender shows out” does **not** imply the jack survives: a defender holding J2 may play **J** under K while partner shows out. Then North97 both win over2. This branch makes the assertion of “only one immediate winner” and an “outstanding jack” false. It directs retaining a winner behind a nonexistent obstacle and searching for substitutes despite an available contract-making route. This is a material false active conditional resource assessment, not an overtrick preference or a demand to protect every adverse break.
+
+Outside verifier `candidate3-short-5-r2-public-proof.py` constructs an explicitly counterfactual52-card deal, checks all cards unique and13 per seat, verifies every play/follow/leader in each D7–D11 authorized prefix, and matches both controlled remaining hands. West originally DT6, East DAJ82 fits each prefix. From D11 the legal continuation DK–DJ–South S4 discard–West ST discard realizes the claimed show-out condition with J gone. North D9/D7 then win; C4→South CK and HA complete nine (four previously won plus DK/D9/D7/CK/HA). The verifier replays that entire continuation, checking legal cards, following suit, winners, and nine declarer tricks. It reads no fixture or future actual play. At earlier D7–D10 the same public-compatible completion remains possible; these are live unfinished conditions then, not eliminated history.
+
+D7 is the single originating defect; D8–D11 retain its exact branch. D12 legitimately replaces it after seeing East DJ under current DK: “East's DJ leaves only D2 outstanding, so cash D9 and D7 regardless of West's play.” Both remaining North diamonds now beat the only outside2. This correct final repair does not erase five earlier delivered active-plan failures. It also does not establish that any actual contract was lost: West has not yet played on DK at the bound, and no post-bound outcome is used as proof.
+
+## Raw disagreements: D1–D6
+
+**D1/D2/D4/D5/D6: qualified chance versus universal guarantee.** The delivered initial text says “the initial duck also accommodates **favorable** 4-2 breaks, notably a doubleton ace or JT,” and “Follow the revealed diamond cards when choosing subsequent honors; if diamonds prove unfavorable, reassess additional chances in clubs or hearts.” I read this as qualified favorable alternatives, not a guarantee that every doubleton ace yields three diamonds. A concrete favorable example is West A6 / East JT82: D3–D6–D5–D8, then D4–DA–D7–D2 preserves North KQ9 against JT, yielding three diamonds. West's ace appears **before** North's second-round choice. This example is an initial-condition possibility, not a claim that it remains possible after the actual DT appears at D6.
+
+The grader's hostile West JT62 / East A8 example is also valid after the observed first round. D4–DT–DQ–DA leaves North K97 against J2; a later low follow under K preserves J and limits this route to two diamond winners. That disproves universal doubleton-ace protection for the selected honor line, which the actual qualified plan does not promise. An alternative second low duck can preserve KQ9 against that holding, but I do not substitute it for D6's selected DQ or demand it as best play; that choice has different risks against other ordinary unknown layouts. The selected DQ is expressly explained as “force out the ace **or win this round**,” a correct description. There is no impossible current action, mandatory false three-remaining-winner count, or current guarantee requiring a failure here. The initial3–3 route, retained CA and later reassessment are feasible. These are PASS judgments under the frozen basic gate, not approval of optimal defense against every ace location.
+
+**D3: grader's spade arithmetic is wrong.** South initially has AQ74, North365: NS have7 spades, so EW have **6**, not the grader's7. After two rounds, four opposing spades have been consumed; at most two remain. Thus the delivered “East has shown two spades, so the defenders can take at most two further spade tricks after this” has a correct bound. It does not say East started with exactly two or infer a void. The grader's proposed West five/East two split requires seven opposing spades and is impossible. D3's SQ win is sound; no raw historical counterexample overrides this public count.
+
+## Every final delivery
+
+| Decision/revision/card | Independent | Exact support and then-current proof |
+|---|---|---|
+| D1/r4 D3, replace | PASS (raw fail disputed) | “favorable 4-2 breaks” is qualified as above. Six sure **total** tricks include SA already won; first duck plus driving DA gives three diamonds on3–3, CA preserved. |
+| D2/r6 D5 | PASS (raw fail disputed) | “Duck as planned, preserving KQ and the club-ace entry” fits D3/D6; North KQ975 and South D4 retain the unfinished route. The three-diamond aim is not an assertion that the unknown layout is favorable. |
+| D3/r9 SQ | PASS (raw fail disputed) | “at most two further spade tricks” follows six EW spades minus four used over two rounds. SQ wins current S2; retains diamond/club resources. |
+| D4/r11 S5 | PASS (raw fail disputed) | “Follow low under South's winning queen” fits S2/SQ/S8 and North65; North's diamond/club resources stay intact. |
+| D5/r12 D4 | PASS (raw fail disputed) | “preserving the club ace to reach the suit after it is established” fits North KQ97/CAT4 and South D4. No current claim of established three diamonds. |
+| D6/r14 DQ | PASS (raw fail disputed) | “force out the ace or win this round” correctly covers current DT with North DQ. CA retained; no all-doubleton-ace guarantee imposed. |
+| D7/r17 HK, replace | FAIL, origin | The quoted showout branch falsely treats J as surviving whenever either defender shows out; public-compatible J2→J makes all K97 winners. HK itself legally wins HQ; failure is the installed conditional plan. |
+| D8/r19 H3 | FAIL, propagated D7 | “then enter dummy with the club ace to test diamonds” is feasible, but keeping installs the same false live showout branch. Current HQ/HK/H5 and North43 permit H3. |
+| D9/r20 C3 | FAIL, propagated D7 | “retaining the club king as the return entry to South” is physically correct, but the retained showout branch still misclassifies J falling. North CAT4, South CK73/HA62 allow this crossing and return. |
+| D10/r22 CA | FAIL, propagated D7 | “cash the diamond king to test whether the remaining diamonds divide evenly” is a valid test, but the retained interpretation of an uneven residual holding is false; J2 together with J dropped remains possible. |
+| D11/r24 DK | FAIL, propagated D7 | “If both defenders follow” correctly establishes97, but is only a sufficient condition. The kept branch incorrectly rejects the equally valid J-drop/showout case, demonstrated by the full legal nine-trick proof. |
+| D12/r26 S4, replace | PASS (raw pass agrees) | “both remaining diamonds are winners regardless of West's follow” is now correct: only D2 outside. Four previously won + current DK +97 +CK/HA make9; South can discard S4, then S7/low heart, preserving both side winners. |
+
+## Actual coverage and limits
+
+Actual establishment was attempted while North CA remained. D8 won the first diamond concession; East returned S2, later controlled decisions followed. DA captured DQ on the second concession; East returned HQ, later won by South HK. South C3 then actually reached North CA at22. This is real defensive response and a genuine retained last entry, not a gratuitous lead into North's diamonds. The two diamond losses, heart recovery and CA transfer were completed. CK remains available as the return from North to South; D7's main successful branch and D12 preserve it.
+
+At the bound North DK has been led, East DJ has fallen, and South S4 was discarded. West's still-pending card is **not known**; no show-out, exact original3–3/4–2 split, or defender void is inferred from three East diamond follows. Nonetheless only2 remains outside, so97's future winner status follows without needing a show-out. DK completion, D97 cashing, club return/HA cashing, and actual contract completion remain unexercised. Core coverage can be covered while delivered quality fails.
+
+Normal short-bound task/legal execution passes:27 events,6 completed tricks (4–2), incomplete hand;12 actual model deliveries/0 forced,11 driver opponent actions plus2 initial opponent/2 initial controlled actions. There were13 player+13 reviewer attempts/26 RPCs,13 semantic reviews,1 natural feedback revision atD12, zero technical retries/late observations,12 approvals/0 contested. Driver/automatic332.1148509979248s; outer normal exit0/332.456s; last controlled332.1120649576187s; environment overhead0.4150278568267822s; human wait0. Observed native usage complete for13 attempts/role: player118293 tokens, reviewer37028; overlapping upstream totals are not additive. Separate grader elapsed86.629s. Approval/legality are not quality proof.
+
+## Bindings and independence
+
+Outside `candidate3-short-5-r2-bindings.json` SHA-256 `b00379e43b5d8aef3f00f51fe719e2e17c7ff8a12359d159cbc17b8037babe09` binds all12 actual record/event files and canonical-input/actual-input/final-output/effective-plan bytes. Every record comparison matches; every actual request snapshot matches canonical state; selected cards are authorized legal; every prefix matches final-prefix truncation; each saved execution appends exactly the chosen card once. D12 has2 rounds; others1. Grade input SHA `44676fa3ca95b9810a09df31d24f3c9b337bfcb02400407481872aa65644a86a`; raw grade `9eb07011350b25b6ab5942daec8533c7487edc081b04f99c03104bc89920cfec`; summary `201082027e196c241a7be6742d198cf3553359c1da320f345aa03396365df6e3`.
+
+Proof script SHA `e6cb01cdb9865be3cb383d3a9191627bdbe63557edfe0134793e0131272f6a27`; proof JSON SHA `81a603d39b05ad5b556df0f1ebd7767a70b79d2474eb77191430c14b9a2ec596`. The executed replay verifies the material D7–D11 counterbranch. Favorable/hostile initial ace examples are separately labeled analytical illustrations in the proof JSON, not actual environment facts.
+
+I sent root the independent spade-count correction, showout-branch finding and qualified-initial-plan boundary before receiving its parallel assessment. That response agreed and supplied the favorable WestA6 example; the final judgment and proof are independently checked here. No hidden fixture, unfinished r3 semantics, new model/native/grader calls, live feedback, source/index/raw/GitHub mutations. Only outside report/binding/proof artifacts were written. The final fixed matrix continues; this attempt adds a basic-quality failure independently of the already unmet stronger cohort facet.
+
+The final verifier is read-only by default, with explicit `--repo` and `--proof` paths. I reran it successfully using:
+
+```sh
+python /tmp/bridge-coup-issue48-context/candidate3-short-5-r2-public-proof.py --repo /Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup --proof /tmp/bridge-coup-issue48-context/candidate3-short-5-r2-public-proof.json
+```
+
+`--write` is opt-in generation and refuses to replace differing existing bytes. The first generation script is preserved byte-for-byte as `candidate3-short-5-r2-public-proof-generation-original.py` (SHA `4ae8ba3e3c32a9fe11c103961603354bbd1411909d2489242d211e1673a16922`); the original binding and draft report are preserved in `*-before-readonly-default.*` files, with original hashes in the final binding. Saved proof JSON bytes and all frozen/raw bytes are unchanged.

@@ -1,0 +1,43 @@
+--- reviewed-12f619bd/launch_candidate3.py
++++ prelaunch-attestation/launch_candidate3.py
+@@ -4,6 +4,7 @@
+ import datetime
+ import hashlib
+ import io
++import importlib.util
+ import json
+ import os
+ from pathlib import Path
+@@ -25,6 +26,10 @@
+     candidate_root = repo / RELATIVE
+     candidate = load(candidate_root / 'candidate.json')
+     plan = load(candidate_root / 'plan.json')
++    cycle = load(candidate_root / 'cycle.json')
++    assert type(cycle['cycle']) is int and cycle['cycle'] == 3
++    assert type(cycle['maximumCycles']) is int and cycle['maximumCycles'] == 3
++    assert cycle['source_commit'] == expected_source
+     expected_ids = ['short-%d-r%d' % (case, repeat) for case in range(1, 7) for repeat in range(1, 4)]
+     expected_ids += ['full-%s-r%d' % (case, repeat) for case in ('development', 'reserved') for repeat in (1, 2)]
+     assert [row['id'] for row in plan] == expected_ids
+@@ -72,8 +77,13 @@
+         assert runtime_meta['member_sha256']['BridgeTeacher_BridgeExpert.bundle/' + name] == expected
+         assert sha((Path(candidate['binary']).parent / 'BridgeTeacher_BridgeExpert.bundle' / name).read_bytes()) == expected
+     runner = repo / 'evals/stage1/acceptance.py'
++    specification = importlib.util.spec_from_file_location('frozen_candidate3_acceptance',runner)
++    original = importlib.util.module_from_spec(specification)
++    specification.loader.exec_module(original)
++    original.verify_schedule(plan)
+     return {'source_commit':expected_source,'candidate':str(candidate_root),'candidate_sha256':sha((candidate_root/'candidate.json').read_bytes()),
+             'plan_sha256':sha((candidate_root/'plan.json').read_bytes()),'schedule_ids':expected_ids,
++            'cycle':cycle,'cycle_sha256':sha((candidate_root/'cycle.json').read_bytes()),'original_verify_schedule':'pass',
+             'source_archive_sha256':source_meta['sha256'],'runtime_archive_sha256':runtime_meta['archive_sha256'],
+             'binary_sha256':candidate['binary_sha256'],'instruction_sha256':candidate['instruction_sha256'],
+             'native_sha256':candidate['codex_sha256'],'runner_sha256':sha(runner.read_bytes()),
+@@ -90,6 +100,7 @@
+                     'interpreter_realpath':str(Path(PYTHON).resolve()),'interpreter_sha256':sha(Path(PYTHON).read_bytes()),
+                     'launcher_path':str(Path(__file__).resolve()),'launcher_sha256':sha(Path(__file__).read_bytes()),
+                     'command':command,'cwd':str(repo),'attestation':attestation,
++                    'selected_environment':{'SDKROOT':os.environ.get('SDKROOT'),'PYTHONDONTWRITEBYTECODE':'1','PYTHONUNBUFFERED':'1'},
+                     'scope':'Fresh original acceptance.py run, once, strict22; no resume/retry/supervisor/product restart feature.'}
+         json.dump(metadata, stream, indent=2);stream.flush();os.fsync(stream.fileno())
+         log_path = record_dir / 'runner.stdout-stderr.log'

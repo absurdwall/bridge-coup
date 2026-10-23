@@ -1,0 +1,943 @@
+{
+  "scope": "Public prefix/card/plan bindings plus complete PUBLIC execution integrity. Full completed plays reconstruct hands ONLY for legality replay, never for earlier quality. No hidden fixture read.",
+  "attempt": "full-reserved-r2",
+  "classification": "used regression board, not fresh held-out",
+  "source_commit": "3f0fc65470633dd90363ad0417b29a9f7f68be18",
+  "candidate_sha256": "777457fae544dc6eb45b77343cdb9bdbbd4eda31f9941638a1917e6dec574720",
+  "trace_sha256": "b7693c0b5ac4184c651e47cffd263b7cbc6282264310b23c07b23d1e22dc36f7",
+  "grade_input_sha256": "7bd0dbb515fbdfdd3690d753c978d27744e86aff63409b6bccdfc0c538034f2f",
+  "raw_grader_sha256": "acfe4ae8027fe4152603fc1ced5890274a1fa4db50e96e32a402ea02d7dfbbbc",
+  "evaluation_sha256": "461745539cad308573bb2a1b251c918a1c66159222f9cfc9acd0f593597926f1",
+  "final_deliveries": [
+    {
+      "id": "decision-0001",
+      "revision": 1,
+      "card": "HQ",
+      "plan_operation": "replace",
+      "publicReason": "The queen wins the opening lead and leaves South's heart honors as entries. Nine top tricks are available; diamonds offer safe prospects for overtricks.",
+      "effective_plan": "We have nine top tricks: two spades, three hearts, three clubs and the diamond ace. Win the opening lead with dummy's HQ, preserving South's heart entries. Seek overtricks by leading DQ next: cover East's king with the ace; otherwise play low from South. If the queen wins, continue DJ on the same basis. If West wins DK, regain the lead with a retained major-suit stopper and cash established diamonds, using DA and dummy's remaining major-suit entries to coordinate the hands. Do not pursue long diamonds if an adverse break makes them unsafe or inaccessible; the original nine winners suffice. Handle clubs by cashing CK and CQ before CA, retaining South's fourth club as an extra winner if the suit breaks 3–3. Preserve a return to South to cash that club and any remaining winners. Prioritize collecting nine tricks over speculative additional development.",
+      "actual_input_type": "initial",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "c8c73aac6e6079dd8dd3d53d56976e50cbb6861a637ccd3dcf695baeea0f232c",
+      "authorized_input_sha256": "19181959ffa6c33506505ca90fe80fb5b9ffe712fce0f746f2e70e28e504d27d",
+      "raw_output_sha256": "853e16a27e86fe889b33d2865ffb395f023addfbfe8ea811b09d3ca97a4688f4",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0002",
+      "revision": 3,
+      "card": "H5",
+      "plan_operation": "keep",
+      "publicReason": "Let dummy's queen win, preserving both heart honors as entries to South. Next lead the diamond queen as planned.",
+      "effective_plan": "We have nine top tricks: two spades, three hearts, three clubs and the diamond ace. Win the opening lead with dummy's HQ, preserving South's heart entries. Seek overtricks by leading DQ next: cover East's king with the ace; otherwise play low from South. If the queen wins, continue DJ on the same basis. If West wins DK, regain the lead with a retained major-suit stopper and cash established diamonds, using DA and dummy's remaining major-suit entries to coordinate the hands. Do not pursue long diamonds if an adverse break makes them unsafe or inaccessible; the original nine winners suffice. Handle clubs by cashing CK and CQ before CA, retaining South's fourth club as an extra winner if the suit breaks 3–3. Preserve a return to South to cash that club and any remaining winners. Prioritize collecting nine tricks over speculative additional development.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "1df652b71c4b4e2c9c320b79597c8b097f20da485e9889e0a8d42518b8a68104",
+      "authorized_input_sha256": "2a1c34e6986b0dad5b3143e6ed9bae49dbf02024320a5e24ceef0f904db3b9d9",
+      "raw_output_sha256": "ccee42ef766472f1a7a2459b47d899612b97402163537989a2eeb85c3110508b",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0003",
+      "revision": 4,
+      "card": "DQ",
+      "plan_operation": "keep",
+      "publicReason": "Lead the diamond queen to develop extra tricks while retaining all eight remaining top winners. Cover East's king; otherwise play low from South.",
+      "effective_plan": "We have nine top tricks: two spades, three hearts, three clubs and the diamond ace. Win the opening lead with dummy's HQ, preserving South's heart entries. Seek overtricks by leading DQ next: cover East's king with the ace; otherwise play low from South. If the queen wins, continue DJ on the same basis. If West wins DK, regain the lead with a retained major-suit stopper and cash established diamonds, using DA and dummy's remaining major-suit entries to coordinate the hands. Do not pursue long diamonds if an adverse break makes them unsafe or inaccessible; the original nine winners suffice. Handle clubs by cashing CK and CQ before CA, retaining South's fourth club as an extra winner if the suit breaks 3–3. Preserve a return to South to cash that club and any remaining winners. Prioritize collecting nine tricks over speculative additional development.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "4c5e3538c98df29c5c7e0ba9afe3cd9a9682bd2ca5413d7bffc85381ce1f424b",
+      "authorized_input_sha256": "6b025a4471dd72ab62f9acf17761f325032899c1d91091b0199d87dd56bba509",
+      "raw_output_sha256": "4f866f1f994513d0055a6307b9c861b90fa50c72245066f7d28464e8e3b95ef8",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0004",
+      "revision": 6,
+      "card": "DA",
+      "plan_operation": "keep",
+      "publicReason": "Cover East's king with the ace, establishing dummy's jack. Retain diamond entries and assess the remaining split before pursuing further diamond tricks.",
+      "effective_plan": "We have nine top tricks: two spades, three hearts, three clubs and the diamond ace. Win the opening lead with dummy's HQ, preserving South's heart entries. Seek overtricks by leading DQ next: cover East's king with the ace; otherwise play low from South. If the queen wins, continue DJ on the same basis. If West wins DK, regain the lead with a retained major-suit stopper and cash established diamonds, using DA and dummy's remaining major-suit entries to coordinate the hands. Do not pursue long diamonds if an adverse break makes them unsafe or inaccessible; the original nine winners suffice. Handle clubs by cashing CK and CQ before CA, retaining South's fourth club as an extra winner if the suit breaks 3–3. Preserve a return to South to cash that club and any remaining winners. Prioritize collecting nine tricks over speculative additional development.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "0d8b77ae44c11ba0ff8f47e6742a3c51904d743565d0562203d5dc7d3e44f76e",
+      "authorized_input_sha256": "db42dcd7b91d2001bf66fa0a60b2c439fe428c4845641ec072b4f0986a53e853",
+      "raw_output_sha256": "9abe38b5a956069ee9307f28d39f7f4cbba870c0f4fe23cb5a6c6fff6dd8a202",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0005",
+      "revision": 8,
+      "card": "D2",
+      "plan_operation": "replace",
+      "publicReason": "Lead toward the jack-nine, finessing the nine if West plays low. This seeks additional diamond tricks while the contract remains protected by seven remaining top winners.",
+      "effective_plan": "Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "73a2814eab5db21833613eb4a277efae3a3cc6bf92543f0586ecf275936702f2",
+      "authorized_input_sha256": "b26c38f1041aca4b94a5e737d4f71afb9432e03e3967bfa7ca006957dc4d0a54",
+      "raw_output_sha256": "d1e0d95ee562cb01cf03286e8df8732d00b36e5a240370d415f83b0eb82c8463",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0006",
+      "revision": 10,
+      "card": "D9",
+      "plan_operation": "keep",
+      "publicReason": "Finesse the nine as planned. West's eight leaves the ten unaccounted for; even if East wins it, our retained top winners protect the contract.",
+      "effective_plan": "Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "338eac4a3107384d2ec9fce8169d01fd2aea573ebd85cf40f76956318440e1a8",
+      "authorized_input_sha256": "2db7ba7fb91c7e0636817d23c74ff801a20d9cad7ce577bb10ce50d14cdfc07a",
+      "raw_output_sha256": "605cd0e47919fe1cec360aad62d35370727c028f37d9e470cf19d806327dc3e3",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0007",
+      "revision": 12,
+      "card": "DJ",
+      "plan_operation": "keep",
+      "publicReason": "Cash the established jack. If both defenders follow, dummy's last diamond will also be a winner; otherwise retain it and proceed to clubs.",
+      "effective_plan": "Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "f3ac31638a3e2bd5ce3def8c7e80c8861e28ac868b9670658437dbb964723b71",
+      "authorized_input_sha256": "d1c467d0185f286e21b904a28231c5e72689e03ee330021232d5af9f2d7230b6",
+      "raw_output_sha256": "3853b01b70f4a5969d76a3ad6a529aa201abe8e2b1580f95c173012b92c4fdf1",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0008",
+      "revision": 16,
+      "card": "D3",
+      "plan_operation": "keep",
+      "publicReason": "Diamonds broke 3–3, so the three is established. Cash it, discarding a low spade from South and retaining all four clubs.",
+      "effective_plan": "Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "5e32e01aa51f83db481458462462d54c3445897011c9cfe8cc492c4f6ef7d5c9",
+      "authorized_input_sha256": "2606d0ff673982403541445a9ac6c17fb0ddf8f2bdcd995c3f8e90383310aac4",
+      "raw_output_sha256": "a2aebd56ee0f4ab83384f37e45b6830c039a2dc0fd0981498e9ff282619935b7",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0009",
+      "revision": 18,
+      "card": "S4",
+      "plan_operation": "keep",
+      "publicReason": "Discard a low spade, preserving all four clubs. East's club discard may help establish South's fourth club; the major-suit winners and entries remain intact.",
+      "effective_plan": "Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "5e1e7c06dc452d4d8530d58286e41a8f0f69ed72332b85d8c7c151ce81ced1bd",
+      "authorized_input_sha256": "867c7644461d0bb8f5115617b026a95851b469a99dc27f418e8cbcd6092a5ca4",
+      "raw_output_sha256": "57050f39114883b7d60d2c719e79d3b9eb5ca9547b2ce125440156aa661f2fc1",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0010",
+      "revision": 20,
+      "card": "C5",
+      "plan_operation": "keep",
+      "publicReason": "Lead to South's club honors, cashing king and queen before dummy's ace. Keep the major-suit entries available to reach South's fourth club if it becomes established.",
+      "effective_plan": "Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "3ca7d8db1c1b920339408fb4f29784cb8159332cab20839543c78046cb81e7dc",
+      "authorized_input_sha256": "2b4f0bc72ca93106425c7718456139904bd978e24d7d54f97f2aa393b440cc51",
+      "raw_output_sha256": "932c2dd095f639ba16196c8e0b74b4a5ee96460e185405e282924eed7174b5c7",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0011",
+      "revision": 22,
+      "card": "CK",
+      "plan_operation": "keep",
+      "publicReason": "Win with the king and continue the queen before crossing to dummy's ace. Retain major-suit entries to cash South's fourth club if established.",
+      "effective_plan": "Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "04e765bfaac51ffa258a5c4c2b46e76be87c612543ed8a18f61e97abd362f295",
+      "authorized_input_sha256": "45fdea80ab8ae5384bf4b6c06f8e43a5243dc7e2751cea56f37d50a8fe95931e",
+      "raw_output_sha256": "2ae953502d46fef50332b8455d351d9d8150731eb3e764dd23d7f7d7e512e94a",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0012",
+      "revision": 24,
+      "card": "CQ",
+      "plan_operation": "keep",
+      "publicReason": "Cash the queen, following low from dummy, then lead to the club ace. Major-suit entries remain available for South's last club if it becomes a winner.",
+      "effective_plan": "Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "dcc5ab88eaa926766efe8b159c5945a9509a9c1f12446b79c51aca87b6c68467",
+      "authorized_input_sha256": "cdda14357e64d5831bf7736ba72268afc16dc718b0bfcb72c6c66d3ef8d3bb9c",
+      "raw_output_sha256": "92b0c77124008d22fe2ed06984ee3edbdbf7daf4cce53dac83c9007d5e461d40",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0013",
+      "revision": 26,
+      "card": "C6",
+      "plan_operation": "keep",
+      "publicReason": "Let South's queen win, retaining the ace for the third club round. Major-suit entries will allow a return to South if the fourth club is established.",
+      "effective_plan": "Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "03240e3b6f131ebcbda05f5abde302f6053a8f38d84db73b757be7fc052ee511",
+      "authorized_input_sha256": "430d19daef4ca54a1ff76bb6393dba4341fb7f20299bd243cf286e519953ed98",
+      "raw_output_sha256": "cda4df617be9fcd73c20c1abe9d858e121dbf01c9229c6ce979a6a53587fadc9",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0014",
+      "revision": 28,
+      "card": "C3",
+      "plan_operation": "keep",
+      "publicReason": "Lead to dummy's ace, retaining the eight. Only the club nine remains outstanding; if it falls now, all six remaining tricks are available using the preserved major-suit entries.",
+      "effective_plan": "Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "e884b85156dbb02cb56aef4a8bbca3b24b4f9e0fec54eff40f74456a50fef8e3",
+      "authorized_input_sha256": "af45d468f56dc181baafcb49fc9c7a9832262147b32f31babda257242fa84fd7",
+      "raw_output_sha256": "1a1a33552390efc53b073a76a095db9c8c223178493bcbe6847fc2ae67849050",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0015",
+      "revision": 32,
+      "card": "SK",
+      "plan_operation": "keep",
+      "publicReason": "The club nine has fallen, so all five remaining tricks are winners. Cash the spade king, then lead a heart to South to cash both heart honors, the spade ace and club eight.",
+      "effective_plan": "Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "9335a69ce3cf298ee69310a26f12698fbc3a3f82c004f6302352d429dd0ecef5",
+      "authorized_input_sha256": "74b2e57cf3a6fac9d2ac6ba4e5c384349329d471c6d39b1265d93fbe356195f1",
+      "raw_output_sha256": "3c272cf60f5f8d373e0a0b61d96c01cb5d6b00bf0a456a9afb98c1e906122e2f",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0016",
+      "revision": 34,
+      "card": "S6",
+      "plan_operation": "keep",
+      "publicReason": "Let the king win, preserving the ace. Then cross to South in hearts and cash the remaining four winners for all thirteen tricks.",
+      "effective_plan": "Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "e9ef855969bbb47bffce9a60bc70e3ca455eb5e8c1586b63768b3621cd48caf1",
+      "authorized_input_sha256": "a111b1572fcf9105dcaa311a9b188f2fba0835d23732d5ce3eb75e1711a9b9a2",
+      "raw_output_sha256": "35105e900a5b3fc91b8b1ee0c0ba93f6d88179abfc648fa77cb9ce990d4f72b2",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0017",
+      "revision": 36,
+      "card": "H4",
+      "plan_operation": "keep",
+      "publicReason": "Cross to South's heart honors, then cash the remaining heart, spade ace and established club eight to take all thirteen tricks.",
+      "effective_plan": "Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "169c5f124364cdfd6348df9eac69461d93a73108ee7622f8847aa34ad6425bf6",
+      "authorized_input_sha256": "dba0d8639f31f066aa97278a22b74e6ccb7c48293665e239ac36b94f977281b6",
+      "raw_output_sha256": "b42236e279a1c93961fdbde50c778319428a1fef028f8ddf2ac5009052c12775",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0018",
+      "revision": 38,
+      "card": "HK",
+      "plan_operation": "keep",
+      "publicReason": "Win with the king, then cash the heart ace, spade ace and established club eight for all thirteen tricks.",
+      "effective_plan": "Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "d6ea4644cc1f8fccd0927be43df19fc4d6bde222fa518fb5790ad7c234bc0f0e",
+      "authorized_input_sha256": "1b1c572f27265fbbf36cd194911b219321d8d151f548e49ee4bbc37a2bc06222",
+      "raw_output_sha256": "13e44f361eaa9d8835a8a46983cab1a777f2cc998dc46392d61ae654587e2618",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0019",
+      "revision": 40,
+      "card": "HA",
+      "plan_operation": "keep",
+      "publicReason": "Cash the heart ace, then the spade ace and established club eight to finish with thirteen tricks.",
+      "effective_plan": "Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "cf53602c20107c2d5efbd0f877d4bfd4ccafd2baccaba44230beff4215324037",
+      "authorized_input_sha256": "1bb45dedd2be09c451d7ce73031804bbab17aa6e9879cf2587db97c4375f7b66",
+      "raw_output_sha256": "70646c5e9284cdb0f97416f724eac3210427bd5e64a47651d07e7b94a853d979",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0020",
+      "revision": 44,
+      "card": "SA",
+      "plan_operation": "keep",
+      "publicReason": "Cash the spade ace, then the established club eight for thirteen tricks.",
+      "effective_plan": "Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "206212fd0c8144b22dac2fad4959262fbaf00b74e4845717ecff0b0abc913547",
+      "authorized_input_sha256": "7856abd2544c18013aabd714431cd9e8521414b8a570d4f0dd0ad028bb41e331",
+      "raw_output_sha256": "741f2e72c6cd20e8c869527994db3cc9b1f1b38aa149f5994b51a4866d679cb5",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0021",
+      "revision": 46,
+      "card": "S2",
+      "plan_operation": "keep",
+      "publicReason": "Follow low under the ace; South's established club eight takes the final trick for thirteen.",
+      "effective_plan": "Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "cda961597c1a0743fc903930404d3e903d152a3dbfd46791aaad67de97e6d028",
+      "authorized_input_sha256": "8623278c10f9268551222510ff0570351dc01e39aa20320e688bdf9cd7088963",
+      "raw_output_sha256": "813d390ae3936e9192a369f4dbee9dbb72f0ca1c8dce5ec2a835b6fc8274662a",
+      "prefix_once_execution_plan_bound": true
+    }
+  ],
+  "actual_events": [
+    {
+      "card": "HJ",
+      "seat": "west",
+      "sequence": 0
+    },
+    {
+      "card": "HQ",
+      "seat": "north",
+      "sequence": 1
+    },
+    {
+      "card": "H2",
+      "seat": "east",
+      "sequence": 2
+    },
+    {
+      "card": "H5",
+      "seat": "south",
+      "sequence": 3
+    },
+    {
+      "card": "DQ",
+      "seat": "north",
+      "sequence": 4
+    },
+    {
+      "card": "DK",
+      "seat": "east",
+      "sequence": 5
+    },
+    {
+      "card": "DA",
+      "seat": "south",
+      "sequence": 6
+    },
+    {
+      "card": "D5",
+      "seat": "west",
+      "sequence": 7
+    },
+    {
+      "card": "D2",
+      "seat": "south",
+      "sequence": 8
+    },
+    {
+      "card": "D8",
+      "seat": "west",
+      "sequence": 9
+    },
+    {
+      "card": "D9",
+      "seat": "north",
+      "sequence": 10
+    },
+    {
+      "card": "D4",
+      "seat": "east",
+      "sequence": 11
+    },
+    {
+      "card": "DJ",
+      "seat": "north",
+      "sequence": 12
+    },
+    {
+      "card": "D6",
+      "seat": "east",
+      "sequence": 13
+    },
+    {
+      "card": "D7",
+      "seat": "south",
+      "sequence": 14
+    },
+    {
+      "card": "DT",
+      "seat": "west",
+      "sequence": 15
+    },
+    {
+      "card": "D3",
+      "seat": "north",
+      "sequence": 16
+    },
+    {
+      "card": "C2",
+      "seat": "east",
+      "sequence": 17
+    },
+    {
+      "card": "S4",
+      "seat": "south",
+      "sequence": 18
+    },
+    {
+      "card": "H3",
+      "seat": "west",
+      "sequence": 19
+    },
+    {
+      "card": "C5",
+      "seat": "north",
+      "sequence": 20
+    },
+    {
+      "card": "CT",
+      "seat": "east",
+      "sequence": 21
+    },
+    {
+      "card": "CK",
+      "seat": "south",
+      "sequence": 22
+    },
+    {
+      "card": "C4",
+      "seat": "west",
+      "sequence": 23
+    },
+    {
+      "card": "CQ",
+      "seat": "south",
+      "sequence": 24
+    },
+    {
+      "card": "C7",
+      "seat": "west",
+      "sequence": 25
+    },
+    {
+      "card": "C6",
+      "seat": "north",
+      "sequence": 26
+    },
+    {
+      "card": "CJ",
+      "seat": "east",
+      "sequence": 27
+    },
+    {
+      "card": "C3",
+      "seat": "south",
+      "sequence": 28
+    },
+    {
+      "card": "C9",
+      "seat": "west",
+      "sequence": 29
+    },
+    {
+      "card": "CA",
+      "seat": "north",
+      "sequence": 30
+    },
+    {
+      "card": "S3",
+      "seat": "east",
+      "sequence": 31
+    },
+    {
+      "card": "SK",
+      "seat": "north",
+      "sequence": 32
+    },
+    {
+      "card": "S8",
+      "seat": "east",
+      "sequence": 33
+    },
+    {
+      "card": "S6",
+      "seat": "south",
+      "sequence": 34
+    },
+    {
+      "card": "S5",
+      "seat": "west",
+      "sequence": 35
+    },
+    {
+      "card": "H4",
+      "seat": "north",
+      "sequence": 36
+    },
+    {
+      "card": "H9",
+      "seat": "east",
+      "sequence": 37
+    },
+    {
+      "card": "HK",
+      "seat": "south",
+      "sequence": 38
+    },
+    {
+      "card": "H6",
+      "seat": "west",
+      "sequence": 39
+    },
+    {
+      "card": "HA",
+      "seat": "south",
+      "sequence": 40
+    },
+    {
+      "card": "H7",
+      "seat": "west",
+      "sequence": 41
+    },
+    {
+      "card": "H8",
+      "seat": "north",
+      "sequence": 42
+    },
+    {
+      "card": "HT",
+      "seat": "east",
+      "sequence": 43
+    },
+    {
+      "card": "SA",
+      "seat": "south",
+      "sequence": 44
+    },
+    {
+      "card": "S9",
+      "seat": "west",
+      "sequence": 45
+    },
+    {
+      "card": "S2",
+      "seat": "north",
+      "sequence": 46
+    },
+    {
+      "card": "SJ",
+      "seat": "east",
+      "sequence": 47
+    },
+    {
+      "card": "C8",
+      "seat": "south",
+      "sequence": 48
+    },
+    {
+      "card": "ST",
+      "seat": "west",
+      "sequence": 49
+    },
+    {
+      "card": "S7",
+      "seat": "north",
+      "sequence": 50
+    },
+    {
+      "card": "SQ",
+      "seat": "east",
+      "sequence": 51
+    }
+  ],
+  "tricks": [
+    {
+      "plays": [
+        {
+          "card": "HJ",
+          "seat": "west",
+          "sequence": 0
+        },
+        {
+          "card": "HQ",
+          "seat": "north",
+          "sequence": 1
+        },
+        {
+          "card": "H2",
+          "seat": "east",
+          "sequence": 2
+        },
+        {
+          "card": "H5",
+          "seat": "south",
+          "sequence": 3
+        }
+      ],
+      "winner": "north"
+    },
+    {
+      "plays": [
+        {
+          "card": "DQ",
+          "seat": "north",
+          "sequence": 4
+        },
+        {
+          "card": "DK",
+          "seat": "east",
+          "sequence": 5
+        },
+        {
+          "card": "DA",
+          "seat": "south",
+          "sequence": 6
+        },
+        {
+          "card": "D5",
+          "seat": "west",
+          "sequence": 7
+        }
+      ],
+      "winner": "south"
+    },
+    {
+      "plays": [
+        {
+          "card": "D2",
+          "seat": "south",
+          "sequence": 8
+        },
+        {
+          "card": "D8",
+          "seat": "west",
+          "sequence": 9
+        },
+        {
+          "card": "D9",
+          "seat": "north",
+          "sequence": 10
+        },
+        {
+          "card": "D4",
+          "seat": "east",
+          "sequence": 11
+        }
+      ],
+      "winner": "north"
+    },
+    {
+      "plays": [
+        {
+          "card": "DJ",
+          "seat": "north",
+          "sequence": 12
+        },
+        {
+          "card": "D6",
+          "seat": "east",
+          "sequence": 13
+        },
+        {
+          "card": "D7",
+          "seat": "south",
+          "sequence": 14
+        },
+        {
+          "card": "DT",
+          "seat": "west",
+          "sequence": 15
+        }
+      ],
+      "winner": "north"
+    },
+    {
+      "plays": [
+        {
+          "card": "D3",
+          "seat": "north",
+          "sequence": 16
+        },
+        {
+          "card": "C2",
+          "seat": "east",
+          "sequence": 17
+        },
+        {
+          "card": "S4",
+          "seat": "south",
+          "sequence": 18
+        },
+        {
+          "card": "H3",
+          "seat": "west",
+          "sequence": 19
+        }
+      ],
+      "winner": "north"
+    },
+    {
+      "plays": [
+        {
+          "card": "C5",
+          "seat": "north",
+          "sequence": 20
+        },
+        {
+          "card": "CT",
+          "seat": "east",
+          "sequence": 21
+        },
+        {
+          "card": "CK",
+          "seat": "south",
+          "sequence": 22
+        },
+        {
+          "card": "C4",
+          "seat": "west",
+          "sequence": 23
+        }
+      ],
+      "winner": "south"
+    },
+    {
+      "plays": [
+        {
+          "card": "CQ",
+          "seat": "south",
+          "sequence": 24
+        },
+        {
+          "card": "C7",
+          "seat": "west",
+          "sequence": 25
+        },
+        {
+          "card": "C6",
+          "seat": "north",
+          "sequence": 26
+        },
+        {
+          "card": "CJ",
+          "seat": "east",
+          "sequence": 27
+        }
+      ],
+      "winner": "south"
+    },
+    {
+      "plays": [
+        {
+          "card": "C3",
+          "seat": "south",
+          "sequence": 28
+        },
+        {
+          "card": "C9",
+          "seat": "west",
+          "sequence": 29
+        },
+        {
+          "card": "CA",
+          "seat": "north",
+          "sequence": 30
+        },
+        {
+          "card": "S3",
+          "seat": "east",
+          "sequence": 31
+        }
+      ],
+      "winner": "north"
+    },
+    {
+      "plays": [
+        {
+          "card": "SK",
+          "seat": "north",
+          "sequence": 32
+        },
+        {
+          "card": "S8",
+          "seat": "east",
+          "sequence": 33
+        },
+        {
+          "card": "S6",
+          "seat": "south",
+          "sequence": 34
+        },
+        {
+          "card": "S5",
+          "seat": "west",
+          "sequence": 35
+        }
+      ],
+      "winner": "north"
+    },
+    {
+      "plays": [
+        {
+          "card": "H4",
+          "seat": "north",
+          "sequence": 36
+        },
+        {
+          "card": "H9",
+          "seat": "east",
+          "sequence": 37
+        },
+        {
+          "card": "HK",
+          "seat": "south",
+          "sequence": 38
+        },
+        {
+          "card": "H6",
+          "seat": "west",
+          "sequence": 39
+        }
+      ],
+      "winner": "south"
+    },
+    {
+      "plays": [
+        {
+          "card": "HA",
+          "seat": "south",
+          "sequence": 40
+        },
+        {
+          "card": "H7",
+          "seat": "west",
+          "sequence": 41
+        },
+        {
+          "card": "H8",
+          "seat": "north",
+          "sequence": 42
+        },
+        {
+          "card": "HT",
+          "seat": "east",
+          "sequence": 43
+        }
+      ],
+      "winner": "south"
+    },
+    {
+      "plays": [
+        {
+          "card": "SA",
+          "seat": "south",
+          "sequence": 44
+        },
+        {
+          "card": "S9",
+          "seat": "west",
+          "sequence": 45
+        },
+        {
+          "card": "S2",
+          "seat": "north",
+          "sequence": 46
+        },
+        {
+          "card": "SJ",
+          "seat": "east",
+          "sequence": 47
+        }
+      ],
+      "winner": "south"
+    },
+    {
+      "plays": [
+        {
+          "card": "C8",
+          "seat": "south",
+          "sequence": 48
+        },
+        {
+          "card": "ST",
+          "seat": "west",
+          "sequence": 49
+        },
+        {
+          "card": "S7",
+          "seat": "north",
+          "sequence": 50
+        },
+        {
+          "card": "SQ",
+          "seat": "east",
+          "sequence": 51
+        }
+      ],
+      "winner": "south"
+    }
+  ],
+  "actual_result": {
+    "declarer": 13,
+    "defenders": 0
+  },
+  "complete_52_distinct_13_per_seat_legal": true,
+  "forced_sole_legal_events": [
+    {
+      "card": "D7",
+      "seat": "south",
+      "sequence": 14
+    },
+    {
+      "card": "CA",
+      "seat": "north",
+      "sequence": 30
+    },
+    {
+      "card": "H8",
+      "seat": "north",
+      "sequence": 42
+    },
+    {
+      "card": "C8",
+      "seat": "south",
+      "sequence": 48
+    },
+    {
+      "card": "S7",
+      "seat": "north",
+      "sequence": 50
+    }
+  ],
+  "actual_role_requests": {
+    "player": 21,
+    "reviewer": 21
+  },
+  "raw_quality": {
+    "pass": 21,
+    "fail": 0,
+    "uncertain": 0
+  },
+  "independent_quality": {
+    "pass": 21,
+    "fail": 0,
+    "uncertain": 0
+  },
+  "quality_is_independent_human_adjudication_not_computed_by_this_checker": true
+}

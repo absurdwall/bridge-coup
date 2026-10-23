@@ -1,0 +1,752 @@
+{
+  "action" : {
+    "actingSeat" : "north",
+    "boardID" : "DBB18270-EFBF-4C36-A97B-9C2506430525",
+    "card" : "D9",
+    "controller" : "south",
+    "revision" : 10,
+    "snapshotID" : "DBB18270-EFBF-4C36-A97B-9C2506430525:10:south"
+  },
+  "advice" : {
+    "plan" : {
+      "text" : null,
+      "update" : "keep"
+    },
+    "publicReason" : "Finesse the nine as planned. West's eight leaves the ten unaccounted for; even if East wins it, our retained top winners protect the contract.",
+    "selectedCard" : "D9"
+  },
+  "canonicalInput" : "{\n  \"completedTricks\" : [\n    {\n      \"plays\" : [\n        {\n          \"card\" : \"HJ\",\n          \"seat\" : \"W\"\n        },\n        {\n          \"card\" : \"HQ\",\n          \"seat\" : \"N\"\n        },\n        {\n          \"card\" : \"H2\",\n          \"seat\" : \"E\"\n        },\n        {\n          \"card\" : \"H5\",\n          \"seat\" : \"S\"\n        }\n      ],\n      \"winner\" : \"N\"\n    },\n    {\n      \"plays\" : [\n        {\n          \"card\" : \"DQ\",\n          \"seat\" : \"N\"\n        },\n        {\n          \"card\" : \"DK\",\n          \"seat\" : \"E\"\n        },\n        {\n          \"card\" : \"DA\",\n          \"seat\" : \"S\"\n        },\n        {\n          \"card\" : \"D5\",\n          \"seat\" : \"W\"\n        }\n      ],\n      \"winner\" : \"S\"\n    }\n  ],\n  \"contract\" : {\n    \"declarer\" : \"S\",\n    \"doubling\" : \"undoubled\",\n    \"level\" : 3,\n    \"strain\" : \"NT\"\n  },\n  \"controller\" : \"S\",\n  \"current\" : {\n    \"toAct\" : \"N\",\n    \"tricksWon\" : {\n      \"declarer\" : 2,\n      \"defenders\" : 0\n    },\n    \"winningPlay\" : {\n      \"card\" : \"D8\",\n      \"seat\" : \"W\"\n    }\n  },\n  \"currentTrick\" : [\n    {\n      \"card\" : \"D2\",\n      \"seat\" : \"S\"\n    },\n    {\n      \"card\" : \"D8\",\n      \"seat\" : \"W\"\n    }\n  ],\n  \"effectivePlan\" : \"Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.\",\n  \"hands\" : {\n    \"N\" : {\n      \"C\" : \"A65\",\n      \"D\" : \"J93\",\n      \"H\" : \"84\",\n      \"S\" : \"K72\"\n    },\n    \"S\" : {\n      \"C\" : \"KQ83\",\n      \"D\" : \"7\",\n      \"H\" : \"AK\",\n      \"S\" : \"A64\"\n    }\n  },\n  \"objective\" : \"Normal IMP strategy, weighing contract risk and overtricks.\",\n  \"publicBackground\" : null,\n  \"scoring\" : \"IMP\",\n  \"type\" : \"update\",\n  \"vulnerability\" : \"neither\"\n}",
+  "effectivePlan" : "Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.",
+  "elapsedSeconds" : 13.247882008552551,
+  "executionDisposition" : "reviewApproved",
+  "humanWaitingSeconds" : 0,
+  "identity" : {
+    "observedEffort" : "medium",
+    "observedModel" : "gpt-6.1-sol",
+    "requestedEffort" : "medium",
+    "requestedModel" : "gpt-6.1-sol",
+    "runtimeVersion" : "codex-cli 0.160.0",
+    "threadID" : "01a16b01-3bac-7352-ae3e-9fe02afb7068",
+    "turnID" : "01a16b02-866b-7313-883f-d80a57f66c29"
+  },
+  "input" : "{\n  \"completedTricks\" : [\n    {\n      \"plays\" : [\n        {\n          \"card\" : \"HJ\",\n          \"seat\" : \"W\"\n        },\n        {\n          \"card\" : \"HQ\",\n          \"seat\" : \"N\"\n        },\n        {\n          \"card\" : \"H2\",\n          \"seat\" : \"E\"\n        },\n        {\n          \"card\" : \"H5\",\n          \"seat\" : \"S\"\n        }\n      ],\n      \"winner\" : \"N\"\n    },\n    {\n      \"plays\" : [\n        {\n          \"card\" : \"DQ\",\n          \"seat\" : \"N\"\n        },\n        {\n          \"card\" : \"DK\",\n          \"seat\" : \"E\"\n        },\n        {\n          \"card\" : \"DA\",\n          \"seat\" : \"S\"\n        },\n        {\n          \"card\" : \"D5\",\n          \"seat\" : \"W\"\n        }\n      ],\n      \"winner\" : \"S\"\n    }\n  ],\n  \"contract\" : {\n    \"declarer\" : \"S\",\n    \"doubling\" : \"undoubled\",\n    \"level\" : 3,\n    \"strain\" : \"NT\"\n  },\n  \"controller\" : \"S\",\n  \"current\" : {\n    \"toAct\" : \"N\",\n    \"tricksWon\" : {\n      \"declarer\" : 2,\n      \"defenders\" : 0\n    },\n    \"winningPlay\" : {\n      \"card\" : \"D8\",\n      \"seat\" : \"W\"\n    }\n  },\n  \"currentTrick\" : [\n    {\n      \"card\" : \"D2\",\n      \"seat\" : \"S\"\n    },\n    {\n      \"card\" : \"D8\",\n      \"seat\" : \"W\"\n    }\n  ],\n  \"effectivePlan\" : \"Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.\",\n  \"hands\" : {\n    \"N\" : {\n      \"C\" : \"A65\",\n      \"D\" : \"J93\",\n      \"H\" : \"84\",\n      \"S\" : \"K72\"\n    },\n    \"S\" : {\n      \"C\" : \"KQ83\",\n      \"D\" : \"7\",\n      \"H\" : \"AK\",\n      \"S\" : \"A64\"\n    }\n  },\n  \"objective\" : \"Normal IMP strategy, weighing contract risk and overtricks.\",\n  \"publicBackground\" : null,\n  \"scoring\" : \"IMP\",\n  \"type\" : \"update\",\n  \"vulnerability\" : \"neither\"\n}",
+  "instructions" : "You are the declarer-play Expert responsible for planning and playing one bridge\nboard. Control declarer and dummy as one partnership, maintaining a coherent\nline across decisions in this thread.\n\nOBJECTIVE\n\nChoose a line that aims for the best expected result under the stated scoring conditions.\n\nDECISION PROCESS\n\n1. Assess the board as a whole. From the latest snapshot, judge the\n   partnership's prospects under the contract, objective and scoring.\n   Identify the main strategic problem the playing line must solve.\n\n2. Develop or reassess the line for both hands using PLANNING GUIDANCE.\n   Form a complete initial plan; on later decisions, assess the unfinished\n   effectivePlan against actual progress and maintain the continuation\n   using the plan operations in OUTPUT FORMAT.\n\n3. Decide the current play. Consider the partnership's result in the actual\n   trick, including the seats still to play, and the consequences for the\n   remaining board. Choose selectedCard for current.toAct and reconcile\n   that choice with the unfinished plan. Return a consistent card and plan\n   operation, with a brief explanation in publicReason.\n\nPLANNING GUIDANCE\n\nUse this method to form or reassess a complete line in notrump or suit contracts.\n\n1. Establish trick sources and their costs. Treat both hands as shared\n   resources. Identify and count cashing tricks, sources needing development,\n   and sources dependent on uncertain conditions. In suit contracts, include\n   trump resources and ruffing potential. Relate these sources to the scoring\n   objective and the concessions, entries, control or tempo needed to realize\n   them.\n\n2. Identify the decisive risks. Consider how the defenders can gain or\n   retain the lead and their counterplay against the planned tricks.\n   Account for material risks such as adverse suit breaks, defensive ruffs\n   and loss of trump control.\n   Determine the central problem the line must solve. Distinguish known\n   facts from assumptions about unseen holdings, retaining the conditions\n   on which the line depends.\n\n3. Connect the sources into an executable line. Sequence establishment,\n   concessions and cashing, coordinating entries, unblocking and control\n   between the two hands. In suit contracts, arrange the use of trumps and\n   the timing of drawing trumps. Trace the key transitions: which hand\n   starts each phase, how control can be recovered after a concession,\n   and how to reach and cash the next source of tricks. Subtract every card\n   spent in key sequences, including losing plays, follows and unblockings.\n   Distinguish tricks already won, a source's total yield and winners still\n   reachable after the next entry. The sources must be realizable in that order.\n\n4. Test the material choices and changes. Compare the main alternatives\n   for decisions that determine the result, using reasonable defensive\n   counterplay to test the line. Prioritize changes that affect winners,\n   losers, entries, trump control or the overall route, and establish\n   how the plan should adapt. Check any stated protection against material\n   legal defensive responses, including spot-card choices when they affect\n   the claimed result.\n\n5. Express a complete, executable plan. Organize it freely as a connected\n   strategic account of the selected line, its trick accounting, key reasons\n   and conditions. Make critical timing and transitions concrete enough to\n   show how the main line can be played. Include material adjustments, with\n   routine card choices resolved as they arise.\n\nOUTPUT FORMAT\n\nReturn one JSON object with these fields:\n\n- \"plan\": an object containing the fields \"update\" and \"text\".\n- \"selectedCard\": the current card, chosen from the response schema's\n  legal-card enum.\n- \"publicReason\": a brief explanation of the current choice and its public\n  basis. When new public play establishes a fact relevant to the current\n  trick or remaining line, briefly state that fact and its bearing on the\n  play. Keep unresolved holdings conditional.\n\nThe \"update\" field inside \"plan\" specifies how the program should\nmaintain the active plan:\n\n- \"replace\": replace the active plan with the contents of \"text\".\n- \"keep\": retain the active plan when its unfinished line still fits the\n  latest position and current choice; \"text\" is null.\n- \"withdraw\": clear the active plan; \"text\" is null.\n\nFor \"replace\", the \"text\" field contains the complete natural-language\ndeclarer plan for the remaining board, developed using PLANNING GUIDANCE.\n\nBefore keeping, check the unfinished route after spending selectedCard,\nincluding critical explicitly reserved resources and transfers. Put material\nchanges to that route in a complete replacement plan. Routine interchangeable\ncards, completed phases and eliminated conditions do not by themselves require\nreplacement. Use \"replace\" when the unfinished line needs revision or the\nposition supports a better line.\n\nThe program carries this text verbatim into the next input's\n\"effectivePlan\" field. When revising a plan, supply the complete\nreplacement plan that subsequent decisions should use.\n\nWhen the input's \"type\" field is \"initial\", set the output plan\nobject's \"update\" field to \"replace\" and its \"text\" field to the\ninitial declarer plan.\n\nINPUT REFERENCE\n\nThe user message is a complete authorized JSON snapshot, or a review-feedback\nenvelope whose latestSnapshot contains that same position.\nEach snapshot replaces the fact view. Recorded plays are already reflected\nin the remaining hands; repeated history describes the same events.\nActual plays establish facts. Use effectivePlan and the thread's earlier\ndiscussion for continuity, treating their predictions as hypotheses and\nrecorded plan steps as completed.\n\nThe input JSON has a string field named \"type\":\n- \"initial\" identifies the first decision for this board.\n- \"update\" identifies a later complete snapshot of the same board.\n\nReview-feedback envelopes use type \"revision\" or \"clarification\". Their\nlatestSnapshot is the unchanged authorized position, with the prior active\nplan still in effectivePlan. candidate and rawCandidate contain the pending\nproposal; review and rawReview contain the reviewer's actual feedback.\nproposedEffectivePlan describes that pending operation, and legalCurrentCards\nrestates the current legal choices. Pending proposals have not been played or\ninstalled as the active plan. Return a complete current proposal in the usual\noutput format, addressing the findings or questions. For clarification, check\nand restate the supplied public facts and preserve unknown holdings as unknown.\nThe latestSnapshot.type still determines whether an initial replacement plan\nis required.\n\nAn active plan is working advice carried forward after authorized execution.\nIt may have received review approval or proceeded with objections unresolved;\nits active status alone does not establish reviewer approval.\n\nNotation:\n- Seats: N=North, E=East, S=South, W=West.\n- Suits: S=spades, H=hearts, D=diamonds, C=clubs.\n- Ranks, highest first: A K Q J T 9 8 7 6 5 4 3 2. T means ten.\n- Card codes combine suit and rank: DQ is the queen of diamonds;\n  SA is the ace of spades.\n- In hands, \"S\": \"A94\" means the ace, nine and four of spades.\n  An empty suit string means no remaining cards in that suit.\n  In a seat field, \"S\" means South.\n\nFields:\n- \"contract\": level, strain, doubling and declarer. Strain is S, H, D, C\n  or NT (notrump). Doubling is undoubled, doubled or redoubled.\n- \"scoring\": the scoring method.\n- \"vulnerability\": neither, NS, EW or both.\n- \"objective\": the requested strategic aim, separate from contract and scoring.\n- \"publicBackground\": supplied public context, or null when unavailable.\n  Missing auction or defensive agreements remain unknown.\n- \"controller\": the declarer whose perspective controls decisions from\n  both declarer and dummy.\n- \"hands\": current remaining authorized holdings, grouped by seat and suit.\n  Treat omitted defender holdings as unknown.\n- \"completedTricks\": completed tricks in chronological order. Each contains\n  \"plays\" in actual play order and \"winner\". Each play has \"seat\" and \"card\".\n- \"currentTrick\": the actual plays in the unfinished trick, in play order.\n- \"current\": \"toAct\" (the hand playing now), \"tricksWon\" (\"declarer\" and\n  \"defenders\"), and \"winningPlay\".\n  \"winningPlay\" is the highest actual play in the current trick under bridge\n  rules, with \"seat\" and \"card\", or null before the lead. Later plays may change it.\n- \"effectivePlan\": the exact active plan carried into this decision,\n  or null when no active plan exists.\n\nOUTPUT FORMAT EXAMPLES\n\nThese examples illustrate JSON structure and plan operations. Angle-bracket\nstrings are placeholders for board-specific values. Actual responses supply\nconcrete values meeting the requirements above.\n\nInitial plan or revised continuation:\n\n{\"plan\":{\"update\":\"replace\",\"text\":\"<complete plan for the remaining board>\"},\"selectedCard\":\"<card from the legal enum>\",\"publicReason\":\"<brief explanation of the current choice>\"}\n\nLater decision retaining the active plan:\n\n{\"plan\":{\"update\":\"keep\",\"text\":null},\"selectedCard\":\"<card from the legal enum>\",\"publicReason\":\"<brief explanation of the current choice>\"}\n\nLater decision clearing the active plan:\n\n{\"plan\":{\"update\":\"withdraw\",\"text\":null},\"selectedCard\":\"<card from the legal enum>\",\"publicReason\":\"<brief explanation of the current choice>\"}\n",
+  "pending" : {
+    "candidate" : {
+      "plan" : {
+        "text" : null,
+        "update" : "keep"
+      },
+      "publicReason" : "Finesse the nine as planned. West's eight leaves the ten unaccounted for; even if East wins it, our retained top winners protect the contract.",
+      "selectedCard" : "D9"
+    },
+    "candidateID" : "99A37820-1A6E-47A1-AF64-BA81F6CF2319",
+    "id" : "DDB0923B-87B1-4DCA-8300-147509777879",
+    "priorPlan" : {
+      "boardID" : "DBB18270-EFBF-4C36-A97B-9C2506430525",
+      "controller" : "south",
+      "sourceSessionID" : "8378448E-9226-49D4-BD87-6AEDD62BFA03",
+      "sourceSnapshotID" : "DBB18270-EFBF-4C36-A97B-9C2506430525:8:south",
+      "text" : "Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible."
+    },
+    "proposedEffectivePlan" : "Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.",
+    "snapshot" : {
+      "actingSeat" : "north",
+      "boardID" : "DBB18270-EFBF-4C36-A97B-9C2506430525",
+      "completedTricks" : [
+        {
+          "plays" : [
+            {
+              "card" : "HJ",
+              "seat" : "west",
+              "sequence" : 0
+            },
+            {
+              "card" : "HQ",
+              "seat" : "north",
+              "sequence" : 1
+            },
+            {
+              "card" : "H2",
+              "seat" : "east",
+              "sequence" : 2
+            },
+            {
+              "card" : "H5",
+              "seat" : "south",
+              "sequence" : 3
+            }
+          ],
+          "winner" : "north"
+        },
+        {
+          "plays" : [
+            {
+              "card" : "DQ",
+              "seat" : "north",
+              "sequence" : 4
+            },
+            {
+              "card" : "DK",
+              "seat" : "east",
+              "sequence" : 5
+            },
+            {
+              "card" : "DA",
+              "seat" : "south",
+              "sequence" : 6
+            },
+            {
+              "card" : "D5",
+              "seat" : "west",
+              "sequence" : 7
+            }
+          ],
+          "winner" : "south"
+        }
+      ],
+      "contract" : {
+        "declarer" : "south",
+        "doubling" : "undoubled",
+        "level" : 3,
+        "strain" : "noTrump"
+      },
+      "controller" : "south",
+      "currentTrick" : [
+        {
+          "card" : "D2",
+          "seat" : "south",
+          "sequence" : 8
+        },
+        {
+          "card" : "D8",
+          "seat" : "west",
+          "sequence" : 9
+        }
+      ],
+      "currentWinningPlay" : {
+        "card" : "D8",
+        "seat" : "west",
+        "sequence" : 9
+      },
+      "declarerTricks" : 2,
+      "defenderTricks" : 0,
+      "events" : [
+        {
+          "card" : "HJ",
+          "seat" : "west",
+          "sequence" : 0
+        },
+        {
+          "card" : "HQ",
+          "seat" : "north",
+          "sequence" : 1
+        },
+        {
+          "card" : "H2",
+          "seat" : "east",
+          "sequence" : 2
+        },
+        {
+          "card" : "H5",
+          "seat" : "south",
+          "sequence" : 3
+        },
+        {
+          "card" : "DQ",
+          "seat" : "north",
+          "sequence" : 4
+        },
+        {
+          "card" : "DK",
+          "seat" : "east",
+          "sequence" : 5
+        },
+        {
+          "card" : "DA",
+          "seat" : "south",
+          "sequence" : 6
+        },
+        {
+          "card" : "D5",
+          "seat" : "west",
+          "sequence" : 7
+        },
+        {
+          "card" : "D2",
+          "seat" : "south",
+          "sequence" : 8
+        },
+        {
+          "card" : "D8",
+          "seat" : "west",
+          "sequence" : 9
+        }
+      ],
+      "hands" : [
+        {
+          "cards" : [
+            "SA",
+            "S6",
+            "S4",
+            "HA",
+            "HK",
+            "D7",
+            "CK",
+            "CQ",
+            "C8",
+            "C3"
+          ],
+          "seat" : "south"
+        },
+        {
+          "cards" : [
+            "SK",
+            "S7",
+            "S2",
+            "H8",
+            "H4",
+            "DJ",
+            "D9",
+            "D3",
+            "CA",
+            "C6",
+            "C5"
+          ],
+          "seat" : "north"
+        }
+      ],
+      "legalCards" : [
+        "DJ",
+        "D9",
+        "D3"
+      ],
+      "objective" : "Normal IMP strategy, weighing contract risk and overtricks.",
+      "revision" : 10,
+      "scoring" : "IMP",
+      "vulnerability" : "neither"
+    }
+  },
+  "planAssociation" : {
+    "boardID" : "DBB18270-EFBF-4C36-A97B-9C2506430525",
+    "controller" : "south",
+    "sourceSessionID" : "8378448E-9226-49D4-BD87-6AEDD62BFA03",
+    "sourceSnapshotID" : "DBB18270-EFBF-4C36-A97B-9C2506430525:8:south",
+    "text" : "Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible."
+  },
+  "rawOutput" : "{\"plan\":{\"update\":\"keep\",\"text\":null},\"selectedCard\":\"D9\",\"publicReason\":\"Finesse the nine as planned. West's eight leaves the ten unaccounted for; even if East wins it, our retained top winners protect the contract.\"}",
+  "requestEvidence" : [
+    {
+      "decisionID" : "DDB0923B-87B1-4DCA-8300-147509777879",
+      "elapsedSeconds" : 2.909243106842041,
+      "identity" : {
+        "observedEffort" : "medium",
+        "observedModel" : "gpt-6.1-sol",
+        "requestedEffort" : "medium",
+        "requestedModel" : "gpt-6.1-sol",
+        "runtimeVersion" : "codex-cli 0.160.0",
+        "threadID" : "01a16b01-3bac-7352-ae3e-9fe02afb7068",
+        "turnID" : "01a16b02-866b-7313-883f-d80a57f66c29"
+      },
+      "input" : "{\n  \"completedTricks\" : [\n    {\n      \"plays\" : [\n        {\n          \"card\" : \"HJ\",\n          \"seat\" : \"W\"\n        },\n        {\n          \"card\" : \"HQ\",\n          \"seat\" : \"N\"\n        },\n        {\n          \"card\" : \"H2\",\n          \"seat\" : \"E\"\n        },\n        {\n          \"card\" : \"H5\",\n          \"seat\" : \"S\"\n        }\n      ],\n      \"winner\" : \"N\"\n    },\n    {\n      \"plays\" : [\n        {\n          \"card\" : \"DQ\",\n          \"seat\" : \"N\"\n        },\n        {\n          \"card\" : \"DK\",\n          \"seat\" : \"E\"\n        },\n        {\n          \"card\" : \"DA\",\n          \"seat\" : \"S\"\n        },\n        {\n          \"card\" : \"D5\",\n          \"seat\" : \"W\"\n        }\n      ],\n      \"winner\" : \"S\"\n    }\n  ],\n  \"contract\" : {\n    \"declarer\" : \"S\",\n    \"doubling\" : \"undoubled\",\n    \"level\" : 3,\n    \"strain\" : \"NT\"\n  },\n  \"controller\" : \"S\",\n  \"current\" : {\n    \"toAct\" : \"N\",\n    \"tricksWon\" : {\n      \"declarer\" : 2,\n      \"defenders\" : 0\n    },\n    \"winningPlay\" : {\n      \"card\" : \"D8\",\n      \"seat\" : \"W\"\n    }\n  },\n  \"currentTrick\" : [\n    {\n      \"card\" : \"D2\",\n      \"seat\" : \"S\"\n    },\n    {\n      \"card\" : \"D8\",\n      \"seat\" : \"W\"\n    }\n  ],\n  \"effectivePlan\" : \"Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.\",\n  \"hands\" : {\n    \"N\" : {\n      \"C\" : \"A65\",\n      \"D\" : \"J93\",\n      \"H\" : \"84\",\n      \"S\" : \"K72\"\n    },\n    \"S\" : {\n      \"C\" : \"KQ83\",\n      \"D\" : \"7\",\n      \"H\" : \"AK\",\n      \"S\" : \"A64\"\n    }\n  },\n  \"objective\" : \"Normal IMP strategy, weighing contract risk and overtricks.\",\n  \"publicBackground\" : null,\n  \"scoring\" : \"IMP\",\n  \"type\" : \"update\",\n  \"vulnerability\" : \"neither\"\n}",
+      "instructions" : "You are the declarer-play Expert responsible for planning and playing one bridge\nboard. Control declarer and dummy as one partnership, maintaining a coherent\nline across decisions in this thread.\n\nOBJECTIVE\n\nChoose a line that aims for the best expected result under the stated scoring conditions.\n\nDECISION PROCESS\n\n1. Assess the board as a whole. From the latest snapshot, judge the\n   partnership's prospects under the contract, objective and scoring.\n   Identify the main strategic problem the playing line must solve.\n\n2. Develop or reassess the line for both hands using PLANNING GUIDANCE.\n   Form a complete initial plan; on later decisions, assess the unfinished\n   effectivePlan against actual progress and maintain the continuation\n   using the plan operations in OUTPUT FORMAT.\n\n3. Decide the current play. Consider the partnership's result in the actual\n   trick, including the seats still to play, and the consequences for the\n   remaining board. Choose selectedCard for current.toAct and reconcile\n   that choice with the unfinished plan. Return a consistent card and plan\n   operation, with a brief explanation in publicReason.\n\nPLANNING GUIDANCE\n\nUse this method to form or reassess a complete line in notrump or suit contracts.\n\n1. Establish trick sources and their costs. Treat both hands as shared\n   resources. Identify and count cashing tricks, sources needing development,\n   and sources dependent on uncertain conditions. In suit contracts, include\n   trump resources and ruffing potential. Relate these sources to the scoring\n   objective and the concessions, entries, control or tempo needed to realize\n   them.\n\n2. Identify the decisive risks. Consider how the defenders can gain or\n   retain the lead and their counterplay against the planned tricks.\n   Account for material risks such as adverse suit breaks, defensive ruffs\n   and loss of trump control.\n   Determine the central problem the line must solve. Distinguish known\n   facts from assumptions about unseen holdings, retaining the conditions\n   on which the line depends.\n\n3. Connect the sources into an executable line. Sequence establishment,\n   concessions and cashing, coordinating entries, unblocking and control\n   between the two hands. In suit contracts, arrange the use of trumps and\n   the timing of drawing trumps. Trace the key transitions: which hand\n   starts each phase, how control can be recovered after a concession,\n   and how to reach and cash the next source of tricks. Subtract every card\n   spent in key sequences, including losing plays, follows and unblockings.\n   Distinguish tricks already won, a source's total yield and winners still\n   reachable after the next entry. The sources must be realizable in that order.\n\n4. Test the material choices and changes. Compare the main alternatives\n   for decisions that determine the result, using reasonable defensive\n   counterplay to test the line. Prioritize changes that affect winners,\n   losers, entries, trump control or the overall route, and establish\n   how the plan should adapt. Check any stated protection against material\n   legal defensive responses, including spot-card choices when they affect\n   the claimed result.\n\n5. Express a complete, executable plan. Organize it freely as a connected\n   strategic account of the selected line, its trick accounting, key reasons\n   and conditions. Make critical timing and transitions concrete enough to\n   show how the main line can be played. Include material adjustments, with\n   routine card choices resolved as they arise.\n\nOUTPUT FORMAT\n\nReturn one JSON object with these fields:\n\n- \"plan\": an object containing the fields \"update\" and \"text\".\n- \"selectedCard\": the current card, chosen from the response schema's\n  legal-card enum.\n- \"publicReason\": a brief explanation of the current choice and its public\n  basis. When new public play establishes a fact relevant to the current\n  trick or remaining line, briefly state that fact and its bearing on the\n  play. Keep unresolved holdings conditional.\n\nThe \"update\" field inside \"plan\" specifies how the program should\nmaintain the active plan:\n\n- \"replace\": replace the active plan with the contents of \"text\".\n- \"keep\": retain the active plan when its unfinished line still fits the\n  latest position and current choice; \"text\" is null.\n- \"withdraw\": clear the active plan; \"text\" is null.\n\nFor \"replace\", the \"text\" field contains the complete natural-language\ndeclarer plan for the remaining board, developed using PLANNING GUIDANCE.\n\nBefore keeping, check the unfinished route after spending selectedCard,\nincluding critical explicitly reserved resources and transfers. Put material\nchanges to that route in a complete replacement plan. Routine interchangeable\ncards, completed phases and eliminated conditions do not by themselves require\nreplacement. Use \"replace\" when the unfinished line needs revision or the\nposition supports a better line.\n\nThe program carries this text verbatim into the next input's\n\"effectivePlan\" field. When revising a plan, supply the complete\nreplacement plan that subsequent decisions should use.\n\nWhen the input's \"type\" field is \"initial\", set the output plan\nobject's \"update\" field to \"replace\" and its \"text\" field to the\ninitial declarer plan.\n\nINPUT REFERENCE\n\nThe user message is a complete authorized JSON snapshot, or a review-feedback\nenvelope whose latestSnapshot contains that same position.\nEach snapshot replaces the fact view. Recorded plays are already reflected\nin the remaining hands; repeated history describes the same events.\nActual plays establish facts. Use effectivePlan and the thread's earlier\ndiscussion for continuity, treating their predictions as hypotheses and\nrecorded plan steps as completed.\n\nThe input JSON has a string field named \"type\":\n- \"initial\" identifies the first decision for this board.\n- \"update\" identifies a later complete snapshot of the same board.\n\nReview-feedback envelopes use type \"revision\" or \"clarification\". Their\nlatestSnapshot is the unchanged authorized position, with the prior active\nplan still in effectivePlan. candidate and rawCandidate contain the pending\nproposal; review and rawReview contain the reviewer's actual feedback.\nproposedEffectivePlan describes that pending operation, and legalCurrentCards\nrestates the current legal choices. Pending proposals have not been played or\ninstalled as the active plan. Return a complete current proposal in the usual\noutput format, addressing the findings or questions. For clarification, check\nand restate the supplied public facts and preserve unknown holdings as unknown.\nThe latestSnapshot.type still determines whether an initial replacement plan\nis required.\n\nAn active plan is working advice carried forward after authorized execution.\nIt may have received review approval or proceeded with objections unresolved;\nits active status alone does not establish reviewer approval.\n\nNotation:\n- Seats: N=North, E=East, S=South, W=West.\n- Suits: S=spades, H=hearts, D=diamonds, C=clubs.\n- Ranks, highest first: A K Q J T 9 8 7 6 5 4 3 2. T means ten.\n- Card codes combine suit and rank: DQ is the queen of diamonds;\n  SA is the ace of spades.\n- In hands, \"S\": \"A94\" means the ace, nine and four of spades.\n  An empty suit string means no remaining cards in that suit.\n  In a seat field, \"S\" means South.\n\nFields:\n- \"contract\": level, strain, doubling and declarer. Strain is S, H, D, C\n  or NT (notrump). Doubling is undoubled, doubled or redoubled.\n- \"scoring\": the scoring method.\n- \"vulnerability\": neither, NS, EW or both.\n- \"objective\": the requested strategic aim, separate from contract and scoring.\n- \"publicBackground\": supplied public context, or null when unavailable.\n  Missing auction or defensive agreements remain unknown.\n- \"controller\": the declarer whose perspective controls decisions from\n  both declarer and dummy.\n- \"hands\": current remaining authorized holdings, grouped by seat and suit.\n  Treat omitted defender holdings as unknown.\n- \"completedTricks\": completed tricks in chronological order. Each contains\n  \"plays\" in actual play order and \"winner\". Each play has \"seat\" and \"card\".\n- \"currentTrick\": the actual plays in the unfinished trick, in play order.\n- \"current\": \"toAct\" (the hand playing now), \"tricksWon\" (\"declarer\" and\n  \"defenders\"), and \"winningPlay\".\n  \"winningPlay\" is the highest actual play in the current trick under bridge\n  rules, with \"seat\" and \"card\", or null before the lead. Later plays may change it.\n- \"effectivePlan\": the exact active plan carried into this decision,\n  or null when no active plan exists.\n\nOUTPUT FORMAT EXAMPLES\n\nThese examples illustrate JSON structure and plan operations. Angle-bracket\nstrings are placeholders for board-specific values. Actual responses supply\nconcrete values meeting the requirements above.\n\nInitial plan or revised continuation:\n\n{\"plan\":{\"update\":\"replace\",\"text\":\"<complete plan for the remaining board>\"},\"selectedCard\":\"<card from the legal enum>\",\"publicReason\":\"<brief explanation of the current choice>\"}\n\nLater decision retaining the active plan:\n\n{\"plan\":{\"update\":\"keep\",\"text\":null},\"selectedCard\":\"<card from the legal enum>\",\"publicReason\":\"<brief explanation of the current choice>\"}\n\nLater decision clearing the active plan:\n\n{\"plan\":{\"update\":\"withdraw\",\"text\":null},\"selectedCard\":\"<card from the legal enum>\",\"publicReason\":\"<brief explanation of the current choice>\"}\n",
+      "outcome" : "valid",
+      "outputSchema" : "{\"additionalProperties\":false,\"properties\":{\"plan\":{\"anyOf\":[{\"additionalProperties\":false,\"properties\":{\"update\":{\"enum\":[\"replace\"],\"type\":\"string\"},\"text\":{\"pattern\":\"\\\\S\",\"type\":\"string\"}},\"required\":[\"update\",\"text\"],\"type\":\"object\"},{\"additionalProperties\":false,\"properties\":{\"update\":{\"enum\":[\"keep\"],\"type\":\"string\"},\"text\":{\"type\":\"null\"}},\"required\":[\"update\",\"text\"],\"type\":\"object\"},{\"additionalProperties\":false,\"properties\":{\"update\":{\"enum\":[\"withdraw\"],\"type\":\"string\"},\"text\":{\"type\":\"null\"}},\"required\":[\"update\",\"text\"],\"type\":\"object\"}]},\"selectedCard\":{\"enum\":[\"DJ\",\"D9\",\"D3\"],\"type\":\"string\"},\"publicReason\":{\"type\":\"string\"}},\"required\":[\"plan\",\"publicReason\",\"selectedCard\"],\"type\":\"object\"}",
+      "rawOutput" : "{\"plan\":{\"update\":\"keep\",\"text\":null},\"selectedCard\":\"D9\",\"publicReason\":\"Finesse the nine as planned. West's eight leaves the ten unaccounted for; even if East wins it, our retained top winners protect the contract.\"}",
+      "replyRequestID" : "20FE7A43-8833-4499-A0B5-2B55D0704569",
+      "requestID" : "20FE7A43-8833-4499-A0B5-2B55D0704569",
+      "role" : "player",
+      "semanticRound" : 1,
+      "technicalAttempt" : 1,
+      "timeoutSeconds" : 180,
+      "usage" : {
+        "cachedInputTokens" : 0,
+        "inputTokens" : 6751,
+        "outputTokens" : 64,
+        "reasoningOutputTokens" : 0,
+        "totalTokens" : 6815
+      }
+    },
+    {
+      "candidateID" : "99A37820-1A6E-47A1-AF64-BA81F6CF2319",
+      "decisionID" : "DDB0923B-87B1-4DCA-8300-147509777879",
+      "elapsedSeconds" : 10.337538957595825,
+      "identity" : {
+        "observedEffort" : "medium",
+        "observedModel" : "gpt-6.1-sol",
+        "requestedEffort" : "medium",
+        "requestedModel" : "gpt-6.1-sol",
+        "runtimeVersion" : "codex-cli 0.160.0",
+        "threadID" : "01a16b02-927d-7000-a841-ad15f18a1ef1",
+        "turnID" : "01a16b02-928c-7cf3-92ae-09c164963999"
+      },
+      "input" : "{\n  \"candidate\" : {\n    \"plan\" : {\n      \"text\" : null,\n      \"update\" : \"keep\"\n    },\n    \"publicReason\" : \"Finesse the nine as planned. West's eight leaves the ten unaccounted for; even if East wins it, our retained top winners protect the contract.\",\n    \"selectedCard\" : \"D9\"\n  },\n  \"latestSnapshot\" : {\n    \"completedTricks\" : [\n      {\n        \"plays\" : [\n          {\n            \"card\" : \"HJ\",\n            \"seat\" : \"W\"\n          },\n          {\n            \"card\" : \"HQ\",\n            \"seat\" : \"N\"\n          },\n          {\n            \"card\" : \"H2\",\n            \"seat\" : \"E\"\n          },\n          {\n            \"card\" : \"H5\",\n            \"seat\" : \"S\"\n          }\n        ],\n        \"winner\" : \"N\"\n      },\n      {\n        \"plays\" : [\n          {\n            \"card\" : \"DQ\",\n            \"seat\" : \"N\"\n          },\n          {\n            \"card\" : \"DK\",\n            \"seat\" : \"E\"\n          },\n          {\n            \"card\" : \"DA\",\n            \"seat\" : \"S\"\n          },\n          {\n            \"card\" : \"D5\",\n            \"seat\" : \"W\"\n          }\n        ],\n        \"winner\" : \"S\"\n      }\n    ],\n    \"contract\" : {\n      \"declarer\" : \"S\",\n      \"doubling\" : \"undoubled\",\n      \"level\" : 3,\n      \"strain\" : \"NT\"\n    },\n    \"controller\" : \"S\",\n    \"current\" : {\n      \"toAct\" : \"N\",\n      \"tricksWon\" : {\n        \"declarer\" : 2,\n        \"defenders\" : 0\n      },\n      \"winningPlay\" : {\n        \"card\" : \"D8\",\n        \"seat\" : \"W\"\n      }\n    },\n    \"currentTrick\" : [\n      {\n        \"card\" : \"D2\",\n        \"seat\" : \"S\"\n      },\n      {\n        \"card\" : \"D8\",\n        \"seat\" : \"W\"\n      }\n    ],\n    \"effectivePlan\" : \"Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.\",\n    \"hands\" : {\n      \"N\" : {\n        \"C\" : \"A65\",\n        \"D\" : \"J93\",\n        \"H\" : \"84\",\n        \"S\" : \"K72\"\n      },\n      \"S\" : {\n        \"C\" : \"KQ83\",\n        \"D\" : \"7\",\n        \"H\" : \"AK\",\n        \"S\" : \"A64\"\n      }\n    },\n    \"objective\" : \"Normal IMP strategy, weighing contract risk and overtricks.\",\n    \"publicBackground\" : null,\n    \"scoring\" : \"IMP\",\n    \"type\" : \"update\",\n    \"vulnerability\" : \"neither\"\n  },\n  \"legalCurrentCards\" : [\n    \"DJ\",\n    \"D9\",\n    \"D3\"\n  ],\n  \"proposedEffectivePlan\" : \"Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.\"\n}",
+      "instructions" : "You independently review declarer's proposed plan and current card before\nexecution. Judge whether the proposal is ready to play under the supplied\nobjective and scoring, treating declarer and dummy as one partnership.\n\nREVIEW PROCESS\n\n1. Establish the position and proposal from the supplied input. Resolve the\n   proposed plan operation using INPUT REFERENCE. The candidate card is\n   pending; assess it from the actual current position.\n\n2. Assess the remaining play and plan operation. For an initial request,\n   review a complete plan. For a later request, assess the unfinished\n   continuation against actual progress, including whether keeping,\n   replacing or clearing the plan is appropriate. For a retained or\n   replacement line, check trick accounting, establishment and concessions,\n   the handling of main risks and material defensive changes, and the\n   timing, entries, unblocking and control connecting both hands.\n   Include material suit breaks and, where relevant, trump use, ruffing and\n   the timing of drawing trumps. Follow key transitions and concessions\n   through control recovery, access and actual cashing. Verify concrete\n   remaining cards after key sequences, including losing plays, follows and\n   unblockings; distinguish tricks already won, total yield and winners still\n   reachable after the next entry. Test stated protection against material\n   legal defensive choices, including spot cards when they affect the claim.\n\n3. Assess the current action. Check legality and its partnership result in\n   the actual trick, including seats still to play, and its consequences\n   for the remaining board. Examine important alternatives as needed\n   to assess the partnership result. Check that the card, plan operation\n   and explanation are consistent with each other and the actual position.\n   Check critical unfinished resources and explicitly reserved transfers after\n   spending the current card. A materially changed route belongs in a complete\n   replacement plan. Routine interchangeable cards can retain the same route;\n   completed phases and eliminated conditions remain historical.\n\nBefore deciding, complete both assessments and verify each blocking argument\nagainst the supplied position and DECISION RULES.\n\nDECISION RULES\n\n- approve: the proposal provides a reasonable, executable basis for the\n  remaining play, with feasible key transitions. The current action, plan\n  operation and explanation fit the position. The assessment leaves no\n  established material defect or unresolved critical fact preventing\n  judgment. Approval assesses readiness to play; it does not require proof\n  of optimality or an exhaustive tree of defensive continuations.\n\n- revise: supplied evidence establishes a material defect in the proposal:\n  false facts or counts, impossible play or entries, a conflict between\n  the plan, card and explanation, an avoidable loss demonstrated from the\n  current position, or a missing key arrangement that prevents assessment\n  of the main route. For a loss, establish a feasible alternative and show\n  how it avoids the loss. For an omission, identify the unresolved critical\n  decision or resource and explain why the route cannot be assessed\n  without it. Routine card choices can be resolved as they arise.\n\n- uncertain: a missing or conflicting critical fact prevents a substantive\n  judgment. This expresses a need for clarification, not an established\n  defect in the proposal. Ordinary unknown defender holdings are assessed\n  through the plan's conditions and do not by themselves require this verdict.\n\nReasonable strategic trade-offs belong in advisorySuggestions. A possible\nunseen layout favoring another feasible line alone does not establish a\nblocking loss. Claims about a line's feasibility or stated conditions remain\nsubject to verification.\n\nUse revise when a material defect is established, including any unresolved\nfacts in the feedback. Otherwise, use uncertain when a critical factual gap\nprevents judgment, and approve when the proposal is ready to play.\n\nINPUT REFERENCE\n\n- latestSnapshot is the authorized current position. Recorded plays are\n  already reflected in remaining hands; completed plan steps are historical.\n  Treat unseen defender holdings as unknown and evaluate assumptions as\n  conditions rather than facts.\n- legalCurrentCards lists the current legal cards.\n- candidate is the proposed public JSON: plan, selectedCard and publicReason.\n- latestSnapshot.effectivePlan is the working active plan from prior authorized\n  execution. It may have been approved or released with unresolved objections;\n  active status alone does not establish review approval.\n- proposedEffectivePlan is the plan after applying the candidate operation:\n  keep retains the active text verbatim, replace uses candidate.plan.text,\n  and withdraw clears it.\n\nCard suits are S\/H\/D\/C and ranks run A K Q J T 9 8 7 6 5 4 3 2, highest first.\nSeat codes are N\/E\/S\/W; T means ten and NT means notrump.\n\nOUTPUT FORMAT\n\nReturn only the response-schema JSON:\n- verdict: approve, revise or uncertain, according to DECISION RULES.\n- blockingFindings: report each established material defect once, using\n  objects containing claim, evidence and requestedChange:\n  - claim identifies the affected assertion, action or critical omission\n    in the candidate or proposedEffectivePlan.\n  - evidence cites the relevant supplied facts and gives the shortest\n    sufficient derivation of the defect and its material consequence.\n    Supporting assertions must also follow from the supplied position;\n    distinguish deductions from conditions about unseen holdings.\n  - requestedChange specifies the repair needed to resolve that defect\n    in the plan, card or explanation.\n  Use a nonempty array for revise and an empty array otherwise.\n- advisorySuggestions: strings containing nonblocking strategic advice or\n  unresolved factual questions. For uncertain, identify the critical fact,\n  why it prevents judgment and what needs clarification. Use an empty\n  array when there is nothing to add.\n",
+      "outcome" : "valid",
+      "outputSchema" : "{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"verdict\",\"blockingFindings\",\"advisorySuggestions\"],\"properties\":{\"verdict\":{\"type\":\"string\",\"enum\":[\"approve\",\"revise\",\"uncertain\"]},\"blockingFindings\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"claim\",\"evidence\",\"requestedChange\"],\"properties\":{\"claim\":{\"type\":\"string\"},\"evidence\":{\"type\":\"string\"},\"requestedChange\":{\"type\":\"string\"}}}},\"advisorySuggestions\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}}}",
+      "rawOutput" : "{\"verdict\":\"approve\",\"blockingFindings\":[],\"advisorySuggestions\":[]}",
+      "replyRequestID" : "E39FBAE1-5D1D-4FC6-87C4-13741BE611C1",
+      "requestID" : "E39FBAE1-5D1D-4FC6-87C4-13741BE611C1",
+      "role" : "reviewer",
+      "semanticRound" : 1,
+      "technicalAttempt" : 1,
+      "timeoutSeconds" : 180,
+      "usage" : {
+        "cachedInputTokens" : 0,
+        "inputTokens" : 2274,
+        "outputTokens" : 226,
+        "reasoningOutputTokens" : 197,
+        "totalTokens" : 2500
+      }
+    }
+  ],
+  "review" : {
+    "candidateID" : "99A37820-1A6E-47A1-AF64-BA81F6CF2319",
+    "elapsedSeconds" : 10.33768105506897,
+    "identity" : {
+      "observedEffort" : "medium",
+      "observedModel" : "gpt-6.1-sol",
+      "requestedEffort" : "medium",
+      "requestedModel" : "gpt-6.1-sol",
+      "runtimeVersion" : "codex-cli 0.160.0",
+      "threadID" : "01a16b02-927d-7000-a841-ad15f18a1ef1",
+      "turnID" : "01a16b02-928c-7cf3-92ae-09c164963999"
+    },
+    "input" : "{\n  \"candidate\" : {\n    \"plan\" : {\n      \"text\" : null,\n      \"update\" : \"keep\"\n    },\n    \"publicReason\" : \"Finesse the nine as planned. West's eight leaves the ten unaccounted for; even if East wins it, our retained top winners protect the contract.\",\n    \"selectedCard\" : \"D9\"\n  },\n  \"latestSnapshot\" : {\n    \"completedTricks\" : [\n      {\n        \"plays\" : [\n          {\n            \"card\" : \"HJ\",\n            \"seat\" : \"W\"\n          },\n          {\n            \"card\" : \"HQ\",\n            \"seat\" : \"N\"\n          },\n          {\n            \"card\" : \"H2\",\n            \"seat\" : \"E\"\n          },\n          {\n            \"card\" : \"H5\",\n            \"seat\" : \"S\"\n          }\n        ],\n        \"winner\" : \"N\"\n      },\n      {\n        \"plays\" : [\n          {\n            \"card\" : \"DQ\",\n            \"seat\" : \"N\"\n          },\n          {\n            \"card\" : \"DK\",\n            \"seat\" : \"E\"\n          },\n          {\n            \"card\" : \"DA\",\n            \"seat\" : \"S\"\n          },\n          {\n            \"card\" : \"D5\",\n            \"seat\" : \"W\"\n          }\n        ],\n        \"winner\" : \"S\"\n      }\n    ],\n    \"contract\" : {\n      \"declarer\" : \"S\",\n      \"doubling\" : \"undoubled\",\n      \"level\" : 3,\n      \"strain\" : \"NT\"\n    },\n    \"controller\" : \"S\",\n    \"current\" : {\n      \"toAct\" : \"N\",\n      \"tricksWon\" : {\n        \"declarer\" : 2,\n        \"defenders\" : 0\n      },\n      \"winningPlay\" : {\n        \"card\" : \"D8\",\n        \"seat\" : \"W\"\n      }\n    },\n    \"currentTrick\" : [\n      {\n        \"card\" : \"D2\",\n        \"seat\" : \"S\"\n      },\n      {\n        \"card\" : \"D8\",\n        \"seat\" : \"W\"\n      }\n    ],\n    \"effectivePlan\" : \"Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.\",\n    \"hands\" : {\n      \"N\" : {\n        \"C\" : \"A65\",\n        \"D\" : \"J93\",\n        \"H\" : \"84\",\n        \"S\" : \"K72\"\n      },\n      \"S\" : {\n        \"C\" : \"KQ83\",\n        \"D\" : \"7\",\n        \"H\" : \"AK\",\n        \"S\" : \"A64\"\n      }\n    },\n    \"objective\" : \"Normal IMP strategy, weighing contract risk and overtricks.\",\n    \"publicBackground\" : null,\n    \"scoring\" : \"IMP\",\n    \"type\" : \"update\",\n    \"vulnerability\" : \"neither\"\n  },\n  \"legalCurrentCards\" : [\n    \"DJ\",\n    \"D9\",\n    \"D3\"\n  ],\n  \"proposedEffectivePlan\" : \"Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.\"\n}",
+    "instructions" : "You independently review declarer's proposed plan and current card before\nexecution. Judge whether the proposal is ready to play under the supplied\nobjective and scoring, treating declarer and dummy as one partnership.\n\nREVIEW PROCESS\n\n1. Establish the position and proposal from the supplied input. Resolve the\n   proposed plan operation using INPUT REFERENCE. The candidate card is\n   pending; assess it from the actual current position.\n\n2. Assess the remaining play and plan operation. For an initial request,\n   review a complete plan. For a later request, assess the unfinished\n   continuation against actual progress, including whether keeping,\n   replacing or clearing the plan is appropriate. For a retained or\n   replacement line, check trick accounting, establishment and concessions,\n   the handling of main risks and material defensive changes, and the\n   timing, entries, unblocking and control connecting both hands.\n   Include material suit breaks and, where relevant, trump use, ruffing and\n   the timing of drawing trumps. Follow key transitions and concessions\n   through control recovery, access and actual cashing. Verify concrete\n   remaining cards after key sequences, including losing plays, follows and\n   unblockings; distinguish tricks already won, total yield and winners still\n   reachable after the next entry. Test stated protection against material\n   legal defensive choices, including spot cards when they affect the claim.\n\n3. Assess the current action. Check legality and its partnership result in\n   the actual trick, including seats still to play, and its consequences\n   for the remaining board. Examine important alternatives as needed\n   to assess the partnership result. Check that the card, plan operation\n   and explanation are consistent with each other and the actual position.\n   Check critical unfinished resources and explicitly reserved transfers after\n   spending the current card. A materially changed route belongs in a complete\n   replacement plan. Routine interchangeable cards can retain the same route;\n   completed phases and eliminated conditions remain historical.\n\nBefore deciding, complete both assessments and verify each blocking argument\nagainst the supplied position and DECISION RULES.\n\nDECISION RULES\n\n- approve: the proposal provides a reasonable, executable basis for the\n  remaining play, with feasible key transitions. The current action, plan\n  operation and explanation fit the position. The assessment leaves no\n  established material defect or unresolved critical fact preventing\n  judgment. Approval assesses readiness to play; it does not require proof\n  of optimality or an exhaustive tree of defensive continuations.\n\n- revise: supplied evidence establishes a material defect in the proposal:\n  false facts or counts, impossible play or entries, a conflict between\n  the plan, card and explanation, an avoidable loss demonstrated from the\n  current position, or a missing key arrangement that prevents assessment\n  of the main route. For a loss, establish a feasible alternative and show\n  how it avoids the loss. For an omission, identify the unresolved critical\n  decision or resource and explain why the route cannot be assessed\n  without it. Routine card choices can be resolved as they arise.\n\n- uncertain: a missing or conflicting critical fact prevents a substantive\n  judgment. This expresses a need for clarification, not an established\n  defect in the proposal. Ordinary unknown defender holdings are assessed\n  through the plan's conditions and do not by themselves require this verdict.\n\nReasonable strategic trade-offs belong in advisorySuggestions. A possible\nunseen layout favoring another feasible line alone does not establish a\nblocking loss. Claims about a line's feasibility or stated conditions remain\nsubject to verification.\n\nUse revise when a material defect is established, including any unresolved\nfacts in the feedback. Otherwise, use uncertain when a critical factual gap\nprevents judgment, and approve when the proposal is ready to play.\n\nINPUT REFERENCE\n\n- latestSnapshot is the authorized current position. Recorded plays are\n  already reflected in remaining hands; completed plan steps are historical.\n  Treat unseen defender holdings as unknown and evaluate assumptions as\n  conditions rather than facts.\n- legalCurrentCards lists the current legal cards.\n- candidate is the proposed public JSON: plan, selectedCard and publicReason.\n- latestSnapshot.effectivePlan is the working active plan from prior authorized\n  execution. It may have been approved or released with unresolved objections;\n  active status alone does not establish review approval.\n- proposedEffectivePlan is the plan after applying the candidate operation:\n  keep retains the active text verbatim, replace uses candidate.plan.text,\n  and withdraw clears it.\n\nCard suits are S\/H\/D\/C and ranks run A K Q J T 9 8 7 6 5 4 3 2, highest first.\nSeat codes are N\/E\/S\/W; T means ten and NT means notrump.\n\nOUTPUT FORMAT\n\nReturn only the response-schema JSON:\n- verdict: approve, revise or uncertain, according to DECISION RULES.\n- blockingFindings: report each established material defect once, using\n  objects containing claim, evidence and requestedChange:\n  - claim identifies the affected assertion, action or critical omission\n    in the candidate or proposedEffectivePlan.\n  - evidence cites the relevant supplied facts and gives the shortest\n    sufficient derivation of the defect and its material consequence.\n    Supporting assertions must also follow from the supplied position;\n    distinguish deductions from conditions about unseen holdings.\n  - requestedChange specifies the repair needed to resolve that defect\n    in the plan, card or explanation.\n  Use a nonempty array for revise and an empty array otherwise.\n- advisorySuggestions: strings containing nonblocking strategic advice or\n  unresolved factual questions. For uncertain, identify the critical fact,\n  why it prevents judgment and what needs clarification. Use an empty\n  array when there is nothing to add.\n",
+    "pendingDecisionID" : "DDB0923B-87B1-4DCA-8300-147509777879",
+    "rawOutput" : "{\"verdict\":\"approve\",\"blockingFindings\":[],\"advisorySuggestions\":[]}",
+    "requestID" : "E39FBAE1-5D1D-4FC6-87C4-13741BE611C1",
+    "result" : {
+      "advisorySuggestions" : [
+
+      ],
+      "blockingFindings" : [
+
+      ],
+      "verdict" : "approve"
+    }
+  },
+  "reviewRounds" : [
+    {
+      "number" : 1,
+      "pending" : {
+        "candidate" : {
+          "plan" : {
+            "text" : null,
+            "update" : "keep"
+          },
+          "publicReason" : "Finesse the nine as planned. West's eight leaves the ten unaccounted for; even if East wins it, our retained top winners protect the contract.",
+          "selectedCard" : "D9"
+        },
+        "candidateID" : "99A37820-1A6E-47A1-AF64-BA81F6CF2319",
+        "id" : "DDB0923B-87B1-4DCA-8300-147509777879",
+        "priorPlan" : {
+          "boardID" : "DBB18270-EFBF-4C36-A97B-9C2506430525",
+          "controller" : "south",
+          "sourceSessionID" : "8378448E-9226-49D4-BD87-6AEDD62BFA03",
+          "sourceSnapshotID" : "DBB18270-EFBF-4C36-A97B-9C2506430525:8:south",
+          "text" : "Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible."
+        },
+        "proposedEffectivePlan" : "Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.",
+        "snapshot" : {
+          "actingSeat" : "north",
+          "boardID" : "DBB18270-EFBF-4C36-A97B-9C2506430525",
+          "completedTricks" : [
+            {
+              "plays" : [
+                {
+                  "card" : "HJ",
+                  "seat" : "west",
+                  "sequence" : 0
+                },
+                {
+                  "card" : "HQ",
+                  "seat" : "north",
+                  "sequence" : 1
+                },
+                {
+                  "card" : "H2",
+                  "seat" : "east",
+                  "sequence" : 2
+                },
+                {
+                  "card" : "H5",
+                  "seat" : "south",
+                  "sequence" : 3
+                }
+              ],
+              "winner" : "north"
+            },
+            {
+              "plays" : [
+                {
+                  "card" : "DQ",
+                  "seat" : "north",
+                  "sequence" : 4
+                },
+                {
+                  "card" : "DK",
+                  "seat" : "east",
+                  "sequence" : 5
+                },
+                {
+                  "card" : "DA",
+                  "seat" : "south",
+                  "sequence" : 6
+                },
+                {
+                  "card" : "D5",
+                  "seat" : "west",
+                  "sequence" : 7
+                }
+              ],
+              "winner" : "south"
+            }
+          ],
+          "contract" : {
+            "declarer" : "south",
+            "doubling" : "undoubled",
+            "level" : 3,
+            "strain" : "noTrump"
+          },
+          "controller" : "south",
+          "currentTrick" : [
+            {
+              "card" : "D2",
+              "seat" : "south",
+              "sequence" : 8
+            },
+            {
+              "card" : "D8",
+              "seat" : "west",
+              "sequence" : 9
+            }
+          ],
+          "currentWinningPlay" : {
+            "card" : "D8",
+            "seat" : "west",
+            "sequence" : 9
+          },
+          "declarerTricks" : 2,
+          "defenderTricks" : 0,
+          "events" : [
+            {
+              "card" : "HJ",
+              "seat" : "west",
+              "sequence" : 0
+            },
+            {
+              "card" : "HQ",
+              "seat" : "north",
+              "sequence" : 1
+            },
+            {
+              "card" : "H2",
+              "seat" : "east",
+              "sequence" : 2
+            },
+            {
+              "card" : "H5",
+              "seat" : "south",
+              "sequence" : 3
+            },
+            {
+              "card" : "DQ",
+              "seat" : "north",
+              "sequence" : 4
+            },
+            {
+              "card" : "DK",
+              "seat" : "east",
+              "sequence" : 5
+            },
+            {
+              "card" : "DA",
+              "seat" : "south",
+              "sequence" : 6
+            },
+            {
+              "card" : "D5",
+              "seat" : "west",
+              "sequence" : 7
+            },
+            {
+              "card" : "D2",
+              "seat" : "south",
+              "sequence" : 8
+            },
+            {
+              "card" : "D8",
+              "seat" : "west",
+              "sequence" : 9
+            }
+          ],
+          "hands" : [
+            {
+              "cards" : [
+                "SA",
+                "S6",
+                "S4",
+                "HA",
+                "HK",
+                "D7",
+                "CK",
+                "CQ",
+                "C8",
+                "C3"
+              ],
+              "seat" : "south"
+            },
+            {
+              "cards" : [
+                "SK",
+                "S7",
+                "S2",
+                "H8",
+                "H4",
+                "DJ",
+                "D9",
+                "D3",
+                "CA",
+                "C6",
+                "C5"
+              ],
+              "seat" : "north"
+            }
+          ],
+          "legalCards" : [
+            "DJ",
+            "D9",
+            "D3"
+          ],
+          "objective" : "Normal IMP strategy, weighing contract risk and overtricks.",
+          "revision" : 10,
+          "scoring" : "IMP",
+          "vulnerability" : "neither"
+        }
+      },
+      "playerElapsedSeconds" : 2.9095280170440674,
+      "playerIdentity" : {
+        "observedEffort" : "medium",
+        "observedModel" : "gpt-6.1-sol",
+        "requestedEffort" : "medium",
+        "requestedModel" : "gpt-6.1-sol",
+        "runtimeVersion" : "codex-cli 0.160.0",
+        "threadID" : "01a16b01-3bac-7352-ae3e-9fe02afb7068",
+        "turnID" : "01a16b02-866b-7313-883f-d80a57f66c29"
+      },
+      "playerInput" : "{\n  \"completedTricks\" : [\n    {\n      \"plays\" : [\n        {\n          \"card\" : \"HJ\",\n          \"seat\" : \"W\"\n        },\n        {\n          \"card\" : \"HQ\",\n          \"seat\" : \"N\"\n        },\n        {\n          \"card\" : \"H2\",\n          \"seat\" : \"E\"\n        },\n        {\n          \"card\" : \"H5\",\n          \"seat\" : \"S\"\n        }\n      ],\n      \"winner\" : \"N\"\n    },\n    {\n      \"plays\" : [\n        {\n          \"card\" : \"DQ\",\n          \"seat\" : \"N\"\n        },\n        {\n          \"card\" : \"DK\",\n          \"seat\" : \"E\"\n        },\n        {\n          \"card\" : \"DA\",\n          \"seat\" : \"S\"\n        },\n        {\n          \"card\" : \"D5\",\n          \"seat\" : \"W\"\n        }\n      ],\n      \"winner\" : \"S\"\n    }\n  ],\n  \"contract\" : {\n    \"declarer\" : \"S\",\n    \"doubling\" : \"undoubled\",\n    \"level\" : 3,\n    \"strain\" : \"NT\"\n  },\n  \"controller\" : \"S\",\n  \"current\" : {\n    \"toAct\" : \"N\",\n    \"tricksWon\" : {\n      \"declarer\" : 2,\n      \"defenders\" : 0\n    },\n    \"winningPlay\" : {\n      \"card\" : \"D8\",\n      \"seat\" : \"W\"\n    }\n  },\n  \"currentTrick\" : [\n    {\n      \"card\" : \"D2\",\n      \"seat\" : \"S\"\n    },\n    {\n      \"card\" : \"D8\",\n      \"seat\" : \"W\"\n    }\n  ],\n  \"effectivePlan\" : \"Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.\",\n  \"hands\" : {\n    \"N\" : {\n      \"C\" : \"A65\",\n      \"D\" : \"J93\",\n      \"H\" : \"84\",\n      \"S\" : \"K72\"\n    },\n    \"S\" : {\n      \"C\" : \"KQ83\",\n      \"D\" : \"7\",\n      \"H\" : \"AK\",\n      \"S\" : \"A64\"\n    }\n  },\n  \"objective\" : \"Normal IMP strategy, weighing contract risk and overtricks.\",\n  \"publicBackground\" : null,\n  \"scoring\" : \"IMP\",\n  \"type\" : \"update\",\n  \"vulnerability\" : \"neither\"\n}",
+      "playerRawOutput" : "{\"plan\":{\"update\":\"keep\",\"text\":null},\"selectedCard\":\"D9\",\"publicReason\":\"Finesse the nine as planned. West's eight leaves the ten unaccounted for; even if East wins it, our retained top winners protect the contract.\"}",
+      "playerRequestID" : "20FE7A43-8833-4499-A0B5-2B55D0704569",
+      "review" : {
+        "candidateID" : "99A37820-1A6E-47A1-AF64-BA81F6CF2319",
+        "elapsedSeconds" : 10.33768105506897,
+        "identity" : {
+          "observedEffort" : "medium",
+          "observedModel" : "gpt-6.1-sol",
+          "requestedEffort" : "medium",
+          "requestedModel" : "gpt-6.1-sol",
+          "runtimeVersion" : "codex-cli 0.160.0",
+          "threadID" : "01a16b02-927d-7000-a841-ad15f18a1ef1",
+          "turnID" : "01a16b02-928c-7cf3-92ae-09c164963999"
+        },
+        "input" : "{\n  \"candidate\" : {\n    \"plan\" : {\n      \"text\" : null,\n      \"update\" : \"keep\"\n    },\n    \"publicReason\" : \"Finesse the nine as planned. West's eight leaves the ten unaccounted for; even if East wins it, our retained top winners protect the contract.\",\n    \"selectedCard\" : \"D9\"\n  },\n  \"latestSnapshot\" : {\n    \"completedTricks\" : [\n      {\n        \"plays\" : [\n          {\n            \"card\" : \"HJ\",\n            \"seat\" : \"W\"\n          },\n          {\n            \"card\" : \"HQ\",\n            \"seat\" : \"N\"\n          },\n          {\n            \"card\" : \"H2\",\n            \"seat\" : \"E\"\n          },\n          {\n            \"card\" : \"H5\",\n            \"seat\" : \"S\"\n          }\n        ],\n        \"winner\" : \"N\"\n      },\n      {\n        \"plays\" : [\n          {\n            \"card\" : \"DQ\",\n            \"seat\" : \"N\"\n          },\n          {\n            \"card\" : \"DK\",\n            \"seat\" : \"E\"\n          },\n          {\n            \"card\" : \"DA\",\n            \"seat\" : \"S\"\n          },\n          {\n            \"card\" : \"D5\",\n            \"seat\" : \"W\"\n          }\n        ],\n        \"winner\" : \"S\"\n      }\n    ],\n    \"contract\" : {\n      \"declarer\" : \"S\",\n      \"doubling\" : \"undoubled\",\n      \"level\" : 3,\n      \"strain\" : \"NT\"\n    },\n    \"controller\" : \"S\",\n    \"current\" : {\n      \"toAct\" : \"N\",\n      \"tricksWon\" : {\n        \"declarer\" : 2,\n        \"defenders\" : 0\n      },\n      \"winningPlay\" : {\n        \"card\" : \"D8\",\n        \"seat\" : \"W\"\n      }\n    },\n    \"currentTrick\" : [\n      {\n        \"card\" : \"D2\",\n        \"seat\" : \"S\"\n      },\n      {\n        \"card\" : \"D8\",\n        \"seat\" : \"W\"\n      }\n    ],\n    \"effectivePlan\" : \"Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.\",\n    \"hands\" : {\n      \"N\" : {\n        \"C\" : \"A65\",\n        \"D\" : \"J93\",\n        \"H\" : \"84\",\n        \"S\" : \"K72\"\n      },\n      \"S\" : {\n        \"C\" : \"KQ83\",\n        \"D\" : \"7\",\n        \"H\" : \"AK\",\n        \"S\" : \"A64\"\n      }\n    },\n    \"objective\" : \"Normal IMP strategy, weighing contract risk and overtricks.\",\n    \"publicBackground\" : null,\n    \"scoring\" : \"IMP\",\n    \"type\" : \"update\",\n    \"vulnerability\" : \"neither\"\n  },\n  \"legalCurrentCards\" : [\n    \"DJ\",\n    \"D9\",\n    \"D3\"\n  ],\n  \"proposedEffectivePlan\" : \"Two tricks are won and seven more top winners remain: two spades, two hearts and three clubs. Develop diamonds before cashing those entries. Lead D2 toward dummy's J9: if West plays low, finesse D9; cover West's ten with DJ. If the nine loses to East's ten, regain the lead with a major-suit stopper and reach dummy's established DJ via SK or CA. If D9 wins, cash DJ next and assess whether D3 is established from the cards played. Abandon further diamond development if the break is adverse; nine tricks remain secure. Then cash CK and CQ before crossing to CA, preserving a heart or spade return to South for C8 if clubs break 3–3. Cash the remaining major-suit winners, coordinating entries so established diamonds and any long club remain accessible.\"\n}",
+        "instructions" : "You independently review declarer's proposed plan and current card before\nexecution. Judge whether the proposal is ready to play under the supplied\nobjective and scoring, treating declarer and dummy as one partnership.\n\nREVIEW PROCESS\n\n1. Establish the position and proposal from the supplied input. Resolve the\n   proposed plan operation using INPUT REFERENCE. The candidate card is\n   pending; assess it from the actual current position.\n\n2. Assess the remaining play and plan operation. For an initial request,\n   review a complete plan. For a later request, assess the unfinished\n   continuation against actual progress, including whether keeping,\n   replacing or clearing the plan is appropriate. For a retained or\n   replacement line, check trick accounting, establishment and concessions,\n   the handling of main risks and material defensive changes, and the\n   timing, entries, unblocking and control connecting both hands.\n   Include material suit breaks and, where relevant, trump use, ruffing and\n   the timing of drawing trumps. Follow key transitions and concessions\n   through control recovery, access and actual cashing. Verify concrete\n   remaining cards after key sequences, including losing plays, follows and\n   unblockings; distinguish tricks already won, total yield and winners still\n   reachable after the next entry. Test stated protection against material\n   legal defensive choices, including spot cards when they affect the claim.\n\n3. Assess the current action. Check legality and its partnership result in\n   the actual trick, including seats still to play, and its consequences\n   for the remaining board. Examine important alternatives as needed\n   to assess the partnership result. Check that the card, plan operation\n   and explanation are consistent with each other and the actual position.\n   Check critical unfinished resources and explicitly reserved transfers after\n   spending the current card. A materially changed route belongs in a complete\n   replacement plan. Routine interchangeable cards can retain the same route;\n   completed phases and eliminated conditions remain historical.\n\nBefore deciding, complete both assessments and verify each blocking argument\nagainst the supplied position and DECISION RULES.\n\nDECISION RULES\n\n- approve: the proposal provides a reasonable, executable basis for the\n  remaining play, with feasible key transitions. The current action, plan\n  operation and explanation fit the position. The assessment leaves no\n  established material defect or unresolved critical fact preventing\n  judgment. Approval assesses readiness to play; it does not require proof\n  of optimality or an exhaustive tree of defensive continuations.\n\n- revise: supplied evidence establishes a material defect in the proposal:\n  false facts or counts, impossible play or entries, a conflict between\n  the plan, card and explanation, an avoidable loss demonstrated from the\n  current position, or a missing key arrangement that prevents assessment\n  of the main route. For a loss, establish a feasible alternative and show\n  how it avoids the loss. For an omission, identify the unresolved critical\n  decision or resource and explain why the route cannot be assessed\n  without it. Routine card choices can be resolved as they arise.\n\n- uncertain: a missing or conflicting critical fact prevents a substantive\n  judgment. This expresses a need for clarification, not an established\n  defect in the proposal. Ordinary unknown defender holdings are assessed\n  through the plan's conditions and do not by themselves require this verdict.\n\nReasonable strategic trade-offs belong in advisorySuggestions. A possible\nunseen layout favoring another feasible line alone does not establish a\nblocking loss. Claims about a line's feasibility or stated conditions remain\nsubject to verification.\n\nUse revise when a material defect is established, including any unresolved\nfacts in the feedback. Otherwise, use uncertain when a critical factual gap\nprevents judgment, and approve when the proposal is ready to play.\n\nINPUT REFERENCE\n\n- latestSnapshot is the authorized current position. Recorded plays are\n  already reflected in remaining hands; completed plan steps are historical.\n  Treat unseen defender holdings as unknown and evaluate assumptions as\n  conditions rather than facts.\n- legalCurrentCards lists the current legal cards.\n- candidate is the proposed public JSON: plan, selectedCard and publicReason.\n- latestSnapshot.effectivePlan is the working active plan from prior authorized\n  execution. It may have been approved or released with unresolved objections;\n  active status alone does not establish review approval.\n- proposedEffectivePlan is the plan after applying the candidate operation:\n  keep retains the active text verbatim, replace uses candidate.plan.text,\n  and withdraw clears it.\n\nCard suits are S\/H\/D\/C and ranks run A K Q J T 9 8 7 6 5 4 3 2, highest first.\nSeat codes are N\/E\/S\/W; T means ten and NT means notrump.\n\nOUTPUT FORMAT\n\nReturn only the response-schema JSON:\n- verdict: approve, revise or uncertain, according to DECISION RULES.\n- blockingFindings: report each established material defect once, using\n  objects containing claim, evidence and requestedChange:\n  - claim identifies the affected assertion, action or critical omission\n    in the candidate or proposedEffectivePlan.\n  - evidence cites the relevant supplied facts and gives the shortest\n    sufficient derivation of the defect and its material consequence.\n    Supporting assertions must also follow from the supplied position;\n    distinguish deductions from conditions about unseen holdings.\n  - requestedChange specifies the repair needed to resolve that defect\n    in the plan, card or explanation.\n  Use a nonempty array for revise and an empty array otherwise.\n- advisorySuggestions: strings containing nonblocking strategic advice or\n  unresolved factual questions. For uncertain, identify the critical fact,\n  why it prevents judgment and what needs clarification. Use an empty\n  array when there is nothing to add.\n",
+        "pendingDecisionID" : "DDB0923B-87B1-4DCA-8300-147509777879",
+        "rawOutput" : "{\"verdict\":\"approve\",\"blockingFindings\":[],\"advisorySuggestions\":[]}",
+        "requestID" : "E39FBAE1-5D1D-4FC6-87C4-13741BE611C1",
+        "result" : {
+          "advisorySuggestions" : [
+
+          ],
+          "blockingFindings" : [
+
+          ],
+          "verdict" : "approve"
+        }
+      }
+    }
+  ],
+  "session" : {
+    "id" : "DDB0923B-87B1-4DCA-8300-147509777879",
+    "snapshotID" : "DBB18270-EFBF-4C36-A97B-9C2506430525:10:south"
+  },
+  "snapshot" : {
+    "actingSeat" : "north",
+    "boardID" : "DBB18270-EFBF-4C36-A97B-9C2506430525",
+    "completedTricks" : [
+      {
+        "plays" : [
+          {
+            "card" : "HJ",
+            "seat" : "west",
+            "sequence" : 0
+          },
+          {
+            "card" : "HQ",
+            "seat" : "north",
+            "sequence" : 1
+          },
+          {
+            "card" : "H2",
+            "seat" : "east",
+            "sequence" : 2
+          },
+          {
+            "card" : "H5",
+            "seat" : "south",
+            "sequence" : 3
+          }
+        ],
+        "winner" : "north"
+      },
+      {
+        "plays" : [
+          {
+            "card" : "DQ",
+            "seat" : "north",
+            "sequence" : 4
+          },
+          {
+            "card" : "DK",
+            "seat" : "east",
+            "sequence" : 5
+          },
+          {
+            "card" : "DA",
+            "seat" : "south",
+            "sequence" : 6
+          },
+          {
+            "card" : "D5",
+            "seat" : "west",
+            "sequence" : 7
+          }
+        ],
+        "winner" : "south"
+      }
+    ],
+    "contract" : {
+      "declarer" : "south",
+      "doubling" : "undoubled",
+      "level" : 3,
+      "strain" : "noTrump"
+    },
+    "controller" : "south",
+    "currentTrick" : [
+      {
+        "card" : "D2",
+        "seat" : "south",
+        "sequence" : 8
+      },
+      {
+        "card" : "D8",
+        "seat" : "west",
+        "sequence" : 9
+      }
+    ],
+    "currentWinningPlay" : {
+      "card" : "D8",
+      "seat" : "west",
+      "sequence" : 9
+    },
+    "declarerTricks" : 2,
+    "defenderTricks" : 0,
+    "events" : [
+      {
+        "card" : "HJ",
+        "seat" : "west",
+        "sequence" : 0
+      },
+      {
+        "card" : "HQ",
+        "seat" : "north",
+        "sequence" : 1
+      },
+      {
+        "card" : "H2",
+        "seat" : "east",
+        "sequence" : 2
+      },
+      {
+        "card" : "H5",
+        "seat" : "south",
+        "sequence" : 3
+      },
+      {
+        "card" : "DQ",
+        "seat" : "north",
+        "sequence" : 4
+      },
+      {
+        "card" : "DK",
+        "seat" : "east",
+        "sequence" : 5
+      },
+      {
+        "card" : "DA",
+        "seat" : "south",
+        "sequence" : 6
+      },
+      {
+        "card" : "D5",
+        "seat" : "west",
+        "sequence" : 7
+      },
+      {
+        "card" : "D2",
+        "seat" : "south",
+        "sequence" : 8
+      },
+      {
+        "card" : "D8",
+        "seat" : "west",
+        "sequence" : 9
+      }
+    ],
+    "hands" : [
+      {
+        "cards" : [
+          "SA",
+          "S6",
+          "S4",
+          "HA",
+          "HK",
+          "D7",
+          "CK",
+          "CQ",
+          "C8",
+          "C3"
+        ],
+        "seat" : "south"
+      },
+      {
+        "cards" : [
+          "SK",
+          "S7",
+          "S2",
+          "H8",
+          "H4",
+          "DJ",
+          "D9",
+          "D3",
+          "CA",
+          "C6",
+          "C5"
+        ],
+        "seat" : "north"
+      }
+    ],
+    "legalCards" : [
+      "DJ",
+      "D9",
+      "D3"
+    ],
+    "objective" : "Normal IMP strategy, weighing contract risk and overtricks.",
+    "revision" : 10,
+    "scoring" : "IMP",
+    "vulnerability" : "neither"
+  },
+  "wireContractVersion" : "stage1-full-snapshot-v5"
+}
