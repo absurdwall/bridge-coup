@@ -170,6 +170,47 @@ final class SnapshotInputTests: XCTestCase {
         try await expert.commit(update, execution: ActualExecution(event: board.events.last!, source: .model))
         XCTAssertEqual(board.events.count, 9)
     }
+    func testLaterSoleClubWindowIsReviewedOnlyWhenMechanicalSkippingIsDisabled() async throws {
+        for mechanical in [true, false] {
+            var board = try fixtureBoard()
+            try board.play(Card("DQ"), by: .west)
+            let player = SequencePlayTransport(outputs: [
+                try response(card: "D3", update: "replace", text: "Keep the actual public position current."),
+                try response(card: "DK", update: "keep"),
+                try response(card: "CA", update: "keep"),
+                try response(card: "C2", update: "keep"),
+                try response(card: "CK", update: "keep"),
+                try response(card: "C7", update: "keep"),
+                try response(card: "C4", update: "keep"),
+                try response(card: "CQ", update: "keep")
+            ])
+            let expert = ExpertSession(transport: player)
+            let driver = BoardDriver(board: board, expert: expert, opponent: .conserveHigh, mechanicalSoleLegal: mechanical)
+            var window: DriverStep?
+            for _ in 0..<14 { window = try await driver.advance() }
+            let step = try XCTUnwrap(window)
+            XCTAssertEqual(step.execution.event.sequence, 14)
+            XCTAssertEqual(step.execution.event.card, try Card("CQ"))
+            XCTAssertEqual(step.execution.source, mechanical ? .forced : .model)
+            let trace = await driver.trace()
+            XCTAssertEqual(trace.modelActions, mechanical ? 7 : 8)
+            XCTAssertEqual(trace.mechanicalActions, mechanical ? 1 : 0)
+            if !mechanical {
+                let decision = try XCTUnwrap(step.decision)
+                XCTAssertEqual(decision.snapshot.revision, 14)
+                XCTAssertEqual(decision.snapshot.legalCards, [try Card("CQ")])
+                XCTAssertEqual(decision.snapshot.events.last?.card, try Card("CJ"))
+                XCTAssertFalse(decision.snapshot.events.contains { $0.card == (try? Card("H2")) })
+                XCTAssertEqual(decision.review?.result.verdict, .approve)
+                XCTAssertEqual(decision.identity.threadID, trace.steps.first?.decision?.identity.threadID)
+                XCTAssertEqual(trace.playerRequests, 8)
+                XCTAssertEqual(trace.reviewerRequests, 8)
+            } else { XCTAssertNil(step.decision) }
+            let plan = await expert.activePlan()
+            XCTAssertEqual(plan?.text, "Keep the actual public position current.")
+        }
+    }
+
 }
 
 private func fixtureBoard(contract: Contract? = nil, scoring: String = "IMP", objective: String? = nil, publicBackground: String? = nil) throws -> BoardState {

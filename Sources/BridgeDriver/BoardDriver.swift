@@ -73,6 +73,7 @@ public struct DriverTrace: Codable, Sendable {
     public let runTimeoutSeconds: Double
     public let retries: Int
     public let failedRequestSeconds: Double?
+    public let mechanicalSoleLegal: Bool?
     public let requestEvidence: [RequestEvidence]?
     public let playerRequests: Int?
     public let reviewerRequests: Int?
@@ -207,7 +208,7 @@ public actor BoardDriver {
                     declarerTricks: board.declarerTricks, defenderTricks: board.defenderTricks, failure: failureDetail,
                     requestTimeoutSeconds: requestTimeoutSeconds, runTimeoutSeconds: runTimeoutSeconds,
                     retries: actualRequests.filter { $0.role == .reviewer && $0.technicalAttempt > 1 }.count, failedRequestSeconds: failedRequestSeconds,
-                    requestEvidence: evidence, playerRequests: players, reviewerRequests: reviewers,
+                    mechanicalSoleLegal: mechanicalSoleLegal, requestEvidence: evidence, playerRequests: players, reviewerRequests: reviewers,
                     semanticReviews: actualRequests.filter { $0.role == .reviewer && $0.outcome == .valid }.count,
                     automaticRuntimeSeconds: max(0, elapsed - waiting), humanWaitingSeconds: waiting, needsInput: needsInput)
     }
