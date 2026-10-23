@@ -35,3 +35,21 @@
 **正式战略目标（official strategic objective）**：用户本次决策真正要求追求的结果，例如按通常 IMP 策略决策，或明确只追求成约机会而不考虑超墩。
 
 **计算分析指标（Engine analysis metric）**：一次计算实际衡量的数量，例如样本在双明手续打假设下的成约比例、原始得分或赢墩分布；其定义和假设不自动替代正式战略目标。
+
+### Reviewed declarer play
+
+**Pending declarer decision**: A choice at one authorized public bridge position whose proposed plan operation and current card await review before play advances.
+
+**Candidate advice**: A proposed declarer plan operation, current card and explanation. It is distinct from the advice already accepted for the board.
+
+**Active plan**: The working declarer plan carried forward from execution-authorized advice, whether review-approved or released as contested play. A pending replacement remains candidate advice until authorized.
+
+**Play review**: Assessment of candidate declarer advice before execution, resulting in approval, a request for revision, or a need for critical factual clarification.
+
+**Acceptance grading**: Independent assessment of recorded delivered decisions against the agreed quality criteria. Its results establish evaluation evidence rather than direct the live play.
+
+**Review-approved advice**: Candidate declarer advice that received an approve verdict from play review.
+
+**Contested play**: A declarer play released by the agreed execution policy while reviewer objections remain unresolved. Its authorization does not imply reviewer approval or establish bridge quality.
+
+**Semantic review round**: One valid approve, revise or uncertain judgment on a pending declarer proposal. A technical attempt that yields no valid judgment is not a semantic review round.
