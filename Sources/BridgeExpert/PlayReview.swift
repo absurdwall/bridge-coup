@@ -55,10 +55,7 @@ extension ExpertSession {
         guard snapshot.hands.count == 2, Set(snapshot.hands.map(\.seat)) == required else {
             return "Complete remaining declarer and dummy hands are required; defender hands stay unknown."
         }
-        let cards = snapshot.hands.flatMap(\.cards)
-        guard Set(cards).count == cards.count, Set(snapshot.events.map(\.card)).count == snapshot.events.count,
-              Set(cards).isDisjoint(with: snapshot.events.map(\.card)),
-              snapshot.events.enumerated().allSatisfy({ $0.offset == $0.element.sequence }) else {
+        guard hasConsistentPublicCardHistory(snapshot) else {
             return "Authorized holdings and public play history contain conflicting cards or event sequences."
         }
         for hand in snapshot.hands {

@@ -55,93 +55,93 @@ def checks(record, recorded_turn):
         try: success=bool(function())
         except (ValueError,KeyError,TypeError,IndexError,AttributeError): success=False
         results[name]={'status':'pass' if success else 'fail','fact':fact}
-    pending=record.get('pending') or {};rounds=record.get('reviewRounds') or []
-    prior=(pending.get('priorPlan') or {}).get('text')
-    snapshot=record['snapshot']
+    pending_decision=record.get('pending') or {};review_rounds=record.get('reviewRounds') or []
+    prior_active_plan=(pending_decision.get('priorPlan') or {}).get('text')
+    decision_snapshot=record['snapshot']
     def canonical():
-        q=json.loads(record['canonicalInput'])
-        controlled={snapshot['controller'],next(s for s,c in SEATS.items() if c=={'N':'S','S':'N','E':'W','W':'E'}[SEATS[snapshot['controller']]])}
-        hands={h['seat']:h['cards'] for h in snapshot['hands']}
-        holding=hands[snapshot['actingSeat']];trick=snapshot['currentTrick'];led=trick[0]['card'][0] if trick else None
-        legal={c for c in holding if c[0]==led} if led else set(holding);legal=legal or set(holding)
-        return (q['type'] in ('initial','update') and set(hands)==controlled and len(snapshot['hands'])==2
-                and set(snapshot['legalCards'])==legal and len(snapshot['legalCards'])==len(legal)
-                and q==public_snapshot(snapshot,prior,q['type']))
+        canonical_snapshot_input=json.loads(record['canonicalInput'])
+        controlled_seats={decision_snapshot['controller'],next(seat for seat,seat_code in SEATS.items() if seat_code=={'N':'S','S':'N','E':'W','W':'E'}[SEATS[decision_snapshot['controller']]])}
+        authorized_hands={hand['seat']:hand['cards'] for hand in decision_snapshot['hands']}
+        acting_holding=authorized_hands[decision_snapshot['actingSeat']];current_trick=decision_snapshot['currentTrick'];led_suit=current_trick[0]['card'][0] if current_trick else None
+        legal_cards={card for card in acting_holding if card[0]==led_suit} if led_suit else set(acting_holding);legal_cards=legal_cards or set(acting_holding)
+        return (canonical_snapshot_input['type'] in ('initial','update') and set(authorized_hands)==controlled_seats and len(decision_snapshot['hands'])==2
+                and set(decision_snapshot['legalCards'])==legal_cards and len(decision_snapshot['legalCards'])==len(legal_cards)
+                and canonical_snapshot_input==public_snapshot(decision_snapshot,prior_active_plan,canonical_snapshot_input['type']))
     check('canonical_snapshot','Canonical full snapshot must reproduce authorized state, legal choices and prior active plan independently.',canonical)
     def history():
-        if not 1<=len(rounds)<=5: return False
-        q=json.loads(record['canonicalInput']);candidate_ids=set()
-        for i,r in enumerate(rounds):
-            p=r['pending'];review=r['review'];advice=json.loads(r['playerRawOutput']);rv=json.loads(review['rawOutput'])
-            proposed=plan_after(prior,advice)
-            if (r['number']!=i+1 or p['id']!=record['session']['id'] or p['snapshot']!=snapshot or p.get('priorPlan')!=pending.get('priorPlan')
-                or p['candidate']!=advice or p.get('proposedEffectivePlan')!=proposed
-                or p['candidateID'] in candidate_ids or review['candidateID']!=p['candidateID'] or review['pendingDecisionID']!=p['id']
-                or review['result']!=rv or not valid_review(rv)
-                or (i<len(rounds)-1 and rv['verdict']=='approve')): return False
-            candidate_ids.add(p['candidateID'])
-            expected={'latestSnapshot':q,'legalCurrentCards':snapshot['legalCards'],'candidate':advice,'proposedEffectivePlan':proposed}
-            if json.loads(review['input'])!=expected: return False
-            if i==0:
-                if r['playerInput']!=record['canonicalInput']: return False
+        if not 1<=len(review_rounds)<=5: return False
+        canonical_snapshot_input=json.loads(record['canonicalInput']);candidate_ids=set()
+        for round_index,review_round in enumerate(review_rounds):
+            pending_candidate=review_round['pending'];review_record=review_round['review'];candidate_advice=json.loads(review_round['playerRawOutput']);reviewer_verdict=json.loads(review_record['rawOutput'])
+            proposed_effective_plan=plan_after(prior_active_plan,candidate_advice)
+            if (review_round['number']!=round_index+1 or pending_candidate['id']!=record['session']['id'] or pending_candidate['snapshot']!=decision_snapshot or pending_candidate.get('priorPlan')!=pending_decision.get('priorPlan')
+                or pending_candidate['candidate']!=candidate_advice or pending_candidate.get('proposedEffectivePlan')!=proposed_effective_plan
+                or pending_candidate['candidateID'] in candidate_ids or review_record['candidateID']!=pending_candidate['candidateID'] or review_record['pendingDecisionID']!=pending_candidate['id']
+                or review_record['result']!=reviewer_verdict or not valid_review(reviewer_verdict)
+                or (round_index<len(review_rounds)-1 and reviewer_verdict['verdict']=='approve')): return False
+            candidate_ids.add(pending_candidate['candidateID'])
+            expected_review_input={'latestSnapshot':canonical_snapshot_input,'legalCurrentCards':decision_snapshot['legalCards'],'candidate':candidate_advice,'proposedEffectivePlan':proposed_effective_plan}
+            if json.loads(review_record['input'])!=expected_review_input: return False
+            if round_index==0:
+                if review_round['playerInput']!=record['canonicalInput']: return False
             else:
-                previous=rounds[i-1];pr=previous['review'];pa=json.loads(previous['playerRawOutput'])
-                feedback={'latestSnapshot':q,'legalCurrentCards':snapshot['legalCards'],'candidate':pa,'proposedEffectivePlan':plan_after(prior,pa),
-                    'type':'clarification' if pr['result']['verdict']=='uncertain' else 'revision','review':pr['result'],
-                    'rawReview':pr['rawOutput'],'rawCandidate':previous['playerRawOutput']}
-                if json.loads(r['playerInput'])!=feedback: return False
-            if advice['selectedCard'] not in snapshot['legalCards']: return False
-            if q['type']=='initial' and advice['plan']['update']!='replace': return False
-        final=rounds[-1];verdict=final['review']['result']['verdict']
-        return (record['input']==final['playerInput'] and record['rawOutput']==final['playerRawOutput']
-                and record['identity']==final['playerIdentity'] and record['advice']==json.loads(record['rawOutput'])
-                and pending==final['pending'] and record['review']==final['review']
-                and record['executionDisposition']==('reviewApproved' if verdict=='approve' else 'contested')
-                and (verdict=='approve' or len(rounds)==5))
+                previous_round=review_rounds[round_index-1];previous_review=previous_round['review'];previous_advice=json.loads(previous_round['playerRawOutput'])
+                feedback_input={'latestSnapshot':canonical_snapshot_input,'legalCurrentCards':decision_snapshot['legalCards'],'candidate':previous_advice,'proposedEffectivePlan':plan_after(prior_active_plan,previous_advice),
+                    'type':'clarification' if previous_review['result']['verdict']=='uncertain' else 'revision','review':previous_review['result'],
+                    'rawReview':previous_review['rawOutput'],'rawCandidate':previous_round['playerRawOutput']}
+                if json.loads(review_round['playerInput'])!=feedback_input: return False
+            if candidate_advice['selectedCard'] not in decision_snapshot['legalCards']: return False
+            if canonical_snapshot_input['type']=='initial' and candidate_advice['plan']['update']!='replace': return False
+        final_round=review_rounds[-1];final_verdict=final_round['review']['result']['verdict']
+        return (record['input']==final_round['playerInput'] and record['rawOutput']==final_round['playerRawOutput']
+                and record['identity']==final_round['playerIdentity'] and record['advice']==json.loads(record['rawOutput'])
+                and pending_decision==final_round['pending'] and record['review']==final_round['review']
+                and record['executionDisposition']==('reviewApproved' if final_verdict=='approve' else 'contested')
+                and (final_verdict=='approve' or len(review_rounds)==5))
     check('review_history','Each review/feedback and authorization must bind the exact candidate at one frozen position; only round-five unresolved review permits contested play.',history)
     def effect():
-        advice=json.loads(record['rawOutput']);expected=plan_after(prior,advice);association=record.get('planAssociation')
-        if advice['plan']['update']=='keep': expected_association=pending.get('priorPlan')
-        elif advice['plan']['update']=='withdraw': expected_association=None
+        candidate_advice=json.loads(record['rawOutput']);expected_effective_plan=plan_after(prior_active_plan,candidate_advice);plan_association=record.get('planAssociation')
+        if candidate_advice['plan']['update']=='keep': expected_association=pending_decision.get('priorPlan')
+        elif candidate_advice['plan']['update']=='withdraw': expected_association=None
         else:
-            expected_association={'boardID':snapshot['boardID'],'controller':snapshot['controller'],'sourceSnapshotID':record['session']['snapshotID'],
-                                  'sourceSessionID':record['session']['id'],'text':advice['plan']['text']}
-        return record.get('effectivePlan')==expected and pending.get('proposedEffectivePlan')==expected and association==expected_association
+            expected_association={'boardID':decision_snapshot['boardID'],'controller':decision_snapshot['controller'],'sourceSnapshotID':record['session']['snapshotID'],
+                                  'sourceSessionID':record['session']['id'],'text':candidate_advice['plan']['text']}
+        return record.get('effectivePlan')==expected_effective_plan and pending_decision.get('proposedEffectivePlan')==expected_effective_plan and plan_association==expected_association
     check('plan_effect','Apply final keep/replace/withdraw independently to the pre-pending plan; require exact text and source association.',effect)
     def identities():
-        players=[r['playerIdentity'] for r in rounds];reviewers=[r['review']['identity'] for r in rounds]
-        return (bool(players) and all(identity_valid(i) for i in players+reviewers)
-                and len({i['threadID'] for i in players})==1 and len({i['turnID'] for i in players})==len(players)
-                and all(i['threadID']!=players[0]['threadID'] for i in reviewers))
+        player_identities=[review_round['playerIdentity'] for review_round in review_rounds];reviewer_identities=[review_round['review']['identity'] for review_round in review_rounds]
+        return (bool(player_identities) and all(identity_valid(identity) for identity in player_identities+reviewer_identities)
+                and len({identity['threadID'] for identity in player_identities})==1 and len({identity['turnID'] for identity in player_identities})==len(player_identities)
+                and all(identity['threadID']!=player_identities[0]['threadID'] for identity in reviewer_identities))
     check('role_identity','Both roles must acknowledge Sol Medium; revisions retain one player thread with new turns and independent reviewer threads.',identities)
     def requests():
-        rows=[e for e in record['requestEvidence'] if e['outcome']!='late']
-        if len({e['requestID'] for e in rows})!=len(rows): return False
-        expected_ids=set()
-        for r in rounds:
-            review=r['review']
-            for role,rid,input_text,raw,identity in [('player',r['playerRequestID'],r['playerInput'],r['playerRawOutput'],r['playerIdentity']),
-                ('reviewer',review['requestID'],review['input'],review['rawOutput'],review['identity'])]:
-                found=[e for e in rows if e['requestID']==rid]
-                if len(found)!=1: return False
-                e=found[0];expected_ids.add(rid)
-                if not (e['role']==role and e['decisionID']==record['session']['id'] and e['semanticRound']==r['number']
-                    and e['input']==input_text and e['rawOutput']==raw and e['identity']==identity and e['outcome']=='valid'
-                    and e['replyRequestID']==rid): return False
-                rpc=record.get('rpc') if role=='player' else (record.get('review_rpc') or {}).get(identity['threadID'])
-                req,done=recorded_turn({'rpc':rpc or [],'identity':identity})
-                schema=json.loads(e['outputSchema'])
-                if req.get('outputSchema')!=schema or e['instructions']!=(record['instructions'] if role=='player' else review['instructions']): return False
-                if role=='player' and schema.get('properties',{}).get('selectedCard',{}).get('enum')!=snapshot['legalCards']: return False
-                if not any(item.get('text')==input_text for item in req.get('input',[])): return False
-                if done.get('status')!='completed' or not any(item.get('type')=='agentMessage' and item.get('text')==raw for item in done.get('items',[])): return False
-            retries=[e for e in rows if e['role']=='reviewer' and e['semanticRound']==r['number']]
-            if [e['technicalAttempt'] for e in retries]!=list(range(1,len(retries)+1)) or not 1<=len(retries)<=4: return False
-            for e in retries:
-                if e.get('candidateID')!=r['pending']['candidateID'] or e['input']!=review['input']: return False
-                if e['requestID']!=review['requestID'] and e['outcome'] not in ('transportFailure','protocolFailure','timeout'): return False
-                expected_ids.add(e['requestID'])
-        return {e['requestID'] for e in rows}==expected_ids
+        request_entries=[request_entry for request_entry in record['requestEvidence'] if request_entry['outcome']!='late']
+        if len({request_entry['requestID'] for request_entry in request_entries})!=len(request_entries): return False
+        expected_request_ids=set()
+        for review_round in review_rounds:
+            review_record=review_round['review']
+            for role_name,request_id,input_text,raw_output,role_identity in [('player',review_round['playerRequestID'],review_round['playerInput'],review_round['playerRawOutput'],review_round['playerIdentity']),
+                ('reviewer',review_record['requestID'],review_record['input'],review_record['rawOutput'],review_record['identity'])]:
+                matching_evidence=[request_entry for request_entry in request_entries if request_entry['requestID']==request_id]
+                if len(matching_evidence)!=1: return False
+                request_entry=matching_evidence[0];expected_request_ids.add(request_id)
+                if not (request_entry['role']==role_name and request_entry['decisionID']==record['session']['id'] and request_entry['semanticRound']==review_round['number']
+                    and request_entry['input']==input_text and request_entry['rawOutput']==raw_output and request_entry['identity']==role_identity and request_entry['outcome']=='valid'
+                    and request_entry['replyRequestID']==request_id): return False
+                role_rpc=record.get('rpc') if role_name=='player' else (record.get('review_rpc') or {}).get(role_identity['threadID'])
+                native_request,native_completion=recorded_turn({'rpc':role_rpc or [],'identity':role_identity})
+                output_schema=json.loads(request_entry['outputSchema'])
+                if native_request.get('outputSchema')!=output_schema or request_entry['instructions']!=(record['instructions'] if role_name=='player' else review_record['instructions']): return False
+                if role_name=='player' and output_schema.get('properties',{}).get('selectedCard',{}).get('enum')!=decision_snapshot['legalCards']: return False
+                if not any(item.get('text')==input_text for item in native_request.get('input',[])): return False
+                if native_completion.get('status')!='completed' or not any(item.get('type')=='agentMessage' and item.get('text')==raw_output for item in native_completion.get('items',[])): return False
+            reviewer_attempts=[request_entry for request_entry in request_entries if request_entry['role']=='reviewer' and request_entry['semanticRound']==review_round['number']]
+            if [request_entry['technicalAttempt'] for request_entry in reviewer_attempts]!=list(range(1,len(reviewer_attempts)+1)) or not 1<=len(reviewer_attempts)<=4: return False
+            for request_entry in reviewer_attempts:
+                if request_entry.get('candidateID')!=review_round['pending']['candidateID'] or request_entry['input']!=review_record['input']: return False
+                if request_entry['requestID']!=review_record['requestID'] and request_entry['outcome'] not in ('transportFailure','protocolFailure','timeout'): return False
+                expected_request_ids.add(request_entry['requestID'])
+        return {request_entry['requestID'] for request_entry in request_entries}==expected_request_ids
     check('role_requests','Final and prior valid role results must match their true native turns; technical retries preserve one candidate and separate attempt budget.',requests)
     return results
 
