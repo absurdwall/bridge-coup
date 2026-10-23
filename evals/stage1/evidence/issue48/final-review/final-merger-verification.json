@@ -1,0 +1,647 @@
+{
+  "integration_base": "3f0fc65470633dd90363ad0417b29a9f7f68be18",
+  "ticket_evidence_commit": "8a99d069670a816b016b07fe919b3fee9b664b92",
+  "merge_commit": "2a67567714cd2ceec35012bdb8e8b9bce90fad54",
+  "merge_mode": "--no-ff",
+  "branch": "codex/issue48-reviewed-declarer",
+  "hooks": ".githooks",
+  "source_runtime_changes": [],
+  "candidate1_candidate2_changes": [],
+  "checks": [
+    {
+      "check": "c1-preservation",
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 evals/stage1/evidence/issue48/ticket52/candidate1-analysis/verify_preservation.py --repo .",
+      "exit_code": 0,
+      "stdout_sha256": "68da438d553708e6c219b70d3cea689004fae62930239c620cdd6062d09ef4a6",
+      "result": {
+        "status": "pass",
+        "raw_files": 3377,
+        "raw_bytes": 499753621,
+        "external_originals": 37,
+        "frozen_source_files": 46,
+        "independent_reviews": 22,
+        "runtime_archive_sha256": "c9d3d6613aee44695a26816581d39c3fa2fa0816844a0365ef53e327c1b14004",
+        "source_commit": "ca0b1a32cb67110773d21baef1ec3ea981868544",
+        "frozen_source_archive_sha256": "d7ddce0a8b908d5389b0e13dc4e81d0cc0201ea6983f9ea387435e1624d25ea8",
+        "current_source_comparison": false,
+        "raw_evidence_unchanged": true
+      }
+    },
+    {
+      "check": "c1-proofs",
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 evals/stage1/evidence/issue48/ticket52/candidate1-analysis/verify_adjudication_proofs.py --repo .",
+      "exit_code": 0,
+      "stdout_sha256": "6000f11428b0c314351e2334dae445055cf0e0ae4853bcdd3510f6d84cd9a631",
+      "result": {
+        "status": "pass",
+        "authored_discard_witness": {
+          "legal_events": 27,
+          "scope": "Authored predicate legality only, not current production-policy reachability or live coverage."
+        },
+        "counterfactual_branches": [
+          {
+            "scope": "delivered-rule-counterexample",
+            "legal_events": 32,
+            "declarer_club_tricks": 3
+          },
+          {
+            "scope": "altered-rule-comparison",
+            "legal_events": 28,
+            "declarer_club_tricks": 4
+          }
+        ],
+        "walker_environment_only": [
+          {
+            "attempt": "short-6-r1",
+            "environment_only_severance_confirmed": true
+          },
+          {
+            "attempt": "short-6-r2",
+            "environment_only_severance_confirmed": true
+          },
+          {
+            "attempt": "short-6-r3",
+            "environment_only_severance_confirmed": true
+          }
+        ],
+        "short3_diagnostic_windows": [
+          {
+            "attempt": "short-3-r1",
+            "verified_windows": 0
+          },
+          {
+            "attempt": "short-3-r2",
+            "verified_windows": 1
+          },
+          {
+            "attempt": "short-3-r3",
+            "verified_windows": 1
+          }
+        ],
+        "limits": [
+          "Counterfactual proofs do not become actual plays or live role inputs.",
+          "Environment-only coverage holdings do not establish decision-time public knowledge.",
+          "Proof replay does not itself decide textual materiality or acceptance."
+        ]
+      }
+    },
+    {
+      "check": "c1-lifetime",
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 evals/stage1/evidence/issue48/ticket52/candidate1-analysis/check_lifetime_portability.py --repo .",
+      "exit_code": 0,
+      "stdout_sha256": "4d826935376fda0bf5232a930c0683fc7fcf2668092741eb4bc4fd7b495bced4",
+      "result": {
+        "status": "pass",
+        "checks": [
+          {
+            "script": "verify_preservation.py",
+            "historical_audit_with_changed_current_source": "pass"
+          },
+          {
+            "script": "verify_adjudication_proofs.py",
+            "historical_audit_with_changed_current_source": "pass"
+          }
+        ],
+        "optional_current_source_comparison_rejects_changes": true,
+        "scope": "Temporary deliberately altered source checkout, no .build or native executable used; raw evidence only symlinked read-only by audit commands. No actual repository source changed and no model calls."
+      }
+    },
+    {
+      "check": "c2-preservation",
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 evals/stage1/evidence/issue48/ticket52/candidate2-analysis/verify_preservation.py --repo .",
+      "exit_code": 0,
+      "stdout_sha256": "c19b8adb507bf71f089e78414720a553b20b116c5708560444d0bcb3f77a5f7a",
+      "result": {
+        "status": "pass",
+        "raw_files": 3300,
+        "raw_bytes": 495286544,
+        "external_originals": 208,
+        "frozen_source_files": 50,
+        "normal_completed_reviews": 21,
+        "interrupted_partial_reviews": 1,
+        "runtime_archive_sha256": "f78a6ddc9c495ef6f5b5f316b65a97d3325f365922a901c0ae5ebbd4ed45e3f2",
+        "source_commit": "0a307cbde5498ed24b73da0d781cb9113ce92180",
+        "frozen_source_archive_sha256": "53207f1d2f84531c53441b80d9501db0fd21ec2305074fe9104d0b34f91b32f6",
+        "current_source_comparison": false,
+        "raw_evidence_unchanged": true
+      }
+    },
+    {
+      "check": "c2-lifetime",
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 evals/stage1/evidence/issue48/ticket52/candidate2-analysis/check_lifetime_portability.py --repo .",
+      "exit_code": 0,
+      "stdout_sha256": "2daa2396017f3430f9bca9d00ed4c12b1b358c0aefe85abb29f2c48db113dd8b",
+      "result": {
+        "status": "pass",
+        "checks": [
+          {
+            "script": "verify_preservation.py",
+            "changed_current_source_no_build": "pass"
+          },
+          {
+            "script": "verify_public_windows.py",
+            "changed_current_source_no_build": "pass"
+          },
+          {
+            "script": "verify_interrupted_cost.py",
+            "changed_current_source_no_build": "pass"
+          },
+          {
+            "script": "check_candidate2_walker_coverage.py",
+            "frozen_archive_environment_only_replay": "pass"
+          },
+          {
+            "script": "check_candidate2_full_reserved_r1_counterbranch.py",
+            "public_compatible_counterbranch_only": "pass"
+          },
+          {
+            "script": "verify_preservation.py",
+            "unlisted_raw_file_rejected": "pass"
+          }
+        ],
+        "optional_current_source_comparison_rejects_changes": true,
+        "scope": "Only a temporary source skeleton is changed. Saved artifacts are read through symlinks; no actual current source, .build, installed native executable, network or model is used."
+      }
+    },
+    {
+      "check": "c3-preservation",
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 evals/stage1/evidence/issue48/ticket52/candidate3-analysis/verify_preservation.py --repo .",
+      "exit_code": 0,
+      "stdout_sha256": "e34013ac4449e7d92caac69a6ff5fb77fd2aa303f8c4ac15df7f68fc9e6b6205",
+      "result": {
+        "status": "pass",
+        "raw_files": 3428,
+        "raw_bytes": 515356364,
+        "external_originals": 140,
+        "frozen_source_files": 50,
+        "normal_completed_reviews": 22,
+        "interrupted_partial_reviews": 0,
+        "runtime_archive_sha256": "186741545c0b3eb3590cec6297ff81a5a2c1e6facf38a43edf1c4ea75898ff5f",
+        "source_commit": "3f0fc65470633dd90363ad0417b29a9f7f68be18",
+        "frozen_source_archive_sha256": "0bb2e7f987adae2c1c8923ddf10db6cda8e1045125667536ef34eda1aaab3206",
+        "current_source_comparison": false,
+        "raw_evidence_unchanged": true
+      }
+    },
+    {
+      "check": "c3-windows",
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 evals/stage1/evidence/issue48/ticket52/candidate3-analysis/verify_public_windows.py --repo .",
+      "exit_code": 0,
+      "stdout_sha256": "bd37bc4f93793c287858b5fea131ba9493a50064cff2278ebcb2c64f8183af45",
+      "result": {
+        "status": "public_facts_verified",
+        "attempts": [
+          {
+            "attempt": "short-3-r1",
+            "all12_public_records_bound": true,
+            "eligible_windows": [],
+            "eligible_window_status": "unexercised"
+          },
+          {
+            "attempt": "short-3-r2",
+            "all12_public_records_bound": true,
+            "eligible_windows": [],
+            "eligible_window_status": "unexercised"
+          },
+          {
+            "attempt": "short-3-r3",
+            "all12_public_records_bound": true,
+            "eligible_windows": [
+              {
+                "decision": "decision-0010",
+                "revision": 18,
+                "public_defender_club_count": [
+                  3,
+                  2
+                ],
+                "later_coverage_only_showout": 19
+              }
+            ],
+            "eligible_window_status": "demonstrated"
+          }
+        ],
+        "semantic_facet": "No semantic pass is inferred; eligible windows and actual distinct inference use are separate. Final cohort reports resolve semantic materiality.",
+        "limits": "Only saved authorized hands, actual public events and exact output/execution records are read. No hidden fixture or current source/native executable is used."
+      }
+    },
+    {
+      "check": "c3-counterbranch",
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 evals/stage1/evidence/issue48/ticket52/candidate3-analysis/verify_public_counterbranch.py --repo .",
+      "exit_code": 0,
+      "stdout_sha256": "eba82237733949c99d92646103985680d3b491d010a85482c6e64887a6bd9fca",
+      "result": {
+        "status": "pass",
+        "original_script_sha256": "7fe84050eef6b5a03babcf198d98b433fa54c555b4caaa8682737f64a57bba73",
+        "saved_proof_sha256": "be196e7b714ddfdfed3e1a649e2a5061812709f33a22259d4ac5e595956f45b6",
+        "public_input_reads": 1,
+        "intercepted_writes_compared_only": 1,
+        "original_executed_unchanged": true,
+        "saved_proof_unchanged": true,
+        "scope": "Public-compatible counterfactual only; original hard-coded public input read is mapped to --repo, final historical write is intercepted for exact-byte comparison. No fixture, current source, native/model call or quality label."
+      }
+    },
+    {
+      "check": "c3-short5r2",
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 evals/stage1/evidence/issue48/ticket52/candidate3-analysis/originals/candidate3-short-5-r2-public-proof.py --repo . --proof evals/stage1/evidence/issue48/ticket52/candidate3-analysis/originals/candidate3-short-5-r2-public-proof.json",
+      "exit_code": 0,
+      "stdout_sha256": "fbab93bcc1cf564637dc906934f1a621c0fbfb120f4c477d374aaaeeffc8a48d",
+      "result": "PASS: 52 unique cards; D7\u2013D11 authorized prefixes/legal follows/controlled hands; J-drop plus showout; five-winner continuation to nine; saved proof matches.\n"
+    },
+    {
+      "check": "c3-walker",
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 evals/stage1/evidence/issue48/ticket52/candidate3-analysis/originals/check_candidate3_walker_coverage.py --repo . --reports evals/stage1/evidence/issue48/ticket52/candidate3-analysis/originals --proof evals/stage1/evidence/issue48/ticket52/candidate3-analysis/originals/candidate3-short6-coverage-environment-proof.json",
+      "exit_code": 0,
+      "stdout_sha256": "0fb6172e2ad02b29631b7ea517e907f85420bca52fef5e4d8cd4992fcacda963",
+      "result": "short-6-r1: legal DA win at sequence 23; East spades=[]; spade return impossible; actual switch=CK; public reports unchanged\nshort-6-r2: legal DA win at sequence 15; East spades=[]; spade return impossible; actual switch=HT; public reports unchanged\nshort-6-r3: legal DA win at sequence 23; East spades=[]; spade return impossible; actual switch=CK; public reports unchanged\n"
+    },
+    {
+      "check": "c3-native",
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 evals/stage1/evidence/issue48/ticket52/candidate3-analysis/audit_native_plan_encoding.py --candidate evals/stage1/evidence/issue48/ticket52/candidate3",
+      "exit_code": 0,
+      "stdout_sha256": "dc124e9e72517f5b867bc8117600ea00da56c9faee56e0d2b7338a800abe0db3",
+      "result": {
+        "status": "pass",
+        "attempts": 22,
+        "reviewer_operation_counts": {
+          "replace": 40,
+          "keep": 240
+        },
+        "reviewer_wire_candidates": 280,
+        "player_round_operation_counts": {
+          "replace": 40,
+          "keep": 240
+        },
+        "limits": [
+          "Observed operations only: absent withdraw events do not establish live withdraw coverage.",
+          "Role identity, instructions, schemas, exact candidate/input binding and empty tools are separately checked by each immutable attempt summary and deterministic decision checks."
+        ]
+      }
+    },
+    {
+      "check": "c3-aggregate",
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 evals/stage1/evidence/issue48/ticket52/candidate3-analysis/aggregate.py evals/stage1/evidence/issue48/ticket52/candidate3",
+      "exit_code": 0,
+      "stdout_sha256": "336d0ecb4ede7ce3be543cb0725ef51ff673156adfe0dbf045272c68aee710a2",
+      "result": {
+        "candidate_source": "3f0fc65470633dd90363ad0417b29a9f7f68be18",
+        "cycle": 3,
+        "maximum_cycles": 3,
+        "attempts": 22,
+        "task_complete": 22,
+        "legal_execution_pass": 22,
+        "raw_attempt_outcomes": {
+          "pass": 7,
+          "pending": 14,
+          "fail": 1
+        },
+        "raw_quality": {
+          "pass": 21,
+          "pending": 0,
+          "fail": 1
+        },
+        "raw_delivered_grade_counts": {
+          "pass": 259,
+          "uncertain": 0,
+          "fail": 11
+        },
+        "separate_failure_reports": 0,
+        "raw_quality_by_execution_authorization": {
+          "reviewApproved": {
+            "pass": 259,
+            "fail": 11
+          }
+        },
+        "coverage_status_before_independent_adjudication": {
+          "covered": 7,
+          "pending": 15,
+          "uncovered": 0
+        },
+        "native_roles": {
+          "player": {
+            "attempts": 280,
+            "elapsed_seconds": 1803.8334455490112,
+            "usage_observed_attempts": 280,
+            "usage_unknown_attempts": 0,
+            "observed_tokens": {
+              "cachedInputTokens": 41344,
+              "inputTokens": 2865836,
+              "outputTokens": 41369,
+              "reasoningOutputTokens": 18627,
+              "totalTokens": 2907205
+            },
+            "request_seconds": {
+              "count": 280,
+              "min": 2.026450037956238,
+              "median": 2.986420452594757,
+              "max": 59.22694993019104,
+              "sum": 1803.8334455490112
+            }
+          },
+          "reviewer": {
+            "attempts": 280,
+            "elapsed_seconds": 3000.8170677423477,
+            "usage_observed_attempts": 280,
+            "usage_unknown_attempts": 0,
+            "observed_tokens": {
+              "cachedInputTokens": 0,
+              "inputTokens": 688417,
+              "outputTokens": 69872,
+              "reasoningOutputTokens": 58646,
+              "totalTokens": 758289
+            },
+            "request_seconds": {
+              "count": 280,
+              "min": 2.040479898452759,
+              "median": 8.378795564174652,
+              "max": 119.60222101211548,
+              "sum": 3000.8170677423477
+            }
+          }
+        },
+        "upstream_roles": {
+          "player": {
+            "attempts": 280,
+            "usage_observed_attempts": 280,
+            "usage_unknown_attempts": 0,
+            "observed_tokens": {
+              "cached_input_tokens": 41344,
+              "input_tokens": 2865836,
+              "output_tokens": 41369,
+              "reasoning_output_tokens": 18627,
+              "total_tokens": 2907205
+            }
+          },
+          "reviewer": {
+            "attempts": 280,
+            "usage_observed_attempts": 280,
+            "usage_unknown_attempts": 0,
+            "observed_tokens": {
+              "cached_input_tokens": 0,
+              "input_tokens": 688417,
+              "output_tokens": 69872,
+              "reasoning_output_tokens": 58646,
+              "total_tokens": 758289
+            }
+          }
+        },
+        "dispositions": {
+          "contested": 0,
+          "reviewApproved": 270
+        },
+        "feedback_revisions": 10,
+        "clarification_requests": 0,
+        "semantic_reviews": 280,
+        "technical_retries": 0,
+        "late_observations": 0,
+        "mechanical_actions": 28,
+        "model_actions": 270,
+        "rpc_requests": 560,
+        "http_attempts": 560,
+        "driver_automatic_seconds": 4812.417402982712,
+        "human_wait_seconds": 0,
+        "first_decision_seconds": {
+          "count": 22,
+          "min": 30.42036497592926,
+          "median": 64.7612509727478,
+          "max": 184.61330699920654,
+          "sum": 1575.4988207817078
+        },
+        "later_decision_seconds": {
+          "count": 248,
+          "min": 4.285139083862305,
+          "median": 10.906826972961426,
+          "max": 91.68088603019714,
+          "sum": 3229.6091508865356
+        },
+        "full_boards": [
+          {
+            "id": "full-development-r1",
+            "complete": true,
+            "elapsed_seconds": 292.618155002594,
+            "automatic_seconds": 292.618155002594,
+            "human_wait_seconds": 0,
+            "tricks": [
+              10,
+              3
+            ],
+            "raw_quality": "pass",
+            "independent_quality": "pass"
+          },
+          {
+            "id": "full-development-r2",
+            "complete": true,
+            "elapsed_seconds": 275.45129001140594,
+            "automatic_seconds": 275.45129001140594,
+            "human_wait_seconds": 0,
+            "tricks": [
+              10,
+              3
+            ],
+            "raw_quality": "pass",
+            "independent_quality": "pass"
+          },
+          {
+            "id": "full-reserved-r1",
+            "complete": true,
+            "elapsed_seconds": 264.0440809726715,
+            "automatic_seconds": 264.0440809726715,
+            "human_wait_seconds": 0,
+            "tricks": [
+              12,
+              1
+            ],
+            "raw_quality": "pass",
+            "independent_quality": "pass"
+          },
+          {
+            "id": "full-reserved-r2",
+            "complete": true,
+            "elapsed_seconds": 252.70271801948547,
+            "automatic_seconds": 252.70271801948547,
+            "human_wait_seconds": 0,
+            "tricks": [
+              13,
+              0
+            ],
+            "raw_quality": "pass",
+            "independent_quality": "pass"
+          }
+        ],
+        "grader": {
+          "elapsed_seconds": 1014.3739999999999,
+          "usage_observed_attempts": 22,
+          "observed_tokens": {
+            "cache_write_input_tokens": 0,
+            "cached_input_tokens": 69120,
+            "input_tokens": 1942968,
+            "output_tokens": 43496,
+            "reasoning_output_tokens": 5120
+          },
+          "invocations": 22,
+          "elapsed_unknown_attempts": 0,
+          "usage_unknown_attempts": 0
+        },
+        "limits": [
+          "Raw grades and coverage remain provisional until independent cited-fact adjudication.",
+          "Do not add native per-turn token totals to HTTP totals; they describe overlapping cost observations.",
+          "Missing usage remains unknown, not zero; monetary cost is unavailable without attested prices.",
+          "Candidate sources and raw model evidence remain unchanged.",
+          "Any missing durations make summed known seconds a lower bound, not a complete whole-board runtime.",
+          "Independent final quality/coverage resolution and owner acceptance are separate; no raw grade/reviewer/contract outcome supplies acceptance by itself."
+        ],
+        "independent_attempt_counts": {
+          "pass": 21,
+          "fail": 1,
+          "uncertain": 0
+        },
+        "independent_decision_counts": {
+          "pass": 265,
+          "fail": 5,
+          "uncertain": 0
+        },
+        "automatic_time_known_attempts": 22,
+        "automatic_time_unknown_attempts": 0,
+        "driver_automatic_total_is_complete": true,
+        "human_wait_known_attempts": 22,
+        "human_wait_unknown_attempts": 0,
+        "independent_adjudication": {
+          "source_commit": "3f0fc65470633dd90363ad0417b29a9f7f68be18",
+          "raw_grades_unchanged": true,
+          "short3_cohort_facet": {
+            "status": "unmet",
+            "semantic_use": "not_established",
+            "r1": "unexercised",
+            "r2": "unexercised",
+            "r3": "eligible actual model; correct newly localized-owner use not established",
+            "all_three_core_coverage": "covered",
+            "all_three_delivered_quality_counts": {
+              "pass": 36,
+              "fail": 0,
+              "uncertain": 0
+            },
+            "reports": [
+              {
+                "path": "/tmp/bridge-coup-issue48-context/candidate3-short3-cohort-coordinator-resolution.md",
+                "sha256": "a79f7af5f2d1c099d5eecf65197f45bce5de9eee1e8117d79b49dfdc52676a8c"
+              },
+              {
+                "path": "/tmp/bridge-coup-issue48-context/candidate3-short3-r3-coordinator-initial-facet-assessment.md",
+                "sha256": "e0bcdd5dd0ea2a6edd3028dc6a7be022d4c4f3a8294c1c9c1b8171f090af13f0"
+              },
+              {
+                "path": "/tmp/bridge-coup-issue48-context/candidate3-short-3-r3-independent-facet-check.md",
+                "sha256": "f481e3195d13d0bb7642ef5333373ec6e24e7629604437872f2501d8186be7f8"
+              },
+              {
+                "path": "/tmp/bridge-coup-issue48-context/candidate3-short-3-r1-review.md",
+                "sha256": "6e5685780ac2e37249d33aa2361a6bfdfd868609a1d20290c807fa1ae674e94a"
+              },
+              {
+                "path": "/tmp/bridge-coup-issue48-context/candidate3-short-3-r2-review.md",
+                "sha256": "420d216e05418f25438f1a4f98b5fda188356e184623560a5300cc7a80b59ee1"
+              },
+              {
+                "path": "/tmp/bridge-coup-issue48-context/candidate3-short-3-r3-review.md",
+                "sha256": "de7371389a67f2a440a89a4e300dd97df6fd8f54c73c192384b58df05f539e72"
+              }
+            ],
+            "no_internal_inference_failure_claim": true,
+            "no_extra_trials_or_standard_change": true
+          }
+        },
+        "recorded_matrix_marker_interval_seconds": 5851.368788,
+        "matrix_marker_interval_scope": "Recorded UTC start-to-finish interval includes play, grading and per-attempt overhead; not board-only automatic time or an observed OS exit.",
+        "detached_orchestrator_os_exit": null,
+        "scope": "Completed22 raw metrics plus separate final independent22-row overlay; neither completion nor review approval supplies acceptance."
+      }
+    },
+    {
+      "check": "c3-lifetime",
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 evals/stage1/evidence/issue48/ticket52/candidate3-analysis/check_lifetime_portability.py --repo .",
+      "exit_code": 0,
+      "stdout_sha256": "b917e2acfd25f929cc0763198b226766d98189e3177483ba9b0b21a9c61a1cf6",
+      "result": {
+        "status": "pass",
+        "checks": [
+          {
+            "script": "verify_preservation.py",
+            "changed_current_source_no_build": "pass"
+          },
+          {
+            "script": "verify_public_windows.py",
+            "changed_current_source_no_build": "pass"
+          },
+          {
+            "script": "verify_public_counterbranch.py",
+            "changed_current_source_no_build": "pass"
+          },
+          {
+            "script": "audit_native_plan_encoding.py",
+            "changed_current_source_no_build": "pass"
+          },
+          {
+            "script": "aggregate.py",
+            "changed_current_source_no_build": "pass"
+          },
+          {
+            "script": "check_candidate3_short3_r1_public.py",
+            "saved_public_proof_replay": "pass"
+          },
+          {
+            "script": "check_candidate3_short3_r2_public.py",
+            "saved_public_proof_replay": "pass"
+          },
+          {
+            "script": "check_candidate3_short3_r3_public.py",
+            "saved_public_proof_replay": "pass"
+          },
+          {
+            "script": "candidate3-short-5-r2-public-proof.py",
+            "saved_public_counterbranch_replay": "pass"
+          },
+          {
+            "script": "check_candidate3_walker_coverage.py",
+            "frozen_archive_environment_only_replay": "pass"
+          },
+          {
+            "script": "candidate3-full-development-r1-public-replay.py",
+            "saved_full_public_replay": "pass"
+          },
+          {
+            "script": "candidate3-full-development-r2-public-replay.py",
+            "saved_full_public_replay": "pass"
+          },
+          {
+            "script": "check_candidate3_full_reserved_r1_public.py",
+            "saved_reserved_public_replay": "pass"
+          },
+          {
+            "script": "check_candidate3_full_reserved_r2_public.py",
+            "saved_reserved_public_replay": "pass"
+          },
+          {
+            "script": "verify_preservation.py",
+            "unlisted_raw_file_rejected": "pass"
+          }
+        ],
+        "optional_current_source_comparison_rejects_changes": true,
+        "scope": "Only a temporary source skeleton is changed. Saved artifacts are read through symlinks; no actual current source, .build, installed native executable, network or model is used."
+      }
+    }
+  ],
+  "strict_candidate3_analysis": {
+    "file_count_excluding_manifest": 172,
+    "bytes_excluding_manifest": 2902746,
+    "external_originals": 140,
+    "external_bytes": 1306934,
+    "manifest_sha256": "3e890e136b32c48b52617552516d2d4dda2cc2b11a346a8e0e033141676ae685"
+  },
+  "protected_integration_cache_files": 20,
+  "protected_integration_cache_directories": 4,
+  "protected_cache_hashes_and_exact_status_match": true,
+  "acceptance": "NO-GO; three frozen cycles exhausted; final265pass5fail, stronger facet unmet",
+  "native_calls": false,
+  "builds": false,
+  "github_writes": false,
+  "worktree_or_branch_removals": false
+}
