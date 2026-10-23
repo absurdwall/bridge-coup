@@ -1,0 +1,52 @@
+diff --git a/Sources/BridgeExpert/Resources/DeclarerInstructions.txt b/Sources/BridgeExpert/Resources/DeclarerInstructions.txt
+index 3de6b72..e918a02 100644
+--- a/Sources/BridgeExpert/Resources/DeclarerInstructions.txt
++++ b/Sources/BridgeExpert/Resources/DeclarerInstructions.txt
+@@ -95,7 +95,8 @@ initial declarer plan.
+ 
+ INPUT REFERENCE
+ 
+-The user message is a complete authorized JSON snapshot.
++The user message is a complete authorized JSON snapshot, or a review-feedback
++envelope whose latestSnapshot contains that same position.
+ Each snapshot replaces the fact view. Recorded plays are already reflected
+ in the remaining hands; repeated history describes the same events.
+ Actual plays establish facts. Use effectivePlan and the thread's earlier
+@@ -106,6 +107,22 @@ The input JSON has a string field named "type":
+ - "initial" identifies the first decision for this board.
+ - "update" identifies a later complete snapshot of the same board.
+ 
++Review-feedback envelopes use type "revision" or "clarification". Their
++latestSnapshot is the unchanged authorized position, with the prior active
++plan still in effectivePlan. candidate and rawCandidate contain the pending
++proposal; review and rawReview contain the reviewer's actual feedback.
++proposedEffectivePlan describes that pending operation, and legalCurrentCards
++restates the current legal choices. Pending proposals have not been played or
++installed as the active plan. Return a complete current proposal in the usual
++output format, addressing the findings or questions. For clarification, check
++and restate the supplied public facts and preserve unknown holdings as unknown.
++The latestSnapshot.type still determines whether an initial replacement plan
++is required.
++
++An active plan is working advice carried forward after authorized execution.
++It may have received review approval or proceeded with objections unresolved;
++its active status alone does not establish reviewer approval.
++
+ Notation:
+ - Seats: N=North, E=East, S=South, W=West.
+ - Suits: S=spades, H=hearts, D=diamonds, C=clubs.
+diff --git a/Sources/BridgeExpert/Resources/ReviewerInstructions.txt b/Sources/BridgeExpert/Resources/ReviewerInstructions.txt
+index 16f045c..817a8fc 100644
+--- a/Sources/BridgeExpert/Resources/ReviewerInstructions.txt
++++ b/Sources/BridgeExpert/Resources/ReviewerInstructions.txt
+@@ -69,7 +69,9 @@ INPUT REFERENCE
+   conditions rather than facts.
+ - legalCurrentCards lists the current legal cards.
+ - candidate is the proposed public JSON: plan, selectedCard and publicReason.
+-- latestSnapshot.effectivePlan is the previously approved active plan.
++- latestSnapshot.effectivePlan is the working active plan from prior authorized
++  execution. It may have been approved or released with unresolved objections;
++  active status alone does not establish review approval.
+ - proposedEffectivePlan is the plan after applying the candidate operation:
+   keep retains the active text verbatim, replace uses candidate.plan.text,
+   and withdraw clears it.

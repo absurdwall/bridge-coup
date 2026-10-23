@@ -1,0 +1,21 @@
+[
+  "/Users/tingranwang/.codex/worktrees/issue50-review-loop/bridge-coup/.build/debug/bridge-play",
+  "--fixture",
+  "/Users/tingranwang/.codex/worktrees/issue50-review-loop/bridge-coup/evals/stage1/corpus/boards/walker-holdup-adapted.json",
+  "--output",
+  "/Users/tingranwang/.codex/worktrees/issue50-review-loop/bridge-coup/evals/stage1/evidence/issue48/ticket50/native-correction/play",
+  "--codex",
+  "/Users/tingranwang/.codex/worktrees/issue50-review-loop/bridge-coup/evals/stage1/evidence/issue48/ticket50/native-correction/wire/codex-wire-audit",
+  "--decisions",
+  "12",
+  "--interactive",
+  "true",
+  "--opponent",
+  "conserve-high",
+  "--sole-legal",
+  "true",
+  "--timeout",
+  "180",
+  "--run-timeout",
+  "1800"
+]

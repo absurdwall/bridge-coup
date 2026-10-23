@@ -1,0 +1,6 @@
+{
+  "capturedExpertSha256": "8782ed1184d6fa0a99ca7c11a9e4577a94736fea2e5f50ced8c4e1352bdde15d",
+  "repairedExpertSha256": "03fc5761822e2e6e440981f69ea0c9629918662e2cb60f4ae216e96d0e3acdfc",
+  "impact": "Exact explicit-null encoding for keep/withdraw candidates in review, feedback and persisted candidate JSON. No semantic-loop/card/plan policy changes. Natural diagnostic retained; no reroll. Repaired encoding independently validated at public Expert/BoardDriver boundary; final acceptance must live-verify it.",
+  "nativeCaptureRepeated": false
+}
