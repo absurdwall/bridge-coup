@@ -25,6 +25,9 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
     private var runtimeVersion = ""
     private var observedModel: String?
     private var observedEffort: String?
+    private var currentTurnID: String?
+    private var turnUsage: [String: TokenUsage] = [:]
+    private var currentPublicOutput: String?
     private static let model = "gpt-6.1-sol"
     private static let effort = "medium"
 
@@ -56,12 +59,16 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
         try await withCheckedThrowingContinuation { continuation in
             queue.async {
                 do { continuation.resume(returning: try self.perform(request)) }
-                catch { continuation.resume(throwing: error) }
+                catch {
+                    let identity = self.threadID.map { RuntimeIdentity(requestedModel: Self.model, requestedEffort: Self.effort, runtimeVersion: self.runtimeVersion, observedModel: self.observedModel, observedEffort: self.observedEffort, threadID: $0, turnID: self.currentTurnID ?? "") }
+                    continuation.resume(throwing: PlayingTransportFailure(detail: String(describing: error), fatal: error is PlayingBoundaryFailure, identity: identity, rawOutput: self.currentPublicOutput, usage: self.currentTurnID.flatMap { self.turnUsage[$0] }))
+                }
             }
         }
     }
 
     private func perform(_ request: PlayingRequest) throws -> PlayingReply {
+        currentTurnID = nil; currentPublicOutput = nil
         let alarm = DispatchWorkItem { [weak self] in self?.terminateRuntime(force: false) }
         let hardStop = DispatchWorkItem { [weak self] in self?.terminateRuntime(force: true) }
         let deadline = min(timeout, request.timeoutSeconds)
@@ -85,7 +92,7 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
             threadID = id
             observedModel = result["model"] as? String ?? thread["model"] as? String
             observedEffort = result["reasoningEffort"] as? String ?? thread["reasoningEffort"] as? String
-            guard observedModel == Self.model, observedEffort == Self.effort else { throw CodexPlayingError.failure("Runtime model/effort acknowledgement mismatch") }
+            guard observedModel == Self.model, observedEffort == Self.effort else { throw PlayingBoundaryFailure.identity("Runtime model/effort acknowledgement mismatch") }
         }
         let result = try rpc("turn/start", ["threadId": threadID!, "model": Self.model, "effort": Self.effort,
             "input": [["type": "text", "text": request.input, "text_elements": []]],
@@ -93,11 +100,12 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
         guard let turn = result["turn"] as? [String: Any], let turnID = turn["id"] as? String else {
             throw CodexPlayingError.failure("Missing turn identity")
         }
+        currentTurnID = turnID
         while true {
             let message = try read()
             if message["id"] != nil && message["method"] != nil {
                 try send(["id": message["id"]!, "error": ["code": -32601, "message": "This playing client does not service tool or approval requests."]])
-                throw CodexPlayingError.failure("Unexpected runtime tool or approval request")
+                throw PlayingBoundaryFailure.state("Unexpected runtime tool or approval request")
             }
             guard message["method"] as? String == "turn/completed",
                   let params = message["params"] as? [String: Any], params["threadId"] as? String == threadID,
@@ -105,6 +113,7 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
             var publicCompletion = completed
             publicCompletion["items"] = (completed["items"] as? [[String: Any]] ?? []).filter { $0["type"] as? String == "agentMessage" }
             try log("completion", publicCompletion)
+            currentPublicOutput = (completed["items"] as? [[String: Any]] ?? []).last(where: { $0["type"] as? String == "agentMessage" })?["text"] as? String
             guard completed["status"] as? String == "completed" else {
                 throw CodexPlayingError.failure("Unsuccessful turn: \(completed["error"] ?? "unknown")")
             }
@@ -115,7 +124,7 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
             let identity = RuntimeIdentity(requestedModel: Self.model, requestedEffort: Self.effort, runtimeVersion: runtimeVersion,
                                            observedModel: observedModel, observedEffort: observedEffort, threadID: threadID!, turnID: turnID)
             succeeded = true
-            return PlayingReply(rawOutput: text, identity: identity, requestID: request.id)
+            return PlayingReply(rawOutput: text, identity: identity, requestID: request.id, usage: turnUsage[turnID])
         }
     }
 
@@ -254,7 +263,10 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
         while true {
             if let end = buffer.firstIndex(of: 10) {
                 let line = buffer.prefix(upTo: end); buffer.removeSubrange(...end)
-                if let object = try JSONSerialization.jsonObject(with: line) as? [String: Any] { return object }
+                if let object = try JSONSerialization.jsonObject(with: line) as? [String: Any] {
+                    try capturePublicNotification(object)
+                    return object
+                }
                 throw CodexPlayingError.failure("Malformed app-server message")
             }
             guard let output, let deadline = requestDeadline else { throw CodexPlayingError.failure("Missing runtime output or request deadline") }
@@ -268,6 +280,27 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
             let data = output.availableData
             guard !data.isEmpty else { throw CodexPlayingError.failure("App-server exited or request timed out") }
             buffer.append(data)
+        }
+    }
+
+    private func capturePublicNotification(_ message: [String: Any]) throws {
+        guard let method = message["method"] as? String, let params = message["params"] as? [String: Any] else { return }
+        if method == "item/agentMessage/delta", params["threadId"] as? String == threadID,
+           params["turnId"] as? String == currentTurnID, let delta = params["delta"] as? String {
+            currentPublicOutput = (currentPublicOutput ?? "") + delta
+            try log("publicOutputDelta", params)
+        }
+        if method == "thread/tokenUsage/updated", params["threadId"] as? String == threadID,
+           let turn = params["turnId"] as? String, let usage = params["tokenUsage"] as? [String: Any], let last = usage["last"] {
+            let data = try JSONSerialization.data(withJSONObject: last)
+            turnUsage[turn] = try JSONDecoder().decode(TokenUsage.self, from: data)
+            try log("tokenUsage", params)
+        }
+        if method == "turn/completed", let turn = params["turn"] as? [String: Any],
+           params["threadId"] as? String != threadID || turn["id"] as? String != currentTurnID {
+            var visible = turn
+            visible["items"] = (turn["items"] as? [[String: Any]] ?? []).filter { $0["type"] as? String == "agentMessage" }
+            try log("unmatchedCompletion", ["threadId": params["threadId"] as Any? ?? NSNull(), "turn": visible])
         }
     }
 

@@ -86,7 +86,7 @@ final class FullBoardTests: XCTestCase {
         try board.play(Card("H2"), by: .west)
         let driver = BoardDriver(board: board, expert: ExpertSession(transport: DelayedTransport()), requestTimeoutSeconds: 1, runTimeoutSeconds: 0.02)
         do { _ = try await driver.advance(); XCTFail("Budget exhaustion cannot execute a late action") }
-        catch let failure as DriverFailure { XCTAssertTrue(failure.detail.contains("budget expired")); XCTAssertEqual(failure.decision.action.card, try Card("H3")) }
+        catch let failure as ExpertFailure { XCTAssertEqual(failure.category, .runtime); XCTAssertTrue(failure.requestEvidence.contains { $0.outcome == .timeout }) }
         let trace = await driver.trace()
         XCTAssertFalse(trace.complete)
         XCTAssertEqual(trace.steps.count, 0)
