@@ -34,6 +34,8 @@ def inspect_play(board, trace, evidence):
     controlled = {declarer, dummy}
     counts = {'model': 0, 'forced': 0, 'opponent': 0}
     decisions = []
+    active_association = None
+    player_thread, player_turns = None, set()
     for step in trace.get('steps', []):
         execution = step.get('execution')
         if not execution:
@@ -53,6 +55,19 @@ def inspect_play(board, trace, evidence):
                 errors.append('model source lacks an actual controlled decision')
             else:
                 decisions.append(decision)
+                if decision.get('pending') is not None:
+                    import reviewed_evidence
+                    pending = decision['pending']
+                    for round in decision.get('reviewRounds', []):
+                        identity = round['playerIdentity']
+                        if player_thread is not None and identity['threadID'] != player_thread or identity['turnID'] in player_turns:
+                            errors.append('player conversation changed or reused a turn across delivered decisions')
+                        player_thread = identity['threadID']; player_turns.add(identity['turnID'])
+                    answer = json.loads(decision['rawOutput'])
+                    expected_plan = reviewed_evidence.plan_after((active_association or {}).get('text'), answer)
+                    if pending.get('priorPlan') != active_association or decision.get('effectivePlan') != expected_plan:
+                        errors.append('reviewed plan does not continue the exact prior executed advice')
+                    active_association = decision.get('planAssociation')
                 if decision['action']['card'] != event['card'] or decision['snapshot']['events'] != events:
                     errors.append('model source does not bind to its actual event')
         elif source == 'forced':
@@ -79,12 +94,25 @@ def inspect_play(board, trace, evidence):
     for field, value in [('modelActions', counts['model']), ('mechanicalActions', counts['forced']), ('opponentActions', counts['opponent'])]:
         if trace.get(field) != value:
             errors.append('trace %s count mismatch' % field)
-    rpc = Path(evidence) / 'rpc.jsonl'
-    requests = [row for row in (json.loads(line) for line in rpc.read_text().splitlines())
-                if row.get('kind') == 'request' and row.get('value', {}).get('method') == 'turn/start'] if rpc.exists() else []
+    rpc_paths = [Path(evidence) / 'rpc.jsonl'] + sorted((Path(evidence) / 'reviewer').glob('*/rpc.jsonl'))
+    requests = [row for path in rpc_paths if path.exists() for row in (json.loads(line) for line in path.read_text().splitlines())
+                if row.get('kind') == 'request' and row.get('value', {}).get('method') == 'turn/start']
+    journal = trace.get('requestEvidence')
+    attempts = [row for row in journal if row['outcome'] != 'late'] if journal is not None else None
+    if attempts is not None:
+        players = sum(r['role'] == 'player' for r in attempts)
+        reviewers = sum(r['role'] == 'reviewer' for r in attempts)
+        if trace.get('modelRequests') != players or trace.get('playerRequests') != players or trace.get('reviewerRequests') != reviewers:
+            errors.append('native role attempt counters differ from the board journal')
+        if len({r['requestID'] for r in attempts}) != len(attempts):
+            errors.append('board journal duplicates native attempts')
+        if trace.get('semanticReviews') != sum(r['role'] == 'reviewer' and r['outcome'] == 'valid' for r in attempts):
+            errors.append('semantic review count differs from valid reviewer judgments')
+    else:
+        reviewers = None
     return {'status': 'fail' if errors else 'pass', 'errors': errors, 'actual_events': len(events),
             'complete': complete, 'tricks': [state['declarerTricks'], state['defenderTricks']],
-            'model_request_attempts': trace.get('modelRequests'), 'actual_rpc_requests': len(requests),
+            'model_request_attempts': trace.get('modelRequests'), 'reviewer_request_attempts': reviewers, 'actual_rpc_requests': len(requests),
             'model_actions': counts['model'], 'forced_actions': counts['forced'],
             'driver_opponent_actions': counts['opponent'],
             'initial_controlled_actions': sum(e['seat'] in controlled for e in trace.get('initialEvents', [])),
@@ -208,7 +236,9 @@ def source_files():
     paths += [str(p.relative_to(REPO)) for p in ROOT.glob('*.py')]
     paths += [str(p.relative_to(REPO)) for p in ROOT.glob('*.toml')]
     paths += [str(p.relative_to(REPO)) for p in ROOT.glob('*schema.json')]
-    paths += ['evals/stage1/rubric.txt', 'Sources/BridgeExpert/Resources/DeclarerInstructions.txt']
+    paths += ['evals/stage1/rubric.txt', 'evals/stage1/requirements-test.txt']
+    paths += [str(p.relative_to(REPO)) for p in (REPO / 'Sources/BridgeExpert/Resources').rglob('*') if p.is_file()]
+    paths += [str(p.relative_to(REPO)) for p in (ROOT / 'regressions').rglob('*') if p.is_file() and '__pycache__' not in p.parts]
     paths += [str(p.relative_to(REPO)) for p in (ROOT / 'corpus').rglob('*.json')]
     return sorted(set(paths))
 
@@ -245,17 +275,28 @@ def freeze(output, binary, codex):
     source = (REPO / 'Sources/BridgeExpert/Expert.swift').read_text()
     instructions = (REPO / 'Sources/BridgeExpert/Resources/DeclarerInstructions.txt').read_text()
     schema = re.search(r'public static let outputSchema = #"(.*?)"#', source, re.S).group(1)
+    reviewer_source = (REPO / 'Sources/BridgeExpert/PlayReview.swift').read_text()
+    reviewer_instructions = (REPO / 'Sources/BridgeExpert/Resources/ReviewerInstructions.txt').read_text()
+    reviewer_schema = re.search(r'public static let reviewOutputSchema = #"(.*?)"#', reviewer_source, re.S).group(1)
     candidate = {'created_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(), 'source_commit': version,
                  'source_hashes': hash_files(REPO, source_files()),
                  'binary': str(binary), 'binary_sha256': hash_files(binary.parent, [binary.name])[binary.name],
                  'codex': str(codex), 'codex_sha256': hash_files(codex.parent, [codex.name])[codex.name],
                  'runtime_catalog_sha256': hashlib.sha256(catalog).hexdigest(),
                  'runtime_hash_scope': 'Hash covers the supplied executable. Supply the native Codex executable for native binary attestation; a launcher hash does not attest its child.',
-                 'runtime_version': runtime, 'requested_play_model': 'gpt-6-luna', 'requested_play_effort': 'medium',
+                 'runtime_version': runtime, 'requested_play_model': 'gpt-6.1-sol', 'requested_play_effort': 'medium',
+                 'requested_reviewer_model': 'gpt-6.1-sol', 'requested_reviewer_effort': 'medium',
                  'requested_grader_model': 'gpt-6.1-sol', 'requested_grader_effort': 'medium',
                  'identity_limit': 'Requested and observable runtime identities only; hidden service resolution is not independently established.',
                  'request_timeout_seconds': 180, 'run_timeout_seconds': 1800, 'grader_timeout_seconds': 600,
-                 'mechanical_sole_legal': True, 'retry_policy': 'No playing retries, substitutions or answer repair.',
+                 'mechanical_sole_legal': True, 'retry_policy': 'Five valid semantic reviews maximum per pending decision; four technical reviewer attempts maximum per round. Exhaustion stops without contested release. Player is never restarted.',
+                 'max_semantic_rounds': 5, 'max_reviewer_technical_attempts': 4,
+                 'execution_policy': 'Exact approved candidate, or exact legal round-five unresolved candidate as contested; apply only its final plan operation once.',
+                 'active_plan_semantics': 'Working plan from authorized execution; active does not imply review-approved.',
+                 'role_configurations': {role: {'model': 'gpt-6.1-sol', 'effort': 'medium', 'additional_tools': []} for role in ('player', 'reviewer')},
+                 'grader_configuration': (ROOT / 'grader-config.toml').read_text(),
+                 'reviewer_instructions': reviewer_instructions, 'reviewer_schema_template': json.loads(reviewer_schema),
+                 'instruction_sha256': {'player': hashlib.sha256(instructions.encode()).hexdigest(), 'reviewer': hashlib.sha256(reviewer_instructions.encode()).hexdigest()},
                  'corpus_version': validation['corpus_version'], 'rubric_version': validation['rubric_version'],
                  'english_instructions': instructions, 'schema_template': json.loads(schema),
                  'schema_note': 'Production appends the exact complete current Engine legal-choice enum, without ranking.',
@@ -269,6 +310,16 @@ def freeze(output, binary, codex):
 def preflight(candidate):
     import subprocess
     errors = changed_files(REPO, candidate['source_hashes'])
+    if candidate.get('role_configurations') is not None and set(candidate['source_hashes']) != set(source_files()):
+        errors.append('frozen source/fixture inventory changed')
+    if candidate.get('source_commit') and candidate.get('role_configurations') is not None:
+        import io, tarfile
+        archive = subprocess.run(['git', 'archive', candidate['source_commit'], '--'] + sorted(candidate['source_hashes']), cwd=REPO, capture_output=True, check=True, timeout=15).stdout
+        with tarfile.open(fileobj=io.BytesIO(archive)) as files:
+            for name, digest in candidate['source_hashes'].items():
+                entry = files.extractfile(name)
+                if entry is None or hashlib.sha256(entry.read()).hexdigest() != digest:
+                    errors.append('source commit attestation: ' + name)
     for key in ('binary', 'codex'):
         path = Path(candidate[key])
         if changed_files(path.parent, {path.name: candidate[key + '_sha256']}):
@@ -289,7 +340,7 @@ def run_attempt(candidate, attempt, output):
     import time
     directory = output / attempt['id']
     directory.mkdir(exist_ok=False)
-    write(directory / 'attempt.json', {**attempt, 'status': 'started', 'playing_retries': 0})
+    write(directory / 'attempt.json', {**attempt, 'status': 'started', 'product_review_policy': 'up to five semantic reviews, four technical attempts per round; no board reroll'})
     wire = directory / 'wire'
     proxy_log = (directory / 'proxy-stderr.txt').open('w')
     proxy = subprocess.Popen([sys.executable, str(REPO / 'Scripts/capture-playing-wire.py'), '--codex', candidate['codex'], '--output', str(wire)],
@@ -311,10 +362,10 @@ def run_attempt(candidate, attempt, output):
         with (directory / 'play-stdout.txt').open('w') as stdout, (directory / 'play-stderr.txt').open('w') as stderr:
             process = bounded_command(command, stdout, stderr, candidate['run_timeout_seconds'] + 30)
         outcome = {'exit_code': process.returncode, 'wall_seconds': round(time.monotonic() - start, 3)}
-        catalog = directory / 'play/runtime-bundled-catalog.json'
-        if not catalog.is_file() or hash_files(catalog.parent, [catalog.name])[catalog.name] != candidate['runtime_catalog_sha256']:
+        catalogs = list((directory / 'play').rglob('runtime-bundled-catalog.json'))
+        if not catalogs or any(hash_files(catalog.parent, [catalog.name])[catalog.name] != candidate['runtime_catalog_sha256'] for catalog in catalogs):
             outcome = {**outcome, 'exit_code': None, 'driver_exit_code': process.returncode,
-                       'runner_error': 'Playing runtime bundled catalog differs from frozen candidate'}
+                       'runner_error': 'A role runtime bundled catalog differs from frozen candidate'}
     except Exception as error:
         outcome = {'exit_code': None, 'runner_error': str(error), 'wall_seconds': round(time.monotonic() - start, 3)}
     finally:
@@ -343,14 +394,18 @@ def run_attempt(candidate, attempt, output):
         grade_outcome = {'exit_code': None, 'runner_error': str(error)}
     grade_outcome['grading_evidence_available'] = (directory / 'grade/run.json').exists()
     write(directory / 'grading-outcome.json', grade_outcome)
-    write(directory / 'attempt.json', {**attempt, 'status': 'finished', 'playing_retries': 0})
-    return summarize_attempt(attempt, directory)
+    write(directory / 'attempt.json', {**attempt, 'status': 'finished', 'product_review_policy': 'up to five semantic reviews, four technical attempts per round; no board reroll'})
+    return summarize_attempt(attempt, directory, candidate)
 
 
-def summarize_attempt(attempt, directory):
+def summarize_attempt(attempt, directory, candidate=None):
     trace_path = directory / 'play/trace.json'
     trace = load(trace_path) if trace_path.exists() else {}
     decisions = [s['decision'] for s in trace.get('steps', []) if s.get('decision')]
+    import reviewed_evidence
+    if candidate is None and (directory.parent / 'candidate.json').exists():
+        candidate = load(directory.parent / 'candidate.json')
+    requests = reviewed_evidence.request_summary(trace)
     board = load(ROOT / 'corpus' / attempt['board'])
     try:
         inspection = inspect_play(board, trace, directory / 'play') if trace else {'status': 'fail', 'errors': ['No trace'], 'events': [], 'complete': False}
@@ -362,17 +417,25 @@ def summarize_attempt(attempt, directory):
     rows = evaluation.get('results', [])
     playing = load(directory / 'playing-outcome.json')
     task = task_complete(attempt, inspection, trace, playing)
-    timing_keys = ('elapsedSeconds', 'lastControlledActionSeconds', 'environmentOverheadSeconds', 'initialRequestSeconds', 'subsequentRequestSeconds', 'failedRequestSeconds')
+    timing_keys = ('elapsedSeconds', 'lastControlledActionSeconds', 'environmentOverheadSeconds', 'initialRequestSeconds', 'subsequentRequestSeconds', 'failedRequestSeconds', 'automaticRuntimeSeconds', 'humanWaitingSeconds')
+    try:
+        wire_audit = audit_wire(directory / 'wire', candidate=candidate, journal=trace.get('requestEvidence')) if candidate else audit_wire(directory / 'wire')
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        wire_audit = {'protocol_status': 'fail', 'protocol_errors': [str(error)], 'upstream_request_attempts': len(list((directory / 'wire').glob('request-*.json'))), 'roles': {}}
     result = {**attempt, 'task_complete': task, 'legal_execution': inspection['status'], 'quality': quality_status(evaluation),
               'playing': playing, 'grading': load(directory / 'grading-outcome.json'),
               'coverage': coverage(attempt['case_id'], inspection['events'], decisions, inspection['complete']),
               'counts': {k: v for k, v in inspection.items() if k not in ('events', 'errors', 'status')},
-              'wire': audit_wire(directory / 'wire'),
+              'wire': wire_audit,
+              'requests': requests,
+              'dispositions': {value: sum(d.get('executionDisposition') == value for d in decisions) for value in ('reviewApproved', 'contested')},
+              'stop_outcome': 'needs-input' if trace.get('needsInput') else 'failed' if not task else 'board-complete' if inspection['complete'] else 'short-bound-complete',
+              'grader_cost': {key: load(directory / 'grade/run.json').get(key) for key in ('elapsed_seconds', 'observed_usage', 'requested_model', 'requested_effort')} if (directory / 'grade/run.json').exists() else None,
               'timing': {k: trace.get(k) for k in timing_keys}, 'quality_counts': {status: sum(r['quality'] == status for r in rows) for status in ('pass', 'fail', 'uncertain')},
               'review_required': [r for r in rows if r['overall'] != 'pass'],
               'plan_updates': {update: sum(d['advice']['plan']['update'] == update for d in decisions) for update in ('keep', 'replace', 'withdraw')},
               'failures': inspection['errors'] + ([trace['failure']] if trace.get('failure') else [])}
-    result['outcome'] = 'fail' if not task or has_failed_evaluation(evaluation) else 'pending' if result['quality'] != 'pass' or result['coverage']['status'] != 'covered' else 'pass'
+    result['outcome'] = 'fail' if not task or has_failed_evaluation(evaluation) or result['wire'].get('protocol_status') == 'fail' else 'pending' if result['wire'].get('protocol_status', 'pass') != 'pass' or result['quality'] != 'pass' or result['coverage']['status'] != 'covered' else 'pass'
     write(directory / 'summary.json', result)
     return result
 
@@ -402,39 +465,53 @@ def execute(output):
 
 def render_report(output, candidate, summaries):
     import statistics
+    def distribution(values):
+        return '%d / %.3f / %.3f–%.3f' % (len(values), statistics.median(values), min(values), max(values)) if values else '0 / unavailable'
     status = 'NO-GO' if any(row['outcome'] == 'fail' for row in summaries) else 'PENDING INDEPENDENT REVIEW'
     lines = ['# Stage 1 finite acceptance', '', '**%s.** %d of 22 predeclared attempts recorded.' % (status, len(summaries)), '',
-             'Candidate source commit: `%s`. The exact source, executable, instructions, schema template, corpus, rubric, requested configurations and runtime hashes were recorded before play in [candidate.json](candidate.json). Later evidence/document commits do not change that candidate.' % candidate['source_commit'], '',
-             'All attempts use the production public Expert/driver through Codex app-server, requested gpt-6-luna / medium. Grading uses independent gpt-6.1-sol / medium with the frozen case/rubric. These names describe requested and observable identities; internal service resolution is not independently proven. Playing calls and graders run strictly sequentially, with no answer repair, manual controlled substitute or playing retry.', '',
-             '## Every attempt', '',
-             '| Attempt | Task | Legal | Quality | Trigger | Requests attempted / RPC / HTTP | Model / forced / opponents | Tricks | Evidence |',
-             '|---|---|---|---|---|---|---|---|---|']
+             'Candidate source commit: `%s`. Both instruction sources, role configurations, schemas, runtime/capture code, fixtures, rubrics and binary/native-runtime hashes were frozen in [candidate.json](candidate.json).' % candidate['source_commit'], '',
+             'Production player and independent runtime reviewer both request gpt-6.1-sol / medium with empty additional_tools. The separate acceptance grader requests gpt-6.1-sol / medium. Requested/observable identities do not prove hidden service internals. Every attempt runs strictly sequentially; the bounded product loop permits five semantic reviews and four technical attempts per review round. There are no board rerolls, manual controlled substitutes or grader feedback into live play.', '',
+             'Only delivered advice is graded. Rejected drafts are diagnostic. Review approval and contested execution are authorization dispositions, never bridge-quality labels. Canonical snapshots establish public facts; feedback envelopes preserve actual prior reviewer assertions as non-authoritative provenance.', '',
+             '| Attempt | Task | Legal | Quality | Trigger | Player / reviewer / RPC / HTTP attempts | Model / forced / opponent plays | Tricks |',
+             '|---|---|---|---|---|---|---|---|']
     for row in summaries:
-        counts = row['counts']
-        lines.append('| %s | %s | %s | %s | %s | %s / %s / %s | %s / %s / %s (+%s controlled, %s opponent prefix) | %s | [saved](%s/summary.json) |' %
-                     (row['id'], row['task_complete'], row['legal_execution'], row['quality'], row['coverage']['status'],
-                      counts.get('model_request_attempts'), counts.get('actual_rpc_requests'), row['wire']['upstream_request_attempts'], counts.get('model_actions'), counts.get('forced_actions'),
-                      counts.get('driver_opponent_actions'), counts.get('initial_controlled_actions'), counts.get('initial_opponent_actions'), counts.get('tricks'), row['id']))
-    lines += ['', 'Driver retries are counted separately from actual HTTP attempts. Per-attempt wire summaries preserve HTTP statuses, transport errors and missing responses; an RPC may cause multiple upstream HTTP attempts inside the runtime. The runner does not equate driver retries=0 with no internal runtime transport retry.', '',
-              'Quality pass is provisional until independent review of cited facts. Trigger coverage is separate from task bounds and quality. Pending means the mechanical event predicate needs review; an avoided trigger remains uncovered. Contract result cannot erase a factual, entry or consistency failure.', '',
-              '## Four full-board timings', '',
-              '| Attempt | First request s | Later requests n / median / range s | Last controlled action s | Full driver s | Environment overhead s | Failed request s | Retries |',
-              '|---|---|---|---|---|---|---|---|']
+        c=row['counts'];roles=row.get('requests',{}).get('roles',{})
+        lines.append('| [%s](%s/summary.json) | %s | %s | %s | %s | %s / %s / %s / %s | %s / %s / %s | %s |' %
+                     (row['id'],row['id'],row['task_complete'],row['legal_execution'],row['quality'],row['coverage']['status'],
+                      roles.get('player',{}).get('attempts'),roles.get('reviewer',{}).get('attempts'),c.get('actual_rpc_requests'),row['wire']['upstream_request_attempts'],
+                      c.get('model_actions'),c.get('forced_actions'),c.get('driver_opponent_actions'),c.get('tricks')))
+    lines += ['', 'Every initial fixture prefix is counted separately in summary.json. Native request attempts exclude late outcome observations; HTTP attempts include runtime-internal retries and are not interchangeable with technical retries. Missing usage is unknown, never zero.', '',
+              '## Timing', '',
+              '| Attempt | First decision or failed request s | Later n / median / range s | Automatic board s | Human wait s | Full-board complete |',
+              '|---|---|---|---|---|---|']
     for row in summaries:
-        if row['kind'] != 'full':
-            continue
-        timing = row['timing']
-        later = timing.get('subsequentRequestSeconds') or []
-        distribution = '%d / %.3f / %.3f–%.3f' % (len(later), statistics.median(later), min(later), max(later)) if later else '0 / unavailable'
-        lines.append('| %s | %s | %s | %s | %s | %s | %s | %s |' % (row['id'], timing.get('initialRequestSeconds'), distribution,
-                     timing.get('lastControlledActionSeconds'), timing.get('elapsedSeconds'), timing.get('environmentOverheadSeconds'),
-                     timing.get('failedRequestSeconds'), row['counts'].get('retries')))
-    lines += ['', 'The time origin is dummy exposure/driver start immediately before the first request; last controlled action includes mechanical forced actions. Initial fixture prefix is counted separately. Full driver time includes trailing opponents after the last controlled action. Request limit 180 s, run limit 1800 s, independent grader limit 600 s. Three minutes is an experience goal, not a hard gate. Every individual subsequent latency and failed request is preserved in each trace.', '',
-              '## Review and limits', '',
-              'Every non-pass grade, original cited text, evaluator error and coverage predicate is preserved in per-attempt summary.json and grade/. An independent review must decide disputed/uncertain findings before any stage-complete claim. The runner never feeds grading results into the player.', '',
-              'Corpus v2 keeps the formerly reserved board as used regression material: it has already been played and inspected for correction. It is not fresh held-out evidence. These finite samples do not prove broad bridge strength or general grader reliability.', '',
-              'Wire captures preserve exact forwarded payload bytes, no authentication headers and no decrypted reasoning. The installed bundled model catalog is frozen and checked before each attempt; each playing run preserves the source and effective catalogs. The Luna entry changes only tool routing, experimental tools, apply-patch type and shell type to disable tools. Runtime configuration also disables question tools and time reminders. The public runtime-boundary regression confirms an empty additional_tools list; verify final captures independently. Opaque encrypted reasoning history can remain in continuing requests; this does not claim a wholly public-only runtime history.', '',
-              'Rule and dependency review evidence, concrete failure adjudication, achieved/unachieved criteria and the final stage recommendation are recorded separately in REVIEW.md. Until then this report is a captured result, not acceptance approval.', '']
+        t=row['timing']
+        lines.append('| %s | %s | %s | %s | %s | %s |' % (row['id'],t.get('initialRequestSeconds'),distribution(t.get('subsequentRequestSeconds') or []),
+                     t.get('automaticRuntimeSeconds',t.get('elapsedSeconds')),t.get('humanWaitingSeconds'),row['counts'].get('complete') if row['kind']=='full' else 'short'))
+    full=[row for row in summaries if row['kind']=='full']
+    lines += ['', 'All %d of four scheduled full-board durations appear above, including incomplete failures. Each first/later decision duration includes both roles, revisions and retries; failed requests and environment overhead remain separately saved. The automatic 1,800 s board budget includes processing; the native request cap is 180 s. Human needs-input waiting is reported separately. There is no three-minute quality or speed gate.' % len(full), '',
+              '## Role costs and outcomes', '',
+              '| Attempt | Role | Native attempts / seconds | Native observed total tokens / unknown attempts | HTTP attempts / observed total tokens / unknown attempts |',
+              '|---|---|---|---|---|']
+    for row in summaries:
+        for role in ('player','reviewer'):
+            native=row.get('requests',{}).get('roles',{}).get(role,{})
+            upstream=row['wire'].get('roles',{}).get(role,{})
+            lines.append('| %s | %s | %s / %s | %s / %s | %s / %s / %s |' % (row['id'],role,native.get('attempts'),native.get('elapsed_seconds'),
+                         (native.get('observed_tokens') or {}).get('totalTokens'),native.get('usage_unknown_attempts'),upstream.get('upstream_attempts'),
+                         (upstream.get('observed_tokens') or {}).get('total_tokens'),upstream.get('usage_unknown_attempts')))
+    lines += ['', 'Native per-turn usage and upstream HTTP usage are separate observations of cost; never add the two totals. Failed attempts count when usage is observable. Input, cached input, output and reasoning tokens remain in each role summary. Grader durations and observed usage remain separately in grade/run.json and each summary. Monetary cost is unavailable without an attested applicable price schedule.', '',
+              '| Attempt | Semantic reviews | Feedback / clarification | Technical retries | Approved / contested delivered | Stop outcome |',
+              '|---|---|---|---|---|---|']
+    for row in summaries:
+        req=row.get('requests',{});dispositions=row.get('dispositions',{})
+        lines.append('| %s | %s | %s / %s | %s | %s / %s | %s |' % (row['id'],req.get('semantic_reviews'),req.get('feedback_revisions'),req.get('clarification_requests'),
+                     req.get('reviewer_retries'),dispositions.get('reviewApproved',0),dispositions.get('contested',0),row.get('stop_outcome')))
+    lines += ['', '## Quality and coverage limits', '',
+              'The original serious-error standard and 22-attempt schedule are unchanged. Legal completion, contract result and reviewer approval cannot erase a material final error. Every raw grade, evaluator error and dispute is retained. A cited grader pass is provisional until independent review of the facts; unresolved grades remain pending. Coverage predicates are conservative: actual hold-up/communication and entry opportunities require independent explanation, and an avoided or unobserved trigger remains uncovered.', '',
+              'The formerly reserved board is already used regression material. These finite samples do not establish broad bridge strength. Original failed candidates, two historical HTTP metadata gaps, and older grader disputes remain history rather than newly accepted results.', '',
+              'Exact HTTP request bytes, metadata and sanitized public RPC outputs are preserved without credentials or decrypted reasoning. Both role catalogs are checked against the frozen native catalog. The runtime preserves opaque encrypted conversation history; that does not grant hidden bridge holdings or strategic tools.', '',
+              'The independent evidence/adjudication overlay and final per-issue met/unmet ledger are recorded separately. Until those are resolved, this report is captured evidence, not acceptance approval, main delivery, issue-closure authority or permission to merge.', '']
     (output / 'REPORT.md').write_text('\n'.join(lines))
 
 
@@ -457,18 +534,23 @@ def verify_schedule(plan):
         raise ValueError('Predeclared finite schedule changed')
 
 
-def audit_wire(wire):
+def audit_wire(wire, candidate=None, journal=None):
     requests = sorted(Path(wire).glob('request-*.json'))
     metadata = [load(path) for path in sorted(Path(wire).glob('response-metadata-*.json'))]
     statuses = {}
     for row in metadata:
         key = str(row.get('httpStatus', 'unknown'))
         statuses[key] = statuses.get(key, 0) + 1
-    return {'upstream_request_attempts': len(requests), 'http_statuses': statuses,
+    result = {'upstream_request_attempts': len(requests), 'http_statuses': statuses,
             'transport_errors': [load(path) for path in sorted(Path(wire).glob('transport-error-*.json'))],
             'missing_response_metadata': ['response-metadata-' + path.name[len('request-'):] for path in requests
                                           if not (Path(wire) / ('response-metadata-' + path.name[len('request-'):])).exists()],
             'observed_response_models': sorted({row['model'] for row in metadata if row.get('model')})}
+
+    if candidate is not None:
+        import reviewed_evidence
+        result.update(reviewed_evidence.wire_summary(wire, candidate, journal))
+    return result
 
 
 def bounded_command(command, stdout, stderr, timeout):

@@ -1,0 +1,140 @@
+{
+  "scope": "Read-only offline final-two-trick replay; no new model requests and no change to actual arm histories.",
+  "decision": "B decision0021, trick12, North third hand",
+  "public_facts": {
+    "North_clubs": "T5",
+    "South_clubs": "",
+    "current_trick": [
+      {
+        "card": "CJ",
+        "seat": "S"
+      },
+      {
+        "card": "SJ",
+        "seat": "W"
+      }
+    ],
+    "unplayed_unknown_clubs": [
+      "C9",
+      "CK"
+    ],
+    "deduction": "West discarded SJ on a club lead, so West is void. Both remaining defender clubs CK and C9 belong to East."
+  },
+  "branches": [
+    {
+      "branch": "preserve_CT_East_wins_CK",
+      "last_six_plays": [
+        {
+          "sequence": 46,
+          "seat": "north",
+          "card": "C5"
+        },
+        {
+          "sequence": 47,
+          "seat": "east",
+          "card": "CK"
+        },
+        {
+          "sequence": 48,
+          "seat": "east",
+          "card": "C9"
+        },
+        {
+          "sequence": 49,
+          "seat": "south",
+          "card": "S9"
+        },
+        {
+          "sequence": 50,
+          "seat": "west",
+          "card": "SQ"
+        },
+        {
+          "sequence": 51,
+          "seat": "north",
+          "card": "CT"
+        }
+      ],
+      "NS_tricks": 11,
+      "EW_tricks": 2,
+      "52card_independent_replay": "legal"
+    },
+    {
+      "branch": "preserve_CT_East_ducks_C9",
+      "last_six_plays": [
+        {
+          "sequence": 46,
+          "seat": "north",
+          "card": "C5"
+        },
+        {
+          "sequence": 47,
+          "seat": "east",
+          "card": "C9"
+        },
+        {
+          "sequence": 48,
+          "seat": "south",
+          "card": "S9"
+        },
+        {
+          "sequence": 49,
+          "seat": "west",
+          "card": "SQ"
+        },
+        {
+          "sequence": 50,
+          "seat": "north",
+          "card": "CT"
+        },
+        {
+          "sequence": 51,
+          "seat": "east",
+          "card": "CK"
+        }
+      ],
+      "NS_tricks": 11,
+      "EW_tricks": 2,
+      "52card_independent_replay": "legal"
+    },
+    {
+      "branch": "played_CT_East_wins_CK",
+      "last_six_plays": [
+        {
+          "sequence": 46,
+          "seat": "north",
+          "card": "CT"
+        },
+        {
+          "sequence": 47,
+          "seat": "east",
+          "card": "CK"
+        },
+        {
+          "sequence": 48,
+          "seat": "east",
+          "card": "C9"
+        },
+        {
+          "sequence": 49,
+          "seat": "south",
+          "card": "S9"
+        },
+        {
+          "sequence": 50,
+          "seat": "west",
+          "card": "SQ"
+        },
+        {
+          "sequence": 51,
+          "seat": "north",
+          "card": "C5"
+        }
+      ],
+      "NS_tricks": 10,
+      "EW_tricks": 3,
+      "52card_independent_replay": "legal"
+    }
+  ],
+  "conclusion": "C5 preserves CT and guarantees11totaltricks against both legal East continuations; approved/executed CT allowsEastCK to holddeclarerto10. The review fixedthe explanation but didnotpreventthisavoidableovertrickloss."
+}

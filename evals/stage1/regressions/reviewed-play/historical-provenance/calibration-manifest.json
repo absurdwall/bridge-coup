@@ -1,0 +1,28 @@
+{
+  "model": "gpt-6.1-sol",
+  "effort": "medium",
+  "scope": "Exactly one review per case and instruction version, six calls. No hints, player calls, revisions, card execution or rerolls. All sessions fresh and independent. Before version is the 679-word NEW reviewer from the prior comparison, not the older 240-word reviewer.",
+  "inputControl": "Both versions use byte-identical UTF-8 JSON input and output schema. Parsed payload values equal the prior fixed cases; Unicode escaping now fixed.",
+  "instructionSha256": {
+    "before": "d54767be661391c47cf946cf81b0adf18122d58341ac81f5d9c3f585d4fb64dd",
+    "after": "99c46d34fcf6e5b9d2c82194562ebbbb1ae8be437409b9718b6c68aa29f933e2"
+  },
+  "inputSha256": {
+    "late-club": "8b0ce8bc388934567944a563e77fe24a6de66f45e54f4f92bbaf5f1e0bfefb9f",
+    "incomplete-initial": "53b86b36d6221e63cfd99d89b23963d7e875920a0dc010a6aaa39487611f25f5",
+    "reasonable-alternative": "7b5eb63d9e6be6da1399b6bc68c265828d2d6ec9105f6bce8b5136651535e320"
+  },
+  "nativeSha256": "112fae7a5a1223e673c8a1791d32338f37df8b527ff1159bb8adac6c4dbf1b4b",
+  "probeSha256": "071a7b236b9d50b31cbd51243b67a6af45e9d57182d398e86478bfbb1519d26f",
+  "helperSha256": "5db7def48cb3226d78cc270eda70d3ac25f5d05b2ff0080bf8768ffae1fed973",
+  "predeclaredRubric": {
+    "late-club": "Revise should identify CT as avoidable loss and C5 as feasible improvement from public history. Criticizing only explanation does not count.",
+    "incomplete-initial": "Revise for absence of a meaningful complete initial route, rather than inventing false card facts.",
+    "reasonable-alternative": "No blocking finding solely because a third-round hold-up is preferred. Evaluate any other evidence-supported finding independently."
+  },
+  "caseOrigin": {
+    "late-club": "Exact historical public snapshot and corrected-explanation candidate, decision0021 attempt01. No hidden defender hands or offline proof supplied.",
+    "incomplete-initial": "Synthetic omission case on original 3NT snapshot. Candidate reduced to immediate card plus vague develop-and-cash instruction.",
+    "reasonable-alternative": "Synthetic reasonable-strategy control on original 3NT. Only changes hold-up from third round to second round and corresponding explanation; explicitly acknowledges communications risk."
+  }
+}
