@@ -73,7 +73,10 @@ Return one JSON object with these fields:
 - "plan": an object containing the fields "update" and "text".
 - "selectedCard": the current card, chosen from the response schema's
   legal-card enum.
-- "publicReason": a brief explanation of the card chosen now.
+- "publicReason": a brief explanation of the current choice and its public
+  basis. When new public play establishes a fact relevant to the current
+  trick or remaining line, briefly state that fact and its bearing on the
+  play. Keep unresolved holdings conditional.
 
 The "update" field inside "plan" specifies how the program should
 maintain the active plan:
