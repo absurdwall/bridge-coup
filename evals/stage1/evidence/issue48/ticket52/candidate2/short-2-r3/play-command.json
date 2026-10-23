@@ -1,0 +1,19 @@
+[
+  "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/.build/arm64-apple-macosx/debug/bridge-play",
+  "--fixture",
+  "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/corpus/boards/synthetic.json",
+  "--output",
+  "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate2/short-2-r3/play",
+  "--codex",
+  "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate2/short-2-r3/wire/codex-wire-audit",
+  "--timeout",
+  "180",
+  "--run-timeout",
+  "1800",
+  "--opponent",
+  "conserve-high",
+  "--sole-legal",
+  "true",
+  "--decisions",
+  "8"
+]

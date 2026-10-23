@@ -1,0 +1,158 @@
+{
+  "rubric_version": "stage1-basic-v4",
+  "results": [
+    {
+      "id": "decision-0001",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "plan feasibility and trick counting",
+          "fact": "The club route supplies nine tricks against a 4–1 break and ten against 3–2.",
+          "explanation": "Authorized holdings are South CAK864 and North CQ72, with five outside winners in DA, DK, HA, HK and SA. After CA and CQ, ducking the third club preserves CK to remove the fourth defensive club, leaving one established club. South has outside entries to recover the lead.",
+          "quotes": [
+            "If clubs are 4–1, duck the third club round rather than spending the king; regain the lead in South, cash the king to remove the last opposing club, then cash the remaining club."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0002",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "current action and retained plan",
+          "fact": "DA wins the opening trick and preserves the planned club development.",
+          "explanation": "The authorized current trick is DQ–D3–D4, and South holds DA and DK. Playing DA wins and leaves DK, HA and SA available as South entries for the retained feasible club route.",
+          "quotes": [
+            "Win the diamond lead, then develop clubs while retaining the diamond king as an entry and stopper."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0003",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "current action and retained plan",
+          "fact": "Starting with CA fits the executable club safety route.",
+          "explanation": "Authorized history records DA already won, and South still holds CAK864 opposite CQ72. CA followed by a low club to CQ leaves CK available after a third-round duck against 4–1; DK, HA and SA provide recovery entries.",
+          "quotes": [
+            "Start clubs with the ace, then lead toward dummy’s queen, retaining the king to handle a 4–1 break safely."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0004",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "resource preservation",
+          "fact": "C2 preserves CQ for the planned second club round.",
+          "explanation": "The authorized current trick contains South’s CA and West’s C3; North holds CQ72. Following with C2 retains CQ7, allowing South to lead a low club to CQ and North subsequently to return C7.",
+          "quotes": [
+            "Follow low, preserving the queen as the next club winner and entry to dummy."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0005",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "route continuity",
+          "fact": "C4 executes the next unfinished step without spending the reserved king.",
+          "explanation": "Authorized history shows CA won with both defenders following. South now holds CK864 opposite CQ7. Leading C4 to CQ preserves CK86 for either cashing against 3–2 or ducking the third round against 4–1.",
+          "quotes": [
+            "Lead to dummy’s queen, keeping the club king in reserve should the suit break 4–1."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0006",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "conditional inference and current action",
+          "fact": "CQ wins, and East’s response distinguishes the remaining relevant club breaks.",
+          "explanation": "Authorized history shows West followed C3 and East C5 to CA; West has now played C9 on C4. With North holding CQ7 and South CK86, CQ is unbeatable. An East discard establishes an original 4–1 break; an East club follow establishes 3–2.",
+          "quotes": [
+            "Win with the queen. East’s follow or discard will reveal whether to cash the king next or duck a club to protect against a 4–1 break."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0007",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "establishment and trick counting",
+          "fact": "C7 to CK establishes South’s C8 and C6 for ten total tricks.",
+          "explanation": "Authorized history records defenders’ C3, C5, C9 and CT, leaving only CJ outstanding. North holds C7 and South CK86. CK removes CJ, after which C8 and C6 cash. Five club tricks plus DA, DK, HA, HK and SA total ten; the heart winners remain accessible.",
+          "quotes": [
+            "Lead to the club king, drawing the last outstanding club and establishing South’s eight and six for ten tricks."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0008",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "authorized inference and continuation",
+          "fact": "East’s discard locates the sole outstanding CJ with West, so CK completes club establishment.",
+          "explanation": "Authorized history accounts for every club except CJ and the partnership’s remaining clubs. East has discarded H2 on North’s C7, proving East has no clubs. South’s CK therefore captures West’s CJ and leaves C8 and C6 as winners, consistent with the retained 3–2 continuation and ten-trick count.",
+          "quotes": [
+            "Cash the king to capture West’s remaining jack, establishing both remaining clubs for ten tricks overall."
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Small-sample basic evaluation; no claim of broad grading reliability."
+}

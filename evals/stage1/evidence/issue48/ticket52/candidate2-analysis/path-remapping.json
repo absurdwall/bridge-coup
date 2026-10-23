@@ -1,0 +1,21 @@
+{
+  "scope": "Path interpretation only; original absolute paths and raw artifacts remain byte-for-byte unchanged.",
+  "captured_repository_root": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup",
+  "portable_repository_root": "--repo argument",
+  "candidate_root_relative": "evals/stage1/evidence/issue48/ticket52/candidate2",
+  "captured_external_root": "/tmp/bridge-coup-issue48-context",
+  "portable_external_originals_relative": "evals/stage1/evidence/issue48/ticket52/candidate2-analysis/originals",
+  "captured_interruption_root": "/tmp/bridge-coup-issue48-context/candidate2-interruption",
+  "portable_interruption_originals_relative": "evals/stage1/evidence/issue48/ticket52/candidate2-analysis/originals/interruption",
+  "captured_binary": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/.build/arm64-apple-macosx/debug/bridge-play",
+  "portable_binary_archive": "runtime/candidate2-runtime.tar.gz!bridge-play",
+  "portable_bundle_archive": "runtime/candidate2-runtime.tar.gz!BridgeTeacher_BridgeExpert.bundle/",
+  "frozen_source_commit": "0a307cbde5498ed24b73da0d781cb9113ce92180",
+  "portable_source_archive": "runtime/candidate2-source.tar.gz",
+  "native_dependency": {
+    "original_path": "/Users/tingranwang/.nvm/versions/node/v24.12.0/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/bin/codex",
+    "sha256": "112fae7a5a1223e673c8a1791d32338f37df8b527ff1159bb8adac6c4dbf1b4b",
+    "required_for_saved_audit": false,
+    "required_for_new_native_execution": true
+  }
+}

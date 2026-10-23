@@ -1,0 +1,19 @@
+{
+  "utc": "2026-10-23T20:11:53.922361+00:00",
+  "pid": 65283,
+  "pgid": 65283,
+  "session": 65283,
+  "launcher_pid": 65280,
+  "launcher_pgid": 65280,
+  "interpreter": "/tmp/bridge-coup-issue48-context/venv/bin/python",
+  "command": [
+    "/tmp/bridge-coup-issue48-context/venv/bin/python",
+    "-u",
+    "/private/tmp/bridge-coup-issue48-context/candidate2-interruption/recover_remaining.py",
+    "--run"
+  ],
+  "cwd": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup",
+  "wrapper_sha256": "f9d6cc24602c0af66c6fdebc0a20146d91ae09649b8a474d2432ec37e6cf9301",
+  "stdout_stderr": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate2-analysis/operational-recovery/detached-orchestrator.log",
+  "scope": "Reviewed explicit operational supplement, never interrupted board resume or uninterrupted22pass."
+}

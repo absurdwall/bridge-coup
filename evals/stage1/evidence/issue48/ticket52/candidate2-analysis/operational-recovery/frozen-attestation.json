@@ -1,0 +1,58 @@
+{
+  "utc": "2026-10-23T20:11:54.359230+00:00",
+  "frozen_preflight": "returned_without_error",
+  "candidate_sha256": "ee24965e51381ffa06bad7da72f1fc35928737900a390f20d73dc421aed3e08e",
+  "source_commit": "0a307cbde5498ed24b73da0d781cb9113ce92180",
+  "binary_sha256": "ebda3edbf6db956e9d0b9cb91ae8e6a2255adeef71c225f97f475c8e43ccbeeb",
+  "native_sha256": "112fae7a5a1223e673c8a1791d32338f37df8b527ff1159bb8adac6c4dbf1b4b",
+  "native_version": "codex-cli 0.160.0",
+  "native_catalog_sha256": "262dc36e0e7beb290aef8196bd59f42acf51647b8f7b68dafa533ae7742019e6",
+  "role_configurations": {
+    "player": {
+      "model": "gpt-6.1-sol",
+      "effort": "medium",
+      "additional_tools": []
+    },
+    "reviewer": {
+      "model": "gpt-6.1-sol",
+      "effort": "medium",
+      "additional_tools": []
+    }
+  },
+  "execution_configuration": {
+    "version": "stage1-reviewed-case-execution-v1",
+    "case_options": {
+      "short-1": {
+        "mechanical_sole_legal": true
+      },
+      "short-2": {
+        "mechanical_sole_legal": true
+      },
+      "short-3": {
+        "mechanical_sole_legal": false
+      },
+      "short-4": {
+        "mechanical_sole_legal": true
+      },
+      "short-5": {
+        "mechanical_sole_legal": true
+      },
+      "short-6": {
+        "mechanical_sole_legal": true
+      },
+      "full-development": {
+        "mechanical_sole_legal": true
+      },
+      "full-reserved": {
+        "mechanical_sole_legal": true
+      }
+    },
+    "short3_coverage": {
+      "predicate_version": "public-first-club-showout-v2",
+      "core": "All three repetitions must demonstrate their two-round information task and pass delivered quality.",
+      "pre_showout_facet": "The prescribed three-run cohort must demonstrate at least one eligible model window and correct semantic use before the other defender's first actual club show-out. Every unexercised window is reported. No forced reference route or reroll is permitted.",
+      "interpretation": "A third club may be led, followed or discarded on another suit. Event-only opportunity, actual model request and semantic use remain separate. First-show-out eligibility is a screen; prior equivalent public deductions require independent adjudication.",
+      "impact": "Only short-3 disables mechanical sole-legal skipping. Its unchanged twelve-delivery bound may be reached after fewer actual plays, with more model/reviewer work. This is not a prompt-only controlled comparison."
+    }
+  }
+}

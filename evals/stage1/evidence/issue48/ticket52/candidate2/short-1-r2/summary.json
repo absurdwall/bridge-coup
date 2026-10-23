@@ -1,0 +1,272 @@
+{
+  "id": "short-1-r2",
+  "case_id": "short-1",
+  "kind": "short",
+  "board": "boards/synthetic.json",
+  "decisions": 1,
+  "opponent_policy": "conserve-high",
+  "execution_config_version": "stage1-reviewed-case-execution-v1",
+  "mechanical_sole_legal": true,
+  "task_complete": true,
+  "legal_execution": "pass",
+  "quality": "pass",
+  "playing": {
+    "exit_code": 0,
+    "wall_seconds": 290.636
+  },
+  "grading": {
+    "exit_code": 0,
+    "grading_evidence_available": true
+  },
+  "coverage": {
+    "status": "covered",
+    "basis": "Initial actual model plan before the first controlled action."
+  },
+  "counts": {
+    "actual_events": 2,
+    "complete": false,
+    "tricks": [
+      0,
+      0
+    ],
+    "model_request_attempts": 3,
+    "reviewer_request_attempts": 3,
+    "actual_rpc_requests": 6,
+    "model_actions": 1,
+    "forced_actions": 0,
+    "driver_opponent_actions": 0,
+    "initial_controlled_actions": 0,
+    "initial_opponent_actions": 1,
+    "retries": 0
+  },
+  "wire": {
+    "upstream_request_attempts": 6,
+    "http_statuses": {
+      "200": 6
+    },
+    "transport_errors": [],
+    "missing_response_metadata": [],
+    "observed_response_models": [
+      "gpt-6.1-sol"
+    ],
+    "protocol_status": "pass",
+    "protocol_errors": [],
+    "roles": {
+      "player": {
+        "upstream_attempts": 3,
+        "usage_observed_attempts": 3,
+        "usage_unknown_attempts": 0,
+        "observed_tokens": {
+          "cached_input_tokens": 7040,
+          "input_tokens": 15915,
+          "output_tokens": 3530,
+          "reasoning_output_tokens": 2607,
+          "total_tokens": 19445
+        }
+      },
+      "reviewer": {
+        "upstream_attempts": 3,
+        "usage_observed_attempts": 3,
+        "usage_unknown_attempts": 0,
+        "observed_tokens": {
+          "cached_input_tokens": 0,
+          "input_tokens": 6631,
+          "output_tokens": 3103,
+          "reasoning_output_tokens": 2660,
+          "total_tokens": 9734
+        }
+      },
+      "unknown": {
+        "upstream_attempts": 0,
+        "usage_observed_attempts": 0,
+        "usage_unknown_attempts": 0,
+        "observed_tokens": {}
+      }
+    },
+    "role_requests": [
+      {
+        "wire_request": 0,
+        "role": "player",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2369,
+          "output_tokens": 1062,
+          "total_tokens": 3431,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 807
+        }
+      },
+      {
+        "wire_request": 1,
+        "role": "reviewer",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2106,
+          "output_tokens": 1761,
+          "total_tokens": 3867,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 1523
+        }
+      },
+      {
+        "wire_request": 2,
+        "role": "player",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 5021,
+          "output_tokens": 1761,
+          "total_tokens": 6782,
+          "cached_input_tokens": 2176,
+          "reasoning_output_tokens": 1414
+        }
+      },
+      {
+        "wire_request": 3,
+        "role": "reviewer",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2285,
+          "output_tokens": 1125,
+          "total_tokens": 3410,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 949
+        }
+      },
+      {
+        "wire_request": 4,
+        "role": "player",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 8525,
+          "output_tokens": 707,
+          "total_tokens": 9232,
+          "cached_input_tokens": 4864,
+          "reasoning_output_tokens": 386
+        }
+      },
+      {
+        "wire_request": 5,
+        "role": "reviewer",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2240,
+          "output_tokens": 217,
+          "total_tokens": 2457,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 188
+        }
+      }
+    ],
+    "usage_note": "Upstream per-HTTP usage includes all observed failures/retries; missing remains unknown. Do not add this to native per-turn totals."
+  },
+  "requests": {
+    "status": "observed",
+    "attempts": 6,
+    "late_observations": 0,
+    "roles": {
+      "player": {
+        "attempts": 3,
+        "elapsed_seconds": 155.15146696567535,
+        "usage_observed_attempts": 3,
+        "usage_unknown_attempts": 0,
+        "usage_complete": true,
+        "observed_tokens": {
+          "cachedInputTokens": 7040,
+          "inputTokens": 15915,
+          "outputTokens": 3530,
+          "reasoningOutputTokens": 2607,
+          "totalTokens": 19445
+        },
+        "outcomes": {
+          "valid": 3
+        },
+        "request_seconds": [
+          49.18567097187042,
+          76.15129494667053,
+          29.8145010471344
+        ]
+      },
+      "reviewer": {
+        "attempts": 3,
+        "elapsed_seconds": 135.1922299861908,
+        "usage_observed_attempts": 3,
+        "usage_unknown_attempts": 0,
+        "usage_complete": true,
+        "observed_tokens": {
+          "cachedInputTokens": 0,
+          "inputTokens": 6631,
+          "outputTokens": 3103,
+          "reasoningOutputTokens": 2660,
+          "totalTokens": 9734
+        },
+        "outcomes": {
+          "valid": 3
+        },
+        "request_seconds": [
+          82.31360495090485,
+          39.72172498703003,
+          13.15690004825592
+        ]
+      }
+    },
+    "reviewer_retries": 0,
+    "semantic_reviews": 3,
+    "feedback_revisions": 2,
+    "clarification_requests": 0,
+    "usage_note": "Observed native per-turn last usage, including failed attempts when available. Missing is unknown, never zero; late observations are not extra requests."
+  },
+  "dispositions": {
+    "reviewApproved": 1,
+    "contested": 0
+  },
+  "stop_outcome": "short-bound-complete",
+  "grader_cost": {
+    "elapsed_seconds": 14.721,
+    "observed_usage": [
+      {
+        "input_tokens": 14552,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 487,
+        "reasoning_output_tokens": 147
+      }
+    ],
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "medium"
+  },
+  "timing": {
+    "elapsedSeconds": 290.36175990104675,
+    "lastControlledActionSeconds": 290.35774290561676,
+    "environmentOverheadSeconds": 0.008823990821838379,
+    "initialRequestSeconds": 290.3529359102249,
+    "subsequentRequestSeconds": [],
+    "failedRequestSeconds": null,
+    "automaticRuntimeSeconds": 290.36175990104675,
+    "humanWaitingSeconds": 0
+  },
+  "quality_counts": {
+    "pass": 1,
+    "fail": 0,
+    "uncertain": 0
+  },
+  "review_required": [],
+  "plan_updates": {
+    "keep": 0,
+    "replace": 1,
+    "withdraw": 0
+  },
+  "failures": [],
+  "outcome": "pass"
+}
