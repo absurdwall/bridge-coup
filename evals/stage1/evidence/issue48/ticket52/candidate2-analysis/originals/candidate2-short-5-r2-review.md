@@ -1,0 +1,38 @@
+# Candidate 2 short-5-r2 independent adjudication
+
+**Quality: pass — 12 delivered decisions pass, 0 fail, 0 uncertain. Core diamond-establishment/entry-preservation coverage: demonstrated. Completed CA crossing and diamond cashout: not exercised within the bound.** Frozen source `0a307cbde5498ed24b73da0d781cb9113ce92180`; normal operational-supplement slot 14, separate from interrupted short-5-r1.
+
+Evidence root: `/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate2/short-5-r2`. Read the brief/full rubric, all final answers and then-effective plans/public snapshots in `grade/input.json`, corresponding actual decision records, full saved raw grader findings and summary. Each canonical input, raw final output and effective plan matches its decision record. Two replacements and ten keeps; initial decision and decision 3 each have two semantic rounds, producing two rejected drafts but no extra delivered decisions.
+
+| Delivery / revision | Status | Exact final excerpt and authorized support |
+|---|---|---|
+| 1 / 4, D4 | Pass | “We have six outside winners, including the spade ace already taken, and normally need three diamond tricks.” SA already won plus SQ, HA/HK and CA/CK are six total. South D43 toward North KQ975 permits the stated early-concession/deep-finesse route while preserving CA. |
+| 2 / 6, D9 | Pass | “Play the nine as planned, preserving both diamond honors and the club ace entry while establishing the suit.” D9 over actual West D6 retains KQ75 and CA; South still has D3. |
+| 3 / 9, S4, replace | Pass | “Play S4, preserving SQ against East's possible long spades.” On East S2, South Q74/North 65 permit a duck. East initially holding five spades is still publicly possible; if West is void, North wins cheaply and SQ remains control. The replacement gives executable branches for North winning or West winning and continuing spades. |
+| 4 / 11, S5 | Pass | “Follow low; West wins this trick while the spade queen remains available to regain control.” North 65 cannot beat current West S8; South Q7 remains. |
+| 5 / 15, SQ | Pass | “Win the queen now, then lead the remaining diamond toward the king, preserving the club ace as dummy's entry.” SQ beats actual ST; South D3/North KQ75 and CA remain. East's actual club discard on this spade round establishes its void. |
+| 6 / 16, D3 | Pass | “Continue diamond development toward the king, keeping the club ace to reach the established winners.” This is the actual remaining South diamond, not reuse of D4. North retains KQ75/CA. |
+| 7 / 18, DK | Pass | “Cover the ten with the king, forcing out the ace or retaining the lead to continue diamonds.” DK beats actual West DT; DA's owner remains unknown until East plays. Both stated branches remain executable. |
+| 8 / 21, HK | Pass | “Next unblock the club king and cross to the club ace to cash diamonds, checking their break.” After East DA wins DK and leads HQ, South HK wins. North Q75/CA and South CK73 permit the stated route; the remaining low diamonds are not asserted unconditionally good. |
+| 9 / 23, H3 | Pass | “Follow low under the king, retaining the club ace entry for the diamonds.” H3 under HQ/HK/H5 leaves North H4 for later return to South HA. |
+| 10 / 24, CK | Pass | “Cash the club king before crossing to the ace for diamonds; dummy's remaining heart provides a return to the heart ace.” South CK73 and North AT4/H4 make both named transfers possible. |
+| 11 / 26, C4 | Pass | “Let the king win, preserving the club ace as the entry to dummy's diamonds.” North follows low under South CK; South retains C73 to cross to CA, North retains AT and Q75. |
+| 12 / 28, C3 | Pass | “Cross to the club ace to cash the diamond queen and check whether the remaining diamonds are winners.” C3 leads toward North AT. DQ is now top; D7/D5 remain conditional on the unseen remaining D8/D2 distribution. |
+
+## Concessions, remaining yield and access
+
+The first final plan correctly distinguishes a 3–3 condition from favorable but unguaranteed 4–2 holdings. An initial D9 loss preserves KQ75. If DK then loses to DA on the second round, CA can reach Q75: on 3–3, DQ removes the remaining one diamond from each defender and D7/D5 subsequently win, giving three diamond tricks. If DK wins but DQ loses to DA on the third round, CA reaches 75: DK already won plus two remaining winners gives three total. It does not claim three still remain after a winning DK and losing DQ. A first-round winning D9 can improve the total; the plan does not need that favorable result.
+
+The replacement after the first concession retains this accounting and preserves SQ against a genuinely possible long East spade suit. In the actually applicable branch, West wins S8 and continues ST; SQ wins, South D3 reaches DK and East DA wins. North therefore has Q75, not a phantom spent honor or an overstated three-winner inventory after already winning DK. At the final snapshot, four tricks are already won (SA, SQ, HK, CK). CA, three conditional diamonds and remaining HA are five more; North H4 returns to HA after diamond cashing. On a revealed 4–2 break the low diamonds are not automatically winners; both the plan and final reason require checking/reassessment. No unique best line or unconditional adverse-break guarantee is imposed.
+
+## Actual material coverage and limits
+
+Actual D4/D6/D9/DJ creates the first diamond loss while CA remains. East returns S2, West wins S8 after the deliberate duck, and West continues ST. East discards C2 on that spade trick (sequence 14), publicly proving East spade-void before East subsequently wins DA. Thus East's later HQ switch is not a voluntary refusal to continue an available spade suit. No hidden deal or future play is needed for that conclusion.
+
+The second diamond concession is actually D3/DT/DK/DA. HQ/HK/H5/H3 supplies ordinary outside-control recovery; it neither returns a diamond nor gifts a North entry. South actually cashes CK, North C4 preserves CA, and South then actually leads C3 toward CA. This exercises establishment, real defensive responses, later model judgments and necessary entry preservation/use planning. It is not merely an apparent CA opportunity or an opponent-provided bypass of the entry problem.
+
+The bounded record stops at that C3 lead: CA has **not** yet been played and Q75 has **not** been cashed. Therefore completed CA transport, an observed final 3–3 revelation and full contract completion are not claimed. The core trigger is demonstrated; the stronger complete-entry/cashout outcome is not. The earlier interrupted short-5-r1 stays a separate incomplete diagnostic capture and is not stitched into this run.
+
+## Raw reconciliation and exact counts
+
+Full saved raw grader: 12 passes, no quality dispute; independent findings above support each pass rather than relying on approval. Normal playing exit 0, short bound complete; 12 model deliveries plus one forced North S6 action, 29 actual cards, seven completed tricks (4–3), final C3 trick unfinished. Fourteen player/fourteen reviewer attempts, 28 actual RPC requests, two semantic feedback revisions, zero technical retries, twelve reviewed approvals and no contested delivery. Driver automatic time 401.302350 seconds; separate outer playing wall time 401.870 seconds. These are coexisting timers, not interchangeable totals. No hidden fixture, other unfinished output, source/index/raw-artifact edit, live feedback, new model call or GitHub operation was used. This report is a completed short-task quality/coverage overlay, not full-matrix acceptance or a broad ability claim.

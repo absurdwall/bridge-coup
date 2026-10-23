@@ -1,0 +1,36 @@
+{
+  "rubric_version": "stage1-basic-v4",
+  "results": [
+    {
+      "id": "play",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "legal play and consistency",
+          "fact": "North can legally play D3, and South can win the opening diamond.",
+          "explanation": "Authorized holdings give North D8653 and South DAK, with West's DQ led. The selected D3 follows suit and agrees with the plan.",
+          "quotes": [
+            "\"selectedCard\":\"D3\"",
+            "Play a low diamond from dummy and win in hand."
+          ]
+        },
+        {
+          "dimension": "feasible route and trick counting",
+          "fact": "The stated club sequence supplies at least four club tricks against either a 3-2 or 4-1 split.",
+          "explanation": "Authorized clubs are South AK864 opposite North Q72. Cashing the ace, crossing to the queen and returning to the king is executable. A 4-1 split requires one concession to establish South's fifth club; the remaining diamond winner and major-suit aces provide entries. The authorized SA, HAK and DAK supply five outside winners, making nine with four clubs.",
+          "quotes": [
+            "We have five outside winners: two diamonds, two hearts and one spade.",
+            "Cash the club ace, lead a low club to dummy's queen, then return dummy's remaining club to the king.",
+            "On a 3-2 break cash the established clubs; on a 4-1 break concede the fourth club to establish the fifth."
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Small-sample basic evaluation; no claim of broad grading reliability."
+}

@@ -1,0 +1,16 @@
+{
+  "utc": "2026-10-23T20:06:40.655095+00:00",
+  "cause": "User interrupted the parent turn, then explicitly authorized continuing; original orchestration session21372 no longer exists. No live board restart/reconnect/reroll.",
+  "original_runner_session": 21372,
+  "runner_exit_status": null,
+  "runner_exit_status_basis": "Unknown; session registry is lost and process is absent.",
+  "proxy_listener_probe_exit": 1,
+  "proxy_listener_stdout": "",
+  "process_identities": "  PID  PPID  PGID ELAPSED COMMAND\n62456     1 62456   08:00 /Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/.build/arm64-apple-macosx/debug/bridge-play --fixture /Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/corpus/boards/pavlicek-deep-finesse.json --output /Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate2/short-5-r1/play --codex /Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate2/short-5-r1/wire/codex-wire-audit --timeout 180 --run-timeout 1800 --opponent pavlicek-entry --sole-legal true --decisions 12\n62459 62456 62459   08:00 /Users/tingranwang/.nvm/versions/node/v24.12.0/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/bin/codex app-server --listen stdio:// -c model_provider=\"bridge-wire-audit\" -c model_providers.bridge-wire-audit={name=\"bridge-wire-audit\",base_url=\"http://127.0.0.1:50922\",wire_api=\"responses\",requires_openai_auth=true,supports_websockets=false} -c features.enable_request_compression=false\n",
+  "source_commit": "0a307cbde5498ed24b73da0d781cb9113ce92180",
+  "frozen_cycle": 2,
+  "completed_attempts_preserved": 12,
+  "interrupted_attempt": "short-5-r1",
+  "original_attempt_status_left_unchanged": true,
+  "capture_loss_usage": "Unobserved/unknown; no zero or normal exit is invented."
+}
