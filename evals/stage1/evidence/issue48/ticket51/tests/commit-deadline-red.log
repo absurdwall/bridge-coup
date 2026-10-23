@@ -1,0 +1,26 @@
+[0/1] Planning build
+Building for debugging...
+[0/7] Write sources
+[1/7] Write swift-version--58304C5D6DBC2206.txt
+[3/5] Emitting module BridgePlayingTests
+[4/5] Compiling BridgePlayingTests ReviewRecoveryTests.swift
+[4/6] Write Objects.LinkFileList
+[5/6] Linking BridgeTeacherPackageTests
+Build complete! (1.99s)
+Test Suite 'Selected tests' started at 2026-10-23 12:32:29.918.
+Test Suite 'BridgeTeacherPackageTests.xctest' started at 2026-10-23 12:32:29.919.
+Test Suite 'ReviewRecoveryTests' started at 2026-10-23 12:32:29.919.
+Test Case '-[BridgePlayingTests.ReviewRecoveryTests testAuthorizationCannotCommitAfterAutomaticDeadline]' started.
+/Users/tingranwang/.codex/worktrees/issue51-review-recovery/bridge-coup/Tests/BridgePlayingTests/ReviewRecoveryTests.swift:138: error: -[BridgePlayingTests.ReviewRecoveryTests testAuthorizationCannotCommitAfterAutomaticDeadline] : failed - Expired authorization cannot commit its plan
+/Users/tingranwang/.codex/worktrees/issue51-review-recovery/bridge-coup/Tests/BridgePlayingTests/ReviewRecoveryTests.swift:141: error: -[BridgePlayingTests.ReviewRecoveryTests testAuthorizationCannotCommitAfterAutomaticDeadline] : XCTAssertNil failed: "PlanAssociation(boardID: 625C29B9-EBF8-4E00-B469-5E6C431DFE9F, controller: BridgeDomain.Seat.south, sourceSnapshotID: "625C29B9-EBF8-4E00-B469-5E6C431DFE9F:1:south", sourceSessionID: 4DD179B8-224E-4660-91B2-B832D2C6D34A, text: "Preserve entries; establish clubs.")"
+Test Case '-[BridgePlayingTests.ReviewRecoveryTests testAuthorizationCannotCommitAfterAutomaticDeadline]' failed (0.182 seconds).
+Test Suite 'ReviewRecoveryTests' failed at 2026-10-23 12:32:30.102.
+	 Executed 1 test, with 2 failures (0 unexpected) in 0.182 (0.182) seconds
+Test Suite 'BridgeTeacherPackageTests.xctest' failed at 2026-10-23 12:32:30.102.
+	 Executed 1 test, with 2 failures (0 unexpected) in 0.182 (0.182) seconds
+Test Suite 'Selected tests' failed at 2026-10-23 12:32:30.102.
+	 Executed 1 test, with 2 failures (0 unexpected) in 0.182 (0.183) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

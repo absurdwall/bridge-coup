@@ -76,6 +76,12 @@ final class PlayingCoreTests: XCTestCase {
         let failure = try JSONSerialization.jsonObject(with: Data(contentsOf: output.appendingPathComponent("failure.json"))) as! [String: Any]
         XCTAssertEqual(failure["category"] as? String, "invalidOutput")
         XCTAssertEqual(failure["rawOutput"] as? String, #"{"selectedCard":"D3"}"#)
+        let attempts = try XCTUnwrap(failure["requestEvidence"] as? [[String: Any]])
+        XCTAssertEqual(attempts.count, 1)
+        XCTAssertEqual(attempts[0]["role"] as? String, "player")
+        XCTAssertEqual(attempts[0]["outcome"] as? String, "protocolFailure")
+        XCTAssertEqual(attempts[0]["rawOutput"] as? String, #"{"selectedCard":"D3"}"#)
+        XCTAssertEqual((attempts[0]["identity"] as? [String:Any])?["observedModel"] as? String, "gpt-6.1-sol")
         XCTAssertFalse(FileManager.default.fileExists(atPath: output.appendingPathComponent("decision.json").path))
     }
 

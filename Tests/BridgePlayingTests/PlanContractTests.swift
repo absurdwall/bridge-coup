@@ -158,6 +158,8 @@ final class PlanContractTests: XCTestCase {
                 result = {'turn': {'id': f'turn-{turn}'}}
             print(json.dumps({'id': request['id'], 'result': result}), flush=True)
             if method == 'turn/start':
+                usage = {'inputTokens':101,'cachedInputTokens':12,'outputTokens':23,'reasoningOutputTokens':7,'totalTokens':124}
+                print(json.dumps({'method':'thread/tokenUsage/updated','params':{'threadId':'schema-thread','turnId':f'turn-{turn}','tokenUsage':{'last':usage,'total':{**usage,'totalTokens':124*turn}}}}),flush=True)
                 print(json.dumps({'method': 'turn/completed', 'params': {'threadId': 'schema-thread', 'turn': {'id': f'turn-{turn}', 'status': 'completed', 'items': [{'type': 'agentMessage', 'text': json.dumps(reply)}]}}}), flush=True)
         """#
         try script.write(to: runtime, atomically: true, encoding: .utf8)
@@ -185,6 +187,9 @@ final class PlanContractTests: XCTestCase {
         let withdrawn = try await expert.decide(board.snapshot(controller: .south))
         XCTAssertNil(withdrawn.planAssociation)
         XCTAssertNil(withdrawn.effectivePlan)
+        XCTAssertEqual(initial.requestEvidence?.first?.usage?.inputTokens, 101)
+        XCTAssertEqual(withdrawn.requestEvidence?.first?.usage?.totalTokens, 124)
+        XCTAssertEqual(withdrawn.requestEvidence?.first?.usage?.reasoningOutputTokens, 7)
     }
 }
 
