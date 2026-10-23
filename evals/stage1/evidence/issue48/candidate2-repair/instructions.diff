@@ -1,0 +1,71 @@
+diff --git a/Sources/BridgeExpert/Resources/DeclarerInstructions.txt b/Sources/BridgeExpert/Resources/DeclarerInstructions.txt
+index e918a028..c5ddf3af 100644
+--- a/Sources/BridgeExpert/Resources/DeclarerInstructions.txt
++++ b/Sources/BridgeExpert/Resources/DeclarerInstructions.txt
+@@ -47,14 +47,18 @@ Use this method to form or reassess a complete line in notrump or suit contracts
+    between the two hands. In suit contracts, arrange the use of trumps and
+    the timing of drawing trumps. Trace the key transitions: which hand
+    starts each phase, how control can be recovered after a concession,
+-   and how to reach the hand with the next source of tricks. The sources
+-   must be realizable in the chosen sequence.
++   and how to reach and cash the next source of tricks. Subtract every card
++   spent in key sequences, including losing plays, follows and unblockings.
++   Distinguish tricks already won, a source's total yield and winners still
++   reachable after the next entry. The sources must be realizable in that order.
+ 
+ 4. Test the material choices and changes. Compare the main alternatives
+    for decisions that determine the result, using reasonable defensive
+    counterplay to test the line. Prioritize changes that affect winners,
+    losers, entries, trump control or the overall route, and establish
+-   how the plan should adapt.
++   how the plan should adapt. Check any stated protection against material
++   legal defensive responses, including spot-card choices when they affect
++   the claimed result.
+ 
+ 5. Express a complete, executable plan. Organize it freely as a connected
+    strategic account of the selected line, its trick accounting, key reasons
+@@ -82,8 +86,12 @@ maintain the active plan:
+ For "replace", the "text" field contains the complete natural-language
+ declarer plan for the remaining board, developed using PLANNING GUIDANCE.
+ 
+-Use "replace" when the unfinished line needs revision or the position
+-supports a better line.
++Before keeping, check the unfinished route after spending selectedCard,
++including critical explicitly reserved resources and transfers. Put material
++changes to that route in a complete replacement plan. Routine interchangeable
++cards, completed phases and eliminated conditions do not by themselves require
++replacement. Use "replace" when the unfinished line needs revision or the
++position supports a better line.
+ 
+ The program carries this text verbatim into the next input's
+ "effectivePlan" field. When revising a plan, supply the complete
+diff --git a/Sources/BridgeExpert/Resources/ReviewerInstructions.txt b/Sources/BridgeExpert/Resources/ReviewerInstructions.txt
+index 817a8fc4..8515a504 100644
+--- a/Sources/BridgeExpert/Resources/ReviewerInstructions.txt
++++ b/Sources/BridgeExpert/Resources/ReviewerInstructions.txt
+@@ -16,15 +16,22 @@ REVIEW PROCESS
+    the handling of main risks and material defensive changes, and the
+    timing, entries, unblocking and control connecting both hands.
+    Include material suit breaks and, where relevant, trump use, ruffing and
+-   the timing of drawing trumps. Follow the key transitions far enough to
+-   judge whether the principal route can be played with the available
+-   resources and stated conditions.
++   the timing of drawing trumps. Follow key transitions and concessions
++   through control recovery, access and actual cashing. Verify concrete
++   remaining cards after key sequences, including losing plays, follows and
++   unblockings; distinguish tricks already won, total yield and winners still
++   reachable after the next entry. Test stated protection against material
++   legal defensive choices, including spot cards when they affect the claim.
+ 
+ 3. Assess the current action. Check legality and its partnership result in
+    the actual trick, including seats still to play, and its consequences
+    for the remaining board. Examine important alternatives as needed
+    to assess the partnership result. Check that the card, plan operation
+    and explanation are consistent with each other and the actual position.
++   Check critical unfinished resources and explicitly reserved transfers after
++   spending the current card. A materially changed route belongs in a complete
++   replacement plan. Routine interchangeable cards can retain the same route;
++   completed phases and eliminated conditions remain historical.
+ 
+ Before deciding, complete both assessments and verify each blocking argument
+ against the supplied position and DECISION RULES.

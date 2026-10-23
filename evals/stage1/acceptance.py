@@ -12,20 +12,36 @@ def load(path):
     return json.loads(Path(path).read_text())
 
 
+def execution_configuration():
+    configuration = load(ROOT / 'case-execution.json')
+    case_ids = {case['id'] for case in load(ROOT / 'corpus/manifest.json')['cases']}
+    options = configuration['case_options']
+    if configuration['version'] != 'stage1-reviewed-case-execution-v1' or set(options) != case_ids:
+        raise ValueError('Unreviewed case execution configuration')
+    if any(set(option) != {'mechanical_sole_legal'} or type(option['mechanical_sole_legal']) is not bool for option in options.values()):
+        raise ValueError('Case mechanical-sole-legal options must be explicit booleans')
+    return configuration
+
+
 def schedule(manifest):
+    configuration = execution_configuration()
     return [{'id': '%s-r%d' % (case['id'], number), 'case_id': case['id'],
              'kind': case['kind'], 'board': case['board'], 'decisions': case.get('decisions'),
-             'opponent_policy': case['opponent_policy']}
+             'opponent_policy': case['opponent_policy'],
+             'execution_config_version': configuration['version'],
+             **configuration['case_options'][case['id']]}
             for case in manifest['cases'] for number in range(1, case['required_runs'] + 1)]
 
 
-def inspect_play(board, trace, evidence):
+def inspect_play(board, trace, evidence, mechanical_sole_legal=None):
     """Replay actual events independently; audit all execution source labels."""
     import sys
     if str(ROOT) not in sys.path:
         sys.path.insert(0, str(ROOT))
     import corpus
     errors = []
+    if mechanical_sole_legal is not None and trace.get('mechanicalSoleLegal') is not mechanical_sole_legal:
+        errors.append('actual mechanical sole-legal mode differs from frozen case option')
     events = list(trace.get('initialEvents', []))
     if events != corpus.initial_events(board):
         errors.append('initial prefix differs from frozen board')
@@ -71,6 +87,8 @@ def inspect_play(board, trace, evidence):
                 if decision['action']['card'] != event['card'] or decision['snapshot']['events'] != events:
                     errors.append('model source does not bind to its actual event')
         elif source == 'forced':
+            if mechanical_sole_legal is False:
+                errors.append('forced controlled action while case mechanical skipping is disabled')
             if event['seat'] not in controlled or len(legal) != 1 or not decisions:
                 errors.append('forced source is not sole-legal after initial model plan')
         elif source == 'opponent':
@@ -153,26 +171,8 @@ def coverage(case_id, events, decisions, complete):
         if covered:
             return {'status': 'pending', 'basis': detail}
     elif case_id == 'short-3':
-        rounds = [events[i:i+4] for i in range(0, len(events) - 3, 4)]
-        club_rounds = [r for r in rounds if all(e['card'][0] == 'C' for e in r)]
-        second = club_rounds[1][-1]['sequence'] if len(club_rounds) >= 2 else None
-        break_revisions = [d['snapshot']['revision'] for d in decisions
-                           if second is not None and d['snapshot']['revision'] > second]
-        seen, localized_revisions = {'east': 0, 'west': 0}, []
-        for event in events:
-            if event['seat'] not in seen or not event['card'].startswith('C'):
-                continue
-            seen[event['seat']] += 1
-            if seen[event['seat']] != 3:
-                continue
-            other = 'west' if event['seat'] == 'east' else 'east'
-            next_other = next((e['sequence'] for e in events if e['sequence'] > event['sequence'] and e['seat'] == other), len(events))
-            localized_revisions += [d['snapshot']['revision'] for d in decisions
-                                    if event['sequence'] < d['snapshot']['revision'] <= next_other]
-        return {'status': 'pending' if break_revisions else 'uncovered',
-                'basis': 'Actual information windows observed; factual use, justified retention/replacement and non-invention require independent review.',
-                'facets': {'two_round_break_decision_revisions': break_revisions,
-                           'third_club_before_other_defender_revisions': localized_revisions}}
+        from coverage_windows import short3_windows
+        return short3_windows(events, decisions)
     elif case_id == 'short-4':
         honors, entry_revisions, post_two = set(), [], False
         for decision in decisions:
@@ -230,7 +230,7 @@ def write(path, value):
 
 
 def source_files():
-    paths = ['Package.swift', 'Scripts/capture-playing-wire.py', 'Scripts/step-playing.sh']
+    paths = ['Package.swift', 'Scripts/capture-playing-wire.py', 'Scripts/step-playing.sh', 'evals/stage1/case-execution.json']
     for directory in ('BridgeDomain', 'BridgeEngine', 'BridgeExpert', 'BridgeCodex', 'BridgeDriver', 'BridgePlayCLI'):
         paths += [str(p.relative_to(REPO)) for p in (REPO / 'Sources' / directory).rglob('*.swift')]
     paths += [str(p.relative_to(REPO)) for p in ROOT.glob('*.py')]
@@ -289,7 +289,7 @@ def freeze(output, binary, codex):
                  'requested_grader_model': 'gpt-6.1-sol', 'requested_grader_effort': 'medium',
                  'identity_limit': 'Requested and observable runtime identities only; hidden service resolution is not independently established.',
                  'request_timeout_seconds': 180, 'run_timeout_seconds': 1800, 'grader_timeout_seconds': 600,
-                 'mechanical_sole_legal': True, 'retry_policy': 'Five valid semantic reviews maximum per pending decision; four technical reviewer attempts maximum per round. Exhaustion stops without contested release. Player is never restarted.',
+                 'execution_configuration': execution_configuration(), 'retry_policy': 'Five valid semantic reviews maximum per pending decision; four technical reviewer attempts maximum per round. Exhaustion stops without contested release. Player is never restarted.',
                  'max_semantic_rounds': 5, 'max_reviewer_technical_attempts': 4,
                  'execution_policy': 'Exact approved candidate, or exact legal round-five unresolved candidate as contested; apply only its final plan operation once.',
                  'active_plan_semantics': 'Working plan from authorized execution; active does not imply review-approved.',
@@ -310,6 +310,8 @@ def freeze(output, binary, codex):
 def preflight(candidate):
     import subprocess
     errors = changed_files(REPO, candidate['source_hashes'])
+    if 'evals/stage1/case-execution.json' in candidate['source_hashes'] and json.dumps(candidate.get('execution_configuration'), sort_keys=True) != json.dumps(execution_configuration(), sort_keys=True):
+        errors.append('frozen per-case execution configuration changed or missing')
     if candidate.get('role_configurations') is not None and set(candidate['source_hashes']) != set(source_files()):
         errors.append('frozen source/fixture inventory changed')
     if candidate.get('source_commit') and candidate.get('role_configurations') is not None:
@@ -334,6 +336,18 @@ def preflight(candidate):
         raise ValueError('Codex bundled catalog changed; freeze a new candidate')
 
 
+def playing_command(candidate, attempt, play_directory, wrapper):
+    configuration = candidate['execution_configuration']
+    option = configuration['case_options'][attempt['case_id']]['mechanical_sole_legal']
+    if attempt['execution_config_version'] != configuration['version'] or attempt['mechanical_sole_legal'] is not option:
+        raise ValueError('Attempt execution option differs from frozen candidate')
+    command = [candidate['binary'], '--fixture', str(ROOT / 'corpus' / attempt['board']), '--output', str(play_directory),
+               '--codex', wrapper, '--timeout', str(candidate['request_timeout_seconds']), '--run-timeout', str(candidate['run_timeout_seconds']),
+               '--opponent', attempt['opponent_policy'], '--sole-legal', str(option).lower()]
+    command += ['--full-board', 'true'] if attempt['kind'] == 'full' else ['--decisions', str(attempt['decisions'])]
+    return command
+
+
 def run_attempt(candidate, attempt, output):
     import subprocess
     import sys
@@ -354,10 +368,7 @@ def run_attempt(candidate, attempt, output):
         write(directory / 'isolated-version-probe.json', {'exit_code': probe.returncode, 'version': probe.stdout.strip(), 'stderr': probe.stderr})
         if probe.returncode or probe.stdout.strip() != candidate['runtime_version']:
             raise RuntimeError('Isolated wrapper runtime version probe failed')
-        command = [candidate['binary'], '--fixture', str(ROOT / 'corpus' / attempt['board']), '--output', str(directory / 'play'),
-                   '--codex', wrapper, '--timeout', str(candidate['request_timeout_seconds']), '--run-timeout', str(candidate['run_timeout_seconds']),
-                   '--opponent', attempt['opponent_policy'], '--sole-legal', 'true']
-        command += ['--full-board', 'true'] if attempt['kind'] == 'full' else ['--decisions', str(attempt['decisions'])]
+        command = playing_command(candidate, attempt, directory / 'play', wrapper)
         write(directory / 'play-command.json', command)
         with (directory / 'play-stdout.txt').open('w') as stdout, (directory / 'play-stderr.txt').open('w') as stderr:
             process = bounded_command(command, stdout, stderr, candidate['run_timeout_seconds'] + 30)
@@ -408,7 +419,7 @@ def summarize_attempt(attempt, directory, candidate=None):
     requests = reviewed_evidence.request_summary(trace)
     board = load(ROOT / 'corpus' / attempt['board'])
     try:
-        inspection = inspect_play(board, trace, directory / 'play') if trace else {'status': 'fail', 'errors': ['No trace'], 'events': [], 'complete': False}
+        inspection = inspect_play(board, trace, directory / 'play', attempt.get('mechanical_sole_legal')) if trace else {'status': 'fail', 'errors': ['No trace'], 'events': [], 'complete': False}
     except (ValueError, KeyError, TypeError) as error:
         inspection = {'status': 'fail', 'errors': [str(error)], 'events': [], 'complete': False}
     write(directory / 'independent-replay.json', inspection)
@@ -472,12 +483,14 @@ def render_report(output, candidate, summaries):
              'Candidate source commit: `%s`. Both instruction sources, role configurations, schemas, runtime/capture code, fixtures, rubrics and binary/native-runtime hashes were frozen in [candidate.json](candidate.json).' % candidate['source_commit'], '',
              'Production player and independent runtime reviewer both request gpt-6.1-sol / medium with empty additional_tools. The separate acceptance grader requests gpt-6.1-sol / medium. Requested/observable identities do not prove hidden service internals. Every attempt runs strictly sequentially; the bounded product loop permits five semantic reviews and four technical attempts per review round. There are no board rerolls, manual controlled substitutes or grader feedback into live play.', '',
              'Only delivered advice is graded. Rejected drafts are diagnostic. Review approval and contested execution are authorization dispositions, never bridge-quality labels. Canonical snapshots establish public facts; feedback envelopes preserve actual prior reviewer assertions as non-authoritative provenance.', '',
-             '| Attempt | Task | Legal | Quality | Trigger | Player / reviewer / RPC / HTTP attempts | Model / forced / opponent plays | Tricks |',
-             '|---|---|---|---|---|---|---|---|']
+             '| Attempt | Mechanical sole-legal | Task | Legal | Quality | Trigger | Player / reviewer / RPC / HTTP attempts | Model / forced / opponent plays | Tricks |',
+             '|---|---|---|---|---|---|---|---|---|']
+    if candidate.get('execution_configuration'):
+        lines[4:4] = ['Case execution configuration: `%s`. Only short-3 disables mechanical sole-legal skipping; its twelve delivered-decision bound is unchanged. More sole-card advice can increase model/reviewer work and stop after fewer actual plays. This is not a prompt-only controlled comparison.' % candidate['execution_configuration']['version'], '', candidate['execution_configuration']['short3_coverage']['pre_showout_facet'], '']
     for row in summaries:
         c=row['counts'];roles=row.get('requests',{}).get('roles',{})
-        lines.append('| [%s](%s/summary.json) | %s | %s | %s | %s | %s / %s / %s / %s | %s / %s / %s | %s |' %
-                     (row['id'],row['id'],row['task_complete'],row['legal_execution'],row['quality'],row['coverage']['status'],
+        lines.append('| [%s](%s/summary.json) | %s | %s | %s | %s | %s | %s / %s / %s / %s | %s / %s / %s | %s |' %
+                     (row['id'],row['id'],row.get('mechanical_sole_legal','historical'),row['task_complete'],row['legal_execution'],row['quality'],row['coverage']['status'],
                       roles.get('player',{}).get('attempts'),roles.get('reviewer',{}).get('attempts'),c.get('actual_rpc_requests'),row['wire']['upstream_request_attempts'],
                       c.get('model_actions'),c.get('forced_actions'),c.get('driver_opponent_actions'),c.get('tricks')))
     lines += ['', 'Every initial fixture prefix is counted separately in summary.json. Native request attempts exclude late outcome observations; HTTP attempts include runtime-internal retries and are not interchangeable with technical retries. Missing usage is unknown, never zero.', '',
