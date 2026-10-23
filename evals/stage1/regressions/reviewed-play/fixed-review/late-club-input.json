@@ -1,0 +1,299 @@
+{
+  "candidate": {
+    "plan": {
+      "text": null,
+      "update": "keep"
+    },
+    "publicReason": "Follow with CT; South's CJ is currently winning, and only East can overtake it.",
+    "selectedCard": "CT"
+  },
+  "latestSnapshot": {
+    "completedTricks": [
+      {
+        "plays": [
+          {
+            "card": "SK",
+            "seat": "W"
+          },
+          {
+            "card": "S8",
+            "seat": "N"
+          },
+          {
+            "card": "S4",
+            "seat": "E"
+          },
+          {
+            "card": "SA",
+            "seat": "S"
+          }
+        ],
+        "winner": "S"
+      },
+      {
+        "plays": [
+          {
+            "card": "D2",
+            "seat": "S"
+          },
+          {
+            "card": "D6",
+            "seat": "W"
+          },
+          {
+            "card": "D9",
+            "seat": "N"
+          },
+          {
+            "card": "DA",
+            "seat": "E"
+          }
+        ],
+        "winner": "E"
+      },
+      {
+        "plays": [
+          {
+            "card": "S6",
+            "seat": "E"
+          },
+          {
+            "card": "S3",
+            "seat": "S"
+          },
+          {
+            "card": "S2",
+            "seat": "W"
+          },
+          {
+            "card": "S7",
+            "seat": "N"
+          }
+        ],
+        "winner": "N"
+      },
+      {
+        "plays": [
+          {
+            "card": "DK",
+            "seat": "N"
+          },
+          {
+            "card": "D7",
+            "seat": "E"
+          },
+          {
+            "card": "D3",
+            "seat": "S"
+          },
+          {
+            "card": "C2",
+            "seat": "W"
+          }
+        ],
+        "winner": "N"
+      },
+      {
+        "plays": [
+          {
+            "card": "DQ",
+            "seat": "N"
+          },
+          {
+            "card": "D8",
+            "seat": "E"
+          },
+          {
+            "card": "D4",
+            "seat": "S"
+          },
+          {
+            "card": "C3",
+            "seat": "W"
+          }
+        ],
+        "winner": "N"
+      },
+      {
+        "plays": [
+          {
+            "card": "DJ",
+            "seat": "N"
+          },
+          {
+            "card": "H2",
+            "seat": "E"
+          },
+          {
+            "card": "D5",
+            "seat": "S"
+          },
+          {
+            "card": "H5",
+            "seat": "W"
+          }
+        ],
+        "winner": "N"
+      },
+      {
+        "plays": [
+          {
+            "card": "DT",
+            "seat": "N"
+          },
+          {
+            "card": "S5",
+            "seat": "E"
+          },
+          {
+            "card": "C6",
+            "seat": "S"
+          },
+          {
+            "card": "H6",
+            "seat": "W"
+          }
+        ],
+        "winner": "N"
+      },
+      {
+        "plays": [
+          {
+            "card": "HA",
+            "seat": "N"
+          },
+          {
+            "card": "H8",
+            "seat": "E"
+          },
+          {
+            "card": "HJ",
+            "seat": "S"
+          },
+          {
+            "card": "H7",
+            "seat": "W"
+          }
+        ],
+        "winner": "N"
+      },
+      {
+        "plays": [
+          {
+            "card": "H3",
+            "seat": "N"
+          },
+          {
+            "card": "H9",
+            "seat": "E"
+          },
+          {
+            "card": "HK",
+            "seat": "S"
+          },
+          {
+            "card": "C8",
+            "seat": "W"
+          }
+        ],
+        "winner": "S"
+      },
+      {
+        "plays": [
+          {
+            "card": "HQ",
+            "seat": "S"
+          },
+          {
+            "card": "ST",
+            "seat": "W"
+          },
+          {
+            "card": "H4",
+            "seat": "N"
+          },
+          {
+            "card": "HT",
+            "seat": "E"
+          }
+        ],
+        "winner": "S"
+      },
+      {
+        "plays": [
+          {
+            "card": "CA",
+            "seat": "S"
+          },
+          {
+            "card": "CQ",
+            "seat": "W"
+          },
+          {
+            "card": "C4",
+            "seat": "N"
+          },
+          {
+            "card": "C7",
+            "seat": "E"
+          }
+        ],
+        "winner": "S"
+      }
+    ],
+    "contract": {
+      "declarer": "S",
+      "doubling": "undoubled",
+      "level": 3,
+      "strain": "NT"
+    },
+    "controller": "S",
+    "current": {
+      "toAct": "N",
+      "tricksWon": {
+        "declarer": 10,
+        "defenders": 1
+      },
+      "winningPlay": {
+        "card": "CJ",
+        "seat": "S"
+      }
+    },
+    "currentTrick": [
+      {
+        "card": "CJ",
+        "seat": "S"
+      },
+      {
+        "card": "SJ",
+        "seat": "W"
+      }
+    ],
+    "effectivePlan": "The partnership has nine tricks and the contract is made. Cash CA for the tenth trick. Then lead CJ from South toward North's remaining clubs for a chance at an additional overtrick; the outcome depends on the defenders' remaining club honors.",
+    "hands": {
+      "N": {
+        "C": "T5",
+        "D": "",
+        "H": "",
+        "S": ""
+      },
+      "S": {
+        "C": "",
+        "D": "",
+        "H": "",
+        "S": "9"
+      }
+    },
+    "objective": "Normal IMP strategy, weighing contract risk and overtricks.",
+    "publicBackground": null,
+    "scoring": "IMP",
+    "type": "update",
+    "vulnerability": "neither"
+  },
+  "legalCurrentCards": [
+    "CT",
+    "C5"
+  ],
+  "phase": "decision_review",
+  "proposedEffectivePlan": "The partnership has nine tricks and the contract is made. Cash CA for the tenth trick. Then lead CJ from South toward North's remaining clubs for a chance at an additional overtrick; the outcome depends on the defenders' remaining club honors."
+}

@@ -1,0 +1,19 @@
+{
+  "model": "gpt-6.1-sol",
+  "effort": "medium",
+  "reviewerModel": "gpt-6.1-sol",
+  "reviewerEffort": "medium",
+  "maximumReviewsPerPendingDecision": 5,
+  "maximumRevisionsAfterFirstReview": 4,
+  "automaticRevisionLimitThisRun": 2,
+  "seedReviewAlreadyConsumed": 1,
+  "seedRequest": "/tmp/bridge46-reviewer-calibration-eval-20261023/reasonable-alternative-after-request.json",
+  "seedReview": "/tmp/bridge46-reviewer-calibration-eval-20261023/reasonable-alternative-after/output.json",
+  "sessionProvenance": "Fresh correction session replaying a synthetic fixed proposal plus real recorded feedback; not a continuation of the earlier generation sessions. All revisions within this run use one persistent native player thread.",
+  "scope": "Deliver exact existing feedback, then up to two player revision + fresh reviewer cycles. Stop on approve, uncertain, cap, failure or two-cycle bound. No card execution or active-plan commitment. Retain player process and allow explicit manual revise/status commands.",
+  "qualityBoundary": "User now accepts the spade hold-up concern as a normal blocking finding and expects a complete plan. Previous test classification as overblocking is superseded for this scenario.",
+  "playerInstructionSha256": "8370e86f5aa68185bcee5cae99b18d3815efb0bbad341c666811f5af455eff4b",
+  "reviewerInstructionSha256": "99c46d34fcf6e5b9d2c82194562ebbbb1ae8be437409b9718b6c68aa29f933e2",
+  "nativeSha256": "112fae7a5a1223e673c8a1791d32338f37df8b527ff1159bb8adac6c4dbf1b4b",
+  "probeSha256": "071a7b236b9d50b31cbd51243b67a6af45e9d57182d398e86478bfbb1519d26f"
+}

@@ -98,6 +98,18 @@ def verify_case_decisions(manifest_path, case_id, decisions):
                 raise ValueError('case/trace mismatch: visible remaining holding differs')
         if any(snapshot[key] != state[key] for key in ('actingSeat', 'currentTrick', 'declarerTricks', 'defenderTricks')):
             raise ValueError('case/trace mismatch: reachable public state differs')
+        trump = {'spades': 'S', 'hearts': 'H', 'diamonds': 'D', 'clubs': 'C', 'noTrump': None}[contract['strain']]
+        def winner(plays):
+            led = plays[0]['card'][0]
+            return max(plays, key=lambda p: (2 if trump and p['card'][0] == trump else 1 if p['card'][0] == led else 0, RANKS.index(p['card'][1])))
+        expected_tricks = [{'plays': events[i:i+4], 'winner': winner(events[i:i+4])['seat']} for i in range(0, len(events)-3, 4)]
+        if 'completedTricks' in snapshot and snapshot['completedTricks'] != expected_tricks:
+            raise ValueError('case/trace mismatch: completed tricks or winners differ')
+        expected_winner = winner(state['currentTrick']) if state['currentTrick'] else None
+        if 'currentWinningPlay' in snapshot and snapshot['currentWinningPlay'] != expected_winner:
+            raise ValueError('case/trace mismatch: current winning play differs')
+        if record.get('pending') is not None and (snapshot['revision'] != len(events) or any(snapshot.get(key) != board.get(key) for key in ('scoring', 'vulnerability', 'objective', 'publicBackground'))):
+            raise ValueError('case/trace mismatch: reviewed configuration or revision differs')
 
 
 def validate(manifest_path):
