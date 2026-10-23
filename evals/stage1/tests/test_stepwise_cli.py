@@ -37,26 +37,29 @@ class StepwiseCLITests(unittest.TestCase):
 if '--version' in sys.argv:
     print('recorded stepwise boundary'); sys.exit(0)
 if sys.argv[1:4] == ['debug', 'models', '--bundled']:
-    print(json.dumps({'models':[{'slug':'gpt-6-luna','tool_mode':'code','experimental_supported_tools':['exec'],'apply_patch_tool_type':'freeform','shell_type':'default'}]})); sys.exit(0)
+    print(json.dumps({'models':[{'slug':'gpt-6.1-sol','tool_mode':'code','experimental_supported_tools':['exec'],'apply_patch_tool_type':'freeform','shell_type':'default'}]})); sys.exit(0)
 turn = 0
+thread_id = 'recorded-board-thread'
 for line in sys.stdin:
     request = json.loads(line)
     if 'id' not in request: continue
     method = request.get('method')
     result = {}
     if method == 'model/list':
-        result = {'data':[{'model':'gpt-6-luna','supportedReasoningEfforts':[{'reasoningEffort':'medium'}]}]}
+        result = {'data':[{'model':'gpt-6.1-sol','supportedReasoningEfforts':[{'reasoningEffort':'medium'}]}]}
     elif method == 'thread/start':
-        result = {'thread':{'id':'recorded-board-thread'},'model':'gpt-6-luna'}
+        thread_id = 'recorded-review-thread' if request['params']['baseInstructions'].startswith('You independently review') else 'recorded-board-thread'
+        result = {'thread':{'id':thread_id},'model':'gpt-6.1-sol','reasoningEffort':'medium'}
     elif method == 'turn/start':
         turn += 1
         result = {'turn':{'id':f'turn-{turn}'}}
         reply = {'publicReason':'Recorded legal choice.',
                  'plan':{'update':'replace' if turn == 1 else 'keep','text':'Recorded board plan.' if turn == 1 else None},
-                 'selectedCard':request['params']['outputSchema']['properties']['selectedCard']['enum'][0]}
+                 'selectedCard':request['params']['outputSchema']['properties'].get('selectedCard',{}).get('enum',['D3'])[0]}
+        if thread_id == 'recorded-review-thread': reply = {'verdict':'approve','blockingFindings':[],'advisorySuggestions':[]}
     print(json.dumps({'id':request['id'],'result':result}),flush=True)
     if method == 'turn/start':
-        print(json.dumps({'method':'turn/completed','params':{'threadId':'recorded-board-thread','turn':{'id':f'turn-{turn}','status':'completed','items':[{'type':'agentMessage','text':json.dumps(reply)}]}}}),flush=True)
+        print(json.dumps({'method':'turn/completed','params':{'threadId':thread_id,'turn':{'id':f'turn-{turn}','status':'completed','items':[{'type':'agentMessage','text':json.dumps(reply)}]}}}),flush=True)
 ''')
             output = root / 'play'
             terminal, child_stdin = pty.openpty()
