@@ -11,15 +11,22 @@ public struct NeedsInputState: Codable, Sendable {
 }
 
 extension ExpertSession {
+    /// Shared factual consistency check; callers retain invalid-versus-missing classification.
+    static func hasConsistentPublicCardHistory(_ snapshot: DecisionSnapshot) -> Bool {
+        let heldCards = snapshot.hands.flatMap(\.cards)
+        let playedCards = snapshot.events.map(\.card)
+        return Set(heldCards).count == heldCards.count &&
+            Set(playedCards).count == playedCards.count &&
+            Set(heldCards).isDisjoint(with: playedCards) &&
+            snapshot.events.enumerated().allSatisfy { $0.offset == $0.element.sequence }
+    }
+
     static func invalidPositionFacts(_ snapshot: DecisionSnapshot) -> String? {
         guard snapshot.revision == snapshot.events.count else { return "Position revision conflicts with actual public plays." }
         let required: Set<Seat> = [snapshot.controller, snapshot.controller.partner]
         let seats = snapshot.hands.map(\.seat)
-        let held = snapshot.hands.flatMap(\.cards)
         guard Set(seats).isSubset(of: required), Set(seats).count == seats.count,
-              Set(held).count == held.count, Set(snapshot.events.map(\.card)).count == snapshot.events.count,
-              Set(held).isDisjoint(with: snapshot.events.map(\.card)),
-              snapshot.events.enumerated().allSatisfy({ $0.offset == $0.element.sequence }) else {
+              hasConsistentPublicCardHistory(snapshot) else {
             return "Public holdings/history conflict or exceed the authorized perspective."
         }
         if let completed = snapshot.completedTricks,
