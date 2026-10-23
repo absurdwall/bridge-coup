@@ -122,6 +122,8 @@ private struct BoardInput: Codable {
                 failure["category"] = expert.category.rawValue
                 failure["input"] = expert.input; failure["rawOutput"] = expert.rawOutput
                 failure["error"] = expert.detail; failure["elapsedSeconds"] = expert.elapsedSeconds
+                failure["reviewRounds"] = try? JSONSerialization.jsonObject(with: JSONEncoder().encode(expert.reviewRounds))
+                failure["requestEvidence"] = try? JSONSerialization.jsonObject(with: JSONEncoder().encode(expert.requestEvidence))
             }
             if let data = try? JSONSerialization.data(withJSONObject: failure, options: [.prettyPrinted, .sortedKeys]) {
                 try? data.write(to: output.appendingPathComponent("failure.json"))

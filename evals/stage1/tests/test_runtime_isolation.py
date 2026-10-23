@@ -26,7 +26,7 @@ class RuntimeIsolationTests(unittest.TestCase):
         if not cls.binary.is_file():
             raise RuntimeError('Build the production public driver with swift build --product bridge-play first')
 
-    def public_request(self, fixture='evals/stage1/fixtures/synthetic-initial.json'):
+    def public_request(self, fixture='evals/stage1/fixtures/synthetic-initial.json', public_background=None):
         captures = []
 
         class RejectingProvider(http.server.BaseHTTPRequestHandler):
@@ -35,7 +35,8 @@ class RuntimeIsolationTests(unittest.TestCase):
 
             def do_POST(self):
                 self.assert_no_auth = self.headers.get('Authorization') is None
-                captures.append((json.loads(self.rfile.read(int(self.headers['Content-Length']))), self.assert_no_auth))
+                payload = self.rfile.read(int(self.headers['Content-Length']))
+                captures.append((json.loads(payload), self.assert_no_auth, payload))
                 body = b'{"error":{"type":"invalid_request_error","message":"OFFLINE_ISOLATION_REGRESSION_NO_INFERENCE"}}'
                 self.send_response(400)
                 self.send_header('Content-Type', 'application/json')
@@ -54,8 +55,14 @@ class RuntimeIsolationTests(unittest.TestCase):
                 provider = '{name="offline-isolation-test",base_url="http://127.0.0.1:%d",wire_api="responses",requires_openai_auth=false,supports_websockets=false,request_max_retries=0,stream_max_retries=0}' % server.server_port
                 wrapper.write_text('#!/bin/sh\nexport PATH='+shlex.quote(str(codex.parent))+':"$PATH"\nexec '+shlex.quote(str(codex))+' "$@" -c model_provider="offline-isolation-test" -c '+shlex.quote('model_providers.offline-isolation-test='+provider)+' -c features.enable_request_compression=false\n')
                 wrapper.chmod(0o700)
+                fixture_path = ROOT/fixture
+                if public_background is not None:
+                    fixture_value = json.loads(fixture_path.read_text())
+                    fixture_value['publicBackground'] = public_background
+                    fixture_path = root/'unicode-fixture.json'
+                    fixture_path.write_text(json.dumps(fixture_value, ensure_ascii=False))
                 result = subprocess.run([str(self.binary),
-                    '--fixture', str(ROOT/fixture),
+                    '--fixture', str(fixture_path),
                     '--output', str(root/'play'), '--codex', str(wrapper), '--timeout', '15'],
                     cwd=ROOT, env={**os.environ, 'CODEX_HOME': str(root)},
                     capture_output=True, text=True, timeout=25)
@@ -68,7 +75,7 @@ class RuntimeIsolationTests(unittest.TestCase):
                             'apply_patch_tool_type': None, 'shell_type': 'disabled'}
                 self.assertEqual(effective, {**source, 'models': [expected if model['slug'] == 'gpt-6.1-sol'
                                                                else model for model in source['models']]})
-                request, auth_absent = captures[0]
+                request, auth_absent, self.last_wire_bytes = captures[0]
                 self.assertTrue(auth_absent)
                 self.assertEqual(request['model'], 'gpt-6.1-sol')
                 self.assertEqual(request['reasoning']['effort'], 'medium')
@@ -81,6 +88,16 @@ class RuntimeIsolationTests(unittest.TestCase):
             server.shutdown()
             server.server_close()
 
+
+    def test_actual_native_unicode_remains_readable_and_preserves_literal_escapes(self):
+        background = '中文 🂡 literal \\u4e2d; newline\n tab\t quote" backslash\\'
+        request = self.public_request(public_background=background)
+        text = '\n'.join(part.get('text', '') for item in request['input']
+                         if item.get('role') == 'user' for part in item.get('content', []))
+        self.assertEqual(json.loads(text)['publicBackground'], background)
+        self.assertIn('中文 🂡'.encode(), self.last_wire_bytes)
+        self.assertIn('\\\\u4e2d', text, 'Literal backslash-u text must remain escaped JSON text')
+        self.assertEqual(json.loads(text)['current']['winningPlay'], {'seat':'W','card':'DQ'})
 
     def test_public_expert_request_has_no_tools(self):
         request = self.public_request()

@@ -73,6 +73,13 @@ public struct DriverTrace: Codable, Sendable {
     public let runTimeoutSeconds: Double
     public let retries: Int
     public let failedRequestSeconds: Double?
+    public let requestEvidence: [RequestEvidence]?
+    public let playerRequests: Int?
+    public let reviewerRequests: Int?
+    public let semanticReviews: Int?
+    public let automaticRuntimeSeconds: Double?
+    public let humanWaitingSeconds: Double?
+    public let needsInput: NeedsInputState?
 }
 
 public struct DriverFailure: Error, Sendable {
@@ -88,7 +95,6 @@ public actor BoardDriver {
     private let mechanicalSoleLegal: Bool
     private var steps: [DriverStep] = []
     private var pending: [ActualExecution] = []
-    private var modelRequests = 0
     private var hasInitialPlan = false
     private var busy = false
     private var failed = false
@@ -101,11 +107,13 @@ public actor BoardDriver {
     private var failureDetail: String?
     private var failedRequestSeconds: Double?
     private var nonforcedControlledActions = 0
+    private var waitingSince: Date?
+    private var humanWaitingSeconds = 0.0
 
     public init(board: BoardState, expert: ExpertSession, opponent: OpponentPolicy = .lowLegal, mechanicalSoleLegal: Bool = false, requestTimeoutSeconds: Double = 180, runTimeoutSeconds: Double = 1800, started: Date = Date()) {
         self.started = started
         self.initialEvents = board.events
-        self.requestTimeoutSeconds = requestTimeoutSeconds; self.runTimeoutSeconds = runTimeoutSeconds
+        self.requestTimeoutSeconds = min(180, requestTimeoutSeconds); self.runTimeoutSeconds = min(1800, runTimeoutSeconds)
         self.board = board; self.expert = expert; self.opponent = opponent; self.mechanicalSoleLegal = mechanicalSoleLegal
     }
 
@@ -113,10 +121,14 @@ public actor BoardDriver {
         guard !busy else { throw ExpertSessionError.overlappingDecision }
         guard !failed else { throw ExpertSessionError.endedSession }
         guard !board.isComplete else { throw DomainError.finished }
+        if let waitingSince {
+            humanWaitingSeconds += Date().timeIntervalSince(waitingSince)
+            self.waitingSince = nil
+        }
         busy = true
         defer { busy = false }
         do {
-            let remaining = runTimeoutSeconds - Date().timeIntervalSince(started)
+            let remaining = runTimeoutSeconds - (Date().timeIntervalSince(started) - humanWaitingSeconds)
             guard remaining > 0, requestTimeoutSeconds > 0, runTimeoutSeconds.isFinite, requestTimeoutSeconds.isFinite else {
                 throw DriverBudgetError.expired
             }
@@ -126,16 +138,16 @@ public actor BoardDriver {
             let decision: DecisionRecord?
             let source: ActualExecution.Source
             if controlled && !(mechanicalSoleLegal && hasInitialPlan && legal.count == 1) {
-                modelRequests += 1
-                decision = try await expert.decide(board.snapshot(controller: board.contract.declarer), executions: hasInitialPlan ? pending : [], timeoutSeconds: min(requestTimeoutSeconds, remaining))
-                guard Date().timeIntervalSince(started) < runTimeoutSeconds else {
+                decision = try await expert.decide(board.snapshot(controller: board.contract.declarer), executions: hasInitialPlan ? pending : [], timeoutSeconds: min(requestTimeoutSeconds, remaining), automaticDeadline: started.addingTimeInterval(runTimeoutSeconds + humanWaitingSeconds))
+                guard Date().timeIntervalSince(started) - humanWaitingSeconds < runTimeoutSeconds else {
                     throw DriverFailure(decision: decision!, detail: "Run wall-clock budget expired before execution")
                 }
                 pending = []
                 var nextBoard = board
                 do { try nextBoard.apply(decision!.action) }
                 catch { throw DriverFailure(decision: decision!, detail: String(describing: error)) }
-                try await expert.commit(decision!, execution: ActualExecution(event: nextBoard.events.last!, source: .model))
+                do { try await expert.commit(decision!, execution: ActualExecution(event: nextBoard.events.last!, source: .model)) }
+                catch { throw DriverFailure(decision: decision!, detail: String(describing: error)) }
                 board = nextBoard
                 hasInitialPlan = true
                 source = .model
@@ -155,6 +167,11 @@ public actor BoardDriver {
             steps.append(step)
             return step
         } catch {
+            if let failure = error as? ExpertFailure, failure.category == .needsInput {
+                waitingSince = Date()
+                failureDetail = "needs-input: " + failure.detail
+                throw failure
+            }
             await expert.abandonPending()
             failed = true
             failureDetail = String(describing: error)
@@ -165,10 +182,16 @@ public actor BoardDriver {
         }
     }
 
-    public func trace() -> DriverTrace {
+    public func trace() async -> DriverTrace {
+        let evidence = await expert.requestEvidence()
+        let needsInput = await expert.needsInputState()
+        let waiting = humanWaitingSeconds + (waitingSince.map { Date().timeIntervalSince($0) } ?? 0)
+        let actualRequests = evidence.filter { $0.outcome != .late }
+        let players = actualRequests.filter { $0.role == .player }.count
+        let reviewers = actualRequests.filter { $0.role == .reviewer }.count
         let elapsed = stoppedSeconds ?? Date().timeIntervalSince(started)
         let latencies = steps.compactMap { $0.decision?.elapsedSeconds }
-        return DriverTrace(boardID: board.id, steps: steps, modelRequests: modelRequests,
+        return DriverTrace(boardID: board.id, steps: steps, modelRequests: players,
                     controlledActions: steps.filter { $0.execution.source == .model || $0.execution.source == .forced }.count,
                     opponentActions: steps.filter { $0.execution.source == .opponent }.count,
                     mechanicalActions: steps.filter { $0.execution.source == .forced }.count,
@@ -180,9 +203,13 @@ public actor BoardDriver {
                     nonforcedControlledActions: nonforcedControlledActions,
                     initialRequestSeconds: latencies.first ?? failedRequestSeconds, subsequentRequestSeconds: Array(latencies.dropFirst()),
                     lastControlledActionSeconds: lastControlledActionSeconds,
-                    environmentOverheadSeconds: max(0, elapsed - latencies.reduce(0, +) - (failedRequestSeconds ?? 0)),
+                    environmentOverheadSeconds: max(0, elapsed - waiting - latencies.reduce(0, +) - (failedRequestSeconds ?? 0)),
                     declarerTricks: board.declarerTricks, defenderTricks: board.defenderTricks, failure: failureDetail,
-                    requestTimeoutSeconds: requestTimeoutSeconds, runTimeoutSeconds: runTimeoutSeconds, retries: 0, failedRequestSeconds: failedRequestSeconds)
+                    requestTimeoutSeconds: requestTimeoutSeconds, runTimeoutSeconds: runTimeoutSeconds,
+                    retries: actualRequests.filter { $0.role == .reviewer && $0.technicalAttempt > 1 }.count, failedRequestSeconds: failedRequestSeconds,
+                    requestEvidence: evidence, playerRequests: players, reviewerRequests: reviewers,
+                    semanticReviews: actualRequests.filter { $0.role == .reviewer && $0.outcome == .valid }.count,
+                    automaticRuntimeSeconds: max(0, elapsed - waiting), humanWaitingSeconds: waiting, needsInput: needsInput)
     }
 }
 
