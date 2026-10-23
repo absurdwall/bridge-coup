@@ -1,0 +1,31 @@
+[0/1] Planning build
+Building for debugging...
+[0/8] Copying DeclarerInstructions.txt
+[1/9] Write sources
+[2/9] Copying ReviewerInstructions.txt
+[3/9] Write swift-version--58304C5D6DBC2206.txt
+[5/9] Emitting module BridgeExpert
+[6/9] Compiling BridgeExpert Expert.swift
+[7/10] Compiling BridgeExpert PlayReview.swift
+[7/12] Write Objects.LinkFileList
+[8/13] Linking bridge-play
+[10/13] Emitting module BridgePlayingTests
+[10/13] Write Objects.LinkFileList
+[11/13] Applying bridge-play
+[12/13] Linking BridgeTeacherPackageTests
+Build complete! (3.19s)
+Test Suite 'Selected tests' started at 2026-10-23 12:16:48.070.
+Test Suite 'BridgeTeacherPackageTests.xctest' started at 2026-10-23 12:16:48.071.
+Test Suite 'ReviewedDecisionTests' started at 2026-10-23 12:16:48.072.
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testMissingAuthorizedHandIsNeedsInputBeforeAnyReviewOrContestedRelease]' started.
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testMissingAuthorizedHandIsNeedsInputBeforeAnyReviewOrContestedRelease]' passed (0.003 seconds).
+Test Suite 'ReviewedDecisionTests' passed at 2026-10-23 12:16:48.075.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.003 (0.003) seconds
+Test Suite 'BridgeTeacherPackageTests.xctest' passed at 2026-10-23 12:16:48.075.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.003 (0.003) seconds
+Test Suite 'Selected tests' passed at 2026-10-23 12:16:48.075.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.003 (0.004) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

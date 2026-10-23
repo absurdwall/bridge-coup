@@ -1,0 +1,22 @@
+{
+  "purpose": "One bounded natural correction diagnostic, not acceptance. No seeded proposals or synthetic reviewer verdicts.",
+  "baseline": "d4b4f86bae786ab8ec4d49b0c2f22f03cd549c97",
+  "sourceHashes": {
+    "Sources/BridgeExpert/Expert.swift": "8782ed1184d6fa0a99ca7c11a9e4577a94736fea2e5f50ced8c4e1352bdde15d",
+    "Sources/BridgeExpert/PlayReview.swift": "9e1ce22d1691fb9397ff4f8e86e958aa9768688d514c2265fa0e261dad470a64",
+    "Sources/BridgeCodex/CodexTransport.swift": "67c2ee79d926bd4574b7d34b0c9e2aec298f957cbd04a9d8fe96fa2f8014abf4",
+    "Sources/BridgeCodex/CodexReviewTransport.swift": "d8ddbc207c529a0a528043e7fb57481dac22add7fa41c1034184de19a708cfa1",
+    "Sources/BridgeDriver/BoardDriver.swift": "ea6ba461b8e2edc9c5af378f492b49cd3fa4e513963e1ae85d3246e59480c349",
+    "Sources/BridgeExpert/Resources/DeclarerInstructions.txt": "7216835b26ad7b9aa8c00fb9870d1c7a95837953059927623c1d6800efbebf90",
+    "Sources/BridgeExpert/Resources/ReviewerInstructions.txt": "6abfef19977a81a426a48afe12430e7bcc9f7170faef43a298d8313b6dbc9b37"
+  },
+  "binarySha256": "c7d7c7fad411392ede01e3804f722dfa3a216ca8c283f7589040dc9507aca7d1",
+  "nativeSha256": "112fae7a5a1223e673c8a1791d32338f37df8b527ff1159bb8adac6c4dbf1b4b",
+  "model": "gpt-6.1-sol",
+  "effort": "medium",
+  "maxDeliveredDecisions": 12,
+  "maxSemanticRounds": 5,
+  "stopRule": "First natural revise followed by approve in one pending decision, otherwise stop at 12 decisions or failure.",
+  "requestTimeout": 180,
+  "runTimeout": 1800
+}

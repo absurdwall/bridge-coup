@@ -1,0 +1,118 @@
+Building for debugging...
+[0/26] /Users/tingranwang/.codex/worktrees/issue50-review-loop/bridge-coup/.build/arm64-apple-macosx/debug/BridgeTeacherPackageTests.derived/runner.swift
+[1/26] Write bridge-play-entitlement.plist
+[2/26] Copying ReviewerInstructions.txt
+[3/26] Copying DeclarerInstructions.txt
+[4/26] Write sources
+[7/26] Write BridgeTeacherMac-entitlement.plist
+[8/26] Write sources
+[17/26] Write swift-version--58304C5D6DBC2206.txt
+[19/36] Emitting module BridgeTeacherCore
+[20/43] Compiling BridgeDomain BridgeValues.swift
+[21/43] Emitting module BridgeDomain
+[22/46] Compiling BridgeExpert Expert.swift
+[23/46] Compiling BridgeExpert PlayReview.swift
+[24/46] Compiling BridgeTeacherCore BridgePlaySession.swift
+[25/46] Compiling BridgeTeacherCore CodexModelSettings.swift
+[26/46] Compiling BridgeTeacherCore DeclarerPlanWorkflow.swift
+[27/46] Compiling BridgeTeacherCore DoubleDummyVerification.swift
+[28/46] Compiling BridgeTeacherCore KeyPlayAnalysis.swift
+[29/46] Compiling BridgeTeacherCore KeyPlayAnalysisWorkflow.swift
+[30/46] Compiling BridgeTeacherCore OriginalContractTableWorkflow.swift
+[31/46] Compiling BridgeTeacherCore OriginalHandFacts.swift
+[32/46] Compiling BridgeTeacherCore PlayCardResultsWorkflow.swift
+[33/46] Compiling BridgeTeacherCore ReviewSessionArchive.swift
+[34/46] Compiling BridgeTeacherCore ScreenshotReviewWorkflow.swift
+[35/46] Compiling BridgeTeacherCore TeachingConversation.swift
+[36/48] Emitting module BridgeEngine
+[37/48] Compiling BridgeEngine BoardState.swift
+[38/57] Compiling BridgeTeacherMac AnalysisMarkdownDocument.swift
+[39/57] Compiling BridgeTeacherMac AnalysisMarkdownView.swift
+[40/57] Emitting module BridgeExpert
+[41/58] Compiling BridgeExpert resource_bundle_accessor.swift
+[42/64] Emitting module BridgeTeacherCoreTests
+[43/64] Compiling BridgeTeacherCoreTests AuctionRecordTests.swift
+[44/64] Compiling BridgeTeacherCoreTests CodexModelSettingsTests.swift
+[45/64] Compiling BridgeTeacherCoreTests DeclarerPlanRequestBuilderTests.swift
+[46/64] Compiling BridgeTeacherCoreTests DeclarerPlanWorkflowTests.swift
+[47/64] Compiling BridgeTeacherCoreTests DoubleDummySolverIntegrationTests.swift
+[48/69] Compiling BridgeTeacherCoreTests DoubleDummyVerificationTests.swift
+[49/69] Compiling BridgeTeacherCoreTests KeyPlayAnalysisTests.swift
+[50/69] Compiling BridgeTeacherCoreTests OriginalContractTableWorkflowTests.swift
+[51/69] Compiling BridgeTeacherCoreTests ReviewSessionArchiveTests.swift
+[52/69] Compiling BridgeTeacherCoreTests ScreenshotReviewWorkflowTests.swift
+[53/71] Compiling BridgeDriver BoardDriver.swift
+[54/71] Emitting module BridgeDriver
+[55/73] Emitting module BridgeCodex
+[56/73] Compiling BridgeCodex CodexReviewTransport.swift
+[57/74] Compiling BridgeCodex CodexTransport.swift
+[58/78] Emitting module BridgePlayingTests
+[59/80] Compiling BridgePlayingTests ReviewedDecisionTests.swift
+/Users/tingranwang/.codex/worktrees/issue50-review-loop/bridge-coup/Tests/BridgePlayingTests/ReviewedDecisionTests.swift:38:33: error: value of type 'DecisionRecord' has no member 'reviewRounds'
+ 36 |         XCTAssertEqual(step.execution.event.card, try Card("D5"))
+ 37 |         XCTAssertEqual(step.actualEvents.count, 2)
+ 38 |         XCTAssertEqual(decision.reviewRounds?.count, 2)
+    |                                 `- error: value of type 'DecisionRecord' has no member 'reviewRounds'
+ 39 |         XCTAssertEqual(decision.executionDisposition, .reviewApproved)
+ 40 |         let requests = await player.inputs
+
+/Users/tingranwang/.codex/worktrees/issue50-review-loop/bridge-coup/Tests/BridgePlayingTests/ReviewedDecisionTests.swift:39:33: error: value of type 'DecisionRecord' has no member 'executionDisposition'
+ 37 |         XCTAssertEqual(step.actualEvents.count, 2)
+ 38 |         XCTAssertEqual(decision.reviewRounds?.count, 2)
+ 39 |         XCTAssertEqual(decision.executionDisposition, .reviewApproved)
+    |                                 `- error: value of type 'DecisionRecord' has no member 'executionDisposition'
+ 40 |         let requests = await player.inputs
+ 41 |         XCTAssertEqual(requests.count, 2)
+
+/Users/tingranwang/.codex/worktrees/issue50-review-loop/bridge-coup/Tests/BridgePlayingTests/ReviewedDecisionTests.swift:39:56: error: type 'Equatable' has no member 'reviewApproved'
+ 37 |         XCTAssertEqual(step.actualEvents.count, 2)
+ 38 |         XCTAssertEqual(decision.reviewRounds?.count, 2)
+ 39 |         XCTAssertEqual(decision.executionDisposition, .reviewApproved)
+    |                                                        `- error: type 'Equatable' has no member 'reviewApproved'
+ 40 |         let requests = await player.inputs
+ 41 |         XCTAssertEqual(requests.count, 2)
+
+/Users/tingranwang/.codex/worktrees/issue50-review-loop/bridge-coup/Tests/BridgePlayingTests/ReviewedDecisionTests.swift:51:33: error: value of type 'DecisionRecord' has no member 'canonicalInput'
+ 49 |         XCTAssertEqual(decision.effectivePlan, "Final approved route, verbatim.")
+ 50 |         XCTAssertEqual(decision.input, requests[1])
+ 51 |         XCTAssertEqual(decision.canonicalInput, requests[0])
+    |                                 `- error: value of type 'DecisionRecord' has no member 'canonicalInput'
+ 52 |         let plan = await expert.activePlan()
+ 53 |         XCTAssertEqual(plan?.text, "Final approved route, verbatim.")
+[60/80] Compiling BridgePlayingTests SnapshotInputTests.swift
+/Users/tingranwang/.codex/worktrees/issue50-review-loop/bridge-coup/Tests/BridgePlayingTests/ReviewedDecisionTests.swift:38:33: error: value of type 'DecisionRecord' has no member 'reviewRounds'
+ 36 |         XCTAssertEqual(step.execution.event.card, try Card("D5"))
+ 37 |         XCTAssertEqual(step.actualEvents.count, 2)
+ 38 |         XCTAssertEqual(decision.reviewRounds?.count, 2)
+    |                                 `- error: value of type 'DecisionRecord' has no member 'reviewRounds'
+ 39 |         XCTAssertEqual(decision.executionDisposition, .reviewApproved)
+ 40 |         let requests = await player.inputs
+
+/Users/tingranwang/.codex/worktrees/issue50-review-loop/bridge-coup/Tests/BridgePlayingTests/ReviewedDecisionTests.swift:39:33: error: value of type 'DecisionRecord' has no member 'executionDisposition'
+ 37 |         XCTAssertEqual(step.actualEvents.count, 2)
+ 38 |         XCTAssertEqual(decision.reviewRounds?.count, 2)
+ 39 |         XCTAssertEqual(decision.executionDisposition, .reviewApproved)
+    |                                 `- error: value of type 'DecisionRecord' has no member 'executionDisposition'
+ 40 |         let requests = await player.inputs
+ 41 |         XCTAssertEqual(requests.count, 2)
+
+/Users/tingranwang/.codex/worktrees/issue50-review-loop/bridge-coup/Tests/BridgePlayingTests/ReviewedDecisionTests.swift:39:56: error: type 'Equatable' has no member 'reviewApproved'
+ 37 |         XCTAssertEqual(step.actualEvents.count, 2)
+ 38 |         XCTAssertEqual(decision.reviewRounds?.count, 2)
+ 39 |         XCTAssertEqual(decision.executionDisposition, .reviewApproved)
+    |                                                        `- error: type 'Equatable' has no member 'reviewApproved'
+ 40 |         let requests = await player.inputs
+ 41 |         XCTAssertEqual(requests.count, 2)
+
+/Users/tingranwang/.codex/worktrees/issue50-review-loop/bridge-coup/Tests/BridgePlayingTests/ReviewedDecisionTests.swift:51:33: error: value of type 'DecisionRecord' has no member 'canonicalInput'
+ 49 |         XCTAssertEqual(decision.effectivePlan, "Final approved route, verbatim.")
+ 50 |         XCTAssertEqual(decision.input, requests[1])
+ 51 |         XCTAssertEqual(decision.canonicalInput, requests[0])
+    |                                 `- error: value of type 'DecisionRecord' has no member 'canonicalInput'
+ 52 |         let plan = await expert.activePlan()
+ 53 |         XCTAssertEqual(plan?.text, "Final approved route, verbatim.")
+[61/80] Compiling BridgePlayingTests FullBoardTests.swift
+[62/80] Compiling BridgePlayingTests PlanContractTests.swift
+[63/80] Compiling BridgePlayingTests PlayingCoreTests.swift
+[64/80] Emitting module BridgeTeacherMac
+error: fatalError
