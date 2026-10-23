@@ -24,7 +24,8 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
     private var threadID: String?
     private var runtimeVersion = ""
     private var observedModel: String?
-    private static let model = "gpt-6-luna"
+    private var observedEffort: String?
+    private static let model = "gpt-6.1-sol"
     private static let effort = "medium"
 
     public init(executable: URL, authenticationFile: URL, evidenceDirectory: URL, timeoutSeconds: Double = 180) throws {
@@ -76,14 +77,15 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
         if threadID == nil {
             let result = try rpc("thread/start", ["cwd": runtimeDirectory.appendingPathComponent("cwd").path,
                 "sandbox": "read-only", "approvalPolicy": "never", "ephemeral": true,
-                "model": Self.model, "baseInstructions": request.instructions,
+                "model": Self.model, "reasoningEffort": Self.effort, "baseInstructions": request.instructions,
                 "developerInstructions": "", "serviceName": "bridge-declarer"])
             guard let thread = result["thread"] as? [String: Any], let id = thread["id"] as? String else {
                 throw CodexPlayingError.failure("Missing thread identity")
             }
             threadID = id
             observedModel = result["model"] as? String ?? thread["model"] as? String
-            if let observedModel, observedModel != Self.model { throw CodexPlayingError.failure("Runtime model mismatch: \(observedModel)") }
+            observedEffort = result["reasoningEffort"] as? String ?? thread["reasoningEffort"] as? String
+            guard observedModel == Self.model, observedEffort == Self.effort else { throw CodexPlayingError.failure("Runtime model/effort acknowledgement mismatch") }
         }
         let result = try rpc("turn/start", ["threadId": threadID!, "model": Self.model, "effort": Self.effort,
             "input": [["type": "text", "text": request.input, "text_elements": []]],
@@ -111,9 +113,9 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
                 throw CodexPlayingError.failure("Missing public model output")
             }
             let identity = RuntimeIdentity(requestedModel: Self.model, requestedEffort: Self.effort, runtimeVersion: runtimeVersion,
-                                           observedModel: observedModel, threadID: threadID!, turnID: turnID)
+                                           observedModel: observedModel, observedEffort: observedEffort, threadID: threadID!, turnID: turnID)
             succeeded = true
-            return PlayingReply(rawOutput: text, identity: identity)
+            return PlayingReply(rawOutput: text, identity: identity, requestID: request.id)
         }
     }
 
@@ -193,7 +195,7 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
               let model = entries.first(where: { $0["model"] as? String == Self.model }),
               let efforts = model["supportedReasoningEfforts"] as? [[String: Any]],
               efforts.contains(where: { $0["reasoningEffort"] as? String == Self.effort }) else {
-            throw CodexPlayingError.failure("Requested gpt-6-luna / medium configuration unavailable")
+            throw CodexPlayingError.failure("Requested gpt-6.1-sol / medium configuration unavailable")
         }
         try log("catalogAcknowledgement", model)
     }
@@ -286,7 +288,7 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
     }
 
     public static let configuration = """
-    model = "gpt-6-luna"
+    model = "gpt-6.1-sol"
     model_reasoning_effort = "medium"
     approval_policy = "never"
     sandbox_mode = "read-only"

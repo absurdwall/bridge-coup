@@ -62,7 +62,9 @@ private struct BoardInput: Codable {
             let transport = try CodexPlayingTransport(executable: URL(fileURLWithPath: codex),
                 authenticationFile: URL(fileURLWithPath: authHome).appendingPathComponent("auth.json"), evidenceDirectory: output,
                 timeoutSeconds: requestTimeout)
-            let expert = ExpertSession(transport: transport)
+            let reviewer = CodexReviewTransport(executable: URL(fileURLWithPath: codex),
+                authenticationFile: URL(fileURLWithPath: authHome).appendingPathComponent("auth.json"), evidenceDirectory: output.appendingPathComponent("reviewer"), timeoutSeconds: requestTimeout)
+            let expert = ExpertSession(transport: transport, reviewer: reviewer)
             let driver = BoardDriver(board: board, expert: expert, opponent: policy,
                                      mechanicalSoleLegal: options["--sole-legal"] == "true", requestTimeoutSeconds: requestTimeout, runTimeoutSeconds: runTimeout, started: exposureTime)
             var decisionCount = 0

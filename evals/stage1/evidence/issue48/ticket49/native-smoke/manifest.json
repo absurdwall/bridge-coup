@@ -1,0 +1,17 @@
+{
+  "purpose": "One actual initial player + independent reviewer; no repair, retry or quality claim.",
+  "baseline": "c74d69781498f5a69ea0be9e0dc26612d5c96e6d",
+  "sourceHashes": {
+    "Sources/BridgeExpert/Expert.swift": "6d86f28b0286013b7446698717f5a7b1537ecbec98db297e1d16929764bd29d6",
+    "Sources/BridgeExpert/PlayReview.swift": "32fbb879f3349f59d7e6cf85aa36701fb9d028e024e6cba01a1a71424f2f3e99",
+    "Sources/BridgeCodex/CodexTransport.swift": "67c2ee79d926bd4574b7d34b0c9e2aec298f957cbd04a9d8fe96fa2f8014abf4",
+    "Sources/BridgeCodex/CodexReviewTransport.swift": "d8ddbc207c529a0a528043e7fb57481dac22add7fa41c1034184de19a708cfa1",
+    "Sources/BridgeDriver/BoardDriver.swift": "defb05b441daabdfc778b8beee99729df238082c1ed4c57e4a574a1dfbd55e7b",
+    "Sources/BridgeExpert/Resources/DeclarerInstructions.txt": "8370e86f5aa68185bcee5cae99b18d3815efb0bbad341c666811f5af455eff4b",
+    "Sources/BridgeExpert/Resources/ReviewerInstructions.txt": "99c46d34fcf6e5b9d2c82194562ebbbb1ae8be437409b9718b6c68aa29f933e2"
+  },
+  "model": "gpt-6.1-sol",
+  "effort": "medium",
+  "requestTimeout": 180,
+  "nativeSha256": "112fae7a5a1223e673c8a1791d32338f37df8b527ff1159bb8adac6c4dbf1b4b"
+}

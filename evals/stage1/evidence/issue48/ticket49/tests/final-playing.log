@@ -1,0 +1,110 @@
+[0/1] Planning build
+Building for debugging...
+[0/8] Write sources
+[2/8] Write swift-version--58304C5D6DBC2206.txt
+[4/8] Compiling BridgeExpert Expert.swift
+[5/8] Emitting module BridgeExpert
+[6/10] Emitting module BridgeDriver
+[7/10] Compiling BridgeDriver BoardDriver.swift
+[7/12] Write Objects.LinkFileList
+[9/12] Linking bridge-play
+[10/12] Applying bridge-play
+[11/12] Linking BridgeTeacherPackageTests
+Build complete! (2.64s)
+Test Suite 'Selected tests' started at 2026-10-23 12:09:47.416.
+Test Suite 'BridgeTeacherPackageTests.xctest' started at 2026-10-23 12:09:47.417.
+Test Suite 'FullBoardTests' started at 2026-10-23 12:09:47.417.
+Test Case '-[BridgePlayingTests.FullBoardTests testFullDriverRequiresInitialPlanThenLabelsForcedActionsAndCountsPrefix]' started.
+Test Case '-[BridgePlayingTests.FullBoardTests testFullDriverRequiresInitialPlanThenLabelsForcedActionsAndCountsPrefix]' passed (0.017 seconds).
+Test Case '-[BridgePlayingTests.FullBoardTests testFullTrumpDriverConsumesFiftyTwoCardsAndCreditsAllThirteenTricks]' started.
+Test Case '-[BridgePlayingTests.FullBoardTests testFullTrumpDriverConsumesFiftyTwoCardsAndCreditsAllThirteenTricks]' passed (0.012 seconds).
+Test Case '-[BridgePlayingTests.FullBoardTests testLegalChoiceSchemaUsesCompleteAuthoritativeFollowSuitSet]' started.
+Test Case '-[BridgePlayingTests.FullBoardTests testLegalChoiceSchemaUsesCompleteAuthoritativeFollowSuitSet]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.FullBoardTests testLiteralThirteenTricksConsumeAllCardsAndFinishedBoardRejectsMoreWork]' started.
+Test Case '-[BridgePlayingTests.FullBoardTests testLiteralThirteenTricksConsumeAllCardsAndFinishedBoardRejectsMoreWork]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.FullBoardTests testNestedRuntimeCannotHoldOutputPipePastRequestDeadline]' started.
+Test Case '-[BridgePlayingTests.FullBoardTests testNestedRuntimeCannotHoldOutputPipePastRequestDeadline]' passed (1.815 seconds).
+Test Case '-[BridgePlayingTests.FullBoardTests testPavlicekPolicyDucksFirstHonorButCoversNineAgainstActualLegalState]' started.
+Test Case '-[BridgePlayingTests.FullBoardTests testPavlicekPolicyDucksFirstHonorButCoversNineAgainstActualLegalState]' passed (0.002 seconds).
+Test Case '-[BridgePlayingTests.FullBoardTests testRunBudgetStopsBeforeExecutionAndPreservesUnexecutedDecision]' started.
+Test Case '-[BridgePlayingTests.FullBoardTests testRunBudgetStopsBeforeExecutionAndPreservesUnexecutedDecision]' passed (0.045 seconds).
+Test Case '-[BridgePlayingTests.FullBoardTests testUnresponsiveRuntimeCannotIgnoreRequestDeadline]' started.
+Test Case '-[BridgePlayingTests.FullBoardTests testUnresponsiveRuntimeCannotIgnoreRequestDeadline]' passed (0.263 seconds).
+Test Case '-[BridgePlayingTests.FullBoardTests testWorkedTrumpAndNotrumpWinnersAndNoObligationToRuffOrOverruff]' started.
+Test Case '-[BridgePlayingTests.FullBoardTests testWorkedTrumpAndNotrumpWinnersAndNoObligationToRuffOrOverruff]' passed (0.002 seconds).
+Test Suite 'FullBoardTests' passed at 2026-10-23 12:09:49.579.
+	 Executed 9 tests, with 0 failures (0 unexpected) in 2.160 (2.161) seconds
+Test Suite 'PlanContractTests' started at 2026-10-23 12:09:49.579.
+Test Case '-[BridgePlayingTests.PlanContractTests testFourHistoricalAmbiguousPlansRemainFailuresWithOriginalOutputAndNoRetry]' started.
+Test Case '-[BridgePlayingTests.PlanContractTests testFourHistoricalAmbiguousPlansRemainFailuresWithOriginalOutputAndNoRetry]' passed (0.023 seconds).
+Test Case '-[BridgePlayingTests.PlanContractTests testHistoricalPositionsNowReceiveCompleteAuthorizedSnapshotsAndActivePlan]' started.
+Test Case '-[BridgePlayingTests.PlanContractTests testHistoricalPositionsNowReceiveCompleteAuthorizedSnapshotsAndActivePlan]' passed (0.005 seconds).
+Test Case '-[BridgePlayingTests.PlanContractTests testPublicExpertReceivesCompleteTricksAndCurrentPlays]' started.
+Test Case '-[BridgePlayingTests.PlanContractTests testPublicExpertReceivesCompleteTricksAndCurrentPlays]' passed (0.002 seconds).
+Test Case '-[BridgePlayingTests.PlanContractTests testSerializedAppServerSchemaExcludesAmbiguousPlansAndKeepsLifecycle]' started.
+Test Case '-[BridgePlayingTests.PlanContractTests testSerializedAppServerSchemaExcludesAmbiguousPlansAndKeepsLifecycle]' passed (0.314 seconds).
+Test Suite 'PlanContractTests' passed at 2026-10-23 12:09:49.923.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 0.344 (0.344) seconds
+Test Suite 'PlayingCoreTests' started at 2026-10-23 12:09:49.923.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testAmbiguousExtraExecutableFieldFailsWithoutApplyingAnything]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testAmbiguousExtraExecutableFieldFailsWithoutApplyingAnything]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testAuthorizedSnapshotRejectsOpponentTurnsWithoutExposingTheirLegalChoices]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testAuthorizedSnapshotRejectsOpponentTurnsWithoutExposingTheirLegalChoices]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testChangedObjectiveCannotSilentlyReuseContinuingThread]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testChangedObjectiveCannotSilentlyReuseContinuingThread]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testCLIRecordsMalformedCompletedAnswerAsInvalidOutput]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testCLIRecordsMalformedCompletedAnswerAsInvalidOutput]' passed (0.403 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testContinuationUsesCompleteFactsAndRetainsPlanSourceWithFreshDecisionSession]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testContinuationUsesCompleteFactsAndRetainsPlanSourceWithFreshDecisionSession]' passed (0.002 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testIllegalCurrentActionStopsDriverWithOriginalOutputAndNoExecution]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testIllegalCurrentActionStopsDriverWithOriginalOutputAndNoExecution]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testNonAdjacentTurnReuseCannotBecomeAThirdDecision]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testNonAdjacentTurnReuseCannotBecomeAThirdDecision]' passed (0.002 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testOneThreadRejectsOverlapStaleAndCrossBoardRequests]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testOneThreadRejectsOverlapStaleAndCrossBoardRequests]' passed (0.002 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testOpeningLeadExposesDummyAndCurrentActionAppliesOnlyToItsSnapshot]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testOpeningLeadExposesDummyAndCurrentActionAppliesOnlyToItsSnapshot]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testPlanReplacementChangesSourceAndWithdrawalClearsIt]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testPlanReplacementChangesSourceAndWithdrawalClearsIt]' passed (0.002 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testPublicDriverExecutesEveryDummyChoiceAndRecordsOpponentDelta]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testPublicDriverExecutesEveryDummyChoiceAndRecordsOpponentDelta]' passed (0.002 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testPublicExpertInitialDecisionKeepsFactsSeparateFromAdvice]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testPublicExpertInitialDecisionKeepsFactsSeparateFromAdvice]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testRuntimeTimeoutAlsoBoundsVersionProbeAndPreservesFailure]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testRuntimeTimeoutAlsoBoundsVersionProbeAndPreservesFailure]' passed (0.106 seconds).
+Test Suite 'PlayingCoreTests' passed at 2026-10-23 12:09:50.448.
+	 Executed 13 tests, with 0 failures (0 unexpected) in 0.523 (0.525) seconds
+Test Suite 'ReviewedDecisionTests' started at 2026-10-23 12:09:50.448.
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testApprovalDoesNotAdoptPlanUntilExactActualExecutionAndCannotCommitTwice]' started.
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testApprovalDoesNotAdoptPlanUntilExactActualExecutionAndCannotCommitTwice]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testApprovedFirstDecisionCommitsOneMatchingPlanAndCard]' started.
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testApprovedFirstDecisionCommitsOneMatchingPlanAndCard]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testRejectedMalformedStaleOrWrongIdentityReviewCannotAdvanceBoardOrPlan]' started.
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testRejectedMalformedStaleOrWrongIdentityReviewCannotAdvanceBoardOrPlan]' passed (0.003 seconds).
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testStalePlayerReplyCannotCreateAnExecutableCandidate]' started.
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testStalePlayerReplyCannotCreateAnExecutableCandidate]' passed (0.001 seconds).
+Test Suite 'ReviewedDecisionTests' passed at 2026-10-23 12:09:50.455.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 0.007 (0.007) seconds
+Test Suite 'SnapshotInputTests' started at 2026-10-23 12:09:50.455.
+Test Case '-[BridgePlayingTests.SnapshotInputTests testCompleteUpdateAfterTwoTricksRetainsAllActualPlaysAndRemainingHands]' started.
+Test Case '-[BridgePlayingTests.SnapshotInputTests testCompleteUpdateAfterTwoTricksRetainsAllActualPlaysAndRemainingHands]' passed (0.002 seconds).
+Test Case '-[BridgePlayingTests.SnapshotInputTests testDoublingFromStoredContractReachesActualExpertInput]' started.
+Test Case '-[BridgePlayingTests.SnapshotInputTests testDoublingFromStoredContractReachesActualExpertInput]' passed (0.002 seconds).
+Test Case '-[BridgePlayingTests.SnapshotInputTests testDriverCarriesCurrentWinningPlayOnOpeningLeadAndPartnerContinuation]' started.
+Test Case '-[BridgePlayingTests.SnapshotInputTests testDriverCarriesCurrentWinningPlayOnOpeningLeadAndPartnerContinuation]' passed (0.003 seconds).
+Test Case '-[BridgePlayingTests.SnapshotInputTests testDriverPreservesPublicBackgroundAndOfficialObjectiveAcrossSnapshots]' started.
+Test Case '-[BridgePlayingTests.SnapshotInputTests testDriverPreservesPublicBackgroundAndOfficialObjectiveAcrossSnapshots]' passed (0.002 seconds).
+Test Case '-[BridgePlayingTests.SnapshotInputTests testMatchpointBoardWithoutExplicitObjectiveUsesScoringNeutralAim]' started.
+Test Case '-[BridgePlayingTests.SnapshotInputTests testMatchpointBoardWithoutExplicitObjectiveUsesScoringNeutralAim]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.SnapshotInputTests testPlanOperationsCarryExactTextThenClearItWhileFactsAdvance]' started.
+Test Case '-[BridgePlayingTests.SnapshotInputTests testPlanOperationsCarryExactTextThenClearItWhileFactsAdvance]' passed (0.003 seconds).
+Test Suite 'SnapshotInputTests' passed at 2026-10-23 12:09:50.468.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.013 (0.013) seconds
+Test Suite 'BridgeTeacherPackageTests.xctest' passed at 2026-10-23 12:09:50.468.
+	 Executed 36 tests, with 0 failures (0 unexpected) in 3.047 (3.051) seconds
+Test Suite 'Selected tests' passed at 2026-10-23 12:09:50.469.
+	 Executed 36 tests, with 0 failures (0 unexpected) in 3.047 (3.052) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

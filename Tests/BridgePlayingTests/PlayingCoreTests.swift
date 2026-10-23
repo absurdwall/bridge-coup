@@ -44,7 +44,7 @@ final class PlayingCoreTests: XCTestCase {
             print('recorded boundary')
             sys.exit(0)
         if sys.argv[1:4] == ['debug', 'models', '--bundled']:
-            print(json.dumps({'models':[{'slug':'gpt-6-luna','tool_mode':'code','experimental_supported_tools':['exec'],'apply_patch_tool_type':'freeform','shell_type':'default'}]})); sys.exit(0)
+            print(json.dumps({'models':[{'slug':'gpt-6.1-sol','tool_mode':'code','experimental_supported_tools':['exec'],'apply_patch_tool_type':'freeform','shell_type':'default'}]})); sys.exit(0)
         for line in sys.stdin:
             request = json.loads(line)
             method = request.get('method')
@@ -52,9 +52,9 @@ final class PlayingCoreTests: XCTestCase {
                 continue
             result = {}
             if method == 'model/list':
-                result = {'data': [{'model': 'gpt-6-luna', 'supportedReasoningEfforts': [{'reasoningEffort': 'medium'}]}]}
+                result = {'data': [{'model': 'gpt-6.1-sol', 'supportedReasoningEfforts': [{'reasoningEffort': 'medium'}]}]}
             elif method == 'thread/start':
-                result = {'thread': {'id': 'recorded-thread'}, 'model': 'gpt-6-luna'}
+                result = {'thread': {'id': 'recorded-thread'}, 'model': 'gpt-6.1-sol', 'reasoningEffort': 'medium'}
             elif method == 'turn/start':
                 result = {'turn': {'id': 'recorded-turn'}}
             print(json.dumps({'id': request['id'], 'result': result}), flush=True)
@@ -101,6 +101,7 @@ final class PlayingCoreTests: XCTestCase {
         XCTAssertEqual(decision.effectivePlan, "Establish clubs for the ninth trick, retaining a heart entry to South.")
         XCTAssertEqual(board.events.count, 1)
         try board.apply(decision.action)
+        try await expert.commit(decision, execution: ActualExecution(event: board.events.last!, source: .model))
         XCTAssertEqual(board.events.last?.card, try Card("D3"))
     }
 
@@ -113,6 +114,7 @@ final class PlayingCoreTests: XCTestCase {
         ]))
         let first = try await expert.decide(board.snapshot(controller: .south))
         try board.apply(first.action)
+        try await expert.commit(first, execution: ActualExecution(event: board.events.last!, source: .model))
         try board.play(board.legalCards()[0], by: .east)
         let second = try await expert.decide(board.snapshot(controller: .south))
         XCTAssertEqual(first.identity.threadID, second.identity.threadID)
@@ -129,6 +131,7 @@ final class PlayingCoreTests: XCTestCase {
         XCTAssertEqual(plays.count, 3)
         XCTAssertEqual((input["hands"] as! [String:[String:String]])["N"]?["D"], "865")
         try board.apply(second.action)
+        try await expert.commit(second, execution: ActualExecution(event: board.events.last!, source: .model))
     }
 
     func testAmbiguousExtraExecutableFieldFailsWithoutApplyingAnything() async throws {
@@ -179,7 +182,9 @@ final class PlayingCoreTests: XCTestCase {
         do { _ = try await expert.decide(snapshot); XCTFail("Overlap must fail") }
         catch { XCTAssertEqual(error as? ExpertSessionError, .overlappingDecision) }
         await transport.release()
-        _ = try await first.value
+        let approved = try await first.value
+        try board.apply(approved.action)
+        try await expert.commit(approved, execution: ActualExecution(event: board.events.last!, source: .model))
         do { _ = try await expert.decide(snapshot); XCTFail("Old snapshot must fail") }
         catch { XCTAssertEqual(error as? ExpertSessionError, .staleSnapshot) }
         var other = try BoardState(deal: syntheticDeal(), contract: board.contract)
@@ -197,16 +202,17 @@ final class PlayingCoreTests: XCTestCase {
             #"{"plan":{"update":"withdraw","text":null},"publicReason":"Start a low club while reassessing.","selectedCard":"C4"}"#
         ]))
         let first = try await expert.decide(board.snapshot(controller: .south))
-        // A real different legal dummy card is authoritative; the recommendation is not an event.
-        try board.play(Card("D5"), by: .north)
+        try board.apply(first.action)
+        try await expert.commit(first, execution: ActualExecution(event: board.events.last!, source: .model))
         try board.play(board.legalCards()[0], by: .east)
         let second = try await expert.decide(board.snapshot(controller: .south))
         let input = try JSONSerialization.jsonObject(with: Data(second.input.utf8)) as! [String:Any]
-        XCTAssertEqual((input["currentTrick"] as! [[String:String]])[1], ["seat":"N","card":"D5"])
-        XCTAssertEqual((input["hands"] as! [String:[String:String]])["N"]?["D"], "863")
+        XCTAssertEqual((input["currentTrick"] as! [[String:String]])[1], ["seat":"N","card":"D3"])
+        XCTAssertEqual((input["hands"] as! [String:[String:String]])["N"]?["D"], "865")
         XCTAssertEqual(second.planAssociation?.sourceSnapshotID, second.snapshot.id)
         XCTAssertNotEqual(first.planAssociation?.sourceSnapshotID, second.planAssociation?.sourceSnapshotID)
         try board.apply(second.action)
+        try await expert.commit(second, execution: ActualExecution(event: board.events.last!, source: .model))
         let third = try await expert.decide(board.snapshot(controller: .south))
         XCTAssertNil(third.effectivePlan)
         XCTAssertNil(third.planAssociation)
@@ -218,9 +224,10 @@ final class PlayingCoreTests: XCTestCase {
         let output = #"{"plan":{"update":"replace","text":"Establish clubs."},"publicReason":"Win the ace.","selectedCard":"DA"}"#
         let driver = BoardDriver(board: board, expert: ExpertSession(transport: RecordedPlayTransport(output: output)))
         do { _ = try await driver.advance(); XCTFail("North does not hold DA") }
-        catch let failure as DriverFailure {
-            XCTAssertEqual(failure.decision.rawOutput, output)
-            XCTAssertEqual(failure.detail, "cardNotHeld")
+        catch let failure as ExpertFailure {
+            XCTAssertEqual(failure.rawOutput, output)
+            XCTAssertEqual(failure.category, .invalidOutput)
+            XCTAssertEqual(failure.detail, "illegalCard")
         }
         let trace = await driver.trace()
         XCTAssertEqual(trace.modelRequests, 1)
@@ -236,6 +243,8 @@ final class PlayingCoreTests: XCTestCase {
         try board.play(Card("DQ"), by: .west)
         let expert = ExpertSession(transport: RecordedPlayTransport(output: #"{"plan":{"update":"replace","text":"Establish clubs."},"publicReason":"Follow low.","selectedCard":"D3"}"#))
         let first = try await expert.decide(board.snapshot(controller: .south))
+        try board.apply(first.action)
+        try await expert.commit(first, execution: ActualExecution(event: board.events.last!, source: .model))
         var changed = try BoardState(id: identifier, deal: deal, contract: board.contract, objective: "Pure contract safety.")
         try changed.play(Card("DQ"), by: .west)
         try changed.apply(first.action)
@@ -254,9 +263,11 @@ final class PlayingCoreTests: XCTestCase {
         ], turnIDs: ["turn-A", "turn-B", "turn-A"]))
         let first = try await expert.decide(board.snapshot(controller: .south))
         try board.apply(first.action)
+        try await expert.commit(first, execution: ActualExecution(event: board.events.last!, source: .model))
         try board.play(board.legalCards()[0], by: .east)
         let second = try await expert.decide(board.snapshot(controller: .south))
         try board.apply(second.action)
+        try await expert.commit(second, execution: ActualExecution(event: board.events.last!, source: .model))
         do { _ = try await expert.decide(board.snapshot(controller: .south)); XCTFail("Each decision needs a previously unused turn") }
         catch let failure as ExpertFailure { XCTAssertEqual(failure.detail, "changedThreadOrRepeatedTurn"); XCTAssertEqual(failure.category, .identity) }
     }
@@ -298,7 +309,7 @@ struct RecordedPlayTransport: PlayingTransport {
     let output: String
     func respond(to request: PlayingRequest) async throws -> PlayingReply {
         _ = try JSONSerialization.jsonObject(with: Data(request.outputSchema.utf8))
-        return PlayingReply(rawOutput: output, identity: RuntimeIdentity(requestedModel: "gpt-6-luna", requestedEffort: "medium", runtimeVersion: "recorded boundary", observedModel: nil, threadID: "recorded", turnID: "recorded"))
+        return PlayingReply(rawOutput: output, identity: RuntimeIdentity(requestedModel: "gpt-6.1-sol", requestedEffort: "medium", runtimeVersion: "recorded boundary", observedModel: "gpt-6.1-sol", observedEffort: "medium", threadID: "recorded", turnID: "recorded"), requestID: request.id)
     }
 }
 
@@ -309,7 +320,7 @@ actor SequencePlayTransport: PlayingTransport {
     init(outputs: [String], turnIDs: [String]? = nil) { self.outputs = outputs; self.turnIDs = turnIDs }
     func respond(to request: PlayingRequest) async throws -> PlayingReply {
         let output = outputs[index]; index += 1
-        return PlayingReply(rawOutput: output, identity: RuntimeIdentity(requestedModel: "gpt-6-luna", requestedEffort: "medium", runtimeVersion: "recorded boundary", observedModel: nil, threadID: "one-thread", turnID: turnIDs?[index - 1] ?? "turn-\(index)"))
+        return PlayingReply(rawOutput: output, identity: RuntimeIdentity(requestedModel: "gpt-6.1-sol", requestedEffort: "medium", runtimeVersion: "recorded boundary", observedModel: "gpt-6.1-sol", observedEffort: "medium", threadID: "one-thread", turnID: turnIDs?[index - 1] ?? "turn-\(index)"), requestID: request.id)
     }
 }
 
@@ -326,6 +337,6 @@ actor GatedPlayTransport: PlayingTransport {
         entered = true
         observer?.resume(); observer = nil
         await withCheckedContinuation { gate = $0 }
-        return PlayingReply(rawOutput: #"{"plan":{"update":"replace","text":"Establish clubs."},"publicReason":"Follow low.","selectedCard":"D3"}"#, identity: RuntimeIdentity(requestedModel: "gpt-6-luna", requestedEffort: "medium", runtimeVersion: "recorded boundary", observedModel: nil, threadID: "one-thread", turnID: "one-turn"))
+        return PlayingReply(rawOutput: #"{"plan":{"update":"replace","text":"Establish clubs."},"publicReason":"Follow low.","selectedCard":"D3"}"#, identity: RuntimeIdentity(requestedModel: "gpt-6.1-sol", requestedEffort: "medium", runtimeVersion: "recorded boundary", observedModel: "gpt-6.1-sol", observedEffort: "medium", threadID: "one-thread", turnID: "one-turn"), requestID: request.id)
     }
 }

@@ -102,17 +102,21 @@ final class SnapshotInputTests: XCTestCase {
         ]))
         let first = try await expert.decide(board.snapshot(controller: .south))
         try board.apply(first.action)
+        try await expert.commit(first, execution: ActualExecution(event: board.events.last!, source: .model))
         try board.play(Card("D4"), by: .east)
         let second = try await expert.decide(board.snapshot(controller: .south))
         XCTAssertEqual(try jsonInput(second)["effectivePlan"] as? String, firstPlan)
         try board.apply(second.action)
+        try await expert.commit(second, execution: ActualExecution(event: board.events.last!, source: .model))
         let third = try await expert.decide(board.snapshot(controller: .south))
         XCTAssertEqual(try jsonInput(third)["effectivePlan"] as? String, firstPlan)
         try board.apply(third.action)
+        try await expert.commit(third, execution: ActualExecution(event: board.events.last!, source: .model))
         try board.play(Card("D2"), by: .west)
         let fourth = try await expert.decide(board.snapshot(controller: .south))
         XCTAssertEqual(try jsonInput(fourth)["effectivePlan"] as? String, replacement)
         try board.apply(fourth.action)
+        try await expert.commit(fourth, execution: ActualExecution(event: board.events.last!, source: .model))
         try board.play(Card("D7"), by: .east)
         let fifth = try await expert.decide(board.snapshot(controller: .south))
         let input = try jsonInput(fifth)
@@ -123,6 +127,7 @@ final class SnapshotInputTests: XCTestCase {
         XCTAssertNotEqual(fifth.identity.turnID, fourth.identity.turnID)
         XCTAssertNil(fifth.effectivePlan)
         try board.apply(fifth.action)
+        try await expert.commit(fifth, execution: ActualExecution(event: board.events.last!, source: .model))
     }
 
     func testCompleteUpdateAfterTwoTricksRetainsAllActualPlaysAndRemainingHands() async throws {
@@ -135,6 +140,7 @@ final class SnapshotInputTests: XCTestCase {
         ]))
         let initial = try await expert.decide(board.snapshot(controller: .south))
         try board.apply(initial.action)
+        try await expert.commit(initial, execution: ActualExecution(event: board.events.last!, source: .model))
         for (seat, code) in [(Seat.east,"D4"),(.south,"DA"),(.south,"CA"),(.west,"C3"),(.north,"C2"),(.east,"C5")] {
             try board.play(Card(code), by: seat)
         }
@@ -161,6 +167,7 @@ final class SnapshotInputTests: XCTestCase {
         XCTAssertEqual(initial.identity.threadID, update.identity.threadID)
         XCTAssertNotEqual(initial.session.id, update.session.id)
         try board.apply(update.action)
+        try await expert.commit(update, execution: ActualExecution(event: board.events.last!, source: .model))
         XCTAssertEqual(board.events.count, 9)
     }
 }

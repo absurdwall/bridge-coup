@@ -7,15 +7,17 @@ public struct RuntimeIdentity: Codable, Equatable, Sendable {
     public let runtimeVersion: String
     /// Observable runtime acknowledgement, not proof of the remote service's internal identity.
     public let observedModel: String?
+    public let observedEffort: String?
     public let threadID: String
     public let turnID: String
-    public init(requestedModel: String, requestedEffort: String, runtimeVersion: String, observedModel: String?, threadID: String, turnID: String) {
+    public init(requestedModel: String, requestedEffort: String, runtimeVersion: String, observedModel: String?, observedEffort: String? = nil, threadID: String, turnID: String) {
         self.requestedModel = requestedModel; self.requestedEffort = requestedEffort; self.runtimeVersion = runtimeVersion
-        self.observedModel = observedModel; self.threadID = threadID; self.turnID = turnID
+        self.observedModel = observedModel; self.observedEffort = observedEffort; self.threadID = threadID; self.turnID = turnID
     }
 }
 
 public struct PlayingRequest: Sendable {
+    public let id = UUID()
     public let instructions: String
     public let input: String
     public let outputSchema: String
@@ -25,7 +27,8 @@ public struct PlayingRequest: Sendable {
 public struct PlayingReply: Sendable {
     public let rawOutput: String
     public let identity: RuntimeIdentity
-    public init(rawOutput: String, identity: RuntimeIdentity) { self.rawOutput = rawOutput; self.identity = identity }
+    public let requestID: UUID?
+    public init(rawOutput: String, identity: RuntimeIdentity, requestID: UUID? = nil) { self.rawOutput = rawOutput; self.identity = identity; self.requestID = requestID }
 }
 
 /// External model boundary. Production uses Codex app-server; tests may supply recorded replies.
@@ -81,10 +84,13 @@ public struct DecisionRecord: Codable, Sendable {
     public let action: CurrentAction
     public let effectivePlan: String?
     public let elapsedSeconds: Double
+    /// Nil only for historical direct-play records predating review integration.
+    public let pending: PendingDeclarerDecision?
+    public let review: ReviewRecord?
 }
 
 public struct ExpertFailure: Error, Sendable {
-    public enum Category: String, Codable, Sendable { case runtime, invalidOutput, identity }
+    public enum Category: String, Codable, Sendable { case runtime, invalidOutput, identity, reviewRejected }
     public let category: Category
     public let input: String
     public let rawOutput: String
@@ -95,6 +101,9 @@ public struct ExpertFailure: Error, Sendable {
 /// The App-independent Expert entry: one board/controller owns one continuing transport.
 public actor ExpertSession {
     private let transport: any PlayingTransport
+    private let reviewer: any PlayingTransport
+    private var pending: PendingDeclarerDecision?
+    private var authorized: DecisionRecord?
     private var planAssociation: PlanAssociation?
     private var previousIdentity: RuntimeIdentity?
     private var usedTurnIDs: Set<String> = []
@@ -104,10 +113,33 @@ public actor ExpertSession {
     private var boundController: Seat?
     private var previousSnapshot: DecisionSnapshot?
 
-    public init(transport: any PlayingTransport) { self.transport = transport }
+    public init(transport: any PlayingTransport, reviewer: any PlayingTransport) {
+        self.transport = transport; self.reviewer = reviewer
+    }
+
+    public func activePlan() -> PlanAssociation? { planAssociation }
+    public func pendingDecision() -> PendingDeclarerDecision? { pending }
+
+    /// Called by the canonical driver only after the matching actual play succeeds.
+    public func commit(_ decision: DecisionRecord, execution: ActualExecution) throws {
+        guard let authorized, let pending,
+              decision.session == authorized.session, decision.pending == pending,
+              decision.advice == authorized.advice, decision.action == authorized.action,
+              decision.snapshot == authorized.snapshot,
+              execution.source == .model,
+              execution.event.sequence == decision.snapshot.events.count,
+              execution.event.seat == decision.action.actingSeat,
+              execution.event.card == decision.action.card else { throw ExpertSessionError.invalidExecutionEvidence }
+        planAssociation = authorized.planAssociation
+        previousSnapshot = authorized.snapshot
+        self.pending = nil; self.authorized = nil
+    }
+
+    public func abandonPending() { pending = nil; authorized = nil; ended = true }
+
 
     public func decide(_ snapshot: DecisionSnapshot, executions: [ActualExecution] = [], timeoutSeconds: Double = 180) async throws -> DecisionRecord {
-        guard !inFlight else { throw ExpertSessionError.overlappingDecision }
+        guard !inFlight && pending == nil else { throw ExpertSessionError.overlappingDecision }
         guard !ended else { throw ExpertSessionError.endedSession }
         if let boundBoard {
             guard snapshot.boardID == boundBoard, snapshot.controller == boundController else { throw ExpertSessionError.differentBoardOrController }
@@ -134,13 +166,19 @@ public actor ExpertSession {
         let input = try snapshotInput(snapshot, initial: previousSnapshot == nil)
         let start = Date()
         let reply: PlayingReply
-        do { reply = try await transport.respond(to: PlayingRequest(instructions: Self.instructions, input: input, outputSchema: try Self.outputSchema(for: snapshot, initialPlan: previousSnapshot == nil), timeoutSeconds: timeoutSeconds)) }
+        let playerRequest = PlayingRequest(instructions: Self.instructions, input: input, outputSchema: try Self.outputSchema(for: snapshot, initialPlan: previousSnapshot == nil), timeoutSeconds: timeoutSeconds)
+        do { reply = try await transport.respond(to: playerRequest) }
         catch { ended = true; throw ExpertFailure(category: .runtime, input: input, rawOutput: "", detail: String(describing: error), elapsedSeconds: Date().timeIntervalSince(start)) }
         let elapsed = Date().timeIntervalSince(start)
         if let previousIdentity, (reply.identity.threadID != previousIdentity.threadID || usedTurnIDs.contains(reply.identity.turnID)) {
             ended = true
             throw ExpertFailure(category: .identity, input: input, rawOutput: reply.rawOutput, detail: String(describing: ExpertSessionError.changedThreadOrRepeatedTurn), elapsedSeconds: elapsed)
         }
+        do {
+            try Self.validateIdentity(reply.identity)
+            guard !ended, reply.requestID == playerRequest.id else { throw ExpertSessionError.staleSnapshot }
+        }
+        catch { ended = true; throw ExpertFailure(category: .identity, input: input, rawOutput: reply.rawOutput, detail: String(describing: error), elapsedSeconds: elapsed) }
         let advice: PublicAdvice
         do {
             let data = Data(reply.rawOutput.utf8)
@@ -148,6 +186,7 @@ public actor ExpertSession {
                   Set(object.keys) == ["selectedCard", "publicReason", "plan"],
                   let plan = object["plan"] as? [String: Any], Set(plan.keys) == ["update", "text"] else { throw ValidationError.unexpectedFields }
             advice = try JSONDecoder().decode(PublicAdvice.self, from: data)
+            guard snapshot.legalCards.contains(advice.currentCard) else { throw ValidationError.illegalCard }
             guard !advice.publicReason.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
                 throw ValidationError.emptyReason
             }
@@ -162,17 +201,42 @@ public actor ExpertSession {
             ended = true
             throw ExpertFailure(category: .invalidOutput, input: input, rawOutput: reply.rawOutput, detail: String(describing: error), elapsedSeconds: elapsed)
         }
+        let proposedAssociation: PlanAssociation?
         switch advice.plan.update {
-        case .keep: break
-        case .replace: planAssociation = PlanAssociation(boardID: snapshot.boardID, controller: snapshot.controller, sourceSnapshotID: snapshot.id, sourceSessionID: session.id, text: advice.plan.text!)
-        case .withdraw: planAssociation = nil
+        case .keep: proposedAssociation = planAssociation
+        case .replace: proposedAssociation = PlanAssociation(boardID: snapshot.boardID, controller: snapshot.controller, sourceSnapshotID: snapshot.id, sourceSessionID: session.id, text: advice.plan.text!)
+        case .withdraw: proposedAssociation = nil
         }
-        previousSnapshot = snapshot
+        let candidate = PendingDeclarerDecision(id: session.id, candidateID: UUID(), snapshot: snapshot,
+            priorPlan: planAssociation, candidate: advice, proposedEffectivePlan: proposedAssociation?.text)
+        pending = candidate
+        let reviewInput = try Self.reviewInput(snapshotInput: input, pending: candidate)
+        let request = PlayingRequest(instructions: Self.reviewerInstructions, input: reviewInput, outputSchema: Self.reviewOutputSchema, timeoutSeconds: timeoutSeconds)
+        let reviewReply: PlayingReply
+        do { reviewReply = try await reviewer.respond(to: request) }
+        catch { ended = true; throw ExpertFailure(category: .runtime, input: reviewInput, rawOutput: "", detail: "Reviewer: \(error)", elapsedSeconds: Date().timeIntervalSince(start)) }
+        do {
+            try Self.validateIdentity(reviewReply.identity)
+            guard !ended, reviewReply.requestID == request.id,
+                  reviewReply.identity.threadID != reply.identity.threadID,
+                  pending == candidate else { throw ExpertSessionError.staleSnapshot }
+        } catch { ended = true; throw ExpertFailure(category: .identity, input: reviewInput, rawOutput: reviewReply.rawOutput, detail: String(describing: error), elapsedSeconds: Date().timeIntervalSince(start)) }
+        let verdict: PlayReview
+        do { verdict = try Self.parseReview(reviewReply.rawOutput) }
+        catch { ended = true; throw ExpertFailure(category: .invalidOutput, input: reviewInput, rawOutput: reviewReply.rawOutput, detail: "Reviewer: \(error)", elapsedSeconds: Date().timeIntervalSince(start)) }
+        guard verdict.verdict == .approve else {
+            ended = true
+            throw ExpertFailure(category: .reviewRejected, input: reviewInput, rawOutput: reviewReply.rawOutput, detail: "Review did not approve candidate \(candidate.candidateID)", elapsedSeconds: Date().timeIntervalSince(start))
+        }
         previousIdentity = reply.identity
         usedTurnIDs.insert(reply.identity.turnID)
-        return DecisionRecord(session: session, planAssociation: planAssociation, wireContractVersion: Self.wireContractVersion, snapshot: snapshot, instructions: Self.instructions, input: input, rawOutput: reply.rawOutput,
+        let review = ReviewRecord(requestID: request.id, pendingDecisionID: candidate.id, candidateID: candidate.candidateID,
+            instructions: Self.reviewerInstructions, input: reviewInput, rawOutput: reviewReply.rawOutput, identity: reviewReply.identity, result: verdict)
+        let record = DecisionRecord(session: session, planAssociation: proposedAssociation, wireContractVersion: Self.wireContractVersion, snapshot: snapshot, instructions: Self.instructions, input: input, rawOutput: reply.rawOutput,
                               identity: reply.identity, advice: advice, action: CurrentAction(snapshot: snapshot, card: advice.currentCard),
-                              effectivePlan: planAssociation?.text, elapsedSeconds: elapsed)
+                              effectivePlan: proposedAssociation?.text, elapsedSeconds: Date().timeIntervalSince(start), pending: candidate, review: review)
+        authorized = record
+        return record
     }
 
     private func snapshotInput(_ snapshot: DecisionSnapshot, initial: Bool) throws -> String {
@@ -205,7 +269,7 @@ public actor ExpertSession {
         return String(decoding: try JSONSerialization.data(withJSONObject: input, options: [.prettyPrinted, .sortedKeys]), as: UTF8.self)
     }
 
-    private enum ValidationError: Error { case emptyReason, missingInitialPlan, missingReplacement, ambiguousPlan, unexpectedFields }
+    private enum ValidationError: Error { case illegalCard, emptyReason, missingInitialPlan, missingReplacement, ambiguousPlan, unexpectedFields }
 
     public static let wireContractVersion = "stage1-full-snapshot-v5"
 
