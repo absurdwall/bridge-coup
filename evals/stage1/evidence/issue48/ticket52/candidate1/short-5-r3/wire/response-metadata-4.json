@@ -1,0 +1,158 @@
+{
+  "httpStatus": 200,
+  "id": "resp_093953511acb8780016adba1e487e88197be6691e58cb9a39f",
+  "model": "gpt-6.1-sol",
+  "status": "completed",
+  "usage": {
+    "input_tokens": 6323,
+    "input_tokens_details": {
+      "cached_tokens": 4608,
+      "cache_write_tokens": 0
+    },
+    "output_tokens": 342,
+    "output_tokens_details": {
+      "reasoning_tokens": 78
+    },
+    "total_tokens": 6665,
+    "attribution": {
+      "items": {
+        "at_50552ca7-c4a0-593d-89e2-03d6fc6b108d": {
+          "input_tokens": 4,
+          "cached_tokens": 4,
+          "cache_write_tokens": 0,
+          "output_tokens": 0
+        },
+        "msg_01a169ed-94a0-7c23-ac07-f71f208eaf36": {
+          "input_tokens": 389,
+          "cached_tokens": 389,
+          "cache_write_tokens": 0,
+          "output_tokens": 0,
+          "content": [
+            {
+              "input_tokens": 389,
+              "cached_tokens": 389,
+              "cache_write_tokens": 0,
+              "output_tokens": 0
+            }
+          ]
+        },
+        "msg_01a169ef-3108-7e71-9ffb-f02a6edc1f09": {
+          "input_tokens": 687,
+          "cached_tokens": 558,
+          "cache_write_tokens": 0,
+          "output_tokens": 0,
+          "content": [
+            {
+              "input_tokens": 687,
+              "cached_tokens": 558,
+              "cache_write_tokens": 0,
+              "output_tokens": 0
+            }
+          ]
+        },
+        "msg_01a169f0-62c2-75f3-9ce0-b8b3bd5d7c8b": {
+          "input_tokens": 1538,
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "output_tokens": 0,
+          "content": [
+            {
+              "input_tokens": 1538,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "output_tokens": 0
+            }
+          ]
+        },
+        "msg_093953511acb8780016adba167c3cc8197848e73fc48d13136": {
+          "input_tokens": 288,
+          "cached_tokens": 288,
+          "cache_write_tokens": 0,
+          "output_tokens": 0,
+          "content": [
+            {
+              "input_tokens": 288,
+              "cached_tokens": 288,
+              "cache_write_tokens": 0,
+              "output_tokens": 0
+            }
+          ]
+        },
+        "msg_093953511acb8780016adba19797b081979a65cf364dbf3abb": {
+          "input_tokens": 46,
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "output_tokens": 0,
+          "content": [
+            {
+              "input_tokens": 46,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "output_tokens": 0
+            }
+          ]
+        },
+        "msg_093953511acb8780016adba1e9de5c8197922e1ac0a5189c06": {
+          "input_tokens": 0,
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "output_tokens": 264,
+          "content": [
+            {
+              "input_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "output_tokens": 264
+            }
+          ]
+        },
+        "msg_f9117ddf-8ada-58d3-b299-b21778f04f7a": {
+          "input_tokens": 1841,
+          "cached_tokens": 1841,
+          "cache_write_tokens": 0,
+          "output_tokens": 0,
+          "content": [
+            {
+              "input_tokens": 1841,
+              "cached_tokens": 1841,
+              "cache_write_tokens": 0,
+              "output_tokens": 0
+            }
+          ]
+        },
+        "rs_093953511acb8780016adba1453938819792ff94d4724226a5": {
+          "input_tokens": 518,
+          "cached_tokens": 518,
+          "cache_write_tokens": 0,
+          "output_tokens": 0
+        },
+        "rs_093953511acb8780016adba159be788197a25cc712128f2124": {
+          "input_tokens": 518,
+          "cached_tokens": 518,
+          "cache_write_tokens": 0,
+          "output_tokens": 0
+        },
+        "rs_093953511acb8780016adba167212881979dbab3045b9a111b": {
+          "input_tokens": 360,
+          "cached_tokens": 360,
+          "cache_write_tokens": 0,
+          "output_tokens": 0
+        },
+        "rs_093953511acb8780016adba1e951c881978df5fa1b754c5fe2": {
+          "input_tokens": 2,
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "output_tokens": 78
+        }
+      },
+      "request_fields": {
+        "text.format": {
+          "input_tokens": 132,
+          "cached_tokens": 132,
+          "cache_write_tokens": 0,
+          "output_tokens": 0
+        }
+      }
+    }
+  }
+}

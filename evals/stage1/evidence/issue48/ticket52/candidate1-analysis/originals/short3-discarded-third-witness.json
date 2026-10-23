@@ -1,0 +1,173 @@
+{
+  "status": "legal-authored-predicate-witness",
+  "scope": "Not live performance, not current conserve-high policy reachability. In particular East HQ at seq24 is a legal lead but current conserve-high would prefer its remaining opening-suit diamonds. No opponent/script substitution is proposed.",
+  "events": [
+    {
+      "sequence": 0,
+      "seat": "west",
+      "card": "DQ"
+    },
+    {
+      "sequence": 1,
+      "seat": "north",
+      "card": "D3"
+    },
+    {
+      "sequence": 2,
+      "seat": "east",
+      "card": "D4"
+    },
+    {
+      "sequence": 3,
+      "seat": "south",
+      "card": "DK"
+    },
+    {
+      "sequence": 4,
+      "seat": "south",
+      "card": "CA"
+    },
+    {
+      "sequence": 5,
+      "seat": "west",
+      "card": "C3"
+    },
+    {
+      "sequence": 6,
+      "seat": "north",
+      "card": "C2"
+    },
+    {
+      "sequence": 7,
+      "seat": "east",
+      "card": "C5"
+    },
+    {
+      "sequence": 8,
+      "seat": "south",
+      "card": "CK"
+    },
+    {
+      "sequence": 9,
+      "seat": "west",
+      "card": "C9"
+    },
+    {
+      "sequence": 10,
+      "seat": "north",
+      "card": "C7"
+    },
+    {
+      "sequence": 11,
+      "seat": "east",
+      "card": "CT"
+    },
+    {
+      "sequence": 12,
+      "seat": "south",
+      "card": "H3"
+    },
+    {
+      "sequence": 13,
+      "seat": "west",
+      "card": "H5"
+    },
+    {
+      "sequence": 14,
+      "seat": "north",
+      "card": "HK"
+    },
+    {
+      "sequence": 15,
+      "seat": "east",
+      "card": "H2"
+    },
+    {
+      "sequence": 16,
+      "seat": "north",
+      "card": "H4"
+    },
+    {
+      "sequence": 17,
+      "seat": "east",
+      "card": "H8"
+    },
+    {
+      "sequence": 18,
+      "seat": "south",
+      "card": "HA"
+    },
+    {
+      "sequence": 19,
+      "seat": "west",
+      "card": "H9"
+    },
+    {
+      "sequence": 20,
+      "seat": "south",
+      "card": "H6"
+    },
+    {
+      "sequence": 21,
+      "seat": "west",
+      "card": "HT"
+    },
+    {
+      "sequence": 22,
+      "seat": "north",
+      "card": "H7"
+    },
+    {
+      "sequence": 23,
+      "seat": "east",
+      "card": "HJ"
+    },
+    {
+      "sequence": 24,
+      "seat": "east",
+      "card": "HQ"
+    },
+    {
+      "sequence": 25,
+      "seat": "south",
+      "card": "S4"
+    },
+    {
+      "sequence": 26,
+      "seat": "west",
+      "card": "CJ"
+    }
+  ],
+  "window": {
+    "revision": 27,
+    "actingSeat": "north",
+    "ledSuit": "H",
+    "third_defender_club": {
+      "sequence": 26,
+      "seat": "west",
+      "card": "CJ"
+    },
+    "observed_defender_clubs": {
+      "west": [
+        "C3",
+        "C9",
+        "CJ"
+      ],
+      "east": [
+        "C5",
+        "CT"
+      ]
+    },
+    "other_first_club_showout": null,
+    "legalCards": [
+      "CQ",
+      "D5",
+      "D6",
+      "D8",
+      "S2",
+      "S6",
+      "S8"
+    ]
+  },
+  "public_inference": "Initially five opponent clubs; W C3/C9 and E C5/CT have appeared in two club rounds. West CJ discarded on a heart lead is the fifth, proving original W3/E2 without observing a future East club show-out/discard."
+}
