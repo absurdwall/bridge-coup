@@ -69,7 +69,9 @@ INPUT REFERENCE
   conditions rather than facts.
 - legalCurrentCards lists the current legal cards.
 - candidate is the proposed public JSON: plan, selectedCard and publicReason.
-- latestSnapshot.effectivePlan is the previously approved active plan.
+- latestSnapshot.effectivePlan is the working active plan from prior authorized
+  execution. It may have been approved or released with unresolved objections;
+  active status alone does not establish review approval.
 - proposedEffectivePlan is the plan after applying the candidate operation:
   keep retains the active text verbatim, replace uses candidate.plan.text,
   and withdraw clears it.
