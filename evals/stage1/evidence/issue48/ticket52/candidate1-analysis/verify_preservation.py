@@ -6,6 +6,7 @@ import io
 import json
 from pathlib import Path
 import tarfile
+from frozen_sources import FrozenSources
 
 HERE = Path(__file__).resolve().parent
 
@@ -15,15 +16,17 @@ def load(path):
 def digest(data):
     return hashlib.sha256(data).hexdigest()
 
-def verify(repo, analysis):
+def verify(repo, analysis, check_current_source=False):
     manifest = load(analysis / 'raw-preservation.json')
     root = repo / manifest['candidate_root']
     for row in manifest['files']:
         data = (root / row['path']).read_bytes()
         assert len(data) == row['bytes'] and digest(data) == row['sha256'], row['path']
     candidate = load(root / 'candidate.json')
-    for relative, expected in candidate['source_hashes'].items():
-        assert digest((repo / relative).read_bytes()) == expected, relative
+    frozen = FrozenSources(analysis, candidate)
+    if check_current_source:
+        for relative, expected in candidate['source_hashes'].items():
+            assert digest((repo / relative).read_bytes()) == expected, relative
     external = load(analysis / 'external-preservation.json')
     for row in external['files']:
         data = (analysis / row['portable_path']).read_bytes()
@@ -44,11 +47,14 @@ def verify(repo, analysis):
     return {'status':'pass', 'raw_files':manifest['file_count'], 'raw_bytes':manifest['total_bytes'],
             'external_originals':len(external['files']), 'frozen_source_files':len(candidate['source_hashes']),
             'independent_reviews':len(index['attempts']), 'runtime_archive_sha256':expected['archive_sha256'],
-            'source_commit':candidate['source_commit'], 'raw_evidence_unchanged':True}
+            'source_commit':candidate['source_commit'], 'frozen_source_archive_sha256':frozen.sha256,
+            'current_source_comparison':check_current_source, 'raw_evidence_unchanged':True}
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--repo', type=Path, required=True)
     parser.add_argument('--analysis', type=Path, default=HERE)
+    parser.add_argument('--check-current-source', action='store_true',
+                        help='Optional freeze-era check; omit after later candidates change the checkout.')
     args = parser.parse_args()
-    print(json.dumps(verify(args.repo.resolve(),args.analysis.resolve()),indent=2))
+    print(json.dumps(verify(args.repo.resolve(),args.analysis.resolve(),args.check_current_source),indent=2))

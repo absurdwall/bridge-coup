@@ -2,9 +2,9 @@
 """Offline replay of preserved candidate-1 adjudication proofs; no model calls."""
 import argparse
 import hashlib
-import importlib.util
 import json
 from pathlib import Path
+from frozen_sources import FrozenSources
 
 HERE = Path(__file__).resolve().parent
 
@@ -15,14 +15,14 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 def verify(repo, proof_dir, candidate):
-    module_path = repo / 'evals/stage1/corpus.py'
-    spec = importlib.util.spec_from_file_location('corpus', module_path)
-    corpus = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(corpus)
+    candidate_freeze = load(candidate / 'candidate.json')
+    frozen = FrozenSources(Path(__file__).resolve().parent, candidate_freeze)
+    corpus = frozen.corpus()
+    reducer_hash = hashlib.sha256(frozen.read('evals/stage1/corpus.py')).hexdigest()
     proof = load(proof_dir / 'candidate1-short1-counterexample.json')
     decision = candidate / 'short-1-r1/play/decision.json'
     assert digest(decision) == proof['source_sha256']
-    assert digest(module_path) == proof['reducer_sha256']
+    assert reducer_hash == proof['reducer_sha256']
     board = proof['counterfactual_board']
     known = {h['seat']:set(h['cards']) for h in load(decision)['snapshot']['hands']}
     initial = corpus.replay(board, load(decision)['snapshot']['events'])
@@ -44,20 +44,20 @@ def verify(repo, proof_dir, candidate):
 
     walker = load(proof_dir / 'candidate1-short6-r1-r2-coverage-environment-proof.json')
     third = load(proof_dir / 'candidate1-short6-r3-coverage-environment-proof.json')
-    assert digest(module_path) == walker['reducer_sha256'] == third['reducer_sha256']
+    assert reducer_hash == walker['reducer_sha256'] == third['reducer_sha256']
     rows = walker['attempts'] + [dict(third, diamond_ace_sequence=third['DA_sequence'],
                                     environment_only_remaining_hands=third['remaining_after_DA'])]
     walker_results = []
     for row in rows:
-        fixture = repo / 'evals/stage1/corpus/boards' / Path(row['fixture']).name
+        fixture = 'evals/stage1/corpus/boards/' + Path(row['fixture']).name
         trace_path = candidate / row['attempt'] / 'play/trace.json'
-        assert digest(fixture) == row['fixture_sha256']
+        assert hashlib.sha256(frozen.read(fixture)).hexdigest() == row['fixture_sha256']
         assert digest(trace_path) == row['trace_sha256']
         trace = load(trace_path)
         events = list(trace['initialEvents']) + [s['execution']['event'] for s in trace['steps'] if s.get('execution')]
         sequence = row['diamond_ace_sequence']
         assert events[sequence]['seat'] == 'east' and events[sequence]['card'] == 'DA'
-        state = corpus.replay(load(fixture), events[:sequence+1])
+        state = corpus.replay(frozen.load_json(fixture), events[:sequence+1])
         assert state['actingSeat'] == 'east'
         assert not any(c.startswith('S') for c in state['hands']['east'])
         assert {c for c in state['hands']['west'] if c.startswith('S')} == {'ST','S2'}
@@ -66,7 +66,7 @@ def verify(repo, proof_dir, candidate):
         walker_results.append({'attempt':row['attempt'], 'environment_only_severance_confirmed':True})
 
     expected = load(proof_dir / 'short3-coverage-witness.json')['results']
-    board = load(repo / 'evals/stage1/corpus/boards/synthetic.json')
+    board = frozen.load_json('evals/stage1/corpus/boards/synthetic.json')
     windows = []
     for row in expected:
         trace = load(candidate / row['run'] / 'play/trace.json')

@@ -39,7 +39,14 @@ copies 37 original files: reports, proofs, addenda, the starting obligation
 ledger and explicitly provisional repair memos byte for byte, with hashes and original-to-portable paths. The
 [runtime archive](runtime/candidate1-runtime.tar.gz) retains the exact executable
 and its adjacent Swift instruction bundle together, so future worktree cleanup
-cannot silently replace the historical binary/resources.
+cannot silently replace the historical binary/resources. A separate deterministic
+source archive (`d7ddce0a8b908d5389b0e13dc4e81d0cc0201ea6983f9ea387435e1624d25ea8`)
+retains all 46 source blobs directly from the pinned Git commit. Historical audit
+helpers load that reducer/fixture archive rather than current checkout files.
+The [lifetime regression](lifetime-portability-verification.json) passes with all
+current source bytes deliberately changed in a temporary skeleton and no `.build`
+or native executable. The [README](README.md) distinguishes saved-evidence audits
+from a new execution of the old native candidate.
 
 ## Delivered quality and material coverage
 
