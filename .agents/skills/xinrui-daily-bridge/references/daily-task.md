@@ -2,7 +2,7 @@
 
 本任务使用 Codex 桌面端正规 schedule task。用户选择：**每天 09:00，America/New_York**。平台赛事日期仍从新睿读取。每次调用本 skill，只处理一副，完成后返回结果和中文记录链接。日程不负责唤醒、解锁或登录。
 
-当前部署配置如下，来自本轮保存的实际日程配置；日常执行读取此配置，不另建 schedule。当前仍为 PAUSED，等待最终验收及启用；创建配置不等于已激活或已完成工程交付。
+以下为 2026-10-24 部署配置快照；日常执行读取此配置，不另建 schedule。正规日程已激活，当前状态以正规任务最新读回为准，见下列外部配置证据及读回路径；可变状态不作为本 skill 的固定执行要求。
 
 | 设置 | 值 |
 |---|---|
@@ -11,7 +11,7 @@
 | bridge_repository | `/Users/tingranwang/.codex/worktrees/daily-bridge-integration/bridge-coup` |
 | codex_runtime | `/Users/tingranwang/.nvm/versions/node/v24.12.0/bin/codex`；本轮读回 0.160.0，沿用生产模型配置 |
 | records | `/Users/tingranwang/Documents/xinrui-daily-bridge/` |
-| task id／状态 | `automation`／PAUSED；名称“新睿每日单副” |
+| task id／名称 | `automation`；“新睿每日单副” |
 | 类型／目标聊天 | thread heartbeat／`01a16c74-47e8-7bb1-988e-7a91adee00f3` |
 | 配置证据 | `/Users/tingranwang/Documents/bridge-daily-implementation-2026-10-24/schedule-config.md` |
 | 正规任务读回 | `/Users/tingranwang/.codex/automations/automation/automation.toml` |
