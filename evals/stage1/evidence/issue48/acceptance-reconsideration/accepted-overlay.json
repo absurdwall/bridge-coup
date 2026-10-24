@@ -1,0 +1,515 @@
+{
+  "conclusion": "PASS",
+  "scope": "Stage1 finite acceptance of frozen candidate3; reviewed post-run adjudication correction only. No new execution or inference about broad playing strength.",
+  "frozen_source_commit": "3f0fc65470633dd90363ad0417b29a9f7f68be18",
+  "previous_publication_commit": "20e4d44fb7210d460aa3a42ad832f959cc737c47",
+  "raw_grades_unchanged": true,
+  "raw_counts": {
+    "pass": 259,
+    "fail": 11,
+    "uncertain": 0
+  },
+  "historical_independent_counts": {
+    "pass": 265,
+    "fail": 5,
+    "uncertain": 0
+  },
+  "accepted_independent_counts": {
+    "pass": 270,
+    "fail": 0,
+    "uncertain": 0
+  },
+  "accepted_attempt_counts": {
+    "pass": 22,
+    "fail": 0,
+    "uncertain": 0
+  },
+  "authority": "Owner discussion and explicit request to update acceptance to PASS, preserve old evidence/judgments, and neither merge PR nor close issues. See OWNER-DECISION.md.",
+  "baseline_index": {
+    "path": "ticket52/candidate3-analysis/originals/candidate3-adjudication-index.json",
+    "sha256": "62f73ed14396b41ee37d7fe093e2cf4dc67feda7ef2a000dfd0a84db0686182b"
+  },
+  "overrides": [
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0007",
+      "from": "fail",
+      "to": "pass",
+      "reason": "The J-from-J2 legal counterbranch establishes a prose exception, not a material play failure; the subsequent original player reason recognizes established winners. See full human-reviewed materiality analysis in REPORT.md."
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0008",
+      "from": "fail",
+      "to": "pass",
+      "reason": "The J-from-J2 legal counterbranch establishes a prose exception, not a material play failure; the subsequent original player reason recognizes established winners. See full human-reviewed materiality analysis in REPORT.md."
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0009",
+      "from": "fail",
+      "to": "pass",
+      "reason": "The J-from-J2 legal counterbranch establishes a prose exception, not a material play failure; the subsequent original player reason recognizes established winners. See full human-reviewed materiality analysis in REPORT.md."
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0010",
+      "from": "fail",
+      "to": "pass",
+      "reason": "The J-from-J2 legal counterbranch establishes a prose exception, not a material play failure; the subsequent original player reason recognizes established winners. See full human-reviewed materiality analysis in REPORT.md."
+    },
+    {
+      "attempt": "short-5-r2",
+      "decision": "decision-0011",
+      "from": "fail",
+      "to": "pass",
+      "reason": "The J-from-J2 legal counterbranch establishes a prose exception, not a material play failure; the subsequent original player reason recognizes established winners. See full human-reviewed materiality analysis in REPORT.md."
+    }
+  ],
+  "decision_bindings": {
+    "7": {
+      "path": "ticket52/candidate3/short-5-r2/play/decision-0007/decision.json",
+      "sha256": "aa460f435bd89824f16a46cd81a2f53dac0dd5940bd4e48f4c8b1672048f7130",
+      "card": "HK",
+      "plan_update": "replace",
+      "review_verdicts": [
+        "approve"
+      ]
+    },
+    "8": {
+      "path": "ticket52/candidate3/short-5-r2/play/decision-0008/decision.json",
+      "sha256": "ca362e35a31867e8965ed5451b4b61d65b86619f192524a26e07f30fe896b50f",
+      "card": "H3",
+      "plan_update": "keep",
+      "review_verdicts": [
+        "approve"
+      ]
+    },
+    "9": {
+      "path": "ticket52/candidate3/short-5-r2/play/decision-0009/decision.json",
+      "sha256": "124e73c5f1846f8c73fb1cf1c2d8aa6ba8ae164f248b0b3b5e6ff328899ddc63",
+      "card": "C3",
+      "plan_update": "keep",
+      "review_verdicts": [
+        "approve"
+      ]
+    },
+    "10": {
+      "path": "ticket52/candidate3/short-5-r2/play/decision-0010/decision.json",
+      "sha256": "5fee9f8d2dc9294972b5d4829765685f0f6aaf80254e36e725c58fa13401e180",
+      "card": "CA",
+      "plan_update": "keep",
+      "review_verdicts": [
+        "approve"
+      ]
+    },
+    "11": {
+      "path": "ticket52/candidate3/short-5-r2/play/decision-0011/decision.json",
+      "sha256": "356644e260adc3ca11838791393c555af2c6fccde71a247e273271a8bc75091f",
+      "card": "DK",
+      "plan_update": "keep",
+      "review_verdicts": [
+        "approve"
+      ]
+    },
+    "12": {
+      "path": "ticket52/candidate3/short-5-r2/play/decision-0012/decision.json",
+      "sha256": "19ccbcc1cc512f12a1d4b689716fd50b4abac90fef0a6cf3ad1e66a264c88970",
+      "card": "S4",
+      "plan_update": "replace",
+      "review_verdicts": [
+        "revise",
+        "approve"
+      ]
+    }
+  },
+  "short3_observation": {
+    "historical_extra_requirement": "not_established",
+    "observable_internal_inference_claim": "none",
+    "core_tasks": "all3 covered with36 correct deliveries",
+    "early_window": "r1/r2 absent; r3 actual reviewed model window at revision18, before first showout19; saved facts unchanged",
+    "current_disposition": "nonblocking diagnostic limitation",
+    "reason": "Correct continuation and justified plan retention satisfy the original task. Explicitly demonstrating new-owner reasoning when the correct route is unchanged is not a required hard gate."
+  },
+  "attempts": [
+    {
+      "attempt": "short-1-r1",
+      "historical_quality": "pass",
+      "historical_decision_counts": {
+        "pass": 1,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "accepted_quality": "pass",
+      "accepted_decision_counts": {
+        "pass": 1,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "core_coverage": "covered",
+      "basis": "Existing independent decision review unchanged."
+    },
+    {
+      "attempt": "short-1-r2",
+      "historical_quality": "pass",
+      "historical_decision_counts": {
+        "pass": 1,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "accepted_quality": "pass",
+      "accepted_decision_counts": {
+        "pass": 1,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "core_coverage": "covered",
+      "basis": "Existing independent decision review unchanged."
+    },
+    {
+      "attempt": "short-1-r3",
+      "historical_quality": "pass",
+      "historical_decision_counts": {
+        "pass": 1,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "accepted_quality": "pass",
+      "accepted_decision_counts": {
+        "pass": 1,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "core_coverage": "covered",
+      "basis": "Existing independent decision review unchanged."
+    },
+    {
+      "attempt": "short-2-r1",
+      "historical_quality": "pass",
+      "historical_decision_counts": {
+        "pass": 8,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "accepted_quality": "pass",
+      "accepted_decision_counts": {
+        "pass": 8,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "core_coverage": "covered",
+      "basis": "Existing independent decision review unchanged."
+    },
+    {
+      "attempt": "short-2-r2",
+      "historical_quality": "pass",
+      "historical_decision_counts": {
+        "pass": 8,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "accepted_quality": "pass",
+      "accepted_decision_counts": {
+        "pass": 8,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "core_coverage": "covered",
+      "basis": "Existing independent decision review unchanged."
+    },
+    {
+      "attempt": "short-2-r3",
+      "historical_quality": "pass",
+      "historical_decision_counts": {
+        "pass": 8,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "accepted_quality": "pass",
+      "accepted_decision_counts": {
+        "pass": 8,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "core_coverage": "covered",
+      "basis": "Existing independent decision review unchanged."
+    },
+    {
+      "attempt": "short-3-r1",
+      "historical_quality": "pass",
+      "historical_decision_counts": {
+        "pass": 12,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "accepted_quality": "pass",
+      "accepted_decision_counts": {
+        "pass": 12,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "core_coverage": "covered",
+      "basis": "Existing independent decision review unchanged."
+    },
+    {
+      "attempt": "short-3-r2",
+      "historical_quality": "pass",
+      "historical_decision_counts": {
+        "pass": 12,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "accepted_quality": "pass",
+      "accepted_decision_counts": {
+        "pass": 12,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "core_coverage": "covered",
+      "basis": "Existing independent decision review unchanged."
+    },
+    {
+      "attempt": "short-3-r3",
+      "historical_quality": "pass",
+      "historical_decision_counts": {
+        "pass": 12,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "accepted_quality": "pass",
+      "accepted_decision_counts": {
+        "pass": 12,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "core_coverage": "covered",
+      "basis": "Existing independent decision review unchanged."
+    },
+    {
+      "attempt": "short-4-r1",
+      "historical_quality": "pass",
+      "historical_decision_counts": {
+        "pass": 16,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "accepted_quality": "pass",
+      "accepted_decision_counts": {
+        "pass": 16,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "core_coverage": "covered",
+      "basis": "Existing independent decision review unchanged."
+    },
+    {
+      "attempt": "short-4-r2",
+      "historical_quality": "pass",
+      "historical_decision_counts": {
+        "pass": 16,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "accepted_quality": "pass",
+      "accepted_decision_counts": {
+        "pass": 16,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "core_coverage": "covered",
+      "basis": "Existing independent decision review unchanged."
+    },
+    {
+      "attempt": "short-4-r3",
+      "historical_quality": "pass",
+      "historical_decision_counts": {
+        "pass": 16,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "accepted_quality": "pass",
+      "accepted_decision_counts": {
+        "pass": 16,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "core_coverage": "covered",
+      "basis": "Existing independent decision review unchanged."
+    },
+    {
+      "attempt": "short-5-r1",
+      "historical_quality": "pass",
+      "historical_decision_counts": {
+        "pass": 12,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "accepted_quality": "pass",
+      "accepted_decision_counts": {
+        "pass": 12,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "core_coverage": "covered",
+      "basis": "Existing independent decision review unchanged."
+    },
+    {
+      "attempt": "short-5-r2",
+      "historical_quality": "fail",
+      "historical_decision_counts": {
+        "pass": 7,
+        "fail": 5,
+        "uncertain": 0
+      },
+      "accepted_quality": "pass",
+      "accepted_decision_counts": {
+        "pass": 12,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "core_coverage": "covered",
+      "basis": "Human-reviewed correction in REPORT.md; D7-D11 are not established material play defects."
+    },
+    {
+      "attempt": "short-5-r3",
+      "historical_quality": "pass",
+      "historical_decision_counts": {
+        "pass": 12,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "accepted_quality": "pass",
+      "accepted_decision_counts": {
+        "pass": 12,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "core_coverage": "covered",
+      "basis": "Existing independent decision review unchanged."
+    },
+    {
+      "attempt": "short-6-r1",
+      "historical_quality": "pass",
+      "historical_decision_counts": {
+        "pass": 12,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "accepted_quality": "pass",
+      "accepted_decision_counts": {
+        "pass": 12,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "core_coverage": "covered",
+      "basis": "Existing independent decision review unchanged."
+    },
+    {
+      "attempt": "short-6-r2",
+      "historical_quality": "pass",
+      "historical_decision_counts": {
+        "pass": 12,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "accepted_quality": "pass",
+      "accepted_decision_counts": {
+        "pass": 12,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "core_coverage": "covered",
+      "basis": "Existing independent decision review unchanged."
+    },
+    {
+      "attempt": "short-6-r3",
+      "historical_quality": "pass",
+      "historical_decision_counts": {
+        "pass": 12,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "accepted_quality": "pass",
+      "accepted_decision_counts": {
+        "pass": 12,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "core_coverage": "covered",
+      "basis": "Existing independent decision review unchanged."
+    },
+    {
+      "attempt": "full-development-r1",
+      "historical_quality": "pass",
+      "historical_decision_counts": {
+        "pass": 23,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "accepted_quality": "pass",
+      "accepted_decision_counts": {
+        "pass": 23,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "core_coverage": "covered",
+      "basis": "Existing independent decision review unchanged."
+    },
+    {
+      "attempt": "full-development-r2",
+      "historical_quality": "pass",
+      "historical_decision_counts": {
+        "pass": 22,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "accepted_quality": "pass",
+      "accepted_decision_counts": {
+        "pass": 22,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "core_coverage": "covered",
+      "basis": "Existing independent decision review unchanged."
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "historical_quality": "pass",
+      "historical_decision_counts": {
+        "pass": 21,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "accepted_quality": "pass",
+      "accepted_decision_counts": {
+        "pass": 21,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "core_coverage": "covered",
+      "basis": "Existing independent decision review unchanged."
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "historical_quality": "pass",
+      "historical_decision_counts": {
+        "pass": 21,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "accepted_quality": "pass",
+      "accepted_decision_counts": {
+        "pass": 21,
+        "fail": 0,
+        "uncertain": 0
+      },
+      "core_coverage": "covered",
+      "basis": "Existing independent decision review unchanged."
+    }
+  ],
+  "cycles_used": 3,
+  "maximum_cycles": 3,
+  "new_model_native_grader_calls": 0,
+  "merge_performed": false,
+  "issue_closures_performed": false
+}

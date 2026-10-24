@@ -1,0 +1,55 @@
+[
+  {
+    "candidate": 1,
+    "exit_code": 0,
+    "result": {
+      "status": "pass",
+      "raw_files": 3377,
+      "raw_bytes": 499753621,
+      "external_originals": 37,
+      "frozen_source_files": 46,
+      "independent_reviews": 22,
+      "runtime_archive_sha256": "c9d3d6613aee44695a26816581d39c3fa2fa0816844a0365ef53e327c1b14004",
+      "source_commit": "ca0b1a32cb67110773d21baef1ec3ea981868544",
+      "frozen_source_archive_sha256": "d7ddce0a8b908d5389b0e13dc4e81d0cc0201ea6983f9ea387435e1624d25ea8",
+      "current_source_comparison": false,
+      "raw_evidence_unchanged": true
+    }
+  },
+  {
+    "candidate": 2,
+    "exit_code": 0,
+    "result": {
+      "status": "pass",
+      "raw_files": 3300,
+      "raw_bytes": 495286544,
+      "external_originals": 208,
+      "frozen_source_files": 50,
+      "normal_completed_reviews": 21,
+      "interrupted_partial_reviews": 1,
+      "runtime_archive_sha256": "f78a6ddc9c495ef6f5b5f316b65a97d3325f365922a901c0ae5ebbd4ed45e3f2",
+      "source_commit": "0a307cbde5498ed24b73da0d781cb9113ce92180",
+      "frozen_source_archive_sha256": "53207f1d2f84531c53441b80d9501db0fd21ec2305074fe9104d0b34f91b32f6",
+      "current_source_comparison": false,
+      "raw_evidence_unchanged": true
+    }
+  },
+  {
+    "candidate": 3,
+    "exit_code": 0,
+    "result": {
+      "status": "pass",
+      "raw_files": 3428,
+      "raw_bytes": 515356364,
+      "external_originals": 140,
+      "frozen_source_files": 50,
+      "normal_completed_reviews": 22,
+      "interrupted_partial_reviews": 0,
+      "runtime_archive_sha256": "186741545c0b3eb3590cec6297ff81a5a2c1e6facf38a43edf1c4ea75898ff5f",
+      "source_commit": "3f0fc65470633dd90363ad0417b29a9f7f68be18",
+      "frozen_source_archive_sha256": "0bb2e7f987adae2c1c8923ddf10db6cda8e1045125667536ef34eda1aaab3206",
+      "current_source_comparison": false,
+      "raw_evidence_unchanged": true
+    }
+  }
+]
