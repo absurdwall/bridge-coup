@@ -11,6 +11,7 @@ private struct Command: Decodable {
     let checkpointPath: String?
     let event: PlayEvent?
     let authorization: UUID?
+    let automatic: Bool?
 }
 
 /// One JSON command/response per line; stdin owns the continuous Expert conversation.
@@ -88,7 +89,7 @@ private struct Command: Decodable {
                     emit(["ok": true, "kind": "advice", "value": value])
                 case "observe":
                     guard let session, let event = command.event else { throw CLIError.invalidCommand }
-                    let execution = try await session.observe(event, authorization: command.authorization)
+                    let execution = try await session.observe(event, authorization: command.authorization, automatic: command.automatic ?? false)
                     try await persist(session, output: output)
                     try emitValue(execution, kind: "observed")
                 case "stop":

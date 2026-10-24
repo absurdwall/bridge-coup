@@ -5,6 +5,52 @@ import BridgeExpert
 import BridgeDriver
 
 final class ExternalBoardTests: XCTestCase {
+    func testInitialAutomaticSoleLegalPlayPrecedesFirstReviewedChoiceAndPreservesManualForcedPath() async throws {
+        let player = ReviewLoopBoundary(outputs: [
+            #"{"plan":{"update":"replace","text":"Win diamonds, then establish clubs."},"selectedCard":"DA","publicReason":"Win the diamond trick."}"#,
+            #"{"plan":{"update":"keep","text":null},"selectedCard":"CA","publicReason":"Start clubs."}"#
+        ], role: "player")
+        let session = try ExternalBoardSession(configuration: automaticConfiguration(), transport: player, reviewer: InspectingReviewer())
+        let event = PlayEvent(sequence: 1, seat: .north, card: try Card("D3"))
+        let automatic = try await session.observe(event, automatic: true)
+        XCTAssertEqual(automatic.source, .forced)
+        let beforeChoice = try await session.status()
+        XCTAssertNil(beforeChoice.activePlan)
+        XCTAssertNil(beforeChoice.pendingAuthorization)
+        let noRequests = await player.inputs
+        XCTAssertTrue(noRequests.isEmpty)
+        do { _ = try await session.observe(event, automatic: true); XCTFail("Automatic observation is single use") } catch {}
+        _ = try await session.observe(.init(sequence: 2, seat: .east, card: Card("D4")))
+        let first = try await session.decide()
+        XCTAssertEqual(first.source, .model)
+        XCTAssertEqual(first.decision?.advice.plan.update, .replace)
+        XCTAssertEqual(first.decision?.snapshot.events.count, 3)
+        _ = try await session.observe(.init(sequence: 3, seat: .south, card: Card("DA")), authorization: first.authorization)
+        let next = try await session.decide()
+        _ = try await session.observe(.init(sequence: 4, seat: .south, card: Card("CA")), authorization: next.authorization)
+        _ = try await session.observe(.init(sequence: 5, seat: .west, card: Card("C2")))
+        let manual = try await session.decide()
+        XCTAssertEqual(manual.source, .forced)
+        XCTAssertNil(manual.decision)
+        _ = try await session.observe(.init(sequence: 6, seat: .north, card: Card("CQ")), authorization: manual.authorization)
+        let requests = await player.inputs
+        XCTAssertEqual(requests.count, 2)
+    }
+
+    func testAutomaticObservationCannotReplaceAChoiceOrPendingReviewedAdvice() async throws {
+        let choices = try ExternalBoardSession(configuration: externalConfiguration(), transport: RecordedPlayTransport(output: firstCandidate), reviewer: InspectingReviewer())
+        do { _ = try await choices.observe(.init(sequence: 1, seat: .north, card: Card("D3")), automatic: true); XCTFail("Multiple choices require Expert") } catch {}
+        let unchanged = try await choices.status()
+        XCTAssertEqual(unchanged.events.count, 1)
+        let pending = try ExternalBoardSession(configuration: automaticConfiguration(), transport: RecordedPlayTransport(output: firstCandidate), reviewer: InspectingReviewer())
+        let advice = try await pending.decide()
+        do { _ = try await pending.observe(.init(sequence: 1, seat: .north, card: Card("D3")), automatic: true); XCTFail("A pending model decision cannot be relabeled forced") } catch {}
+        let stillPending = try await pending.status()
+        XCTAssertEqual(stillPending.pendingAuthorization, advice.authorization)
+        XCTAssertNil(stillPending.activePlan)
+        _ = try await pending.observe(.init(sequence: 1, seat: .north, card: Card("D3")), authorization: advice.authorization)
+    }
+
     func testAdviceRequiresMatchingObservedExecutionBeforeNextDecision() async throws {
         let player = ReviewLoopBoundary(outputs: [firstCandidate, #"{"plan":{"update":"keep","text":null},"selectedCard":"DA","publicReason":"Win the diamond trick."}"#], role: "player")
         let session = try ExternalBoardSession(configuration: externalConfiguration(), transport: player, reviewer: InspectingReviewer())
@@ -80,4 +126,12 @@ private func externalConfiguration() throws -> ExternalBoardConfiguration {
         publicBackground: "South 1NT – North 3NT; no displayed explanations.",
         initialHands: [.init(seat: .south, cards: deal[.south]!), .init(seat: .north, cards: deal[.north]!)],
         events: [.init(sequence: 0, seat: .west, card: try Card("DQ"))])
+}
+
+private func automaticConfiguration() throws -> ExternalBoardConfiguration {
+    let base = try externalConfiguration()
+    let north = try "S8 S6 S2 S3 S5 S7 HK H7 H4 H2 H5 D3 CQ".split(separator: " ").map { try Card(String($0)) }
+    return ExternalBoardConfiguration(boardID: base.boardID, contract: base.contract, vulnerability: base.vulnerability,
+        scoring: base.scoring, objective: base.objective, publicBackground: base.publicBackground,
+        initialHands: [.init(seat: .north, cards: north), base.initialHands.first { $0.seat == .south }!], events: base.events)
 }
