@@ -342,6 +342,7 @@ def playing_command(candidate, attempt, play_directory, wrapper):
     if attempt['execution_config_version'] != configuration['version'] or attempt['mechanical_sole_legal'] is not option:
         raise ValueError('Attempt execution option differs from frozen candidate')
     command = [candidate['binary'], '--fixture', str(ROOT / 'corpus' / attempt['board']), '--output', str(play_directory),
+               '--artifact-store', str(play_directory.parent.parent / 'objects'),
                '--codex', wrapper, '--timeout', str(candidate['request_timeout_seconds']), '--run-timeout', str(candidate['run_timeout_seconds']),
                '--opponent', attempt['opponent_policy'], '--sole-legal', str(option).lower()]
     command += ['--full-board', 'true'] if attempt['kind'] == 'full' else ['--decisions', str(attempt['decisions'])]

@@ -1,0 +1,70 @@
+{
+  "results": [
+    {"id":"decision-0001","status":"pass","findings":[]},
+    {"id":"decision-0002","status":"pass","findings":[]},
+    {"id":"decision-0003","status":"pass","findings":[]},
+    {
+      "id":"decision-0004",
+      "status":"fail",
+      "findings":[{
+        "dimension":"physical feasibility",
+        "fact":"South has already played C3 to this trick and cannot subsequently play a club honor.",
+        "explanation":"The reason relies on an impossible second play by South. After dummy plays C5, only East remains to play; South's king and queen cannot win this trick.",
+        "quotes":["South’s king and queen can take the club trick if East does not overcall."]
+      }]
+    },
+    {"id":"decision-0005","status":"pass","findings":[]},
+    {"id":"decision-0006","status":"pass","findings":[]},
+    {
+      "id":"decision-0007",
+      "status":"fail",
+      "findings":[{
+        "dimension":"trick counting",
+        "fact":"Declarer has two tricks already and seven remaining top winners: HQ, SA, SK, DA, CA, CK and CQ.",
+        "explanation":"The reason incorrectly describes an additional diamond trick as necessary for 3NT. Nine tricks are already available through ordinary entries, regardless of the diamond finesse.",
+        "quotes":["Lead a low diamond toward dummy’s queen-jack to seek the extra trick needed for 3NT."]
+      }]
+    },
+    {"id":"decision-0008","status":"pass","findings":[]},
+    {"id":"decision-0009","status":"pass","findings":[]},
+    {"id":"decision-0010","status":"pass","findings":[]},
+    {"id":"decision-0011","status":"pass","findings":[]},
+    {"id":"decision-0012","status":"pass","findings":[]},
+    {"id":"decision-0013","status":"pass","findings":[]},
+    {"id":"decision-0014","status":"pass","findings":[]},
+    {"id":"decision-0015","status":"pass","findings":[]},
+    {"id":"decision-0016","status":"pass","findings":[]},
+    {
+      "id":"decision-0017",
+      "status":"fail",
+      "findings":[{
+        "dimension":"plan coherence",
+        "fact":"DK and DQ have already been played; after DA is cashed, dummy's DJ is unbeatable. SA has also been played, making SK an outright winner.",
+        "explanation":"The proposed diamond route succeeds, but the plan introduces an impossible failure condition and describes taking the established spade king as a finesse.",
+        "quotes":["Cash the diamond ace, then lead a low diamond toward dummy’s jack for the needed extra trick; if that fails, try the spade finesse to dummy’s king."]
+      }]
+    },
+    {
+      "id":"decision-0018",
+      "status":"fail",
+      "findings":[{
+        "dimension":"plan coherence",
+        "fact":"DA is currently winning, DK and DQ are already gone, and SA has already been played.",
+        "explanation":"The retained plan still treats the subsequent DJ winner as capable of failing and SK as requiring a finesse. Playing D9 is sound, but does not correct those factual errors.",
+        "quotes":["Cash the diamond ace, then lead a low diamond toward dummy’s jack for the needed extra trick; if that fails, try the spade finesse to dummy’s king."]
+      }]
+    },
+    {
+      "id":"decision-0019",
+      "status":"fail",
+      "findings":[{
+        "dimension":"plan coherence",
+        "fact":"DA, DK and DQ have all been played, so dummy's DJ is the highest remaining diamond. SK is likewise established after SA.",
+        "explanation":"The selected diamond lead guarantees the ninth trick, but the retained plan includes an impossible failure condition and a nonexistent spade finesse.",
+        "quotes":["if that fails, try the spade finesse to dummy’s king."]
+      }]
+    },
+    {"id":"decision-0020","status":"pass","findings":[]},
+    {"id":"decision-0021","status":"pass","findings":[]}
+  ]
+}

@@ -1,5 +1,6 @@
 import Foundation
 import Darwin
+import CryptoKit
 import BridgeExpert
 
 public enum CodexPlayingError: Error, CustomStringConvertible {
@@ -13,6 +14,7 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
     public let runtimeDirectory: URL
     private let executable: URL
     private let timeout: Double
+    private let catalogDirectory: URL
     private let queue = DispatchQueue(label: "bridge.playing.codex")
     private var process: Process?
     private var ownedProcessGroup: pid_t?
@@ -31,9 +33,10 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
     private static let model = "gpt-6.1-sol"
     private static let effort = "medium"
 
-    public init(executable: URL, authenticationFile: URL, evidenceDirectory: URL, timeoutSeconds: Double = 180) throws {
+    public init(executable: URL, authenticationFile: URL, evidenceDirectory: URL, timeoutSeconds: Double = 180, catalogDirectory: URL? = nil) throws {
         guard timeoutSeconds > 0 && timeoutSeconds.isFinite else { throw CodexPlayingError.failure("Invalid timeout") }
         self.executable = executable; self.evidenceDirectory = evidenceDirectory; timeout = timeoutSeconds
+        self.catalogDirectory = catalogDirectory ?? evidenceDirectory.deletingLastPathComponent().appendingPathComponent("objects")
         let fm = FileManager.default
         try fm.createDirectory(at: evidenceDirectory, withIntermediateDirectories: true)
         runtimeDirectory = fm.temporaryDirectory.appendingPathComponent("bridge-playing-\(UUID().uuidString)")
@@ -137,7 +140,7 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
     /// Uses the installed runtime's bundled metadata, without refreshing from a service.
     /// Unsupported catalog formats fail before thread creation; there is no tool-enabled fallback.
     private func prepareModelCatalog() throws {
-        let source = evidenceDirectory.appendingPathComponent("runtime-bundled-catalog.json")
+        let source = runtimeDirectory.appendingPathComponent("bundled-catalog.json")
         _ = FileManager.default.createFile(atPath: source.path, contents: nil)
         let saved = try FileHandle(forWritingTo: source)
         let command = Process()
@@ -153,7 +156,9 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
               let deadline = requestDeadline, DispatchTime.now() < deadline else {
             throw CodexPlayingError.failure("Bundled runtime model catalog unavailable or timed out")
         }
-        guard var catalog = try JSONSerialization.jsonObject(with: Data(contentsOf: source)) as? [String: Any],
+        let original = try Data(contentsOf: source)
+        try preserveCatalog(original, named: "runtime-bundled-catalog.json")
+        guard var catalog = try JSONSerialization.jsonObject(with: original) as? [String: Any],
               var models = catalog["models"] as? [[String: Any]],
               models.filter({ $0["slug"] as? String == Self.model }).count == 1,
               let index = models.firstIndex(where: { $0["slug"] as? String == Self.model }),
@@ -168,13 +173,36 @@ public final class CodexPlayingTransport: PlayingTransport, @unchecked Sendable 
         let data = try JSONSerialization.data(withJSONObject: catalog, options: [.sortedKeys])
         let effective = runtimeDirectory.appendingPathComponent("home/model-catalog.json")
         try data.write(to: effective)
-        try data.write(to: evidenceDirectory.appendingPathComponent("runtime-model-catalog.json"))
+        try preserveCatalog(data, named: "runtime-model-catalog.json")
         let encoder = JSONEncoder(); encoder.outputFormatting = [.withoutEscapingSlashes]
         let pathLiteral = String(decoding: try encoder.encode(effective.path), as: UTF8.self)
         let configURL = runtimeDirectory.appendingPathComponent("home/config.toml")
         let configuration = "model_catalog_json = " + pathLiteral + "\n" + (try String(contentsOf: configURL, encoding: .utf8))
         try configuration.write(to: configURL, atomically: true, encoding: .utf8)
         try configuration.write(to: evidenceDirectory.appendingPathComponent("runtime-config.toml"), atomically: true, encoding: .utf8)
+    }
+
+    /// Each run retains its association; identical metadata has one persistent object.
+    /// Relative links keep a batch portable when its runs and object store move together.
+    private func preserveCatalog(_ data: Data, named name: String) throws {
+        let fm = FileManager.default
+        try fm.createDirectory(at: catalogDirectory, withIntermediateDirectories: true)
+        let hash = SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined()
+        let object = catalogDirectory.appendingPathComponent(hash + ".json").standardizedFileURL
+        if fm.fileExists(atPath: object.path) {
+            guard try Data(contentsOf: object) == data else {
+                throw CodexPlayingError.failure("Corrupt catalog evidence object: " + hash)
+            }
+        } else {
+            try data.write(to: object, options: .atomic)
+        }
+        let from = evidenceDirectory.standardizedFileURL.pathComponents
+        let to = object.pathComponents
+        let shared = zip(from, to).prefix { $0 == $1 }.count
+        let relative = (Array(repeating: "..", count: from.count - shared) + Array(to.dropFirst(shared))).joined(separator: "/")
+        let link = evidenceDirectory.appendingPathComponent(name)
+        if (try? fm.destinationOfSymbolicLink(atPath: link.path)) == relative { return }
+        try fm.createSymbolicLink(atPath: link.path, withDestinationPath: relative)
     }
 
     private func start() throws {

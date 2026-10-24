@@ -1,6 +1,9 @@
-# Stage 1 App-independent playing core
+# Stage 1 evaluation
 
-Stage 1 remains subject to quality acceptance. The current reviewed pipeline implements the amendments in issues #46/#48 through tickets #49–#52; the original #36 requirements remain where those amendments do not replace them. Historical ticket 37 demonstrated an initial decision/execution path and preserved severe model-quality failures; see [its review](evidence/ticket37/REVIEW.md). Historical execution results and current runtime tests do not establish stage acceptance.
+Current bounded acceptance is recorded in [the Stage 1 reports](../../docs/acceptance/stage1/README.md). Complete native records and historical experiments have moved to [the recoverable archive](../../docs/archive/README.md). Run output must be outside the source checkout; use a shared `--artifact-store` for a batch. Persistent catalog evidence uses SHA-256 objects and relative per-role links; move the store with the batch.
+
+
+Stage 1 remains subject to quality acceptance. The current reviewed pipeline implements the amendments in issues #46/#48 through tickets #49–#52; the original #36 requirements remain where those amendments do not replace them. Historical ticket 37 demonstrated an initial decision/execution path and preserved severe model-quality failures; see [its review](../../docs/archive/README.md "Original archive path: evidence/ticket37/REVIEW.md"). Historical execution results and current runtime tests do not establish stage acceptance.
 
 Build and run an initial decision with a new evidence directory:
 
@@ -37,8 +40,8 @@ Issue 38 introduced the Python saved-output entry. The current evaluator reads s
 python3 -m pip install -r evals/stage1/requirements-test.txt
 python3 -m unittest discover -s evals/stage1/tests -v
 python3 evals/stage1/evaluate.py grade \
-  --decision evals/stage1/evidence/ticket37/live2 \
-  --decision evals/stage1/evidence/ticket37/live3 \
+  --decision "$BRIDGE_ARCHIVE_ROOT/recovered/ticket37/live2" \
+  --decision "$BRIDGE_ARCHIVE_ROOT/recovered/ticket37/live3" \
   --output /tmp/bridge-saved-grade-unique
 python3 evals/stage1/evaluate.py grade \
   --answers evals/stage1/calibration/answers.json \
@@ -50,16 +53,16 @@ python3 evals/stage1/evaluate.py regrade \
 
 Each `grade` makes an independent `codex exec` request for gpt-6.1-sol / medium. It saves the rubric and actual authorized input, original answer, mechanical checks, schema, isolated configuration, command, runtime version, timing and public grader output. No expected labels or complete hidden deal enters its package. The grader runs in a new independent thread and its output never returns to Expert. `regrade` repeats local parsing/adjudication of those saved grades without any model call; to get a fresh independent judgment of the same player output, repeat `grade` with a new output directory. Nonzero grader exit, timeout, actual tool use, bad result structure and invalid citations remain evaluator issues with uncertain quality, preserving separately observed mechanical failures. Unresolved uncertainty requires review.
 
-The current citation contract is rubric `stage1-basic-v4`: every status requires at least one finding with `quotes: ["one exact contiguous excerpt", ...]`. Each excerpt must occur verbatim in the actual raw or decoded public answer. Separate excerpts remain separate strings. Historical v2/v3 outputs and legacy v1 single-contiguous `quote` fields remain readable for reprocessing; original grades retain their original contracts. See the [Eval correction review](evidence/correction-eval/REVIEW.md) for the schema/validator mismatch, preserved failures and pending live validation. The narrow `--reviewed-parser-fix REASON` option only supersedes the recorded initial bug that misclassified CLI `item.type=error` notices as tools, provided the original CLI exited zero and every recorded tool item was exactly `error`; it cannot override real tools or a failed exit. Such review provenance is saved.
+The current citation contract is rubric `stage1-basic-v4`: every status requires at least one finding with `quotes: ["one exact contiguous excerpt", ...]`. Each excerpt must occur verbatim in the actual raw or decoded public answer. Separate excerpts remain separate strings. Historical v2/v3 outputs and legacy v1 single-contiguous `quote` fields remain readable for reprocessing; original grades retain their original contracts. See the [Eval correction review](../../docs/archive/README.md "Original archive path: evidence/correction-eval/REVIEW.md") for the schema/validator mismatch, preserved failures and pending live validation. The narrow `--reviewed-parser-fix REASON` option only supersedes the recorded initial bug that misclassified CLI `item.type=error` notices as tools, provided the original CLI exited zero and every recorded tool item was exactly `error`; it cannot override real tools or a failed exit. Such review provenance is saved.
 
 The evaluator reads historical v1–v4 records and current v5 (`stage1-full-snapshot-v5`). Card decoding and action association remain localized in `deterministic_checks`; original failed attempts retain their own contract versions. The approved input amendment is tracked in [issue #46](https://github.com/absurdwall/bridge-coup/issues/46).
 
-See [ticket 38 review](evidence/ticket38/REVIEW.md) for calibration, live-output judgments, evaluator corrections and isolation limits. Authored calibration failures are intentional bad examples, not new observed product defects. Six reviewed answers and two repeat grades establish only a small calibration checkpoint.
+See [ticket 38 review](../../docs/archive/README.md "Original archive path: evidence/ticket38/REVIEW.md") for calibration, live-output judgments, evaluator corrections and isolation limits. Authored calibration failures are intentional bad examples, not new observed product defects. Six reviewed answers and two repeat grades establish only a small calibration checkpoint.
 
 
 ## Continuing short runs
 
-Historical ticket 39 introduced the public `BoardDriver.advance` one-action entry and continuing `ExpertSession`; [its review](evidence/ticket39/REVIEW.md) distinguishes working execution from failed basic model quality. The current #46/#48 path uses complete authorized snapshots, program-owned plan provenance and one frozen pending position across review and revision.
+Historical ticket 39 introduced the public `BoardDriver.advance` one-action entry and continuing `ExpertSession`; [its review](../../docs/archive/README.md "Original archive path: evidence/ticket39/REVIEW.md") distinguishes working execution from failed basic model quality. The current #46/#48 path uses complete authorized snapshots, program-owned plan provenance and one frozen pending position across review and revision.
 
 ```sh
 .build/debug/bridge-play \

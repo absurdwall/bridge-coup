@@ -16,7 +16,7 @@ spec.loader.exec_module(evaluate)
 
 class GraderContractTests(unittest.TestCase):
     def test_authored_retained_plan_matches_the_public_prior_advice(self):
-        records = json.loads((ROOT / 'evidence/notation-repair/calibration/answers.json').read_text())
+        records = json.loads((ROOT / 'fixtures/saved-boundaries/notation-repair/calibration/answers.json').read_text())
         package = evaluate.grader_package([(record['id'], record) for record in records])
         for record in package['decisions']:
             if json.loads(record['raw_output'])['plan']['update'] == 'keep':
@@ -25,9 +25,9 @@ class GraderContractTests(unittest.TestCase):
     def test_all_45_actual_empty_pass_rows_are_rejected_by_serialized_schema(self):
         schema = evaluate.read_json(ROOT / 'grader-schema.json')
         validator = jsonschema.Draft202012Validator(schema)
-        original_schema = evaluate.read_json(ROOT / 'evidence/ticket42/matrix/full-reserved-r1/grade/schema.json')
+        original_schema = evaluate.read_json(ROOT / 'fixtures/saved-boundaries/ticket42/matrix/full-reserved-r1/grade/schema.json')
         historical = jsonschema.Draft202012Validator(original_schema)
-        rows = [row for p in (ROOT / 'evidence/ticket42/matrix').glob('*/grade/grader-output.json')
+        rows = [row for p in (ROOT / 'fixtures/saved-boundaries/ticket42/matrix').glob('*/grade/grader-output.json')
                 for row in evaluate.read_json(p)['results'] if row['status'] == 'pass' and not row['findings']]
         self.assertEqual(len(rows), 45)
         for row in rows:
@@ -38,7 +38,7 @@ class GraderContractTests(unittest.TestCase):
 
     def test_every_verdict_requires_exact_citations_and_preserves_real_uncertainty(self):
         validator = jsonschema.Draft202012Validator(evaluate.read_json(ROOT / 'grader-schema.json'))
-        record = evaluate.read_decision(ROOT / 'evidence/ticket37/live3')
+        record = evaluate.read_decision(ROOT / 'fixtures/saved-boundaries/ticket37/live3')
         package = evaluate.grader_package([('alternative', record)])
         self.assertEqual(package['rubric_version'], 'stage1-basic-v4')
         self.assertIn('every status', package['rubric'])
@@ -57,7 +57,7 @@ class GraderContractTests(unittest.TestCase):
             self.assertEqual(result['attribution'], 'evaluator_issue')
 
     def test_evaluator_error_does_not_hide_simultaneous_mechanical_product_failure(self):
-        record = evaluate.read_decision(ROOT / 'evidence/ticket37/live2')
+        record = evaluate.read_decision(ROOT / 'fixtures/saved-boundaries/ticket37/live2')
         package = evaluate.grader_package([('illegal', record)])
         result = evaluate.adjudicate(package, {'results': [
             {'id': 'illegal', 'status': 'pass', 'findings': []}]})['results'][0]

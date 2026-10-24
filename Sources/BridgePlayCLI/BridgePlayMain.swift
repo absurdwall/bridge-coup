@@ -27,6 +27,8 @@ private struct BoardInput: Codable {
             fail("Usage: bridge-play --fixture FILE --output DIR --codex EXECUTABLE [--timeout SECONDS]")
         }
         let output = URL(fileURLWithPath: outputPath, isDirectory: true)
+        let catalogDirectory = options["--artifact-store"].map { URL(fileURLWithPath: $0, isDirectory: true) }
+            ?? output.deletingLastPathComponent().appendingPathComponent("objects")
         if FileManager.default.fileExists(atPath: output.path),
            ((try? FileManager.default.contentsOfDirectory(atPath: output.path))?.isEmpty != true) {
             fail("Evidence output directory must be new or empty: \(output.path)")
@@ -61,9 +63,9 @@ private struct BoardInput: Codable {
             let authHome = ProcessInfo.processInfo.environment["CODEX_HOME"] ?? FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent(".codex").path
             let transport = try CodexPlayingTransport(executable: URL(fileURLWithPath: codex),
                 authenticationFile: URL(fileURLWithPath: authHome).appendingPathComponent("auth.json"), evidenceDirectory: output,
-                timeoutSeconds: requestTimeout)
+                timeoutSeconds: requestTimeout, catalogDirectory: catalogDirectory)
             let reviewer = CodexReviewTransport(executable: URL(fileURLWithPath: codex),
-                authenticationFile: URL(fileURLWithPath: authHome).appendingPathComponent("auth.json"), evidenceDirectory: output.appendingPathComponent("reviewer"), timeoutSeconds: requestTimeout)
+                authenticationFile: URL(fileURLWithPath: authHome).appendingPathComponent("auth.json"), evidenceDirectory: output.appendingPathComponent("reviewer"), timeoutSeconds: requestTimeout, catalogDirectory: catalogDirectory)
             let expert = ExpertSession(transport: transport, reviewer: reviewer)
             let driver = BoardDriver(board: board, expert: expert, opponent: policy,
                                      mechanicalSoleLegal: options["--sole-legal"] == "true", requestTimeoutSeconds: requestTimeout, runTimeoutSeconds: runTimeout, started: exposureTime)
