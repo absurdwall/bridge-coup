@@ -137,6 +137,22 @@ public actor ExpertSession {
         self.transport = transport; self.reviewer = reviewer
     }
 
+    /// New conversation from a reconciled, previously committed public position; no authorization is restored.
+    public func restorePublicContinuation(after snapshot: DecisionSnapshot, activePlan: PlanAssociation?) throws {
+        guard !inFlight, !ended, boundBoard == nil, pending == nil, previousSnapshot == nil,
+              Self.invalidPositionFacts(snapshot) == nil, Self.missingPositionFacts(snapshot) == nil else {
+            throw ExpertSessionError.invalidExecutionEvidence
+        }
+        if let activePlan {
+            guard activePlan.boardID == snapshot.boardID, activePlan.controller == snapshot.controller,
+                  !activePlan.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+                throw ExpertSessionError.invalidExecutionEvidence
+            }
+        }
+        boundBoard = snapshot.boardID; boundController = snapshot.controller
+        previousSnapshot = snapshot; planAssociation = activePlan
+    }
+
     public func needsInputState() -> NeedsInputState? { waiting }
     public func waitingSeconds() -> Double { humanWaitingSeconds + (waiting.map { Date().timeIntervalSince($0.waitingSince) } ?? 0) }
 
