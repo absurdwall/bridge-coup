@@ -1,0 +1,606 @@
+{
+  "source_commit": "a17746980a19bf2e9c1d4bdda6dd11b4de58b07d",
+  "selection": "Files actually read by the saved-boundary Python regressions plus the explicit Swift plan-contract examples. No runtime catalogs or complete run directories.",
+  "files": [
+    {
+      "path": "issue46-completion/development-full-v1/development-full/play/decision-0008/decision.json",
+      "source": "evals/stage1/evidence/issue46-completion/development-full-v1/development-full/play/decision-0008/decision.json",
+      "sha256": "ecc7b67fcde6fa191dc71c2d7f42582ba5a583fad8939fbfe183a52ce4f85dc6",
+      "bytes": 15527
+    },
+    {
+      "path": "issue46-completion/development-full-v1/development-full/play/decision-0008/events.json",
+      "source": "evals/stage1/evidence/issue46-completion/development-full-v1/development-full/play/decision-0008/events.json",
+      "sha256": "7c56c4de3172573bbdf7958d01f74730e845850a0c9efd7c4e43ea9f34cfeff8",
+      "bytes": 1174
+    },
+    {
+      "path": "issue46-completion/development-full-v1/development-full/play/rpc.jsonl",
+      "source": "evals/stage1/evidence/issue46-completion/development-full-v1/development-full/play/rpc.jsonl",
+      "sha256": "9238e3ed5c1ed982115be011c11d4e8e417f0d5d7e5025b04019def7f11b9fa5",
+      "bytes": 43448
+    },
+    {
+      "path": "issue48/ticket50/native-correction/play/decision-0001/decision.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/play/decision-0001/decision.json",
+      "sha256": "f314c950e4a6aa5718fc0867d81ab4a53f0263c5ea9f8b04bb9f1fd8d5b46be0",
+      "bytes": 49379
+    },
+    {
+      "path": "issue48/ticket50/native-correction/play/decision-0001/events.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/play/decision-0001/events.json",
+      "sha256": "e7137313ae2ce2c67d0e5c6d0e1f65886a3c8a400705c009abd004a76f0ed491",
+      "bytes": 139
+    },
+    {
+      "path": "issue48/ticket50/native-correction/play/decision-0002/decision.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/play/decision-0002/decision.json",
+      "sha256": "c46c1af1891a5a35ec67e3fc469646c7e0e2a783b9d9bea8dec6467d0e4c53a2",
+      "bytes": 51407
+    },
+    {
+      "path": "issue48/ticket50/native-correction/play/decision-0002/events.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/play/decision-0002/events.json",
+      "sha256": "cbc4264d98c34eefcecca258ca5cade340411eef5f20fa7182f3334dd206e752",
+      "bytes": 276
+    },
+    {
+      "path": "issue48/ticket50/native-correction/play/decision-0003/decision.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/play/decision-0003/decision.json",
+      "sha256": "517ec6d5aded73c976a0864db151ac06b2b637549681a368bc8b4b1a1c4d8007",
+      "bytes": 57350
+    },
+    {
+      "path": "issue48/ticket50/native-correction/play/decision-0003/events.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/play/decision-0003/events.json",
+      "sha256": "a395f1045f53c5399b884885da15f0a0b36f3f8d93cf5e5436e7724f8d835d0d",
+      "bytes": 550
+    },
+    {
+      "path": "issue48/ticket50/native-correction/play/decision-0004/decision.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/play/decision-0004/decision.json",
+      "sha256": "31d8f43b164824668a2aa58d325f666ee1efe98fa363ce309dfda912aaacd49b",
+      "bytes": 96971
+    },
+    {
+      "path": "issue48/ticket50/native-correction/play/decision-0004/events.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/play/decision-0004/events.json",
+      "sha256": "7df686f85b9c2cf78137d891dbed159e69b9c786862a10235adb507979ca6da2",
+      "bytes": 687
+    },
+    {
+      "path": "issue48/ticket50/native-correction/play/reviewer/1BD93C6B-7E02-4AA1-B4F3-0DF6E0F50F82/rpc.jsonl",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/play/reviewer/1BD93C6B-7E02-4AA1-B4F3-0DF6E0F50F82/rpc.jsonl",
+      "sha256": "39422376adfb218a4c8d7854cc9050a6660845d14364ae1bdd55e1328e1371c1",
+      "bytes": 14694
+    },
+    {
+      "path": "issue48/ticket50/native-correction/play/reviewer/2AF3E3B0-89F9-47FF-AAAD-6FE53F5ECF7C/rpc.jsonl",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/play/reviewer/2AF3E3B0-89F9-47FF-AAAD-6FE53F5ECF7C/rpc.jsonl",
+      "sha256": "a6a3470272f5117e4731667f586cf700c60c6f200d5752539d22bf2353b39c3a",
+      "bytes": 14610
+    },
+    {
+      "path": "issue48/ticket50/native-correction/play/reviewer/4A5BC250-017E-4B28-9E36-5B969BB5C9F5/rpc.jsonl",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/play/reviewer/4A5BC250-017E-4B28-9E36-5B969BB5C9F5/rpc.jsonl",
+      "sha256": "bf39db76946f74d2137df32be75c7c1795d781ece180224240dd14cb4e1cd4c7",
+      "bytes": 15387
+    },
+    {
+      "path": "issue48/ticket50/native-correction/play/reviewer/64B86BD7-C8CF-428B-ACDF-C9464ED74DD1/rpc.jsonl",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/play/reviewer/64B86BD7-C8CF-428B-ACDF-C9464ED74DD1/rpc.jsonl",
+      "sha256": "88734ae9022d9e9cd96e754db9ae315732b620ad22bd6e519f343d50e5b46041",
+      "bytes": 17082
+    },
+    {
+      "path": "issue48/ticket50/native-correction/play/reviewer/9789FC89-EE04-4E53-9CA0-6C2A2FB6A33E/rpc.jsonl",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/play/reviewer/9789FC89-EE04-4E53-9CA0-6C2A2FB6A33E/rpc.jsonl",
+      "sha256": "5784517151ff600b50e1e3bccecd95f75ddf9ec242dd62370ea4f344b5ae87aa",
+      "bytes": 15624
+    },
+    {
+      "path": "issue48/ticket50/native-correction/play/rpc.jsonl",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/play/rpc.jsonl",
+      "sha256": "c8e8a45ae57cc0f2f162b0332ffec8894f86ceb9021f3994aeb5ce0792d45383",
+      "bytes": 40088
+    },
+    {
+      "path": "issue48/ticket50/native-correction/play/trace.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/play/trace.json",
+      "sha256": "d22e904f23e8b89f14f53e27968b3d985dddf0cba3cfac65ec1f1760e4fb8c04",
+      "bytes": 277219
+    },
+    {
+      "path": "issue48/ticket50/native-correction/source/Sources/BridgeExpert/Resources/DeclarerInstructions.txt",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/source/Sources/BridgeExpert/Resources/DeclarerInstructions.txt",
+      "sha256": "7216835b26ad7b9aa8c00fb9870d1c7a95837953059927623c1d6800efbebf90",
+      "bytes": 8547
+    },
+    {
+      "path": "issue48/ticket50/native-correction/source/Sources/BridgeExpert/Resources/ReviewerInstructions.txt",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/source/Sources/BridgeExpert/Resources/ReviewerInstructions.txt",
+      "sha256": "6abfef19977a81a426a48afe12430e7bcc9f7170faef43a298d8313b6dbc9b37",
+      "bytes": 5489
+    },
+    {
+      "path": "issue48/ticket50/native-correction/wire/request-0.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/wire/request-0.json",
+      "sha256": "4906a7d2836fe3a0281b8e7bbe8afd3c4bdefa5312efa112b9c41d26625321ad",
+      "bytes": 12140
+    },
+    {
+      "path": "issue48/ticket50/native-correction/wire/request-1.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/wire/request-1.json",
+      "sha256": "474a447d327333c3995fad0c387c01b087900376f3ea5d9e45b564d70dd10b88",
+      "bytes": 11475
+    },
+    {
+      "path": "issue48/ticket50/native-correction/wire/request-2.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/wire/request-2.json",
+      "sha256": "973daf95b49f81300e2190dce6ed9bdf177a59f19f472a165b7c32c698c806bb",
+      "bytes": 20772
+    },
+    {
+      "path": "issue48/ticket50/native-correction/wire/request-3.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/wire/request-3.json",
+      "sha256": "e41bc29aa002ba686c8ed2fcc0db0f9b48a19609dcb5e26c6c35b0503ff734d4",
+      "bytes": 11559
+    },
+    {
+      "path": "issue48/ticket50/native-correction/wire/request-4.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/wire/request-4.json",
+      "sha256": "e1081ab88e7a1c0974c8e552e6b5423d108b66df970a2e1b9d6788caa389135e",
+      "bytes": 23747
+    },
+    {
+      "path": "issue48/ticket50/native-correction/wire/request-5.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/wire/request-5.json",
+      "sha256": "ffcfa65fae7a35c69e80ce7ee7b8a9bcfceb341fa0f7bc6cc08fe4ccd58cf356",
+      "bytes": 11994
+    },
+    {
+      "path": "issue48/ticket50/native-correction/wire/request-6.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/wire/request-6.json",
+      "sha256": "272906b0fa861cc7cd6cc53324ae2f5ed4c858ba418c9123974736717c084bb4",
+      "bytes": 27052
+    },
+    {
+      "path": "issue48/ticket50/native-correction/wire/request-7.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/wire/request-7.json",
+      "sha256": "55484ba49a20a8c325511485a9896f71700e206d7e3cd37ee74fb091cec431f3",
+      "bytes": 13121
+    },
+    {
+      "path": "issue48/ticket50/native-correction/wire/request-8.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/wire/request-8.json",
+      "sha256": "05b801960cfd235af465b2006204be2ca6146613cb8ae6543294cd29790b3dd9",
+      "bytes": 38619
+    },
+    {
+      "path": "issue48/ticket50/native-correction/wire/request-9.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/wire/request-9.json",
+      "sha256": "c49107ffe234f65805738e0bc5791c102f8286c3e6dea71945767a79ea68cf0b",
+      "bytes": 12489
+    },
+    {
+      "path": "issue48/ticket50/native-correction/wire/response-metadata-0.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/wire/response-metadata-0.json",
+      "sha256": "4da58e44f378318752513e9795aacfc4b256dbd9b0c709212df4cbfda412cc67",
+      "bytes": 2234
+    },
+    {
+      "path": "issue48/ticket50/native-correction/wire/response-metadata-1.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/wire/response-metadata-1.json",
+      "sha256": "4c6e19926f3ca3b053265e2bf20ac3f8e113ef00f486c22cc60f140c91164cb9",
+      "bytes": 2232
+    },
+    {
+      "path": "issue48/ticket50/native-correction/wire/response-metadata-2.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/wire/response-metadata-2.json",
+      "sha256": "59ab498ee473afb44183a3ede8ddbaf380522e86f4e8054ce3e6d80f038de2a6",
+      "bytes": 3034
+    },
+    {
+      "path": "issue48/ticket50/native-correction/wire/response-metadata-3.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/wire/response-metadata-3.json",
+      "sha256": "f32bc711dd133d394be54db1f78e01bcc5c2b578fd9c06ebcaf36887c52c7b66",
+      "bytes": 2232
+    },
+    {
+      "path": "issue48/ticket50/native-correction/wire/response-metadata-4.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/wire/response-metadata-4.json",
+      "sha256": "f23cc5590814fd15ddb1378f47bf2252b8aca5ed533c4d63b80dfa3b974dc201",
+      "bytes": 3836
+    },
+    {
+      "path": "issue48/ticket50/native-correction/wire/response-metadata-5.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/wire/response-metadata-5.json",
+      "sha256": "c51c5ef709ca1d290f16db6f5c0d53bd69492fcdf8b1e69cc0c1b5efba7ffefe",
+      "bytes": 2232
+    },
+    {
+      "path": "issue48/ticket50/native-correction/wire/response-metadata-6.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/wire/response-metadata-6.json",
+      "sha256": "b2d68b3f3f4383205c2fddc42aa250ca0b53d46a7dd5e5c5b61cfed0bcf90029",
+      "bytes": 4844
+    },
+    {
+      "path": "issue48/ticket50/native-correction/wire/response-metadata-7.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/wire/response-metadata-7.json",
+      "sha256": "f73d8269cdbffc61f80b79000b0d72649b7ab05350397c4e0e2f43a23f6dc471",
+      "bytes": 2236
+    },
+    {
+      "path": "issue48/ticket50/native-correction/wire/response-metadata-8.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/wire/response-metadata-8.json",
+      "sha256": "62cb1c8d6438854c9284c9be7176bae640a2ae99a6e6d7c081541de718b7171d",
+      "bytes": 5849
+    },
+    {
+      "path": "issue48/ticket50/native-correction/wire/response-metadata-9.json",
+      "source": "evals/stage1/evidence/issue48/ticket50/native-correction/wire/response-metadata-9.json",
+      "sha256": "d7650d20bc442294eafd13704b5c8cca36eb586bc3b0770bf48a4e21def6b650",
+      "bytes": 2234
+    },
+    {
+      "path": "notation-repair/calibration/answers.json",
+      "source": "evals/stage1/evidence/notation-repair/calibration/answers.json",
+      "sha256": "a0f167b3ecf93e8b8761cd6c59890ac118833fd93c76d537738a769e3681870f",
+      "bytes": 47140
+    },
+    {
+      "path": "ticket37/live2/decision.json",
+      "source": "evals/stage1/evidence/ticket37/live2/decision.json",
+      "sha256": "1af9772612e2514184fd631fb6505c9f74be40fa883993771584f088a696a349",
+      "bytes": 3965
+    },
+    {
+      "path": "ticket37/live2/failure.json",
+      "source": "evals/stage1/evidence/ticket37/live2/failure.json",
+      "sha256": "5d635d9addf3d86ec9633de885eff6950be392221476e55587b62b05666ee9c9",
+      "bytes": 52
+    },
+    {
+      "path": "ticket37/live2/rpc.jsonl",
+      "source": "evals/stage1/evidence/ticket37/live2/rpc.jsonl",
+      "sha256": "86fb332853bac2e3f1da816747c4661e016bc3bf3bb4a30306af6df3634eb32a",
+      "bytes": 6621
+    },
+    {
+      "path": "ticket37/live3/decision.json",
+      "source": "evals/stage1/evidence/ticket37/live3/decision.json",
+      "sha256": "9d13ac5294ce1627e2f6fb2164f861f812ace83fe680c68614f2f9db53c80fb4",
+      "bytes": 4037
+    },
+    {
+      "path": "ticket37/live3/events.json",
+      "source": "evals/stage1/evidence/ticket37/live3/events.json",
+      "sha256": "3aba378fe8f4beadee810017fce1ae77a4247e79a6d9f3e61545fe08a348a34f",
+      "bytes": 139
+    },
+    {
+      "path": "ticket37/live3/rpc.jsonl",
+      "source": "evals/stage1/evidence/ticket37/live3/rpc.jsonl",
+      "sha256": "2f068dd71d2a895da39cffea8e3c6fa364b1678d842cca6b2966d7eb7d1729c9",
+      "bytes": 6455
+    },
+    {
+      "path": "ticket40/development-v3/decision-0001/decision.json",
+      "source": "evals/stage1/evidence/ticket40/development-v3/decision-0001/decision.json",
+      "sha256": "0cbcd9b90ff69f398381681d4c229e628bc747c273c71867b8180ce18701a6d8",
+      "bytes": 4759
+    },
+    {
+      "path": "ticket40/development-v3/decision-0001/events.json",
+      "source": "evals/stage1/evidence/ticket40/development-v3/decision-0001/events.json",
+      "sha256": "c1670677c67d396dbddb6fbb2a4819c051de568a78c1132c85e03f22bcde6f21",
+      "bytes": 139
+    },
+    {
+      "path": "ticket40/development-v3/decision-0002/decision.json",
+      "source": "evals/stage1/evidence/ticket40/development-v3/decision-0002/decision.json",
+      "sha256": "51d0b367c74165d64945702ae52ed41b937b9f273b456ac140e2fad7d8897b44",
+      "bytes": 4400
+    },
+    {
+      "path": "ticket40/development-v3/decision-0002/events.json",
+      "source": "evals/stage1/evidence/ticket40/development-v3/decision-0002/events.json",
+      "sha256": "42ee7099db8de203f6e3773be608125f3f649fe404a32523b236db90690f7a36",
+      "bytes": 276
+    },
+    {
+      "path": "ticket40/development-v3/rpc.jsonl",
+      "source": "evals/stage1/evidence/ticket40/development-v3/rpc.jsonl",
+      "sha256": "8b59c3830f2820a4590e1499a1d420a23bc7a5719095e06cbe96cd88041787b1",
+      "bytes": 39937
+    },
+    {
+      "path": "ticket40/development-v3/trace.json",
+      "source": "evals/stage1/evidence/ticket40/development-v3/trace.json",
+      "sha256": "2a87ac4ec95e84bfdd0e9977e4d2e2feefbf95d485d92178c666398f76f81f8b",
+      "bytes": 292067
+    },
+    {
+      "path": "ticket42/matrix/full-development-r1/grade/grader-output.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/full-development-r1/grade/grader-output.json",
+      "sha256": "822ece5dcd0cf05520ef05033d4b06f765479a594a647ced80c0517fc3e3012a",
+      "bytes": 11376
+    },
+    {
+      "path": "ticket42/matrix/full-development-r2/grade/grader-output.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/full-development-r2/grade/grader-output.json",
+      "sha256": "1fe2aae437197d42ddcd28fa3d8089ca28ebe3bf25d86a4995505be9f63f9dc8",
+      "bytes": 8551
+    },
+    {
+      "path": "ticket42/matrix/full-reserved-r1/attempt.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/full-reserved-r1/attempt.json",
+      "sha256": "d8f37cefe0a5de8a05be7eeee04e9ecd911d8438085bc7f8e6bec65aa4225018",
+      "bytes": 232
+    },
+    {
+      "path": "ticket42/matrix/full-reserved-r1/grade/grader-output.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/full-reserved-r1/grade/grader-output.json",
+      "sha256": "3dc959d0aa52e0c6635bb222cf81efab594d677942ab4c19e220c58a4e5289d8",
+      "bytes": 3785
+    },
+    {
+      "path": "ticket42/matrix/full-reserved-r1/grade/schema.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/full-reserved-r1/grade/schema.json",
+      "sha256": "fbb3dc3bae6ce138a4d8942daf58e8b2f25d478858d37de66c24067b5332792c",
+      "bytes": 1403
+    },
+    {
+      "path": "ticket42/matrix/full-reserved-r1/play/decision-0001/decision.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/full-reserved-r1/play/decision-0001/decision.json",
+      "sha256": "cf11bb482604544e62bd3c06a8111985c27f53982e884b7f721605c98a4d5738",
+      "bytes": 4556
+    },
+    {
+      "path": "ticket42/matrix/full-reserved-r1/play/decision-0004/decision.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/full-reserved-r1/play/decision-0004/decision.json",
+      "sha256": "5fec33b67d830dec1cf04ea85e1ddfd1d790abf501d25b63cdf88cfda321b41e",
+      "bytes": 4512
+    },
+    {
+      "path": "ticket42/matrix/full-reserved-r2/grade/grader-output.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/full-reserved-r2/grade/grader-output.json",
+      "sha256": "6296d70dec10c88ce234ebe70d56bd93e8d09fa4592d421091762882210beea3",
+      "bytes": 5433
+    },
+    {
+      "path": "ticket42/matrix/short-1-r1/grade/grader-output.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-1-r1/grade/grader-output.json",
+      "sha256": "02797e2f2e965b4b39f6c07b43f7ce3457aef28cf0b7d4e8670a63c45ac6dc9f",
+      "bytes": 741
+    },
+    {
+      "path": "ticket42/matrix/short-1-r2/grade/grader-output.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-1-r2/grade/grader-output.json",
+      "sha256": "0944ff9d34a864488ca880392f8c1907e4b1cc6b6c4121ce7f316d16fbc272fb",
+      "bytes": 647
+    },
+    {
+      "path": "ticket42/matrix/short-1-r3/grade/grader-output.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-1-r3/grade/grader-output.json",
+      "sha256": "6524615b99419285c203255f189d1d56e266016708b4583f85c47a32dd246b15",
+      "bytes": 780
+    },
+    {
+      "path": "ticket42/matrix/short-2-r1/grade/grader-output.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-2-r1/grade/grader-output.json",
+      "sha256": "0214a26b4daaceecacd74a21daed72222ed698c33e5fd6eadf433e802e307b2a",
+      "bytes": 3584
+    },
+    {
+      "path": "ticket42/matrix/short-2-r2/grade/grader-output.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-2-r2/grade/grader-output.json",
+      "sha256": "b5b7e0642859a5e5246d3f59523d62556eca5fbb3a4ab9cc442b315f5678278b",
+      "bytes": 3911
+    },
+    {
+      "path": "ticket42/matrix/short-2-r3/attempt.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-2-r3/attempt.json",
+      "sha256": "e62893257c50b4d87011908ebd5e58afa797f5697bfc8c6f8b2e7609fa664ef5",
+      "bytes": 208
+    },
+    {
+      "path": "ticket42/matrix/short-2-r3/grade/grader-output.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-2-r3/grade/grader-output.json",
+      "sha256": "800101c7f8f5dabe7d313607ef9937fb279ed52e2c1d3261f6b4afff157a1106",
+      "bytes": 5978
+    },
+    {
+      "path": "ticket42/matrix/short-2-r3/play/decision-0001/decision.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-2-r3/play/decision-0001/decision.json",
+      "sha256": "25dc9288d06149e3a7360595c66e4059b4d1fb7b1b009627f557712ffc55de13",
+      "bytes": 5208
+    },
+    {
+      "path": "ticket42/matrix/short-2-r3/play/decision-0007/decision.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-2-r3/play/decision-0007/decision.json",
+      "sha256": "440a5ea4f9dc03ec31127ed3dc0f0a274ed90a56dea1c2bb63f61237f19a7f30",
+      "bytes": 5195
+    },
+    {
+      "path": "ticket42/matrix/short-3-r1/grade/grader-output.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-3-r1/grade/grader-output.json",
+      "sha256": "de0b2c7052eda986fd836f72a0c0b26aca6e8ede39db328690c3313d1ef5281c",
+      "bytes": 3585
+    },
+    {
+      "path": "ticket42/matrix/short-3-r1/play/trace.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-3-r1/play/trace.json",
+      "sha256": "e431b9cb074130c27c61ffb5aea7248c1324685ba1dc6f697ad1d8d4e06ac7c7",
+      "bytes": 118095
+    },
+    {
+      "path": "ticket42/matrix/short-3-r2/grade/grader-output.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-3-r2/grade/grader-output.json",
+      "sha256": "c667e886966e2aa827a75f7c6da39b607f96f4d544d647bf2b8bc94fd506a785",
+      "bytes": 1970
+    },
+    {
+      "path": "ticket42/matrix/short-3-r2/play/failure.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-3-r2/play/failure.json",
+      "sha256": "0b57031103b1fe0e4f1c28c820eaf48ab8d8ce21cc5f454d8a87cd43a344174d",
+      "bytes": 850
+    },
+    {
+      "path": "ticket42/matrix/short-3-r3/grade/grader-output.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-3-r3/grade/grader-output.json",
+      "sha256": "999ec3675223602dba2769c6466263a219524030c444f7c7f4b361191ec22107",
+      "bytes": 3798
+    },
+    {
+      "path": "ticket42/matrix/short-4-r1/grade/grader-output.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-4-r1/grade/grader-output.json",
+      "sha256": "b0be710a06dd5e1448052195e4acf9d6da997215fc5f5d8eabee1298cb9f8fa7",
+      "bytes": 5103
+    },
+    {
+      "path": "ticket42/matrix/short-4-r1/play/failure.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-4-r1/play/failure.json",
+      "sha256": "5f5c0948de9d5b41c9162b0d4c386c2f4a8932b5c141ff3a2a6efe783c8d7c4f",
+      "bytes": 762
+    },
+    {
+      "path": "ticket42/matrix/short-4-r2/grade/grader-output.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-4-r2/grade/grader-output.json",
+      "sha256": "29d0ddcd17ba3722cc8f0188c15a3c39f29f16df02595e8f285ef8bb275d1039",
+      "bytes": 6089
+    },
+    {
+      "path": "ticket42/matrix/short-4-r2/play/trace.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-4-r2/play/trace.json",
+      "sha256": "96a99460217850befc68683be989c4f26da74a0ef046e62bdbbb47cfd3b899ec",
+      "bytes": 168398
+    },
+    {
+      "path": "ticket42/matrix/short-4-r3/grade/grader-output.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-4-r3/grade/grader-output.json",
+      "sha256": "b784631f80703da3a4bdc6e4eb04abeb65d45c2a69ade2958e2ac556b4053028",
+      "bytes": 721
+    },
+    {
+      "path": "ticket42/matrix/short-4-r3/play/failure.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-4-r3/play/failure.json",
+      "sha256": "2b45a2eefea3add02631f2566e8570ed862d61232ce2753e19e352c8951ddb3d",
+      "bytes": 812
+    },
+    {
+      "path": "ticket42/matrix/short-5-r1/grade/grader-output.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-5-r1/grade/grader-output.json",
+      "sha256": "6e117b924783164cde25da6c1b66a0bda5dd2886757b8546103ec504e6469454",
+      "bytes": 4975
+    },
+    {
+      "path": "ticket42/matrix/short-5-r2/grade/grader-output.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-5-r2/grade/grader-output.json",
+      "sha256": "fdad3fac06bfbf53e8efd5e9207c5dc4ddaa117893adf46cc221539e47f4a621",
+      "bytes": 6757
+    },
+    {
+      "path": "ticket42/matrix/short-5-r3/grade/grader-output.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-5-r3/grade/grader-output.json",
+      "sha256": "143e3514295a2f98a0300ec9f17e60be16e680f53540129364efeff335455bc8",
+      "bytes": 2243
+    },
+    {
+      "path": "ticket42/matrix/short-5-r3/play/failure.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-5-r3/play/failure.json",
+      "sha256": "b5c392598d083c40a118fc30c6f45d919ba1c3c1b23eff4ecea0fad63b2f44dd",
+      "bytes": 732
+    },
+    {
+      "path": "ticket42/matrix/short-6-r1/grade/grader-output.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-6-r1/grade/grader-output.json",
+      "sha256": "d26ce76f6b0bd6899b1cc99b6b77af29d71bac9b4061ba2296ce08786a303d8b",
+      "bytes": 6215
+    },
+    {
+      "path": "ticket42/matrix/short-6-r1/play/trace.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-6-r1/play/trace.json",
+      "sha256": "bf80bffa3f031e347e7eb2799223d3cec1dd7495e83bc86f6c3d839333b4f97a",
+      "bytes": 117183
+    },
+    {
+      "path": "ticket42/matrix/short-6-r2/grade/grader-output.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-6-r2/grade/grader-output.json",
+      "sha256": "03a1c616a0f613aaea6ae84718a38d203cd6a3481a2a16c293143aeab16461ec",
+      "bytes": 6503
+    },
+    {
+      "path": "ticket42/matrix/short-6-r2/play/trace.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-6-r2/play/trace.json",
+      "sha256": "f77d504a4790773819f36eea0e0089bd2bd6edf8e9b1560a7c62216b4b48b60e",
+      "bytes": 126527
+    },
+    {
+      "path": "ticket42/matrix/short-6-r3/grade/grader-output.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-6-r3/grade/grader-output.json",
+      "sha256": "a53527d28d4f01ff5e81af8d1fad9f2526cb4623044617d5378bbca4b14e926a",
+      "bytes": 8054
+    },
+    {
+      "path": "ticket42/matrix/short-6-r3/play/trace.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-6-r3/play/trace.json",
+      "sha256": "a58b4f70edde002f99b40c38717c567171127eb2b7fe9cf6f3a6c86c85bcddde",
+      "bytes": 123184
+    },
+    {
+      "path": "ticket37/live1/failure.json",
+      "source": "evals/stage1/evidence/ticket37/live1/failure.json",
+      "sha256": "dc7d14dd9bd066386cd021f7baf72723c3a2bcd07471869a1d9117065b584297",
+      "bytes": 251
+    },
+    {
+      "path": "ticket42/matrix/short-3-r2/play/trace.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-3-r2/play/trace.json",
+      "sha256": "b89bf05ac0ceb17282992367d4ab9ed0bc9a81153ed8a19fec8d558a91b3d733",
+      "bytes": 29265
+    },
+    {
+      "path": "ticket42/matrix/short-4-r1/play/trace.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-4-r1/play/trace.json",
+      "sha256": "7072fb72871ae487e9fbe719151a389f85cec18c1e5bbd71146719aae5214cfb",
+      "bytes": 97411
+    },
+    {
+      "path": "ticket42/matrix/short-4-r3/play/trace.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-4-r3/play/trace.json",
+      "sha256": "932ca910db4164acb3da4426192c5e3eb1dbdd2219343329d4d89006add9610b",
+      "bytes": 8268
+    },
+    {
+      "path": "ticket42/matrix/short-5-r3/play/trace.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-5-r3/play/trace.json",
+      "sha256": "3360de1f0b97ee5b6c7bbbf3447a846e47f5f30fe6ad1da82b563ee8a228c8de",
+      "bytes": 33057
+    },
+    {
+      "path": "ticket42/matrix/short-3-r2/attempt.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-3-r2/attempt.json",
+      "sha256": "1df0a3e79a6107ee3b4d16f66f4dc5b404e67093f730627e7f83c43bb99943fa",
+      "bytes": 209
+    },
+    {
+      "path": "ticket42/matrix/short-4-r1/attempt.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-4-r1/attempt.json",
+      "sha256": "9f2ee7b4031573c3daec149be3bffa69d65e89bb5105cc4998c0c4cbe2cd2b4b",
+      "bytes": 209
+    },
+    {
+      "path": "ticket42/matrix/short-4-r3/attempt.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-4-r3/attempt.json",
+      "sha256": "81a9387a5bceeb8fe0dc3edf0a979db76caf208da5e5b5d5e0de9c1f96bab481",
+      "bytes": 209
+    },
+    {
+      "path": "ticket42/matrix/short-5-r3/attempt.json",
+      "source": "evals/stage1/evidence/ticket42/matrix/short-5-r3/attempt.json",
+      "sha256": "38d72d45f6dc401dd2e0241c89658425afb5b9a959893232b33d0a0f4a4f163a",
+      "bytes": 222
+    }
+  ]
+}

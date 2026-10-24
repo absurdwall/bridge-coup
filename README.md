@@ -21,16 +21,13 @@ open ".build/macos/Bridge Coup.app"
 - [领域词汇](CONTEXT.md)
 - [第一版设计记录](DESIGN.md)
 - [设计访谈记录](DESIGN-NOTES.md)
-- [v1 规格](.scratch/bridge-teaching-v1/spec.md)
-- [Tickets、进度和验收证据索引](.scratch/bridge-teaching-v1/README.md)
-- [待后续安排的用户反馈](.scratch/bridge-teaching-v1/feedback.md)
+- [当前 Stage 1 有限验收与义务清单](docs/acceptance/stage1/README.md)
+- [历史记录、原始证据及旧规格恢复](docs/archive/README.md)
 - [独立发布的历史边界](HISTORY-IMPORT.md)
 
 ## 当前状态
 
-本仓库包含实现源码和项目记录；发布仓库不代表整体验收通过。Ticket 07 仍标记为进行中，真实截图到教学计划的完整闭环和信息隔离尚未验收。最新反馈仅作为待办输入保留，本次未实施。
-
-视觉原型 A/B/C 保存在独立归档分支 [`archive/bridge-ui-prototype`](https://github.com/absurdwall/bridge-coup/tree/archive/bridge-ui-prototype/prototype)，不属于正式主线。
+当前 App 外 reviewed declarer 实现已通过 #48/#52 的有限验收，具体范围见验收报告；不代表完整 Mac 产品或广泛打法质量验收。完整运行记录外置归档，日常仓库保留源码、必要测试样例和报告。
 
 ## 第三方许可
 

@@ -5,3 +5,4 @@ if [ "$branch" = main ]; then
     echo "Bridge Coup: create a topic branch and merge a pull request; commits on main are blocked." >&2
     exit 1
 fi
+python3 Scripts/check-repository-artifacts.py --staged

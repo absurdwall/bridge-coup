@@ -15,7 +15,7 @@ spec.loader.exec_module(acceptance)
 
 class AcceptanceTests(unittest.TestCase):
     def saved_play(self, attempt):
-        trace = acceptance.load(ROOT / 'evidence/ticket42/matrix' / attempt / 'play/trace.json')
+        trace = acceptance.load(ROOT / 'fixtures/saved-boundaries/ticket42/matrix' / attempt / 'play/trace.json')
         return trace['steps'][-1]['actualEvents'], [s['decision'] for s in trace['steps'] if s.get('decision')]
 
     def test_one_consumed_honor_and_real_entry_choice_is_limited_pending_coverage(self):
@@ -54,7 +54,7 @@ class AcceptanceTests(unittest.TestCase):
         self.assertEqual([a['decisions'] for a in attempts if a['case_id'] == 'short-1'], [1] * 3)
 
     def test_saved_complete_board_is_independently_replayed_and_sources_counted(self):
-        evidence = ROOT / 'evidence/ticket40/development-v3'
+        evidence = ROOT / 'fixtures/saved-boundaries/ticket40/development-v3'
         board = acceptance.load(ROOT / 'corpus/boards/synthetic.json')
         trace = acceptance.load(evidence / 'trace.json')
         result = acceptance.inspect_play(board, trace, evidence)

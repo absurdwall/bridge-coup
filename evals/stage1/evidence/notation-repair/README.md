@@ -1,9 +1,0 @@
-# Notation/rank-rule candidate and independent evaluator correction
-
-Pre-test impact assessment: playing change relative to e9182e1 is only a concise standard card-code/rank-order/trick-winner definition in stable instructions. It follows isolation-only D1 incorrectly saying D8 wins over DQ and counting ordinary held spots as top tricks. No state representation, schema, model/effort, opponent, Engine analysis tool or answer-specific count changed. This is a hypothesis test, not a claimed solution.
-
-Evaluator changed separately to stage1-basic-v4 after three saved PASS judgments repaired an impossible retained dummy-club plan into a different South-club route. The rubric now evaluates literal effective-plan resources/order and permits completed old steps and terse feasible remainders. Corpus/deals/case IDs/counts/policies remain v2 and unchanged. Old evidence and grader outputs are retained.
-
-Calibration materials preserve five prior reviewed cases and add kept impossible route G, feasible replacement H, and kept feasible plan including completed steps I. Original round1/round2 returned all eight expected labels, but coordinator found I's authored prior history inconsistent; those I judgments are invalid calibration proof. Raw batches/material-v1 remain unchanged. Only authored I alternative prior plan was aligned, explicitly synthetic; the actual player history is unchanged. Material relation regression fails before and passes after this fix. Corrected material requires new independent grades, without feeding evaluation labels into play.
-
-Engineering checks: 25 focused Swift tests and 43 Python tests pass after the material correction. Prior isolation candidate remains failed at 8/8 decisions; no evidence is pooled into a quality pass. Next use a frozen source and actual public Expert/driver eight-decision affected scenario, with all requests/responses and independent grading retained. PR45 stays draft/unmerged.

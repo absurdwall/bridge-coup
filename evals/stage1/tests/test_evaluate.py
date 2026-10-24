@@ -14,7 +14,7 @@ spec.loader.exec_module(evaluate)
 
 class SavedDecisionTests(unittest.TestCase):
     def test_v5_snapshot_contract_preserves_execution_checks(self):
-        record = evaluate.read_decision(ROOT / 'evidence/ticket37/live3')
+        record = evaluate.read_decision(ROOT / 'fixtures/saved-boundaries/ticket37/live3')
         record['wireContractVersion'] = 'stage1-full-snapshot-v5'
         record.pop('rpc')  # Historical request is not evidence for this version.
         answer = json.loads(record['rawOutput'])
@@ -26,7 +26,7 @@ class SavedDecisionTests(unittest.TestCase):
         self.assertEqual(checks['execution']['status'], 'pass')
 
     def test_v4_plan_variants_keep_replace_withdraw_use_the_same_saved_output_boundary(self):
-        record = evaluate.read_decision(ROOT / 'evidence/ticket37/live3')
+        record = evaluate.read_decision(ROOT / 'fixtures/saved-boundaries/ticket37/live3')
         record['wireContractVersion'] = 'stage1-plan-variants-v4'
         record.pop('rpc')
         answer = json.loads(record['rawOutput'])
@@ -44,7 +44,7 @@ class SavedDecisionTests(unittest.TestCase):
         self.assertEqual(evaluate.deterministic_checks(record)['structure']['status'], 'fail')
 
     def test_grader_can_cite_actual_retained_plan_on_keep_turn(self):
-        record = evaluate.read_decision(ROOT / 'evidence/ticket37/live3')
+        record = evaluate.read_decision(ROOT / 'fixtures/saved-boundaries/ticket37/live3')
         answer = json.loads(record['rawOutput'])
         answer['plan'] = {'update': 'keep', 'text': None}
         record['rawOutput'] = json.dumps(answer)
@@ -61,7 +61,7 @@ class SavedDecisionTests(unittest.TestCase):
         self.assertEqual(evaluate.adjudicate(package, grade)['results'][0]['attribution'], 'evaluator_issue')
 
     def test_v3_legal_enum_contract_remains_independently_checked(self):
-        record = evaluate.read_decision(ROOT / 'evidence/ticket37/live3')
+        record = evaluate.read_decision(ROOT / 'fixtures/saved-boundaries/ticket37/live3')
         record['wireContractVersion'] = 'stage1-legal-selectedCard-v3'
         answer = json.loads(record['rawOutput'])
         answer['selectedCard'] = answer.pop('currentCard')
@@ -73,7 +73,7 @@ class SavedDecisionTests(unittest.TestCase):
         self.assertEqual(evaluate.deterministic_checks(record)['ownership']['status'], 'fail')
 
     def test_versioned_selected_card_wire_preserves_saved_execution_checks(self):
-        record = evaluate.read_decision(ROOT / 'evidence/ticket37/live3')
+        record = evaluate.read_decision(ROOT / 'fixtures/saved-boundaries/ticket37/live3')
         record['wireContractVersion'] = 'stage1-plan-publicReason-selectedCard-v2'
         answer = json.loads(record['rawOutput'])
         answer['selectedCard'] = answer.pop('currentCard')
@@ -88,8 +88,8 @@ class SavedDecisionTests(unittest.TestCase):
         self.assertEqual(evaluate.deterministic_checks(record)['structure']['status'], 'fail')
 
     def test_actual_illegal_card_and_legal_execution_have_distinct_mechanical_results(self):
-        illegal = evaluate.read_decision(ROOT / 'evidence/ticket37/live2')
-        legal = evaluate.read_decision(ROOT / 'evidence/ticket37/live3')
+        illegal = evaluate.read_decision(ROOT / 'fixtures/saved-boundaries/ticket37/live2')
+        legal = evaluate.read_decision(ROOT / 'fixtures/saved-boundaries/ticket37/live3')
         failed = evaluate.deterministic_checks(illegal)
         passed = evaluate.deterministic_checks(legal)
         self.assertEqual(failed['ownership']['status'], 'fail')
@@ -100,7 +100,7 @@ class SavedDecisionTests(unittest.TestCase):
 
 
     def test_grader_package_uses_actual_input_and_raw_output_without_expected_labels(self):
-        record = evaluate.read_decision(ROOT / 'evidence/ticket37/live3')
+        record = evaluate.read_decision(ROOT / 'fixtures/saved-boundaries/ticket37/live3')
         record['expected'] = 'fail'
         record['hiddenHands'] = {'east': ['DA']}
         package = evaluate.grader_package([('live3', record)])
@@ -113,7 +113,7 @@ class SavedDecisionTests(unittest.TestCase):
 
 
     def test_uncertain_and_malformed_grader_results_never_become_product_passes(self):
-        package = evaluate.grader_package([('live3', evaluate.read_decision(ROOT / 'evidence/ticket37/live3'))])
+        package = evaluate.grader_package([('live3', evaluate.read_decision(ROOT / 'fixtures/saved-boundaries/ticket37/live3'))])
         valid = {'results': [{'id': 'live3', 'status': 'uncertain', 'findings': [
             {'dimension': 'feasibility', 'quote': 'D8 wins the trick over West’s DQ',
              'fact': 'North D8 is below West DQ.', 'explanation': 'Further review needed.'}]}]}
@@ -128,7 +128,7 @@ class SavedDecisionTests(unittest.TestCase):
 
 
     def test_saved_grades_can_be_reprocessed_without_a_playing_or_grading_model(self):
-        package = evaluate.grader_package([('live3', evaluate.read_decision(ROOT / 'evidence/ticket37/live3'))])
+        package = evaluate.grader_package([('live3', evaluate.read_decision(ROOT / 'fixtures/saved-boundaries/ticket37/live3'))])
         with tempfile.TemporaryDirectory() as temporary:
             source = Path(temporary) / 'saved'
             source.mkdir()
@@ -144,7 +144,7 @@ class SavedDecisionTests(unittest.TestCase):
     def test_unavailable_grader_is_evaluator_issue_not_product_quality_failure(self):
         with tempfile.TemporaryDirectory() as temporary:
             output = Path(temporary) / 'unavailable'
-            run = subprocess.run([sys.executable, str(ROOT / 'evaluate.py'), 'grade', '--decision', str(ROOT / 'evidence/ticket37/live3'), '--codex', '/no/such/codex', '--output', str(output)], capture_output=True, text=True)
+            run = subprocess.run([sys.executable, str(ROOT / 'evaluate.py'), 'grade', '--decision', str(ROOT / 'fixtures/saved-boundaries/ticket37/live3'), '--codex', '/no/such/codex', '--output', str(output)], capture_output=True, text=True)
             self.assertEqual(run.returncode, 0, run.stderr)
             result = json.loads((output / 'evaluation.json').read_text())['results'][0]
             self.assertEqual(result['quality'], 'uncertain')
@@ -153,13 +153,13 @@ class SavedDecisionTests(unittest.TestCase):
 
 
     def test_unreadable_current_card_is_a_structural_product_failure(self):
-        record = evaluate.read_decision(ROOT / 'evidence/ticket37/live3')
+        record = evaluate.read_decision(ROOT / 'fixtures/saved-boundaries/ticket37/live3')
         record['rawOutput'] = json.dumps({'currentCard': 3, 'plan': {'update': 'replace', 'text': 'A plan'}, 'publicReason': 'A reason'})
         checks = evaluate.deterministic_checks(record)
         self.assertEqual(checks['structure']['status'], 'fail')
 
     def test_interrupted_board_certifies_only_its_own_turn_from_shared_rpc(self):
-        source = ROOT / 'evidence/issue46-completion/development-full-v1/development-full/play'
+        source = ROOT / 'fixtures/saved-boundaries/issue46-completion/development-full-v1/development-full/play'
         for wrong_thread, expected in ((False, 'pass'), (True, 'fail')):
             with self.subTest(wrong_thread=wrong_thread), tempfile.TemporaryDirectory() as temporary:
                 board = Path(temporary)
@@ -178,7 +178,7 @@ class SavedDecisionTests(unittest.TestCase):
             self.assertEqual(checks['output_evidence']['status'], expected)
 
     def test_saved_multiturn_decision_cannot_borrow_another_turn_identity(self):
-        source = ROOT / 'evidence/ticket40/development-v3'
+        source = ROOT / 'fixtures/saved-boundaries/ticket40/development-v3'
         first = evaluate.read_decision(source / 'decision-0001')
         second = evaluate.read_decision(source / 'decision-0002')
         second['identity']['turnID'] = first['identity']['turnID']
@@ -192,7 +192,7 @@ class SavedDecisionTests(unittest.TestCase):
         self.assertEqual(checks['output_evidence']['status'], 'fail')
 
     def test_saved_turn_rejects_completion_before_its_start_or_another_thread(self):
-        source = ROOT / 'evidence/ticket40/development-v3'
+        source = ROOT / 'fixtures/saved-boundaries/ticket40/development-v3'
         original = evaluate.read_decision(source / 'decision-0002')
         for defect in ('early_completion', 'wrong_thread'):
             with self.subTest(defect=defect), tempfile.TemporaryDirectory() as temporary:
@@ -257,7 +257,7 @@ class SavedDecisionTests(unittest.TestCase):
                     self.assertIn('case/trace mismatch', run.stderr)
 
     def test_saved_rpc_mismatch_is_visible_and_no_defender_hand_enters_grader(self):
-        record = evaluate.read_decision(ROOT / 'evidence/ticket37/live3')
+        record = evaluate.read_decision(ROOT / 'fixtures/saved-boundaries/ticket37/live3')
         self.assertEqual(evaluate.deterministic_checks(record)['request_evidence']['status'], 'pass')
         record['input'] = 'A substituted request'
         self.assertEqual(evaluate.deterministic_checks(record)['request_evidence']['status'], 'fail')
@@ -267,7 +267,7 @@ class SavedDecisionTests(unittest.TestCase):
 
 
     def test_offline_regrade_preserves_runtime_and_actual_tool_failures(self):
-        package = evaluate.grader_package([('live3', evaluate.read_decision(ROOT / 'evidence/ticket37/live3'))])
+        package = evaluate.grader_package([('live3', evaluate.read_decision(ROOT / 'fixtures/saved-boundaries/ticket37/live3'))])
         grade = {'results': [{'id': 'live3', 'status': 'pass', 'findings': [{'dimension': 'test', 'quote': 'D3', 'fact': 'A legal diamond.', 'explanation': 'A valid-looking answer cannot override failed grader runtime.'}]}]}
         for metadata in ({'exit_code': 1, 'observed_tool_items': [], 'evaluator_error': 'Runtime failed'}, {'exit_code': 0, 'observed_tool_items': ['command_execution'], 'evaluator_error': 'Independent grader attempted a tool'}):
             with self.subTest(metadata=metadata), tempfile.TemporaryDirectory() as temporary:
@@ -284,7 +284,7 @@ class SavedDecisionTests(unittest.TestCase):
 
 
     def test_grader_can_cite_two_separate_exact_excerpts_without_inventing_a_quote(self):
-        package = evaluate.grader_package([('live3', evaluate.read_decision(ROOT / 'evidence/ticket37/live3'))])
+        package = evaluate.grader_package([('live3', evaluate.read_decision(ROOT / 'fixtures/saved-boundaries/ticket37/live3'))])
         grade = {'results': [{'id': 'live3', 'status': 'fail', 'findings': [{'dimension': 'action-plan consistency', 'quotes': ['D3', 'win the diamond lead with dummy’s D8'], 'fact': 'D3 is selected while the plan prescribes D8.', 'explanation': 'The action and plan disagree.'}]}]}
         result = evaluate.adjudicate(package, grade)['results'][0]
         self.assertEqual(result['quality'], 'fail')
@@ -309,7 +309,7 @@ class SavedDecisionTests(unittest.TestCase):
             output = root / 'evaluation'
             environment = {**os.environ, 'CODEX_HOME': str(root)}
             run = subprocess.run([sys.executable, str(ROOT / 'evaluate.py'), 'grade', '--decision',
-                                  str(ROOT / 'evidence/ticket37/live3'), '--codex', str(executable),
+                                  str(ROOT / 'fixtures/saved-boundaries/ticket37/live3'), '--codex', str(executable),
                                   '--timeout', '0.8', '--output', str(output)], env=environment, capture_output=True, text=True)
             self.assertEqual(run.returncode, 0, run.stderr)
             metadata = json.loads((output / 'run.json').read_text())
@@ -355,7 +355,7 @@ class SavedDecisionTests(unittest.TestCase):
     def test_pre_inference_failure_is_reported_without_requesting_a_grader(self):
         with tempfile.TemporaryDirectory() as temporary:
             output = Path(temporary) / 'runtime'
-            run = subprocess.run([sys.executable, str(ROOT / 'evaluate.py'), 'grade', '--decision', str(ROOT / 'evidence/ticket37/live1'), '--codex', '/no/such/codex', '--output', str(output)], capture_output=True, text=True)
+            run = subprocess.run([sys.executable, str(ROOT / 'evaluate.py'), 'grade', '--decision', str(ROOT / 'fixtures/saved-boundaries/ticket37/live1'), '--codex', '/no/such/codex', '--output', str(output)], capture_output=True, text=True)
             self.assertEqual(run.returncode, 0, run.stderr)
             result = json.loads((output / 'evaluation.json').read_text())['results'][0]
             self.assertEqual(result['attribution'], 'runtime_failure')

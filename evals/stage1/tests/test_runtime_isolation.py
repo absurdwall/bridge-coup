@@ -26,7 +26,7 @@ class RuntimeIsolationTests(unittest.TestCase):
         if not cls.binary.is_file():
             raise RuntimeError('Build the production public driver with swift build --product bridge-play first')
 
-    def public_request(self, fixture='evals/stage1/fixtures/synthetic-initial.json', public_background=None):
+    def public_request(self, fixture='evals/stage1/fixtures/synthetic-initial.json', public_background=None, verify_shared_catalogs=False):
         captures = []
 
         class RejectingProvider(http.server.BaseHTTPRequestHandler):
@@ -61,15 +61,33 @@ class RuntimeIsolationTests(unittest.TestCase):
                     fixture_value['publicBackground'] = public_background
                     fixture_path = root/'unicode-fixture.json'
                     fixture_path.write_text(json.dumps(fixture_value, ensure_ascii=False))
-                result = subprocess.run([str(self.binary),
+                play = root/'evidence/play'
+                command = [str(self.binary),
                     '--fixture', str(fixture_path),
-                    '--output', str(root/'play'), '--codex', str(wrapper), '--timeout', '15'],
+                    '--output', str(play), '--artifact-store', str(root/'evidence/objects'),
+                    '--codex', str(wrapper), '--timeout', '15']
+                result = subprocess.run(command,
                     cwd=ROOT, env={**os.environ, 'CODEX_HOME': str(root)},
                     capture_output=True, text=True, timeout=25)
                 self.assertNotEqual(result.returncode, 0)  # Fake rejection cannot be a playing pass.
                 self.assertEqual(len(captures), 1, result.stderr)
-                source = json.loads((root/'play/runtime-bundled-catalog.json').read_text())
-                effective = json.loads((root/'play/runtime-model-catalog.json').read_text())
+                if verify_shared_catalogs:
+                    second = list(command)
+                    second[second.index('--output')+1] = str(root/'evidence/play-again')
+                    again = subprocess.run(second, cwd=ROOT, env={**os.environ, 'CODEX_HOME':str(root)},
+                                           capture_output=True, text=True, timeout=25)
+                    self.assertNotEqual(again.returncode, 0)
+                    self.assertEqual(len(captures), 2, again.stderr)
+                    for name in ('runtime-bundled-catalog.json', 'runtime-model-catalog.json'):
+                        first = play/name
+                        other = root/'evidence/play-again'/name
+                        self.assertTrue(first.is_symlink(), 'Catalog evidence must reference shared immutable content')
+                        self.assertEqual(first.resolve(), other.resolve())
+                    self.assertEqual(len(list((root/'evidence/objects').glob('*.json'))), 2)
+                    shutil.move(str(root/'evidence'), str(root/'moved'))
+                    play = root/'moved/play'
+                source = json.loads((play/'runtime-bundled-catalog.json').read_text())
+                effective = json.loads((play/'runtime-model-catalog.json').read_text())
                 luna = next(model for model in source['models'] if model['slug'] == 'gpt-6.1-sol')
                 expected = {**luna, 'tool_mode': 'direct', 'experimental_supported_tools': [],
                             'apply_patch_tool_type': None, 'shell_type': 'disabled'}
@@ -79,7 +97,7 @@ class RuntimeIsolationTests(unittest.TestCase):
                 self.assertTrue(auth_absent)
                 self.assertEqual(request['model'], 'gpt-6.1-sol')
                 self.assertEqual(request['reasoning']['effort'], 'medium')
-                rows = [json.loads(line) for line in (root/'play/rpc.jsonl').read_text().splitlines()]
+                rows = [json.loads(line) for line in (play/'rpc.jsonl').read_text().splitlines()]
                 sent = next(row['value']['params']['outputSchema'] for row in rows
                             if row['kind'] == 'request' and row['value'].get('method') == 'turn/start')
                 self.assertEqual(list(sent['properties']), list(request['text']['format']['schema']['properties']))
@@ -108,6 +126,9 @@ class RuntimeIsolationTests(unittest.TestCase):
         self.assertNotIn('<multi_agent_role>', text)
         self.assertNotIn('<multi_agent_mode>', text)
         self.assertEqual(tools, [], 'Playing requests must not contain generic tools')
+
+    def test_repeated_offline_runs_share_catalogs_and_survive_directory_move(self):
+        self.public_request(verify_shared_catalogs=True)
 
     def test_actual_schema_preserves_plan_card_reason_and_update_text_order(self):
         request = self.public_request()

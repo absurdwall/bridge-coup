@@ -39,7 +39,7 @@ class Candidate2ConfigurationTests(unittest.TestCase):
         changed_plan[6]['mechanical_sole_legal'] = True
         with self.assertRaisesRegex(ValueError, 'schedule changed'):
             acceptance.verify_schedule(changed_plan)
-        directory = ROOT / 'evidence/ticket40/development-v3'
+        directory = ROOT / 'fixtures/saved-boundaries/ticket40/development-v3'
         trace = acceptance.load(directory / 'trace.json')
         trace['mechanicalSoleLegal'] = False
         board = acceptance.load(ROOT / 'corpus/boards/synthetic.json')

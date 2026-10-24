@@ -1,9 +1,0 @@
-# Candidate 3 integration verification
-
-Merged reviewed implementation `c6f9086c851e1364fd9d5a50e039e2f05e0647bc` into `codex/issue48-reviewed-declarer` with `--no-ff`, starting at `71eaf73e7908867179ee9c0a38e639abaab806ea`. Independent Standards, Spec and writing-for-agents reports were copied byte for byte and committed separately. The only production change is the publicReason definition; runtime, schemas, models, case configuration, rubric, corpus and reviewer instructions are unchanged.
-
-After merge, matched-SDK `SnapshotInputTests` passed 7 tests, then Python passed 74 tests sequentially. Both rebuilt bundled instruction files exactly match their source bytes. [Commands, hashes and check summary](merger-verification.json), [Swift log](merger-swift.log), and [Python log](merger-python.log) retain the evidence. The implementer's earlier full suite remains 255 Swift tests / 10 preexisting skips / zero failures.
-
-All nine post-build saved-evidence checks exited zero: C1 preservation, adjudication proofs and lifetime portability; C2 preservation, public windows, interrupted costs, native encoding, aggregation and lifetime portability. C2 lifetime also reruns archived Walker/environment and public counterbranch proofs, rejects an extra unlisted raw file and deliberately changes all current source files with no build/native dependency. Historical raw evidence, exact source/runtime archives and original reviews remain unchanged. C2 aggregation still reports NO-GO: 21 normal tasks / 254 passing deliveries plus three separate partial deliveries, incomplete strict22 and unmet stronger semantic facet.
-
-Tracked working tree/index were clean before adding this verification. The same four untracked cache directories remain untouched. No native acceptance calls, GitHub writes, push, issue closure or PR merge were performed. Final frozen cycle 3 semantic acceptance remains pending.

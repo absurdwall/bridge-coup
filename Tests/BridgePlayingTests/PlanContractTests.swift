@@ -32,7 +32,7 @@ final class PlanContractTests: XCTestCase {
 
     func testFourHistoricalAmbiguousPlansRemainFailuresWithOriginalOutputAndNoRetry() async throws {
         let repository = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
-        let matrix = repository.appendingPathComponent("evals/stage1/evidence/ticket42/matrix")
+        let matrix = repository.appendingPathComponent("evals/stage1/fixtures/saved-boundaries/ticket42/matrix")
         for attempt in ["short-3-r2", "short-4-r1", "short-4-r3", "short-5-r3"] {
             let directory = matrix.appendingPathComponent(attempt)
             let trace = try JSONDecoder().decode(SavedTrace.self, from: Data(contentsOf: directory.appendingPathComponent("play/trace.json")))
@@ -65,7 +65,7 @@ final class PlanContractTests: XCTestCase {
 
     func testHistoricalPositionsNowReceiveCompleteAuthorizedSnapshotsAndActivePlan() async throws {
         let repository = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
-        let matrix = repository.appendingPathComponent("evals/stage1/evidence/ticket42/matrix")
+        let matrix = repository.appendingPathComponent("evals/stage1/fixtures/saved-boundaries/ticket42/matrix")
         for (attempt, decision, toAct) in [("short-2-r3", 7, "S"), ("full-reserved-r1", 4, "N")] {
             let play = matrix.appendingPathComponent(attempt + "/play")
             let specification = try JSONDecoder().decode(SavedAttempt.self, from: Data(contentsOf: matrix.appendingPathComponent(attempt + "/attempt.json")))
@@ -96,7 +96,7 @@ final class PlanContractTests: XCTestCase {
         let runtime = root.appendingPathComponent("schema-checking-app-server")
         let repository = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
         let historical = try ["short-3-r2", "short-4-r1", "short-4-r3", "short-5-r3"].map { attempt in
-            try JSONDecoder().decode(SavedFailure.self, from: Data(contentsOf: repository.appendingPathComponent("evals/stage1/evidence/ticket42/matrix/" + attempt + "/play/failure.json"))).rawOutput
+            try JSONDecoder().decode(SavedFailure.self, from: Data(contentsOf: repository.appendingPathComponent("evals/stage1/fixtures/saved-boundaries/ticket42/matrix/" + attempt + "/play/failure.json"))).rawOutput
         }
         try JSONEncoder().encode(historical).write(to: root.appendingPathComponent("historical-replies.json"))
         let script = "#!\(python)\n" + #"""

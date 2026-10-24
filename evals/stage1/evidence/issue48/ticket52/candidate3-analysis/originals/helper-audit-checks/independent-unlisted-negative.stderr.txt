@@ -1,6 +1,0 @@
-Traceback (most recent call last):
-  File "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate3-analysis/verify_preservation.py", line 88, in <module>
-    print(json.dumps(verify(args.repo.resolve(),args.analysis.resolve(),args.check_current_source),indent=2))
-  File "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate3-analysis/verify_preservation.py", line 24, in verify
-    assert actual_paths == expected_paths, 'raw file set differs from preservation manifest'
-AssertionError: raw file set differs from preservation manifest

@@ -1,8 +1,0 @@
-Traceback (most recent call last):
-  File "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate2-analysis/check_lifetime_portability.py", line 63, in <module>
-    print(json.dumps(verify(args.repo.resolve()),indent=2))
-                     ~~~~~~^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate2-analysis/check_lifetime_portability.py", line 52, in verify
-    assert unlisted.returncode!=0 and 'raw file set differs from preservation manifest' in unlisted.stderr, 'Verifier accepted an unlisted raw file.'
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AssertionError: Verifier accepted an unlisted raw file.

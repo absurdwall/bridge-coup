@@ -16,7 +16,7 @@ def reviewed_record(path=None):
     """Explicit synthetic adapter of saved natural decision4, repairing its known
     omitted-null encoding only, and supplying a scripted RPC/attempt journal.
     Never represented as a new native model result."""
-    path=path or ROOT/'evidence/issue48/ticket50/native-correction/play/decision-0004'
+    path=path or ROOT/'fixtures/saved-boundaries/issue48/ticket50/native-correction/play/decision-0004'
     r=evaluate.read_json(path/'decision.json');r['executionEvents']=evaluate.read_json(path/'events.json')
     r['rpc']=[];r['review_rpc']={};r['requestEvidence']=[]
     for round in r['reviewRounds']:
@@ -115,7 +115,7 @@ class ReviewedAcceptanceTests(unittest.TestCase):
         self.assertIsNone(reviewed_evidence.request_summary({})['attempts'])
 
     def test_wire_roles_tools_and_token_costs_are_audited_without_guessing_pairs(self):
-        directory=ROOT/'evidence/issue48/ticket50/native-correction'
+        directory=ROOT/'fixtures/saved-boundaries/issue48/ticket50/native-correction'
         candidate={'english_instructions':(directory/'source/Sources/BridgeExpert/Resources/DeclarerInstructions.txt').read_text(),
                    'reviewer_instructions':(directory/'source/Sources/BridgeExpert/Resources/ReviewerInstructions.txt').read_text()}
         result=acceptance.audit_wire(directory/'wire',candidate=candidate)
@@ -148,7 +148,7 @@ class ReviewedAcceptanceTests(unittest.TestCase):
             self.assertIn('unknown',report)
 
     def test_board_replay_checks_cross_decision_plan_and_counts_both_native_roles(self):
-        directory=ROOT/'evidence/issue48/ticket50/native-correction/play'
+        directory=ROOT/'fixtures/saved-boundaries/issue48/ticket50/native-correction/play'
         trace=evaluate.read_json(directory/'trace.json')
         trace['requestEvidence']=[]
         for step in trace['steps']:
