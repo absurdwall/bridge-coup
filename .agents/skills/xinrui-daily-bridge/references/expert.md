@@ -25,7 +25,15 @@
 
 ## 循环
 
-发送 `{"op":"decide"}`，读 `kind: advice` 的 `value`。记录实际 action seat/card、authorization 和 source。`source: model` 带公开理由、计划及 review；`source: forced` 无模型决策，不能计作一次模型选择。
+每次先收齐实际已发生的公开牌。若新睿已自动打出受控座位的唯一合法牌，直接发送（替换为本次事实）：
+
+```json
+{"op":"observe","automatic":true,"event":{"sequence":1,"seat":"north","card":"D3"}}
+```
+
+此分支不带 authorization；要求没有待执行／进行中的决策，且规则层核对当前序号、座位与唯一合法牌，返回 `source: forced`，不产生模型建议或计划。多选择与已有模型建议都不能这样确认。第一项实际 Expert 选择仍建立经 review 的计划；失败和运行时限保持原状。
+
+轮到有待选择的庄家／明手时，发送 `{"op":"decide"}`，读 `kind: advice` 的 `value`。记录实际 action seat/card、authorization 和 source。`source: model` 带公开理由、计划及 review；`source: forced` 无模型决策，不能计作一次模型选择。
 
 在新睿操作后确认实际牌出现，再发送：
 

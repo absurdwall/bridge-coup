@@ -141,7 +141,7 @@ public actor ExternalBoardSession {
     }
 
     /// The caller attests this is observed on the actual table, not merely attempted.
-    public func observe(_ event: PlayEvent, authorization: UUID? = nil) async throws -> ActualExecution {
+    public func observe(_ event: PlayEvent, authorization: UUID? = nil, automatic: Bool = false) async throws -> ActualExecution {
         guard !stopped else { throw ExternalBoardError.stopped }
         guard !busy else { throw ExternalBoardError.pendingDecision }
         guard automaticDeadline > Date() else { stopped = true; throw ExpertSessionError.automaticBudgetExpired }
@@ -150,7 +150,11 @@ public actor ExternalBoardSession {
         try next.observe(event)
         let controlled = event.seat == board.contract.declarer || event.seat == board.contract.declarer.partner
         let execution: ActualExecution
-        if controlled {
+        if automatic {
+            guard controlled, pending == nil, authorization == nil,
+                  try board.legalCards() == [event.card] else { throw ExternalBoardError.invalidAuthorization }
+            execution = .init(event: event, source: .forced)
+        } else if controlled {
             guard let pending, let authorization, authorization == pending.authorization,
                   pending.action.revision == board.events.count, pending.action.card == event.card,
                   pending.action.actingSeat == event.seat else { throw ExternalBoardError.invalidAuthorization }

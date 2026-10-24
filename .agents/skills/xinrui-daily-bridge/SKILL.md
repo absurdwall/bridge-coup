@@ -35,7 +35,7 @@ description: 在 macOS 新睿桥牌运行或接续一次每日单副任务，以
 
 维护实际公开牌序、当前墩、已完成墩的赢家、累计墩数、两手余牌及缺门。事实与推断分开；历史面板的上一墩不覆盖当前墩。自动行动也按实际顺序记录，不从计划推演牌序。
 
-做庄循环：`observe` 新的真实平台牌 → `decide` → 按返回的座位／牌操作 → 重新观察该牌确实打出 → 带当前 authorization `observe` → 保存。首次计划和所有有选择行动通过生产 Expert；`source: forced` 仅沿用入口授权，另记来源。外层不能因不同意建议而换牌或把公开计划编译成跳过 Expert 的执行策略。
+做庄循环：`observe` 新的真实平台牌 → `decide` → 按返回的座位／牌操作 → 重新观察该牌确实打出 → 带当前 authorization `observe` → 保存。平台在请求建议前已自动打出的唯一合法受控牌，按 [Expert 调用](references/expert.md) 的 `automatic: true` 分支确认并记 forced；不虚构建议。首次实际 Expert 选择建立计划，所有有选择行动通过生产 Expert；手动 forced 建议仍带入口授权确认。外层不能因不同意建议而换牌或把公开计划编译成跳过 Expert 的执行策略。
 
 记录 advice、authorization、实际确认之间的关联，以及 decision 文件、公开计划变化、真实 reviewer verdict 和 executionDisposition。`contested` 是既有政策下的执行授权，不能写成 approve。生产 player 和独立 reviewer 沿用既有配置；外层聊天模型设置不改变它们。入口失败时保存已有 evidence 和状态，不绕过 review 或重启规避限额。
 
