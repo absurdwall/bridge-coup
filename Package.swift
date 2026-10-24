@@ -9,6 +9,7 @@ let package = Package(
         .executable(name: "BridgeTeacherMac", targets: ["BridgeTeacherMac"]),
         .library(name: "BridgeExpert", targets: ["BridgeExpert", "BridgeEngine", "BridgeDomain"]),
         .executable(name: "bridge-play", targets: ["BridgePlayCLI"]),
+        .executable(name: "bridge-external", targets: ["BridgeExternalCLI"]),
     ],
     targets: [
         .target(name: "BridgeTeacherCore"),
@@ -18,6 +19,7 @@ let package = Package(
         .target(name: "BridgeDriver", dependencies: ["BridgeExpert", "BridgeEngine", "BridgeDomain"]),
         .target(name: "BridgeCodex", dependencies: ["BridgeExpert", "BridgeDomain"]),
         .executableTarget(name: "BridgePlayCLI", dependencies: ["BridgeCodex", "BridgeDriver", "BridgeExpert", "BridgeEngine", "BridgeDomain"]),
+        .executableTarget(name: "BridgeExternalCLI", dependencies: ["BridgeCodex", "BridgeDriver", "BridgeExpert", "BridgeEngine", "BridgeDomain"]),
         .testTarget(name: "BridgePlayingTests", dependencies: ["BridgeDomain", "BridgeEngine", "BridgeExpert", "BridgeCodex", "BridgeDriver"]),
         .executableTarget(name: "BridgeTeacherMac", dependencies: ["BridgeTeacherCore"]),
         .testTarget(name: "BridgeTeacherCoreTests", dependencies: ["BridgeTeacherCore"]),
