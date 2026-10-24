@@ -53,3 +53,15 @@
 **Contested play**: A declarer play released by the agreed execution policy while reviewer objections remain unresolved. Its authorization does not imply reviewer approval or establish bridge quality.
 
 **Semantic review round**: One valid approve, revise or uncertain judgment on a pending declarer proposal. A technical attempt that yields no valid judgment is not a semantic review round.
+
+### 新睿连续打牌
+
+**新睿单副任务**：从进入新睿赛事、参与一副牌的叫牌和打牌，到保存结果、同牌比较与本次总结的一次任务；赛事通常包含多副牌，一次任务不等于完成整场赛事。
+
+**历史墩回放**：新睿历史面板展示的已完成墩的出牌信息，区别于当前牌桌正在进行的一墩；两者牌面不同不构成识别错误。
+
+**摊牌申请（claim）**：牌手提出的剩余可得墩数请求，经新睿接受后结束剩余出牌；申请被拒绝时仍须继续打牌。申请获准不单独证明申报墩数已达到可争取的最佳结果。
+
+**打牌总结**：围绕一副实际牌局的叫牌、打牌计划、选择及结果差距所作的总结，区分决策时信息、赛后揭示的信息与仍不确定的解释。
+
+**流程总结**：针对一次新睿单副任务中的观察、操作、决策衔接、记录及能力缺口所作的总结，区别于评价桥牌选择的打牌总结。
