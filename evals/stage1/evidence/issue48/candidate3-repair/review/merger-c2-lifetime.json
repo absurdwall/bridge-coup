@@ -1,0 +1,31 @@
+{
+  "status": "pass",
+  "checks": [
+    {
+      "script": "verify_preservation.py",
+      "changed_current_source_no_build": "pass"
+    },
+    {
+      "script": "verify_public_windows.py",
+      "changed_current_source_no_build": "pass"
+    },
+    {
+      "script": "verify_interrupted_cost.py",
+      "changed_current_source_no_build": "pass"
+    },
+    {
+      "script": "check_candidate2_walker_coverage.py",
+      "frozen_archive_environment_only_replay": "pass"
+    },
+    {
+      "script": "check_candidate2_full_reserved_r1_counterbranch.py",
+      "public_compatible_counterbranch_only": "pass"
+    },
+    {
+      "script": "verify_preservation.py",
+      "unlisted_raw_file_rejected": "pass"
+    }
+  ],
+  "optional_current_source_comparison_rejects_changes": true,
+  "scope": "Only a temporary source skeleton is changed. Saved artifacts are read through symlinks; no actual current source, .build, installed native executable, network or model is used."
+}

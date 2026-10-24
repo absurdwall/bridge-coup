@@ -1,0 +1,540 @@
+{
+  "action" : {
+    "actingSeat" : "south",
+    "boardID" : "FCB662BB-601C-471A-8E40-8869F1BD4C3D",
+    "card" : "D7",
+    "controller" : "south",
+    "revision" : 40,
+    "snapshotID" : "FCB662BB-601C-471A-8E40-8869F1BD4C3D:40:south"
+  },
+  "advice" : {
+    "plan" : {
+      "text" : "Lead D7 toward dummy’s D9, hoping it wins now that DK and DT have appeared. If it does not, try dummy’s SK as the remaining chance for the ninth trick.",
+      "update" : "replace"
+    },
+    "publicReason" : "Lead D7 toward dummy’s D9; DK and DT have appeared, so D9 is the best remaining chance for the ninth trick.",
+    "selectedCard" : "D7"
+  },
+  "effectivePlan" : "Lead D7 toward dummy’s D9, hoping it wins now that DK and DT have appeared. If it does not, try dummy’s SK as the remaining chance for the ninth trick.",
+  "elapsedSeconds" : 3.9775869846343994,
+  "identity" : {
+    "observedModel" : "gpt-6-luna",
+    "requestedEffort" : "medium",
+    "requestedModel" : "gpt-6-luna",
+    "runtimeVersion" : "codex-cli 0.160.0",
+    "threadID" : "01a1631f-d0d1-73e3-920f-9b8d1d7cc589",
+    "turnID" : "01a16320-e331-7f50-a3b8-16d408b10856"
+  },
+  "input" : "{\n  \"completedTricks\" : [\n    {\n      \"plays\" : [\n        {\n          \"card\" : \"HJ\",\n          \"seat\" : \"W\"\n        },\n        {\n          \"card\" : \"H4\",\n          \"seat\" : \"N\"\n        },\n        {\n          \"card\" : \"H2\",\n          \"seat\" : \"E\"\n        },\n        {\n          \"card\" : \"HK\",\n          \"seat\" : \"S\"\n        }\n      ],\n      \"winner\" : \"S\"\n    },\n    {\n      \"plays\" : [\n        {\n          \"card\" : \"C3\",\n          \"seat\" : \"S\"\n        },\n        {\n          \"card\" : \"C4\",\n          \"seat\" : \"W\"\n        },\n        {\n          \"card\" : \"C5\",\n          \"seat\" : \"N\"\n        },\n        {\n          \"card\" : \"CT\",\n          \"seat\" : \"E\"\n        }\n      ],\n      \"winner\" : \"E\"\n    },\n    {\n      \"plays\" : [\n        {\n          \"card\" : \"HT\",\n          \"seat\" : \"E\"\n        },\n        {\n          \"card\" : \"HA\",\n          \"seat\" : \"S\"\n        },\n        {\n          \"card\" : \"H3\",\n          \"seat\" : \"W\"\n        },\n        {\n          \"card\" : \"H8\",\n          \"seat\" : \"N\"\n        }\n      ],\n      \"winner\" : \"S\"\n    },\n    {\n      \"plays\" : [\n        {\n          \"card\" : \"C8\",\n          \"seat\" : \"S\"\n        },\n        {\n          \"card\" : \"C9\",\n          \"seat\" : \"W\"\n        },\n        {\n          \"card\" : \"CA\",\n          \"seat\" : \"N\"\n        },\n        {\n          \"card\" : \"C2\",\n          \"seat\" : \"E\"\n        }\n      ],\n      \"winner\" : \"N\"\n    },\n    {\n      \"plays\" : [\n        {\n          \"card\" : \"C6\",\n          \"seat\" : \"N\"\n        },\n        {\n          \"card\" : \"CJ\",\n          \"seat\" : \"E\"\n        },\n        {\n          \"card\" : \"CK\",\n          \"seat\" : \"S\"\n        },\n        {\n          \"card\" : \"C7\",\n          \"seat\" : \"W\"\n        }\n      ],\n      \"winner\" : \"S\"\n    },\n    {\n      \"plays\" : [\n        {\n          \"card\" : \"CQ\",\n          \"seat\" : \"S\"\n        },\n        {\n          \"card\" : \"D5\",\n          \"seat\" : \"W\"\n        },\n        {\n          \"card\" : \"D3\",\n          \"seat\" : \"N\"\n        },\n        {\n          \"card\" : \"S3\",\n          \"seat\" : \"E\"\n        }\n      ],\n      \"winner\" : \"S\"\n    },\n    {\n      \"plays\" : [\n        {\n          \"card\" : \"SA\",\n          \"seat\" : \"S\"\n        },\n        {\n          \"card\" : \"S5\",\n          \"seat\" : \"W\"\n        },\n        {\n          \"card\" : \"S2\",\n          \"seat\" : \"N\"\n        },\n        {\n          \"card\" : \"S8\",\n          \"seat\" : \"E\"\n        }\n      ],\n      \"winner\" : \"S\"\n    },\n    {\n      \"plays\" : [\n        {\n          \"card\" : \"D2\",\n          \"seat\" : \"S\"\n        },\n        {\n          \"card\" : \"D8\",\n          \"seat\" : \"W\"\n        },\n        {\n          \"card\" : \"DQ\",\n          \"seat\" : \"N\"\n        },\n        {\n          \"card\" : \"DK\",\n          \"seat\" : \"E\"\n        }\n      ],\n      \"winner\" : \"E\"\n    },\n    {\n      \"plays\" : [\n        {\n          \"card\" : \"H9\",\n          \"seat\" : \"E\"\n        },\n        {\n          \"card\" : \"H5\",\n          \"seat\" : \"S\"\n        },\n        {\n          \"card\" : \"H6\",\n          \"seat\" : \"W\"\n        },\n        {\n          \"card\" : \"HQ\",\n          \"seat\" : \"N\"\n        }\n      ],\n      \"winner\" : \"N\"\n    },\n    {\n      \"plays\" : [\n        {\n          \"card\" : \"DJ\",\n          \"seat\" : \"N\"\n        },\n        {\n          \"card\" : \"D4\",\n          \"seat\" : \"E\"\n        },\n        {\n          \"card\" : \"DA\",\n          \"seat\" : \"S\"\n        },\n        {\n          \"card\" : \"DT\",\n          \"seat\" : \"W\"\n        }\n      ],\n      \"winner\" : \"S\"\n    }\n  ],\n  \"contract\" : {\n    \"declarer\" : \"S\",\n    \"doubling\" : \"undoubled\",\n    \"level\" : 3,\n    \"strain\" : \"NT\"\n  },\n  \"controller\" : \"S\",\n  \"current\" : {\n    \"toAct\" : \"S\",\n    \"tricksWon\" : {\n      \"declarer\" : 8,\n      \"defenders\" : 2\n    },\n    \"winningPlay\" : null\n  },\n  \"currentTrick\" : [\n\n  ],\n  \"effectivePlan\" : \"Win this trick with DA, then try SK for the second required trick. Seven tricks are won, and two more are needed.\",\n  \"hands\" : {\n    \"N\" : {\n      \"C\" : \"\",\n      \"D\" : \"9\",\n      \"H\" : \"\",\n      \"S\" : \"K7\"\n    },\n    \"S\" : {\n      \"C\" : \"\",\n      \"D\" : \"7\",\n      \"H\" : \"\",\n      \"S\" : \"64\"\n    }\n  },\n  \"objective\" : \"Normal IMP strategy, weighing contract risk and overtricks.\",\n  \"publicBackground\" : null,\n  \"scoring\" : \"IMP\",\n  \"type\" : \"update\",\n  \"vulnerability\" : \"neither\"\n}",
+  "instructions" : "You are the declarer-play Expert for one bridge board and one decision controller.\nThe thread carries the board's continuing discussion across decisions.\n\nOBJECTIVE\n\nChoose a line that aims for the best expected result under the stated scoring conditions.\n\nDECISION PROCESS\n\n1. Establish the position from the latest snapshot: contract, scoring,\n   remaining authorized hands, actual plays, acting seat and tricks won.\n   Each snapshot replaces the fact view. Recorded plays are already reflected\n   in the remaining hands; repeated history describes the same events.\n\n2. Form or reassess the playing plan using the latest position and\n   the earlier discussion. Check its unfinished line against the remaining\n   cards and entries, treating recorded steps as completed. Compare proposed\n   trick winners with known higher cards and higher cards defenders could\n   still hold. Reconcile tricks already won with the line's remaining trick\n   sources and material conditions before keeping or replacing the plan.\n   Represent the result in the output JSON's \"plan\" object as defined in\n   OUTPUT FORMAT. Plans and predictions remain advice; actual plays\n   establish what happened.\n\n3. Read current.winningPlay to identify the current winner and partnership,\n   or that the trick is on lead. Choose selectedCard from the response\n   schema's legal-card enum for current.toAct. Check its effect on this\n   trick and the unfinished plan, then explain the choice briefly in\n   publicReason.\n\nOUTPUT FORMAT\n\nReturn one JSON object with these fields:\n\n- \"publicReason\": a brief explanation of the card chosen now.\n- \"selectedCard\": the current card, chosen from the response schema's\n  legal-card enum.\n- \"plan\": an object containing the fields \"update\" and \"text\".\n\nThe \"update\" field inside \"plan\" specifies how the program should\nmaintain the active plan:\n\n- \"replace\": replace the active plan with the contents of \"text\".\n- \"keep\": retain the active plan; \"text\" is null.\n- \"withdraw\": clear the active plan; \"text\" is null.\n\nFor \"replace\", the \"text\" field contains the complete natural-language\ndeclarer plan for the remaining board. Explain the intended line,\nits main sources of tricks, and material contingencies.\n\nThe program carries this text verbatim into the next input's\n\"effectivePlan\" field. When revising a plan, supply the complete\nreplacement plan that subsequent decisions should use.\n\nWhen the input's \"type\" field is \"initial\", set the output plan\nobject's \"update\" field to \"replace\" and its \"text\" field to the\ninitial declarer plan.\n\nFor later snapshots, choose \"replace\", \"keep\" or \"withdraw\"\naccording to how the active plan should be maintained.\n\nINPUT REFERENCE\n\nThe user message is a complete authorized JSON snapshot.\nThe input JSON has a string field named \"type\":\n- \"initial\" identifies the first decision for this board.\n- \"update\" identifies a later complete snapshot of the same board.\n\nNotation:\n- Seats: N=North, E=East, S=South, W=West.\n- Suits: S=spades, H=hearts, D=diamonds, C=clubs.\n- Ranks, highest first: A K Q J T 9 8 7 6 5 4 3 2. T means ten.\n- Card codes combine suit and rank: DQ is the queen of diamonds;\n  SA is the ace of spades.\n- In hands, \"S\": \"A94\" means the ace, nine and four of spades.\n  An empty suit string means no remaining cards in that suit.\n  In a seat field, \"S\" means South.\n\nFields:\n- \"contract\": level, strain, doubling and declarer. Strain is S, H, D, C\n  or NT (notrump). Doubling is undoubled, doubled or redoubled.\n- \"scoring\": the scoring method.\n- \"vulnerability\": neither, NS, EW or both.\n- \"objective\": the requested strategic aim, separate from contract and scoring.\n- \"publicBackground\": supplied public context, or null when unavailable.\n  Missing auction or defensive agreements remain unknown.\n- \"controller\": the declarer whose perspective controls decisions from\n  both declarer and dummy.\n- \"hands\": current remaining authorized holdings, grouped by seat and suit.\n  Treat omitted defender holdings as unknown.\n- \"completedTricks\": completed tricks in chronological order. Each contains\n  \"plays\" in actual play order and \"winner\". Each play has \"seat\" and \"card\".\n- \"currentTrick\": the actual plays in the unfinished trick, in play order.\n- \"current\": \"toAct\", \"tricksWon\" (\"declarer\" and \"defenders\"), and \"winningPlay\".\n  \"winningPlay\" is the highest actual play in the current trick under bridge\n  rules, with \"seat\" and \"card\", or null before the lead. Later plays may change it.\n- \"effectivePlan\": the exact active plan carried into this decision,\n  or null when no active plan exists.\n\nILLUSTRATIVE OUTPUT EXAMPLES\n\nIndependent three-card ending: South holds SA S2 HA; North holds SK S3 H2.\nSouth leads. This position illustrates the output format.\n\n{\"publicReason\":\"Cash SA while preserving the crossing to North's SK.\",\"plan\":{\"update\":\"replace\",\"text\":\"Cash SA with North following S3. Lead S2 to North's SK, then return H2 to South's HA.\"},\"selectedCard\":\"SA\"}\n\nAfter South's SA and a low West spade, North follows:\n\n{\"publicReason\":\"Follow with S3, preserving SK for the planned entry.\",\"plan\":{\"update\":\"keep\",\"text\":null},\"selectedCard\":\"S3\"}\n",
+  "planAssociation" : {
+    "boardID" : "FCB662BB-601C-471A-8E40-8869F1BD4C3D",
+    "controller" : "south",
+    "sourceSessionID" : "F6D44444-4B37-4913-9203-B39F596BD8F8",
+    "sourceSnapshotID" : "FCB662BB-601C-471A-8E40-8869F1BD4C3D:40:south",
+    "text" : "Lead D7 toward dummy’s D9, hoping it wins now that DK and DT have appeared. If it does not, try dummy’s SK as the remaining chance for the ninth trick."
+  },
+  "rawOutput" : "{\"publicReason\":\"Lead D7 toward dummy’s D9; DK and DT have appeared, so D9 is the best remaining chance for the ninth trick.\",\"plan\":{\"update\":\"replace\",\"text\":\"Lead D7 toward dummy’s D9, hoping it wins now that DK and DT have appeared. If it does not, try dummy’s SK as the remaining chance for the ninth trick.\"},\"selectedCard\":\"D7\"}",
+  "session" : {
+    "id" : "F6D44444-4B37-4913-9203-B39F596BD8F8",
+    "snapshotID" : "FCB662BB-601C-471A-8E40-8869F1BD4C3D:40:south"
+  },
+  "snapshot" : {
+    "actingSeat" : "south",
+    "boardID" : "FCB662BB-601C-471A-8E40-8869F1BD4C3D",
+    "completedTricks" : [
+      {
+        "plays" : [
+          {
+            "card" : "HJ",
+            "seat" : "west",
+            "sequence" : 0
+          },
+          {
+            "card" : "H4",
+            "seat" : "north",
+            "sequence" : 1
+          },
+          {
+            "card" : "H2",
+            "seat" : "east",
+            "sequence" : 2
+          },
+          {
+            "card" : "HK",
+            "seat" : "south",
+            "sequence" : 3
+          }
+        ],
+        "winner" : "south"
+      },
+      {
+        "plays" : [
+          {
+            "card" : "C3",
+            "seat" : "south",
+            "sequence" : 4
+          },
+          {
+            "card" : "C4",
+            "seat" : "west",
+            "sequence" : 5
+          },
+          {
+            "card" : "C5",
+            "seat" : "north",
+            "sequence" : 6
+          },
+          {
+            "card" : "CT",
+            "seat" : "east",
+            "sequence" : 7
+          }
+        ],
+        "winner" : "east"
+      },
+      {
+        "plays" : [
+          {
+            "card" : "HT",
+            "seat" : "east",
+            "sequence" : 8
+          },
+          {
+            "card" : "HA",
+            "seat" : "south",
+            "sequence" : 9
+          },
+          {
+            "card" : "H3",
+            "seat" : "west",
+            "sequence" : 10
+          },
+          {
+            "card" : "H8",
+            "seat" : "north",
+            "sequence" : 11
+          }
+        ],
+        "winner" : "south"
+      },
+      {
+        "plays" : [
+          {
+            "card" : "C8",
+            "seat" : "south",
+            "sequence" : 12
+          },
+          {
+            "card" : "C9",
+            "seat" : "west",
+            "sequence" : 13
+          },
+          {
+            "card" : "CA",
+            "seat" : "north",
+            "sequence" : 14
+          },
+          {
+            "card" : "C2",
+            "seat" : "east",
+            "sequence" : 15
+          }
+        ],
+        "winner" : "north"
+      },
+      {
+        "plays" : [
+          {
+            "card" : "C6",
+            "seat" : "north",
+            "sequence" : 16
+          },
+          {
+            "card" : "CJ",
+            "seat" : "east",
+            "sequence" : 17
+          },
+          {
+            "card" : "CK",
+            "seat" : "south",
+            "sequence" : 18
+          },
+          {
+            "card" : "C7",
+            "seat" : "west",
+            "sequence" : 19
+          }
+        ],
+        "winner" : "south"
+      },
+      {
+        "plays" : [
+          {
+            "card" : "CQ",
+            "seat" : "south",
+            "sequence" : 20
+          },
+          {
+            "card" : "D5",
+            "seat" : "west",
+            "sequence" : 21
+          },
+          {
+            "card" : "D3",
+            "seat" : "north",
+            "sequence" : 22
+          },
+          {
+            "card" : "S3",
+            "seat" : "east",
+            "sequence" : 23
+          }
+        ],
+        "winner" : "south"
+      },
+      {
+        "plays" : [
+          {
+            "card" : "SA",
+            "seat" : "south",
+            "sequence" : 24
+          },
+          {
+            "card" : "S5",
+            "seat" : "west",
+            "sequence" : 25
+          },
+          {
+            "card" : "S2",
+            "seat" : "north",
+            "sequence" : 26
+          },
+          {
+            "card" : "S8",
+            "seat" : "east",
+            "sequence" : 27
+          }
+        ],
+        "winner" : "south"
+      },
+      {
+        "plays" : [
+          {
+            "card" : "D2",
+            "seat" : "south",
+            "sequence" : 28
+          },
+          {
+            "card" : "D8",
+            "seat" : "west",
+            "sequence" : 29
+          },
+          {
+            "card" : "DQ",
+            "seat" : "north",
+            "sequence" : 30
+          },
+          {
+            "card" : "DK",
+            "seat" : "east",
+            "sequence" : 31
+          }
+        ],
+        "winner" : "east"
+      },
+      {
+        "plays" : [
+          {
+            "card" : "H9",
+            "seat" : "east",
+            "sequence" : 32
+          },
+          {
+            "card" : "H5",
+            "seat" : "south",
+            "sequence" : 33
+          },
+          {
+            "card" : "H6",
+            "seat" : "west",
+            "sequence" : 34
+          },
+          {
+            "card" : "HQ",
+            "seat" : "north",
+            "sequence" : 35
+          }
+        ],
+        "winner" : "north"
+      },
+      {
+        "plays" : [
+          {
+            "card" : "DJ",
+            "seat" : "north",
+            "sequence" : 36
+          },
+          {
+            "card" : "D4",
+            "seat" : "east",
+            "sequence" : 37
+          },
+          {
+            "card" : "DA",
+            "seat" : "south",
+            "sequence" : 38
+          },
+          {
+            "card" : "DT",
+            "seat" : "west",
+            "sequence" : 39
+          }
+        ],
+        "winner" : "south"
+      }
+    ],
+    "contract" : {
+      "declarer" : "south",
+      "doubling" : "undoubled",
+      "level" : 3,
+      "strain" : "noTrump"
+    },
+    "controller" : "south",
+    "currentTrick" : [
+
+    ],
+    "declarerTricks" : 8,
+    "defenderTricks" : 2,
+    "events" : [
+      {
+        "card" : "HJ",
+        "seat" : "west",
+        "sequence" : 0
+      },
+      {
+        "card" : "H4",
+        "seat" : "north",
+        "sequence" : 1
+      },
+      {
+        "card" : "H2",
+        "seat" : "east",
+        "sequence" : 2
+      },
+      {
+        "card" : "HK",
+        "seat" : "south",
+        "sequence" : 3
+      },
+      {
+        "card" : "C3",
+        "seat" : "south",
+        "sequence" : 4
+      },
+      {
+        "card" : "C4",
+        "seat" : "west",
+        "sequence" : 5
+      },
+      {
+        "card" : "C5",
+        "seat" : "north",
+        "sequence" : 6
+      },
+      {
+        "card" : "CT",
+        "seat" : "east",
+        "sequence" : 7
+      },
+      {
+        "card" : "HT",
+        "seat" : "east",
+        "sequence" : 8
+      },
+      {
+        "card" : "HA",
+        "seat" : "south",
+        "sequence" : 9
+      },
+      {
+        "card" : "H3",
+        "seat" : "west",
+        "sequence" : 10
+      },
+      {
+        "card" : "H8",
+        "seat" : "north",
+        "sequence" : 11
+      },
+      {
+        "card" : "C8",
+        "seat" : "south",
+        "sequence" : 12
+      },
+      {
+        "card" : "C9",
+        "seat" : "west",
+        "sequence" : 13
+      },
+      {
+        "card" : "CA",
+        "seat" : "north",
+        "sequence" : 14
+      },
+      {
+        "card" : "C2",
+        "seat" : "east",
+        "sequence" : 15
+      },
+      {
+        "card" : "C6",
+        "seat" : "north",
+        "sequence" : 16
+      },
+      {
+        "card" : "CJ",
+        "seat" : "east",
+        "sequence" : 17
+      },
+      {
+        "card" : "CK",
+        "seat" : "south",
+        "sequence" : 18
+      },
+      {
+        "card" : "C7",
+        "seat" : "west",
+        "sequence" : 19
+      },
+      {
+        "card" : "CQ",
+        "seat" : "south",
+        "sequence" : 20
+      },
+      {
+        "card" : "D5",
+        "seat" : "west",
+        "sequence" : 21
+      },
+      {
+        "card" : "D3",
+        "seat" : "north",
+        "sequence" : 22
+      },
+      {
+        "card" : "S3",
+        "seat" : "east",
+        "sequence" : 23
+      },
+      {
+        "card" : "SA",
+        "seat" : "south",
+        "sequence" : 24
+      },
+      {
+        "card" : "S5",
+        "seat" : "west",
+        "sequence" : 25
+      },
+      {
+        "card" : "S2",
+        "seat" : "north",
+        "sequence" : 26
+      },
+      {
+        "card" : "S8",
+        "seat" : "east",
+        "sequence" : 27
+      },
+      {
+        "card" : "D2",
+        "seat" : "south",
+        "sequence" : 28
+      },
+      {
+        "card" : "D8",
+        "seat" : "west",
+        "sequence" : 29
+      },
+      {
+        "card" : "DQ",
+        "seat" : "north",
+        "sequence" : 30
+      },
+      {
+        "card" : "DK",
+        "seat" : "east",
+        "sequence" : 31
+      },
+      {
+        "card" : "H9",
+        "seat" : "east",
+        "sequence" : 32
+      },
+      {
+        "card" : "H5",
+        "seat" : "south",
+        "sequence" : 33
+      },
+      {
+        "card" : "H6",
+        "seat" : "west",
+        "sequence" : 34
+      },
+      {
+        "card" : "HQ",
+        "seat" : "north",
+        "sequence" : 35
+      },
+      {
+        "card" : "DJ",
+        "seat" : "north",
+        "sequence" : 36
+      },
+      {
+        "card" : "D4",
+        "seat" : "east",
+        "sequence" : 37
+      },
+      {
+        "card" : "DA",
+        "seat" : "south",
+        "sequence" : 38
+      },
+      {
+        "card" : "DT",
+        "seat" : "west",
+        "sequence" : 39
+      }
+    ],
+    "hands" : [
+      {
+        "cards" : [
+          "S6",
+          "S4",
+          "D7"
+        ],
+        "seat" : "south"
+      },
+      {
+        "cards" : [
+          "SK",
+          "S7",
+          "D9"
+        ],
+        "seat" : "north"
+      }
+    ],
+    "legalCards" : [
+      "S6",
+      "S4",
+      "D7"
+    ],
+    "objective" : "Normal IMP strategy, weighing contract risk and overtricks.",
+    "revision" : 40,
+    "scoring" : "IMP",
+    "vulnerability" : "neither"
+  },
+  "wireContractVersion" : "stage1-full-snapshot-v5"
+}

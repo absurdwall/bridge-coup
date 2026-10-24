@@ -1,0 +1,49 @@
+{
+  "diagnostic_only": true,
+  "base_commit": "352d61f",
+  "production_target": "gpt-6-luna/medium",
+  "diagnostic_target": "gpt-6-luna/xhigh",
+  "samples": 1,
+  "decisions": 8,
+  "source_path": "/var/folders/1l/xh7kf4ss1rqg3vxjr17q9_0w0000gn/T/bridge-luna-xhigh-source-exhve_tm",
+  "public_modules": [
+    {
+      "path": "Sources/BridgeCodex/CodexTransport.swift",
+      "original_sha256": "1b60b2926052dda01267fc29721e7c80c62eb671902a67b1304ef7fa9b73fd86",
+      "diagnostic_sha256": "31c35a45212c43dad2e7bec1c1d70e535c7fdfaf4b57800195330e349b4b1039",
+      "unchanged": false
+    },
+    {
+      "path": "Sources/BridgeDomain/BridgeValues.swift",
+      "original_sha256": "0b73b23524760e07d6deec14d3f350e2df3540bf0ddc088f8f7943147c75eb40",
+      "diagnostic_sha256": "0b73b23524760e07d6deec14d3f350e2df3540bf0ddc088f8f7943147c75eb40",
+      "unchanged": true
+    },
+    {
+      "path": "Sources/BridgeDriver/BoardDriver.swift",
+      "original_sha256": "b83b26424dd179bdc45027ad4c026e405a73e962c7072335f4e980ded2feed90",
+      "diagnostic_sha256": "b83b26424dd179bdc45027ad4c026e405a73e962c7072335f4e980ded2feed90",
+      "unchanged": true
+    },
+    {
+      "path": "Sources/BridgeEngine/BoardState.swift",
+      "original_sha256": "237ee3a8782e6a103034465779abac96f888b5ae1676e64e7e9fce16faff43a8",
+      "diagnostic_sha256": "237ee3a8782e6a103034465779abac96f888b5ae1676e64e7e9fce16faff43a8",
+      "unchanged": true
+    },
+    {
+      "path": "Sources/BridgeExpert/Expert.swift",
+      "original_sha256": "18947b19d3cf63dcc758d795f424b6b2110309d9c43f97458d8d512fa76b6f62",
+      "diagnostic_sha256": "18947b19d3cf63dcc758d795f424b6b2110309d9c43f97458d8d512fa76b6f62",
+      "unchanged": true
+    },
+    {
+      "path": "Sources/BridgePlayCLI/BridgePlayMain.swift",
+      "original_sha256": "5d2555f560c18a1e350beb2f89f353d600bb45530748610abf022e1ffbabda8f",
+      "diagnostic_sha256": "5d2555f560c18a1e350beb2f89f353d600bb45530748610abf022e1ffbabda8f",
+      "unchanged": true
+    }
+  ],
+  "package_note": "Only same six public modules/driver; omit unrelated UI/test targets, same macOS14/Swift5.10 settings.",
+  "source_delta": "Two effort literals only. No production files modified. No result counts toward acceptance."
+}

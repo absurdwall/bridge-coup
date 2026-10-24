@@ -1,0 +1,207 @@
+{
+  "id": "continuous-1",
+  "case_id": "short-2",
+  "kind": "short",
+  "board": "boards/synthetic.json",
+  "decisions": 8,
+  "opponent_policy": "conserve-high",
+  "diagnostic_only": true,
+  "requested_effort": "xhigh",
+  "task_complete": true,
+  "legal_execution": "pass",
+  "quality": "fail",
+  "playing": {
+    "exit_code": 0,
+    "wall_seconds": 131.792
+  },
+  "grading": {
+    "exit_code": 0,
+    "grading_evidence_available": true
+  },
+  "coverage": {
+    "status": "pending",
+    "basis": "At least three actual decisions; absence of a newly disproved plan premise requires independent review."
+  },
+  "counts": {
+    "actual_events": 17,
+    "complete": false,
+    "tricks": [
+      4,
+      0
+    ],
+    "model_request_attempts": 8,
+    "actual_rpc_requests": 8,
+    "model_actions": 8,
+    "forced_actions": 1,
+    "driver_opponent_actions": 7,
+    "initial_controlled_actions": 0,
+    "initial_opponent_actions": 1,
+    "retries": 0
+  },
+  "wire": {
+    "upstream_request_attempts": 8,
+    "http_statuses": {
+      "200": 8
+    },
+    "transport_errors": [],
+    "missing_response_metadata": [],
+    "observed_response_models": [
+      "gpt-6-luna"
+    ]
+  },
+  "timing": {
+    "elapsedSeconds": 131.51346099376678,
+    "lastControlledActionSeconds": 131.51168596744537,
+    "environmentOverheadSeconds": 0.041600823402404785,
+    "initialRequestSeconds": 39.837632060050964,
+    "subsequentRequestSeconds": [
+      40.10128605365753,
+      4.082784056663513,
+      4.6008620262146,
+      3.985189914703369,
+      3.9401479959487915,
+      29.772274017333984,
+      5.151684045791626
+    ],
+    "failedRequestSeconds": null
+  },
+  "quality_counts": {
+    "pass": 2,
+    "fail": 6,
+    "uncertain": 0
+  },
+  "review_required": [
+    {
+      "id": "decision-0001",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "physical route",
+          "fact": "Dummy cannot retain C2 to lead after the stated three club rounds.",
+          "explanation": "North holds only CQ, C7 and C2. North must follow to CA and CK, leaving only CQ for the third round. After CQ wins, North has no club remaining.",
+          "quotes": [
+            "South cashes CA and CK, then leads C4 toward dummy’s CQ. If CQ wins, dummy leads C2 toward South’s C8."
+          ]
+        },
+        {
+          "dimension": "winner and movement",
+          "fact": "Leading HA does not transfer the lead to dummy’s HK.",
+          "explanation": "South holds HA and North holds HK. If both are played on the same heart trick, HA wins in South, so dummy cannot lead the next spade as stated.",
+          "quotes": [
+            "After the club sequence, South can cash DK, lead HA for dummy’s HK, then dummy leads a spade toward SA."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0002",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "physical route",
+          "fact": "The installed plan requires a fourth club play from dummy’s three-card holding.",
+          "explanation": "North holds CQ, C7 and C2. Following to CA and CK consumes both small clubs if CQ is preserved. Consequently North cannot lead C2 after winning the third club round with CQ.",
+          "quotes": [
+            "Try CA, CK, then C4 toward dummy’s CQ. If CQ wins, dummy leads C2 toward South’s C8"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0003",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "retained plan feasibility",
+          "fact": "Keeping the plan retains an impossible unfinished club sequence.",
+          "explanation": "DK has actually won the opening trick, but North still has only CQ, C7 and C2. The forthcoming CA, CK and CQ rounds exhaust those clubs, leaving no C2 for the prescribed return.",
+          "quotes": [
+            "Lead CA as planned: it is a sure winner and begins the club development while preserving CK and the small clubs for the route toward dummy’s CQ.",
+            "If CQ wins, dummy leads C2 toward South’s C8"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0004",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "action-plan consistency",
+          "fact": "The selected C2 consumes a card explicitly required later by the retained plan.",
+          "explanation": "North is following to South’s CA with C2 now. The retained plan subsequently requires North to lead that same C2 after CK and CQ, which is impossible.",
+          "quotes": [
+            "CA is already winning, so dummy should follow with the lowest club, C2, preserving CQ and C7 for later club play.",
+            "If CQ wins, dummy leads C2 toward South’s C8"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0005",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "remaining resources",
+          "fact": "The retained unfinished route calls for an already consumed C2.",
+          "explanation": "The actual history records North C2 under CA, and North now holds only CQ and C7 in clubs. C2’s proposed lead after CQ is still a future step of the retained plan and cannot occur.",
+          "quotes": [
+            "If CQ wins, dummy leads C2 toward South’s C8"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0006",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "remaining resources",
+          "fact": "The retained plan still requires an unavailable club return from dummy.",
+          "explanation": "North’s C2 was already played under CA. Playing C7 under the current CK leaves only CQ, so after the planned CQ winner North has no club to lead toward C8.",
+          "quotes": [
+            "CK is currently winning, so follow low with C7 and preserve CQ for the planned lead toward dummy.",
+            "If CQ wins, dummy leads C2 toward South’s C8"
+          ]
+        }
+      ]
+    }
+  ],
+  "plan_updates": {
+    "keep": 5,
+    "replace": 3,
+    "withdraw": 0
+  },
+  "failures": [],
+  "outcome": "fail"
+}

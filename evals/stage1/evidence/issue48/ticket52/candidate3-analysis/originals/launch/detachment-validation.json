@@ -1,0 +1,12 @@
+{
+  "status": "pass",
+  "launcher_exit_before_child_completion": true,
+  "child_distinct_pid_pgid_session": true,
+  "child_reparented_after_launcher_exit": true,
+  "stdin_is_devnull": true,
+  "stdout_stderr_survive_launcher_exit": true,
+  "duplicate_registry_rejects_second_launch": true,
+  "launcher_elapsed_seconds": 0.06216712505556643,
+  "launcher_sha256": "12f619bd99d13e67b8deb5278eff704ccc3f4877a115083ddf9b6f28164456da",
+  "scope": "Only harmless Python child in temporary directory. No project writes, builds, freeze, native/model/acceptance calls or general recovery."
+}

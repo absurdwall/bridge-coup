@@ -1,0 +1,604 @@
+[
+  {
+    "id": "luna-medium-plan-1",
+    "model": "gpt-6-luna",
+    "effort": "medium",
+    "schema_order": [
+      "plan",
+      "publicReason",
+      "selectedCard"
+    ],
+    "model_acknowledgement": {
+      "id": "gpt-6-luna",
+      "model": "gpt-6-luna",
+      "upgrade": null,
+      "upgradeInfo": null,
+      "availabilityNux": null,
+      "displayName": "GPT-6-Luna",
+      "description": "Fast and affordable model for easier tasks.",
+      "modelSpecialty": null,
+      "hidden": false,
+      "supportedReasoningEfforts": [
+        {
+          "reasoningEffort": "low",
+          "description": "Fast responses with lighter reasoning"
+        },
+        {
+          "reasoningEffort": "medium",
+          "description": "Balances speed and reasoning depth for everyday tasks"
+        },
+        {
+          "reasoningEffort": "high",
+          "description": "Greater reasoning depth for complex problems"
+        },
+        {
+          "reasoningEffort": "xhigh",
+          "description": "Extra high reasoning depth for complex problems"
+        },
+        {
+          "reasoningEffort": "max",
+          "description": "Maximum reasoning depth for the hardest problems"
+        }
+      ],
+      "defaultReasoningEffort": "medium",
+      "inputModalities": [
+        "text",
+        "image"
+      ],
+      "supportsPersonality": false,
+      "multiAgentVersion": "v2",
+      "additionalSpeedTiers": [
+        "fast"
+      ],
+      "serviceTiers": [
+        {
+          "id": "priority",
+          "name": "Fast",
+          "description": "1.5x speed"
+        }
+      ],
+      "defaultServiceTier": "priority",
+      "availableAccessPrograms": null,
+      "isDefault": false
+    },
+    "namespaces": {
+      "functions": [
+        "exec",
+        "wait",
+        "request_user_input",
+        "request_user_input_async"
+      ]
+    },
+    "response_model": "gpt-6-luna",
+    "http_status": 200,
+    "usage": {
+      "input_tokens": 3114,
+      "input_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 62,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 3176,
+      "attribution": {
+        "items": {
+          "at_aefa906e-5ebb-56e8-86c9-93aeae0d4710": {
+            "input_tokens": 1851,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          },
+          "msg_01a14fda-441c-7f53-98a0-25c30328293c": {
+            "input_tokens": 945,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 945,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_0227b51056bab7de016ad4f44ba964819485393b3f68ba67e8": {
+            "input_tokens": 2,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 62,
+            "content": [
+              {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 62
+              }
+            ]
+          },
+          "msg_47735b68-66b9-54c7-8f9e-b57e8bef503e": {
+            "input_tokens": 189,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 189,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          }
+        },
+        "request_fields": {
+          "text.format": {
+            "input_tokens": 127,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "raw_output": "{\"plan\":{\"text\":null,\"update\":\"keep\"},\"publicReason\":\"South’s CA is winning, and West’s C3 is below it. Play CQ to preserve dummy’s remaining low clubs while taking the trick with the queen.\",\"selectedCard\":\"CQ\"}"
+  },
+  {
+    "id": "luna-high-control",
+    "model": "gpt-6-luna",
+    "effort": "high",
+    "schema_order": [
+      "plan",
+      "publicReason",
+      "selectedCard"
+    ],
+    "model_acknowledgement": {
+      "id": "gpt-6-luna",
+      "model": "gpt-6-luna",
+      "upgrade": null,
+      "upgradeInfo": null,
+      "availabilityNux": null,
+      "displayName": "GPT-6-Luna",
+      "description": "Fast and affordable model for easier tasks.",
+      "modelSpecialty": null,
+      "hidden": false,
+      "supportedReasoningEfforts": [
+        {
+          "reasoningEffort": "low",
+          "description": "Fast responses with lighter reasoning"
+        },
+        {
+          "reasoningEffort": "medium",
+          "description": "Balances speed and reasoning depth for everyday tasks"
+        },
+        {
+          "reasoningEffort": "high",
+          "description": "Greater reasoning depth for complex problems"
+        },
+        {
+          "reasoningEffort": "xhigh",
+          "description": "Extra high reasoning depth for complex problems"
+        },
+        {
+          "reasoningEffort": "max",
+          "description": "Maximum reasoning depth for the hardest problems"
+        }
+      ],
+      "defaultReasoningEffort": "medium",
+      "inputModalities": [
+        "text",
+        "image"
+      ],
+      "supportsPersonality": false,
+      "multiAgentVersion": "v2",
+      "additionalSpeedTiers": [
+        "fast"
+      ],
+      "serviceTiers": [
+        {
+          "id": "priority",
+          "name": "Fast",
+          "description": "1.5x speed"
+        }
+      ],
+      "defaultServiceTier": "priority",
+      "availableAccessPrograms": null,
+      "isDefault": false
+    },
+    "namespaces": {
+      "functions": [
+        "exec",
+        "wait",
+        "request_user_input",
+        "request_user_input_async"
+      ]
+    },
+    "response_model": "gpt-6-luna",
+    "http_status": 200,
+    "usage": {
+      "input_tokens": 3114,
+      "input_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 271,
+      "output_tokens_details": {
+        "reasoning_tokens": 211
+      },
+      "total_tokens": 3385,
+      "attribution": {
+        "items": {
+          "at_e20c1e0c-f1cf-57ad-a516-b0cc883362b5": {
+            "input_tokens": 1851,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          },
+          "msg_01a14fda-6cc8-7b82-ada2-b6de44d8e74f": {
+            "input_tokens": 945,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 945,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_0a97b88c16d802b0016ad4f458088c8195abd12667baa7f0df": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 60,
+            "content": [
+              {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 60
+              }
+            ]
+          },
+          "msg_34cec60f-1537-522c-86a3-ad7c4a84a99f": {
+            "input_tokens": 189,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 189,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "rs_0a97b88c16d802b0016ad4f457e2d8819592d068c6dcb7dec4": {
+            "input_tokens": 2,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 211
+          }
+        },
+        "request_fields": {
+          "text.format": {
+            "input_tokens": 127,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "raw_output": "{\"plan\":{\"text\":null,\"update\":\"keep\"},\"publicReason\":\"South’s CA is already winning, so follow with the lowest club, C2, preserving CQ and C7 for later club tricks.\",\"selectedCard\":\"C2\"}"
+  },
+  {
+    "id": "sol-medium-control",
+    "model": "gpt-6.1-sol",
+    "effort": "medium",
+    "schema_order": [
+      "plan",
+      "publicReason",
+      "selectedCard"
+    ],
+    "model_acknowledgement": {
+      "id": "gpt-6.1-sol",
+      "model": "gpt-6.1-sol",
+      "upgrade": null,
+      "upgradeInfo": null,
+      "availabilityNux": {
+        "message": "Maximize usage with GPT-6.1 Sol. Try it on complex work for near-Astra performance at a lower cost."
+      },
+      "displayName": "GPT-6.1-Sol",
+      "description": "Latest workhorse model for coding and everyday work.",
+      "modelSpecialty": null,
+      "hidden": false,
+      "supportedReasoningEfforts": [
+        {
+          "reasoningEffort": "low",
+          "description": "Fast responses with lighter reasoning"
+        },
+        {
+          "reasoningEffort": "medium",
+          "description": "Balances speed and reasoning depth for everyday tasks"
+        },
+        {
+          "reasoningEffort": "high",
+          "description": "Greater reasoning depth for complex problems"
+        },
+        {
+          "reasoningEffort": "xhigh",
+          "description": "Extra high reasoning depth for complex problems"
+        },
+        {
+          "reasoningEffort": "max",
+          "description": "Maximum reasoning depth for the hardest problems"
+        },
+        {
+          "reasoningEffort": "ultra",
+          "description": "Maximum reasoning with automatic task delegation"
+        }
+      ],
+      "defaultReasoningEffort": "low",
+      "inputModalities": [
+        "text",
+        "image"
+      ],
+      "supportsPersonality": false,
+      "multiAgentVersion": "v2",
+      "additionalSpeedTiers": [
+        "fast"
+      ],
+      "serviceTiers": [
+        {
+          "id": "priority",
+          "name": "Fast",
+          "description": "2x speed, increased usage"
+        }
+      ],
+      "defaultServiceTier": null,
+      "availableAccessPrograms": null,
+      "isDefault": true
+    },
+    "namespaces": {
+      "functions": [
+        "exec",
+        "wait",
+        "request_user_input",
+        "request_user_input_async"
+      ]
+    },
+    "response_model": "gpt-6.1-sol",
+    "http_status": 200,
+    "usage": {
+      "input_tokens": 3114,
+      "input_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 437,
+      "output_tokens_details": {
+        "reasoning_tokens": 315
+      },
+      "total_tokens": 3551,
+      "attribution": {
+        "items": {
+          "at_71317280-c611-5812-9032-a4327e573bb2": {
+            "input_tokens": 1851,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          },
+          "msg_01a14fda-95ea-7f40-95c9-587fb143e10a": {
+            "input_tokens": 945,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 945,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_0435e9f039e10f96016ad4f46d85b0819491eca893a5a18a83": {
+            "input_tokens": 0,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 122,
+            "content": [
+              {
+                "input_tokens": 0,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 122
+              }
+            ]
+          },
+          "msg_65757fbf-2cc8-5f6f-85a7-dfda6b109d54": {
+            "input_tokens": 189,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 189,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "rs_0435e9f039e10f96016ad4f46d27fc819491a9ab5e62cda289": {
+            "input_tokens": 2,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 315
+          }
+        },
+        "request_fields": {
+          "text.format": {
+            "input_tokens": 127,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "raw_output": "{\"plan\":{\"text\":\"Develop clubs before cashing the remaining side-suit winners. Play C2 now, then C7 under CK and lead a low club to CQ. Use hearts to return to South. A 3–2 club split gives ten tricks; against 4–1, concede one club to establish nine tricks, retaining DK as a diamond stopper meanwhile.\",\"update\":\"replace\"},\"publicReason\":\"CA already wins this trick. Preserve CQ to win the third club round and keep communication between the hands.\",\"selectedCard\":\"C2\"}"
+  },
+  {
+    "id": "luna-medium-reason-1",
+    "model": "gpt-6-luna",
+    "effort": "medium",
+    "schema_order": [
+      "publicReason",
+      "plan",
+      "selectedCard"
+    ],
+    "model_acknowledgement": {
+      "id": "gpt-6-luna",
+      "model": "gpt-6-luna",
+      "upgrade": null,
+      "upgradeInfo": null,
+      "availabilityNux": null,
+      "displayName": "GPT-6-Luna",
+      "description": "Fast and affordable model for easier tasks.",
+      "modelSpecialty": null,
+      "hidden": false,
+      "supportedReasoningEfforts": [
+        {
+          "reasoningEffort": "low",
+          "description": "Fast responses with lighter reasoning"
+        },
+        {
+          "reasoningEffort": "medium",
+          "description": "Balances speed and reasoning depth for everyday tasks"
+        },
+        {
+          "reasoningEffort": "high",
+          "description": "Greater reasoning depth for complex problems"
+        },
+        {
+          "reasoningEffort": "xhigh",
+          "description": "Extra high reasoning depth for complex problems"
+        },
+        {
+          "reasoningEffort": "max",
+          "description": "Maximum reasoning depth for the hardest problems"
+        }
+      ],
+      "defaultReasoningEffort": "medium",
+      "inputModalities": [
+        "text",
+        "image"
+      ],
+      "supportsPersonality": false,
+      "multiAgentVersion": "v2",
+      "additionalSpeedTiers": [
+        "fast"
+      ],
+      "serviceTiers": [
+        {
+          "id": "priority",
+          "name": "Fast",
+          "description": "1.5x speed"
+        }
+      ],
+      "defaultServiceTier": "priority",
+      "availableAccessPrograms": null,
+      "isDefault": false
+    },
+    "namespaces": {
+      "functions": [
+        "exec",
+        "wait",
+        "request_user_input",
+        "request_user_input_async"
+      ]
+    },
+    "response_model": "gpt-6-luna",
+    "http_status": 200,
+    "usage": {
+      "input_tokens": 3114,
+      "input_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 65,
+      "output_tokens_details": {
+        "reasoning_tokens": 0
+      },
+      "total_tokens": 3179,
+      "attribution": {
+        "items": {
+          "at_02bfc2e7-2ae2-5f19-a44e-69cc00474f6c": {
+            "input_tokens": 1851,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          },
+          "msg_01a14fda-f366-7fd2-880a-0b8eed4420e6": {
+            "input_tokens": 945,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 945,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          },
+          "msg_0a7305cabb468a75016ad4f47946808193ab5f50d013a80dce": {
+            "input_tokens": 2,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 65,
+            "content": [
+              {
+                "input_tokens": 2,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 65
+              }
+            ]
+          },
+          "msg_3ae6c5ff-ef5a-527c-9afd-fa58c628f0dc": {
+            "input_tokens": 189,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0,
+            "content": [
+              {
+                "input_tokens": 189,
+                "cached_tokens": 0,
+                "cache_write_tokens": 0,
+                "output_tokens": 0
+              }
+            ]
+          }
+        },
+        "request_fields": {
+          "text.format": {
+            "input_tokens": 127,
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "output_tokens": 0
+          }
+        }
+      }
+    },
+    "raw_output": "{\"publicReason\":\"West’s C3 is below South’s CA, which is already winning. Play dummy’s lowest club, C2, preserving CQ and C7 for later club tricks.\",\"plan\":{\"text\":null,\"update\":\"keep\"},\"selectedCard\":\"C2\"}"
+  }
+]

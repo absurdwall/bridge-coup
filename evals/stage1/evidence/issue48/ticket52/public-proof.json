@@ -1,0 +1,33 @@
+{
+  "status": "pass",
+  "source_assets_checked": 11,
+  "scope": "Public inference and existing corpus.replay only; not live reviewer behavior or Stage 1 acceptance.",
+  "reducer": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/corpus.py",
+  "reducer_sha256": "5028d0dbc8a9f633932f8d8989fe0169e9166bc51738c22fa9e8ac64c27c626a",
+  "branches": [
+    {
+      "branch": "preserve_CT_East_wins_CK",
+      "tricks": [
+        11,
+        2
+      ],
+      "all_52_cards_legal": true
+    },
+    {
+      "branch": "preserve_CT_East_ducks_C9",
+      "tricks": [
+        11,
+        2
+      ],
+      "all_52_cards_legal": true
+    },
+    {
+      "branch": "played_CT_East_wins_CK",
+      "tricks": [
+        10,
+        3
+      ],
+      "all_52_cards_legal": true
+    }
+  ]
+}

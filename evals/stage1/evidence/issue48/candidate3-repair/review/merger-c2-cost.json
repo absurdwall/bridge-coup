@@ -1,0 +1,17 @@
+{
+  "status": "pass",
+  "native_rpc_starts": 13,
+  "native_player": 6,
+  "native_reviewer": 7,
+  "native_reviewer_unknown_usage": 2,
+  "captured_http_attempts": 12,
+  "http_unknown_usage": 1,
+  "task_complete": false,
+  "actual_interrupted_process_exit": null,
+  "limits": [
+    "Native and HTTP observations overlap; do not add them.",
+    "Uncommitted final RPC/HTTP journal associations remain unresolved.",
+    "Pending outputs are cost evidence only; quality targets remain three executed finals.",
+    "Captured HTTP usage values are preserved frozen-audit observations bound by raw/external manifests."
+  ]
+}

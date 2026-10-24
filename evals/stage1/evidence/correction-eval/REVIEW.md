@@ -1,0 +1,24 @@
+# Bounded Eval correction — not acceptance
+
+Base `0cfa39f` restores the preserved failed implementation after rollback. This correction makes grader schema, serialized contract and validator agree; it does not establish improved playing quality. No playing or grading model was called by this work.
+
+## Changes and evidence
+
+- The **45** historical `status=pass, findings=[]` outputs were valid under the actual old schema but rejected by Python. The corrected serialized schema requires at least one finding and exact quote; rubric `stage1-basic-v3` explicitly requires cited support for every status. Public Python tests validate all 45 real rows against both schemas. None is turned into a pass. Positive alternative support and genuine uncertainty remain admitted.
+- The Python saved-output evaluator supports `stage1-plan-variants-v4` with `replace` text and explicit null for `keep`/`withdraw`. It still rejects `keep` plus text, missing null, and preserves v1–v3 readers. The first authored test assumed omission; play-agent confirmation corrected that assumption before committing. Both red/green traces remain in `tdd/`.
+- A simultaneous deterministic failure and grader error now report primary `product_error` plus separate `evaluator_attribution=evaluator_issue`, while semantic quality remains uncertain. The original 45 all had mechanical pass, so their historical attributions are unchanged.
+- Corpus `stage1-finite-v2` retains all eight IDs, deals, policies and 18-short/4-full attempt counts. The already-exposed former reserved board is explicitly used **regression** material. Its stable historical ID/file does not imply freshness. Generated report prose now states that limit.
+- Coverage helpers record real facets rather than automatic specialty passes: short-3 separates two-round break knowledge from a third-club window before the other defender acts; short-4 observes one consumed honor plus a limited remaining-club/entry opportunity rather than silently requiring two; short-6 requires actual pre-DA-loss hold-up and continuation, a diamond response and later controlled decision. Strategic meaning/alternatives still need independent review.
+- `corpus/communication-reachability.json` independently replays a legal authored Walker two-duck/DA-loss witness. At 20 cards NS/EW tricks are 2/3, East has no spades and North HA remains. This is material reachability, not a required player line or model performance. Opponent policy is unchanged; early SA bypass and later gifts do not prove exercised hold-up.
+
+`python-tests.log`: **39 tests, zero failures**, using Python 3.11 with test-only jsonschema 4.26.0. Production Eval remains standard-library Python. Public corpus validation is in `material-validation/corpus-validation.json`. `tdd/` preserves red→green logs; the first new-info witness assertion discovered revision14 was a forced sole-legal C2 rather than a model decision and was corrected from actual trace evidence.
+
+## Preserved originals and overlays
+
+`original-grade-sha256.json` records original grade/input/schema/runtime files. All original ticket42 evidence remains byte-identical. `saved-grade-schema-audit.json` independently records old-valid/new-invalid results for all 45 empty PASS rows, and unchanged attribution totals across **230** rows: 52 no-material-error, 128 product-error, 45 evaluator-issue, 5 pending. The first audit draft omitted the four separately stored failed-output reports from a direct `adjudicate` call; the final audit explicitly includes them, matching the public regrade entry. No historical classification was edited.
+
+`saved-coverage-overlay.json` is a separate helper-only overlay, not regraded model quality. The original three Walker runs are uncovered for the specialized hold-up facet; their real diamond responses remain visible. Short-4-r2 has a limited one-honor/entry opportunity pending independent interpretation, not full endgame coverage. Short-3-r1 contains two-round break decisions but **no model request** at the third-West-club/pre-East-discard window: revision14 is forced C2 and model revisions jump12→16.
+
+## Impact and remaining blockers
+
+Future grader calls need actual service schema compatibility, fixed-config saved-answer calibration and independent explanation review; no live compatibility or improved grader-reliability result is claimed here. New playing wire/prompt changes require fresh affected quality evidence, and intended stage acceptance still needs the complete specified finite matrix from a frozen compatible candidate. These parser/material corrections cannot repair historical playing answers, complete the unexercised teaching specialty, supply human expert approval or justify merge. #36/#42 and reopened implementation tickets remain open. The correction PR stays draft pending independent review and explicit user approval.

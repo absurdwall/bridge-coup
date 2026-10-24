@@ -1,0 +1,1498 @@
+{
+  "attempts_audited": 22,
+  "results": [
+    {
+      "attempt": "full-development-r1",
+      "status": "pass",
+      "errors": [],
+      "rpc_requests": 20,
+      "captured_http_attempts": 20,
+      "input_item_types": [
+        "additional_tools",
+        "message",
+        "reasoning"
+      ],
+      "opaque_encrypted_reasoning_items_across_cumulative_payloads": 144,
+      "scope": "Exact actual RPC schema/input/history, complete independent legal enum, concise instructions and requested identity. No tool invocation history observed if pass; inherited catalog and opaque reasoning remain. Not an assertion of internal resolved identity.",
+      "payloads": [
+        {
+          "file": "request-0.json",
+          "sha256": "7647c0e68037f0eb882f55fabd4adaa23433b43f2713ec3817c592e5c0e82006",
+          "rpc_index": 0
+        },
+        {
+          "file": "request-1.json",
+          "sha256": "425de83b9f4257ff0f81522862a2a934f27457c3f374f1e0976b4b937124eaac",
+          "rpc_index": 1
+        },
+        {
+          "file": "request-2.json",
+          "sha256": "e467993be5f3b2041048f71ee16198e38ce6104dd2d83520c43c0f80292c7106",
+          "rpc_index": 2
+        },
+        {
+          "file": "request-3.json",
+          "sha256": "a899599759f742b7c6b2c70f3f8420974ae8dfe6d675e997c6bd204852a7b144",
+          "rpc_index": 3
+        },
+        {
+          "file": "request-4.json",
+          "sha256": "ccb89cae1c391a567f2978ce22317be53290cc56ec666112041a8f2766ecbc46",
+          "rpc_index": 4
+        },
+        {
+          "file": "request-5.json",
+          "sha256": "3153409eb15c6fa638ce4cb4c34e72c506baf3c4d76b293d290e5c7e2bc8b3cb",
+          "rpc_index": 5
+        },
+        {
+          "file": "request-6.json",
+          "sha256": "b3f68945759dcebae7c57eddf20905d7a1b6688a0254327ab279837908d17da2",
+          "rpc_index": 6
+        },
+        {
+          "file": "request-7.json",
+          "sha256": "e6eb3ee5cd0cdb2bf54d92ac7450e593fbce409db2049b42c68f60571fca8e44",
+          "rpc_index": 7
+        },
+        {
+          "file": "request-8.json",
+          "sha256": "d55c9e557cb31866538f49128e5406f32b2dad807d099afe67e4a3da937ab0cb",
+          "rpc_index": 8
+        },
+        {
+          "file": "request-9.json",
+          "sha256": "7701c0d30fcc88da8570361e01f2075012e857787f86a4bc3ee00e0c6ddb231c",
+          "rpc_index": 9
+        },
+        {
+          "file": "request-10.json",
+          "sha256": "f60e777ef65cd5298bbf964c09c760714d6501cfab5895987b807546599aea8a",
+          "rpc_index": 10
+        },
+        {
+          "file": "request-11.json",
+          "sha256": "b9a17dcd940ccaa18a21f9df3b8de9f0132f0fb7669a23a857b0db39e5a71e93",
+          "rpc_index": 11
+        },
+        {
+          "file": "request-12.json",
+          "sha256": "63b0d73b58122e8a4c7878c37542b76bc08a1413b5573a35219526ace4db85c3",
+          "rpc_index": 12
+        },
+        {
+          "file": "request-13.json",
+          "sha256": "de45c858b60c6c7df8d8611f51007e4e546cd863105736e6792db2cb4c7ce0b0",
+          "rpc_index": 13
+        },
+        {
+          "file": "request-14.json",
+          "sha256": "47b52a661aeded34fc6d20a90425ea9b3058b3ce64dbc9a53e5da724d519337b",
+          "rpc_index": 14
+        },
+        {
+          "file": "request-15.json",
+          "sha256": "f4d3a9ec093ba429def86bc1e92892d5d77eb98578dbace24c6b306837dc585f",
+          "rpc_index": 15
+        },
+        {
+          "file": "request-16.json",
+          "sha256": "64cc06f2ceb4e750e898180bc872691a06691247283d0e27d137d527a5e0905e",
+          "rpc_index": 16
+        },
+        {
+          "file": "request-17.json",
+          "sha256": "95bf6cb9c93494c5e3cb52c85a2b604bf9f9d688f51119243807d709f34c8baf",
+          "rpc_index": 17
+        },
+        {
+          "file": "request-18.json",
+          "sha256": "958981787901a47adc982b557c684df4dc4311fdc56955aed3494ecbf8705b97",
+          "rpc_index": 18
+        },
+        {
+          "file": "request-19.json",
+          "sha256": "8cf51f4fc63aa0a65c5e3f68a74c9ec115cba9f350becd0e80d4e541cda1ca42",
+          "rpc_index": 19
+        }
+      ]
+    },
+    {
+      "attempt": "full-development-r2",
+      "status": "pass",
+      "errors": [],
+      "rpc_requests": 20,
+      "captured_http_attempts": 20,
+      "input_item_types": [
+        "additional_tools",
+        "message",
+        "reasoning"
+      ],
+      "opaque_encrypted_reasoning_items_across_cumulative_payloads": 76,
+      "scope": "Exact actual RPC schema/input/history, complete independent legal enum, concise instructions and requested identity. No tool invocation history observed if pass; inherited catalog and opaque reasoning remain. Not an assertion of internal resolved identity.",
+      "payloads": [
+        {
+          "file": "request-0.json",
+          "sha256": "b51b00200ad9cea79d9989e2d78bb7ba70c383f6959e821b03a3ea2c79cbbdc3",
+          "rpc_index": 0
+        },
+        {
+          "file": "request-1.json",
+          "sha256": "302c75b17138a11f76c68055fbd0f3e030adfddf34f3afcc42445536f562d0ee",
+          "rpc_index": 1
+        },
+        {
+          "file": "request-2.json",
+          "sha256": "5583d29c2177ab01f3a172cea74439b4853f5d9745d88a98c0c77d5c30a31079",
+          "rpc_index": 2
+        },
+        {
+          "file": "request-3.json",
+          "sha256": "f7f133dc21f4290e9bd790a8808677653d05c965d00916f1fb5a61b316efd403",
+          "rpc_index": 3
+        },
+        {
+          "file": "request-4.json",
+          "sha256": "51be35011ab1d9be0d628cd0504af3bb3fa45ace1ef65f3456b0e0b2fa56cf54",
+          "rpc_index": 4
+        },
+        {
+          "file": "request-5.json",
+          "sha256": "27127d7f741a9c9a92dd1525dc57e7d60fca78749375941441defd025bb94b7c",
+          "rpc_index": 5
+        },
+        {
+          "file": "request-6.json",
+          "sha256": "a0ec53030dcf696acc9e1b8e34639cbe6822889b781811feeeffa07ebeb37287",
+          "rpc_index": 6
+        },
+        {
+          "file": "request-7.json",
+          "sha256": "09660043064729ac96ccb3b790fcdd890a5ede0a979c90aed603b30d8120ebeb",
+          "rpc_index": 7
+        },
+        {
+          "file": "request-8.json",
+          "sha256": "0ab7d38d8aaacee579b328390e9d7f806172fd3bcd3b870e4b7cf2acc5716931",
+          "rpc_index": 8
+        },
+        {
+          "file": "request-9.json",
+          "sha256": "6a362fb8332a161e19ec65dd4cfcf783cee2b85a5b916fc6dfed98e229cf18ac",
+          "rpc_index": 9
+        },
+        {
+          "file": "request-10.json",
+          "sha256": "681adda6e7c24f098365ac6221be6f4cdcfe89313a3b6a419509333c3f13120c",
+          "rpc_index": 10
+        },
+        {
+          "file": "request-11.json",
+          "sha256": "ad1d6f92d51dc6a411fef0b9a287fbe42a084612df7176eb7c2d98d9d83fbdd4",
+          "rpc_index": 11
+        },
+        {
+          "file": "request-12.json",
+          "sha256": "48510e347e1157f1f6bdd837f70f89373ff669b167a039911d8d4f9e43cfce89",
+          "rpc_index": 12
+        },
+        {
+          "file": "request-13.json",
+          "sha256": "d533a434dfa3848388f60a03748bc70d4049e0f70761e3d0f06d23e1786341fc",
+          "rpc_index": 13
+        },
+        {
+          "file": "request-14.json",
+          "sha256": "6b1d0b5cac448d13627b18d67c82eb19d6da8384abd0a74a90a3628293c48077",
+          "rpc_index": 14
+        },
+        {
+          "file": "request-15.json",
+          "sha256": "b1493615f73fa157ea2839db06a94c1d54fcbeb171305036ba448598b13be886",
+          "rpc_index": 15
+        },
+        {
+          "file": "request-16.json",
+          "sha256": "d09fc4d2d0d81712c001145af0b70ce31abb914fe66cd29be615b911cfb5c13e",
+          "rpc_index": 16
+        },
+        {
+          "file": "request-17.json",
+          "sha256": "da858052c4c2466eb4c77f568fa8c69b51644044f9d46d5fab20693c013cc380",
+          "rpc_index": 17
+        },
+        {
+          "file": "request-18.json",
+          "sha256": "2a8485e1a7ab22834aaab2c6ac3f6ee89b700a050e9da4b8db683baee84e216c",
+          "rpc_index": 18
+        },
+        {
+          "file": "request-19.json",
+          "sha256": "dbb954453849ed2f9168c841b1608aad76f3248f26231bc5d19a1190f4c02b90",
+          "rpc_index": 19
+        }
+      ]
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "status": "pass",
+      "errors": [],
+      "rpc_requests": 21,
+      "captured_http_attempts": 21,
+      "input_item_types": [
+        "additional_tools",
+        "message",
+        "reasoning"
+      ],
+      "opaque_encrypted_reasoning_items_across_cumulative_payloads": 210,
+      "scope": "Exact actual RPC schema/input/history, complete independent legal enum, concise instructions and requested identity. No tool invocation history observed if pass; inherited catalog and opaque reasoning remain. Not an assertion of internal resolved identity.",
+      "payloads": [
+        {
+          "file": "request-0.json",
+          "sha256": "4014a38973960c91f97924a04331f351d3d635e4e98b24c38d3e36e70213eb1d",
+          "rpc_index": 0
+        },
+        {
+          "file": "request-1.json",
+          "sha256": "749957b1234dcd835f9d20a29ab4c9a52aab53fb2fbb888286620b4b9788a0e7",
+          "rpc_index": 1
+        },
+        {
+          "file": "request-2.json",
+          "sha256": "4835e01d61305e5d27e7dfce869aebba94516533e36092014ad6301a40f42c99",
+          "rpc_index": 2
+        },
+        {
+          "file": "request-3.json",
+          "sha256": "a20cefb33baf9e3e684e159b8936dd398553b3131b02d1d5cd1bb4a0dd60b91e",
+          "rpc_index": 3
+        },
+        {
+          "file": "request-4.json",
+          "sha256": "67ae56f56cdfdd8f945463c9fa44956d4de9200b938375f82df2f4152ea7e755",
+          "rpc_index": 4
+        },
+        {
+          "file": "request-5.json",
+          "sha256": "950a4b8b3bed7f97ce04e9568b3fba98ddee887113164c6c12b9c123db3a999c",
+          "rpc_index": 5
+        },
+        {
+          "file": "request-6.json",
+          "sha256": "2d5f329dca8a4f71c548b1cd2442244723476df61c4b5d96258a5f38d96e73d7",
+          "rpc_index": 6
+        },
+        {
+          "file": "request-7.json",
+          "sha256": "ffcfab970c958dfbb8d64ba24564776394055959eeaa271fff1cfdaa50b9a737",
+          "rpc_index": 7
+        },
+        {
+          "file": "request-8.json",
+          "sha256": "9d5cc63fc57bf1b1ba076ee95da51a90dd3acb5a585a5378effd76cbadc470b4",
+          "rpc_index": 8
+        },
+        {
+          "file": "request-9.json",
+          "sha256": "5eb4b3aa49d4e15d6863818ff39240043c1361fe6b1acd90018b3de899eeed1a",
+          "rpc_index": 9
+        },
+        {
+          "file": "request-10.json",
+          "sha256": "caa202a190bc2feb0c83fa6a1d1da3ffaf4a5ef9f49869574dc43052f9ea7285",
+          "rpc_index": 10
+        },
+        {
+          "file": "request-11.json",
+          "sha256": "d34a8b01798236315f49167a5e604f2c939815f1aded9dc5b6657f3d39f405b3",
+          "rpc_index": 11
+        },
+        {
+          "file": "request-12.json",
+          "sha256": "c5f1ed18659c9e3ad45e8eca1a378dd590d09dc4756b01101a5569fca98cd6c1",
+          "rpc_index": 12
+        },
+        {
+          "file": "request-13.json",
+          "sha256": "0a2dbab888d2e82b4a886853e261f5dbb388f45cde0e069b833d28f3cee19600",
+          "rpc_index": 13
+        },
+        {
+          "file": "request-14.json",
+          "sha256": "30d9502772f89dd64d8a960994159e0f6db628ecfa99588e806f747165a55cd8",
+          "rpc_index": 14
+        },
+        {
+          "file": "request-15.json",
+          "sha256": "cfd4eb708cf507fc624ed79f2840a9d3c7c0da7914e708554852d31027182032",
+          "rpc_index": 15
+        },
+        {
+          "file": "request-16.json",
+          "sha256": "3187f7c5d27ab653874eeba95b2814223345f9fb8b050114c2aaee56c383c5a4",
+          "rpc_index": 16
+        },
+        {
+          "file": "request-17.json",
+          "sha256": "d715aece10dcb44b2a0d9a1c5c8431e642bb5748d503caaad7df5606341f34a8",
+          "rpc_index": 17
+        },
+        {
+          "file": "request-18.json",
+          "sha256": "955efacf85bb5cb5782e1ae0e22713b925861d25c6608ec68e811ec80c988ea0",
+          "rpc_index": 18
+        },
+        {
+          "file": "request-19.json",
+          "sha256": "056ff3f39aa2300f77e135a6568ad93baa894d9e68d1869ff614e7961dcc9f76",
+          "rpc_index": 19
+        },
+        {
+          "file": "request-20.json",
+          "sha256": "b97273e7dcf2bbd8f6dcd9c417247fb459786e664902960ee3d6fc1c963f8397",
+          "rpc_index": 20
+        }
+      ]
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "status": "pass",
+      "errors": [],
+      "rpc_requests": 19,
+      "captured_http_attempts": 19,
+      "input_item_types": [
+        "additional_tools",
+        "message",
+        "reasoning"
+      ],
+      "opaque_encrypted_reasoning_items_across_cumulative_payloads": 94,
+      "scope": "Exact actual RPC schema/input/history, complete independent legal enum, concise instructions and requested identity. No tool invocation history observed if pass; inherited catalog and opaque reasoning remain. Not an assertion of internal resolved identity.",
+      "payloads": [
+        {
+          "file": "request-0.json",
+          "sha256": "6b5c36ec84d4ec2273a3986af0252bb9e08e245944954a6947f02b403907692b",
+          "rpc_index": 0
+        },
+        {
+          "file": "request-1.json",
+          "sha256": "d9266ffb2911f465e8a2975c78df8eec4419d470705ad9f2c57caa8e78684ca9",
+          "rpc_index": 1
+        },
+        {
+          "file": "request-2.json",
+          "sha256": "4de2fe4912a56133e4d1186fad71def66ea072a30ba246fd5ad733192dd19809",
+          "rpc_index": 2
+        },
+        {
+          "file": "request-3.json",
+          "sha256": "77041184ecce55d5fe5f21d39e794dda84488bd7c438c4fd908bbe6298a0699c",
+          "rpc_index": 3
+        },
+        {
+          "file": "request-4.json",
+          "sha256": "1bc3bbdc2ec221b43c825dabf9a7145583c2ca21060d322f6f926595fb7b66df",
+          "rpc_index": 4
+        },
+        {
+          "file": "request-5.json",
+          "sha256": "2a50f2f9b70097bc9469b5b8cb573d4beed22deeae83e291f9d88d9ecbd7d0d4",
+          "rpc_index": 5
+        },
+        {
+          "file": "request-6.json",
+          "sha256": "76cdbab55a0fd76df1677b658e1cf1a982e07d29cee1b3b079d72d53a16b1bd0",
+          "rpc_index": 6
+        },
+        {
+          "file": "request-7.json",
+          "sha256": "e5d4b182d9434f6301abba854a62ab1d2273fdcad10083bf17a5ac491669dc74",
+          "rpc_index": 7
+        },
+        {
+          "file": "request-8.json",
+          "sha256": "e018173dda5e7f1c768f25b0cf5181db0086fc9400a8c0970d284474c1e62a60",
+          "rpc_index": 8
+        },
+        {
+          "file": "request-9.json",
+          "sha256": "59a95d5ffba357a317a68a7b6a68437d1f4d35b0480ed74859a60fa9a93f05f2",
+          "rpc_index": 9
+        },
+        {
+          "file": "request-10.json",
+          "sha256": "9c6a748ba2e4ec7c54c2de1b0c6bf54839d658cef411bddcc9a8ece7085f08ee",
+          "rpc_index": 10
+        },
+        {
+          "file": "request-11.json",
+          "sha256": "17137d3f287980e3cf5082cf9eff7cf19b73a29f2adb23c8bd64fe4853cc0e6d",
+          "rpc_index": 11
+        },
+        {
+          "file": "request-12.json",
+          "sha256": "db11b7431ed2184177821f46fb522864ddc74051eaaff25378d502e04bbe1950",
+          "rpc_index": 12
+        },
+        {
+          "file": "request-13.json",
+          "sha256": "167f328d41f7c6d182a69a215b397142215dc3a5bb4d83a56187e7b7453f1782",
+          "rpc_index": 13
+        },
+        {
+          "file": "request-14.json",
+          "sha256": "f418950d42bd393330e95f7bee7ab697865fe0f821a215f0dce9e7ada2e2def4",
+          "rpc_index": 14
+        },
+        {
+          "file": "request-15.json",
+          "sha256": "81bfdb98b093ab2e2277fded1eed84a73697445702abb7180687874eea079932",
+          "rpc_index": 15
+        },
+        {
+          "file": "request-16.json",
+          "sha256": "4c0af6776ca08080980db05869ffce34f8453f24d49d3ae878c6dd679cc2a617",
+          "rpc_index": 16
+        },
+        {
+          "file": "request-17.json",
+          "sha256": "388f34dc5cccceed2e836fd3687f55ccd8a7cf91f9188125b5c51c65a6bddca7",
+          "rpc_index": 17
+        },
+        {
+          "file": "request-18.json",
+          "sha256": "6e42448e242f65181370ea59231d9fc74aa7721ccbf310a71b96a331cc3445a7",
+          "rpc_index": 18
+        }
+      ]
+    },
+    {
+      "attempt": "short-1-r1",
+      "status": "pass",
+      "errors": [],
+      "rpc_requests": 1,
+      "captured_http_attempts": 1,
+      "input_item_types": [
+        "additional_tools",
+        "message"
+      ],
+      "opaque_encrypted_reasoning_items_across_cumulative_payloads": 0,
+      "scope": "Exact actual RPC schema/input/history, complete independent legal enum, concise instructions and requested identity. No tool invocation history observed if pass; inherited catalog and opaque reasoning remain. Not an assertion of internal resolved identity.",
+      "payloads": [
+        {
+          "file": "request-0.json",
+          "sha256": "238f5af744e250402edbd017443b93ac0e66f029aaee10aa1975b60b117b32ef",
+          "rpc_index": 0
+        }
+      ]
+    },
+    {
+      "attempt": "short-1-r2",
+      "status": "pass",
+      "errors": [],
+      "rpc_requests": 1,
+      "captured_http_attempts": 1,
+      "input_item_types": [
+        "additional_tools",
+        "message"
+      ],
+      "opaque_encrypted_reasoning_items_across_cumulative_payloads": 0,
+      "scope": "Exact actual RPC schema/input/history, complete independent legal enum, concise instructions and requested identity. No tool invocation history observed if pass; inherited catalog and opaque reasoning remain. Not an assertion of internal resolved identity.",
+      "payloads": [
+        {
+          "file": "request-0.json",
+          "sha256": "1a44d4bb179cbb06fe14bd70d412f3ea74ec7757c9283fed320f6776b3da11f2",
+          "rpc_index": 0
+        }
+      ]
+    },
+    {
+      "attempt": "short-1-r3",
+      "status": "pass",
+      "errors": [],
+      "rpc_requests": 1,
+      "captured_http_attempts": 1,
+      "input_item_types": [
+        "additional_tools",
+        "message"
+      ],
+      "opaque_encrypted_reasoning_items_across_cumulative_payloads": 0,
+      "scope": "Exact actual RPC schema/input/history, complete independent legal enum, concise instructions and requested identity. No tool invocation history observed if pass; inherited catalog and opaque reasoning remain. Not an assertion of internal resolved identity.",
+      "payloads": [
+        {
+          "file": "request-0.json",
+          "sha256": "0719d47a58cf61d40ce912c2d64467a2fa381ed42c0eaedc6905f9a30ccbda4f",
+          "rpc_index": 0
+        }
+      ]
+    },
+    {
+      "attempt": "short-2-r1",
+      "status": "pass",
+      "errors": [],
+      "rpc_requests": 8,
+      "captured_http_attempts": 8,
+      "input_item_types": [
+        "additional_tools",
+        "message",
+        "reasoning"
+      ],
+      "opaque_encrypted_reasoning_items_across_cumulative_payloads": 24,
+      "scope": "Exact actual RPC schema/input/history, complete independent legal enum, concise instructions and requested identity. No tool invocation history observed if pass; inherited catalog and opaque reasoning remain. Not an assertion of internal resolved identity.",
+      "payloads": [
+        {
+          "file": "request-0.json",
+          "sha256": "10db733f1e7a108ed053a89274cca7c452e0cef5b99885bfcb19b27c519915ca",
+          "rpc_index": 0
+        },
+        {
+          "file": "request-1.json",
+          "sha256": "e49ffc113fd9b93418a0be056e97f8b95a553c9876abbbf074ab6aaf497822f9",
+          "rpc_index": 1
+        },
+        {
+          "file": "request-2.json",
+          "sha256": "b3ce4ec9c4bddb57575dfc612c65ea6892120fbf608909892029ffb716b8cc32",
+          "rpc_index": 2
+        },
+        {
+          "file": "request-3.json",
+          "sha256": "b587949e602c3beea9a620742ac53031d77fde8978ea644ed1ee7a99faff50f1",
+          "rpc_index": 3
+        },
+        {
+          "file": "request-4.json",
+          "sha256": "26ffef12ed8eec5b1703748ddfc8a4ac3e31c9850cfca7bcc3947a3cf27c279e",
+          "rpc_index": 4
+        },
+        {
+          "file": "request-5.json",
+          "sha256": "5d1865cf83b6aabe49cac3b0b2b4769c519114f8b6bf1d2323fe0baabdf468c5",
+          "rpc_index": 5
+        },
+        {
+          "file": "request-6.json",
+          "sha256": "7be6f93b3ec212d53d1e323a933e974a4fd6a7b8b4ac121fd9b828155ff5c293",
+          "rpc_index": 6
+        },
+        {
+          "file": "request-7.json",
+          "sha256": "65eca807136b8f0c6bc9d74e78912891db0b940090924891114c5276f5d4a05b",
+          "rpc_index": 7
+        }
+      ]
+    },
+    {
+      "attempt": "short-2-r2",
+      "status": "pass",
+      "errors": [],
+      "rpc_requests": 8,
+      "captured_http_attempts": 8,
+      "input_item_types": [
+        "additional_tools",
+        "message"
+      ],
+      "opaque_encrypted_reasoning_items_across_cumulative_payloads": 0,
+      "scope": "Exact actual RPC schema/input/history, complete independent legal enum, concise instructions and requested identity. No tool invocation history observed if pass; inherited catalog and opaque reasoning remain. Not an assertion of internal resolved identity.",
+      "payloads": [
+        {
+          "file": "request-0.json",
+          "sha256": "a86e54597a8aaa49e3d6256cf9e2e98cee7bd0fbdabb5d5d1ac131c4126bbb3a",
+          "rpc_index": 0
+        },
+        {
+          "file": "request-1.json",
+          "sha256": "e6f754ea31404a088f9f6c3bd9a556a5c31b31a97cf2243e888092a8ca871358",
+          "rpc_index": 1
+        },
+        {
+          "file": "request-2.json",
+          "sha256": "60d74edef6d69c1f1de90cc3229e54e8c71dfdc5a055ff547f8766e7b3ae585c",
+          "rpc_index": 2
+        },
+        {
+          "file": "request-3.json",
+          "sha256": "42eb26212e68eaab1afed9c1f59d54ef10b4966289d627e40bf0f678d9c0c10e",
+          "rpc_index": 3
+        },
+        {
+          "file": "request-4.json",
+          "sha256": "b3443881af3a79063ec1de69324a418c18b5234f86848717f94fbe489e0344ef",
+          "rpc_index": 4
+        },
+        {
+          "file": "request-5.json",
+          "sha256": "2cfec22165a91b251e4bc330f149b85e9598c6612994b4f7f0a60e9fdd013aed",
+          "rpc_index": 5
+        },
+        {
+          "file": "request-6.json",
+          "sha256": "830716369b39f2e8bcd9a75303604802dd93f2a6fba6d11e0d0fae4d8aada58c",
+          "rpc_index": 6
+        },
+        {
+          "file": "request-7.json",
+          "sha256": "19c0a6da9e245418fe700591161fe3024f33da4585f3476b9d674316d94df993",
+          "rpc_index": 7
+        }
+      ]
+    },
+    {
+      "attempt": "short-2-r3",
+      "status": "pass",
+      "errors": [],
+      "rpc_requests": 8,
+      "captured_http_attempts": 8,
+      "input_item_types": [
+        "additional_tools",
+        "message"
+      ],
+      "opaque_encrypted_reasoning_items_across_cumulative_payloads": 0,
+      "scope": "Exact actual RPC schema/input/history, complete independent legal enum, concise instructions and requested identity. No tool invocation history observed if pass; inherited catalog and opaque reasoning remain. Not an assertion of internal resolved identity.",
+      "payloads": [
+        {
+          "file": "request-0.json",
+          "sha256": "ffe13ad29b691797804dcc7b2142255bd7e15ed98b34c64d0651c043bc23ddb3",
+          "rpc_index": 0
+        },
+        {
+          "file": "request-1.json",
+          "sha256": "449dc92800935924dcedcee01795da4fc47fc5b69fab32b39f6325c19845c391",
+          "rpc_index": 1
+        },
+        {
+          "file": "request-2.json",
+          "sha256": "8438269bc4d02a9e66dae52d8b61aad9155e0ff500fea3ba274b6a0d4abc2a3c",
+          "rpc_index": 2
+        },
+        {
+          "file": "request-3.json",
+          "sha256": "1275e65e9a2695e1e6786583aeeff40293d90d39da3a122c9bafbe58dccb4ebd",
+          "rpc_index": 3
+        },
+        {
+          "file": "request-4.json",
+          "sha256": "764711a46c60d62cb348dac8c846cfd38523618378ff0f93624609e290997b80",
+          "rpc_index": 4
+        },
+        {
+          "file": "request-5.json",
+          "sha256": "eae75846bbaef594478f8c35f00dac76d3e2c7416dcb04789b76278baaf13d35",
+          "rpc_index": 5
+        },
+        {
+          "file": "request-6.json",
+          "sha256": "83871c7871df20ffda1fe70441bba9d7269698c2f39d1c42b6f5c7874c7e0b24",
+          "rpc_index": 6
+        },
+        {
+          "file": "request-7.json",
+          "sha256": "80c657974f723054ec12e6202dd7bf90a7cd2dbe5fdd43b939587f6bc6b02fd4",
+          "rpc_index": 7
+        }
+      ]
+    },
+    {
+      "attempt": "short-3-r1",
+      "status": "pass",
+      "errors": [],
+      "rpc_requests": 12,
+      "captured_http_attempts": 12,
+      "input_item_types": [
+        "additional_tools",
+        "message",
+        "reasoning"
+      ],
+      "opaque_encrypted_reasoning_items_across_cumulative_payloads": 36,
+      "scope": "Exact actual RPC schema/input/history, complete independent legal enum, concise instructions and requested identity. No tool invocation history observed if pass; inherited catalog and opaque reasoning remain. Not an assertion of internal resolved identity.",
+      "payloads": [
+        {
+          "file": "request-0.json",
+          "sha256": "1aa2c2139e35b1d2a125eb94b893150bbf7482a9f7e251347c3cb96749378aa7",
+          "rpc_index": 0
+        },
+        {
+          "file": "request-1.json",
+          "sha256": "e67920a7e3f043bfc55efcc3f0d49d51a52dc1c32db619e9536c970f0c85110d",
+          "rpc_index": 1
+        },
+        {
+          "file": "request-2.json",
+          "sha256": "757e3b1c2f87a8628ba811b4aec87842400bfa8ae8990e0754656179ff1dfe76",
+          "rpc_index": 2
+        },
+        {
+          "file": "request-3.json",
+          "sha256": "ed223b95f008396b1c9268cb6eeadf813ff18b776fa4ad78b8ec305c72063ba4",
+          "rpc_index": 3
+        },
+        {
+          "file": "request-4.json",
+          "sha256": "af197d42c96146e57347df52ee27777295cf0e3297b017ebe973ca3fbb2fe9ac",
+          "rpc_index": 4
+        },
+        {
+          "file": "request-5.json",
+          "sha256": "0e66a891c69df2483a6cd5875667214bd566f0131b1f47f8a563ce756ea5d0a1",
+          "rpc_index": 5
+        },
+        {
+          "file": "request-6.json",
+          "sha256": "77eb82c669364cd3fe44f63b3a7bf1123452275ac14697577d49becf08bceb74",
+          "rpc_index": 6
+        },
+        {
+          "file": "request-7.json",
+          "sha256": "7e46c1d737dcff66ca5c23bb9a12685e399bde6af6517567515d65952d4ad4ed",
+          "rpc_index": 7
+        },
+        {
+          "file": "request-8.json",
+          "sha256": "f3fd0b4f1c33ae2c33a0a444a583df65a2f6d93a7e5ff6f29c2a0344a96958e3",
+          "rpc_index": 8
+        },
+        {
+          "file": "request-9.json",
+          "sha256": "8c70e0a7049c121b5401bfcc4a8e7f321d2ae7ac3b51a5e6ada0f5fb02d9dd5d",
+          "rpc_index": 9
+        },
+        {
+          "file": "request-10.json",
+          "sha256": "ef62cbc4e9ce9a6e0a234989fae9c0cea447531b92e565772474b270013dc419",
+          "rpc_index": 10
+        },
+        {
+          "file": "request-11.json",
+          "sha256": "1b006fbf729427d9e0cf557e975e8c24e3818eca44eaf7ab56b5f22eb403fc81",
+          "rpc_index": 11
+        }
+      ]
+    },
+    {
+      "attempt": "short-3-r2",
+      "status": "pass",
+      "errors": [],
+      "rpc_requests": 5,
+      "captured_http_attempts": 5,
+      "input_item_types": [
+        "additional_tools",
+        "message",
+        "reasoning"
+      ],
+      "opaque_encrypted_reasoning_items_across_cumulative_payloads": 8,
+      "scope": "Exact actual RPC schema/input/history, complete independent legal enum, concise instructions and requested identity. No tool invocation history observed if pass; inherited catalog and opaque reasoning remain. Not an assertion of internal resolved identity.",
+      "payloads": [
+        {
+          "file": "request-0.json",
+          "sha256": "3c3f03009e980d39f2bd3ff04fa778c17ae9037ea0865e633ee661310db8e644",
+          "rpc_index": 0
+        },
+        {
+          "file": "request-1.json",
+          "sha256": "36621343f17eb6823c19cd6d327834069dd7146ab6d11f88fe35585479dff0be",
+          "rpc_index": 1
+        },
+        {
+          "file": "request-2.json",
+          "sha256": "3db4bec158926c34f32cf42ece959517b23988cce881ca4662a61162de66558f",
+          "rpc_index": 2
+        },
+        {
+          "file": "request-3.json",
+          "sha256": "a83df7340caf6fc86d5603c58b0b927d284a986074f994cc654f6f045af16ee5",
+          "rpc_index": 3
+        },
+        {
+          "file": "request-4.json",
+          "sha256": "1476df4244fcaa695b97f20dc3e7f87729b637f9e0b1efbded076ad94d215a11",
+          "rpc_index": 4
+        }
+      ]
+    },
+    {
+      "attempt": "short-3-r3",
+      "status": "pass",
+      "errors": [],
+      "rpc_requests": 12,
+      "captured_http_attempts": 12,
+      "input_item_types": [
+        "additional_tools",
+        "message"
+      ],
+      "opaque_encrypted_reasoning_items_across_cumulative_payloads": 0,
+      "scope": "Exact actual RPC schema/input/history, complete independent legal enum, concise instructions and requested identity. No tool invocation history observed if pass; inherited catalog and opaque reasoning remain. Not an assertion of internal resolved identity.",
+      "payloads": [
+        {
+          "file": "request-0.json",
+          "sha256": "dab5bf6c363c46f85fc1734047dc7d38bce8e6d51807b8ea98692197eb399fb0",
+          "rpc_index": 0
+        },
+        {
+          "file": "request-1.json",
+          "sha256": "8b91440cf71e172611a36c4d2b930d04973c6aafca8e10397f085c8fda19d69e",
+          "rpc_index": 1
+        },
+        {
+          "file": "request-2.json",
+          "sha256": "2a3e0f12dc1e332663d000709b70b3d0c358d9230e4fa7a8554058ac7483a8e1",
+          "rpc_index": 2
+        },
+        {
+          "file": "request-3.json",
+          "sha256": "f5ae3209efbbfbf5574df20219f085f1c67e12435b7e198f6bc33b53f005bd50",
+          "rpc_index": 3
+        },
+        {
+          "file": "request-4.json",
+          "sha256": "062dfa860e5d9b105e705d9c1523648a235d136e7df2d5c300c3921d3a20299d",
+          "rpc_index": 4
+        },
+        {
+          "file": "request-5.json",
+          "sha256": "c6e8426511a4760a16d88cb795af0087013337b0ffb2ae28018b49406787a073",
+          "rpc_index": 5
+        },
+        {
+          "file": "request-6.json",
+          "sha256": "4956dd132f7d4d829ec0629aa2458318f68493bf9342bd57301835f689d3ce5d",
+          "rpc_index": 6
+        },
+        {
+          "file": "request-7.json",
+          "sha256": "e0bcba25fd4ac2af196764dbc0519d01a5aef7b553a9f48e2e3fd629136d72f2",
+          "rpc_index": 7
+        },
+        {
+          "file": "request-8.json",
+          "sha256": "64ec5604f9b1167a21b651d6e2b58e035fe1d06fcdbad482275d159f7a00b15d",
+          "rpc_index": 8
+        },
+        {
+          "file": "request-9.json",
+          "sha256": "93e52d13e581cf27089026021d8d5111d3856f368116c9060054067c21c23850",
+          "rpc_index": 9
+        },
+        {
+          "file": "request-10.json",
+          "sha256": "9482310d2dc9537c61d52bcda9a05a32c82e7a34b3c70251e554faa4f56cabf8",
+          "rpc_index": 10
+        },
+        {
+          "file": "request-11.json",
+          "sha256": "299557d30af062e37d01c87fccbb0dd47e2626f38fce4991c6e09dd5308dc9c1",
+          "rpc_index": 11
+        }
+      ]
+    },
+    {
+      "attempt": "short-4-r1",
+      "status": "pass",
+      "errors": [],
+      "rpc_requests": 11,
+      "captured_http_attempts": 11,
+      "input_item_types": [
+        "additional_tools",
+        "message",
+        "reasoning"
+      ],
+      "opaque_encrypted_reasoning_items_across_cumulative_payloads": 1,
+      "scope": "Exact actual RPC schema/input/history, complete independent legal enum, concise instructions and requested identity. No tool invocation history observed if pass; inherited catalog and opaque reasoning remain. Not an assertion of internal resolved identity.",
+      "payloads": [
+        {
+          "file": "request-0.json",
+          "sha256": "ff1555ed78997c1430d0c1e11d70a0f2afd900f05f89c5a73ab4e6a86ffa6fc7",
+          "rpc_index": 0
+        },
+        {
+          "file": "request-1.json",
+          "sha256": "3d9b4aa94245cc308a8a784f759931a0eda8a0f33ec9633b43954144dee4de67",
+          "rpc_index": 1
+        },
+        {
+          "file": "request-2.json",
+          "sha256": "115c78c4f000542025f3a9909ede04a8cbdd50e3fb4d6062cf4f25952363046d",
+          "rpc_index": 2
+        },
+        {
+          "file": "request-3.json",
+          "sha256": "f4d90a62cb9217ea651fbabb5b7315ce4f868e999763d8d5350d5f9e7129cc1f",
+          "rpc_index": 3
+        },
+        {
+          "file": "request-4.json",
+          "sha256": "5a8fee1d998e17de16363b8ae3fc19e335619d84e73e463e90763a427036c9a1",
+          "rpc_index": 4
+        },
+        {
+          "file": "request-5.json",
+          "sha256": "f4de1d761fd17ab04811661525754f422d070e197c310787f43c8f82c8c722be",
+          "rpc_index": 5
+        },
+        {
+          "file": "request-6.json",
+          "sha256": "6948a567666147ce68ec71ed7478bc39e303806d1dafaab4ec6a71831c07ff20",
+          "rpc_index": 6
+        },
+        {
+          "file": "request-7.json",
+          "sha256": "5793120079de6a4f3b3cd97ebd641123c77f9a6739a4bb1be198560fe802779e",
+          "rpc_index": 7
+        },
+        {
+          "file": "request-8.json",
+          "sha256": "22c96d05c8838ad76cad2ae4cc7155c250c09cca32735ab27c1f9d6f4723fe6a",
+          "rpc_index": 8
+        },
+        {
+          "file": "request-9.json",
+          "sha256": "279ac1f80a835fb04e67f15de36603d3a8d9c8a23af8b4f99113914254d813bf",
+          "rpc_index": 9
+        },
+        {
+          "file": "request-10.json",
+          "sha256": "6fda38ad2f3cc12bc4cf0381adbb40ed0e35b8b266a720650c53b2b3689eba3e",
+          "rpc_index": 10
+        }
+      ]
+    },
+    {
+      "attempt": "short-4-r2",
+      "status": "pass",
+      "errors": [],
+      "rpc_requests": 16,
+      "captured_http_attempts": 16,
+      "input_item_types": [
+        "additional_tools",
+        "message",
+        "reasoning"
+      ],
+      "opaque_encrypted_reasoning_items_across_cumulative_payloads": 21,
+      "scope": "Exact actual RPC schema/input/history, complete independent legal enum, concise instructions and requested identity. No tool invocation history observed if pass; inherited catalog and opaque reasoning remain. Not an assertion of internal resolved identity.",
+      "payloads": [
+        {
+          "file": "request-0.json",
+          "sha256": "ddcafdb035a7ee17fb3d18515b70630b9c9ef8c2fbecd18de3733ac001124234",
+          "rpc_index": 0
+        },
+        {
+          "file": "request-1.json",
+          "sha256": "6b5e9c040bd6c2bf7420b79f80cefbc680f7ec67e020c4e16aa1197d7f7c9102",
+          "rpc_index": 1
+        },
+        {
+          "file": "request-2.json",
+          "sha256": "b441066e718d6891b098fbb301c851a9a9bb92ffc099d3eb452d6870bfb3fdff",
+          "rpc_index": 2
+        },
+        {
+          "file": "request-3.json",
+          "sha256": "7cda7e4caa291e8c14dc41332ba7d9778ebcff18f3ef7bdf5f529eeffb038130",
+          "rpc_index": 3
+        },
+        {
+          "file": "request-4.json",
+          "sha256": "8641d55d4fff82a46d3daa20f9fbcccbd55c1fcf3ccf7a0dff48a898ea40f8c4",
+          "rpc_index": 4
+        },
+        {
+          "file": "request-5.json",
+          "sha256": "2a07f9a7c49f0a0329be0985f7b25b17c847c46558e1c4db289c9deb5299b003",
+          "rpc_index": 5
+        },
+        {
+          "file": "request-6.json",
+          "sha256": "287ef602a70b5812dae08da1ba82054dbc461f13b0b7d99b3a83362ad218a00d",
+          "rpc_index": 6
+        },
+        {
+          "file": "request-7.json",
+          "sha256": "2ae0fa43904a5100cacb645ba10d86e4556d1173b4a77303a3cfef8d5f603af0",
+          "rpc_index": 7
+        },
+        {
+          "file": "request-8.json",
+          "sha256": "c5e67c911bf1a52e374769f403afdfa788cecdb09adbdb817d914d6feb7f38f3",
+          "rpc_index": 8
+        },
+        {
+          "file": "request-9.json",
+          "sha256": "457de723109fd2f4bfbcdd044729324604e530e53b09f783ddc3eafdd3635135",
+          "rpc_index": 9
+        },
+        {
+          "file": "request-10.json",
+          "sha256": "176969bc8d45c56a89a261e8e45321c0e60d1eb086980e4fa2bd66bf56e7c466",
+          "rpc_index": 10
+        },
+        {
+          "file": "request-11.json",
+          "sha256": "e039bbd05223fe4456c2a803fded82c406843313e73c2f05cdb8bef470b4f579",
+          "rpc_index": 11
+        },
+        {
+          "file": "request-12.json",
+          "sha256": "bed4dea452b1cb341083fdb076ba795a63a628942ef58ec9313126a03dc579ae",
+          "rpc_index": 12
+        },
+        {
+          "file": "request-13.json",
+          "sha256": "6f04d2baeaf96cb70f841ff17073b613d3614f99755d9e70ecf5677f727bff70",
+          "rpc_index": 13
+        },
+        {
+          "file": "request-14.json",
+          "sha256": "3b77c29ef5e81668400f6be07764cd144793b31f34cfd8500d9092d4f525ee20",
+          "rpc_index": 14
+        },
+        {
+          "file": "request-15.json",
+          "sha256": "ed2c49b76ca866e1c9bb6a44d3204a3e8464041dc79fa6ddf7c4da30c1f92211",
+          "rpc_index": 15
+        }
+      ]
+    },
+    {
+      "attempt": "short-4-r3",
+      "status": "pass",
+      "errors": [],
+      "rpc_requests": 2,
+      "captured_http_attempts": 2,
+      "input_item_types": [
+        "additional_tools",
+        "message"
+      ],
+      "opaque_encrypted_reasoning_items_across_cumulative_payloads": 0,
+      "scope": "Exact actual RPC schema/input/history, complete independent legal enum, concise instructions and requested identity. No tool invocation history observed if pass; inherited catalog and opaque reasoning remain. Not an assertion of internal resolved identity.",
+      "payloads": [
+        {
+          "file": "request-0.json",
+          "sha256": "b7d2b6e6fcaf1c05f61a75778237d3943b6c858c3f4e588e5d93a81c6956a08f",
+          "rpc_index": 0
+        },
+        {
+          "file": "request-1.json",
+          "sha256": "57809041c9cb9a28498f1496d56cf7d6e7d1e4229f0b66966069f653fd83aecc",
+          "rpc_index": 1
+        }
+      ]
+    },
+    {
+      "attempt": "short-5-r1",
+      "status": "pass",
+      "errors": [],
+      "rpc_requests": 12,
+      "captured_http_attempts": 12,
+      "input_item_types": [
+        "additional_tools",
+        "message",
+        "reasoning"
+      ],
+      "opaque_encrypted_reasoning_items_across_cumulative_payloads": 18,
+      "scope": "Exact actual RPC schema/input/history, complete independent legal enum, concise instructions and requested identity. No tool invocation history observed if pass; inherited catalog and opaque reasoning remain. Not an assertion of internal resolved identity.",
+      "payloads": [
+        {
+          "file": "request-0.json",
+          "sha256": "e5658aeed6e2652058b301558abe6a982bb8953b6878cc6e02b91a6a80e69266",
+          "rpc_index": 0
+        },
+        {
+          "file": "request-1.json",
+          "sha256": "809357f76460e1f6a97e46ee49fd214773a422068e05cf9ca170329139725610",
+          "rpc_index": 1
+        },
+        {
+          "file": "request-2.json",
+          "sha256": "d3f821337bfbed5f08fe1d43ad659fc775a450fa16e832d2d7ba3c803ebfaf80",
+          "rpc_index": 2
+        },
+        {
+          "file": "request-3.json",
+          "sha256": "d6fdde4fd388d5679c04bcf95f73d10b9fa211b8b8e06aa07604cef5dd6cdb34",
+          "rpc_index": 3
+        },
+        {
+          "file": "request-4.json",
+          "sha256": "9d257e6d77992577e5dbae75dbb2b3ed8b9102f589c80abd9ea7a8f5613fe939",
+          "rpc_index": 4
+        },
+        {
+          "file": "request-5.json",
+          "sha256": "ef89df514f75e8d84cb837a26774922f64d444ee0d1d7593324f51c456997cbf",
+          "rpc_index": 5
+        },
+        {
+          "file": "request-6.json",
+          "sha256": "610ec03d637f9b0745394df8f0d9e18db72a2c314b18bff7342dd029dcd3a8bb",
+          "rpc_index": 6
+        },
+        {
+          "file": "request-7.json",
+          "sha256": "7ee77b1dd438426d3c2ca1bb7fa6dd8a0fd1bd4c0d30167f94b9e62d312a9380",
+          "rpc_index": 7
+        },
+        {
+          "file": "request-8.json",
+          "sha256": "2be7777baf172b7fec8e6ea0898b47b32dd63f97211f9be9269c0f117932b1c3",
+          "rpc_index": 8
+        },
+        {
+          "file": "request-9.json",
+          "sha256": "ee2d2a5ecf07d5351fa3106e3873e2e8d113a37d94753aed62303201d86b386a",
+          "rpc_index": 9
+        },
+        {
+          "file": "request-10.json",
+          "sha256": "420c0939ca96301c0c13a66a6c552d190afd4f25caf943231325a6c17c646c62",
+          "rpc_index": 10
+        },
+        {
+          "file": "request-11.json",
+          "sha256": "3b7b453792828ef44e0e649a79be60c35dbb6882de254219c99586453063ef2c",
+          "rpc_index": 11
+        }
+      ]
+    },
+    {
+      "attempt": "short-5-r2",
+      "status": "pass",
+      "errors": [],
+      "rpc_requests": 12,
+      "captured_http_attempts": 12,
+      "input_item_types": [
+        "additional_tools",
+        "message",
+        "reasoning"
+      ],
+      "opaque_encrypted_reasoning_items_across_cumulative_payloads": 55,
+      "scope": "Exact actual RPC schema/input/history, complete independent legal enum, concise instructions and requested identity. No tool invocation history observed if pass; inherited catalog and opaque reasoning remain. Not an assertion of internal resolved identity.",
+      "payloads": [
+        {
+          "file": "request-0.json",
+          "sha256": "93666fe3ace4ade7d0578ac08a24d164ebc432bde9c700302edd695f29cea835",
+          "rpc_index": 0
+        },
+        {
+          "file": "request-1.json",
+          "sha256": "1935b64c9482b293d9d0bf49cacded096e855b498e91d22869589d4fc5793a7c",
+          "rpc_index": 1
+        },
+        {
+          "file": "request-2.json",
+          "sha256": "cc79f010022da53268c8edd43a1d311c3da76de04503762fe9313be891f0d0b1",
+          "rpc_index": 2
+        },
+        {
+          "file": "request-3.json",
+          "sha256": "dcdd0bb851219638204b92d678917660014c6913efe67c4a1787f7b1eff984c7",
+          "rpc_index": 3
+        },
+        {
+          "file": "request-4.json",
+          "sha256": "5a8eed1620456d1136d249f974d6bf19ac198886dd9af9859dc811254b0ff5ed",
+          "rpc_index": 4
+        },
+        {
+          "file": "request-5.json",
+          "sha256": "6e6e470e675690d25bae50a1037ff164b5238b244f339f172034ea7fce02e9f3",
+          "rpc_index": 5
+        },
+        {
+          "file": "request-6.json",
+          "sha256": "789202113e0b39c01f3df6a114ee235a9a70ec22c313f16dc3d1f16d38949bea",
+          "rpc_index": 6
+        },
+        {
+          "file": "request-7.json",
+          "sha256": "76c655049fea599821a0f507089c529d03a63a943e88dfcc96b42ee5413c6355",
+          "rpc_index": 7
+        },
+        {
+          "file": "request-8.json",
+          "sha256": "bc6612bbe13f631b2ab19219dac595396c1dba840649cee7a0d4c92bd44c9f4b",
+          "rpc_index": 8
+        },
+        {
+          "file": "request-9.json",
+          "sha256": "cdc58e693ca5ba588987a3aba5051f75629ec7e73eb3770ca7b16fe8520ceefb",
+          "rpc_index": 9
+        },
+        {
+          "file": "request-10.json",
+          "sha256": "3f14fd5b42d9bd7c9310b23104f0043d50141152cfa1d17292f167d5db3b9880",
+          "rpc_index": 10
+        },
+        {
+          "file": "request-11.json",
+          "sha256": "8b4e16adb0ee7cc6d87d4d0f42716f85300d29bb41b419e3a3e12a295ded9b3d",
+          "rpc_index": 11
+        }
+      ]
+    },
+    {
+      "attempt": "short-5-r3",
+      "status": "pass",
+      "errors": [],
+      "rpc_requests": 5,
+      "captured_http_attempts": 5,
+      "input_item_types": [
+        "additional_tools",
+        "message",
+        "reasoning"
+      ],
+      "opaque_encrypted_reasoning_items_across_cumulative_payloads": 9,
+      "scope": "Exact actual RPC schema/input/history, complete independent legal enum, concise instructions and requested identity. No tool invocation history observed if pass; inherited catalog and opaque reasoning remain. Not an assertion of internal resolved identity.",
+      "payloads": [
+        {
+          "file": "request-0.json",
+          "sha256": "7160bb1d3ce37c748e03b0036b738ed4182c78bf95777ec52c3a12c74703381c",
+          "rpc_index": 0
+        },
+        {
+          "file": "request-1.json",
+          "sha256": "ab114ccc4be9f6fce14095575c92a83e1e190467eba08d1acaaede04eeed8994",
+          "rpc_index": 1
+        },
+        {
+          "file": "request-2.json",
+          "sha256": "b13900ea67098a54775c711b39aeecb2c9ffc5ce6c9948905f44dfbc42bac496",
+          "rpc_index": 2
+        },
+        {
+          "file": "request-3.json",
+          "sha256": "639969576e610bdcdae3880dc8040ab519c73e84cd9b731aad23e3a4f0a25a95",
+          "rpc_index": 3
+        },
+        {
+          "file": "request-4.json",
+          "sha256": "8627844b98b739a623ef8ab5df4dc2579992997cb117c33c1eeeb635cf775fd0",
+          "rpc_index": 4
+        }
+      ]
+    },
+    {
+      "attempt": "short-6-r1",
+      "status": "pass",
+      "errors": [],
+      "rpc_requests": 12,
+      "captured_http_attempts": 12,
+      "input_item_types": [
+        "additional_tools",
+        "message"
+      ],
+      "opaque_encrypted_reasoning_items_across_cumulative_payloads": 0,
+      "scope": "Exact actual RPC schema/input/history, complete independent legal enum, concise instructions and requested identity. No tool invocation history observed if pass; inherited catalog and opaque reasoning remain. Not an assertion of internal resolved identity.",
+      "payloads": [
+        {
+          "file": "request-0.json",
+          "sha256": "58df161f767a82c12be616d10ccb2e9c4bc7cfac64197cf96d057e9629520baf",
+          "rpc_index": 0
+        },
+        {
+          "file": "request-1.json",
+          "sha256": "ad009f973ace38b23bb96c84d240d6e22d60b342ec8c3e1a1110cd5db9635968",
+          "rpc_index": 1
+        },
+        {
+          "file": "request-2.json",
+          "sha256": "9d7b4db8097fa9b033c85bfb63c9237832c30e3b0fa7aa8381a66ba25c0126b3",
+          "rpc_index": 2
+        },
+        {
+          "file": "request-3.json",
+          "sha256": "026c301cfc8ae82064b9122e2e80523e895cbce13e7534bd513bd1c409a07695",
+          "rpc_index": 3
+        },
+        {
+          "file": "request-4.json",
+          "sha256": "f50305e07b6910ef8d4a41075dccbb1e05c1968aae22fc47cb2874663652fd4b",
+          "rpc_index": 4
+        },
+        {
+          "file": "request-5.json",
+          "sha256": "1b973996ece1768fe2227e9d58ee929a87647ad7eed59e50e63c3552e2f0c853",
+          "rpc_index": 5
+        },
+        {
+          "file": "request-6.json",
+          "sha256": "69d35d90ffe4f13596016794dba28ac6bbb0dbbf37d0d56c7b3427902ea4e661",
+          "rpc_index": 6
+        },
+        {
+          "file": "request-7.json",
+          "sha256": "c943f42fc15e2345ae12878999f39850f3759e1058e99c244fa7fb3cc4feb596",
+          "rpc_index": 7
+        },
+        {
+          "file": "request-8.json",
+          "sha256": "f22c12814ad3b3f0351c94e9549e279f7d64a42465503f53f25ae0aa7732a7ea",
+          "rpc_index": 8
+        },
+        {
+          "file": "request-9.json",
+          "sha256": "3c821cfa24d445d5466f08960a955e4167fed02c209da44bbfce53fbe2ddcf20",
+          "rpc_index": 9
+        },
+        {
+          "file": "request-10.json",
+          "sha256": "7ea569811ad939292623861e800b46335a6352c200cc9c4af9b0c54db3731380",
+          "rpc_index": 10
+        },
+        {
+          "file": "request-11.json",
+          "sha256": "4d05a18678a876418c9c05e0ee114d3f151d680013f3e6e1dc476a874ec13e0a",
+          "rpc_index": 11
+        }
+      ]
+    },
+    {
+      "attempt": "short-6-r2",
+      "status": "pass",
+      "errors": [],
+      "rpc_requests": 12,
+      "captured_http_attempts": 12,
+      "input_item_types": [
+        "additional_tools",
+        "message"
+      ],
+      "opaque_encrypted_reasoning_items_across_cumulative_payloads": 0,
+      "scope": "Exact actual RPC schema/input/history, complete independent legal enum, concise instructions and requested identity. No tool invocation history observed if pass; inherited catalog and opaque reasoning remain. Not an assertion of internal resolved identity.",
+      "payloads": [
+        {
+          "file": "request-0.json",
+          "sha256": "e54a0feca15c545cfe9721d0d56fb43bb20580c246b24d701b48f19d26aabf03",
+          "rpc_index": 0
+        },
+        {
+          "file": "request-1.json",
+          "sha256": "17c2ac7908ab0b8c66f6aa2261a68c38bcece025d6caa456de7ca928bc161500",
+          "rpc_index": 1
+        },
+        {
+          "file": "request-2.json",
+          "sha256": "93d3743defab07b48fd0510515e4aeca4becc9aa2ce9350ad981f7fc978b438a",
+          "rpc_index": 2
+        },
+        {
+          "file": "request-3.json",
+          "sha256": "03e17565ec2a22fbc0d8ab93f8d6a587e643c7377745b875f1fce275fbc6bf57",
+          "rpc_index": 3
+        },
+        {
+          "file": "request-4.json",
+          "sha256": "efa678eca446512d1a9529df895d60e7f4f6e77d25befa80220b6f16422c85b8",
+          "rpc_index": 4
+        },
+        {
+          "file": "request-5.json",
+          "sha256": "c496b5fc1f4cacc430542800cc205eac44886dd8f16dcb966073bf1b64d77f8b",
+          "rpc_index": 5
+        },
+        {
+          "file": "request-6.json",
+          "sha256": "8737eb4e48d3fccd2f9c925a81022422f7a662dbef6af659b2d8bdfd442b184c",
+          "rpc_index": 6
+        },
+        {
+          "file": "request-7.json",
+          "sha256": "ae9f64a2b4207342a86a1517d4d912e140e930b26633429a1fe72539734fd427",
+          "rpc_index": 7
+        },
+        {
+          "file": "request-8.json",
+          "sha256": "89ae8e18bde883a7c598f844c9be6685643ba17e678e0541dbc608dc23474375",
+          "rpc_index": 8
+        },
+        {
+          "file": "request-9.json",
+          "sha256": "34df021c2b633e0ce7b131ef58a82d80ea04469ac7c45a41cffdacbfa266f00c",
+          "rpc_index": 9
+        },
+        {
+          "file": "request-10.json",
+          "sha256": "302eb5b0a6bbe1c0608a50468abba9c973886a363119d8adf04fdd88cd398c4e",
+          "rpc_index": 10
+        },
+        {
+          "file": "request-11.json",
+          "sha256": "dd52bfdbc795a94a018925bb8d10d09d0627aaabb650019c22ed45973c7bf60f",
+          "rpc_index": 11
+        }
+      ]
+    },
+    {
+      "attempt": "short-6-r3",
+      "status": "pass",
+      "errors": [],
+      "rpc_requests": 12,
+      "captured_http_attempts": 12,
+      "input_item_types": [
+        "additional_tools",
+        "message",
+        "reasoning"
+      ],
+      "opaque_encrypted_reasoning_items_across_cumulative_payloads": 21,
+      "scope": "Exact actual RPC schema/input/history, complete independent legal enum, concise instructions and requested identity. No tool invocation history observed if pass; inherited catalog and opaque reasoning remain. Not an assertion of internal resolved identity.",
+      "payloads": [
+        {
+          "file": "request-0.json",
+          "sha256": "175f9851347cff66bd8b948c3e36fc0a903038f01a5bbbfdb06f2852bb0ebe4a",
+          "rpc_index": 0
+        },
+        {
+          "file": "request-1.json",
+          "sha256": "faba4839b9fc39a00ad864f69a59cb5b0ffad4f9f018c7590afab140ef4e69d8",
+          "rpc_index": 1
+        },
+        {
+          "file": "request-2.json",
+          "sha256": "b9482ac09f8e25873c9a12cc25c5049a95c6cd2d0388d74ff1f85ba6daa44e1d",
+          "rpc_index": 2
+        },
+        {
+          "file": "request-3.json",
+          "sha256": "9182c10cf4f9ef3693eaee2605719ff527358addd981d331622e158f92981d12",
+          "rpc_index": 3
+        },
+        {
+          "file": "request-4.json",
+          "sha256": "71081ba8a31939798e11777bb1c39d24c794bf91cac29dfffad30472cedf2eb9",
+          "rpc_index": 4
+        },
+        {
+          "file": "request-5.json",
+          "sha256": "c2ad17087081936e9c36aea5fb6f0034605d40268882cee3f810dee2a24a81ec",
+          "rpc_index": 5
+        },
+        {
+          "file": "request-6.json",
+          "sha256": "690a41c26df2d8da9ea4a4c50d9595548e3c33d21e70bbdacd2f1beb64b83b3c",
+          "rpc_index": 6
+        },
+        {
+          "file": "request-7.json",
+          "sha256": "81452765fe3a4b1dde9af365c06f7584094683c84104f7455c56f77239ac7304",
+          "rpc_index": 7
+        },
+        {
+          "file": "request-8.json",
+          "sha256": "a11526ab6f07e175694bab2a17695baef93ec05956100ca6047ba83e6dbf19d7",
+          "rpc_index": 8
+        },
+        {
+          "file": "request-9.json",
+          "sha256": "149bd6815ec5d9b131f79730481bf08bb64a5456fe40ee2eacb2fc981baa3659",
+          "rpc_index": 9
+        },
+        {
+          "file": "request-10.json",
+          "sha256": "ee7a635e6b62609cb7a4679c9b2e3bd10429eaa01720354ccbef9fe44fd81c35",
+          "rpc_index": 10
+        },
+        {
+          "file": "request-11.json",
+          "sha256": "3c57564af1686815e838e65aa9f98eb623c56b7fdb8f7eca6194a5f6b60b6b03",
+          "rpc_index": 11
+        }
+      ]
+    }
+  ]
+}

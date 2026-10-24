@@ -1,0 +1,97 @@
+{
+  "id": "full-1",
+  "case_id": "full-development",
+  "kind": "full",
+  "board": "boards/synthetic.json",
+  "decisions": null,
+  "opponent_policy": "conserve-high",
+  "diagnostic_only": true,
+  "requested_model": "gpt-6.1-sol",
+  "requested_effort": "medium",
+  "task_complete": true,
+  "legal_execution": "pass",
+  "quality": "pending",
+  "playing": {
+    "exit_code": 0,
+    "wall_seconds": 117.598
+  },
+  "grading": {
+    "model_called": false,
+    "exit_code": null,
+    "grading_evidence_available": false,
+    "reason": "Solactingoutputrequirescoordinatordirectreview,samev4package,noselfgrade."
+  },
+  "coverage": {
+    "status": "covered",
+    "basis": "All 52 actual cards consumed in thirteen independently replayed tricks."
+  },
+  "counts": {
+    "actual_events": 52,
+    "complete": true,
+    "tricks": [
+      10,
+      3
+    ],
+    "model_request_attempts": 21,
+    "actual_rpc_requests": 21,
+    "model_actions": 21,
+    "forced_actions": 5,
+    "driver_opponent_actions": 25,
+    "initial_controlled_actions": 0,
+    "initial_opponent_actions": 1,
+    "retries": 0
+  },
+  "wire": {
+    "upstream_request_attempts": 21,
+    "http_statuses": {
+      "200": 21
+    },
+    "transport_errors": [],
+    "missing_response_metadata": [],
+    "observed_response_models": [
+      "gpt-6.1-sol"
+    ]
+  },
+  "timing": {
+    "elapsedSeconds": 117.4794830083847,
+    "lastControlledActionSeconds": 117.4794830083847,
+    "environmentOverheadSeconds": 0.22792303562164307,
+    "initialRequestSeconds": 26.570397973060608,
+    "subsequentRequestSeconds": [
+      4.832617998123169,
+      3.7537460327148438,
+      3.993322014808655,
+      3.708914041519165,
+      3.932006001472473,
+      3.7634170055389404,
+      6.385380983352661,
+      3.8741379976272583,
+      3.8659119606018066,
+      3.7743459939956665,
+      3.994593024253845,
+      3.6127439737319946,
+      4.049939036369324,
+      4.0944260358810425,
+      3.8056269884109497,
+      3.87089204788208,
+      3.8955419063568115,
+      13.71790599822998,
+      4.0406399965286255,
+      3.7150529623031616
+    ],
+    "failedRequestSeconds": null
+  },
+  "quality_counts": {
+    "pass": 0,
+    "fail": 0,
+    "uncertain": 0
+  },
+  "review_required": [],
+  "plan_updates": {
+    "keep": 19,
+    "replace": 2,
+    "withdraw": 0
+  },
+  "failures": [],
+  "outcome": "pending"
+}

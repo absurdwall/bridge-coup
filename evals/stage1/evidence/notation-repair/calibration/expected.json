@@ -1,0 +1,13 @@
+{
+  "review_basis": "A/B/C/D/F retain independently reviewed calibration labels. G is impossible retained dummy-club route confirmed by coordinator; H replaces with feasible South clubs; I retains already-completed steps with feasible remaining South-club route. Expected labels never sent to grader/player.",
+  "expected": {
+    "A": "pass",
+    "B": "pass",
+    "C": "fail",
+    "D": "fail",
+    "F": "fail",
+    "G": "fail",
+    "H": "pass",
+    "I": "pass"
+  }
+}

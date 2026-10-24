@@ -1,0 +1,240 @@
+{
+  "rubric_version": "stage1-basic-v4",
+  "results": [
+    {
+      "id": "decision-0001",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "play_order",
+          "fact": "The plan conditions North’s diamond honor choice on East’s subsequent play.",
+          "explanation": "On South’s D3 lead, play proceeds South–West–North–East. North must choose its card before observing East’s card, so the stated condition is unavailable.",
+          "quotes": [
+            "lead a low diamond from South toward North’s KQ, choosing the honor according to East’s play."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0002",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "plan_consistency",
+          "fact": "Keeping the plan retains an impossible current condition and conflicts with the selected spot card.",
+          "explanation": "South’s D3 and West’s D6 have been played; North acts before East. The retained plan calls for an honor chosen according to East’s play, whereas the answer selects D7 and preserves both honors.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "choosing the honor according to East’s play.",
+            "Play D7, keeping North’s KQ intact while taking the trick if East also plays low."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0003",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "winner_and_continuation",
+          "fact": "SQ wins the spade return and permits further diamond development.",
+          "explanation": "SA and SK were consumed on the first trick, making South’s remaining SQ unbeatable. South still holds D4 to lead toward North’s KQ95, with CA available as a later entry. The initial diamond step is historical.",
+          "quotes": [
+            "Cover East’s S2 with SQ; it is the available chance to regain the lead and continue developing tricks."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0004",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "current_trick",
+          "fact": "Following with S5 preserves the partnership’s winning SQ.",
+          "explanation": "The current trick is S2–SQ–S8, and North holds S65. S5 legally follows suit, leaving South on lead with D4 available to continue diamond development.",
+          "quotes": [
+            "Follow low with S5, preserving North’s S6 while SQ currently wins the trick."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0005",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "development_and_entries",
+          "fact": "The diamond continuation is feasible and preserves access to North.",
+          "explanation": "South holds D4, North holds KQ95, and CA remains an entry after a diamond loss. The plan treats the defenders’ remaining diamond honors as unknown and makes no guaranteed establishment claim.",
+          "quotes": [
+            "Lead South’s remaining D4 toward North’s KQ, aiming to establish diamond winners; account for East’s D8 and the defenders’ still-unknown higher diamonds.",
+            "preserving entries to North’s diamonds and club honors."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0006",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "current_trick_and_resources",
+          "fact": "DK covers DT while preserving DQ and CA for continued development.",
+          "explanation": "North holds KQ95 and acts over West’s DT. Only the unplayed DA can beat DK; the answer explicitly allows that outcome. North retains DQ and the CA entry if East wins.",
+          "quotes": [
+            "Play DK over West’s DT, forcing the defenders to use a higher diamond if they have one and retaining DQ if the ace wins."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0007",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "winner_assessment",
+          "fact": "The replacement plan incorrectly makes all diamond tricks dependent on favorable falls.",
+          "explanation": "DA has just captured DK, and North holds DQ95. DQ is therefore a certain diamond winner, accessible through North’s CA; only the additional spot-card tricks depend on the remaining DJ and distribution. The restrictive condition materially misstates a needed trick source.",
+          "quotes": [
+            "North’s Q95 may provide tricks only if the remaining high diamonds fall favorably."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0008",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "effective_plan",
+          "fact": "Keeping the plan retains the incorrect conditional assessment of North’s diamonds.",
+          "explanation": "Although H3 legally follows under South’s HA, the retained advice says diamond tricks require favorable falls. With DA and DK already played, North’s DQ is an established winner and CA supplies access.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "North’s Q95 may provide tricks only if the remaining high diamonds fall favorably."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0009",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "play_order",
+          "fact": "The club finesse is explicitly conditioned on a play North cannot yet observe.",
+          "explanation": "On South’s C3 lead, West plays before North and East plays afterward. North cannot decide to finesse CT based on whether East plays low.",
+          "quotes": [
+            "Lead C3 toward North’s AT4 and finesse the ten if East plays low, aiming to develop club tricks."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0010",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "physical_route",
+          "fact": "North cannot use CA to capture East’s cover after playing CT.",
+          "explanation": "The current trick is South’s C3 followed by West’s C6. North now plays CT and East plays fourth; North cannot play a second card on that trick. An East honor over CT wins that trick.",
+          "quotes": [
+            "if East covers, North’s CA can take it."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0011",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "feasible_continuation",
+          "fact": "Winning HK and using the club honors preserves a feasible diamond route.",
+          "explanation": "HK beats East’s HT. South retains CK7 opposite North’s CA4, allowing entry to North and a later return to CK. North’s DQ is established; if DJ falls under it, D95 provide additional tricks. The answer seeks those tricks without claiming favorable distribution is known.",
+          "quotes": [
+            "Win the heart lead with HK.",
+            "rely on CA and CK for club tricks rather than a second finesse.",
+            "seek additional tricks from North’s Q95 diamonds"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0012",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "entries_and_trick_sources",
+          "fact": "C7 reaches North’s CA while retaining CK and access to the diamonds.",
+          "explanation": "South holds CK7 and North CA4 with DQ95. C7 to CA is legal and puts North on lead to cash DQ and test for DJ falling. North’s C4 remains a return to CK; favorable diamonds can supply the five further tricks needed from the current four.",
+          "quotes": [
+            "Lead C7 to dummy’s CA to secure a club winner and retain CK as a later potential trick."
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Small-sample basic evaluation; no claim of broad grading reliability."
+}

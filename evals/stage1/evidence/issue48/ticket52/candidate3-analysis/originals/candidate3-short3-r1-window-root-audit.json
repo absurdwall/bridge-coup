@@ -1,0 +1,147 @@
+{
+  "source_commit": "3f0fc65470633dd90363ad0417b29a9f7f68be18",
+  "attempt": "short-3-r1",
+  "public_prefix_binding": "all12pass",
+  "actual_public_events": [
+    {
+      "card": "DQ",
+      "seat": "west",
+      "sequence": 0
+    },
+    {
+      "card": "D3",
+      "seat": "north",
+      "sequence": 1
+    },
+    {
+      "card": "D4",
+      "seat": "east",
+      "sequence": 2
+    },
+    {
+      "card": "DK",
+      "seat": "south",
+      "sequence": 3
+    },
+    {
+      "card": "CA",
+      "seat": "south",
+      "sequence": 4
+    },
+    {
+      "card": "C3",
+      "seat": "west",
+      "sequence": 5
+    },
+    {
+      "card": "C2",
+      "seat": "north",
+      "sequence": 6
+    },
+    {
+      "card": "C5",
+      "seat": "east",
+      "sequence": 7
+    },
+    {
+      "card": "C4",
+      "seat": "south",
+      "sequence": 8
+    },
+    {
+      "card": "C9",
+      "seat": "west",
+      "sequence": 9
+    },
+    {
+      "card": "CQ",
+      "seat": "north",
+      "sequence": 10
+    },
+    {
+      "card": "CT",
+      "seat": "east",
+      "sequence": 11
+    },
+    {
+      "card": "C7",
+      "seat": "north",
+      "sequence": 12
+    },
+    {
+      "card": "H2",
+      "seat": "east",
+      "sequence": 13
+    },
+    {
+      "card": "CK",
+      "seat": "south",
+      "sequence": 14
+    },
+    {
+      "card": "CJ",
+      "seat": "west",
+      "sequence": 15
+    },
+    {
+      "card": "C8",
+      "seat": "south",
+      "sequence": 16
+    },
+    {
+      "card": "D2",
+      "seat": "west",
+      "sequence": 17
+    },
+    {
+      "card": "D5",
+      "seat": "north",
+      "sequence": 18
+    },
+    {
+      "card": "S3",
+      "seat": "east",
+      "sequence": 19
+    },
+    {
+      "card": "C6",
+      "seat": "south",
+      "sequence": 20
+    },
+    {
+      "card": "H5",
+      "seat": "west",
+      "sequence": 21
+    },
+    {
+      "card": "D6",
+      "seat": "north",
+      "sequence": 22
+    }
+  ],
+  "frozen_screen": {
+    "status": "pending",
+    "basis": "Public two-round and first-show-out opportunities only; actual semantic use and prior equivalent deductions require independent review.",
+    "predicate_version": "public-first-club-showout-v2",
+    "public_count_basis": {
+      "initial_outside_clubs": 5,
+      "second_complete_club_round_end": 11
+    },
+    "facets": {
+      "two_round_break_decision_revisions": [
+        12,
+        14,
+        16,
+        18,
+        20,
+        22
+      ],
+      "third_club_before_other_defender_revisions": [],
+      "third_club_event_only_revisions": [],
+      "third_club_event_windows": []
+    }
+  },
+  "root_public_observation": "East first fails clubs at13; West third club CJ at15. Other defender already showed out, so no eligible third-club-first window, event-only or model. No inference failure or quality failure follows.",
+  "trace_sha256": "412e663d2ba2708ad4aca9351937c4482a3a04edcca45db9ef6a8078db7803df",
+  "frozen_screen_sha256": "141801c5dcc34a6c076341c856e9ebe02af87b22d2c43bded4269ca35d745e39"
+}

@@ -1,0 +1,24 @@
+{
+  "id": "heart-fact-r1",
+  "source_decision": 6,
+  "repeat": 1,
+  "clear_effective_plan": false,
+  "include_current_winning_play": true,
+  "task": "factual-hearts",
+  "request": "requests/heart-fact-r1.json",
+  "sha256": "24bcaf93494f2d9f47b173fc475cdae7e9d9f57f1429028c054f85c368823af0",
+  "exit_code": 0,
+  "raw_output": {
+    "maximumHeartTricks": 3
+  },
+  "identity": {
+    "observedModel": "gpt-6-luna",
+    "requestedEffort": "medium",
+    "requestedModel": "gpt-6-luna",
+    "runtimeVersion": "codex-cli 0.160.0",
+    "threadID": "01a163d3-0e4f-7173-a9ef-32f363d1e7c8",
+    "turnID": "01a163d3-0e59-72e1-8090-f1f07530f675"
+  },
+  "narrow_fact_check": "pass",
+  "elapsed_seconds": 6.458
+}

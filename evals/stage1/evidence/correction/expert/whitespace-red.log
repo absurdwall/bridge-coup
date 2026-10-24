@@ -1,0 +1,25 @@
+[0/1] Planning build
+Building for debugging...
+[0/7] Write sources
+[1/7] Write swift-version--58304C5D6DBC2206.txt
+[3/5] Compiling BridgePlayingTests PlanContractTests.swift
+[4/5] Emitting module BridgePlayingTests
+[4/6] Write Objects.LinkFileList
+[5/6] Linking BridgeTeacherPackageTests
+Build complete! (1.22s)
+Test Suite 'Selected tests' started at 2026-10-18 10:34:53.369.
+Test Suite 'BridgeTeacherPackageTests.xctest' started at 2026-10-18 10:34:53.369.
+Test Suite 'PlanContractTests' started at 2026-10-18 10:34:53.370.
+Test Case '-[BridgePlayingTests.PlanContractTests testSerializedAppServerSchemaExcludesAmbiguousPlansAndKeepsLifecycle]' started.
+/Users/tingranwang/.codex/worktrees/stage1-correction-expert/bridge-coup/Sources/BridgeExpert/Expert.swift:139: error: -[BridgePlayingTests.PlanContractTests testSerializedAppServerSchemaExcludesAmbiguousPlansAndKeepsLifecycle] : failed: caught error: "ExpertFailure(category: BridgeExpert.ExpertFailure.Category.runtime, input: "Contract: 3NT by South. Scoring: IMP. Vulnerability: neither.\nObjective: Normal IMP strategy, weighing contract risk and overtricks.\nDecision controller: South (declarer).\nActing hand: North (dummy).\nSouth (declarer): S A94 / H A63 / D AK / C AK864\nNorth (dummy): S 862 / H K74 / D 8653 / C Q72\nActual plays in order: West DQ.\nTricks won: declarer 0, defenders 0.\nAdditional public background: Auction and defensive methods are not provided.", rawOutput: "", detail: "turn/start: {\n    message = \"plan contract mismatch: replace/\'   \', accepted=True, expected=False\";\n}", elapsedSeconds: 0.14011597633361816)"
+Test Case '-[BridgePlayingTests.PlanContractTests testSerializedAppServerSchemaExcludesAmbiguousPlansAndKeepsLifecycle]' failed (0.342 seconds).
+Test Suite 'PlanContractTests' failed at 2026-10-18 10:34:53.711.
+	 Executed 1 test, with 1 failure (1 unexpected) in 0.342 (0.342) seconds
+Test Suite 'BridgeTeacherPackageTests.xctest' failed at 2026-10-18 10:34:53.711.
+	 Executed 1 test, with 1 failure (1 unexpected) in 0.342 (0.342) seconds
+Test Suite 'Selected tests' failed at 2026-10-18 10:34:53.711.
+	 Executed 1 test, with 1 failure (1 unexpected) in 0.342 (0.343) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

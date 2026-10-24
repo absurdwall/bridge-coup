@@ -1,0 +1,26 @@
+{
+  "baseCommit": "3d3162d3ffb585e3d576239d432224b06e6fd067",
+  "scope": "Offline ticket51 runtime recovery and evidence; no model call or frozen acceptance cycle",
+  "sourceHashes": {
+    "Sources/BridgeExpert/Expert.swift": "1b519613a60e1d29ecdfd1299641a6e332e6eae5ca47ae1640306bbc6a74a736",
+    "Sources/BridgeExpert/RequestEvidence.swift": "7d294a78293762a446e14255d5b5ff8094d06f8da22c771d1bf12aa5fb1c8630",
+    "Sources/BridgeExpert/NeedsInput.swift": "1b56e435145ec25c568d232f7cef972c691d43af28a44e8a8e29c86740a05c5c",
+    "Sources/BridgeDriver/BoardDriver.swift": "88cb7fd8768647cdd01c09529600c96d3b7503d2c6c7b2212f55e8bad96de69d",
+    "Sources/BridgeCodex/CodexTransport.swift": "fd5f8497b5d7f3cafc6853582e938e8b2b26f1543d1583e9e437924856738e9c",
+    "Sources/BridgePlayCLI/BridgePlayMain.swift": "64538f230e425aec264e2248a50004d17f5152462f61fa36c95f92c62b54c862",
+    "Sources/BridgeExpert/Resources/DeclarerInstructions.txt": "7216835b26ad7b9aa8c00fb9870d1c7a95837953059927623c1d6800efbebf90",
+    "Sources/BridgeExpert/Resources/ReviewerInstructions.txt": "6abfef19977a81a426a48afe12430e7bcc9f7170faef43a298d8313b6dbc9b37"
+  },
+  "commands": [
+    "BRIDGE_TEST_PYTHON=/tmp/bridge-coup-issue48-context/venv/bin/python swift test",
+    "/tmp/bridge-coup-issue48-context/venv/bin/python -m unittest discover -s evals/stage1/tests",
+    "BRIDGE_TEST_PYTHON=/tmp/bridge-coup-issue48-context/venv/bin/python swift test --filter BridgePlayingTests"
+  ],
+  "nativeProtocolSource": "codex-cli0.160.0 app-server generate-json-schema --experimental; installed runtime, no network/model request",
+  "limits": {
+    "nativeRequestSeconds": 180,
+    "automaticBoardSeconds": 1800,
+    "reviewerTechnicalAttemptsPerCandidate": 4,
+    "semanticRoundsPerPendingDecision": 5
+  }
+}

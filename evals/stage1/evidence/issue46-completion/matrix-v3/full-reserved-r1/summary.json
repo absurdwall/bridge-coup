@@ -1,0 +1,384 @@
+{
+  "id": "full-reserved-r1",
+  "case_id": "full-reserved",
+  "kind": "full",
+  "board": "boards/reserved-acceptance.json",
+  "decisions": null,
+  "opponent_policy": "conserve-high",
+  "task_complete": true,
+  "legal_execution": "pass",
+  "quality": "fail",
+  "playing": {
+    "exit_code": 0,
+    "wall_seconds": 107.171
+  },
+  "grading": {
+    "exit_code": 0,
+    "grading_evidence_available": true
+  },
+  "coverage": {
+    "status": "covered",
+    "basis": "All 52 actual cards consumed in thirteen independently replayed tricks."
+  },
+  "counts": {
+    "actual_events": 52,
+    "complete": true,
+    "tricks": [
+      12,
+      1
+    ],
+    "model_request_attempts": 23,
+    "actual_rpc_requests": 23,
+    "model_actions": 23,
+    "forced_actions": 3,
+    "driver_opponent_actions": 25,
+    "initial_controlled_actions": 0,
+    "initial_opponent_actions": 1,
+    "retries": 0
+  },
+  "wire": {
+    "upstream_request_attempts": 23,
+    "http_statuses": {
+      "200": 23
+    },
+    "transport_errors": [],
+    "missing_response_metadata": [],
+    "observed_response_models": [
+      "gpt-6-luna"
+    ]
+  },
+  "timing": {
+    "elapsedSeconds": 106.97069692611694,
+    "lastControlledActionSeconds": 106.96079993247986,
+    "environmentOverheadSeconds": 0.3883002996444702,
+    "initialRequestSeconds": 9.042263984680176,
+    "subsequentRequestSeconds": [
+      2.271836996078491,
+      4.669220924377441,
+      2.879457950592041,
+      3.248279094696045,
+      3.354440927505493,
+      6.3506879806518555,
+      2.3485809564590454,
+      4.553794980049133,
+      2.7085729837417603,
+      8.322482943534851,
+      2.0487009286880493,
+      8.22436797618866,
+      2.783082962036133,
+      3.333369016647339,
+      8.857989072799683,
+      1.7094990015029907,
+      8.837514996528625,
+      3.8365349769592285,
+      6.04057502746582,
+      3.46780002117157,
+      5.005483984947205,
+      2.6878589391708374
+    ],
+    "failedRequestSeconds": null
+  },
+  "quality_counts": {
+    "pass": 9,
+    "fail": 14,
+    "uncertain": 0
+  },
+  "review_required": [
+    {
+      "id": "decision-0007",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "rank assessment",
+          "fact": "The replacement plan incorrectly treats CJ as a threat to continuing clubs.",
+          "explanation": "South holds CQ8 and North C6; CA and CK have already been played. CQ is a certain winner regardless of CJ's location, so the stated restriction rests on a material false danger.",
+          "quotes": [
+            "Avoid leading clubs into the outstanding CJ unless its location is established or another entry makes the play favorable"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0008",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "finesse direction",
+          "fact": "DQ does not finesse against East's DK.",
+          "explanation": "The order is South–West–North–East. East plays after North and can cover DQ with DK; this finesse succeeds against a suitably placed West king.",
+          "quotes": [
+            "Play DQ to finesse against East’s possible DK; West’s D5 is below it."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0009",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "winner identification",
+          "fact": "The stated danger from ducking HT is impossible.",
+          "explanation": "If South plays H5, North can win HQ. HK was played on the opening trick and South still holds HA, so the defenders cannot retain this lead against North's queen.",
+          "quotes": [
+            "ducking could let the defenders establish hearts while retaining their lead."
+          ]
+        },
+        {
+          "dimension": "rank assessment",
+          "fact": "The replacement plan continues to misidentify CJ as a club danger.",
+          "explanation": "South's CQ is the highest remaining club after CA and CK have been played.",
+          "quotes": [
+            "avoid leading clubs into the outstanding CJ unless its location or a safe continuation is established."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0010",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "effective plan",
+          "fact": "Keeping the plan retains its false club restriction.",
+          "explanation": "H8 correctly preserves HQ under South's HA, but the retained advice avoids clubs because of CJ even though South's CQ is a certain winner with CA and CK already played.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "avoid leading clubs into the outstanding CJ unless its location or a safe continuation is established."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0011",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "rank assessment",
+          "fact": "The replacement plan forbids a safe club winner because of a lower card.",
+          "explanation": "South holds CQ8, and CA and CK are already gone. CJ cannot beat CQ, so its unknown location does not justify avoiding clubs.",
+          "quotes": [
+            "Avoid leading clubs while CJ remains outstanding unless its location becomes known."
+          ]
+        },
+        {
+          "dimension": "historical accuracy",
+          "fact": "The answer incorrectly assigns the played DQ to the defenders.",
+          "explanation": "The recorded fourth trick shows North playing DQ and East winning DK.",
+          "quotes": [
+            "East’s DK and the defenders’ DQ are gone"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0012",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "effective plan",
+          "fact": "The retained plan still treats CJ as preventing a club continuation.",
+          "explanation": "South holds CQ8 and CA and CK have been played. CQ wins regardless of CJ's location; keeping the plan preserves this material rank error.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "Avoid leading clubs while CJ remains outstanding unless its location becomes known."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0013",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "rank assessment",
+          "fact": "The new plan again describes clubs as dangerous because of CJ.",
+          "explanation": "South retains CQ8 after CA and CK have been played. CQ is an available certain winner, and CJ cannot obstruct cashing it.",
+          "quotes": [
+            "avoid leading clubs into the outstanding CJ without a favorable reason."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0014",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "finesse feasibility",
+          "fact": "Leading toward SK cannot finesse against SQ.",
+          "explanation": "North holds SK72 and South SA64. After cashing SA, a lead toward SK simply cashes the remaining top honor; SQ is lower than SK in either defender's hand.",
+          "quotes": [
+            "preserving North’s SK for a later lead toward it to finesse against East’s possible SQ."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0015",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "effective plan",
+          "fact": "The kept plan retains the erroneous concern about leading clubs into CJ.",
+          "explanation": "SA correctly secures the current trick, but South also holds CQ8 with CA and CK already played. The active club restriction remains based on a lower opposing card.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "avoid leading clubs into the outstanding CJ without a favorable reason."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0016",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "trick counting",
+          "fact": "The replacement plan treats certain winners as uncertain chances.",
+          "explanation": "Seven tricks are won. DA, North's SK and South's CQ are all certain winners because SA, CA and CK have been played. Neither East's possible SQ nor the outstanding CJ threatens those higher honors.",
+          "quotes": [
+            "then reassess the spade and club chances with only one more trick needed.",
+            "lead toward North’s SK while accounting for East’s possible SQ, or try CQ with the outstanding CJ in mind."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0017",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "effective plan",
+          "fact": "The retained plan continues to treat lower opposing honors as threats to certain winners.",
+          "explanation": "D3 is a sound follow under DA, but North's SK and South's CQ remain certain winners after SA, CA and CK have been played. The retained uncertainty about SQ and CJ is materially unfounded.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "lead toward North’s SK while accounting for East’s possible SQ, or try CQ with the outstanding CJ in mind."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0018",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "winner identification",
+          "fact": "The answer incorrectly makes the spade winner conditional on SQ's location and calls CQ unsafe against CJ.",
+          "explanation": "SA, CA and CK have been played. North's SK and South's CQ are both top remaining cards in their suits; SQ and CJ cannot beat them.",
+          "quotes": [
+            "Lead S4 toward North’s SK, hoping East does not hold SQ; the outstanding CJ makes a club lead unsafe.",
+            "the club queen is exposed to the outstanding CJ."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0019",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "effective plan",
+          "fact": "Keeping the plan preserves false conditions on the spade and club winners.",
+          "explanation": "SK correctly beats the actual S9 and is certain to win because SA is already gone. The active plan still suggests East's SQ could defeat SK and CJ could make South's CQ unsafe.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "Lead S4 toward North’s SK, hoping East does not hold SQ; the outstanding CJ makes a club lead unsafe."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0020",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "remaining plan",
+          "fact": "The replacement plan unnecessarily restricts the available club winner because of CJ.",
+          "explanation": "D9 is correctly identified as high, but South holds CQ8 and North C6 with CA and CK already played. Leading C6 toward CQ is safe regardless of CJ's location.",
+          "quotes": [
+            "Then seek any further safe overtricks, avoiding a club lead into the outstanding CJ unless its location becomes clear."
+          ]
+        }
+      ]
+    }
+  ],
+  "plan_updates": {
+    "keep": 15,
+    "replace": 8,
+    "withdraw": 0
+  },
+  "failures": [],
+  "outcome": "fail"
+}

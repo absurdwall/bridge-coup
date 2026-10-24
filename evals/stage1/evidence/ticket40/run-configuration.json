@@ -1,0 +1,27 @@
+{
+  "candidate": "stage1-legal-selectedCard-v3",
+  "fixture": "evals/stage1/corpus/boards/synthetic.json",
+  "fixture_sha256": "b37080a2bc16df91dd1991ef60ec6487558a3fc1ee8f8352819747cfd953d077",
+  "corpus_version": "stage1-finite-v1",
+  "rubric_version": "stage1-basic-v2",
+  "play_model": "gpt-6-luna",
+  "effort": "medium",
+  "grading_model": "gpt-6.1-sol",
+  "grading_effort": "medium",
+  "mode": "full-board",
+  "opponent": "conserve-high",
+  "mechanical_sole_legal": true,
+  "initial_plan_even_when_forced": true,
+  "request_limit_seconds": 180,
+  "run_limit_seconds": 1800,
+  "between_boards": "one development board only, sequential; no reroll",
+  "reserved_board": "no playing attempt",
+  "runtime_identity": {
+    "observedModel": "gpt-6-luna",
+    "requestedEffort": "medium",
+    "requestedModel": "gpt-6-luna",
+    "runtimeVersion": "codex-cli 0.160.0",
+    "threadID": "01a14e10-aed9-7171-a52b-890ac3e0736f",
+    "turnID": "01a14e10-baa5-7960-a48d-8fde1e58cd79"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "d12-fresh-r1",
+  "decision": 12,
+  "history": "fresh",
+  "repeat": 1,
+  "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+  "seed": null,
+  "exit_code": 0,
+  "raw_output": {
+    "plan": {
+      "update": "replace",
+      "text": "Follow suit with a club, using the ace if it can win; the defenders have already taken five tricks, so the contract is no longer makeable. If declarer regains the lead, cash the remaining diamond honors from dummy and preserve the heart honors where possible to maximize tricks."
+    },
+    "selectedCard": "CA",
+    "publicReason": "South must follow to West’s club. The ace is the best chance to beat CQ and take this trick."
+  },
+  "identity": {
+    "observedModel": "gpt-6-luna",
+    "requestedEffort": "medium",
+    "requestedModel": "gpt-6-luna",
+    "runtimeVersion": "codex-cli 0.160.0",
+    "threadID": "01a163da-9664-74f3-9e93-a7ba04b1f538",
+    "turnID": "01a163da-966f-78c1-972e-af9d3d90fd0c"
+  },
+  "seconds": 27.85
+}

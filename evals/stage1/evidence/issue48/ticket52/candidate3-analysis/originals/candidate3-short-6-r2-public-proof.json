@@ -1,0 +1,379 @@
+{
+  "scope": "Public record bindings and observable core events only; no actual complete fixture, hidden spade lengths or environment-only coverage conclusion.",
+  "attempt": "short-6-r2",
+  "source_commit": "3f0fc65470633dd90363ad0417b29a9f7f68be18",
+  "candidate_sha256": "777457fae544dc6eb45b77343cdb9bdbbd4eda31f9941638a1917e6dec574720",
+  "trace_sha256": "3ef0319affe86f9ea1b05d1f5169d97ad2e59e8edcabf4f44459b2c92394c1c8",
+  "grade_input_sha256": "d3a54d4f1a419a48e8e9c8a1de4535858506d6566cfa28dd98299522775f445a",
+  "raw_grader_sha256": "10cfd463958608b77c71acbc90ddd357db2517aa7aa93f75b6846d313fb19587",
+  "evaluation_sha256": "fccb07fce98d651d57027b1588b78d2f352c4469a891a53b640a5c266a29ce67",
+  "all12_final_model_records": [
+    {
+      "id": "decision-0001",
+      "revision": 1,
+      "card": "S7",
+      "plan_operation": "replace",
+      "publicReason": "Duck toward a two-round spade hold-up. Establishing diamonds should provide nine tricks, and exhausting East's spades may prevent a damaging return when DA wins.",
+      "actual_input_type": "initial",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "cfeb40302af0a9795bd03d01fcc1225756cb6560f912587659cf3871d2eea7ef",
+      "authorized_input_sha256": "66923e3c6d96d0355fa5ba3855fe988638ac628cb9e5a912474678140e76db54",
+      "raw_output_sha256": "e4576f18aff526bdbbd38d4c8a473831b32c5519eb4815b280e7c1efdad80cc7",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0002",
+      "revision": 3,
+      "card": "S3",
+      "plan_operation": "keep",
+      "publicReason": "Duck the first spade as planned, retaining SA to win the third round. East's S4 does not yet establish the spade distribution.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "df0eb55df1588615aa6f5f5b480089b1bc873a1a6c2ff3c0388b51a14ccd1fd5",
+      "authorized_input_sha256": "f9d47adb1484e43194f63288957e930ace711870a98cee729204be359514f09c",
+      "raw_output_sha256": "4184f9d7522182004e78cea719d513026de6a25537a434b88948f286a03e2022",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0003",
+      "revision": 7,
+      "card": "S9",
+      "plan_operation": "keep",
+      "publicReason": "Duck the second spade, preserving SA for the third round. East has followed twice; if East started with three spades, this hold-up will remove the return before diamonds are established.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "842c83f4448093951a853d7cc80b0ce654273d181bb6b93e90eff9cbe935c301",
+      "authorized_input_sha256": "130c11a9e7f4f5e7fa77f0ad7b8a21cb0ccbf96a3eef9c36a32c131a9b0cb962",
+      "raw_output_sha256": "de46516b1651a7379e7065480563f48df78b82f81abe84184b080eaed8fffe9b",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0004",
+      "revision": 9,
+      "card": "C4",
+      "plan_operation": "keep",
+      "publicReason": "Discard a spare club, preserving all five diamonds and the heart communications. South will win this third spade round with SA.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "2e53bdada17ef3d93721a7a9304e8aa7d60f090a07e14bfe1896ae046c1942f0",
+      "authorized_input_sha256": "7c1496417b519dbdabc1c774864de9480b03aac31e1bd308897bee938646db51",
+      "raw_output_sha256": "9881fec29822c29ef38bd4a84d0e308c7699b1f6b4b5539a9a9e283c2d413892",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0005",
+      "revision": 12,
+      "card": "D2",
+      "plan_operation": "keep",
+      "publicReason": "Begin establishing four diamond tricks while preserving HA as dummy's entry. East has followed to three spades; whether East has another remains unknown.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "322ebd65284d0067b3831fdbc475011f2ca2816ae176b7cb1b6a3ef244bab06e",
+      "authorized_input_sha256": "df5ece079b5fa4a95d092710dfed3dcec1dc8af2dd49b5224fa5e3a8b2d51214",
+      "raw_output_sha256": "f89100223e9d6648610bd505619cbe04986b982296d24816d865b605537b2c60",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0006",
+      "revision": 14,
+      "card": "DK",
+      "plan_operation": "keep",
+      "publicReason": "Play a diamond honor to force out DA and establish four tricks. Keep HA available to reach dummy if the ace is withheld.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "9ac250824aa82de5e50526d877be039d7bac6dd27f2ef9419862dac87a5ee483",
+      "authorized_input_sha256": "6d9387b300c0ff7d37198b2e0a82fd991e4020ba77280ee001d86d1ebf8b29e5",
+      "raw_output_sha256": "9762538ec0c1a32e32b215e6c802227a852e47e748a4aa89e678298f1c832ae2",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0007",
+      "revision": 17,
+      "card": "HJ",
+      "plan_operation": "keep",
+      "publicReason": "Win the heart switch in hand, keeping dummy's ace available. DA is now gone, so four diamonds, three hearts and CA supply the eight remaining tricks needed.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "df21dcad0e43c539f97db8d776fd04fad0ca2c83da7557a06a1b8e73df77c288",
+      "authorized_input_sha256": "2290d1df857275a3235fcd09254deb6f11b61eef4620257e70cdb3c013b21787",
+      "raw_output_sha256": "73d233c37b38057ef6f045961487bd40f8955eb8972ad2b68426d1195494ebae",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0008",
+      "revision": 19,
+      "card": "H3",
+      "plan_operation": "keep",
+      "publicReason": "Let HJ win, preserving HA and a low heart for communications. The diamonds are established, so no further concession is needed.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "2dfd5a0fcf9e593d5d64db9633e50d9731658623d1f0b86e3f6199181293612f",
+      "authorized_input_sha256": "74ebdb5f8ec53c06f48e0ca2b63fdbe7e8aac2ee434e861d89c3f48fcf624032",
+      "raw_output_sha256": "4260095b538ad37e22ddb691a4147f1bdd7a544ce10e69192a18972060c3fa5c",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0009",
+      "revision": 20,
+      "card": "HK",
+      "plan_operation": "replace",
+      "publicReason": "Cash HK before crossing to HA on the next heart. This unblocks hearts and places the lead in dummy to run all four diamonds.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "c0064f3977fcfafd4b8ae16ebf77d6eda3db2dacdcd1747d00e21cf9bf84bc00",
+      "authorized_input_sha256": "635187989efbca9c15665762c51f5b8c05d28159f8dc794a11adb0aa8a67364f",
+      "raw_output_sha256": "6780f3dc6e4238cf79cbf28b0f6c63b5c09baf0930e836e0561c7be7d75293e0",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0010",
+      "revision": 22,
+      "card": "H4",
+      "plan_operation": "keep",
+      "publicReason": "Let HK win, saving HA to overtake HQ next and enter dummy for the four diamond winners.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "0089c7ce9498c1bb1d068ea887b745df3c2a7a490ab129b54d2b70c5bb3e6ed7",
+      "authorized_input_sha256": "9ef0d80f94f5db0a05d524c08d2f6ab2d2001319a129d3849675656b446408b2",
+      "raw_output_sha256": "05c240d32678579dff3922f2eddbe3c403e6ea9db7b176667cdae8ceeff7ea83",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0011",
+      "revision": 24,
+      "card": "HQ",
+      "plan_operation": "keep",
+      "publicReason": "Overtake HQ with dummy's HA, then cash the four diamonds and reach CA for nine tricks.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "0fcd22478d9e1da6cf78915ed19ee7ce7dbe1f038964349379aa1a036d4c682d",
+      "authorized_input_sha256": "672a2353abc6fbd254aae4142f2ef65549d0627c36d2035f846ebb66de833d65",
+      "raw_output_sha256": "39e085f9142baea7a18f135ff867d0edbdaf9a07b775431de2c2c6365a4a8c9a",
+      "prefix_once_execution_plan_bound": true
+    },
+    {
+      "id": "decision-0012",
+      "revision": 28,
+      "card": "DQ",
+      "plan_operation": "keep",
+      "publicReason": "Cash the four established diamonds, discarding a spare club from South on the fourth. A club to CA then secures the ninth trick.",
+      "actual_input_type": "update",
+      "semantic_review_rounds": 1,
+      "decision_sha256": "5fa49907a7514740e7d16a1d8c8ecf9326c4e39ee4fbb476b37e6b710a83a57f",
+      "authorized_input_sha256": "6d9c31a4dc5deb6089847d694382082664cf512c48a28d50e52b85e9ecb89d16",
+      "raw_output_sha256": "8e639d48eaee56281c9f525eb3aa1581c4416b17df993c89141070d99752f87d",
+      "prefix_once_execution_plan_bound": true
+    }
+  ],
+  "actual_events": [
+    {
+      "card": "SK",
+      "seat": "west",
+      "sequence": 0
+    },
+    {
+      "card": "S7",
+      "seat": "north",
+      "sequence": 1
+    },
+    {
+      "card": "S4",
+      "seat": "east",
+      "sequence": 2
+    },
+    {
+      "card": "S3",
+      "seat": "south",
+      "sequence": 3
+    },
+    {
+      "card": "SQ",
+      "seat": "west",
+      "sequence": 4
+    },
+    {
+      "card": "S8",
+      "seat": "north",
+      "sequence": 5
+    },
+    {
+      "card": "S5",
+      "seat": "east",
+      "sequence": 6
+    },
+    {
+      "card": "S9",
+      "seat": "south",
+      "sequence": 7
+    },
+    {
+      "card": "SJ",
+      "seat": "west",
+      "sequence": 8
+    },
+    {
+      "card": "C4",
+      "seat": "north",
+      "sequence": 9
+    },
+    {
+      "card": "S6",
+      "seat": "east",
+      "sequence": 10
+    },
+    {
+      "card": "SA",
+      "seat": "south",
+      "sequence": 11
+    },
+    {
+      "card": "D2",
+      "seat": "south",
+      "sequence": 12
+    },
+    {
+      "card": "D6",
+      "seat": "west",
+      "sequence": 13
+    },
+    {
+      "card": "DK",
+      "seat": "north",
+      "sequence": 14
+    },
+    {
+      "card": "DA",
+      "seat": "east",
+      "sequence": 15
+    },
+    {
+      "card": "HT",
+      "seat": "east",
+      "sequence": 16
+    },
+    {
+      "card": "HJ",
+      "seat": "south",
+      "sequence": 17
+    },
+    {
+      "card": "H5",
+      "seat": "west",
+      "sequence": 18
+    },
+    {
+      "card": "H3",
+      "seat": "north",
+      "sequence": 19
+    },
+    {
+      "card": "HK",
+      "seat": "south",
+      "sequence": 20
+    },
+    {
+      "card": "H6",
+      "seat": "west",
+      "sequence": 21
+    },
+    {
+      "card": "H4",
+      "seat": "north",
+      "sequence": 22
+    },
+    {
+      "card": "H2",
+      "seat": "east",
+      "sequence": 23
+    },
+    {
+      "card": "HQ",
+      "seat": "south",
+      "sequence": 24
+    },
+    {
+      "card": "H7",
+      "seat": "west",
+      "sequence": 25
+    },
+    {
+      "card": "HA",
+      "seat": "north",
+      "sequence": 26
+    },
+    {
+      "card": "H8",
+      "seat": "east",
+      "sequence": 27
+    },
+    {
+      "card": "DQ",
+      "seat": "north",
+      "sequence": 28
+    }
+  ],
+  "completed_trick_winners": [
+    "west",
+    "west",
+    "south",
+    "east",
+    "south",
+    "south",
+    "north"
+  ],
+  "completed_tricks": {
+    "declarer": 4,
+    "defenders": 3
+  },
+  "actual_hold_up_south_cards": [
+    "S3",
+    "S9"
+  ],
+  "forced_third_round_spade": "SA",
+  "defender_continuation_before_diamond_concession": [
+    "SK",
+    "SQ",
+    "SJ"
+  ],
+  "actual_diamond_ace_win": {
+    "card": "DA",
+    "seat": "east",
+    "sequence": 15
+  },
+  "actual_following_switch": {
+    "card": "HT",
+    "seat": "east",
+    "sequence": 16
+  },
+  "actual_model_recovery_cards": [
+    "HJ",
+    "H3"
+  ],
+  "conditional_initial_HJ_transfer_branch": "Only if HK and HQ are cashed first; actual HJ-first play eliminates that condition while preserving the stated low-heart communication alternative.",
+  "post_HJ_first_public_heart_resources": {
+    "south": "KQ",
+    "north": "A4"
+  },
+  "replacement_heart_transfer": "Cash HK with H4, then HQ overtaken by HA",
+  "replacement_transfer_actual_events": [
+    {
+      "card": "HQ",
+      "seat": "south",
+      "sequence": 24
+    },
+    {
+      "card": "HA",
+      "seat": "north",
+      "sequence": 26
+    }
+  ],
+  "replacement_transfer_completed": true,
+  "late_diamond_cashout_public_cards": "QJT9",
+  "east_public_spade_follows": [
+    "S4",
+    "S5",
+    "S6"
+  ],
+  "east_void_publicly_established": false,
+  "limits": "Three East spade follows and a later switch do not prove East exhausted spades. The replacement HQ-to-HA transfer has completed; the four diamond cashes and club-to-CA return have not occurred. Separate archived environment-only proof is not yet authorized/read here."
+}

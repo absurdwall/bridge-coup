@@ -1,0 +1,802 @@
+{
+  "id": "full-development-r2",
+  "case_id": "full-development",
+  "kind": "full",
+  "board": "boards/synthetic.json",
+  "decisions": null,
+  "opponent_policy": "conserve-high",
+  "execution_config_version": "stage1-reviewed-case-execution-v1",
+  "mechanical_sole_legal": true,
+  "task_complete": true,
+  "legal_execution": "pass",
+  "quality": "pass",
+  "playing": {
+    "exit_code": 0,
+    "wall_seconds": 271.657
+  },
+  "grading": {
+    "exit_code": 0,
+    "grading_evidence_available": true
+  },
+  "coverage": {
+    "status": "covered",
+    "basis": "All 52 actual cards consumed in thirteen independently replayed tricks."
+  },
+  "counts": {
+    "actual_events": 52,
+    "complete": true,
+    "tricks": [
+      10,
+      3
+    ],
+    "model_request_attempts": 20,
+    "reviewer_request_attempts": 20,
+    "actual_rpc_requests": 40,
+    "model_actions": 20,
+    "forced_actions": 6,
+    "driver_opponent_actions": 25,
+    "initial_controlled_actions": 0,
+    "initial_opponent_actions": 1,
+    "retries": 0
+  },
+  "wire": {
+    "upstream_request_attempts": 40,
+    "http_statuses": {
+      "200": 40
+    },
+    "transport_errors": [],
+    "missing_response_metadata": [],
+    "observed_response_models": [
+      "gpt-6.1-sol"
+    ],
+    "protocol_status": "pass",
+    "protocol_errors": [],
+    "roles": {
+      "player": {
+        "upstream_attempts": 20,
+        "usage_observed_attempts": 20,
+        "usage_unknown_attempts": 0,
+        "observed_tokens": {
+          "cached_input_tokens": 0,
+          "input_tokens": 238291,
+          "output_tokens": 2420,
+          "reasoning_output_tokens": 1155,
+          "total_tokens": 240711
+        }
+      },
+      "reviewer": {
+        "upstream_attempts": 20,
+        "usage_observed_attempts": 20,
+        "usage_unknown_attempts": 0,
+        "observed_tokens": {
+          "cached_input_tokens": 0,
+          "input_tokens": 48959,
+          "output_tokens": 3040,
+          "reasoning_output_tokens": 2466,
+          "total_tokens": 51999
+        }
+      },
+      "unknown": {
+        "upstream_attempts": 0,
+        "usage_observed_attempts": 0,
+        "usage_unknown_attempts": 0,
+        "observed_tokens": {}
+      }
+    },
+    "role_requests": [
+      {
+        "wire_request": 0,
+        "role": "player",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2369,
+          "output_tokens": 1291,
+          "total_tokens": 3660,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 1034
+        }
+      },
+      {
+        "wire_request": 1,
+        "role": "reviewer",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2111,
+          "output_tokens": 289,
+          "total_tokens": 2400,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 260
+        }
+      },
+      {
+        "wire_request": 2,
+        "role": "player",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 4266,
+          "output_tokens": 46,
+          "total_tokens": 4312,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 0
+        }
+      },
+      {
+        "wire_request": 3,
+        "role": "reviewer",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2133,
+          "output_tokens": 286,
+          "total_tokens": 2419,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 257
+        }
+      },
+      {
+        "wire_request": 4,
+        "role": "player",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 4926,
+          "output_tokens": 45,
+          "total_tokens": 4971,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 0
+        }
+      },
+      {
+        "wire_request": 5,
+        "role": "reviewer",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2202,
+          "output_tokens": 290,
+          "total_tokens": 2492,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 261
+        }
+      },
+      {
+        "wire_request": 6,
+        "role": "player",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 5593,
+          "output_tokens": 43,
+          "total_tokens": 5636,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 0
+        }
+      },
+      {
+        "wire_request": 7,
+        "role": "reviewer",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2217,
+          "output_tokens": 337,
+          "total_tokens": 2554,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 308
+        }
+      },
+      {
+        "wire_request": 8,
+        "role": "player",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 6347,
+          "output_tokens": 45,
+          "total_tokens": 6392,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 0
+        }
+      },
+      {
+        "wire_request": 9,
+        "role": "reviewer",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2301,
+          "output_tokens": 264,
+          "total_tokens": 2565,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 235
+        }
+      },
+      {
+        "wire_request": 10,
+        "role": "player",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 7115,
+          "output_tokens": 47,
+          "total_tokens": 7162,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 0
+        }
+      },
+      {
+        "wire_request": 11,
+        "role": "reviewer",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2318,
+          "output_tokens": 209,
+          "total_tokens": 2527,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 180
+        }
+      },
+      {
+        "wire_request": 12,
+        "role": "player",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 7974,
+          "output_tokens": 52,
+          "total_tokens": 8026,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 0
+        }
+      },
+      {
+        "wire_request": 13,
+        "role": "reviewer",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2404,
+          "output_tokens": 109,
+          "total_tokens": 2513,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 80
+        }
+      },
+      {
+        "wire_request": 14,
+        "role": "player",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 8915,
+          "output_tokens": 159,
+          "total_tokens": 9074,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 34
+        }
+      },
+      {
+        "wire_request": 15,
+        "role": "reviewer",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2446,
+          "output_tokens": 62,
+          "total_tokens": 2508,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 33
+        }
+      },
+      {
+        "wire_request": 16,
+        "role": "player",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 9877,
+          "output_tokens": 47,
+          "total_tokens": 9924,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 0
+        }
+      },
+      {
+        "wire_request": 17,
+        "role": "reviewer",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2271,
+          "output_tokens": 117,
+          "total_tokens": 2388,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 88
+        }
+      },
+      {
+        "wire_request": 18,
+        "role": "player",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 10806,
+          "output_tokens": 45,
+          "total_tokens": 10851,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 0
+        }
+      },
+      {
+        "wire_request": 19,
+        "role": "reviewer",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2340,
+          "output_tokens": 57,
+          "total_tokens": 2397,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 28
+        }
+      },
+      {
+        "wire_request": 20,
+        "role": "player",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 11756,
+          "output_tokens": 52,
+          "total_tokens": 11808,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 0
+        }
+      },
+      {
+        "wire_request": 21,
+        "role": "reviewer",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2374,
+          "output_tokens": 88,
+          "total_tokens": 2462,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 59
+        }
+      },
+      {
+        "wire_request": 22,
+        "role": "player",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 12789,
+          "output_tokens": 47,
+          "total_tokens": 12836,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 0
+        }
+      },
+      {
+        "wire_request": 23,
+        "role": "reviewer",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2436,
+          "output_tokens": 81,
+          "total_tokens": 2517,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 52
+        }
+      },
+      {
+        "wire_request": 24,
+        "role": "player",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 13865,
+          "output_tokens": 43,
+          "total_tokens": 13908,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 0
+        }
+      },
+      {
+        "wire_request": 25,
+        "role": "reviewer",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2494,
+          "output_tokens": 27,
+          "total_tokens": 2521,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 0
+        }
+      },
+      {
+        "wire_request": 26,
+        "role": "player",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 14974,
+          "output_tokens": 47,
+          "total_tokens": 15021,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 0
+        }
+      },
+      {
+        "wire_request": 27,
+        "role": "reviewer",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2535,
+          "output_tokens": 76,
+          "total_tokens": 2611,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 47
+        }
+      },
+      {
+        "wire_request": 28,
+        "role": "player",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 16151,
+          "output_tokens": 41,
+          "total_tokens": 16192,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 0
+        }
+      },
+      {
+        "wire_request": 29,
+        "role": "reviewer",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2588,
+          "output_tokens": 80,
+          "total_tokens": 2668,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 51
+        }
+      },
+      {
+        "wire_request": 30,
+        "role": "player",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 17359,
+          "output_tokens": 48,
+          "total_tokens": 17407,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 0
+        }
+      },
+      {
+        "wire_request": 31,
+        "role": "reviewer",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2632,
+          "output_tokens": 27,
+          "total_tokens": 2659,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 0
+        }
+      },
+      {
+        "wire_request": 32,
+        "role": "player",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 18675,
+          "output_tokens": 42,
+          "total_tokens": 18717,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 0
+        }
+      },
+      {
+        "wire_request": 33,
+        "role": "reviewer",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2720,
+          "output_tokens": 27,
+          "total_tokens": 2747,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 0
+        }
+      },
+      {
+        "wire_request": 34,
+        "role": "player",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 20041,
+          "output_tokens": 42,
+          "total_tokens": 20083,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 0
+        }
+      },
+      {
+        "wire_request": 35,
+        "role": "reviewer",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2772,
+          "output_tokens": 53,
+          "total_tokens": 2825,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 24
+        }
+      },
+      {
+        "wire_request": 36,
+        "role": "player",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 21454,
+          "output_tokens": 188,
+          "total_tokens": 21642,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 87
+        }
+      },
+      {
+        "wire_request": 37,
+        "role": "reviewer",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2845,
+          "output_tokens": 353,
+          "total_tokens": 3198,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 324
+        }
+      },
+      {
+        "wire_request": 38,
+        "role": "player",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 23039,
+          "output_tokens": 50,
+          "total_tokens": 23089,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 0
+        }
+      },
+      {
+        "wire_request": 39,
+        "role": "reviewer",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2820,
+          "output_tokens": 208,
+          "total_tokens": 3028,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 179
+        }
+      }
+    ],
+    "usage_note": "Upstream per-HTTP usage includes all observed failures/retries; missing remains unknown. Do not add this to native per-turn totals."
+  },
+  "requests": {
+    "status": "observed",
+    "attempts": 40,
+    "late_observations": 0,
+    "roles": {
+      "player": {
+        "attempts": 20,
+        "elapsed_seconds": 119.11203622817993,
+        "usage_observed_attempts": 20,
+        "usage_unknown_attempts": 0,
+        "usage_complete": true,
+        "observed_tokens": {
+          "cachedInputTokens": 0,
+          "inputTokens": 238291,
+          "outputTokens": 2420,
+          "reasoningOutputTokens": 1155,
+          "totalTokens": 240711
+        },
+        "outcomes": {
+          "valid": 20
+        },
+        "request_seconds": [
+          54.405057072639465,
+          2.5317260026931763,
+          2.815795063972473,
+          2.718304991722107,
+          3.380160093307495,
+          3.0689170360565186,
+          3.244981050491333,
+          7.237280011177063,
+          3.187716007232666,
+          3.0108280181884766,
+          2.8340409994125366,
+          2.4181299209594727,
+          2.4829009771347046,
+          2.3738489151000977,
+          2.7162760496139526,
+          2.944506049156189,
+          3.4242420196533203,
+          2.1707639694213867,
+          8.89487898349762,
+          3.251682996749878
+        ]
+      },
+      "reviewer": {
+        "attempts": 20,
+        "elapsed_seconds": 151.49317598342896,
+        "usage_observed_attempts": 20,
+        "usage_unknown_attempts": 0,
+        "usage_complete": true,
+        "observed_tokens": {
+          "cachedInputTokens": 0,
+          "inputTokens": 48959,
+          "outputTokens": 3040,
+          "reasoningOutputTokens": 2466,
+          "totalTokens": 51999
+        },
+        "outcomes": {
+          "valid": 20
+        },
+        "request_seconds": [
+          14.164888978004456,
+          13.918943047523499,
+          12.914418935775757,
+          15.563669919967651,
+          13.384188055992126,
+          11.418848991394043,
+          5.591297030448914,
+          2.862046957015991,
+          4.537115931510925,
+          2.8569899797439575,
+          5.37646210193634,
+          4.275370001792908,
+          2.986245036125183,
+          4.256699919700623,
+          4.402070045471191,
+          2.629715919494629,
+          2.458176016807556,
+          4.956402063369751,
+          12.141723990440369,
+          10.797903060913086
+        ]
+      }
+    },
+    "reviewer_retries": 0,
+    "semantic_reviews": 20,
+    "feedback_revisions": 0,
+    "clarification_requests": 0,
+    "usage_note": "Observed native per-turn last usage, including failed attempts when available. Missing is unknown, never zero; late observations are not extra requests."
+  },
+  "dispositions": {
+    "reviewApproved": 20,
+    "contested": 0
+  },
+  "stop_outcome": "board-complete",
+  "grader_cost": {
+    "elapsed_seconds": 64.408,
+    "observed_usage": [
+      {
+        "input_tokens": 143367,
+        "cached_input_tokens": 6912,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2524,
+        "reasoning_output_tokens": 187
+      }
+    ],
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "medium"
+  },
+  "timing": {
+    "elapsedSeconds": 271.3540270328522,
+    "lastControlledActionSeconds": 271.3540270328522,
+    "environmentOverheadSeconds": 0.7245360612869263,
+    "initialRequestSeconds": 68.57554805278778,
+    "subsequentRequestSeconds": [
+      16.45151400566101,
+      15.731131911277771,
+      18.28289794921875,
+      16.765294075012207,
+      14.48875892162323,
+      8.837199091911316,
+      10.100231051445007,
+      7.725741028785706,
+      5.86876904964447,
+      8.2116379737854,
+      6.69442892074585,
+      5.469995021820068,
+      6.631734013557434,
+      7.119354963302612,
+      5.575281977653503,
+      5.883317947387695,
+      7.128268003463745,
+      21.03779101371765,
+      14.050595998764038
+    ],
+    "failedRequestSeconds": null,
+    "automaticRuntimeSeconds": 271.3540270328522,
+    "humanWaitingSeconds": 0
+  },
+  "quality_counts": {
+    "pass": 20,
+    "fail": 0,
+    "uncertain": 0
+  },
+  "review_required": [],
+  "plan_updates": {
+    "keep": 17,
+    "replace": 3,
+    "withdraw": 0
+  },
+  "failures": [],
+  "outcome": "pass"
+}

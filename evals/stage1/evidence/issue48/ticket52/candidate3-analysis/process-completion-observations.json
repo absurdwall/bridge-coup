@@ -1,0 +1,255 @@
+{
+  "observed_utc": "2026-10-23T23:10:30.543808+00:00",
+  "pid": 88935,
+  "orchestrator_present": false,
+  "detached_orchestrator_os_exit": null,
+  "original_execution_finished": {
+    "utc": "2026-10-23T23:08:50.209040+00:00",
+    "attempts": 22
+  },
+  "per_attempt_process_returns": [
+    {
+      "attempt": "short-1-r1",
+      "playing": {
+        "exit_code": 0,
+        "wall_seconds": 43.195
+      },
+      "grading": {
+        "exit_code": 0,
+        "grading_evidence_available": true
+      }
+    },
+    {
+      "attempt": "short-1-r2",
+      "playing": {
+        "exit_code": 0,
+        "wall_seconds": 58.014
+      },
+      "grading": {
+        "exit_code": 0,
+        "grading_evidence_available": true
+      }
+    },
+    {
+      "attempt": "short-1-r3",
+      "playing": {
+        "exit_code": 0,
+        "wall_seconds": 100.207
+      },
+      "grading": {
+        "exit_code": 0,
+        "grading_evidence_available": true
+      }
+    },
+    {
+      "attempt": "short-2-r1",
+      "playing": {
+        "exit_code": 0,
+        "wall_seconds": 204.151
+      },
+      "grading": {
+        "exit_code": 0,
+        "grading_evidence_available": true
+      }
+    },
+    {
+      "attempt": "short-2-r2",
+      "playing": {
+        "exit_code": 0,
+        "wall_seconds": 136.461
+      },
+      "grading": {
+        "exit_code": 0,
+        "grading_evidence_available": true
+      }
+    },
+    {
+      "attempt": "short-2-r3",
+      "playing": {
+        "exit_code": 0,
+        "wall_seconds": 133.125
+      },
+      "grading": {
+        "exit_code": 0,
+        "grading_evidence_available": true
+      }
+    },
+    {
+      "attempt": "short-3-r1",
+      "playing": {
+        "exit_code": 0,
+        "wall_seconds": 199.082
+      },
+      "grading": {
+        "exit_code": 0,
+        "grading_evidence_available": true
+      }
+    },
+    {
+      "attempt": "short-3-r2",
+      "playing": {
+        "exit_code": 0,
+        "wall_seconds": 255.772
+      },
+      "grading": {
+        "exit_code": 0,
+        "grading_evidence_available": true
+      }
+    },
+    {
+      "attempt": "short-3-r3",
+      "playing": {
+        "exit_code": 0,
+        "wall_seconds": 264.398
+      },
+      "grading": {
+        "exit_code": 0,
+        "grading_evidence_available": true
+      }
+    },
+    {
+      "attempt": "short-4-r1",
+      "playing": {
+        "exit_code": 0,
+        "wall_seconds": 214.132
+      },
+      "grading": {
+        "exit_code": 0,
+        "grading_evidence_available": true
+      }
+    },
+    {
+      "attempt": "short-4-r2",
+      "playing": {
+        "exit_code": 0,
+        "wall_seconds": 260.877
+      },
+      "grading": {
+        "exit_code": 0,
+        "grading_evidence_available": true
+      }
+    },
+    {
+      "attempt": "short-4-r3",
+      "playing": {
+        "exit_code": 0,
+        "wall_seconds": 247.536
+      },
+      "grading": {
+        "exit_code": 0,
+        "grading_evidence_available": true
+      }
+    },
+    {
+      "attempt": "short-5-r1",
+      "playing": {
+        "exit_code": 0,
+        "wall_seconds": 360.176
+      },
+      "grading": {
+        "exit_code": 0,
+        "grading_evidence_available": true
+      }
+    },
+    {
+      "attempt": "short-5-r2",
+      "playing": {
+        "exit_code": 0,
+        "wall_seconds": 332.456
+      },
+      "grading": {
+        "exit_code": 0,
+        "grading_evidence_available": true
+      }
+    },
+    {
+      "attempt": "short-5-r3",
+      "playing": {
+        "exit_code": 0,
+        "wall_seconds": 333.515
+      },
+      "grading": {
+        "exit_code": 0,
+        "grading_evidence_available": true
+      }
+    },
+    {
+      "attempt": "short-6-r1",
+      "playing": {
+        "exit_code": 0,
+        "wall_seconds": 186.919
+      },
+      "grading": {
+        "exit_code": 0,
+        "grading_evidence_available": true
+      }
+    },
+    {
+      "attempt": "short-6-r2",
+      "playing": {
+        "exit_code": 0,
+        "wall_seconds": 202.139
+      },
+      "grading": {
+        "exit_code": 0,
+        "grading_evidence_available": true
+      }
+    },
+    {
+      "attempt": "short-6-r3",
+      "playing": {
+        "exit_code": 0,
+        "wall_seconds": 201.288
+      },
+      "grading": {
+        "exit_code": 0,
+        "grading_evidence_available": true
+      }
+    },
+    {
+      "attempt": "full-development-r1",
+      "playing": {
+        "exit_code": 0,
+        "wall_seconds": 292.955
+      },
+      "grading": {
+        "exit_code": 0,
+        "grading_evidence_available": true
+      }
+    },
+    {
+      "attempt": "full-development-r2",
+      "playing": {
+        "exit_code": 0,
+        "wall_seconds": 275.762
+      },
+      "grading": {
+        "exit_code": 0,
+        "grading_evidence_available": true
+      }
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "playing": {
+        "exit_code": 0,
+        "wall_seconds": 264.393
+      },
+      "grading": {
+        "exit_code": 0,
+        "grading_evidence_available": true
+      }
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "playing": {
+        "exit_code": 0,
+        "wall_seconds": 253.064
+      },
+      "grading": {
+        "exit_code": 0,
+        "grading_evidence_available": true
+      }
+    }
+  ],
+  "scope": "Original22 sequential matrix completion is established by original finish marker plus actual per-attempt process returns, not by inferred detached OS exit or quality approval."
+}

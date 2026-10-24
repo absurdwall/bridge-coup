@@ -1,0 +1,16 @@
+.......F.....
+======================================================================
+FAIL: test_one_consumed_honor_and_real_entry_choice_is_limited_pending_coverage (test_acceptance.AcceptanceTests.test_one_consumed_honor_and_real_entry_choice_is_limited_pending_coverage)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tingranwang/.codex/worktrees/stage1-correction-eval/bridge-coup/evals/stage1/tests/test_acceptance.py", line 23, in test_one_consumed_honor_and_real_entry_choice_is_limited_pending_coverage
+    self.assertEqual(result['status'], 'pending')
+AssertionError: 'uncovered' != 'pending'
+- uncovered
++ pending
+
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.368s
+
+FAILED (failures=1)

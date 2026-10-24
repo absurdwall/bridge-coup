@@ -1,0 +1,231 @@
+{
+  "source": "historical original traces; correction helper overlay only",
+  "playing_model_called": false,
+  "not_stage_acceptance": true,
+  "attempts": [
+    {
+      "attempt": "full-development-r1",
+      "coverage": {
+        "status": "covered",
+        "basis": "All 52 actual cards consumed in thirteen independently replayed tricks."
+      }
+    },
+    {
+      "attempt": "full-development-r2",
+      "coverage": {
+        "status": "covered",
+        "basis": "All 52 actual cards consumed in thirteen independently replayed tricks."
+      }
+    },
+    {
+      "attempt": "full-reserved-r1",
+      "coverage": {
+        "status": "covered",
+        "basis": "All 52 actual cards consumed in thirteen independently replayed tricks."
+      }
+    },
+    {
+      "attempt": "full-reserved-r2",
+      "coverage": {
+        "status": "covered",
+        "basis": "All 52 actual cards consumed in thirteen independently replayed tricks."
+      }
+    },
+    {
+      "attempt": "short-1-r1",
+      "coverage": {
+        "status": "covered",
+        "basis": "Initial actual model plan before the first controlled action."
+      }
+    },
+    {
+      "attempt": "short-1-r2",
+      "coverage": {
+        "status": "covered",
+        "basis": "Initial actual model plan before the first controlled action."
+      }
+    },
+    {
+      "attempt": "short-1-r3",
+      "coverage": {
+        "status": "covered",
+        "basis": "Initial actual model plan before the first controlled action."
+      }
+    },
+    {
+      "attempt": "short-2-r1",
+      "coverage": {
+        "status": "pending",
+        "basis": "At least three actual decisions; absence of a newly disproved plan premise requires independent review."
+      }
+    },
+    {
+      "attempt": "short-2-r2",
+      "coverage": {
+        "status": "pending",
+        "basis": "At least three actual decisions; absence of a newly disproved plan premise requires independent review."
+      }
+    },
+    {
+      "attempt": "short-2-r3",
+      "coverage": {
+        "status": "pending",
+        "basis": "At least three actual decisions; absence of a newly disproved plan premise requires independent review."
+      }
+    },
+    {
+      "attempt": "short-3-r1",
+      "coverage": {
+        "status": "pending",
+        "basis": "Actual information windows observed; factual use, justified retention/replacement and non-invention require independent review.",
+        "facets": {
+          "two_round_break_decision_revisions": [
+            12,
+            16,
+            18,
+            21,
+            24,
+            26
+          ],
+          "third_club_before_other_defender_revisions": []
+        }
+      }
+    },
+    {
+      "attempt": "short-3-r2",
+      "coverage": {
+        "status": "uncovered",
+        "basis": "Actual information windows observed; factual use, justified retention/replacement and non-invention require independent review.",
+        "facets": {
+          "two_round_break_decision_revisions": [],
+          "third_club_before_other_defender_revisions": []
+        }
+      }
+    },
+    {
+      "attempt": "short-3-r3",
+      "coverage": {
+        "status": "pending",
+        "basis": "Actual information windows observed; factual use, justified retention/replacement and non-invention require independent review.",
+        "facets": {
+          "two_round_break_decision_revisions": [
+            16,
+            18,
+            20,
+            22
+          ],
+          "third_club_before_other_defender_revisions": []
+        }
+      }
+    },
+    {
+      "attempt": "short-4-r1",
+      "coverage": {
+        "status": "uncovered",
+        "basis": "Consumed honor plus remaining-club/heart-entry opportunity; actual necessary transport and explanation require independent review.",
+        "facets": {
+          "consumed_club_honors": [],
+          "entry_opportunity_revisions": [],
+          "post_two_honors": false
+        }
+      }
+    },
+    {
+      "attempt": "short-4-r2",
+      "coverage": {
+        "status": "pending",
+        "basis": "Consumed honor plus remaining-club/heart-entry opportunity; actual necessary transport and explanation require independent review.",
+        "facets": {
+          "consumed_club_honors": [
+            "CQ"
+          ],
+          "entry_opportunity_revisions": [
+            12,
+            14,
+            17,
+            19,
+            23,
+            25,
+            27,
+            29,
+            31,
+            32
+          ],
+          "post_two_honors": false
+        }
+      }
+    },
+    {
+      "attempt": "short-4-r3",
+      "coverage": {
+        "status": "uncovered",
+        "basis": "Consumed honor plus remaining-club/heart-entry opportunity; actual necessary transport and explanation require independent review.",
+        "facets": {
+          "consumed_club_honors": [],
+          "entry_opportunity_revisions": [],
+          "post_two_honors": false
+        }
+      }
+    },
+    {
+      "attempt": "short-5-r1",
+      "coverage": {
+        "status": "pending",
+        "basis": "Diamond attempt, retained North CA and later controlled decision observed; gift/entry meaning requires independent review."
+      }
+    },
+    {
+      "attempt": "short-5-r2",
+      "coverage": {
+        "status": "pending",
+        "basis": "Diamond attempt, retained North CA and later controlled decision observed; gift/entry meaning requires independent review."
+      }
+    },
+    {
+      "attempt": "short-5-r3",
+      "coverage": {
+        "status": "pending",
+        "basis": "Diamond attempt, retained North CA and later controlled decision observed; gift/entry meaning requires independent review."
+      }
+    },
+    {
+      "attempt": "short-6-r1",
+      "coverage": {
+        "status": "uncovered",
+        "basis": "Actual pre-DA-loss hold-up, spade continuation, diamond response and later decision are required; communication meaning still needs independent review.",
+        "facets": {
+          "hold_up_before_diamond_ace_loss": false,
+          "spade_continuation_before_diamond_ace_loss": false,
+          "diamond_ace_defensive_response": true,
+          "later_controlled_decision": true
+        }
+      }
+    },
+    {
+      "attempt": "short-6-r2",
+      "coverage": {
+        "status": "uncovered",
+        "basis": "Actual pre-DA-loss hold-up, spade continuation, diamond response and later decision are required; communication meaning still needs independent review.",
+        "facets": {
+          "hold_up_before_diamond_ace_loss": false,
+          "spade_continuation_before_diamond_ace_loss": false,
+          "diamond_ace_defensive_response": true,
+          "later_controlled_decision": true
+        }
+      }
+    },
+    {
+      "attempt": "short-6-r3",
+      "coverage": {
+        "status": "uncovered",
+        "basis": "Actual pre-DA-loss hold-up, spade continuation, diamond response and later decision are required; communication meaning still needs independent review.",
+        "facets": {
+          "hold_up_before_diamond_ace_loss": false,
+          "spade_continuation_before_diamond_ace_loss": false,
+          "diamond_ace_defensive_response": true,
+          "later_controlled_decision": true
+        }
+      }
+    }
+  ]
+}

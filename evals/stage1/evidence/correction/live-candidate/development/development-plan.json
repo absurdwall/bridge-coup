@@ -1,0 +1,34 @@
+[
+  {
+    "id": "development-normal",
+    "case_id": "short-2",
+    "kind": "short",
+    "board": "boards/synthetic.json",
+    "decisions": 8,
+    "opponent_policy": "conserve-high"
+  },
+  {
+    "id": "development-entries",
+    "case_id": "short-4",
+    "kind": "short",
+    "board": "boards/synthetic.json",
+    "decisions": 16,
+    "opponent_policy": "conserve-high"
+  },
+  {
+    "id": "development-former-reserve",
+    "case_id": "full-reserved",
+    "kind": "short",
+    "board": "boards/reserved-acceptance.json",
+    "decisions": 8,
+    "opponent_policy": "conserve-high"
+  },
+  {
+    "id": "development-walker",
+    "case_id": "short-6",
+    "kind": "short",
+    "board": "boards/walker-holdup-adapted.json",
+    "decisions": 12,
+    "opponent_policy": "conserve-high"
+  }
+]

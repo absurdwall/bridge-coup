@@ -1,0 +1,77 @@
+{
+  "purpose": "Predeclared follow-up to the10 history probes: distinguish recent opaque reasoning from older/larger history; not acceptance.",
+  "runtime": "Same native0.160.0 and production CodexPlayingTransport/LunaMedium/no-tools; temporary RPC relay uses locally generated supported method thread/inject_items.",
+  "schedule": [
+    {
+      "id": "d12-full-r1",
+      "decision": 12,
+      "history": "full",
+      "repeat": 1,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/reasoning-window-study/seed-d12-full.json"
+    },
+    {
+      "id": "d12-public-r1",
+      "decision": 12,
+      "history": "public",
+      "repeat": 1,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/reasoning-window-study/seed-d12-public.json"
+    },
+    {
+      "id": "d12-last-only-r1",
+      "decision": 12,
+      "history": "last-only",
+      "repeat": 1,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/reasoning-window-study/seed-d12-last-only.json"
+    },
+    {
+      "id": "d12-all-but-last-r1",
+      "decision": 12,
+      "history": "all-but-last",
+      "repeat": 1,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/reasoning-window-study/seed-d12-all-but-last.json"
+    },
+    {
+      "id": "d12-all-but-last-r2",
+      "decision": 12,
+      "history": "all-but-last",
+      "repeat": 2,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/reasoning-window-study/seed-d12-all-but-last.json"
+    },
+    {
+      "id": "d12-last-only-r2",
+      "decision": 12,
+      "history": "last-only",
+      "repeat": 2,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/reasoning-window-study/seed-d12-last-only.json"
+    },
+    {
+      "id": "d12-public-r2",
+      "decision": 12,
+      "history": "public",
+      "repeat": 2,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/reasoning-window-study/seed-d12-public.json"
+    },
+    {
+      "id": "d12-full-r2",
+      "decision": 12,
+      "history": "full",
+      "repeat": 2,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/reasoning-window-study/seed-d12-full.json"
+    }
+  ],
+  "count": 8,
+  "predictions": [
+    "If the most recent reasoning item carries the critical influence, last-only may retain CJ while all-but-last improves CA choice.",
+    "If cumulative older history or load dominates, all-but-last may retain the error while last-only improves. Full/public contemporaneous controls test whether the earlier contrast persists."
+  ],
+  "policy": "Two predetermined replicates per named condition; sequential, no retries/fallback/answer repair. History contains only the actual original authorized prefix, never a desired answer. Every injected/fresh HTTP request must be audited before interpreting content.",
+  "limits": "History injection is diagnostic, not a product recovery feature. New sampling/time still vary; two samples per cell cannot establish reliability or exact probability. A failed injected request remains an unsuccessful probe; no silent fallback."
+}

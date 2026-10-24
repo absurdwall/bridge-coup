@@ -1,0 +1,34 @@
+[
+  {
+    "id": "luna-medium-plan-2",
+    "status": "completed",
+    "model": "gpt-6-luna",
+    "effort": "medium",
+    "observed_model": "gpt-6-luna",
+    "schema_order": [
+      "plan",
+      "publicReason",
+      "selectedCard"
+    ],
+    "thread_id": "01a14fdd-f6a1-7322-b0f7-2ad2e5cb8f7f",
+    "turn_id": "01a14fde-02d7-75d2-aa9d-2afba02b487d",
+    "wall_seconds": 10.7420265,
+    "retries": 0
+  },
+  {
+    "id": "luna-medium-reason-2",
+    "status": "completed",
+    "model": "gpt-6-luna",
+    "effort": "medium",
+    "observed_model": "gpt-6-luna",
+    "schema_order": [
+      "publicReason",
+      "plan",
+      "selectedCard"
+    ],
+    "thread_id": "01a14fde-1f7d-71f3-9b5c-3c13eb897bcf",
+    "turn_id": "01a14fde-2a9c-70f3-8b4f-30af72624c24",
+    "wall_seconds": 9.6355345,
+    "retries": 0
+  }
+]

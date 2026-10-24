@@ -1,0 +1,36 @@
+[0/1] Planning build
+Building for debugging...
+[0/7] Write sources
+[1/7] Write swift-version--58304C5D6DBC2206.txt
+[3/7] Compiling BridgeDriver BoardDriver.swift
+[4/7] Emitting module BridgeDriver
+[4/9] Write Objects.LinkFileList
+[6/9] Linking bridge-play
+[7/9] Applying bridge-play
+[8/9] Linking BridgeTeacherPackageTests
+Build complete! (1.43s)
+Test Suite 'Selected tests' started at 2026-10-18 04:09:17.922.
+Test Suite 'BridgeTeacherPackageTests.xctest' started at 2026-10-18 04:09:17.922.
+Test Suite 'FullBoardTests' started at 2026-10-18 04:09:17.922.
+Test Case '-[BridgePlayingTests.FullBoardTests testFullDriverRequiresInitialPlanThenLabelsForcedActionsAndCountsPrefix]' started.
+Test Case '-[BridgePlayingTests.FullBoardTests testFullDriverRequiresInitialPlanThenLabelsForcedActionsAndCountsPrefix]' passed (0.005 seconds).
+Test Case '-[BridgePlayingTests.FullBoardTests testLegalChoiceSchemaUsesCompleteAuthoritativeFollowSuitSet]' started.
+Test Case '-[BridgePlayingTests.FullBoardTests testLegalChoiceSchemaUsesCompleteAuthoritativeFollowSuitSet]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.FullBoardTests testLiteralThirteenTricksConsumeAllCardsAndFinishedBoardRejectsMoreWork]' started.
+Test Case '-[BridgePlayingTests.FullBoardTests testLiteralThirteenTricksConsumeAllCardsAndFinishedBoardRejectsMoreWork]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.FullBoardTests testPavlicekPolicyDucksFirstHonorButCoversNineAgainstActualLegalState]' started.
+Test Case '-[BridgePlayingTests.FullBoardTests testPavlicekPolicyDucksFirstHonorButCoversNineAgainstActualLegalState]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.FullBoardTests testRunBudgetStopsBeforeExecutionAndPreservesUnexecutedDecision]' started.
+Test Case '-[BridgePlayingTests.FullBoardTests testRunBudgetStopsBeforeExecutionAndPreservesUnexecutedDecision]' passed (0.045 seconds).
+Test Case '-[BridgePlayingTests.FullBoardTests testWorkedTrumpAndNotrumpWinnersAndNoObligationToRuffOrOverruff]' started.
+Test Case '-[BridgePlayingTests.FullBoardTests testWorkedTrumpAndNotrumpWinnersAndNoObligationToRuffOrOverruff]' passed (0.002 seconds).
+Test Suite 'FullBoardTests' passed at 2026-10-18 04:09:17.977.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.054 (0.054) seconds
+Test Suite 'BridgeTeacherPackageTests.xctest' passed at 2026-10-18 04:09:17.977.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.054 (0.054) seconds
+Test Suite 'Selected tests' passed at 2026-10-18 04:09:17.977.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.054 (0.055) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

@@ -1,0 +1,133 @@
+{
+  "action" : {
+    "actingSeat" : "south",
+    "boardID" : "731CA140-E79D-4515-A593-CBFEDEEE148A",
+    "card" : "CA",
+    "controller" : "south",
+    "revision" : 4,
+    "snapshotID" : "731CA140-E79D-4515-A593-CBFEDEEE148A:4:south"
+  },
+  "advice" : {
+    "plan" : {
+      "update" : "keep"
+    },
+    "publicReason" : "Lead CA as planned: it is a sure winner and begins the club development while preserving CK and the small clubs for the route toward dummy’s CQ.",
+    "selectedCard" : "CA"
+  },
+  "effectivePlan" : "South plays DK now and wins; South leads next, with DA retained. Try CA, CK, then C4 toward dummy’s CQ. If CQ wins, dummy leads C2 toward South’s C8; a 3–2 club break may make C8 the fourth club winner. Then lead H3 toward dummy’s H7: if West covers with the queen, dummy can win with HK; otherwise try H7. If dummy wins, lead H4 toward South’s HA. The target is four clubs, two diamonds (DK now and DA later), two hearts, and SA for nine tricks. Club honors, the break, and the heart finesse are uncertain, so reassess as cards appear.",
+  "elapsedSeconds" : 4.082784056663513,
+  "identity" : {
+    "observedModel" : "gpt-6-luna",
+    "requestedEffort" : "xhigh",
+    "requestedModel" : "gpt-6-luna",
+    "runtimeVersion" : "codex-cli 0.160.0",
+    "threadID" : "01a15020-525b-7870-8b07-2ca0989a104d",
+    "turnID" : "01a15021-7ea6-70d1-875e-6a881f050ca0"
+  },
+  "input" : "Decision snapshot: 731CA140-E79D-4515-A593-CBFEDEEE148A:4:south. Controller: South. Acting hand: South.\nPrevious suggestion actually executed: yes.\nCurrent action: South (declarer) leads a new trick.\nLegal current choices: SA, S9, S4, HA, H6, H3, DA, CA, CK, C8, C6, C4.\nNew actual plays in order:\n3: South DK (model).\nCurrent trick: .\nTricks won: declarer 1, defenders 0.",
+  "instructions" : "Play declarer and dummy from the supplied decision-time information, in English, pursuing the stated objective. Card codes give suit S\/H\/D\/C followed by rank; rank order is A K Q J T 9 8 7 6 5 4 3 2, high to low. A trick is won by its highest trump, or its highest card of the led suit when no trump is played. Form a concrete route to enough tricks by accounting for what each proposed trick consumes from both hands, which card wins it and which hand leads next. Carry the resulting remaining cards and entries forward through the route, and reassess it as actual play warrants. Derive publicReason and the single selectedCard to play now from the effective plan, current trick and remaining cards of the acting hand. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide the initial plan before dummy's first play. Unknown cards remain unknown.",
+  "planAssociation" : {
+    "boardID" : "731CA140-E79D-4515-A593-CBFEDEEE148A",
+    "controller" : "south",
+    "sourceSessionID" : "05675339-036E-4DC1-9777-093FF3D5D684",
+    "sourceSnapshotID" : "731CA140-E79D-4515-A593-CBFEDEEE148A:3:south",
+    "text" : "South plays DK now and wins; South leads next, with DA retained. Try CA, CK, then C4 toward dummy’s CQ. If CQ wins, dummy leads C2 toward South’s C8; a 3–2 club break may make C8 the fourth club winner. Then lead H3 toward dummy’s H7: if West covers with the queen, dummy can win with HK; otherwise try H7. If dummy wins, lead H4 toward South’s HA. The target is four clubs, two diamonds (DK now and DA later), two hearts, and SA for nine tricks. Club honors, the break, and the heart finesse are uncertain, so reassess as cards appear."
+  },
+  "rawOutput" : "{\"publicReason\":\"Lead CA as planned: it is a sure winner and begins the club development while preserving CK and the small clubs for the route toward dummy’s CQ.\",\"plan\":{\"text\":null,\"update\":\"keep\"},\"selectedCard\":\"CA\"}",
+  "session" : {
+    "id" : "4A562171-1EB2-4E78-8DC7-4F064B8B12AE",
+    "snapshotID" : "731CA140-E79D-4515-A593-CBFEDEEE148A:4:south"
+  },
+  "snapshot" : {
+    "actingSeat" : "south",
+    "boardID" : "731CA140-E79D-4515-A593-CBFEDEEE148A",
+    "contract" : {
+      "declarer" : "south",
+      "level" : 3,
+      "strain" : "noTrump"
+    },
+    "controller" : "south",
+    "currentTrick" : [
+
+    ],
+    "declarerTricks" : 1,
+    "defenderTricks" : 0,
+    "events" : [
+      {
+        "card" : "DQ",
+        "seat" : "west",
+        "sequence" : 0
+      },
+      {
+        "card" : "D3",
+        "seat" : "north",
+        "sequence" : 1
+      },
+      {
+        "card" : "D4",
+        "seat" : "east",
+        "sequence" : 2
+      },
+      {
+        "card" : "DK",
+        "seat" : "south",
+        "sequence" : 3
+      }
+    ],
+    "hands" : [
+      {
+        "cards" : [
+          "SA",
+          "S9",
+          "S4",
+          "HA",
+          "H6",
+          "H3",
+          "DA",
+          "CA",
+          "CK",
+          "C8",
+          "C6",
+          "C4"
+        ],
+        "seat" : "south"
+      },
+      {
+        "cards" : [
+          "S8",
+          "S6",
+          "S2",
+          "HK",
+          "H7",
+          "H4",
+          "D8",
+          "D6",
+          "D5",
+          "CQ",
+          "C7",
+          "C2"
+        ],
+        "seat" : "north"
+      }
+    ],
+    "legalCards" : [
+      "SA",
+      "S9",
+      "S4",
+      "HA",
+      "H6",
+      "H3",
+      "DA",
+      "CA",
+      "CK",
+      "C8",
+      "C6",
+      "C4"
+    ],
+    "objective" : "Normal IMP strategy, weighing contract risk and overtricks.",
+    "revision" : 4,
+    "scoring" : "IMP",
+    "vulnerability" : "neither"
+  },
+  "wireContractVersion" : "stage1-plan-variants-v4"
+}

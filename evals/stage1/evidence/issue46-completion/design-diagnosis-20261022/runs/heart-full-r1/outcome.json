@@ -1,0 +1,29 @@
+{
+  "id": "heart-full-r1",
+  "source_decision": 6,
+  "repeat": 1,
+  "clear_effective_plan": false,
+  "include_current_winning_play": true,
+  "task": "normal-play-output",
+  "request": "requests/heart-full-r1.json",
+  "sha256": "ece6f681565087cb89c2fa0d7091d8b27a16dbed548539051014ff3686d7a776",
+  "exit_code": 0,
+  "raw_output": {
+    "plan": {
+      "update": "replace",
+      "text": "Discard C4 on the current spade trick; West wins with ST. On the next lead, develop dummy's D KQJT, noting East's DA is already gone, and use the resulting diamond winners as entries/cash them while preserving South's D543 as needed. Cash the heart honors and club honors for further tricks; avoid relying on SA, which has already been played."
+    },
+    "selectedCard": "C4",
+    "publicReason": "Discard the low club, preserving dummy's diamond sequence and heart ace while West takes the spade trick."
+  },
+  "identity": {
+    "observedModel": "gpt-6-luna",
+    "requestedEffort": "medium",
+    "requestedModel": "gpt-6-luna",
+    "runtimeVersion": "codex-cli 0.160.0",
+    "threadID": "01a163d2-c501-7713-a59c-193757b1ad71",
+    "turnID": "01a163d2-c515-7623-b493-ec9014f17561"
+  },
+  "narrow_card_check": "C4",
+  "elapsed_seconds": 8.174
+}

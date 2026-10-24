@@ -1,0 +1,76 @@
+{
+  "baseCommit": "c6de45b79e4ff857fd86d4de959c5210733f4fa9",
+  "purpose": "Bounded candidate2 source preparation after all22 candidate1 attempts/adjudication; not a live validation cycle.",
+  "candidate1Final": {
+    "attempts": 22,
+    "qualityPass": 17,
+    "qualityFail": 5,
+    "deliveredPass": 247,
+    "deliveredFail": 22,
+    "fullBoardsPass": 4
+  },
+  "instructionVersions": {
+    "Sources/BridgeExpert/Resources/DeclarerInstructions.txt": {
+      "beforeSha256": "7216835b26ad7b9aa8c00fb9870d1c7a95837953059927623c1d6800efbebf90",
+      "afterSha256": "cb8c73f9e65eb3234e296240ff1bd3058cf657f3dd4a14fe536de24ab0015f48",
+      "beforeWords": 1225,
+      "afterWords": 1311
+    },
+    "Sources/BridgeExpert/Resources/ReviewerInstructions.txt": {
+      "beforeSha256": "6abfef19977a81a426a48afe12430e7bcc9f7170faef43a298d8313b6dbc9b37",
+      "afterSha256": "be4edb3055da50aab8299f10b890a5936a09ff09e9cfbf5f9489df8790e11fb3",
+      "beforeWords": 786,
+      "afterWords": 857
+    }
+  },
+  "changedSources": {
+    "Sources/BridgeExpert/Resources/DeclarerInstructions.txt": "cb8c73f9e65eb3234e296240ff1bd3058cf657f3dd4a14fe536de24ab0015f48",
+    "Sources/BridgeExpert/Resources/ReviewerInstructions.txt": "be4edb3055da50aab8299f10b890a5936a09ff09e9cfbf5f9489df8790e11fb3",
+    "Sources/BridgeDriver/BoardDriver.swift": "7cfad8b30ebb44192f3cd8a626436325452860a3dd3714d22789cd55681b4e05",
+    "evals/stage1/acceptance.py": "6398a909b51d8da6dbe1461830208b361268b28c2ffe99fc0005acfbd756b063",
+    "evals/stage1/coverage_windows.py": "141801c5dcc34a6c076341c856e9ebe02af87b22d2c43bded4269ca35d745e39",
+    "evals/stage1/case-execution.json": "3e67132d153884e90eb9168128c279cb947af460ed2fc3a553697b19e81eb382"
+  },
+  "unchangedMaterial": {
+    "evals/stage1/rubric.txt": "e807d01437b52f7ec6e93261baa6ce0a389c064daf28b0be9b816fb70eca8e96",
+    "evals/stage1/corpus/boards/pavlicek-deep-finesse.json": "45db555b83a7f74ebd3cd843b043007c1ad27c6b1a6e7b33048b83fc34122580",
+    "evals/stage1/corpus/boards/reserved-acceptance.json": "446a1020cc7295d6e6d9f58adca1ff040dd1671f5d9a3664bba30cf5d8d53f03",
+    "evals/stage1/corpus/boards/synthetic.json": "b37080a2bc16df91dd1991ef60ec6487558a3fc1ee8f8352819747cfd953d077",
+    "evals/stage1/corpus/boards/walker-holdup-adapted.json": "1ee7dd3747426124dee7cd29f914aa8677818ad6558e2e5a327373cdacbea208",
+    "evals/stage1/corpus/communication-reachability.json": "0c2e605dcbd0cb5c93016e5bbc3838ccfef7e038cc78e8e22ac8844b5fd8d051",
+    "evals/stage1/corpus/manifest.json": "e749f821090242e3f2d7dcfec256743ca874bb0b4bef69f0c7d10a08e8247309",
+    "evals/stage1/corpus/synthetic-demonstration.json": "b5bb5702ac62f4bbdbe24863375c3c05c59a579157767d1715fbfde6519474a5"
+  },
+  "unchangedRuntimeContracts": {
+    "Sources/BridgeExpert/Expert.swift": "1b519613a60e1d29ecdfd1299641a6e332e6eae5ca47ae1640306bbc6a74a736",
+    "Sources/BridgeExpert/PlayReview.swift": "c2628c95c1d22874407ce4f15e99ae356b3c797f33605d0dca03dd701f0bf26e",
+    "Sources/BridgeCodex/CodexTransport.swift": "fd5f8497b5d7f3cafc6853582e938e8b2b26f1543d1583e9e437924856738e9c",
+    "Sources/BridgeCodex/CodexReviewTransport.swift": "d8ddbc207c529a0a528043e7fb57481dac22add7fa41c1034184de19a708cfa1"
+  },
+  "reviewStatus": "Implementation writing-for-agents self-check complete; independent Standards/Spec/WFA review required before freeze.",
+  "candidate1IndexSha256": "874b05c2e9ff8ee2a3cc4e6cc1724caf7a27f3ab967d189188d452e6c4809b00",
+  "refreshedFullBoardReviewHashes": {
+    "full-development-r1": "57f8594bcf8fe2d4057297510c6de62304a652ef8f3e985efd360db62c21e212",
+    "full-development-r2": "28a2030bd071772a86d737b5e306a5e6936f4918f2fe27282d4c870885d8dd2a",
+    "full-reserved-r1": "7a534c1628f9d2f8c54fd5cd62852dfd2588b911f4de50d1953cabc52ed204bb",
+    "full-reserved-r2": "c7fa91a4d4642d6d2b6ded7925ed7c463c6c768bffc2ab6da898740c76b6cec1"
+  },
+  "configurationVersion": "stage1-reviewed-case-execution-v1",
+  "predicateVersion": "public-first-club-showout-v2",
+  "sourceImplementationCommit": "939434a45de498620ddf38869686b0f8a5cd91f3",
+  "preservedIntegrationCommit": "f586cef58b9b004afef1aac97150616b5f5d6ba2",
+  "integrationMergeCommit": "f8dd7ae5749904e2723098592bf44786707c6485",
+  "postMergeValidation": {
+    "swift": {
+      "tests": 255,
+      "skipped": 10,
+      "failures": 0
+    },
+    "python": {
+      "tests": 74,
+      "failures": 0
+    },
+    "order": "Swift, then Python sequentially"
+  },
+  "existingCandidate1EvidenceDifferenceFromPreservedTip": "none (git diff --name-only f586cef5 -- evals/stage1/evidence/issue48/ticket52)"
+}

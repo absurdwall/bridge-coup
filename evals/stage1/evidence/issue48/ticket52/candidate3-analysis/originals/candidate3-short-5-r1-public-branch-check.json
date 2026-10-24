@@ -1,0 +1,56 @@
+{
+  "purpose": "Counterfactual public-compatible branch, not actual environment or hidden quality facts",
+  "decision": "decision-0007",
+  "branch_initial_defender_diamonds": {
+    "west": [
+      "DA",
+      "DT",
+      "D6"
+    ],
+    "east": [
+      "DJ",
+      "D8",
+      "D2"
+    ]
+  },
+  "authorized_prefix_cards": 18,
+  "all_52_unique": true,
+  "all_prefix_plays_legal": true,
+  "controlled_remaining_hands_match": true,
+  "current_continuation": [
+    {
+      "seat": "north",
+      "card": "DK"
+    },
+    {
+      "seat": "east",
+      "card": "D2"
+    }
+  ],
+  "winner": "north",
+  "north_remaining_diamonds": [
+    "DQ",
+    "D9",
+    "D7"
+  ],
+  "defenders_remaining_diamonds": {
+    "west": [
+      "DA"
+    ],
+    "east": [
+      "DJ"
+    ]
+  },
+  "verified_next_trick": [
+    "north DQ",
+    "east DJ",
+    "south S7 (discard)",
+    "west DA"
+  ],
+  "north_after_next_trick": [
+    "D9",
+    "D7"
+  ],
+  "remaining_defender_diamonds_after_next_trick": [],
+  "conclusion": "A 3\u20133 break does not itself make Q97 immediate winners after DK wins; DA must still be driven out. Leading DQ then losing to DA leaves D97 (two future diamonds) plus already-won DK (three total). The active force-out-DA route remains feasible with CA retained; this branch alone establishes no material route failure."
+}

@@ -1,0 +1,235 @@
+{
+  "rubric_version": "stage1-basic-v4",
+  "results": [
+    {
+      "id": "decision-0001",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "trick counting and feasible plan",
+          "fact": "The eight top tricks and conditional club safety play support a sound route to nine.",
+          "explanation": "Authorized holdings are South CAK864 opposite North CQ72, with DA/DK, HA/HK and SA. Against West holding four clubs, CA, CQ and CK followed by one concession establish the fifth round. Against East holding four, ducking the second round preserves CQ and CK; HK supplies the available entry to cash CQ before returning to CK.",
+          "quotes": [
+            "There are eight top tricks: three clubs, two diamonds, two hearts and one spade.",
+            "If West shows out on the second club after following initially, play C7 instead of CQ: concede to East while preserving CQ and CK to capture East's remaining clubs."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0002",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "current action and retained plan",
+          "fact": "DK wins the opening trick and preserves the resources needed for club development.",
+          "explanation": "The authorized current trick is DQ–D3–D4, and South holds DA and DK. DK wins legally, leaves DA as a stopper, and puts South on lead for the retained CA-then-low-club sequence. North's earlier D3 is a completed historical step.",
+          "quotes": [
+            "Win with DK, retaining DA as a stopper, then begin the planned club safety play."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0003",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "feasible continuation",
+          "fact": "Cashing CA begins the retained club route from the correct hand.",
+          "explanation": "Authorized history shows South won DK and is on lead holding CAK864, opposite CQ72. CA followed by a low club toward North is executable, with side-suit controls and HK retained for later entries.",
+          "quotes": [
+            "Cash CA to test the club split before leading low toward dummy, preserving the safety play against 4–1 clubs."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0004",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "resource preservation",
+          "fact": "C2 preserves both cards required for the conditional second-round decision.",
+          "explanation": "The authorized current trick contains South's CA and West's C3; North holds CQ72. Following with C2 leaves CQ7, allowing either CQ when West follows next round or C7 when West shows out.",
+          "quotes": [
+            "Follow low, preserving CQ and C7 for the planned second-round club decision."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0005",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "conditional play and visibility",
+          "fact": "C4 implements the safety play while keeping the unknown club distribution conditional.",
+          "explanation": "Authorized history records West's C3 and East's C5 under CA. South now holds CK864 and North CQ7. Leading C4 preserves CK86 and permits the stated choice after observing West's next play; no unseen split is asserted.",
+          "quotes": [
+            "Both defenders followed to CA. Lead low toward dummy: play CQ if West follows, but duck with C7 if West shows out, protecting against East holding four clubs."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0006",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "public inference and executable route",
+          "fact": "West's second club rules out four clubs in East, and CQ followed by C7 to CK is feasible.",
+          "explanation": "The authorized cards show West played C3 and now C9 from the five originally missing clubs. East therefore cannot have held four. North has CQ7 and South CK86, so CQ wins and C7 can next lead to CK, with at most one concession needed to establish a fourth club winner.",
+          "quotes": [
+            "West has followed to the second club, ruling out four clubs in East. Win CQ, then lead C7 to CK; at most one club concession will establish the fourth club trick needed for nine."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0007",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "distribution inference and trick counting",
+          "fact": "Both defenders following twice proves a 3–2 split and makes ten tricks available.",
+          "explanation": "Authorized history shows West played C3/C9 and East C5/CT. Only CJ remains outside the partnership. North can lead C7 to South's CK86, drawing CJ and leaving C8/C6 winners. Five club tricks plus two diamonds, two hearts and SA total ten; the retained plan anticipated this continuation.",
+          "quotes": [
+            "Both defenders followed twice, so clubs were 3–2. Lead to CK to draw the remaining CJ, establishing all five club tricks and ten tricks overall."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0008",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "visible facts and current winner",
+          "fact": "East's actual discard locates CJ with West, and CK captures it.",
+          "explanation": "Authorized history accounts for C3, C5, C9 and CT; CJ is the only outstanding club. East has now discarded H2 on North's C7, proving East is void. South holds CK86, so CK wins over West's remaining CJ and establishes C8/C6.",
+          "quotes": [
+            "East’s discard places the remaining CJ with West. Cash CK to capture it, establishing C8 and C6 for ten tricks overall."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0009",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "complete remaining route",
+          "fact": "The replacement plan provides six reachable winners to add to the four tricks already won.",
+          "explanation": "Authorized history shows CJ fell under CK, exhausting defenders' clubs. South holds C86, DA, SA and HA63; North holds HK74 and three diamonds. Cashing both clubs with diamond discards, then DA, SA, HA and a low heart to HK is physically feasible and yields ten total tricks.",
+          "quotes": [
+            "Cash C8 and C6, discarding two low diamonds from dummy. Then cash DA and SA, followed by HA and a low heart to dummy's HK, securing ten tricks without surrendering the lead."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0010",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "discard and retained entries",
+          "fact": "D5 is a legal spare discard that preserves the ten-trick continuation.",
+          "explanation": "North is void in clubs on South's established C8 and holds D865 and HK74. Discarding D5 leaves another diamond available for the C6 discard, while preserving HK and the heart cards needed for HA followed by a low heart to HK.",
+          "quotes": [
+            "Discard a spare diamond, preserving dummy’s heart king and the planned route to ten tricks."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0011",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "remaining winners and sequencing",
+          "fact": "C6 is the final established club and fits the retained cashing sequence.",
+          "explanation": "Authorized history shows five tricks won, all opposing clubs exhausted and C8 already cashed. South retains C6, DA, SA and HA63; North retains D86 and HK74. C6 followed by the four side-suit winners produces ten tricks, with an available diamond discard from North.",
+          "quotes": [
+            "Cash the final club winner, discarding another low diamond from dummy before collecting the side-suit aces and HK."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0012",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "discard and feasible remainder",
+          "fact": "D6 preserves every resource needed to finish the retained route.",
+          "explanation": "The authorized current trick is South's established C6 followed by West's H5 discard. North holds D86 and HK74, so D6 is legal and leaves D8 to follow DA. South retains SA, HA and low hearts, allowing DA, SA, HA and a low heart to North's HK for ten total tricks.",
+          "quotes": [
+            "Discard another spare diamond, retaining the hearts and the entry to HK needed to collect ten tricks."
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Small-sample basic evaluation; no claim of broad grading reliability."
+}

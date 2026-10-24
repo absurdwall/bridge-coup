@@ -1,0 +1,129 @@
+{
+  "review": "Independent root agent reviewed all final explanations and card facts on 2026-10-18; no human review asserted.",
+  "runs": [
+    {
+      "run": "calibration-v2-r1",
+      "elapsed_seconds": 21.576,
+      "results": [
+        {
+          "id": "A",
+          "mechanical": "pass",
+          "quality": "pass",
+          "overall": "pass",
+          "attribution": "no_material_error_found"
+        },
+        {
+          "id": "B",
+          "mechanical": "pass",
+          "quality": "pass",
+          "overall": "pass",
+          "attribution": "no_material_error_found"
+        },
+        {
+          "id": "C",
+          "mechanical": "pass",
+          "quality": "fail",
+          "overall": "fail",
+          "attribution": "product_error"
+        },
+        {
+          "id": "D",
+          "mechanical": "pass",
+          "quality": "fail",
+          "overall": "fail",
+          "attribution": "product_error"
+        },
+        {
+          "id": "E",
+          "mechanical": "fail",
+          "quality": "fail",
+          "overall": "fail",
+          "attribution": "product_error"
+        },
+        {
+          "id": "F",
+          "mechanical": "pass",
+          "quality": "fail",
+          "overall": "fail",
+          "attribution": "product_error"
+        }
+      ]
+    },
+    {
+      "run": "calibration-v2-r2",
+      "elapsed_seconds": 19.809,
+      "results": [
+        {
+          "id": "A",
+          "mechanical": "pass",
+          "quality": "pass",
+          "overall": "pass",
+          "attribution": "no_material_error_found"
+        },
+        {
+          "id": "B",
+          "mechanical": "pass",
+          "quality": "pass",
+          "overall": "pass",
+          "attribution": "no_material_error_found"
+        },
+        {
+          "id": "C",
+          "mechanical": "pass",
+          "quality": "fail",
+          "overall": "fail",
+          "attribution": "product_error"
+        },
+        {
+          "id": "D",
+          "mechanical": "pass",
+          "quality": "fail",
+          "overall": "fail",
+          "attribution": "product_error"
+        },
+        {
+          "id": "E",
+          "mechanical": "fail",
+          "quality": "fail",
+          "overall": "fail",
+          "attribution": "product_error"
+        },
+        {
+          "id": "F",
+          "mechanical": "pass",
+          "quality": "fail",
+          "overall": "fail",
+          "attribution": "product_error"
+        }
+      ]
+    },
+    {
+      "run": "saved-decisions-v2",
+      "elapsed_seconds": 11.253,
+      "results": [
+        {
+          "id": "live2",
+          "mechanical": "fail",
+          "quality": "fail",
+          "overall": "fail",
+          "attribution": "product_error"
+        },
+        {
+          "id": "live3",
+          "mechanical": "pass",
+          "quality": "fail",
+          "overall": "fail",
+          "attribution": "product_error"
+        },
+        {
+          "id": "live1",
+          "mechanical": "uncertain",
+          "quality": "uncertain",
+          "overall": "fail",
+          "attribution": "runtime_failure"
+        }
+      ]
+    }
+  ],
+  "offline_regrade_identical": true
+}

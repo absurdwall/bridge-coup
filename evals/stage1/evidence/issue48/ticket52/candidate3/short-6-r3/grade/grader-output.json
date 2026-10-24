@@ -1,0 +1,176 @@
+{
+  "results": [
+    {
+      "id": "decision-0001",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "entries and trick counting",
+          "fact": "The replacement plan preserves a feasible diamond entry and counts nine tricks correctly.",
+          "explanation": "Authorized holdings are North HA43 and DKQJT9 opposite South HKQJ and D5432, with SA and CA. Cashing two heart honors preserves HJ-to-HA access even if DA wins the fourth diamond round. Four diamonds, three hearts and the two black aces total nine. S7 legally follows West's SK; the hold-up's protection is explicitly limited.",
+          "quotes": [
+            "Preserve HA as the essential entry: cash only HK and HQ, following with dummy's H3 and H4, and retain HJ to overtake with HA after diamonds are established.",
+            "The main remaining risk is DA held by a defender with enough established spades to defeat the contract; the hold-up cannot protect against every layout."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0002",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "current action and effective plan",
+          "fact": "S3 implements the retained hold-up without spending a necessary entry.",
+          "explanation": "The authorized trick is SK-S7-S4, and South holds SA93. S3 legally ducks to West's king. The retained plan still preserves two South heart winners followed by HJ-to-HA access to North's diamonds.",
+          "quotes": [
+            "Duck the first spade as planned, preserving SA to interrupt defenders' communications before conceding DA.",
+            "cash only HK and HQ, following with dummy's H3 and H4, and retain HJ to overtake with HA after diamonds are established."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0003",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "hold-up and visibility",
+          "fact": "The second duck is coherent, and the communication claim remains conditional.",
+          "explanation": "South holds SA9 facing the current SQ-S8-S5 after losing the first spade. S9 legally ducks while preserving SA for a third round. East's original length remains unknown; the answer conditions exhaustion on an original three-card holding. The retained diamond-entry route remains feasible.",
+          "quotes": [
+            "Duck a second spade, retaining SA for the third round.",
+            "This exhausts East's spades if East began with three, reducing the danger when conceding DA."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0004",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "discard and resource preservation",
+          "fact": "The club discard preserves the retained plan's necessary resources.",
+          "explanation": "North is void in spades and holds CT54, all five diamonds and HA43; South retains SA. Discarding C4 is legal and preserves both the diamond source and the HJ-to-HA entry arrangement. SA necessarily wins the current spade in notrump.",
+          "quotes": [
+            "Discard a club, preserving all five diamonds and the heart entry arrangement. South will win this spade with SA."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0005",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "sequencing and visibility",
+          "fact": "HK begins the planned heart preparation without claiming an unknown spade division.",
+          "explanation": "South is on lead with HKQJ, and North retains HA43. HK followed by HQ permits North to follow low twice and preserves HJ-to-HA access after diamond development. The authorized history shows East following S4, S5 and S6 but does not establish that East is now void.",
+          "quotes": [
+            "Cash two heart honors before developing diamonds, retaining HJ to lead to dummy's HA later.",
+            "East followed to all three spades, but the remaining spade division is still unknown."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0006",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "entry preservation",
+          "fact": "H3 follows suit while preserving the necessary diamond entry.",
+          "explanation": "The current trick is South's HK followed by West's H5. North holds HA43, so H3 leaves HK winning and retains HA4. South's remaining HQJ supports the retained sequence of HQ, diamond development and HJ-to-HA.",
+          "quotes": [
+            "Follow low, preserving HA as the entry to dummy's diamonds after DA is dislodged."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0007",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "sequencing",
+          "fact": "HQ completes the two-round heart preparation while retaining the transfer.",
+          "explanation": "The authorized history has already completed HK with North's H3. South now holds HQJ opposite North's HA4. Leading HQ and following H4 leaves HJ opposite HA, as required by the retained diamond plan; the completed HK step need not be replayed.",
+          "quotes": [
+            "Cash the second heart honor, leaving HJ to lead to dummy's HA after establishing diamonds."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0008",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "entry preservation",
+          "fact": "H4 preserves the explicitly reserved HJ-to-HA transfer.",
+          "explanation": "North holds HA4 facing South's current HQ and West's H6; South still holds HJ. Following H4 legally leaves HQ winning and HA available for North's DKQJT9 after DA is dislodged. Diamond establishment is a future phase of the retained plan.",
+          "quotes": [
+            "Preserve HA as the entry to established diamonds; South retains HJ to reach it."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0009",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "development and entries",
+          "fact": "D2 starts diamond development with the required entry resources intact.",
+          "explanation": "South is on lead with D5432, HJ and CA; North holds DKQJT9 and HA. Leading D2 toward North's honors is feasible, and the retained plan supplies CA for recovery and HJ-to-HA for access after the diamond concession.",
+          "quotes": [
+            "Start establishing diamonds by leading toward dummy's honors. HJ and HA remain available to reach dummy after DA is dislodged."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0010",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "diamond contest",
+          "fact": "DK legally advances the diamond source while preserving access.",
+          "explanation": "The authorized trick is D2-D6, and North holds DKQJT9. DK beats D6 unless East plays the unseen DA. If ducked, North can continue diamond honors; South retains HJ and CA opposite North's HA for recovery and entry after DA wins.",
+          "quotes": [
+            "Play DK to drive out DA, continuing diamonds if it is ducked. HA remains the entry to the established suit."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0011",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "concrete route and trick counting",
+          "fact": "CA followed by HJ-to-HA and four diamonds supplies the six additional tricks required.",
+          "explanation": "Authorized history shows East winning DA over DK; North now holds DQJT9 and HA. South has HJ and CA facing East's CK lead. CA wins, HJ transfers to HA, and North's four diamonds are all winners. These six tricks added to the three already won make nine.",
+          "quotes": [
+            "DA is now gone, so win CA and lead HJ to HA. Dummy's four diamond winners then provide the remaining tricks for 3NT."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0012",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "current action and feasible remainder",
+          "fact": "C5 follows under CA and preserves a complete route to nine tricks.",
+          "explanation": "The authorized current trick is CK-CA-C2, with North holding CT5. C5 legally completes South's winning trick. South retains HJ opposite North's HA and DQJT9, with DA already played; the retained transfer and four diamond winners supply five more tricks after CA, reaching nine.",
+          "quotes": [
+            "Follow low under CA, then enter dummy with HA and cash its four established diamonds to secure nine tricks."
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "id": "short-2-r2",
+  "case_id": "short-2",
+  "kind": "short",
+  "board": "boards/synthetic.json",
+  "decisions": 8,
+  "opponent_policy": "conserve-high",
+  "task_complete": true,
+  "legal_execution": "pass",
+  "quality": "fail",
+  "playing": {
+    "exit_code": 0,
+    "wall_seconds": 30.287
+  },
+  "grading": {
+    "exit_code": 0,
+    "grading_evidence_available": true
+  },
+  "coverage": {
+    "status": "pending",
+    "basis": "At least three actual decisions; absence of a newly disproved plan premise requires independent review."
+  },
+  "counts": {
+    "actual_events": 15,
+    "complete": false,
+    "tricks": [
+      3,
+      0
+    ],
+    "model_request_attempts": 8,
+    "actual_rpc_requests": 8,
+    "model_actions": 8,
+    "forced_actions": 0,
+    "driver_opponent_actions": 6,
+    "initial_controlled_actions": 0,
+    "initial_opponent_actions": 1,
+    "retries": 0
+  },
+  "wire": {
+    "upstream_request_attempts": 8,
+    "http_statuses": {
+      "200": 8
+    },
+    "transport_errors": [],
+    "missing_response_metadata": [],
+    "observed_response_models": [
+      "gpt-6-luna"
+    ]
+  },
+  "timing": {
+    "elapsedSeconds": 30.08138406276703,
+    "lastControlledActionSeconds": 30.080335021018982,
+    "environmentOverheadSeconds": 0.030888915061950684,
+    "initialRequestSeconds": 6.5822800397872925,
+    "subsequentRequestSeconds": [
+      2.4084640741348267,
+      3.8993459939956665,
+      2.127758026123047,
+      4.531060099601746,
+      4.349698901176453,
+      4.126319050788879,
+      2.025568962097168
+    ],
+    "failedRequestSeconds": null
+  },
+  "quality_counts": {
+    "pass": 6,
+    "fail": 2,
+    "uncertain": 0
+  },
+  "review_required": [
+    {
+      "id": "decision-0005",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "card_ranking_and_reason",
+          "fact": "The replacement plan incorrectly treats playing CQ as a finesse against CJ.",
+          "explanation": "South holds CA and CK, and North holds CQ. CQ is therefore a certain club winner regardless of which defender holds CJ; CJ ranks below CQ. Although leading C4 toward CQ is feasible, the stated finesse and its justification materially misdescribe the suit.",
+          "quotes": [
+            "Lead C4 toward dummy’s CQ, giving the queen a chance to win if East holds CJ; retain CA and CK as controls.",
+            "With two diamond tricks banked, lead C4 toward dummy’s CQ to finesse for CJ, then use CA and CK as controls and develop club length."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0006",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "winner_identification_and_retained_plan",
+          "fact": "The answer retains the erroneous CJ finesse and describes CQ’s win as contingent on East being unable to overtake.",
+          "explanation": "North’s CQ beats West’s C9, and South holds both CA and CK. East consequently cannot overtake CQ with any club. The retained plan still actively describes this unfinished play as a finesse for the lower CJ.",
+          "quotes": [
+            "Play CQ over West’s C9; it may win if East cannot overtake, and South still retains CA and CK as controls.",
+            "With two diamond tricks banked, lead C4 toward dummy’s CQ to finesse for CJ, then use CA and CK as controls and develop club length."
+          ]
+        }
+      ]
+    }
+  ],
+  "plan_updates": {
+    "keep": 6,
+    "replace": 2,
+    "withdraw": 0
+  },
+  "failures": [],
+  "outcome": "fail"
+}

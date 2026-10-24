@@ -1,0 +1,14 @@
+test_public_expert_request_disables_collaboration_but_reports_remaining_generic_tools (test_runtime_isolation.RuntimeIsolationTests) ... FAIL
+
+======================================================================
+FAIL: test_public_expert_request_disables_collaboration_but_reports_remaining_generic_tools (test_runtime_isolation.RuntimeIsolationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tingranwang/.codex/worktrees/stage1-integration/bridge-coup/evals/stage1/tests/test_runtime_isolation.py", line 70, in test_public_expert_request_disables_collaboration_but_reports_remaining_generic_tools
+    self.assertNotIn('collaboration', names, 'Inherited collaboration must be disabled in the actual public request')
+AssertionError: 'collaboration' unexpectedly found in {'functions', 'collaboration'} : Inherited collaboration must be disabled in the actual public request
+
+----------------------------------------------------------------------
+Ran 1 test in 0.942s
+
+FAILED (failures=1)

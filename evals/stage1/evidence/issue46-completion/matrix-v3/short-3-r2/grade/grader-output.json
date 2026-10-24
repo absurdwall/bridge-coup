@@ -1,0 +1,180 @@
+{
+  "results": [
+    {
+      "id": "decision-0001",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "action_and_plan",
+          "fact": "Following low and developing clubs provides a feasible route toward nine tricks.",
+          "explanation": "North holds D8653, so D3 legally follows West’s DQ. South’s DAK supplies two diamond winners; HA, HK and SA supply three outside winners, and AK864 opposite Q72 offers the needed club development, subject to the break.",
+          "quotes": [
+            "play low from dummy and win in South with a diamond honor.",
+            "develop clubs for the additional tricks needed for 3NT, adapting to the defenders’ play and suit breaks."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0002",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "winner_and_plan_consistency",
+          "fact": "DA wins the current trick and preserves DK as the second diamond winner.",
+          "explanation": "The current trick is DQ–D3–D4, and South holds DA and DK. Playing DA implements the retained plan; dummy’s low diamond has already been played.",
+          "quotes": [
+            "Win with the ace, keeping the king as a second diamond winner."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0003",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "physical_route",
+          "fact": "C4 to CQ followed by a club return to South’s honors is feasible.",
+          "explanation": "South holds CAK864 and North CQ72. CQ cannot be beaten, and North can return C2 or C7 to CA or CK. With DA already won, the four named outside winners and four club tricks would reach nine; the answer conditions development on the observed break.",
+          "quotes": [
+            "Lead C4 from South to dummy’s CQ, then use the club ace and king to establish and cash club winners, watching the defenders’ discards and suit breaks.",
+            "The visible outside winners include DK, HA, HK, and SA"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0004",
+      "status": "fail",
+      "findings": [
+        {
+          "dimension": "action_plan_consistency",
+          "fact": "The selected duck contradicts the retained instruction to win this club trick with CQ.",
+          "explanation": "The active plan explicitly directs C4 to dummy’s CQ. With C4 and West’s C9 already played, North instead selects C2 and keeps that plan. This materially changes the intended club route without replacing its advice.",
+          "quotes": [
+            "Let West’s C9 take this trick rather than spend dummy’s queen; South still holds the club ace and king.",
+            "\"update\":\"keep\""
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0005",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "counting_and_feasibility",
+          "fact": "The revised target of four club tricks is correct and remains feasible.",
+          "explanation": "Declarer has one trick and needs eight more. DK, HA, HK and SA supply four; clubs must supply four more. South’s AK86 opposite Q7 permits CA with C7, a low club to CQ, and a heart return to South to continue clubs, with success dependent on the remaining defenders’ clubs.",
+          "quotes": [
+            "the remaining visible winners include DK, HA, HK, and SA, so clubs must supply at least four of the remaining eight tricks for 3NT.",
+            "Use the club ace and king to develop the suit, preserving dummy’s CQ as a possible winner"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0006",
+      "status": "fail",
+      "findings": [
+        {
+          "dimension": "physical_route",
+          "fact": "The specified consecutive CA–CK route cannot preserve dummy’s CQ.",
+          "explanation": "North has only CQ7. After following C7 to CA, North must play CQ on CK. The explicit order therefore consumes the queen under the king, contradicting the instruction to preserve it. A different order could preserve CQ but does not validate the stated route.",
+          "quotes": [
+            "Cash CA, then continue with CK and assess the defenders’ club holdings and discards.",
+            "Preserve dummy’s CQ"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0007",
+      "status": "fail",
+      "findings": [
+        {
+          "dimension": "retained_plan_feasibility",
+          "fact": "Keeping the plan retains an impossible instruction to preserve CQ through the next CK.",
+          "explanation": "C7 is a sensible legal follow to South’s CA, but it leaves North with singleton CQ. The retained plan next directs CK while also requiring CQ to be preserved; North will be forced to follow with that queen.",
+          "quotes": [
+            "Follow with C7, preserving dummy’s queen while South’s ace holds the trick.",
+            "\"update\":\"keep\""
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0008",
+      "status": "fail",
+      "findings": [
+        {
+          "dimension": "remaining_cards_and_ordering",
+          "fact": "Cashing CK necessarily consumes dummy’s singleton CQ immediately.",
+          "explanation": "North’s only remaining club is CQ, so it must follow to the selected CK. The reason’s proposed later access to that queen and the retained preservation instruction are physically impossible.",
+          "quotes": [
+            "Cash the club king, another sure winner, before deciding how best to reach dummy’s remaining club queen.",
+            "\"update\":\"keep\""
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0009",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "established_winners_and_counting",
+          "fact": "The remaining clubs and outside honors supply exactly the five additional tricks required.",
+          "explanation": "The recorded club plays account for all five defenders’ clubs: C9, C5, C3, CT and CJ. South’s C8 and C6 are therefore established. Four tricks already won plus those two clubs, HA, HK and SA make nine. HK is accessible with a low heart from South.",
+          "quotes": [
+            "With four tricks already won, the remaining visible winners are the heart ace and king and spade ace; together with the two remaining clubs these provide the five additional tricks needed for 3NT."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0010",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "discard_and_continuing_route",
+          "fact": "Discarding D6 preserves the established nine-trick route.",
+          "explanation": "North is void in clubs and can legally discard D6 on South’s established C8. The retained route still has C6, South’s HA and SA, and North’s HK, reachable by a low heart. The reference to dummy’s spade winners is imprecise, but the active plan correctly counts the partnership’s SA and does not depend on North’s low spades winning.",
+          "quotes": [
+            "Discard the now-useless D6, keeping dummy’s heart and spade winners intact.",
+            "\"update\":\"keep\""
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0011",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "continuing_plan",
+          "fact": "C6 is established and supplies the sixth declarer trick.",
+          "explanation": "Both defenders discarded on the completed C8 trick, confirming that South’s last club cannot be beaten. Five tricks are already won; C6 followed by HA, HK and SA completes nine, with the low-heart crossing available.",
+          "quotes": [
+            "Cash the last club winner; dummy can discard its stranded D8."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0012",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "discard_and_entries",
+          "fact": "Discarding D8 preserves all resources needed to complete the contract.",
+          "explanation": "North has no clubs, so D8 is a legal discard on the established C6. North retains HK74 opposite South’s HA63, allowing both heart honors to be cashed separately, while South also retains SA. These provide the three tricks needed after C6 wins.",
+          "quotes": [
+            "Discard dummy’s stranded D8 on the club winner, preserving all heart and spade cards."
+          ]
+        }
+      ]
+    }
+  ]
+}

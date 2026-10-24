@@ -1,0 +1,134 @@
+{
+  "id": "full-1",
+  "case_id": "full-development",
+  "kind": "full",
+  "board": "boards/synthetic.json",
+  "decisions": null,
+  "opponent_policy": "conserve-high",
+  "diagnostic_only": true,
+  "requested_model": "gpt-6-luna",
+  "requested_effort": "max",
+  "task_complete": true,
+  "legal_execution": "pass",
+  "quality": "fail",
+  "playing": {
+    "exit_code": 0,
+    "wall_seconds": 374.984
+  },
+  "grading": {
+    "exit_code": 0,
+    "grading_evidence_available": true
+  },
+  "coverage": {
+    "status": "covered",
+    "basis": "All 52 actual cards consumed in thirteen independently replayed tricks."
+  },
+  "counts": {
+    "actual_events": 52,
+    "complete": true,
+    "tricks": [
+      10,
+      3
+    ],
+    "model_request_attempts": 21,
+    "actual_rpc_requests": 21,
+    "model_actions": 21,
+    "forced_actions": 5,
+    "driver_opponent_actions": 25,
+    "initial_controlled_actions": 0,
+    "initial_opponent_actions": 1,
+    "retries": 0
+  },
+  "wire": {
+    "upstream_request_attempts": 21,
+    "http_statuses": {
+      "200": 21
+    },
+    "transport_errors": [],
+    "missing_response_metadata": [],
+    "observed_response_models": [
+      "gpt-6-luna"
+    ]
+  },
+  "timing": {
+    "elapsedSeconds": 374.6763598918915,
+    "lastControlledActionSeconds": 374.6763598918915,
+    "environmentOverheadSeconds": 0.20799195766448975,
+    "initialRequestSeconds": 71.29111301898956,
+    "subsequentRequestSeconds": [
+      35.77407395839691,
+      5.868691086769104,
+      6.7422850131988525,
+      29.63998591899872,
+      6.454147934913635,
+      26.209385991096497,
+      30.009124994277954,
+      10.373425960540771,
+      5.946879029273987,
+      7.929147958755493,
+      4.705229043960571,
+      4.048383951187134,
+      9.570316076278687,
+      3.7050440311431885,
+      4.42274808883667,
+      4.099537968635559,
+      14.468054056167603,
+      52.16980993747711,
+      3.9606670141220093,
+      37.08031690120697
+    ],
+    "failedRequestSeconds": null
+  },
+  "quality_counts": {
+    "pass": 19,
+    "fail": 2,
+    "uncertain": 0
+  },
+  "review_required": [
+    {
+      "id": "decision-0001",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "physical feasibility",
+          "fact": "South cannot duck the opening diamond trick.",
+          "explanation": "South holds only DA and DK and must follow diamonds. Consequently the plan to let DQ win and take a second diamond round is impossible, although dummy's D3 is legal.",
+          "quotes": [
+            "If diamonds continue, take the second round with DA or DK and retain the other stopper; if defenders switch, save both until needed."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0004",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "card ranks and visibility",
+          "fact": "East cannot cover dummy's CQ.",
+          "explanation": "South holds both CA and CK, the only clubs higher than CQ. East therefore cannot supply the opposing honor described in the reason; CQ is a certain winner, not a play that might force out a higher honor.",
+          "quotes": [
+            "Play the queen to win if East cannot cover, or force an opposing club honor if East can."
+          ]
+        }
+      ]
+    }
+  ],
+  "plan_updates": {
+    "keep": 14,
+    "replace": 7,
+    "withdraw": 0
+  },
+  "failures": [],
+  "outcome": "fail"
+}

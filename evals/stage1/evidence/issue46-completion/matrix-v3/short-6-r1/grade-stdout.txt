@@ -1,0 +1,244 @@
+{
+  "rubric_version": "stage1-basic-v4",
+  "results": [
+    {
+      "id": "decision-0001",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "trick_counting",
+          "fact": "North holds HA43 opposite South's HKQJ, giving three heart tricks, not four.",
+          "explanation": "Both hands have only three hearts. Counting four separate heart tricks materially overstates the contract's resources.",
+          "quotes": [
+            "Aim to make four heart tricks from HA opposite KQJ"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0002",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "effective_plan",
+          "fact": "The keep update retains a plan counting four heart tricks from HA43 opposite HKQJ.",
+          "explanation": "These two three-card holdings produce only three heart tricks. The legal spade duck does not correct the active plan's material counting error.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "Aim to make four heart tricks from HA opposite KQJ"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0003",
+      "mechanical": "pass",
+      "quality": "uncertain",
+      "overall": "uncertain",
+      "attribution": "pending_review",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "hold_up_strategy",
+          "fact": "South holds SA9 after both defenders followed to the first two spade rounds; defender lengths and DA's location remain unknown.",
+          "explanation": "Taking SA now is legal, but the stated reason does not resolve its communication risk compared with ducking again: SA would still stop a third-round continuation. Whether this alternative timing is strategically justified requires review.",
+          "quotes": [
+            "Take the SA over SQ; ducking would let West keep the lead and continue spades while South's remaining S9 is exposed."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0004",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "card_location",
+          "fact": "The authorized North hand contains HA; neither opponent can hold it.",
+          "explanation": "The explanation hypothesizes an opponent winning HA while dummy simultaneously retains that same ace. This is an impossible condition central to the stated rationale.",
+          "quotes": [
+            "if an opponent takes HA, dummy's remaining heart ace is still an entry."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0005",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "winner_and_entry_preservation",
+          "fact": "South's HK currently wins, and North holds HA43 with long diamonds KQJT9.",
+          "explanation": "Following H3 leaves HK winning and preserves HA as a genuine entry for the diamond plan. South can subsequently lead a diamond toward dummy while retaining that entry.",
+          "quotes": [
+            "Follow low with H3, preserving HA as a later entry to dummy."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0006",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "card_location",
+          "fact": "North explicitly holds HA4, while South holds HQJ.",
+          "explanation": "The rationale invents a possible defensive HA and an opponent winning the heart trick even though the partnership holds all higher heart honors.",
+          "quotes": [
+            "Continue with HQ to press the heart suit and force a possible HA; dummy's remaining HA remains an entry if an opponent wins."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0007",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "winner_and_entry_preservation",
+          "fact": "South's HQ currently wins over West's H6; North holds HA4 and South retains HJ.",
+          "explanation": "H4 preserves the current winner and leaves HA available as a later entry to North's diamonds.",
+          "quotes": [
+            "Follow with H4, preserving HA to win a later heart trick or provide an entry."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0008",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "suit_development",
+          "fact": "South holds D5432 opposite North's DKQJT9, with DA still unplayed and North retaining HA.",
+          "explanation": "D4 toward dummy starts a feasible diamond-development route while preserving HA for access after DA wins. Four established diamonds, HA and CA can supply the six tricks still needed, subject to defensive cashing.",
+          "quotes": [
+            "Lead D4 toward dummy's KQJT9 to begin establishing the long diamond suit"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0009",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "conditional_winner_assessment",
+          "fact": "West has played D6, North holds DKQJT9, and DA is the only diamond above North's sequence outside the partnership.",
+          "explanation": "D9 beats D6 and loses only if East plays DA. The answer correctly treats that defensive holding as conditional and preserves KQJT for subsequent tricks.",
+          "quotes": [
+            "Play D9 over West's low diamond to win cheaply if possible; if East covers with DA, dummy retains its higher diamond honors to establish the suit."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0010",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "discard_and_resources",
+          "fact": "North is void in spades, West's ST is winning, and North retains HA and DKQJT after DA has been played.",
+          "explanation": "Discarding C4 legally preserves all five of dummy's established winners and access through HA; South also retains CA.",
+          "quotes": [
+            "Discard the low C4 on West's winning spade, keeping dummy's high diamonds and HA as trick sources."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0011",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "discard_and_resources",
+          "fact": "North is void in spades and holds CT5, DKQJT and HA while West leads SJ.",
+          "explanation": "Discarding C5 preserves dummy's four established diamonds and HA. Together with South's CA, these provide a feasible six-trick remainder if defenders cannot cash another winner after SJ.",
+          "quotes": [
+            "Discard C5 on West's winning spade, preserving dummy's diamond honors and HA."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0012",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "physical_route",
+          "fact": "Both North and South have no spades remaining, and the contract is notrump.",
+          "explanation": "The replacement plan explicitly instructs declarer to take a subsequent spade continuation, which neither authorized hand can win.",
+          "quotes": [
+            "then take the remaining spade continuation as cheaply as possible if it is led"
+          ]
+        },
+        {
+          "dimension": "winner_counting",
+          "fact": "North's only heart is HA and South's only heart is HJ; defensive CK and CQ remain unaccounted for.",
+          "explanation": "HA and HJ must fall on the same heart trick, and CJ is not established. The instruction to cash established heart and club winners overstates the available separate winners.",
+          "quotes": [
+            "Preserve dummy's KQJT diamonds, HA, South's HJ and club AJ as the available sources.",
+            "cash the established heart and club winners"
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Small-sample basic evaluation; no claim of broad grading reliability."
+}

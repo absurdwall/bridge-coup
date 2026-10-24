@@ -1,0 +1,180 @@
+{
+  "id": "short-2-r3",
+  "case_id": "short-2",
+  "kind": "short",
+  "board": "boards/synthetic.json",
+  "decisions": 8,
+  "opponent_policy": "conserve-high",
+  "task_complete": true,
+  "legal_execution": "pass",
+  "quality": "fail",
+  "playing": {
+    "exit_code": 0,
+    "wall_seconds": 38.008
+  },
+  "grading": {
+    "exit_code": 0,
+    "grading_evidence_available": true
+  },
+  "coverage": {
+    "status": "pending",
+    "basis": "At least three actual decisions; absence of a newly disproved plan premise requires independent review."
+  },
+  "counts": {
+    "actual_events": 17,
+    "complete": false,
+    "tricks": [
+      3,
+      1
+    ],
+    "model_request_attempts": 8,
+    "actual_rpc_requests": 8,
+    "model_actions": 8,
+    "forced_actions": 1,
+    "driver_opponent_actions": 7,
+    "initial_controlled_actions": 0,
+    "initial_opponent_actions": 1,
+    "retries": 0
+  },
+  "wire": {
+    "upstream_request_attempts": 8,
+    "http_statuses": {
+      "200": 8
+    },
+    "transport_errors": [],
+    "missing_response_metadata": [],
+    "observed_response_models": [
+      "gpt-6-luna"
+    ]
+  },
+  "timing": {
+    "elapsedSeconds": 37.7751100063324,
+    "lastControlledActionSeconds": 37.774145007133484,
+    "environmentOverheadSeconds": 0.03389298915863037,
+    "initialRequestSeconds": 8.397170066833496,
+    "subsequentRequestSeconds": [
+      4.087455987930298,
+      4.6662129163742065,
+      4.152796030044556,
+      4.665969967842102,
+      4.006543040275574,
+      3.8102129697799683,
+      3.954856038093567
+    ],
+    "failedRequestSeconds": null
+  },
+  "quality_counts": {
+    "pass": 3,
+    "fail": 5,
+    "uncertain": 0
+  },
+  "review_required": [
+    {
+      "id": "decision-0001",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "physical feasibility",
+          "fact": "The proposed diamond hold-up cannot preserve both South honors for a later continuation.",
+          "explanation": "South holds only DA and DK and must play one on the opening diamond trick. If West subsequently continues diamonds, South can play the remaining honor but cannot retain another diamond honor as instructed. D8 itself is legal.",
+          "quotes": [
+            "Duck West’s opening DQ with D8.",
+            "If West continues diamonds, win with South’s ace or king as appropriate, retaining the other honor as control."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0002",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "active plan consistency",
+          "fact": "Keeping the plan retains an impossible future diamond-control instruction.",
+          "explanation": "DA legally wins the current trick and leaves South with singleton DK. The retained instruction to win a subsequent West diamond continuation while retaining another honor is therefore impossible.",
+          "quotes": [
+            "Win West’s queen with the ace, keeping the king as a second diamond control.",
+            "\"update\":\"keep\"",
+            "If West continues diamonds, win with South’s ace or king as appropriate, retaining the other honor as control."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0003",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "winner identification",
+          "fact": "The proposed queen play is not a finesse against the club jack.",
+          "explanation": "South holds CA and CK, and North holds CQ. No defender can beat CQ on the proposed low-club lead, regardless of CJ's location. The losing-finesse contingency rests on an impossible winner assessment.",
+          "quotes": [
+            "Lead C4 toward North’s CQ, taking the finesse if the club jack is placed favorably.",
+            "If the finesse loses, use South’s remaining diamond king and major-suit aces to regain the lead and reassess"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0004",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "play order",
+          "fact": "South cannot cover East's club on this trick.",
+          "explanation": "South has already led C4, West has played C9, and North acts before East. South gets no further play this trick. Playing C2 also abandons the retained instruction to play toward CQ, which would necessarily win with CA and CK held by South.",
+          "quotes": [
+            "preserve the queen until East’s play is known, while South can still cover a higher club."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0005",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "physical feasibility",
+          "fact": "South cannot retain DK for a later diamond.",
+          "explanation": "West has led DJ and South's only remaining diamond is DK. After North follows with D3, South must follow with DK on this same trick.",
+          "quotes": [
+            "dummy’s low card preserves South’s king as a later stopper.",
+            "On West’s DJ, play D3 from dummy and retain South’s DK to stop a later diamond."
+          ]
+        }
+      ]
+    }
+  ],
+  "plan_updates": {
+    "keep": 5,
+    "replace": 3,
+    "withdraw": 0
+  },
+  "failures": [],
+  "outcome": "fail"
+}

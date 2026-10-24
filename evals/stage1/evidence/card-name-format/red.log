@@ -1,0 +1,40 @@
+F
+======================================================================
+FAIL: test_public_card_names_preserve_codes_visibility_and_legal_actions (evals.stage1.tests.test_runtime_isolation.RuntimeIsolationTests.test_public_card_names_preserve_codes_visibility_and_legal_actions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tingranwang/.codex/worktrees/stage1-integration/bridge-coup/evals/stage1/tests/test_runtime_isolation.py", line 104, in test_public_card_names_preserve_codes_visibility_and_legal_actions
+    self.assertEqual(set(labels), public_cards, 'Name every authorized card without exposing hidden hands')
+AssertionError: Items in the second set but not the first:
+'D3'
+'D6'
+'DA'
+'CK'
+'CQ'
+'S4'
+'DK'
+'C2'
+'C8'
+'DQ'
+'C7'
+'C4'
+'H6'
+'CA'
+'H4'
+'S8'
+'HK'
+'D5'
+'H7'
+'C6'
+'SA'
+'S2'
+'HA'
+'D8'
+'S9'
+'S6'
+'H3' : Name every authorized card without exposing hidden hands
+
+----------------------------------------------------------------------
+Ran 1 test in 0.989s
+
+FAILED (failures=1)

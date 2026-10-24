@@ -1,0 +1,303 @@
+{
+  "rubric_version": "stage1-basic-v2",
+  "results": [
+    {
+      "id": "decision-0001",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "card facts and plan consistency",
+          "fact": "Dummy has D8653 and no diamond honors; South holds DA and DK.",
+          "explanation": "Although D5 is legal and the reason correctly identifies dummy's diamonds, the installed plan refers to nonexistent remaining diamond honors in dummy.",
+          "quotes": [
+            "use dummy's remaining diamond honors carefully",
+            "Dummy has only D8653, with no ace"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0002",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "retained plan",
+          "fact": "North's remaining diamonds are D863; South holds DA and DK.",
+          "explanation": "DA wins the current trick, but the retained plan still assigns nonexistent diamond honors to dummy.",
+          "quotes": [
+            "use dummy's remaining diamond honors carefully"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0003",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "retained plan",
+          "fact": "North holds D863; the remaining diamond honor is South's DK.",
+          "explanation": "Cashing DK is physically feasible, but the retained plan continues to rely on diamond honors that dummy does not hold.",
+          "quotes": [
+            "use dummy's remaining diamond honors carefully"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0004",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "retained plan",
+          "fact": "Dummy holds D863, and South's DK is currently winning.",
+          "explanation": "D3 is a sound follow, but the retained plan continues to describe nonexistent diamond honors in dummy.",
+          "quotes": [
+            "use dummy's remaining diamond honors carefully"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0005",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "retained plan",
+          "fact": "Dummy's remaining diamonds are D86, with no honors.",
+          "explanation": "C4 toward CQ is feasible, but the retained plan still assigns nonexistent diamond honors to dummy.",
+          "quotes": [
+            "use dummy's remaining diamond honors carefully"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0006",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "card strength",
+          "fact": "Dummy holds CQ72, South holds CAK86, and defenders' CJ and CT remain unplayed.",
+          "explanation": "CQ correctly covers C9, but C7 is not an established later stopper against the outstanding higher clubs.",
+          "quotes": [
+            "retain the club seven as a later stopper"
+          ]
+        },
+        {
+          "dimension": "retained plan",
+          "fact": "Dummy holds only D86 in diamonds.",
+          "explanation": "The retained plan also refers to nonexistent dummy diamond honors.",
+          "quotes": [
+            "use dummy's remaining diamond honors carefully"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0007",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "retained plan",
+          "fact": "Dummy holds D86 and no diamond honors.",
+          "explanation": "Leading C2 toward South's CAK86 is feasible, but the retained plan still contains invented dummy diamond honors.",
+          "quotes": [
+            "use dummy's remaining diamond honors carefully"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0008",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "wrong winner",
+          "fact": "East has played CT on dummy's C2; South can play CA or CK to beat it.",
+          "explanation": "C8 cannot win over CT. The selected card directly contradicts the stated intention to take the trick.",
+          "quotes": [
+            "South can take the club trick cheaply with the eight, preserving the ace and king as entries and winners."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0009",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "physical route and invented entry",
+          "fact": "East has led D9, so South's S4 is a discard. Dummy holds S862 and HK, with no spade king.",
+          "explanation": "The reason describes a spade lead when South is following to a diamond trick and invents a necessary dummy entry.",
+          "quotes": [
+            "Lead a spade toward dummy's king as a possible entry"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0010",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "wrong winner",
+          "fact": "The current trick is East D9, South S4, West DT; West's ten is winning.",
+          "explanation": "Following with D6 is legal, but the reason explicitly identifies the wrong current winner.",
+          "quotes": [
+            "East's nine is currently winning"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0011",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "retained plan",
+          "fact": "Dummy's last diamond, D8, has been played on the current trick; dummy has no diamonds remaining.",
+          "explanation": "H3 is a reasonable discard under West's winning DJ, but the retained plan continues to refer to nonexistent remaining dummy diamond honors.",
+          "quotes": [
+            "use dummy's remaining diamond honors carefully"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0012",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "retained plan",
+          "fact": "Dummy has no diamonds remaining.",
+          "explanation": "S2 is a sound follow to SK, but the retained plan still describes remaining dummy diamond honors that do not exist.",
+          "quotes": [
+            "use dummy's remaining diamond honors carefully"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0013",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "action and reason consistency",
+          "fact": "South holds only SA and S9 in spades and selects S9.",
+          "explanation": "Playing S9 cannot preserve the nine. South also has the available ace to beat West's king, so the stated rationale does not coherently explain the duck.",
+          "quotes": [
+            "Follow with the lowest spade; West's king is already winning, so preserve the ace and nine."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0014",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "action and reason consistency",
+          "fact": "West has led HT; dummy must follow hearts and selects H4.",
+          "explanation": "The reason describes leading a club, which is neither the selected action nor a legal action on this trick.",
+          "quotes": [
+            "Lead dummy's remaining club toward South's ace-king to cash the established club winners."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0015",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "retained plan",
+          "fact": "Dummy has no diamonds remaining; its remaining entry is HK.",
+          "explanation": "HA correctly wins the current heart trick, but the retained plan still assigns nonexistent remaining diamond honors to dummy.",
+          "quotes": [
+            "use dummy's remaining diamond honors carefully"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0016",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "retained plan",
+          "fact": "South holds SA, H6 and CAK6; dummy holds HK and C7, with no diamonds.",
+          "explanation": "CA is feasible, and cashing South's winners before using H6 to reach HK provides available transport. However, the explicitly retained plan still refers to nonexistent remaining dummy diamond honors.",
+          "quotes": [
+            "use dummy's remaining diamond honors carefully"
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Small-sample basic evaluation; no claim of broad grading reliability."
+}

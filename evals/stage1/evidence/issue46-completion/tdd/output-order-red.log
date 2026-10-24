@@ -1,0 +1,102 @@
+Building for debugging...
+[0/25] /private/tmp/bridge46-output-order/.build/arm64-apple-macosx/debug/BridgeTeacherPackageTests.derived/runner.swift
+[1/25] Write bridge-play-entitlement.plist
+[2/25] Copying DeclarerInstructions.txt
+[3/25] Write sources
+[6/25] Write BridgeTeacherMac-entitlement.plist
+[7/25] Write sources
+[16/25] Write swift-version--58304C5D6DBC2206.txt
+[18/35] Emitting module BridgeTeacherCore
+[19/42] Compiling BridgeDomain BridgeValues.swift
+[20/42] Emitting module BridgeDomain
+[21/44] Compiling BridgeTeacherCore KeyPlayAnalysisWorkflow.swift
+[22/44] Compiling BridgeTeacherCore OriginalContractTableWorkflow.swift
+[23/44] Compiling BridgeTeacherCore OriginalHandFacts.swift
+[24/44] Compiling BridgeTeacherCore PlayCardResultsWorkflow.swift
+[25/44] Compiling BridgeTeacherCore ReviewSessionArchive.swift
+[26/44] Compiling BridgeTeacherCore ScreenshotReviewWorkflow.swift
+[27/44] Compiling BridgeTeacherCore TeachingConversation.swift
+[28/44] Compiling BridgeTeacherCore AuctionRecord.swift
+[29/44] Compiling BridgeTeacherCore BridgeHand.swift
+[30/44] Compiling BridgeTeacherCore BridgePlaySession.swift
+[31/44] Compiling BridgeTeacherCore CodexModelSettings.swift
+[32/44] Compiling BridgeTeacherCore DeclarerPlanWorkflow.swift
+[33/44] Compiling BridgeTeacherCore DoubleDummyVerification.swift
+[34/44] Compiling BridgeTeacherCore KeyPlayAnalysis.swift
+[35/44] Compiling BridgeExpert Expert.swift
+[36/44] Emitting module BridgeExpert
+[37/47] Compiling BridgeExpert resource_bundle_accessor.swift
+[38/56] Emitting module BridgeEngine
+[39/56] Compiling BridgeEngine BoardState.swift
+[40/62] Emitting module BridgeTeacherMac
+[41/69] Compiling BridgeTeacherCoreTests AuctionRecordTests.swift
+[42/69] Compiling BridgeTeacherCoreTests CodexModelSettingsTests.swift
+[43/69] Compiling BridgeTeacherCoreTests DeclarerPlanRequestBuilderTests.swift
+[44/69] Compiling BridgeTeacherCoreTests DeclarerPlanWorkflowTests.swift
+[45/69] Compiling BridgeTeacherCoreTests DoubleDummySolverIntegrationTests.swift
+[46/69] Emitting module BridgeTeacherCoreTests
+[47/74] Compiling BridgeTeacherCoreTests ReviewSessionArchiveTests.swift
+[48/74] Compiling BridgeTeacherCoreTests ScreenshotReviewWorkflowTests.swift
+[49/74] Compiling BridgeTeacherMac ContractGridNavigation.swift
+[50/74] Compiling BridgeTeacherMac DoubleDummyVerificationView.swift
+[51/74] Compiling BridgeTeacherMac OriginalContractTableView.swift
+[52/74] Compiling BridgeTeacherMac PlayWorkspaceView.swift
+[53/74] Compiling BridgeTeacherMac UpdateCheckWorkflow.swift
+[54/74] Compiling BridgeTeacherCoreTests DoubleDummyVerificationTests.swift
+[55/74] Compiling BridgeTeacherCoreTests KeyPlayAnalysisTests.swift
+[56/74] Compiling BridgeTeacherCoreTests OriginalContractTableWorkflowTests.swift
+[59/76] Emitting module BridgeDriver
+[60/76] Compiling BridgeDriver BoardDriver.swift
+[61/78] Compiling BridgeCodex CodexTransport.swift
+[62/78] Emitting module BridgeCodex
+[63/81] Emitting module BridgePlayingTests
+[64/81] Compiling BridgePlayingTests FullBoardTests.swift
+[65/81] Compiling BridgePlayingTests PlanContractTests.swift
+[66/83] Compiling BridgePlayingTests PlayingCoreTests.swift
+[67/83] Compiling BridgePlayingTests SnapshotInputTests.swift
+[75/83] Write Objects.LinkFileList
+[77/85] Emitting module BridgePlayCLI
+[78/85] Compiling BridgePlayCLI BridgePlayMain.swift
+[78/85] Write Objects.LinkFileList
+[79/85] Linking BridgeTeacherMac
+[80/94] Linking bridge-play
+[81/94] Applying BridgeTeacherMac
+[82/94] Applying bridge-play
+[84/94] Emitting module BridgeTeacherMacTests
+[85/94] Compiling BridgeTeacherMacTests AnalysisMarkdownDocumentTests.swift
+[86/94] Compiling BridgeTeacherMacTests AuctionTableBehaviorTests.swift
+[87/94] Compiling BridgeTeacherMacTests AutonomousPlayWorkflowTests.swift
+[88/94] Compiling BridgeTeacherMacTests BridgeCoupUpdateWorkflowTests.swift
+[89/94] Compiling BridgeTeacherMacTests BridgeTeacherContractSelectionTests.swift
+[90/94] Compiling BridgeTeacherMacTests CodexModelSelectionPreferencesTests.swift
+[91/94] Compiling BridgeTeacherMacTests CodexRuntimeDiscoveryTests.swift
+[92/94] Compiling BridgeTeacherMacTests CodexRuntimeModelCatalogTests.swift
+[93/102] Compiling BridgeTeacherMacTests CodexTeachingServiceRequestTests.swift
+[94/102] Compiling BridgeTeacherMacTests OriginalContractTableApplicationTests.swift
+[95/102] Compiling BridgeTeacherMacTests PlayCardResultsWorkflowTests.swift
+[96/102] Compiling BridgeTeacherMacTests PlayHistoryWorkflowTests.swift
+[97/102] Compiling BridgeTeacherMacTests PlayWorkspaceIntegrationTests.swift
+[98/102] Compiling BridgeTeacherMacTests ReviewSourceRegressionTests.swift
+[99/102] Compiling BridgeTeacherMacTests ScreenshotRecognitionRetryTests.swift
+[100/102] Compiling BridgeTeacherMacTests SharedOriginalHandsWorkflowTests.swift
+[101/104] Emitting module BridgeTeacherPackageTests
+[102/104] Compiling BridgeTeacherPackageTests runner.swift
+[102/104] Write Objects.LinkFileList
+[103/104] Linking BridgeTeacherPackageTests
+Build complete! (20.93s)
+Test Suite 'Selected tests' started at 2026-10-22 06:14:06.402.
+Test Suite 'BridgeTeacherPackageTests.xctest' started at 2026-10-22 06:14:06.402.
+Test Suite 'PlanContractTests' started at 2026-10-22 06:14:06.402.
+Test Case '-[BridgePlayingTests.PlanContractTests testSerializedAppServerSchemaExcludesAmbiguousPlansAndKeepsLifecycle]' started.
+/private/tmp/bridge46-output-order/Sources/BridgeExpert/Expert.swift:138: error: -[BridgePlayingTests.PlanContractTests testSerializedAppServerSchemaExcludesAmbiguousPlansAndKeepsLifecycle] : failed: caught error: "ExpertFailure(category: BridgeExpert.ExpertFailure.Category.runtime, input: "{\n  \"completedTricks\" : [\n\n  ],\n  \"contract\" : {\n    \"declarer\" : \"S\",\n    \"doubling\" : \"undoubled\",\n    \"level\" : 3,\n    \"strain\" : \"NT\"\n  },\n  \"controller\" : \"S\",\n  \"current\" : {\n    \"toAct\" : \"N\",\n    \"tricksWon\" : {\n      \"declarer\" : 0,\n      \"defenders\" : 0\n    },\n    \"winningPlay\" : {\n      \"card\" : \"DQ\",\n      \"seat\" : \"W\"\n    }\n  },\n  \"currentTrick\" : [\n    {\n      \"card\" : \"DQ\",\n      \"seat\" : \"W\"\n    }\n  ],\n  \"effectivePlan\" : null,\n  \"hands\" : {\n    \"N\" : {\n      \"C\" : \"Q72\",\n      \"D\" : \"8653\",\n      \"H\" : \"K74\",\n      \"S\" : \"862\"\n    },\n    \"S\" : {\n      \"C\" : \"AK864\",\n      \"D\" : \"AK\",\n      \"H\" : \"A63\",\n      \"S\" : \"A94\"\n    }\n  },\n  \"objective\" : \"Choose a line that aims for the best expected result under the stated scoring conditions.\",\n  \"publicBackground\" : null,\n  \"scoring\" : \"IMP\",\n  \"type\" : \"initial\",\n  \"vulnerability\" : \"neither\"\n}", rawOutput: "", detail: "App-server exited or request timed out", elapsedSeconds: 0.16067898273468018)"
+Test Case '-[BridgePlayingTests.PlanContractTests testSerializedAppServerSchemaExcludesAmbiguousPlansAndKeepsLifecycle]' failed (0.417 seconds).
+Test Suite 'PlanContractTests' failed at 2026-10-22 06:14:06.820.
+	 Executed 1 test, with 1 failure (1 unexpected) in 0.417 (0.417) seconds
+Test Suite 'BridgeTeacherPackageTests.xctest' failed at 2026-10-22 06:14:06.820.
+	 Executed 1 test, with 1 failure (1 unexpected) in 0.417 (0.417) seconds
+Test Suite 'Selected tests' failed at 2026-10-22 06:14:06.820.
+	 Executed 1 test, with 1 failure (1 unexpected) in 0.417 (0.418) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

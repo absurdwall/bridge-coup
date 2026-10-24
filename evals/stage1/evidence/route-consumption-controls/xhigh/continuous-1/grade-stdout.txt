@@ -1,0 +1,171 @@
+{
+  "rubric_version": "stage1-basic-v4",
+  "results": [
+    {
+      "id": "decision-0001",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "physical route",
+          "fact": "Dummy cannot retain C2 to lead after the stated three club rounds.",
+          "explanation": "North holds only CQ, C7 and C2. North must follow to CA and CK, leaving only CQ for the third round. After CQ wins, North has no club remaining.",
+          "quotes": [
+            "South cashes CA and CK, then leads C4 toward dummy’s CQ. If CQ wins, dummy leads C2 toward South’s C8."
+          ]
+        },
+        {
+          "dimension": "winner and movement",
+          "fact": "Leading HA does not transfer the lead to dummy’s HK.",
+          "explanation": "South holds HA and North holds HK. If both are played on the same heart trick, HA wins in South, so dummy cannot lead the next spade as stated.",
+          "quotes": [
+            "After the club sequence, South can cash DK, lead HA for dummy’s HK, then dummy leads a spade toward SA."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0002",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "physical route",
+          "fact": "The installed plan requires a fourth club play from dummy’s three-card holding.",
+          "explanation": "North holds CQ, C7 and C2. Following to CA and CK consumes both small clubs if CQ is preserved. Consequently North cannot lead C2 after winning the third club round with CQ.",
+          "quotes": [
+            "Try CA, CK, then C4 toward dummy’s CQ. If CQ wins, dummy leads C2 toward South’s C8"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0003",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "retained plan feasibility",
+          "fact": "Keeping the plan retains an impossible unfinished club sequence.",
+          "explanation": "DK has actually won the opening trick, but North still has only CQ, C7 and C2. The forthcoming CA, CK and CQ rounds exhaust those clubs, leaving no C2 for the prescribed return.",
+          "quotes": [
+            "Lead CA as planned: it is a sure winner and begins the club development while preserving CK and the small clubs for the route toward dummy’s CQ.",
+            "If CQ wins, dummy leads C2 toward South’s C8"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0004",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "action-plan consistency",
+          "fact": "The selected C2 consumes a card explicitly required later by the retained plan.",
+          "explanation": "North is following to South’s CA with C2 now. The retained plan subsequently requires North to lead that same C2 after CK and CQ, which is impossible.",
+          "quotes": [
+            "CA is already winning, so dummy should follow with the lowest club, C2, preserving CQ and C7 for later club play.",
+            "If CQ wins, dummy leads C2 toward South’s C8"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0005",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "remaining resources",
+          "fact": "The retained unfinished route calls for an already consumed C2.",
+          "explanation": "The actual history records North C2 under CA, and North now holds only CQ and C7 in clubs. C2’s proposed lead after CQ is still a future step of the retained plan and cannot occur.",
+          "quotes": [
+            "If CQ wins, dummy leads C2 toward South’s C8"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0006",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "remaining resources",
+          "fact": "The retained plan still requires an unavailable club return from dummy.",
+          "explanation": "North’s C2 was already played under CA. Playing C7 under the current CK leaves only CQ, so after the planned CQ winner North has no club to lead toward C8.",
+          "quotes": [
+            "CK is currently winning, so follow low with C7 and preserve CQ for the planned lead toward dummy.",
+            "If CQ wins, dummy leads C2 toward South’s C8"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0007",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "feasible route and trick counting",
+          "fact": "The replacement supplies a legal route to nine tricks using known winners and an available entry.",
+          "explanation": "The observed opposing clubs C3, C9, C5 and CT leave only CJ outstanding. North’s CQ beats it on South’s C4 lead. North retains S2 and South retains SA, providing the stated return to cash C8, C6, DA and HA. Those six forthcoming tricks plus the three already won total nine.",
+          "quotes": [
+            "South leads C4 to dummy’s CQ, which wins over the only remaining opposing club, CJ.",
+            "Dummy then leads S2 toward South’s SA; SA wins and gives South the lead. Cash C8 and C6, now good because the defenders are out of clubs. Then cash DA and HA."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0008",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "continuing plan feasibility",
+          "fact": "The selected S2 implements the feasible remainder of the retained plan.",
+          "explanation": "C4–CJ–CQ has actually occurred, with East discarding H2, so the club transfer is historical and all opposing clubs are exhausted. North holds S2; South holds SA, C8, C6, DA and HA. The spade entry followed by those four cashing tricks adds five to the four already won, securing nine.",
+          "quotes": [
+            "Lead S2 toward South’s SA, a sure entry. South can then cash C8 and C6 while the defenders are out of clubs.",
+            "Then cash DA and HA."
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Small-sample basic evaluation; no claim of broad grading reliability."
+}

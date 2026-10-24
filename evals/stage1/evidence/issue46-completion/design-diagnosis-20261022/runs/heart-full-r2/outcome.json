@@ -1,0 +1,29 @@
+{
+  "id": "heart-full-r2",
+  "source_decision": 6,
+  "repeat": 2,
+  "clear_effective_plan": false,
+  "include_current_winning_play": true,
+  "task": "normal-play-output",
+  "request": "requests/heart-full-r2.json",
+  "sha256": "ece6f681565087cb89c2fa0d7091d8b27a16dbed548539051014ff3686d7a776",
+  "exit_code": 0,
+  "raw_output": {
+    "plan": {
+      "update": "replace",
+      "text": "Discard a low club on this spade trick; the spade trick is already lost and South has no spade to overtake with. Afterward, use dummy's diamond honors and the heart honors in both hands to build the remaining tricks, preserving the ace of hearts as an entry and avoiding unnecessary club losses. The defenders now have three tricks; limit further losses while taking at least six more tricks for 3NT."
+    },
+    "selectedCard": "C4",
+    "publicReason": "The spade trick is already won by West; discard the lowest club and preserve dummy's diamond and heart resources."
+  },
+  "identity": {
+    "observedModel": "gpt-6-luna",
+    "requestedEffort": "medium",
+    "requestedModel": "gpt-6-luna",
+    "runtimeVersion": "codex-cli 0.160.0",
+    "threadID": "01a163d4-47e8-78e3-8d87-816141f019cb",
+    "turnID": "01a163d4-482d-7bf1-9e80-06050c3d456b"
+  },
+  "narrow_card_check": "C4",
+  "elapsed_seconds": 9.333
+}

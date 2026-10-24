@@ -1,0 +1,123 @@
+{
+  "results": [
+    {
+      "id": "decision-0001",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "action_and_route",
+          "fact": "D3 legally preserves dummy’s higher diamonds while South can win with DK.",
+          "explanation": "North holds D3, and South’s DK beats West’s DQ. Developing the five-card club suit while retaining DA is feasible; the plan appropriately leaves the unknown club distribution conditional.",
+          "quotes": [
+            "South can win West’s DQ with DK and retain DA as a control",
+            "Opponents’ unseen cards mean the exact club yield and safest continuation must be reassessed after this trick."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0002",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "winner_and_plan_consistency",
+          "fact": "DK wins the actual opening trick and implements the retained plan.",
+          "explanation": "The actual trick contains DQ, D3 and D4; South holds both DK and DA. Playing DK wins while preserving DA.",
+          "quotes": [
+            "Play DK to win over West’s DQ, keeping DA as the later control and entry, as planned."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0003",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "feasible_continuation",
+          "fact": "Cashing CA and CK before reassessing clubs is a feasible continuation.",
+          "explanation": "South holds CA and CK, and North can follow with C2 and C7 while retaining CQ. South can subsequently lead a small club to CQ; no necessary entry is unavailable.",
+          "quotes": [
+            "Cash CA and CK, then reassess the club position and try to establish dummy’s CQ and further club length."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0004",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "preservation_and_history",
+          "fact": "C2 preserves CQ under the winning CA and continues the active club route.",
+          "explanation": "South’s CA is already on the current trick, above West’s C3. North legally follows with C2; the retained plan’s CA step is underway, not an instruction to replay it.",
+          "quotes": [
+            "Play C2 under South’s CA, preserving CQ.",
+            "dummy’s queen remains available for the later club continuation."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0005",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "plan_consistency",
+          "fact": "CK implements the unfinished next step of the retained plan.",
+          "explanation": "CA has actually won, with West contributing C3 and East C5. South still holds CK, and North can preserve CQ by following with C7.",
+          "quotes": [
+            "Cash CK now, as planned.",
+            "CA already won and the opponents followed low clubs"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0006",
+      "status": "fail",
+      "findings": [
+        {
+          "dimension": "incoherent_condition",
+          "fact": "The reason introduces an impossible defensive overtake of CK.",
+          "explanation": "CA was already played and won the preceding trick. In notrump, no remaining card East could play can overtake South’s CK. The explanation therefore treats a secured winner as vulnerable under an impossible condition, although C7 itself is sound.",
+          "quotes": [
+            "if East can overtake, dummy’s queen would not prevent it",
+            "preserving it may still provide a later club trick."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0007",
+      "status": "fail",
+      "findings": [
+        {
+          "dimension": "rank_and_tactical_reasoning",
+          "fact": "The answer misidentifies a guaranteed club winner as a finesse against an unknown defender.",
+          "explanation": "CA and CK have already been cashed. The only outstanding defensive club is CJ, which CQ beats regardless of its location. C4 to CQ is feasible, but its stated justification materially mischaracterizes the certain trick as a conditional finesse.",
+          "quotes": [
+            "attempting the club finesse against West’s remaining unknown club",
+            "this is the best chance to develop another club trick."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0008",
+      "status": "pass",
+      "findings": [
+        {
+          "dimension": "verified_contract_route",
+          "fact": "The replacement plan provides five certain additional tricks through a legal transfer to South.",
+          "explanation": "The actual defensive clubs were C3, C5, C9, CT and CJ, exhausting their five clubs. North can lead H4 to South’s HA, after which South retains DA, SA, C8 and C6. These five winners added to four tricks already won make 3NT.",
+          "quotes": [
+            "From dummy, lead H4 and take the trick with South’s HA.",
+            "Then cash South’s DA and SA, followed by C8 and C6",
+            "This route adds five tricks to the four already won."
+          ]
+        }
+      ]
+    }
+  ]
+}

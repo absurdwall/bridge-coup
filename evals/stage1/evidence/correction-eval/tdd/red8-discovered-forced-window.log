@@ -1,0 +1,13 @@
+........F......
+======================================================================
+FAIL: test_new_information_tracks_break_and_third_club_before_unobserved_discard (test_acceptance.AcceptanceTests.test_new_information_tracks_break_and_third_club_before_unobserved_discard)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tingranwang/.codex/worktrees/stage1-correction-eval/bridge-coup/evals/stage1/tests/test_acceptance.py", line 40, in test_new_information_tracks_break_and_third_club_before_unobserved_discard
+    self.assertIn(14, result['facets']['third_club_before_other_defender_revisions'])
+AssertionError: 14 not found in []
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.362s
+
+FAILED (failures=1)

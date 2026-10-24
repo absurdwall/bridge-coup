@@ -1,0 +1,15 @@
+F
+======================================================================
+FAIL: test_frozen_finite_corpus_has_six_short_and_distinct_development_reserved_boards (test_corpus.CorpusPublicEntryTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tingranwang/.codex/worktrees/stage1-ticket41/bridge-coup/evals/stage1/tests/test_corpus.py", line 21, in test_frozen_finite_corpus_has_six_short_and_distinct_development_reserved_boards
+    self.assertEqual(run.returncode, 0, run.stderr)
+AssertionError: 2 != 0 : usage: evaluate.py [-h] {grade,regrade} ...
+evaluate.py: error: argument command: invalid choice: 'validate-corpus' (choose from 'grade', 'regrade')
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.037s
+
+FAILED (failures=1)

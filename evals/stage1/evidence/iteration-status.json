@@ -1,0 +1,46 @@
+{
+  "updated_utc": "2026-10-18T17:43:12.265554+00:00",
+  "user_instruction": "Continue real tests, evidence-led fixes and revalidation until agreed acceptance passes; no routine approval pauses. Keep PR45 draft/unmerged until explicit user merge approval.",
+  "worktree": "/Users/tingranwang/.codex/worktrees/stage1-integration/bridge-coup",
+  "branch": "codex/stage1-correction",
+  "head": "44d946f",
+  "production_target": "gpt-6-luna/medium",
+  "grader": "gpt-6.1-sol/medium",
+  "current_candidate": "evals/stage1/evidence/route-contract-controls",
+  "current_step": "44d946f High8+xhigh8 completed. High raw6pass2fail69.089s; xhighraw0pass8fail132.138s due impossible initial plan retained. Independent High severity adjudication pending; no current model calls.",
+  "previous_failed_candidates": {
+    "e9182e1": "isolation-only;8decisions0pass8fail",
+    "3337f37": "rank/notation;8decisionsraw5pass3fail;definiteD6",
+    "43cf984": "current winning-play fact;8decisionsraw1pass7fail;D4 ignores correctly supplied CA and D8 revives DA"
+  },
+  "current_change": "Only Expert general route sentence: check proposed trick ranks, actual holdings, next leader and retained entries. Hypothesis, not proved fix.",
+  "engineering": "Previous full228Swift/44Python pass; current26publicplayingtests0fail after instruction-only change.",
+  "evaluator": "v4; corrected8-case calibration matches8/8 twice; original I-inconsistent grades retained separately, no player history rewritten",
+  "diagnostics": "4sealedD7 samples +6sealedD4 samples inclLunaHigh/SolMedium controls; all retained; small mixed results not acceptance. Shared baseline counted once.",
+  "completed_new_playing_requests_before_current_run": 74,
+  "completed_new_grader_calls_before_current_run": 12,
+  "final22": "NOT YET EXECUTED; only once affected evidence is good, freeze and run all18short+4full sequentially; pending never pass.",
+  "coordinator": "01a14f54-4621-7252-9920-3570e34d7449",
+  "call_sessions": {},
+  "python": "/Users/tingranwang/Documents/Codex/Projectless task folder/2026-10-18/new-chat/work/pr45-test-env/bin/python",
+  "swift_test_python_alias": "/var/folders/1l/xh7kf4ss1rqg3vxjr17q9_0w0000gn/T/bridge-pr45-review-h8xadm03/env/bin/python",
+  "build_note": "env -u SDKROOT swift build/test; inherited SDKROOT points mismatched newer CLT SDK",
+  "remaining_required": "Inspect current8 rawoutputs/wire/grader; if fail diagnose/fix one factor and revalidate; if good broaden affected entry/hold-up/used-reserve regressions, restore actual necessary coverage, freeze final22 and review all severe/pending/alternatives, update PR without merging. Do not return to old answered PR43 questions.",
+  "model_controls": {
+    "luna-max": "8acceptable0severe0pending;169.870s",
+    "sol-medium": "8acceptable0severe0pending directreview(noSolselfgrade);61.964s",
+    "astra-medium": "8acceptable0severe0pending;49.880s",
+    "high": "6rawpass2entryfail;48.066s;graderclubcountcorrectedseparately"
+  },
+  "next": "Independent High8 adjudication decides full eligibility. If severe, one future-card-consumption route hypothesis on changed source; no unchanged rerolls. All prior evidence retained.",
+  "latest_user_steering": "Prefer LunaHigh/xhigh sweetpoint, Max latency too high. Finish existing3fullboards, then one new xhigh8 on352d; fullboard ifacceptable. Keep oldHighfailed; any High/xhighentryroute repair mustbeonegeneralcontractchange and revalidateboth. Final22required beforeacceptance.",
+  "full_controls": {
+    "luna-max": "52cards21model5forced374.676s;19acceptable2severe ownership/turn errors",
+    "sol-medium": "52cards21model5forced117.479s;21acceptable0severe direct review, no Sol selfgrade",
+    "astra-medium": "52cards23model3forced116.917s;23acceptable0severe"
+  },
+  "xhigh_short": "8model1forced156.640s;8acceptable0severe0pending independently, ends at starting CA, later entry not covered",
+  "xhigh_full_baseline": "352d:22model4forced52cards10/3;367.240s;raw18pass4fail;rootconfirmedrankerrorsD7D18D19D21. Not accepted.",
+  "old_xhigh_full_independent": "18acceptable4severe0pending confirmed root+Spec D7,D18,D19,D21.",
+  "new_source_review": "44d946f Standards+Spec0findings; not quality acceptance."
+}

@@ -1,0 +1,11 @@
+{
+  "upstream": "https://chatgpt.com/backend-api/codex",
+  "overrides": [
+    "-c",
+    "model_provider=\"bridge-wire-audit\"",
+    "-c",
+    "model_providers.bridge-wire-audit={name=\"bridge-wire-audit\",base_url=\"http://127.0.0.1:60796\",wire_api=\"responses\",requires_openai_auth=true,supports_websockets=false}",
+    "-c",
+    "features.enable_request_compression=false"
+  ]
+}

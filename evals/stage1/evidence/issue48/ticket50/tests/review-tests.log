@@ -1,0 +1,44 @@
+[0/1] Planning build
+Building for debugging...
+[0/7] Write sources
+[1/7] Write swift-version--58304C5D6DBC2206.txt
+[3/5] Compiling BridgePlayingTests ReviewedDecisionTests.swift
+[4/5] Emitting module BridgePlayingTests
+[4/6] Write Objects.LinkFileList
+[5/6] Linking BridgeTeacherPackageTests
+Build complete! (2.10s)
+Test Suite 'Selected tests' started at 2026-10-23 12:20:19.081.
+Test Suite 'BridgeTeacherPackageTests.xctest' started at 2026-10-23 12:20:19.082.
+Test Suite 'ReviewedDecisionTests' started at 2026-10-23 12:20:19.082.
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testApprovalDoesNotAdoptPlanUntilExactActualExecutionAndCannotCommitTwice]' started.
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testApprovalDoesNotAdoptPlanUntilExactActualExecutionAndCannotCommitTwice]' passed (0.005 seconds).
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testApprovedFirstDecisionCommitsOneMatchingPlanAndCard]' started.
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testApprovedFirstDecisionCommitsOneMatchingPlanAndCard]' passed (0.002 seconds).
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testContestedOperationsCarryOnlyFinalPlanIntoTheNextRealSnapshot]' started.
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testContestedOperationsCarryOnlyFinalPlanIntoTheNextRealSnapshot]' passed (0.012 seconds).
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testFiveSemanticReviewsReleaseOnlyLatestCandidateAsContested]' started.
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testFiveSemanticReviewsReleaseOnlyLatestCandidateAsContested]' passed (0.003 seconds).
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testInvalidFifthCandidateCannotUseEarlierLegalCandidateForContestedRelease]' started.
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testInvalidFifthCandidateCannotUseEarlierLegalCandidateForContestedRelease]' passed (0.005 seconds).
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testMalformedStaleOrWrongIdentityReviewCannotAdvanceBoardOrPlan]' started.
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testMalformedStaleOrWrongIdentityReviewCannotAdvanceBoardOrPlan]' passed (0.003 seconds).
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testMissingAuthorizedHandIsNeedsInputBeforeAnyReviewOrContestedRelease]' started.
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testMissingAuthorizedHandIsNeedsInputBeforeAnyReviewOrContestedRelease]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testRevisionKeepsPositionAndPriorPlanUntilFinalApprovedCandidateExecutes]' started.
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testRevisionKeepsPositionAndPriorPlanUntilFinalApprovedCandidateExecutes]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testStalePlayerReplyCannotCreateAnExecutableCandidate]' started.
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testStalePlayerReplyCannotCreateAnExecutableCandidate]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testTechnicalFailureAfterFourReviewsNeverBecomesContestedExecution]' started.
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testTechnicalFailureAfterFourReviewsNeverBecomesContestedExecution]' passed (0.004 seconds).
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testUncertaintyRestatesPublicFactsAndConsumesTheSameFiveRoundBudget]' started.
+Test Case '-[BridgePlayingTests.ReviewedDecisionTests testUncertaintyRestatesPublicFactsAndConsumesTheSameFiveRoundBudget]' passed (0.002 seconds).
+Test Suite 'ReviewedDecisionTests' passed at 2026-10-23 12:20:19.122.
+	 Executed 11 tests, with 0 failures (0 unexpected) in 0.039 (0.040) seconds
+Test Suite 'BridgeTeacherPackageTests.xctest' passed at 2026-10-23 12:20:19.122.
+	 Executed 11 tests, with 0 failures (0 unexpected) in 0.039 (0.040) seconds
+Test Suite 'Selected tests' passed at 2026-10-23 12:20:19.122.
+	 Executed 11 tests, with 0 failures (0 unexpected) in 0.039 (0.041) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

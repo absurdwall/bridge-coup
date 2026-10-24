@@ -1,0 +1,206 @@
+{
+  "action" : {
+    "actingSeat" : "south",
+    "boardID" : "778C639A-D3F4-422A-B000-B3D7E5203594",
+    "card" : "SQ",
+    "controller" : "south",
+    "revision" : 19,
+    "snapshotID" : "778C639A-D3F4-422A-B000-B3D7E5203594:19:south"
+  },
+  "advice" : {
+    "plan" : {
+      "text" : "Take the spade trick with the queen, then use the heart honors and club king to pursue the remaining tricks; dummy’s diamonds are not established because East held the ace.",
+      "update" : "replace"
+    },
+    "publicReason" : "The queen overtakes West’s ten and wins the current spade trick.",
+    "selectedCard" : "SQ"
+  },
+  "effectivePlan" : "Take the spade trick with the queen, then use the heart honors and club king to pursue the remaining tricks; dummy’s diamonds are not established because East held the ace.",
+  "elapsedSeconds" : 4.44020402431488,
+  "identity" : {
+    "observedModel" : "gpt-6-luna",
+    "requestedEffort" : "medium",
+    "requestedModel" : "gpt-6-luna",
+    "runtimeVersion" : "codex-cli 0.160.0",
+    "threadID" : "01a14e2e-fdc8-7341-8e96-01f8ae75f7bd",
+    "turnID" : "01a14e2f-56ed-7493-b9a3-40b3b628e331"
+  },
+  "input" : "Decision snapshot: 778C639A-D3F4-422A-B000-B3D7E5203594:19:south. Controller: South. Acting hand: South.\nPrevious suggestion actually executed: yes.\nNew actual plays in order:\n15: North S6 (model).\n16: West ST (opponent).\n17: North S5 (forced).\n18: East C2 (opponent).\nCurrent trick: West ST; North S5; East C2.\nTricks won: declarer 2, defenders 2.",
+  "instructions" : "Play declarer and dummy using the supplied decision-time information. Write in English and pursue the stated objective. selectedCard is the single card from the acting hand to play now; publicReason briefly explains it. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide an initial concrete plan before dummy's first play. Unknown cards remain unknown.",
+  "planAssociation" : {
+    "boardID" : "778C639A-D3F4-422A-B000-B3D7E5203594",
+    "controller" : "south",
+    "sourceSessionID" : "9298EC8D-D3A8-408E-8898-3F1CB1AD63DE",
+    "sourceSnapshotID" : "778C639A-D3F4-422A-B000-B3D7E5203594:19:south",
+    "text" : "Take the spade trick with the queen, then use the heart honors and club king to pursue the remaining tricks; dummy’s diamonds are not established because East held the ace."
+  },
+  "rawOutput" : "{\"plan\":{\"text\":\"Take the spade trick with the queen, then use the heart honors and club king to pursue the remaining tricks; dummy’s diamonds are not established because East held the ace.\",\"update\":\"replace\"},\"publicReason\":\"The queen overtakes West’s ten and wins the current spade trick.\",\"selectedCard\":\"SQ\"}",
+  "session" : {
+    "id" : "9298EC8D-D3A8-408E-8898-3F1CB1AD63DE",
+    "snapshotID" : "778C639A-D3F4-422A-B000-B3D7E5203594:19:south"
+  },
+  "snapshot" : {
+    "actingSeat" : "south",
+    "boardID" : "778C639A-D3F4-422A-B000-B3D7E5203594",
+    "contract" : {
+      "declarer" : "south",
+      "level" : 3,
+      "strain" : "noTrump"
+    },
+    "controller" : "south",
+    "currentTrick" : [
+      {
+        "card" : "ST",
+        "seat" : "west",
+        "sequence" : 16
+      },
+      {
+        "card" : "S5",
+        "seat" : "north",
+        "sequence" : 17
+      },
+      {
+        "card" : "C2",
+        "seat" : "east",
+        "sequence" : 18
+      }
+    ],
+    "declarerTricks" : 2,
+    "defenderTricks" : 2,
+    "events" : [
+      {
+        "card" : "SJ",
+        "seat" : "west",
+        "sequence" : 0
+      },
+      {
+        "card" : "S3",
+        "seat" : "north",
+        "sequence" : 1
+      },
+      {
+        "card" : "SK",
+        "seat" : "east",
+        "sequence" : 2
+      },
+      {
+        "card" : "SA",
+        "seat" : "south",
+        "sequence" : 3
+      },
+      {
+        "card" : "D3",
+        "seat" : "south",
+        "sequence" : 4
+      },
+      {
+        "card" : "D6",
+        "seat" : "west",
+        "sequence" : 5
+      },
+      {
+        "card" : "DQ",
+        "seat" : "north",
+        "sequence" : 6
+      },
+      {
+        "card" : "D8",
+        "seat" : "east",
+        "sequence" : 7
+      },
+      {
+        "card" : "DK",
+        "seat" : "north",
+        "sequence" : 8
+      },
+      {
+        "card" : "DA",
+        "seat" : "east",
+        "sequence" : 9
+      },
+      {
+        "card" : "D4",
+        "seat" : "south",
+        "sequence" : 10
+      },
+      {
+        "card" : "D2",
+        "seat" : "west",
+        "sequence" : 11
+      },
+      {
+        "card" : "S2",
+        "seat" : "east",
+        "sequence" : 12
+      },
+      {
+        "card" : "S4",
+        "seat" : "south",
+        "sequence" : 13
+      },
+      {
+        "card" : "S8",
+        "seat" : "west",
+        "sequence" : 14
+      },
+      {
+        "card" : "S6",
+        "seat" : "north",
+        "sequence" : 15
+      },
+      {
+        "card" : "ST",
+        "seat" : "west",
+        "sequence" : 16
+      },
+      {
+        "card" : "S5",
+        "seat" : "north",
+        "sequence" : 17
+      },
+      {
+        "card" : "C2",
+        "seat" : "east",
+        "sequence" : 18
+      }
+    ],
+    "hands" : [
+      {
+        "cards" : [
+          "SQ",
+          "S7",
+          "HA",
+          "HK",
+          "H6",
+          "H2",
+          "CK",
+          "C7",
+          "C3"
+        ],
+        "seat" : "south"
+      },
+      {
+        "cards" : [
+          "H4",
+          "H3",
+          "D9",
+          "D7",
+          "D5",
+          "CA",
+          "CT",
+          "C4"
+        ],
+        "seat" : "north"
+      }
+    ],
+    "legalCards" : [
+      "SQ",
+      "S7"
+    ],
+    "objective" : "Normal IMP strategy, weighing contract risk and overtricks.",
+    "revision" : 19,
+    "scoring" : "IMP",
+    "vulnerability" : "neither"
+  },
+  "wireContractVersion" : "stage1-legal-selectedCard-v3"
+}

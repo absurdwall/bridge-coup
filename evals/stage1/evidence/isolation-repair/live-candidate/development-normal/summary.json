@@ -1,0 +1,250 @@
+{
+  "id": "development-normal",
+  "case_id": "short-2",
+  "kind": "short",
+  "board": "boards/synthetic.json",
+  "decisions": 8,
+  "opponent_policy": "conserve-high",
+  "task_complete": true,
+  "legal_execution": "pass",
+  "quality": "fail",
+  "playing": {
+    "exit_code": 0,
+    "wall_seconds": 37.66
+  },
+  "grading": {
+    "exit_code": 0,
+    "grading_evidence_available": true
+  },
+  "coverage": {
+    "status": "pending",
+    "basis": "At least three actual decisions; absence of a newly disproved plan premise requires independent review."
+  },
+  "counts": {
+    "actual_events": 15,
+    "complete": false,
+    "tricks": [
+      3,
+      0
+    ],
+    "model_request_attempts": 8,
+    "actual_rpc_requests": 8,
+    "model_actions": 8,
+    "forced_actions": 0,
+    "driver_opponent_actions": 6,
+    "initial_controlled_actions": 0,
+    "initial_opponent_actions": 1,
+    "retries": 0
+  },
+  "wire": {
+    "upstream_request_attempts": 8,
+    "http_statuses": {
+      "200": 8
+    },
+    "transport_errors": [],
+    "missing_response_metadata": [],
+    "observed_response_models": [
+      "gpt-6-luna"
+    ]
+  },
+  "timing": {
+    "elapsedSeconds": 37.366617918014526,
+    "lastControlledActionSeconds": 37.364768981933594,
+    "environmentOverheadSeconds": 0.030284762382507324,
+    "initialRequestSeconds": 10.692031979560852,
+    "subsequentRequestSeconds": [
+      3.7379510402679443,
+      3.6406630277633667,
+      3.9022690057754517,
+      3.6770970821380615,
+      3.970533013343811,
+      3.9132670164108276,
+      3.802520990371704
+    ],
+    "failedRequestSeconds": null
+  },
+  "quality_counts": {
+    "pass": 0,
+    "fail": 8,
+    "uncertain": 0
+  },
+  "review_required": [
+    {
+      "id": "decision-0001",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "trick_winner",
+          "fact": "Dummy's D8 cannot win over West's DQ.",
+          "explanation": "West has already led DQ. Every legal diamond in dummy is lower, so playing D8 cannot secure the lead in dummy.",
+          "quotes": [
+            "Win the diamond lead with dummy's D8, preserving the other diamond spots for later control.",
+            "Dummy should take the trick with the highest available diamond, D8, to secure the lead while preserving lower spots; South can then pursue a club trick for the ninth winner."
+          ]
+        },
+        {
+          "dimension": "trick_counting",
+          "fact": "The stated spade and heart winners are invented.",
+          "explanation": "South holds SA-S9-S4 opposite S8-S6-S2, providing only one immediate spade winner; HA-H6-H3 opposite HK-H7-H4 provides two immediate heart winners. The eight available top tricks include three clubs, so CQ alone does not develop a ninth.",
+          "quotes": [
+            "South has eight immediate winners: three spades, three hearts, and two diamonds.",
+            "Develop a ninth trick in clubs by leading low toward dummy's CQ;"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0002",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "winner_and_action_consistency",
+          "fact": "The reason misidentifies the winning card and contradicts the selected DK.",
+          "explanation": "The current trick is DQ-D8-D4, so West's DQ is winning. South's selected DK beats DQ and wins in South; it cannot let dummy's D8 take the trick.",
+          "quotes": [
+            "West led the DQ and dummy's D8 is currently winning; East followed with D4.",
+            "Preserve South's higher diamond for control and let dummy's D8 take the trick.",
+            "\"selectedCard\":\"DK\""
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0003",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "trick_counting",
+          "fact": "The replacement plan counts S9 and S4 as top winners.",
+          "explanation": "No spades have been played, and defenders hold all missing spade honors. The listed cards supply six remaining top winners, not eight. With one trick already won, CQ brings the total to eight; another trick still needs establishment.",
+          "quotes": [
+            "South has eight apparent top winners: SA, S9, S4, HA, HK, DA, CA, CK.",
+            "Develop a ninth trick in clubs by leading toward dummy's CQ, preserving CA/CK as controls and entries."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0004",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "trick_counting",
+          "fact": "The retained plan and current reason incorrectly treat CQ as the ninth winner.",
+          "explanation": "CQ legally wins over C9 because South holds CA and CK. However, S9 and S4 are not established winners: no spades have been played. One trick already won plus CQ, SA, HA, HK, DA, CA and CK totals eight, leaving a ninth trick to develop.",
+          "quotes": [
+            "South has eight apparent top winners: SA, S9, S4, HA, HK, DA, CA, CK.",
+            "West's C9 beats South's C4, so dummy should play the CQ to win this club trick and establish a ninth winner."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0005",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "trick_counting",
+          "fact": "The answer falsely declares that the ninth trick has already been produced.",
+          "explanation": "Declarer has won DK and CQ. The remaining immediate winners are SA, HA, HK, DA, CA and CK, making eight tricks overall. S9 and S4 remain unestablished, and further club development is still needed.",
+          "quotes": [
+            "the club finesse has already produced the ninth trick.",
+            "South has eight apparent top winners: SA, S9, S4, HA, HK, DA, CA, CK."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0006",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "effective_plan",
+          "fact": "The retained plan still relies on nonexistent spade winners and an incorrect route to nine tricks.",
+          "explanation": "HA is a sound legal winner over H8, but the active plan counts S9 and S4 as top winners although no spades have been played. With DK and CQ already won, the actual top winners total only eight tricks overall; the plan does not identify the additional establishment required.",
+          "quotes": [
+            "South has eight apparent top winners: SA, S9, S4, HA, HK, DA, CA, CK.",
+            "Develop a ninth trick in clubs by leading toward dummy's CQ, preserving CA/CK as controls and entries."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0007",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "entries_and_winners",
+          "fact": "The spade entry and controls asserted by the answer are unsupported.",
+          "explanation": "No spades have been played. Dummy holds S8-S6-S2 and South SA-S9-S4, with SK, SQ, SJ and S10 unaccounted for. S8 is not an established entry, and South has only one top spade control. The retained plan also continues to count S9 and S4 as top winners.",
+          "quotes": [
+            "dummy's S8 can serve as an entry, while South retains the top spade controls.",
+            "South has eight apparent top winners: SA, S9, S4, HA, HK, DA, CA, CK."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0008",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "physical_route_and_effective_plan",
+          "fact": "The reason assigns an impossible forcing effect to S8, while retaining the false winner count.",
+          "explanation": "West's SJ already beats every spade in dummy, so S8 cannot force East to cover to prevent declarer winning. Dummy has no higher spade to waste, and its lower spades are not established entries. The active plan still counts S4, already played under SJ, and S9 as top winners.",
+          "quotes": [
+            "West's SJ beats South's S4, so play dummy's S8 rather than waste a higher spade; this may force East to cover and preserve dummy's lower spades for later entries.",
+            "South has eight apparent top winners: SA, S9, S4, HA, HK, DA, CA, CK."
+          ]
+        }
+      ]
+    }
+  ],
+  "plan_updates": {
+    "keep": 6,
+    "replace": 2,
+    "withdraw": 0
+  },
+  "failures": [],
+  "outcome": "fail"
+}

@@ -1,0 +1,50 @@
+[0/1] Planning build
+Building for debugging...
+[0/9] Copying ReviewerInstructions.txt
+[1/10] Write sources
+[2/10] Copying DeclarerInstructions.txt
+[3/10] Write sources
+[4/10] Write swift-version--58304C5D6DBC2206.txt
+[6/10] Emitting module BridgeDriver
+[7/10] Compiling BridgeDriver BoardDriver.swift
+[8/18] Emitting module BridgePlayingTests
+[9/20] Emitting module BridgePlayCLI
+[10/20] Compiling BridgePlayCLI BridgePlayMain.swift
+[10/20] Write Objects.LinkFileList
+[11/20] Linking bridge-play
+[12/20] Applying bridge-play
+[14/20] Compiling BridgePlayingTests ReviewedDecisionTests.swift
+[15/20] Compiling BridgePlayingTests SnapshotInputTests.swift
+[16/20] Compiling BridgePlayingTests FullBoardTests.swift
+[17/20] Compiling BridgePlayingTests PlayingCoreTests.swift
+[18/20] Compiling BridgePlayingTests ReviewRecoveryTests.swift
+[18/20] Write Objects.LinkFileList
+[19/20] Linking BridgeTeacherPackageTests
+Build complete! (3.46s)
+Test Suite 'Selected tests' started at 2026-10-23 15:07:52.855.
+Test Suite 'BridgeTeacherPackageTests.xctest' started at 2026-10-23 15:07:52.856.
+Test Suite 'SnapshotInputTests' started at 2026-10-23 15:07:52.856.
+Test Case '-[BridgePlayingTests.SnapshotInputTests testCompleteUpdateAfterTwoTricksRetainsAllActualPlaysAndRemainingHands]' started.
+Test Case '-[BridgePlayingTests.SnapshotInputTests testCompleteUpdateAfterTwoTricksRetainsAllActualPlaysAndRemainingHands]' passed (0.006 seconds).
+Test Case '-[BridgePlayingTests.SnapshotInputTests testDoublingFromStoredContractReachesActualExpertInput]' started.
+Test Case '-[BridgePlayingTests.SnapshotInputTests testDoublingFromStoredContractReachesActualExpertInput]' passed (0.002 seconds).
+Test Case '-[BridgePlayingTests.SnapshotInputTests testDriverCarriesCurrentWinningPlayOnOpeningLeadAndPartnerContinuation]' started.
+Test Case '-[BridgePlayingTests.SnapshotInputTests testDriverCarriesCurrentWinningPlayOnOpeningLeadAndPartnerContinuation]' passed (0.004 seconds).
+Test Case '-[BridgePlayingTests.SnapshotInputTests testDriverPreservesPublicBackgroundAndOfficialObjectiveAcrossSnapshots]' started.
+Test Case '-[BridgePlayingTests.SnapshotInputTests testDriverPreservesPublicBackgroundAndOfficialObjectiveAcrossSnapshots]' passed (0.002 seconds).
+Test Case '-[BridgePlayingTests.SnapshotInputTests testLaterSoleClubWindowIsReviewedOnlyWhenMechanicalSkippingIsDisabled]' started.
+Test Case '-[BridgePlayingTests.SnapshotInputTests testLaterSoleClubWindowIsReviewedOnlyWhenMechanicalSkippingIsDisabled]' passed (0.010 seconds).
+Test Case '-[BridgePlayingTests.SnapshotInputTests testMatchpointBoardWithoutExplicitObjectiveUsesScoringNeutralAim]' started.
+Test Case '-[BridgePlayingTests.SnapshotInputTests testMatchpointBoardWithoutExplicitObjectiveUsesScoringNeutralAim]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.SnapshotInputTests testPlanOperationsCarryExactTextThenClearItWhileFactsAdvance]' started.
+Test Case '-[BridgePlayingTests.SnapshotInputTests testPlanOperationsCarryExactTextThenClearItWhileFactsAdvance]' passed (0.003 seconds).
+Test Suite 'SnapshotInputTests' passed at 2026-10-23 15:07:52.885.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 0.028 (0.029) seconds
+Test Suite 'BridgeTeacherPackageTests.xctest' passed at 2026-10-23 15:07:52.885.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 0.028 (0.029) seconds
+Test Suite 'Selected tests' passed at 2026-10-23 15:07:52.885.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 0.028 (0.030) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

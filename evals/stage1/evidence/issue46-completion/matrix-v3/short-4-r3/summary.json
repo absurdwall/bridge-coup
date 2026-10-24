@@ -1,0 +1,258 @@
+{
+  "id": "short-4-r3",
+  "case_id": "short-4",
+  "kind": "short",
+  "board": "boards/synthetic.json",
+  "decisions": 16,
+  "opponent_policy": "conserve-high",
+  "task_complete": true,
+  "legal_execution": "pass",
+  "quality": "fail",
+  "playing": {
+    "exit_code": 0,
+    "wall_seconds": 77.386
+  },
+  "grading": {
+    "exit_code": 0,
+    "grading_evidence_available": true
+  },
+  "coverage": {
+    "status": "pending",
+    "basis": "Consumed honor plus remaining-club/heart-entry opportunity; actual necessary transport and explanation require independent review.",
+    "facets": {
+      "consumed_club_honors": [
+        "CA",
+        "CK",
+        "CQ"
+      ],
+      "entry_opportunity_revisions": [
+        20,
+        24,
+        26
+      ],
+      "post_two_honors": true
+    }
+  },
+  "counts": {
+    "actual_events": 35,
+    "complete": false,
+    "tricks": [
+      7,
+      1
+    ],
+    "model_request_attempts": 16,
+    "actual_rpc_requests": 16,
+    "model_actions": 16,
+    "forced_actions": 2,
+    "driver_opponent_actions": 16,
+    "initial_controlled_actions": 0,
+    "initial_opponent_actions": 1,
+    "retries": 0
+  },
+  "wire": {
+    "upstream_request_attempts": 16,
+    "http_statuses": {
+      "200": 16
+    },
+    "transport_errors": [],
+    "missing_response_metadata": [],
+    "observed_response_models": [
+      "gpt-6-luna"
+    ]
+  },
+  "timing": {
+    "elapsedSeconds": 77.14991903305054,
+    "lastControlledActionSeconds": 77.14766693115234,
+    "environmentOverheadSeconds": 0.16631019115447998,
+    "initialRequestSeconds": 9.442679047584534,
+    "subsequentRequestSeconds": [
+      8.678751945495605,
+      2.5716339349746704,
+      6.362521052360535,
+      2.853855013847351,
+      4.946708917617798,
+      5.233565926551819,
+      6.499850034713745,
+      3.255895972251892,
+      4.304773926734924,
+      5.382373094558716,
+      3.9344669580459595,
+      5.0132609605789185,
+      2.856773018836975,
+      2.5457969903945923,
+      3.1007020473480225
+    ],
+    "failedRequestSeconds": null
+  },
+  "quality_counts": {
+    "pass": 8,
+    "fail": 8,
+    "uncertain": 0
+  },
+  "review_required": [
+    {
+      "id": "decision-0004",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "card ranking and current-trick reasoning",
+          "fact": "The answer falsely says C9 beats CQ.",
+          "explanation": "North holds CQ and can beat West's C9. South holds CA and CK, so East cannot overtake CQ. The false ranking directly motivates surrendering a trick and declaring the club attempt lost.",
+          "quotes": [
+            "West’s C9 already beats it, so playing CQ gains nothing.",
+            "The first club finesse has lost"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0007",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "card ranking and play order",
+          "fact": "The stated conditional continuation is impossible.",
+          "explanation": "HQ cannot cover HK. Moreover, South already led H3 on this trick and cannot play HA after East's fourth-hand play. With HA in South, North's HK is certain to win.",
+          "quotes": [
+            "if East covers with HQ, South can win with HA; otherwise dummy’s king may win."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0011",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "remaining winners and trick counting",
+          "fact": "The replacement plan wrongly excludes South's established C8.",
+          "explanation": "The completed tricks contain every defender club: C9, C5, CT, C3 and CJ. South retains CK8, both winners. H4 to HA supplies entry, after which HA, SA, CK and C8 provide the four tricks needed from five already won.",
+          "quotes": [
+            "Dummy is now out of clubs, so do not count further club tricks beyond CK.",
+            "seek the remaining tricks by developing South’s spades"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0012",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "retained plan and remaining winners",
+          "fact": "Keeping the plan retains its material exclusion of the established C8.",
+          "explanation": "All five defender clubs have already appeared, while South holds CK8. Winning HA reaches both club winners. The retained instruction to count only CK therefore replaces a certain nine-trick route with an unnecessary search in spades.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "Dummy is now out of clubs, so do not count further club tricks beyond CK."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0013",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "trick counting and contract objective",
+          "fact": "The replacement plan overlooks the established ninth trick in C8.",
+          "explanation": "Six tricks are won and South is on lead holding SA and CK8. Every defender club has been played, so these three cards make nine immediately. Seeking another trick through spade development materially misidentifies the remaining task.",
+          "quotes": [
+            "Six tricks are won; take SA and CK for two more, then seek the ninth by developing spades or forcing a defensive honor."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0014",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "retained trick count",
+          "fact": "The retained plan still overlooks C8 as the certain ninth trick.",
+          "explanation": "SA is winning the current trick, and South retains CK8 with all defender clubs exhausted. After SA, those two club winners complete nine. The legal S2 play does not correct the active plan's unnecessary search for a ninth trick.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "then seek the ninth by developing spades or forcing a defensive honor."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0015",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "remaining winners",
+          "fact": "The answer fails to recognize that retained C8 already supplies the ninth trick.",
+          "explanation": "Seven tricks are won, South is on lead with CK8, and every defender club has appeared in completed tricks. Cashing CK and C8 guarantees the contract; the current reason and retained plan instead continue seeking a ninth trick elsewhere.",
+          "quotes": [
+            "Cash CK for the eighth trick; retain C8 and the remaining spades while seeking the ninth."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0016",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "retained plan and established winner",
+          "fact": "The active plan continues to seek a ninth trick despite South's established C8.",
+          "explanation": "CK is winning the eighth declarer trick, West has discarded D2, and East previously showed out of clubs. South retains C8 and will remain on lead, so it can immediately cash the ninth trick. Keeping the spade-development plan preserves a material counting error.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "then seek the ninth by developing spades or forcing a defensive honor."
+          ]
+        }
+      ]
+    }
+  ],
+  "plan_updates": {
+    "keep": 10,
+    "replace": 6,
+    "withdraw": 0
+  },
+  "failures": [],
+  "outcome": "fail"
+}

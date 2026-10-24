@@ -1,0 +1,134 @@
+{
+  "action" : {
+    "actingSeat" : "south",
+    "boardID" : "684B42BB-8D40-4C68-9C38-53A92D5871F7",
+    "card" : "CK",
+    "controller" : "south",
+    "revision" : 4,
+    "snapshotID" : "684B42BB-8D40-4C68-9C38-53A92D5871F7:4:south"
+  },
+  "advice" : {
+    "plan" : {
+      "text" : "After winning the opening diamond with DK, lead a club honor toward dummy’s CQ. If clubs establish, retain CA and DA as entries and cash the established clubs; use SA and HA as controls, and keep DA for a later diamond entry. Reassess after the defenders’ club plays.",
+      "update" : "replace"
+    },
+    "publicReason" : "Lead a club honor toward dummy’s CQ to establish club tricks while retaining CA as an entry and control.",
+    "selectedCard" : "CK"
+  },
+  "effectivePlan" : "After winning the opening diamond with DK, lead a club honor toward dummy’s CQ. If clubs establish, retain CA and DA as entries and cash the established clubs; use SA and HA as controls, and keep DA for a later diamond entry. Reassess after the defenders’ club plays.",
+  "elapsedSeconds" : 4.25046706199646,
+  "identity" : {
+    "observedModel" : "gpt-6-luna",
+    "requestedEffort" : "medium",
+    "requestedModel" : "gpt-6-luna",
+    "runtimeVersion" : "codex-cli 0.160.0",
+    "threadID" : "01a14fe2-4d9d-77e2-ace4-b7f36da0b962",
+    "turnID" : "01a14fe2-7828-7d20-988f-9044b8b98daa"
+  },
+  "input" : "Decision snapshot: 684B42BB-8D40-4C68-9C38-53A92D5871F7:4:south. Controller: South. Acting hand: South.\nPrevious suggestion actually executed: yes.\nCurrent action: South (declarer) leads a new trick.\nLegal current choices: SA, S9, S4, HA, H6, H3, DA, CA, CK, C8, C6, C4.\nNew actual plays in order:\n3: South DK (model).\nCurrent trick: .\nTricks won: declarer 1, defenders 0.",
+  "instructions" : "Play declarer and dummy from the supplied decision-time information, in English, pursuing the stated objective. Card codes give suit S\/H\/D\/C followed by rank; rank order is A K Q J T 9 8 7 6 5 4 3 2, high to low. A trick is won by its highest trump, or its highest card of the led suit when no trump is played. Form a concrete route using available winners, suit establishment, timing and entries; reassess it as actual play warrants. Derive publicReason and the single selectedCard to play now from the effective plan, current trick and remaining cards of the acting hand. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide the initial plan before dummy's first play. Unknown cards remain unknown.",
+  "planAssociation" : {
+    "boardID" : "684B42BB-8D40-4C68-9C38-53A92D5871F7",
+    "controller" : "south",
+    "sourceSessionID" : "B4BBC805-8938-40B4-9A03-EBC9E527FC95",
+    "sourceSnapshotID" : "684B42BB-8D40-4C68-9C38-53A92D5871F7:4:south",
+    "text" : "After winning the opening diamond with DK, lead a club honor toward dummy’s CQ. If clubs establish, retain CA and DA as entries and cash the established clubs; use SA and HA as controls, and keep DA for a later diamond entry. Reassess after the defenders’ club plays."
+  },
+  "rawOutput" : "{\"publicReason\":\"Lead a club honor toward dummy’s CQ to establish club tricks while retaining CA as an entry and control.\",\"plan\":{\"text\":\"After winning the opening diamond with DK, lead a club honor toward dummy’s CQ. If clubs establish, retain CA and DA as entries and cash the established clubs; use SA and HA as controls, and keep DA for a later diamond entry. Reassess after the defenders’ club plays.\",\"update\":\"replace\"},\"selectedCard\":\"CK\"}",
+  "session" : {
+    "id" : "B4BBC805-8938-40B4-9A03-EBC9E527FC95",
+    "snapshotID" : "684B42BB-8D40-4C68-9C38-53A92D5871F7:4:south"
+  },
+  "snapshot" : {
+    "actingSeat" : "south",
+    "boardID" : "684B42BB-8D40-4C68-9C38-53A92D5871F7",
+    "contract" : {
+      "declarer" : "south",
+      "level" : 3,
+      "strain" : "noTrump"
+    },
+    "controller" : "south",
+    "currentTrick" : [
+
+    ],
+    "declarerTricks" : 1,
+    "defenderTricks" : 0,
+    "events" : [
+      {
+        "card" : "DQ",
+        "seat" : "west",
+        "sequence" : 0
+      },
+      {
+        "card" : "D3",
+        "seat" : "north",
+        "sequence" : 1
+      },
+      {
+        "card" : "D4",
+        "seat" : "east",
+        "sequence" : 2
+      },
+      {
+        "card" : "DK",
+        "seat" : "south",
+        "sequence" : 3
+      }
+    ],
+    "hands" : [
+      {
+        "cards" : [
+          "SA",
+          "S9",
+          "S4",
+          "HA",
+          "H6",
+          "H3",
+          "DA",
+          "CA",
+          "CK",
+          "C8",
+          "C6",
+          "C4"
+        ],
+        "seat" : "south"
+      },
+      {
+        "cards" : [
+          "S8",
+          "S6",
+          "S2",
+          "HK",
+          "H7",
+          "H4",
+          "D8",
+          "D6",
+          "D5",
+          "CQ",
+          "C7",
+          "C2"
+        ],
+        "seat" : "north"
+      }
+    ],
+    "legalCards" : [
+      "SA",
+      "S9",
+      "S4",
+      "HA",
+      "H6",
+      "H3",
+      "DA",
+      "CA",
+      "CK",
+      "C8",
+      "C6",
+      "C4"
+    ],
+    "objective" : "Normal IMP strategy, weighing contract risk and overtricks.",
+    "revision" : 4,
+    "scoring" : "IMP",
+    "vulnerability" : "neither"
+  },
+  "wireContractVersion" : "stage1-plan-variants-v4"
+}

@@ -1,0 +1,200 @@
+{
+  "attempt": "candidate2/short-3-r3",
+  "frozen_source": "0a307cbde5498ed24b73da0d781cb9113ce92180",
+  "root": "/Users/tingranwang/.codex/worktrees/issue52-reviewed-acceptance/bridge-coup/evals/stage1/evidence/issue48/ticket52/candidate2/short-3-r3",
+  "source_sha256": {
+    "grade/input.json": "b0d2abef635db1c406a5c8828b92dedf97a7f00a81c22bf8dfde79b28348c9e8",
+    "grade/evaluation.json": "e2f0eb4117364fad1aae82469a88ae8db61b87825e17c63c9d88287563d78f0a",
+    "grade/grader-output.json": "ca2aecfe0c081ef2d79249fb98475d8489b146375ab74313094c22864e2dbedf",
+    "play/trace.json": "e03ac05df7357eb153e618e3c66caa4bd53feb6ea2891dfbb963fff15f668769",
+    "summary.json": "dede540a34c117f2834dd167bcd892b93444b50237a711c8e5065c28576c51c5"
+  },
+  "decisions": [
+    {
+      "id": "decision-0001",
+      "revision": 1,
+      "seat": "north",
+      "card": "D3",
+      "reason": "Play low to win the diamond king, preserving dummy's higher diamonds. The priority is safely establishing four club tricks while outside controls remain.",
+      "update": "replace",
+      "public_record_exact": true,
+      "owned_and_legal": true,
+      "source": "model"
+    },
+    {
+      "id": "decision-0002",
+      "revision": 3,
+      "seat": "south",
+      "card": "DK",
+      "reason": "Win as planned, then establish four club tricks by cashing the ace and ducking the second round, retaining outside entries.",
+      "update": "keep",
+      "public_record_exact": true,
+      "owned_and_legal": true,
+      "source": "model"
+    },
+    {
+      "id": "decision-0003",
+      "revision": 4,
+      "seat": "south",
+      "card": "CA",
+      "reason": "Start establishing clubs while all outside controls remain. If both defenders follow, duck the next club to secure four tricks even against a 4\u20131 break.",
+      "update": "keep",
+      "public_record_exact": true,
+      "owned_and_legal": true,
+      "source": "model"
+    },
+    {
+      "id": "decision-0004",
+      "revision": 6,
+      "seat": "north",
+      "card": "C2",
+      "reason": "Preserve the queen for the third club round and the seven for the planned second-round duck.",
+      "update": "keep",
+      "public_record_exact": true,
+      "owned_and_legal": true,
+      "source": "model"
+    },
+    {
+      "id": "decision-0005",
+      "revision": 8,
+      "seat": "south",
+      "card": "C4",
+      "reason": "Duck this round in dummy, conceding a club early to secure four club tricks against either a 3\u20132 or 4\u20131 split.",
+      "update": "keep",
+      "public_record_exact": true,
+      "owned_and_legal": true,
+      "source": "model"
+    },
+    {
+      "id": "decision-0006",
+      "revision": 10,
+      "seat": "north",
+      "card": "C7",
+      "reason": "Duck as planned, retaining the queen. This concedes the club trick early while preserving the entries and controls needed to secure nine tricks.",
+      "update": "keep",
+      "public_record_exact": true,
+      "owned_and_legal": true,
+      "source": "model"
+    },
+    {
+      "id": "decision-0007",
+      "revision": 13,
+      "seat": "south",
+      "card": "DA",
+      "reason": "Win the return, then lead a low club to dummy's queen. Clubs are confirmed 3\u20132; a heart return to South allows the remaining clubs to cash for nine tricks.",
+      "update": "keep",
+      "public_record_exact": true,
+      "owned_and_legal": true,
+      "source": "model"
+    },
+    {
+      "id": "decision-0008",
+      "revision": 15,
+      "seat": "north",
+      "card": "D5",
+      "reason": "Follow low under the ace. Next lead a low club to the queen, then use hearts to return to South and cash the established clubs.",
+      "update": "keep",
+      "public_record_exact": true,
+      "owned_and_legal": true,
+      "source": "model"
+    },
+    {
+      "id": "decision-0009",
+      "revision": 16,
+      "seat": "south",
+      "card": "C6",
+      "reason": "Lead to dummy's queen, drawing the last opposing club. Hearts provide the return to South to cash the king and eight.",
+      "update": "keep",
+      "public_record_exact": true,
+      "owned_and_legal": true,
+      "source": "model"
+    },
+    {
+      "id": "decision-0010",
+      "revision": 18,
+      "seat": "north",
+      "card": "CQ",
+      "reason": "Win the last opposing club. Cash the heart king, then lead a heart to the ace to reach South's established clubs; the spade ace completes nine tricks.",
+      "update": "keep",
+      "public_record_exact": true,
+      "owned_and_legal": true,
+      "source": "model"
+    },
+    {
+      "id": "decision-0011",
+      "revision": 20,
+      "seat": "north",
+      "card": "HK",
+      "reason": "Cash dummy's heart winner before crossing to the ace. South can then cash both clubs and the spade ace to secure nine tricks.",
+      "update": "keep",
+      "public_record_exact": true,
+      "owned_and_legal": true,
+      "source": "model"
+    },
+    {
+      "id": "decision-0012",
+      "revision": 22,
+      "seat": "south",
+      "card": "H3",
+      "reason": "Keep the ace as the entry to South. Next lead a heart to it, then cash both clubs and the spade ace for nine tricks.",
+      "update": "keep",
+      "public_record_exact": true,
+      "owned_and_legal": true,
+      "source": "model"
+    }
+  ],
+  "public_core": {
+    "initial_outside_clubs": 5,
+    "before_decision9_seen": {
+      "west": [
+        "C3",
+        "C9"
+      ],
+      "east": [
+        "C5",
+        "CT"
+      ]
+    },
+    "last_outside_card": "CJ",
+    "split_known": "3-2",
+    "long_owner_not_yet_known": true
+  },
+  "eligible_window": {
+    "decision": "decision-0010",
+    "revision": 18,
+    "new_observation": {
+      "card": "CJ",
+      "seat": "west",
+      "sequence": 17
+    },
+    "seen_clubs": {
+      "west": [
+        "C3",
+        "C9",
+        "CJ"
+      ],
+      "east": [
+        "C5",
+        "CT"
+      ]
+    },
+    "deduction": "West originally3 clubs; East originally2 and now0",
+    "prior_equivalent_localization": false,
+    "source": "model",
+    "legal_cards": [
+      "CQ"
+    ]
+  },
+  "later_trace_coverage_boundary_only": {
+    "other_first_club_showout": 19,
+    "card": "H2",
+    "seat": "east"
+  },
+  "semantic_facet": "not established conservatively: current exhaustion statement is correct but repeats prior forecast without distinct observable use of newly localized owner",
+  "automatic_runtime_seconds": 260.34839701652527,
+  "raw_grade_counts": {
+    "pass": 12,
+    "fail": 0,
+    "uncertain": 0
+  }
+}

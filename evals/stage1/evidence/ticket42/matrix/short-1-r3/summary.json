@@ -1,0 +1,91 @@
+{
+  "id": "short-1-r3",
+  "case_id": "short-1",
+  "kind": "short",
+  "board": "boards/synthetic.json",
+  "decisions": 1,
+  "opponent_policy": "conserve-high",
+  "task_complete": true,
+  "legal_execution": "pass",
+  "quality": "fail",
+  "playing": {
+    "exit_code": 0,
+    "wall_seconds": 10.077
+  },
+  "grading": {
+    "exit_code": 0,
+    "grading_evidence_available": true
+  },
+  "coverage": {
+    "status": "covered",
+    "basis": "Initial actual model plan before the first controlled action."
+  },
+  "counts": {
+    "actual_events": 2,
+    "complete": false,
+    "tricks": [
+      0,
+      0
+    ],
+    "model_request_attempts": 1,
+    "actual_rpc_requests": 1,
+    "model_actions": 1,
+    "forced_actions": 0,
+    "driver_opponent_actions": 0,
+    "initial_controlled_actions": 0,
+    "initial_opponent_actions": 1,
+    "retries": 0
+  },
+  "wire": {
+    "upstream_request_attempts": 1,
+    "http_statuses": {
+      "200": 1
+    },
+    "transport_errors": [],
+    "missing_response_metadata": [],
+    "observed_response_models": [
+      "gpt-6-luna"
+    ]
+  },
+  "timing": {
+    "elapsedSeconds": 9.840654015541077,
+    "lastControlledActionSeconds": 9.839213013648987,
+    "environmentOverheadSeconds": 0.006324052810668945,
+    "initialRequestSeconds": 9.834329962730408,
+    "subsequentRequestSeconds": [],
+    "failedRequestSeconds": null
+  },
+  "quality_counts": {
+    "pass": 0,
+    "fail": 1,
+    "uncertain": 0
+  },
+  "review_required": [
+    {
+      "id": "play",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "Card ownership, trick winner, and plan consistency",
+          "fact": "The answer places the diamond ace in dummy and incorrectly claims the opening trick can be won there.",
+          "explanation": "North holds D8653; South holds DAK. The selected D8 is legal but cannot beat West’s DQ or keep the lead in dummy. Winning with the ace requires South to play it, leaving South on lead. Thus the stated opening route and reason materially contradict the authorized hands and selected action.",
+          "quotes": [
+            "Win the opening diamond lead in dummy with the ace, then establish and run the club suit, preserving South’s diamond king as an entry.",
+            "The diamond ace wins the trick and keeps the lead in dummy for the club continuation."
+          ]
+        }
+      ]
+    }
+  ],
+  "plan_updates": {
+    "keep": 0,
+    "replace": 1,
+    "withdraw": 0
+  },
+  "failures": [],
+  "outcome": "fail"
+}

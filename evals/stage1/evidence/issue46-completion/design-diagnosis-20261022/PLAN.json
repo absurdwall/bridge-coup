@@ -1,0 +1,216 @@
+{
+  "purpose": "Bounded causal-design diagnosis, not acceptance or product behavior. No production source/instructions changes.",
+  "hypotheses": [
+    {
+      "rank": 1,
+      "hypothesis": "Incorrect effectivePlan anchors later responses despite correct current facts.",
+      "prediction": "At decision12, clearing only effectivePlan improves CA choice relative to carrying the actual false plan, within the same winningPlay condition."
+    },
+    {
+      "rank": 2,
+      "hypothesis": "The derived winningPlay field/reference primes final-winner interpretation.",
+      "prediction": "At decision12, removing that redundant field and its reference improves CA choice within the same plan condition. The actual currentTrick remains unchanged."
+    },
+    {
+      "rank": 3,
+      "hypothesis": "Continuing history contributes to the recorded errors.",
+      "prediction": "Fresh one-turn requests with byte-identical current input, instructions and schema semantics make fewer observed mistakes than saved continuous turns.",
+      "limit": "History is not replayed exactly; stochastic new sampling and time/routing changes prevent a clean causal attribution from this comparison."
+    },
+    {
+      "rank": 4,
+      "hypothesis": "Basic knowledge is available when directly requested but not reliably applied during planning.",
+      "prediction": "Factual count/rank questions are correct even if normal-play responses in the same study err.",
+      "limit": "Changing the task and schema is a positive-control competence probe, not a production fix or isolated proof about prompt length."
+    }
+  ],
+  "schedule": [
+    {
+      "id": "heart-full-r1",
+      "source_decision": 6,
+      "repeat": 1,
+      "clear_effective_plan": false,
+      "include_current_winning_play": true,
+      "task": "normal-play-output",
+      "request": "requests/heart-full-r1.json",
+      "sha256": "ece6f681565087cb89c2fa0d7091d8b27a16dbed548539051014ff3686d7a776"
+    },
+    {
+      "id": "heart-no-plan-r1",
+      "source_decision": 6,
+      "repeat": 1,
+      "clear_effective_plan": true,
+      "include_current_winning_play": true,
+      "task": "normal-play-output",
+      "request": "requests/heart-no-plan-r1.json",
+      "sha256": "c4da950ff05ac68f614d3cd99ba1618d2823be0e95b27363c360c45741002b96"
+    },
+    {
+      "id": "heart-fact-r1",
+      "source_decision": 6,
+      "repeat": 1,
+      "clear_effective_plan": false,
+      "include_current_winning_play": true,
+      "task": "factual-hearts",
+      "request": "requests/heart-fact-r1.json",
+      "sha256": "24bcaf93494f2d9f47b173fc475cdae7e9d9f57f1429028c054f85c368823af0"
+    },
+    {
+      "id": "club-full-r1",
+      "source_decision": 12,
+      "repeat": 1,
+      "clear_effective_plan": false,
+      "include_current_winning_play": true,
+      "task": "normal-play-output",
+      "request": "requests/club-full-r1.json",
+      "sha256": "0a1edfd3ea002d17ca1b801199779f23ac159e9428b5254baf8a8800013394d1"
+    },
+    {
+      "id": "club-no-plan-r1",
+      "source_decision": 12,
+      "repeat": 1,
+      "clear_effective_plan": true,
+      "include_current_winning_play": true,
+      "task": "normal-play-output",
+      "request": "requests/club-no-plan-r1.json",
+      "sha256": "71db0e536076b024451c8e3d7339124dfe04a0df19935acb6a65e155f3e8da4b"
+    },
+    {
+      "id": "club-no-plan-no-winner-r1",
+      "source_decision": 12,
+      "repeat": 1,
+      "clear_effective_plan": true,
+      "include_current_winning_play": false,
+      "task": "normal-play-output",
+      "request": "requests/club-no-plan-no-winner-r1.json",
+      "sha256": "a52fd121509912f783427be7ece69cbae0b4c5369c4a61e52d8df4231509f9d1"
+    },
+    {
+      "id": "club-no-winner-r1",
+      "source_decision": 12,
+      "repeat": 1,
+      "clear_effective_plan": false,
+      "include_current_winning_play": false,
+      "task": "normal-play-output",
+      "request": "requests/club-no-winner-r1.json",
+      "sha256": "811155adb9ebfd6acf566149615ddc8543386ac19a013a069b7b853c96be0e37"
+    },
+    {
+      "id": "club-before-error-full-r1",
+      "source_decision": 11,
+      "repeat": 1,
+      "clear_effective_plan": false,
+      "include_current_winning_play": true,
+      "task": "normal-play-output",
+      "request": "requests/club-before-error-full-r1.json",
+      "sha256": "de32381d5bb6fe512d59c0cc1fda614b0f9c173a764bfb48eced3e0abbbc5615"
+    },
+    {
+      "id": "club-fact-r1",
+      "source_decision": 12,
+      "repeat": 1,
+      "clear_effective_plan": false,
+      "include_current_winning_play": true,
+      "task": "factual-clubs",
+      "request": "requests/club-fact-r1.json",
+      "sha256": "1a1c9819089a5c28f454e7022391a49369037b24cb833221dbe902e81cdfdc24"
+    },
+    {
+      "id": "heart-fact-r2",
+      "source_decision": 6,
+      "repeat": 2,
+      "clear_effective_plan": false,
+      "include_current_winning_play": true,
+      "task": "factual-hearts",
+      "request": "requests/heart-fact-r2.json",
+      "sha256": "24bcaf93494f2d9f47b173fc475cdae7e9d9f57f1429028c054f85c368823af0"
+    },
+    {
+      "id": "heart-no-plan-r2",
+      "source_decision": 6,
+      "repeat": 2,
+      "clear_effective_plan": true,
+      "include_current_winning_play": true,
+      "task": "normal-play-output",
+      "request": "requests/heart-no-plan-r2.json",
+      "sha256": "c4da950ff05ac68f614d3cd99ba1618d2823be0e95b27363c360c45741002b96"
+    },
+    {
+      "id": "heart-full-r2",
+      "source_decision": 6,
+      "repeat": 2,
+      "clear_effective_plan": false,
+      "include_current_winning_play": true,
+      "task": "normal-play-output",
+      "request": "requests/heart-full-r2.json",
+      "sha256": "ece6f681565087cb89c2fa0d7091d8b27a16dbed548539051014ff3686d7a776"
+    },
+    {
+      "id": "club-no-winner-r2",
+      "source_decision": 12,
+      "repeat": 2,
+      "clear_effective_plan": false,
+      "include_current_winning_play": false,
+      "task": "normal-play-output",
+      "request": "requests/club-no-winner-r2.json",
+      "sha256": "811155adb9ebfd6acf566149615ddc8543386ac19a013a069b7b853c96be0e37"
+    },
+    {
+      "id": "club-no-plan-no-winner-r2",
+      "source_decision": 12,
+      "repeat": 2,
+      "clear_effective_plan": true,
+      "include_current_winning_play": false,
+      "task": "normal-play-output",
+      "request": "requests/club-no-plan-no-winner-r2.json",
+      "sha256": "a52fd121509912f783427be7ece69cbae0b4c5369c4a61e52d8df4231509f9d1"
+    },
+    {
+      "id": "club-no-plan-r2",
+      "source_decision": 12,
+      "repeat": 2,
+      "clear_effective_plan": true,
+      "include_current_winning_play": true,
+      "task": "normal-play-output",
+      "request": "requests/club-no-plan-r2.json",
+      "sha256": "71db0e536076b024451c8e3d7339124dfe04a0df19935acb6a65e155f3e8da4b"
+    },
+    {
+      "id": "club-full-r2",
+      "source_decision": 12,
+      "repeat": 2,
+      "clear_effective_plan": false,
+      "include_current_winning_play": true,
+      "task": "normal-play-output",
+      "request": "requests/club-full-r2.json",
+      "sha256": "0a1edfd3ea002d17ca1b801199779f23ac159e9428b5254baf8a8800013394d1"
+    },
+    {
+      "id": "club-before-error-full-r2",
+      "source_decision": 11,
+      "repeat": 2,
+      "clear_effective_plan": false,
+      "include_current_winning_play": true,
+      "task": "normal-play-output",
+      "request": "requests/club-before-error-full-r2.json",
+      "sha256": "de32381d5bb6fe512d59c0cc1fda614b0f9c173a764bfb48eced3e0abbbc5615"
+    },
+    {
+      "id": "club-fact-r2",
+      "source_decision": 12,
+      "repeat": 2,
+      "clear_effective_plan": false,
+      "include_current_winning_play": true,
+      "task": "factual-clubs",
+      "request": "requests/club-fact-r2.json",
+      "sha256": "1a1c9819089a5c28f454e7022391a49369037b24cb833221dbe902e81cdfdc24"
+    }
+  ],
+  "requests": 18,
+  "player": "gpt-6-luna",
+  "effort": "medium",
+  "transport": "The exact production CodexPlayingTransport, called by a temporary Swift harness. No tools.",
+  "policy": "Sequential; exactly one request per named entry, two predetermined replicates per condition, no retry or adaptive stop/reroll. Fresh thread per counterfactual request. A different task/schema is used only for the labeled factual positive controls.",
+  "scoring": "CA choice is a narrow audited local winner test; heart-count prose requires direct inspection and is not automatically passed by absence of an exact phrase. Factual expected answers: 3 hearts; canWin=true/card=CA. No generic semantic validator or answer repair enters production.",
+  "phase_limits": "Saved-witness replay is deterministic and fast. Live stochastic black-box inference cannot provide a deterministic seconds-long green/red loop or exact replay of encrypted prior reasoning. Original failures and their full context remain preserved; controlled probes test only the named variables and do not prove broad reliability."
+}

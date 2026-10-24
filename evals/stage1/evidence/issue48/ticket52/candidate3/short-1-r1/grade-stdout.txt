@@ -1,0 +1,35 @@
+{
+  "rubric_version": "stage1-basic-v4",
+  "results": [
+    {
+      "id": "play",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "current action and trick counting",
+          "fact": "D3 is legal, and five outside winners plus four club tricks make nine.",
+          "explanation": "Authorized North holds D8653 facing West's DQ lead, so D3 follows suit. South's SA, HA, DA and DK plus North's HK provide five outside winners.",
+          "quotes": [
+            "\"selectedCard\":\"D3\"",
+            "Five top tricks outside clubs mean four club tricks suffice."
+          ]
+        },
+        {
+          "dimension": "effective plan feasibility",
+          "fact": "The stated club sequence can establish four club tricks against a 4–1 break with sufficient outside entries.",
+          "explanation": "Authorized clubs are South AK864 opposite North Q72. Ducking C4 and C2 leaves AK86 opposite Q7. Cashing one high club consumes dummy's C7; a low club then reaches CQ. South's outside winners provide the return entry to cash the remaining high club and established length. The plan explicitly keeps a 5–0 break conditional.",
+          "quotes": [
+            "With clubs then AK86 opposite Q7, cash one high club, lead a low club to the queen, and return to South through a remaining outside winner to cash the other high club and established long club.",
+            "This yields nine tricks against any club break other than 5–0; adapt to a revealed void rather than assuming four club tricks remain available."
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Small-sample basic evaluation; no claim of broad grading reliability."
+}

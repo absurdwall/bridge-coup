@@ -1,0 +1,334 @@
+{
+  "rubric_version": "stage1-basic-v2",
+  "results": [
+    {
+      "id": "decision-0001",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "card ownership",
+          "fact": "South holds the diamond ace and king; dummy holds D8653.",
+          "explanation": "The initial plan assigns both diamond honors to the wrong hand and specifies an impossible winning play from dummy.",
+          "quotes": [
+            "Win the diamond lead with dummy’s ace-king"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0002",
+      "mechanical": "pass",
+      "quality": "uncertain",
+      "overall": "uncertain",
+      "attribution": "evaluator_issue",
+      "evaluator_error": "Missing status or cited findings",
+      "findings": []
+    },
+    {
+      "id": "decision-0003",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "entries",
+          "fact": "The diamond king is in South, while dummy has D863.",
+          "explanation": "Cashing South’s diamond king cannot transfer the lead to dummy.",
+          "quotes": [
+            "Retain the diamond king as an entry to dummy"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0004",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "winner identification",
+          "fact": "South holds both the club ace and king.",
+          "explanation": "East cannot cover dummy’s club queen with a higher club. The stated contingency contradicts the visible hands.",
+          "quotes": [
+            "play the queen to beat West’s 9 unless East covers with a higher club."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0005",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "entries",
+          "fact": "South holds DK; dummy holds D863.",
+          "explanation": "The retained king is an entry to South, not dummy.",
+          "quotes": [
+            "preserve the diamond king as an entry to dummy"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0006",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "entries",
+          "fact": "The diamond king remains in South, opposite dummy’s D863.",
+          "explanation": "The plan explicitly relies on an entry in the wrong direction.",
+          "quotes": [
+            "Preserve the diamond king as an entry to dummy"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0007",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "entries",
+          "fact": "South holds DK and dummy has only lower diamonds.",
+          "explanation": "South’s diamond king cannot provide the stated entry to dummy.",
+          "quotes": [
+            "Preserve the diamond king as an entry to dummy"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0008",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "physical route",
+          "fact": "South is leading DK; dummy holds D863, and DA has already been played.",
+          "explanation": "The king wins in South, so the proposed crossing and subsequent heart lead from dummy are impossible by this route.",
+          "quotes": [
+            "Use the diamond king to reach dummy, then lead a low heart toward South’s ace",
+            "cross to dummy with the diamond king"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0009",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "physical route",
+          "fact": "South’s DK is on lead, dummy follows with D3, and DA was played on the first trick.",
+          "explanation": "The retained plan still requires DK to transfer the lead to dummy, although South must win this trick.",
+          "quotes": [
+            "Use the diamond king to reach dummy, then lead a low heart toward South’s ace"
+          ]
+        },
+        {
+          "dimension": "winner identification",
+          "fact": "DA has already been played and DK is the highest remaining diamond.",
+          "explanation": "East cannot overtake the king in notrump.",
+          "quotes": [
+            "South’s king wins if East does not overtake."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0010",
+      "mechanical": "pass",
+      "quality": "uncertain",
+      "overall": "uncertain",
+      "attribution": "evaluator_issue",
+      "evaluator_error": "Missing status or cited findings",
+      "findings": []
+    },
+    {
+      "id": "decision-0011",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "trick development",
+          "fact": "Declarer has five tricks. After HK wins, the remaining hearts are HA6 opposite H74, with HQJT9 still unplayed.",
+          "explanation": "Winning HK does not establish additional heart winners. The stated reliance on established hearts and SA does not supply the remaining tricks; South’s established clubs provide the available route.",
+          "quotes": [
+            "use the spade ace plus established heart winners to pursue the remaining tricks.",
+            "take the trick and establish the suit."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0012",
+      "mechanical": "pass",
+      "quality": "uncertain",
+      "overall": "uncertain",
+      "attribution": "evaluator_issue",
+      "evaluator_error": "Missing status or cited findings",
+      "findings": []
+    },
+    {
+      "id": "decision-0013",
+      "mechanical": "pass",
+      "quality": "uncertain",
+      "overall": "uncertain",
+      "attribution": "evaluator_issue",
+      "evaluator_error": "Missing status or cited findings",
+      "findings": []
+    },
+    {
+      "id": "decision-0014",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "IMP objective",
+          "fact": "Declarer has seven tricks and holds SA plus established C8 and C6. All five opposing clubs have already appeared.",
+          "explanation": "Ten tricks are available without surrendering the lead. Giving defenders a spade trick to seek an unnecessary ninth trick introduces avoidable contract risk.",
+          "quotes": [
+            "Take a spade finesse toward dummy’s 8 to seek the ninth trick",
+            "If the finesse loses, rely on the remaining stoppers and reassess."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0015",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "plan consistency",
+          "fact": "West’s SJ already beats every dummy spade. Declarer has seven tricks, with SA and established C8 and C6 remaining.",
+          "explanation": "The retained plan still seeks an unnecessary ninth trick through a finesse that has already failed and refers vaguely to stoppers despite the remaining hearts and diamonds being unguarded.",
+          "quotes": [
+            "Take a spade finesse toward dummy’s 8 to seek the ninth trick",
+            "If the finesse loses, rely on the remaining stoppers and reassess."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0016",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "trick state",
+          "fact": "West has just led DJ to a new trick; North must follow with D8 or D6.",
+          "explanation": "The reason incorrectly declares the current trick completed and says dummy has no play, contradicting both the snapshot and selected D6.",
+          "quotes": [
+            "West won with the diamond jack, so dummy has no card to play to this completed trick; await the next lead."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0017",
+      "mechanical": "pass",
+      "quality": "uncertain",
+      "overall": "uncertain",
+      "attribution": "evaluator_issue",
+      "evaluator_error": "Missing status or cited findings",
+      "findings": []
+    },
+    {
+      "id": "decision-0018",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "winner identification",
+          "fact": "The current trick is West DT, North D8, East S5. South is void in diamonds.",
+          "explanation": "SA is a discard on a diamond trick and cannot win. Playing it destroys the spade control the plan says to preserve for a winning opportunity.",
+          "quotes": [
+            "the ace is the safest immediate winner, though the current lead is not shown.",
+            "Use the spade ace to secure a trick when able"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0019",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "trick state",
+          "fact": "SA was discarded on the previous diamond trick. The current trick contains only West’s SK.",
+          "explanation": "The reason places a previously played card on the current trick and incorrectly identifies declarer as winning.",
+          "quotes": [
+            "South’s ace is already on the trick and beats West’s king."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0020",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "trick counting and access",
+          "fact": "Declarer has seven tricks, defenders have four, and West’s SQ wins the current twelfth trick. Only one trick will remain, with defenders on lead.",
+          "explanation": "Even winning the last trick would produce only eight tricks. C8 is established but has no assured entry, so the proposed ninth trick is impossible.",
+          "quotes": [
+            "cash the club 8 when possible for the ninth trick."
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Small-sample basic evaluation; no claim of broad grading reliability."
+}

@@ -1,0 +1,134 @@
+{
+  "action" : {
+    "actingSeat" : "south",
+    "boardID" : "E16B17A6-B731-4F45-B9FA-2048A7AD20DF",
+    "card" : "HA",
+    "controller" : "south",
+    "revision" : 3,
+    "snapshotID" : "E16B17A6-B731-4F45-B9FA-2048A7AD20DF:3:south"
+  },
+  "advice" : {
+    "plan" : {
+      "update" : "keep"
+    },
+    "publicReason" : "Take the trick with the ace, keeping the king as a later heart control.",
+    "selectedCard" : "HA"
+  },
+  "effectivePlan" : "Win the heart lead with the ace in South, preserving dummy’s queen and South’s king as later controls. Then develop the club suit while retaining South’s remaining heart stopper.",
+  "elapsedSeconds" : 3.8536630868911743,
+  "identity" : {
+    "observedModel" : "gpt-6-luna",
+    "requestedEffort" : "medium",
+    "requestedModel" : "gpt-6-luna",
+    "runtimeVersion" : "codex-cli 0.160.0",
+    "threadID" : "01a14e3b-9db7-7f83-9632-572717e1eed9",
+    "turnID" : "01a14e3b-c539-7d31-a4b5-7d9cf4d3c175"
+  },
+  "input" : "Decision snapshot: E16B17A6-B731-4F45-B9FA-2048A7AD20DF:3:south. Controller: South. Acting hand: South.\nPrevious suggestion actually executed: yes.\nNew actual plays in order:\n1: North H4 (model).\n2: East H2 (opponent).\nCurrent trick: West HJ; North H4; East H2.\nTricks won: declarer 0, defenders 0.",
+  "instructions" : "Play declarer and dummy using the supplied decision-time information. Write in English and pursue the stated objective. selectedCard is the single card from the acting hand to play now; publicReason briefly explains it. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide an initial concrete plan before dummy's first play. Unknown cards remain unknown.",
+  "planAssociation" : {
+    "boardID" : "E16B17A6-B731-4F45-B9FA-2048A7AD20DF",
+    "controller" : "south",
+    "sourceSessionID" : "368AE5A3-8E03-47D4-9EE4-3738A4AE3F79",
+    "sourceSnapshotID" : "E16B17A6-B731-4F45-B9FA-2048A7AD20DF:1:south",
+    "text" : "Win the heart lead with the ace in South, preserving dummy’s queen and South’s king as later controls. Then develop the club suit while retaining South’s remaining heart stopper."
+  },
+  "rawOutput" : "{\"plan\":{\"text\":null,\"update\":\"keep\"},\"publicReason\":\"Take the trick with the ace, keeping the king as a later heart control.\",\"selectedCard\":\"HA\"}",
+  "session" : {
+    "id" : "F0362EA3-6A69-4D82-928E-C14028235DD6",
+    "snapshotID" : "E16B17A6-B731-4F45-B9FA-2048A7AD20DF:3:south"
+  },
+  "snapshot" : {
+    "actingSeat" : "south",
+    "boardID" : "E16B17A6-B731-4F45-B9FA-2048A7AD20DF",
+    "contract" : {
+      "declarer" : "south",
+      "level" : 3,
+      "strain" : "noTrump"
+    },
+    "controller" : "south",
+    "currentTrick" : [
+      {
+        "card" : "HJ",
+        "seat" : "west",
+        "sequence" : 0
+      },
+      {
+        "card" : "H4",
+        "seat" : "north",
+        "sequence" : 1
+      },
+      {
+        "card" : "H2",
+        "seat" : "east",
+        "sequence" : 2
+      }
+    ],
+    "declarerTricks" : 0,
+    "defenderTricks" : 0,
+    "events" : [
+      {
+        "card" : "HJ",
+        "seat" : "west",
+        "sequence" : 0
+      },
+      {
+        "card" : "H4",
+        "seat" : "north",
+        "sequence" : 1
+      },
+      {
+        "card" : "H2",
+        "seat" : "east",
+        "sequence" : 2
+      }
+    ],
+    "hands" : [
+      {
+        "cards" : [
+          "SA",
+          "S6",
+          "S4",
+          "HA",
+          "HK",
+          "H5",
+          "DA",
+          "D7",
+          "D2",
+          "CK",
+          "CQ",
+          "C8",
+          "C3"
+        ],
+        "seat" : "south"
+      },
+      {
+        "cards" : [
+          "SK",
+          "S7",
+          "S2",
+          "HQ",
+          "H8",
+          "DQ",
+          "DJ",
+          "D9",
+          "D3",
+          "CA",
+          "C6",
+          "C5"
+        ],
+        "seat" : "north"
+      }
+    ],
+    "legalCards" : [
+      "HA",
+      "HK",
+      "H5"
+    ],
+    "objective" : "Normal IMP strategy, weighing contract risk and overtricks.",
+    "revision" : 3,
+    "scoring" : "IMP",
+    "vulnerability" : "neither"
+  },
+  "wireContractVersion" : "stage1-legal-selectedCard-v3"
+}

@@ -1,0 +1,29 @@
+{
+  "id": "club-no-winner-r2",
+  "source_decision": 12,
+  "repeat": 2,
+  "clear_effective_plan": false,
+  "include_current_winning_play": false,
+  "task": "normal-play-output",
+  "request": "requests/club-no-winner-r2.json",
+  "sha256": "811155adb9ebfd6acf566149615ddc8543386ac19a013a069b7b853c96be0e37",
+  "exit_code": 0,
+  "raw_output": {
+    "plan": {
+      "update": "replace",
+      "text": "Take the current trick with CA. Then use the remaining club and heart honors and dummy’s D-KQJT to collect as many tricks as possible, preserving entries where possible. The defenders have five tricks to our one, so 3NT can no longer be made; avoid conceding unnecessary additional tricks."
+    },
+    "selectedCard": "CA",
+    "publicReason": "West’s CQ is currently winning, so take the trick with CA rather than let the defense cash another winner."
+  },
+  "identity": {
+    "observedModel": "gpt-6-luna",
+    "requestedEffort": "medium",
+    "requestedModel": "gpt-6-luna",
+    "runtimeVersion": "codex-cli 0.160.0",
+    "threadID": "01a163d4-6c41-7190-aef7-df3ed8738e1c",
+    "turnID": "01a163d4-6cfb-75b2-95b7-9206e65ba259"
+  },
+  "narrow_card_check": "CA",
+  "elapsed_seconds": 7.267
+}

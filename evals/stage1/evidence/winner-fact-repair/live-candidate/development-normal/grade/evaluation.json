@@ -1,0 +1,164 @@
+{
+  "rubric_version": "stage1-basic-v4",
+  "results": [
+    {
+      "id": "decision-0001",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "condition coherence",
+          "fact": "The plan includes an impossible diamond branch.",
+          "explanation": "South holds DA and DK, so East cannot overtake West’s DQ. The alternative branch incorrectly treats that impossible event as a reason to preserve DA.",
+          "quotes": [
+            "If East cannot overtake West’s DQ, South’s DA wins; otherwise preserve DA to capture a later diamond."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0002",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "effective plan coherence",
+          "fact": "Keeping the plan retains its impossible diamond condition.",
+          "explanation": "The selected DA correctly beats DQ, but the retained advice still allows East to overtake DQ despite South holding both DA and DK. East’s actual D4 also resolves the current trick against that branch.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "If East cannot overtake West’s DQ, South’s DA wins; otherwise preserve DA to capture a later diamond."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0003",
+      "mechanical": "pass",
+      "quality": "pass",
+      "overall": "pass",
+      "attribution": "no_material_error_found",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "feasible continuing route",
+          "fact": "CA starts a feasible sequence of three club winners.",
+          "explanation": "DA and D3 are now historical plays. South can cash CA and CK while dummy follows with C2 and C7, then lead a small club to dummy’s CQ. South retains HA and dummy holds HK as an obvious additional entry.",
+          "quotes": [
+            "Then cash the established top clubs (CA, CK, CQ) while retaining entries, and use HA as a heart stopper.",
+            "Cash CA now to establish the club suit while preserving CK as a later entry or winner."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0004",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "winner identification",
+          "fact": "CQ cannot win or cash separately under South’s CA.",
+          "explanation": "CA already heads the current trick and necessarily beats CQ. Playing CQ consumes a separate club winner; it cannot perform the stated role of continuing dummy’s club winners.",
+          "quotes": [
+            "Use dummy’s CQ to continue the club winners, then reassess the opponents’ club holdings and entries.",
+            "Play CQ over West’s C3. It is a winner now, and cashing it establishes whether the clubs divide favorably while keeping C7 and C2 as low cards."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0005",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "remaining resources",
+          "fact": "The plan relies on club honors that will no longer exist.",
+          "explanation": "CA and CQ were consumed together in the preceding trick. CK is the only remaining partnership club honor, so after the prescribed CK there are no remaining club honors to use.",
+          "quotes": [
+            "Continue with CK to cash another club winner and observe the defenders’ discards. Then use remaining club honors and HA as needed, preserving the spade ace and DK for later tricks."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0006",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "effective plan resources",
+          "fact": "The retained unfinished route still calls for nonexistent club honors.",
+          "explanation": "C2 legally follows under the winning CK, but keeping the plan retains its instruction to use further club honors. CA and CQ have already been played, and CK is in the current trick; the remaining clubs are C8, C6, C4, C7 and C2.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "Then use remaining club honors and HA as needed, preserving the spade ace and DK for later tricks."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0007",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "plan and reason consistency",
+          "fact": "The plan calls C8 a cashing play while the reason treats it as a forcing play.",
+          "explanation": "CJ remains outstanding and beats C8. Leading C8 can establish the remaining clubs, but the explicit instruction to cash it conflicts materially with the accompanying recognition that the small clubs are not winners.",
+          "quotes": [
+            "Cash C8 next, then assess whether the remaining clubs are winners.",
+            "East’s CT and West’s C9 are now known, so don’t count on small clubs as winners; C8 is the best available club to force out another card."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0008",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "consumed cards",
+          "fact": "The replacement plan revives South’s already-played DA.",
+          "explanation": "The authorized history records South playing DA on the opening trick. South now holds only DK in diamonds, so the stated two-honor control and instruction to preserve those honors rely on an unavailable card.",
+          "quotes": [
+            "South has DA and DK; preserve those honors and reassess after the defense’s diamond continuation.",
+            "South’s DA and DK remain the main diamond control."
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Small-sample basic evaluation; no claim of broad grading reliability."
+}

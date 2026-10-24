@@ -1,0 +1,35 @@
+[0/1] Planning build
+Building for debugging...
+[0/7] Write sources
+[1/7] Write swift-version--58304C5D6DBC2206.txt
+[3/7] Emitting module BridgeExpert
+[4/7] Compiling BridgeExpert Expert.swift
+[5/9] Emitting module BridgeDriver
+[6/9] Compiling BridgeDriver BoardDriver.swift
+[7/17] Compiling BridgePlayCLI BridgePlayMain.swift
+[8/17] Emitting module BridgePlayCLI
+[8/17] Write Objects.LinkFileList
+[10/17] Compiling BridgePlayingTests PlanContractTests.swift
+[11/17] Compiling BridgePlayingTests PlayingCoreTests.swift
+[12/17] Compiling BridgePlayingTests FullBoardTests.swift
+[13/17] Emitting module BridgePlayingTests
+[13/17] Write Objects.LinkFileList
+[14/17] Linking bridge-play
+[15/17] Applying bridge-play
+[16/17] Linking BridgeTeacherPackageTests
+Build complete! (2.45s)
+Test Suite 'Selected tests' started at 2026-10-18 10:34:16.409.
+Test Suite 'BridgeTeacherPackageTests.xctest' started at 2026-10-18 10:34:16.410.
+Test Suite 'PlanContractTests' started at 2026-10-18 10:34:16.410.
+Test Case '-[BridgePlayingTests.PlanContractTests testSerializedAppServerSchemaExcludesAmbiguousPlansAndKeepsLifecycle]' started.
+Test Case '-[BridgePlayingTests.PlanContractTests testSerializedAppServerSchemaExcludesAmbiguousPlansAndKeepsLifecycle]' passed (0.222 seconds).
+Test Suite 'PlanContractTests' passed at 2026-10-18 10:34:16.633.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.222 (0.223) seconds
+Test Suite 'BridgeTeacherPackageTests.xctest' passed at 2026-10-18 10:34:16.633.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.222 (0.223) seconds
+Test Suite 'Selected tests' passed at 2026-10-18 10:34:16.633.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.222 (0.223) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

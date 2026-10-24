@@ -1,0 +1,10 @@
+luna-medium-plan-1 completed 10.61
+luna-high-control completed 10.337
+sol-medium-control completed 24.128
+luna-medium-reason-1 completed 10.148
+Traceback (most recent call last):
+  File "/Users/tingranwang/.codex/worktrees/stage1-integration/bridge-coup/evals/stage1/evidence/schema-order-diagnostic/diagnostic/run_controlled.py", line 53, in <module>
+    run=OUT/name;run.mkdir(exist_ok=False)
+  File "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pathlib.py", line 1313, in mkdir
+    self._accessor.mkdir(self, mode)
+FileExistsError: [Errno 17] File exists: '/Users/tingranwang/.codex/worktrees/stage1-integration/bridge-coup/evals/stage1/evidence/schema-order-diagnostic/diagnostic/luna-medium-plan-2'

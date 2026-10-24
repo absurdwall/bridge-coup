@@ -1,0 +1,242 @@
+{
+  "id": "short-1-r1",
+  "case_id": "short-1",
+  "kind": "short",
+  "board": "boards/synthetic.json",
+  "decisions": 1,
+  "opponent_policy": "conserve-high",
+  "execution_config_version": "stage1-reviewed-case-execution-v1",
+  "mechanical_sole_legal": true,
+  "task_complete": true,
+  "legal_execution": "pass",
+  "quality": "pass",
+  "playing": {
+    "exit_code": 0,
+    "wall_seconds": 108.62
+  },
+  "grading": {
+    "exit_code": 0,
+    "grading_evidence_available": true
+  },
+  "coverage": {
+    "status": "covered",
+    "basis": "Initial actual model plan before the first controlled action."
+  },
+  "counts": {
+    "actual_events": 2,
+    "complete": false,
+    "tricks": [
+      0,
+      0
+    ],
+    "model_request_attempts": 2,
+    "reviewer_request_attempts": 2,
+    "actual_rpc_requests": 4,
+    "model_actions": 1,
+    "forced_actions": 0,
+    "driver_opponent_actions": 0,
+    "initial_controlled_actions": 0,
+    "initial_opponent_actions": 1,
+    "retries": 0
+  },
+  "wire": {
+    "upstream_request_attempts": 4,
+    "http_statuses": {
+      "200": 4
+    },
+    "transport_errors": [],
+    "missing_response_metadata": [],
+    "observed_response_models": [
+      "gpt-6.1-sol"
+    ],
+    "protocol_status": "pass",
+    "protocol_errors": [],
+    "roles": {
+      "player": {
+        "upstream_attempts": 2,
+        "usage_observed_attempts": 2,
+        "usage_unknown_attempts": 0,
+        "observed_tokens": {
+          "cached_input_tokens": 0,
+          "input_tokens": 7486,
+          "output_tokens": 1565,
+          "reasoning_output_tokens": 1031,
+          "total_tokens": 9051
+        }
+      },
+      "reviewer": {
+        "upstream_attempts": 2,
+        "usage_observed_attempts": 2,
+        "usage_unknown_attempts": 0,
+        "observed_tokens": {
+          "cached_input_tokens": 0,
+          "input_tokens": 4248,
+          "output_tokens": 994,
+          "reasoning_output_tokens": 746,
+          "total_tokens": 5242
+        }
+      },
+      "unknown": {
+        "upstream_attempts": 0,
+        "usage_observed_attempts": 0,
+        "usage_unknown_attempts": 0,
+        "observed_tokens": {}
+      }
+    },
+    "role_requests": [
+      {
+        "wire_request": 0,
+        "role": "player",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2369,
+          "output_tokens": 1185,
+          "total_tokens": 3554,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 925
+        }
+      },
+      {
+        "wire_request": 1,
+        "role": "reviewer",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2114,
+          "output_tokens": 416,
+          "total_tokens": 2530,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 197
+        }
+      },
+      {
+        "wire_request": 2,
+        "role": "player",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 5117,
+          "output_tokens": 380,
+          "total_tokens": 5497,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 106
+        }
+      },
+      {
+        "wire_request": 3,
+        "role": "reviewer",
+        "metadata_present": true,
+        "response_status": "completed",
+        "http_status": 200,
+        "observed_tokens": {
+          "input_tokens": 2134,
+          "output_tokens": 578,
+          "total_tokens": 2712,
+          "cached_input_tokens": 0,
+          "reasoning_output_tokens": 549
+        }
+      }
+    ],
+    "usage_note": "Upstream per-HTTP usage includes all observed failures/retries; missing remains unknown. Do not add this to native per-turn totals."
+  },
+  "requests": {
+    "status": "observed",
+    "attempts": 4,
+    "late_observations": 0,
+    "roles": {
+      "player": {
+        "attempts": 2,
+        "elapsed_seconds": 67.71223497390747,
+        "usage_observed_attempts": 2,
+        "usage_unknown_attempts": 0,
+        "usage_complete": true,
+        "observed_tokens": {
+          "cachedInputTokens": 0,
+          "inputTokens": 7486,
+          "outputTokens": 1565,
+          "reasoningOutputTokens": 1031,
+          "totalTokens": 9051
+        },
+        "outcomes": {
+          "valid": 2
+        },
+        "request_seconds": [
+          52.50920796394348,
+          15.20302700996399
+        ]
+      },
+      "reviewer": {
+        "attempts": 2,
+        "elapsed_seconds": 40.59890699386597,
+        "usage_observed_attempts": 2,
+        "usage_unknown_attempts": 0,
+        "usage_complete": true,
+        "observed_tokens": {
+          "cachedInputTokens": 0,
+          "inputTokens": 4248,
+          "outputTokens": 994,
+          "reasoningOutputTokens": 746,
+          "totalTokens": 5242
+        },
+        "outcomes": {
+          "valid": 2
+        },
+        "request_seconds": [
+          18.181344032287598,
+          22.41756296157837
+        ]
+      }
+    },
+    "reviewer_retries": 0,
+    "semantic_reviews": 2,
+    "feedback_revisions": 1,
+    "clarification_requests": 0,
+    "usage_note": "Observed native per-turn last usage, including failed attempts when available. Missing is unknown, never zero; late observations are not extra requests."
+  },
+  "dispositions": {
+    "reviewApproved": 1,
+    "contested": 0
+  },
+  "stop_outcome": "short-bound-complete",
+  "grader_cost": {
+    "elapsed_seconds": 16.904,
+    "observed_usage": [
+      {
+        "input_tokens": 14268,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 494,
+        "reasoning_output_tokens": 204
+      }
+    ],
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "medium"
+  },
+  "timing": {
+    "elapsedSeconds": 108.32823300361633,
+    "lastControlledActionSeconds": 108.32483398914337,
+    "environmentOverheadSeconds": 0.009029030799865723,
+    "initialRequestSeconds": 108.31920397281647,
+    "subsequentRequestSeconds": [],
+    "failedRequestSeconds": null,
+    "automaticRuntimeSeconds": 108.32823300361633,
+    "humanWaitingSeconds": 0
+  },
+  "quality_counts": {
+    "pass": 1,
+    "fail": 0,
+    "uncertain": 0
+  },
+  "review_required": [],
+  "plan_updates": {
+    "keep": 0,
+    "replace": 1,
+    "withdraw": 0
+  },
+  "failures": [],
+  "outcome": "pass"
+}

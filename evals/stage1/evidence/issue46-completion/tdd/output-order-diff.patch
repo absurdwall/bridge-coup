@@ -1,0 +1,57 @@
+diff --git a/Sources/BridgeExpert/Expert.swift b/Sources/BridgeExpert/Expert.swift
+index 2d317c6..4f76cb9 100644
+--- a/Sources/BridgeExpert/Expert.swift
++++ b/Sources/BridgeExpert/Expert.swift
+@@ -247,8 +247,8 @@ public actor ExpertSession {
+             }
+             return String(decoding: try JSONSerialization.data(withJSONObject: value, options: [.fragmentsAllowed]), as: UTF8.self)
+         }
+-        // Structured generation follows this order: ground the current reason before future advice.
+-        let orderedProperties = try ["publicReason", "plan", "selectedCard"].map { key in
++        // Match the decision process: plan, current card, then its reason.
++        let orderedProperties = try ["plan", "selectedCard", "publicReason"].map { key in
+             try json(key) + ":" + json(properties[key]!)
+         }.joined(separator: ",")
+         let members = try schema.keys.sorted().map { key in
+diff --git a/Sources/BridgeExpert/Resources/DeclarerInstructions.txt b/Sources/BridgeExpert/Resources/DeclarerInstructions.txt
+index be05237..d242a12 100644
+--- a/Sources/BridgeExpert/Resources/DeclarerInstructions.txt
++++ b/Sources/BridgeExpert/Resources/DeclarerInstructions.txt
+@@ -32,10 +32,10 @@ OUTPUT FORMAT
+ 
+ Return one JSON object with these fields:
+ 
+-- "publicReason": a brief explanation of the card chosen now.
++- "plan": an object containing the fields "update" and "text".
+ - "selectedCard": the current card, chosen from the response schema's
+   legal-card enum.
+-- "plan": an object containing the fields "update" and "text".
++- "publicReason": a brief explanation of the card chosen now.
+ 
+ The "update" field inside "plan" specifies how the program should
+ maintain the active plan:
+@@ -102,8 +102,8 @@ ILLUSTRATIVE OUTPUT EXAMPLES
+ Independent three-card ending: South holds SA S2 HA; North holds SK S3 H2.
+ South leads. This position illustrates the output format.
+ 
+-{"publicReason":"Cash SA while preserving the crossing to North's SK.","plan":{"update":"replace","text":"Cash SA with North following S3. Lead S2 to North's SK, then return H2 to South's HA."},"selectedCard":"SA"}
++{"plan":{"update":"replace","text":"Cash SA with North following S3. Lead S2 to North's SK, then return H2 to South's HA."},"selectedCard":"SA","publicReason":"Cash SA while preserving the crossing to North's SK."}
+ 
+ After South's SA and a low West spade, North follows:
+ 
+-{"publicReason":"Follow with S3, preserving SK for the planned entry.","plan":{"update":"keep","text":null},"selectedCard":"S3"}
++{"plan":{"update":"keep","text":null},"selectedCard":"S3","publicReason":"Follow with S3, preserving SK for the planned entry."}
+diff --git a/Tests/BridgePlayingTests/PlanContractTests.swift b/Tests/BridgePlayingTests/PlanContractTests.swift
+index 3d475c2..015a363 100644
+--- a/Tests/BridgePlayingTests/PlanContractTests.swift
++++ b/Tests/BridgePlayingTests/PlanContractTests.swift
+@@ -123,6 +123,9 @@ final class PlanContractTests: XCTestCase {
+             elif method == 'turn/start':
+                 # Validate the actual serialized public Codex request, not a Swift schema constant.
+                 schema = request['params']['outputSchema']
++                if list(schema['properties']) != ['plan', 'selectedCard', 'publicReason']:
++                    print(json.dumps({'id': request['id'], 'error': {'message': f"actual schema must follow plan, current card, then reason; received {list(schema['properties'])}"}}), flush=True)
++                    sys.exit(1)
+                 assert all(list(v['properties']) == ['update', 'text'] for v in schema['properties']['plan']['anyOf']), 'actual plan schema must put operation before text'
+                 jsonschema.Draft202012Validator.check_schema(schema)
+                 validator = jsonschema.Draft202012Validator(schema)

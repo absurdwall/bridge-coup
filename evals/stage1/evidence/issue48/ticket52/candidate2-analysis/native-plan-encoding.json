@@ -1,0 +1,4052 @@
+{
+  "status": "encoding_observations_pass",
+  "scheduled_slots": 22,
+  "normal_completed_attempts": 21,
+  "interrupted_partial_attempts": 1,
+  "whole_protocol_pass": false,
+  "reviewer_operation_counts": {
+    "replace": 41,
+    "keep": 228
+  },
+  "reviewer_wire_candidates": 269,
+  "player_round_operation_counts": {
+    "replace": 41,
+    "keep": 227
+  },
+  "player_rounds": [
+    {
+      "decision": "short-1-r1/play/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-1-r1/play/decision.json",
+      "round": 2,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-1-r2/play/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-1-r2/play/decision.json",
+      "round": 2,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-1-r2/play/decision.json",
+      "round": 3,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-1-r3/play/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-2-r1/play/decision-0001/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-2-r1/play/decision-0002/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-2-r1/play/decision-0003/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-2-r1/play/decision-0004/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-2-r1/play/decision-0005/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-2-r1/play/decision-0006/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-2-r1/play/decision-0007/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-2-r1/play/decision-0008/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-2-r2/play/decision-0001/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-2-r2/play/decision-0002/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-2-r2/play/decision-0003/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-2-r2/play/decision-0004/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-2-r2/play/decision-0005/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-2-r2/play/decision-0006/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-2-r2/play/decision-0007/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-2-r2/play/decision-0008/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-2-r3/play/decision-0001/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-2-r3/play/decision-0002/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-2-r3/play/decision-0003/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-2-r3/play/decision-0004/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-2-r3/play/decision-0005/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-2-r3/play/decision-0006/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-2-r3/play/decision-0007/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-2-r3/play/decision-0008/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-3-r1/play/decision-0001/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-3-r1/play/decision-0002/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r1/play/decision-0003/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r1/play/decision-0004/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r1/play/decision-0005/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r1/play/decision-0006/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r1/play/decision-0007/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r1/play/decision-0008/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r1/play/decision-0009/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r1/play/decision-0010/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r1/play/decision-0011/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r1/play/decision-0012/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r2/play/decision-0001/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-3-r2/play/decision-0002/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r2/play/decision-0003/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r2/play/decision-0004/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r2/play/decision-0005/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r2/play/decision-0006/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r2/play/decision-0007/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r2/play/decision-0008/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r2/play/decision-0009/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r2/play/decision-0010/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r2/play/decision-0011/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r2/play/decision-0012/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r3/play/decision-0001/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-3-r3/play/decision-0002/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r3/play/decision-0003/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r3/play/decision-0004/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r3/play/decision-0005/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r3/play/decision-0006/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r3/play/decision-0007/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r3/play/decision-0008/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r3/play/decision-0009/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r3/play/decision-0010/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r3/play/decision-0011/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-3-r3/play/decision-0012/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r1/play/decision-0001/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-4-r1/play/decision-0001/decision.json",
+      "round": 2,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-4-r1/play/decision-0002/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r1/play/decision-0003/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r1/play/decision-0004/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r1/play/decision-0005/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r1/play/decision-0006/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r1/play/decision-0007/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r1/play/decision-0008/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r1/play/decision-0009/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r1/play/decision-0010/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r1/play/decision-0011/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r1/play/decision-0012/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r1/play/decision-0013/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r1/play/decision-0014/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r1/play/decision-0015/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r1/play/decision-0016/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r2/play/decision-0001/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-4-r2/play/decision-0002/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r2/play/decision-0003/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r2/play/decision-0004/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r2/play/decision-0005/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r2/play/decision-0006/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r2/play/decision-0007/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r2/play/decision-0008/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r2/play/decision-0009/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r2/play/decision-0010/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r2/play/decision-0011/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r2/play/decision-0012/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r2/play/decision-0013/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r2/play/decision-0014/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r2/play/decision-0015/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r2/play/decision-0016/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r3/play/decision-0001/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-4-r3/play/decision-0002/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r3/play/decision-0003/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r3/play/decision-0004/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r3/play/decision-0005/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r3/play/decision-0006/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r3/play/decision-0007/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r3/play/decision-0008/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r3/play/decision-0009/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r3/play/decision-0010/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r3/play/decision-0011/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r3/play/decision-0012/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r3/play/decision-0013/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r3/play/decision-0014/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r3/play/decision-0015/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-4-r3/play/decision-0016/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-5-r1/play/decision-0001/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-5-r1/play/decision-0001/decision.json",
+      "round": 2,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-5-r1/play/decision-0001/decision.json",
+      "round": 3,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-5-r1/play/decision-0002/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-5-r1/play/decision-0003/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-5-r2/play/decision-0001/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-5-r2/play/decision-0001/decision.json",
+      "round": 2,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-5-r2/play/decision-0002/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-5-r2/play/decision-0003/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-5-r2/play/decision-0003/decision.json",
+      "round": 2,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-5-r2/play/decision-0004/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-5-r2/play/decision-0005/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-5-r2/play/decision-0006/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-5-r2/play/decision-0007/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-5-r2/play/decision-0008/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-5-r2/play/decision-0009/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-5-r2/play/decision-0010/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-5-r2/play/decision-0011/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-5-r2/play/decision-0012/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-5-r3/play/decision-0001/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-5-r3/play/decision-0001/decision.json",
+      "round": 2,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-5-r3/play/decision-0002/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-5-r3/play/decision-0003/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-5-r3/play/decision-0004/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-5-r3/play/decision-0005/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-5-r3/play/decision-0006/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-5-r3/play/decision-0007/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-5-r3/play/decision-0008/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-5-r3/play/decision-0009/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-5-r3/play/decision-0009/decision.json",
+      "round": 2,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-5-r3/play/decision-0010/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-5-r3/play/decision-0011/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-5-r3/play/decision-0012/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r1/play/decision-0001/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-6-r1/play/decision-0002/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r1/play/decision-0003/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r1/play/decision-0004/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r1/play/decision-0005/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r1/play/decision-0006/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r1/play/decision-0007/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r1/play/decision-0008/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r1/play/decision-0009/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r1/play/decision-0010/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r1/play/decision-0011/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r1/play/decision-0012/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r2/play/decision-0001/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-6-r2/play/decision-0002/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r2/play/decision-0003/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r2/play/decision-0004/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r2/play/decision-0005/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r2/play/decision-0006/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r2/play/decision-0007/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r2/play/decision-0008/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r2/play/decision-0009/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r2/play/decision-0010/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r2/play/decision-0011/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r2/play/decision-0012/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r3/play/decision-0001/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "short-6-r3/play/decision-0002/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r3/play/decision-0003/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r3/play/decision-0004/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r3/play/decision-0005/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r3/play/decision-0006/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r3/play/decision-0007/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r3/play/decision-0008/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r3/play/decision-0009/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r3/play/decision-0010/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r3/play/decision-0011/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "short-6-r3/play/decision-0012/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r1/play/decision-0001/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "full-development-r1/play/decision-0002/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r1/play/decision-0003/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r1/play/decision-0004/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r1/play/decision-0005/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r1/play/decision-0006/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r1/play/decision-0007/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r1/play/decision-0008/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r1/play/decision-0009/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r1/play/decision-0010/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r1/play/decision-0011/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r1/play/decision-0012/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r1/play/decision-0013/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r1/play/decision-0014/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r1/play/decision-0015/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r1/play/decision-0016/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r1/play/decision-0017/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r1/play/decision-0018/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r1/play/decision-0019/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r1/play/decision-0020/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "full-development-r1/play/decision-0021/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r1/play/decision-0022/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r2/play/decision-0001/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "full-development-r2/play/decision-0002/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r2/play/decision-0003/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r2/play/decision-0004/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r2/play/decision-0005/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r2/play/decision-0006/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r2/play/decision-0007/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r2/play/decision-0008/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "full-development-r2/play/decision-0009/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r2/play/decision-0010/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r2/play/decision-0011/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r2/play/decision-0012/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r2/play/decision-0013/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r2/play/decision-0014/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r2/play/decision-0015/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r2/play/decision-0016/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r2/play/decision-0017/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r2/play/decision-0018/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-development-r2/play/decision-0019/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "full-development-r2/play/decision-0020/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r1/play/decision-0001/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "full-reserved-r1/play/decision-0002/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r1/play/decision-0003/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r1/play/decision-0004/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r1/play/decision-0005/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "full-reserved-r1/play/decision-0006/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r1/play/decision-0007/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r1/play/decision-0008/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "full-reserved-r1/play/decision-0009/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r1/play/decision-0010/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r1/play/decision-0010/decision.json",
+      "round": 2,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "full-reserved-r1/play/decision-0011/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r1/play/decision-0012/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r1/play/decision-0013/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r1/play/decision-0014/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r1/play/decision-0015/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r1/play/decision-0016/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r1/play/decision-0017/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r1/play/decision-0018/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r1/play/decision-0019/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r1/play/decision-0020/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r1/play/decision-0021/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r2/play/decision-0001/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "full-reserved-r2/play/decision-0002/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r2/play/decision-0003/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r2/play/decision-0004/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r2/play/decision-0005/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "full-reserved-r2/play/decision-0006/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r2/play/decision-0007/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r2/play/decision-0008/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r2/play/decision-0009/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r2/play/decision-0010/decision.json",
+      "round": 1,
+      "operation": "replace",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": false
+    },
+    {
+      "decision": "full-reserved-r2/play/decision-0011/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r2/play/decision-0012/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r2/play/decision-0013/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r2/play/decision-0014/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r2/play/decision-0015/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r2/play/decision-0016/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r2/play/decision-0017/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r2/play/decision-0018/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r2/play/decision-0019/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    },
+    {
+      "decision": "full-reserved-r2/play/decision-0020/decision.json",
+      "round": 1,
+      "operation": "keep",
+      "raw_decodes_to_pending_candidate": true,
+      "explicit_text": true,
+      "text_is_null": true
+    }
+  ],
+  "limits": [
+    "Observed operations only: absent withdraw events do not establish live withdraw coverage.",
+    "Normal21 role/candidate bindings are separately checked by immutable summaries and deterministic decision checks. Interrupted request10/11 binding gaps remain unresolved; no whole-protocol pass is claimed.",
+    "Reviewer wire observations include interrupted rejected/pending proposals; saved player rounds describe persisted delivered-decision histories. These are encoding/cost observations, never extra delivered quality grades."
+  ],
+  "requests": [
+    {
+      "request": "short-1-r1/wire/request-1.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "a784c8ab554e5a32f670353a454c2369c1fe4fd61d6cfde92fc13ca287fd4a21"
+    },
+    {
+      "request": "short-1-r1/wire/request-3.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "d11aef4644490cb54985ad71d5fed577f5a2327fc8b974607d8bf259cbf69616"
+    },
+    {
+      "request": "short-1-r2/wire/request-1.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "0383dabc083262aa7382120a8246724077b2f8eede0188295d470136624d908c"
+    },
+    {
+      "request": "short-1-r2/wire/request-3.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "f5519f5033c59cb4dbda808b13255f8574d93101422ce6a3de80d8a366dc59a6"
+    },
+    {
+      "request": "short-1-r2/wire/request-5.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "34f3780fcd79ad4020679e55c6c335fb9ed0a3d644ba91c70eb32bf0603666a0"
+    },
+    {
+      "request": "short-1-r3/wire/request-1.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "d92ff01806c18319956651e0bfbd67020eea3f5692acd39229168b9103387c6e"
+    },
+    {
+      "request": "short-2-r1/wire/request-1.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "cd48a8412253a7d1498f3047be116495665372842a3ced48444e7686edc597ab"
+    },
+    {
+      "request": "short-2-r1/wire/request-11.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "4ca94a1d0ee7ba4c3cfc8d6fa820f4297255b39620c683699cbe48b93a6c0dd7"
+    },
+    {
+      "request": "short-2-r1/wire/request-13.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "0f3c850c98515d8ed33ca41ca9efa53d486bf2ffa26bfd928819198533284d0e"
+    },
+    {
+      "request": "short-2-r1/wire/request-15.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "2455d488a5f80d90d9d4b88d48b12f454d55d0ab22bce03b024f7eb7beb23d8f"
+    },
+    {
+      "request": "short-2-r1/wire/request-3.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "b2d2c5b91d455581d619be593d2cd3d1f9d139aa30aee70b7d1ebd081e967731"
+    },
+    {
+      "request": "short-2-r1/wire/request-5.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "9ce64c2efd98a3f5475534f6d86f5f507e23987972bd037cf364d5c8c3e41d73"
+    },
+    {
+      "request": "short-2-r1/wire/request-7.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "2f57d5d4afbcf061676516ef52a559606e0d7ff3935cfd7f74ce137a371809fe"
+    },
+    {
+      "request": "short-2-r1/wire/request-9.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "88dad42c4a4a0df144714c2048dbdaee8ea7006d389a3c39d5541291501b8059"
+    },
+    {
+      "request": "short-2-r2/wire/request-1.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "8404c5904b823f67ab09dc03cef781256c64de1d14060ed427818a44328ae56c"
+    },
+    {
+      "request": "short-2-r2/wire/request-11.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "14ca1e74c6890be0ce9a4d405905c1e94a1a78cc8b551bd730b6c3f0e1edacec"
+    },
+    {
+      "request": "short-2-r2/wire/request-13.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "2b5bc68ff851bc4ec5ec946757812af022c61dcf4f232f02af72fc015429283e"
+    },
+    {
+      "request": "short-2-r2/wire/request-15.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "0a219a74182abb0f90245e4d2903c69338905eb7cd7ca94c8bf579c8d22dee8e"
+    },
+    {
+      "request": "short-2-r2/wire/request-3.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "87b13b177777fce10de1d38af50e5d3bb69c6f46212b31fd617f023b35874b8a"
+    },
+    {
+      "request": "short-2-r2/wire/request-5.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "2d88dbacabd27a1b16d080c4dd953ae3e3e8379c6bc197b5b8c39fde84a427a4"
+    },
+    {
+      "request": "short-2-r2/wire/request-7.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "7cb5ffc92f0091be2bc2254015d0cbcda46b2788b83da48fbb3b623214be2cd9"
+    },
+    {
+      "request": "short-2-r2/wire/request-9.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "1d8eecc462bd54cdc8ce8b9c27b435d826c71bf74bc8c7ea29f8429b361bc9a9"
+    },
+    {
+      "request": "short-2-r3/wire/request-1.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "b9112f9e0f67f82d879511c55288d9e9919cd48ac7e10773e17e98e6f9504525"
+    },
+    {
+      "request": "short-2-r3/wire/request-11.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "e9b2ec653b0d256a4df232666111200c1ec70308388632609ef76abb03b82038"
+    },
+    {
+      "request": "short-2-r3/wire/request-13.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "7fde6a77806dfd3eef49aaa9d83cafdcf878c2b620b61f08cbede90c3a6a61c4"
+    },
+    {
+      "request": "short-2-r3/wire/request-15.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "700453861795b1d9880462a437d2ee026a8f8508d879156fa8df1eb463613fac"
+    },
+    {
+      "request": "short-2-r3/wire/request-3.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "de4957ab00f6814594b1fa89cd1c82aa6f685c4f68e99492bfb9f9978885b698"
+    },
+    {
+      "request": "short-2-r3/wire/request-5.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "6141e5a137a439fe53b26ed9356b580e399101bd8978ca3d37bffe1ca37e5e62"
+    },
+    {
+      "request": "short-2-r3/wire/request-7.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "7d077e63e660042b498325a28493f3bbca049bf7f3da674194648f298024b049"
+    },
+    {
+      "request": "short-2-r3/wire/request-9.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "4f18d9f218219b02db8e4bb7c51bdd4f21bebf5fdd3d43d6669bd3ef681a5530"
+    },
+    {
+      "request": "short-3-r1/wire/request-1.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "9cf9a3c30815c1103c688ff3bacbad3d23f935bccf89aca399a63a7bb266db09"
+    },
+    {
+      "request": "short-3-r1/wire/request-11.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "eb6deecced3c7e0939085570e6800068edb9f124f8ba26cfde18c2e0f44a4806"
+    },
+    {
+      "request": "short-3-r1/wire/request-13.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "b19e831429367bb44b51945617e25d9704b08eb32cbf2b4de3f16a1d43737814"
+    },
+    {
+      "request": "short-3-r1/wire/request-15.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "fb36c0b887b184fccbe558122be4eb06af16c60bbff10b10569198bcc19b0d86"
+    },
+    {
+      "request": "short-3-r1/wire/request-17.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "eef73341c785757b984b53edec73d849ddb2d7371f4d271a052648e2a2992cb9"
+    },
+    {
+      "request": "short-3-r1/wire/request-19.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "011d16dcbac203cd8a1b105d2af69714a065242913a5c0da2def5cbfbbce46e8"
+    },
+    {
+      "request": "short-3-r1/wire/request-21.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "bc20881aeb51bd0cc2d6714feb8281642ee64b89534740f8b42df7f7878ea9df"
+    },
+    {
+      "request": "short-3-r1/wire/request-23.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "23cadfdf2ca79b855c059e519643d490cfdd38bc522b59d706dddf9a0885dd2d"
+    },
+    {
+      "request": "short-3-r1/wire/request-3.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "9a9c54a8d532d76490fc1cf09fade948b43e6361c408c7b4faa4edf735a88aa5"
+    },
+    {
+      "request": "short-3-r1/wire/request-5.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "ea07d4de23086847c2ac1311294b15be1e260809ca427f2876d572093c64ed06"
+    },
+    {
+      "request": "short-3-r1/wire/request-7.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "6edf28873521fdb7073b154f85b59d5f6f9ee64c8a1a5a953247d0a92722fc4a"
+    },
+    {
+      "request": "short-3-r1/wire/request-9.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "6e9b5d7ab93bbed0b22ff28a129ec083c54f41f6beaf11742cda1c09d938231d"
+    },
+    {
+      "request": "short-3-r2/wire/request-1.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "a5c441ed99cf9e0e2e6d69a2f75bbfdb584becb65e7409d2d36a76f963dc9172"
+    },
+    {
+      "request": "short-3-r2/wire/request-11.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "637a9c783a1fca1ec76dd092d32ee2eb45cd213cb0e21883c164e3771d840ae0"
+    },
+    {
+      "request": "short-3-r2/wire/request-13.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "6a4d517d4e847b333b281a94880c1bd04b8b6599b8c37329def61cdb19eaae40"
+    },
+    {
+      "request": "short-3-r2/wire/request-15.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "c7c67cc49f48d8a36040c7c379855483b3e0ca373089ad626894955ab2aa7e91"
+    },
+    {
+      "request": "short-3-r2/wire/request-17.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "e5ba0e3d767af1cbacb1b456f53bbb0c04acc0f9c29637c64d6622b592834b0c"
+    },
+    {
+      "request": "short-3-r2/wire/request-19.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "cbf1bb96f67c53732dea75069a6b375a217d764baa2e949afe776806053a7812"
+    },
+    {
+      "request": "short-3-r2/wire/request-21.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "fc2589bed8f13c6bb2a5e8006124dc28eee5e6fe9e6809037bc1d323c5aec3df"
+    },
+    {
+      "request": "short-3-r2/wire/request-23.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "f83be7f3069c085e047e41a92b5fc83c72e2ae7e22d41f973fbc1451b6e08d94"
+    },
+    {
+      "request": "short-3-r2/wire/request-3.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "f590fcb2014808455ffa302825b69853154e6523c58ac91132cc0ccd34dacc0d"
+    },
+    {
+      "request": "short-3-r2/wire/request-5.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "f1f368d994e7d3a9908d44d410c17cf05699788883372658da6af90fc3a61f1a"
+    },
+    {
+      "request": "short-3-r2/wire/request-7.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "216524824a982384cca87e1f5bb0445be44c9efcf84ee46eb491df173df581e1"
+    },
+    {
+      "request": "short-3-r2/wire/request-9.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "b34bd9fe8b6c008379577d7dfd490d49a858741a51d5dff658f9b1a5f44e8664"
+    },
+    {
+      "request": "short-3-r3/wire/request-1.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "8fa4ccc3cd977411f9dfa2c058891150945c769b2bad6678816d2a859d5bed1c"
+    },
+    {
+      "request": "short-3-r3/wire/request-11.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "9e8bea5828512764e912da485b9872dc13e4b31ab0f3a7a46667516d6b217e63"
+    },
+    {
+      "request": "short-3-r3/wire/request-13.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "dfc113a64cac4782eed063c8776da8a0c71f1140a1ed0dffe82ee0b5a037b67e"
+    },
+    {
+      "request": "short-3-r3/wire/request-15.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "f50b170fc32b8a9c1a28ed9e8f39c9ccac8cbaa208ef1ca948a1248abdf0c0fe"
+    },
+    {
+      "request": "short-3-r3/wire/request-17.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "347ca64d8ec42f1b848f09da65c30c30de30356550d53af97d455fbe974aa3a7"
+    },
+    {
+      "request": "short-3-r3/wire/request-19.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "53e898eb5664fc22347fa61303222828fd18091828a43a82a4d03a003e3706b0"
+    },
+    {
+      "request": "short-3-r3/wire/request-21.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "97545ead2d3737b4eff5f7feba22a54f84b39577d20bb933c36dd6d6e21027c4"
+    },
+    {
+      "request": "short-3-r3/wire/request-23.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "9cc3a8ff96279abab55cfe4d733cac392210f3792b463795bf1e02533b6866ec"
+    },
+    {
+      "request": "short-3-r3/wire/request-3.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "2b3ff388498c9d9eee3167907e917007f26c5d338f579929fb0fc11a66611044"
+    },
+    {
+      "request": "short-3-r3/wire/request-5.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "13e409370ce128de6d1de9a0bd3e5b67d2fb0e9366912b5a7480614abe6684d5"
+    },
+    {
+      "request": "short-3-r3/wire/request-7.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "8ac94ec8202c0fe70cb434afb67a09087ecd9aff6155bedda66313c19d708dc8"
+    },
+    {
+      "request": "short-3-r3/wire/request-9.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "47ff76d3cd1db79dc6b43ab52fb4cc4ab13e7738aebb956a9877a17bd5101491"
+    },
+    {
+      "request": "short-4-r1/wire/request-1.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "5d30294ae4f5869b8d252faa02bfe5e80f080e90ef6d4bbee9b7d009eede804c"
+    },
+    {
+      "request": "short-4-r1/wire/request-11.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "af66f23643fd7f2c185dbf287cb9314cdc70a05c5d3c247e763e4ed770d21c55"
+    },
+    {
+      "request": "short-4-r1/wire/request-13.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "aa42ea9b1f6db6c901f6579638560e7c5b412a8a15262bf16ae98d4b61d23a4a"
+    },
+    {
+      "request": "short-4-r1/wire/request-15.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "1d3d601ca4630f7aeb1c4b3b8e9e2ac095757afceb0ae452756d4aff61badadd"
+    },
+    {
+      "request": "short-4-r1/wire/request-17.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "00062b4f1d2ef9e53778fa9b493c3115af37e86191469843b819a6283a1ba6e6"
+    },
+    {
+      "request": "short-4-r1/wire/request-19.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "20a4818599185e2843b54f3c19ffaa0f2988933d6080f39e1fd92f105ff0924d"
+    },
+    {
+      "request": "short-4-r1/wire/request-21.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "9263c00b93e73afda35b505732ee30d788bd9ebcd5502cb3b832af17410676d2"
+    },
+    {
+      "request": "short-4-r1/wire/request-23.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "89d34c6c77aa8cfc48d3fb6bc37e0c9eaa051932c4855bad044131d2c4012029"
+    },
+    {
+      "request": "short-4-r1/wire/request-25.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "4e295f8b99d8a736b19b0f55b3ee808d2afeae6950a881d54170e01ec365d6a6"
+    },
+    {
+      "request": "short-4-r1/wire/request-27.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "07f711b9a18b8438052309899a5d508dd8cc9ce7fb44fa989a8033625d5b2dfd"
+    },
+    {
+      "request": "short-4-r1/wire/request-29.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "3bcb4b59e1411d7981453bf5edc7a41741a46df2788a3dbbc065a444d97d6075"
+    },
+    {
+      "request": "short-4-r1/wire/request-3.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "f528dc44faa399caca06818220ac16cea166ac5017e140a1e6e375a7e8404287"
+    },
+    {
+      "request": "short-4-r1/wire/request-31.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "685852dcfc458c34945a25ef39e4a32d202692e0b04399fbd11a9e9797d06d19"
+    },
+    {
+      "request": "short-4-r1/wire/request-33.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "c26feb75554583fb8303e6b742e5ae88e6b946d94d20843fd50461bf6f290f97"
+    },
+    {
+      "request": "short-4-r1/wire/request-5.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "1b6be00d9554f1141303df5774c367feb1d58c9c7a7698c23718e7433476ff22"
+    },
+    {
+      "request": "short-4-r1/wire/request-7.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "e2adfa2f67ed381f1b7e33a6f98426afc937ad4174a2b7c996f2f6c4bed53468"
+    },
+    {
+      "request": "short-4-r1/wire/request-9.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "f33fd92f6b7e3e5d07c2ac651fcd3bfa76de54f373d343441d560854cf767052"
+    },
+    {
+      "request": "short-4-r2/wire/request-1.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "5f05c7ef3c41f7d79cc1ef471b89fc9652d5f1afb55cb9aaf3664c1dd15ee934"
+    },
+    {
+      "request": "short-4-r2/wire/request-11.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "116bbaeb1f4542eea44d8dc24f18deeaecf14ab9d803f8b1ca0f6865acf338a7"
+    },
+    {
+      "request": "short-4-r2/wire/request-13.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "400c10ab9963df3e026dc985bcc707915f6fe3368c7279b11a0c675c8e2968bc"
+    },
+    {
+      "request": "short-4-r2/wire/request-15.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "1dd7474a6a6cfff1d9a2fd3c4638fb55e12a854d117be55f3b7829f3c702fa1a"
+    },
+    {
+      "request": "short-4-r2/wire/request-17.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "2ac50f653db816ad15605eeff0bb0cb98e36e800f655ded3f96d02b242144ee2"
+    },
+    {
+      "request": "short-4-r2/wire/request-19.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "bbf8997751bcc75a37f2eab3686a34baab026b8172475c1b58ac8853f99f442a"
+    },
+    {
+      "request": "short-4-r2/wire/request-21.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "8f37afab6897634fcc33422ccccb952e3d036967731ebf862baf1bd82f1e6452"
+    },
+    {
+      "request": "short-4-r2/wire/request-23.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "db46c547c3ac65304ec30d7d872ff37815fb0ee61f1e08e0301b5621f6094e51"
+    },
+    {
+      "request": "short-4-r2/wire/request-25.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "7af5fe5e19aff0922ed71051909338df0152e6a58d8a0a23fa92fce905375253"
+    },
+    {
+      "request": "short-4-r2/wire/request-27.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "6439764a86dd84799c630ba52016e6ee9393b692b90950be1d60ae7eb4ee75ae"
+    },
+    {
+      "request": "short-4-r2/wire/request-29.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "b5bf22f11a20e21835126f49f1d22ce8a7b85a551f2b6857286d8ad2cc241b8d"
+    },
+    {
+      "request": "short-4-r2/wire/request-3.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "a7bfe15fc9960d7a7f387d3c05171e8563cfb72282a2866caa2a89ccfb0bd37b"
+    },
+    {
+      "request": "short-4-r2/wire/request-31.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "fc72f3073a5200e77303d04e5700965f0ab92c095ff9a2c76d56144a64eb9217"
+    },
+    {
+      "request": "short-4-r2/wire/request-5.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "8e59ffde7adec51168eed53af84b02de7ee9ce0931d586b7fc248488c135f653"
+    },
+    {
+      "request": "short-4-r2/wire/request-7.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "2a4a546493eda80b9400533ca23737e60b7e0a4a8d3bebeb8668dbf3f6626380"
+    },
+    {
+      "request": "short-4-r2/wire/request-9.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "3bcea2badd09175dccefd7d04411557b834c9d6c5f6f1f5ad83c56a5156457bd"
+    },
+    {
+      "request": "short-4-r3/wire/request-1.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "78d00827687b4c0b4fb9ed77da1ea55f8e21363f06820907d79036ef221e6be1"
+    },
+    {
+      "request": "short-4-r3/wire/request-11.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "638907e3d9423ca4ac7aa86e7d5826073811f56133450940f4905d971c489702"
+    },
+    {
+      "request": "short-4-r3/wire/request-13.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "6677350bf6210e2b60bfc903724f89a88618c9a16152082e06117d7c8b754f32"
+    },
+    {
+      "request": "short-4-r3/wire/request-15.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "a595117378c7f343c7ace1197013f3120dae21d9fb1e9375be1a32ff6c2acd7d"
+    },
+    {
+      "request": "short-4-r3/wire/request-17.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "31cd1e232ee3570cfee1fe033a0c16cef2b9bc3d4d5123d91e838b67027f51e6"
+    },
+    {
+      "request": "short-4-r3/wire/request-19.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "432341cd9ededfabddcf41cccaa39555647e1178a742c9afdfdf2e685adad784"
+    },
+    {
+      "request": "short-4-r3/wire/request-21.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "3ebe1e2f31e033f2b85aa07c3a35de6ef507d05374ebe7f6271402725281f2a4"
+    },
+    {
+      "request": "short-4-r3/wire/request-23.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "f1ec07d1d912cfe9a1d008caae7664dd5ae77bb1976fef17f513d1e7801a431f"
+    },
+    {
+      "request": "short-4-r3/wire/request-25.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "93530ac6786fedd7dc54d563b36f91c8719c6cf804882602d5562065c6468313"
+    },
+    {
+      "request": "short-4-r3/wire/request-27.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "48b2b43e8b72431e1a1109f21e884f0726de9fe56ece43bd10e1b42a7d7efa11"
+    },
+    {
+      "request": "short-4-r3/wire/request-29.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "99e52bf8b5b230c48f917aad402293d8fbb9b30fe60eb4ac10c143a3e6d5a8d0"
+    },
+    {
+      "request": "short-4-r3/wire/request-3.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "7df0c0ecd1d8e92912752206e3075fc5447984ff754a8ced12f16908e2b5f686"
+    },
+    {
+      "request": "short-4-r3/wire/request-31.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "058d599eacbd432b7d57d8308c31882a374f85106d5e0e856efc39e5233aebab"
+    },
+    {
+      "request": "short-4-r3/wire/request-5.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "1a3c52e32c6bc2e1c04434232f3e7fab9af3ba6bb3d8ec08476330496fa8f534"
+    },
+    {
+      "request": "short-4-r3/wire/request-7.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "0b15cdbe0015a94eb0b4274416130b46ad54f8449c567052ad420babb019bf93"
+    },
+    {
+      "request": "short-4-r3/wire/request-9.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "123c89f55482267f5fb399aad837db1ed9546349c38aa0422f3fce6c9918e882"
+    },
+    {
+      "request": "short-5-r1/wire/request-1.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "a9c6a1427e29e7d59a28e297aef62f7dea92ccec466e79cb8818cb24ee20cd37"
+    },
+    {
+      "request": "short-5-r1/wire/request-11.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "0cf169f5a3d364975227f957e3419d4c4899097854e72b08789eb2117c23ed0a"
+    },
+    {
+      "request": "short-5-r1/wire/request-3.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "88fb067b68a688e95a76d275cad71d6918fc96edc7313fb937961747e117a4ad"
+    },
+    {
+      "request": "short-5-r1/wire/request-5.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "d80649381752f179173cc3ffcfc14e5fbe4dbb8aecd88ca975ee26f537416189"
+    },
+    {
+      "request": "short-5-r1/wire/request-7.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "12a75cf96cd6254909bbdcda93a8b0179a638f55ff2e3dee39081f8e6c15d97c"
+    },
+    {
+      "request": "short-5-r1/wire/request-9.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "c01bf811844e3a98e7915ff3f00e424a6982d162108efcdd0f08609991583325"
+    },
+    {
+      "request": "short-5-r2/wire/request-1.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "9b479e7e6cc4b9acc86efebd2d812e4c5220de3f5eb5e279f9c8e52a9c00f186"
+    },
+    {
+      "request": "short-5-r2/wire/request-11.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "1bbf1f53d1f275879a1a3195447c003d4cce593fb3d1426930b3daeea7739e53"
+    },
+    {
+      "request": "short-5-r2/wire/request-13.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "021d4df3e100f9615e616714e1a139d315af38204d2a3000543dfcedf80be635"
+    },
+    {
+      "request": "short-5-r2/wire/request-15.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "97794128082db56a5985bf68790005b0306fb08fc4c5a15c55adac00348a0c3e"
+    },
+    {
+      "request": "short-5-r2/wire/request-17.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "b040eabaf7735e8940117f74b7a5c9fa2080fb0a319dea8b3ef0c916714b3da6"
+    },
+    {
+      "request": "short-5-r2/wire/request-19.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "8ac53bb70d03ec84b0b7fc06167d229bc3a376ce08320b52bba67e3493ad6725"
+    },
+    {
+      "request": "short-5-r2/wire/request-21.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "cf2123d3c7a680da6a384213cf4d836092a9df1fbb556d04cce014cb993bc3c5"
+    },
+    {
+      "request": "short-5-r2/wire/request-23.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "c7b087cae14ad7eee8eca8d67d2a9dceda6062be442604f2aa963489eacd4155"
+    },
+    {
+      "request": "short-5-r2/wire/request-25.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "4b7fbd7e1a6afcdc132ca3998a2a347d5c93807f476cf78e9d9c786f0875ab2d"
+    },
+    {
+      "request": "short-5-r2/wire/request-27.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "4396b2db921f046e259661b2cb9ac181db0b17309fdfc715aebbedc76cf39c38"
+    },
+    {
+      "request": "short-5-r2/wire/request-3.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "778c24d05913c41b6be01c396c24fe786a16ec4dedd37828ddd6e662c3e41e4d"
+    },
+    {
+      "request": "short-5-r2/wire/request-5.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "d5405c163558604ce374e00ab735669facebe9b57b05469608e86c238246971d"
+    },
+    {
+      "request": "short-5-r2/wire/request-7.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "780ed15facfb1f273dea94f563bf70ab2e9d09a730bf3362c3667ffa17165302"
+    },
+    {
+      "request": "short-5-r2/wire/request-9.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "5f15e684afcaf8846c7842af2f7cda7726bd750c58763d664b6b8ad3b0a94494"
+    },
+    {
+      "request": "short-5-r3/wire/request-1.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "0d1b0ee25bc0a9c6fcc38206a3383865f0bb995f0891df9793c11b8440a0ed7e"
+    },
+    {
+      "request": "short-5-r3/wire/request-11.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "16f63c3fdc8de0062c0d8dbb227c82c79f002db01ac8c4ca9592f8f004c0f450"
+    },
+    {
+      "request": "short-5-r3/wire/request-13.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "e83dc0977d4f22a304ddd5a51165dc13ef521b1c7283d5ae907c404e909b898b"
+    },
+    {
+      "request": "short-5-r3/wire/request-15.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "11195f3e297b21c29a3d5c707cb8c1d48d01d25d164019f9c4f98f37030d03db"
+    },
+    {
+      "request": "short-5-r3/wire/request-17.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "8b8e2cc2e3925f5b028dd8abf163e7c197a00d1e84fd641f76138e2202829307"
+    },
+    {
+      "request": "short-5-r3/wire/request-19.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "b5cb6f298431e4d87e15dbef0563e953b629990bf2d2322b6eb2ebc39745651b"
+    },
+    {
+      "request": "short-5-r3/wire/request-21.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "cacd2bd0f466eda5cf52122ccdb5c6422732287399bc8aa557639bc93a74b497"
+    },
+    {
+      "request": "short-5-r3/wire/request-23.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "ca28818ba440cfb1aef0b079f6990e95cef40b3c197292680dc524cb2813c337"
+    },
+    {
+      "request": "short-5-r3/wire/request-25.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "9bc3b872d032f5d5a2924a3e2f8c2e5f58ba98ed337db0b63c91edbf8843b736"
+    },
+    {
+      "request": "short-5-r3/wire/request-27.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "ebf5ac955ccf268c2a61de74671b56a63c80499f465b84f0d373bef49824a593"
+    },
+    {
+      "request": "short-5-r3/wire/request-3.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "a6d665d1bb53de7a3d64bc17929facb973df963367362809b46196c0cf7da77f"
+    },
+    {
+      "request": "short-5-r3/wire/request-5.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "4bd9e892623456d62045e311ecfcd8b22d7ef79f6d867fabb95c4c3e52387b79"
+    },
+    {
+      "request": "short-5-r3/wire/request-7.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "28decfd0a64f411ed474cd4d517cc1ae968905f8720adf8a0525b9484ff300c5"
+    },
+    {
+      "request": "short-5-r3/wire/request-9.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "26651bee4bbd2ee6b98fc56b70bfe926167fa6080dffa6382e28638ba3d3d013"
+    },
+    {
+      "request": "short-6-r1/wire/request-1.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "a30a855c8282bc617ea88bc90900730f0a73742cf628e1f9f1d2f31ab01adeea"
+    },
+    {
+      "request": "short-6-r1/wire/request-11.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "a5737b90ab47ba5a6d9c9662fb530c22976bb1aab71869e14fab91270d558abb"
+    },
+    {
+      "request": "short-6-r1/wire/request-13.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "992a685321c3cb99babd0bf82d0eca662b82b1758880e5d206103605e11fa7e6"
+    },
+    {
+      "request": "short-6-r1/wire/request-15.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "53f5c1f8d0151f5c0f486ada130d9448307537aca9782a6417fd0fc33145a802"
+    },
+    {
+      "request": "short-6-r1/wire/request-17.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "706b0c845e425f631ee8cff56d13772f2a7df673bd2b80f99b64147ed279e7c3"
+    },
+    {
+      "request": "short-6-r1/wire/request-19.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "42fc5160768f87027e96ddaee0c7bfa6ada682b074ba54265c6261d0b87f9243"
+    },
+    {
+      "request": "short-6-r1/wire/request-21.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "a9dd6fc1acafcbd813208a93b4ddfcaea167fbe06b97643d6e64d797e405a486"
+    },
+    {
+      "request": "short-6-r1/wire/request-23.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "6fce071cdec6efcd395c760847e600a8ccc672c110353f4ad85a7525f48a0e61"
+    },
+    {
+      "request": "short-6-r1/wire/request-3.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "72d92318d97a86feb8880df196cc00b0bd5bccd7eda95b1e1115b1662b67c310"
+    },
+    {
+      "request": "short-6-r1/wire/request-5.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "540ae7ebba2b17f79d4c6b066051de8bfb214a4150a1e795662c70ccb188ce83"
+    },
+    {
+      "request": "short-6-r1/wire/request-7.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "544f5f8c88eb16335a7a37ee4d462720edbb8d87e6c7c60e9b2c9d99ae6c5c02"
+    },
+    {
+      "request": "short-6-r1/wire/request-9.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "9190b5d41765b1a65540e55692e44baa95c9f319e216c1ed60d7d75ab7a95c4e"
+    },
+    {
+      "request": "short-6-r2/wire/request-1.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "bfdd3068fb2eeb9dc4de845b98b70c22d22fc1cc0134eb477a05da242c093c0e"
+    },
+    {
+      "request": "short-6-r2/wire/request-11.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "40e09b294405d48ca6d251a4620e9dad67e35aeafc66d109bf706c285dd338ca"
+    },
+    {
+      "request": "short-6-r2/wire/request-13.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "5a607a86d395107ebb2151d04ce12c13d76e12b6069064115ca96aa32611a10d"
+    },
+    {
+      "request": "short-6-r2/wire/request-15.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "9b86c5d10f32b017d55a1d813c77d84a260fbe2f368610c116003b2d32c3c7b5"
+    },
+    {
+      "request": "short-6-r2/wire/request-17.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "7c85d4f55dba416e0279e8c7a7cbf38bc9c10912e45f2ca77eda8d40c1a29ba6"
+    },
+    {
+      "request": "short-6-r2/wire/request-19.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "d07079eac6ee3d448316a54f64d34c32e1236aa577dde7d292cc1d41f83d9334"
+    },
+    {
+      "request": "short-6-r2/wire/request-21.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "d07292b33d124f8ab8ba4df82e0bba147a1647891573bcb654b6d324529e4738"
+    },
+    {
+      "request": "short-6-r2/wire/request-23.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "41c18eb89a0ec02d53ff658daa45bc679e6cad9f5ba32479cbf1e5578db9e432"
+    },
+    {
+      "request": "short-6-r2/wire/request-3.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "062097ca23a78e8c3a93f1d96d9f7b2f15444b3c6c7ecd6187a8a625cb077dea"
+    },
+    {
+      "request": "short-6-r2/wire/request-5.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "3b554be513613bca15d144eeac9cbd7aef135dde3320fc22fa394580f0f8efe2"
+    },
+    {
+      "request": "short-6-r2/wire/request-7.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "5d529d01b70c1555c13735766d7bc59661f27f58eda727bb95293ceca76de369"
+    },
+    {
+      "request": "short-6-r2/wire/request-9.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "3fb12059feea4549a99b6da06e5576f3346ac6b80edc91b54d390fe00e0dc81c"
+    },
+    {
+      "request": "short-6-r3/wire/request-1.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "ad970f2284a357a86d0f2fef20ca0348f932f4239823f30f88805c9f53cc2f7d"
+    },
+    {
+      "request": "short-6-r3/wire/request-11.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "c65fe902c147b1f393a5b4bad79a122687f3b77b5d45176dd47be10548c7341f"
+    },
+    {
+      "request": "short-6-r3/wire/request-13.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "469a8b489f14f2b86032cce899063c59cc19ed9535116a521d4a162255b0437c"
+    },
+    {
+      "request": "short-6-r3/wire/request-15.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "54c3c2401e20d88db6c350806cc958ecaea064dd845d8324d01dee11c282d7ca"
+    },
+    {
+      "request": "short-6-r3/wire/request-17.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "bc69ec7cb55d341dc51207f040573e890fec9059b768869cb0717d12cb3e9bf8"
+    },
+    {
+      "request": "short-6-r3/wire/request-19.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "55f20b1ff54f9e73fb606717c09a0880382b83144e2321b21c0dc88fdf4cd38b"
+    },
+    {
+      "request": "short-6-r3/wire/request-21.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "ca487ce3f82d7f235158f35c3ed57e197521296951cbc37d8f61c131cface114"
+    },
+    {
+      "request": "short-6-r3/wire/request-23.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "bd74366fea8b9d8feb9f3edf0757f65a21d58216099dd9f7e6acf07fb4a3a998"
+    },
+    {
+      "request": "short-6-r3/wire/request-3.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "7771e95af76df4ba0c8776ebb102d39dac9f1beb20eaa99ed01ca6c466ce51c1"
+    },
+    {
+      "request": "short-6-r3/wire/request-5.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "045a4d7b04f4da54bd562f3333996c12a1c240573cbcfb39bef02eacd7d8a01d"
+    },
+    {
+      "request": "short-6-r3/wire/request-7.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "bf7030f0512861e7f447dcbfa38f7fca44cb0ffaf7cc532f79a7ac8a8e93ca0e"
+    },
+    {
+      "request": "short-6-r3/wire/request-9.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "edc66c3805cc94f20776db5117f44f91243c53f9d11efb1186976872bce5af5d"
+    },
+    {
+      "request": "full-development-r1/wire/request-1.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "eb9931bf2eb09e29fcafcabb0ff2459e3da952db9c310b03da5d4fa4556af4c1"
+    },
+    {
+      "request": "full-development-r1/wire/request-11.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "0c70abf869f3075225c2ba3732eba1306ba3e838c831ed94d61ab2c2ce43e68b"
+    },
+    {
+      "request": "full-development-r1/wire/request-13.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "ad002542acde125c60236da800dd4e7dd59ea2bb77f833f18d56b67a1af14db0"
+    },
+    {
+      "request": "full-development-r1/wire/request-15.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "a009840c63679d8d8347c37bb65e86245c6304d6d50f4afb1f54c4480187b281"
+    },
+    {
+      "request": "full-development-r1/wire/request-17.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "d79cda96dd2cb6dd3c8552e36551b6c5fa9e19c5c5c0b32fff8e6f9b0599d407"
+    },
+    {
+      "request": "full-development-r1/wire/request-19.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "b5560acf62da24dd759be6fe0aa0d72a10109b1ecd3a2305e3d7c21b0c5c55ff"
+    },
+    {
+      "request": "full-development-r1/wire/request-21.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "c10f0d2da1eba5989d50ab029a7a72a5eeb5164f0f61f0c2a2c99213c9f23c0d"
+    },
+    {
+      "request": "full-development-r1/wire/request-23.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "589692304b285ed51d5c6ebc339446b206de15943700b9e5deeeeef36161ba2c"
+    },
+    {
+      "request": "full-development-r1/wire/request-25.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "6c7bc3fdbb7482dd8b408b59769f8754dd81384cdb121fb0f8f4fbf50aad385e"
+    },
+    {
+      "request": "full-development-r1/wire/request-27.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "02a3ddff71739efd8e7b289a1739188674d6dd9ebb0ba3732fd533095fd14fea"
+    },
+    {
+      "request": "full-development-r1/wire/request-29.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "f98ca349a7af4497d39a87c10eeb0c145a686e33becf5a0e8e6b5cfb4e013000"
+    },
+    {
+      "request": "full-development-r1/wire/request-3.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "67c33d7fad4af0f008d2e52e3792a3d2e64623975bb50fb59e13d4fff1ce46d3"
+    },
+    {
+      "request": "full-development-r1/wire/request-31.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "26f67f04acbc2b01aec71c123888e1d59cb16cd25c529f16f4f0fcd87a97e6a8"
+    },
+    {
+      "request": "full-development-r1/wire/request-33.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "cc3f86ba831cb45210fddb4faf89afce2d385e30331a216379b9bc437ae99e2d"
+    },
+    {
+      "request": "full-development-r1/wire/request-35.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "18a298fb086d0930e7085e68417271c6490acf28f59ef9ebf429a35a142f7699"
+    },
+    {
+      "request": "full-development-r1/wire/request-37.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "26b7fafd2de3da746e4f55f16fa3c024d3bc803dc64ffd4cf11d951e296f38eb"
+    },
+    {
+      "request": "full-development-r1/wire/request-39.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "d66adbffec8d2ca43486d085d6947c885fbe5461cb9196e12bc22692a25a1c60"
+    },
+    {
+      "request": "full-development-r1/wire/request-41.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "ffb595042bcf252d23fdd07b1f6b52fa712cc29825bceac15035039a4d5a64ff"
+    },
+    {
+      "request": "full-development-r1/wire/request-43.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "26803d66c4eed11f7bae255c84952b7d8447474324180f0bbb0bca2dfd757317"
+    },
+    {
+      "request": "full-development-r1/wire/request-5.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "b0ae74b3f52fe73bdcaab4a4d7be13fbb56d3a80f71017ad2797a204e671e808"
+    },
+    {
+      "request": "full-development-r1/wire/request-7.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "ae84198674f4a94f8bc18b47e8ee9c487e8fcdb0ce728f34e5aed2f2e0eecb45"
+    },
+    {
+      "request": "full-development-r1/wire/request-9.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "79f8311bdbbc79d9a5508931214900e92a239394244b37724a46e34a6b2f2cbc"
+    },
+    {
+      "request": "full-development-r2/wire/request-1.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "87f6643612559cbdf3e5c18694b1033149c01d5494247dd00c3547d9709aa4f8"
+    },
+    {
+      "request": "full-development-r2/wire/request-11.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "0fccfae05cc5b7b20b3b34bbf2977e784a407e16803a9e9d4cdef6cb1b85a2f1"
+    },
+    {
+      "request": "full-development-r2/wire/request-13.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "6155620c059f16c95fa37575e9d2ef2100d75eeea6e3e5f9a11db7211a570047"
+    },
+    {
+      "request": "full-development-r2/wire/request-15.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "75455cc437ea8ce0137defed8f300d2ebf4fe29c703e7a0c4a5a3492e79edeca"
+    },
+    {
+      "request": "full-development-r2/wire/request-17.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "2f5b17a51b3d35bd77959ba43960c2e3ba1bd705814ae45683569d600a352166"
+    },
+    {
+      "request": "full-development-r2/wire/request-19.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "364c1d6c509e2abc23590f973b8ce1aead33d9d591e15146e1f4f41ce375f4a5"
+    },
+    {
+      "request": "full-development-r2/wire/request-21.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "7e63f5c825e4d9e94eb8d5402d748afc1b730377d25f98da3f9d623be8daa4ea"
+    },
+    {
+      "request": "full-development-r2/wire/request-23.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "0966e0f03573d45a09824c40308f0df10ca7a883b0a464ab6d37ddba01b2d55d"
+    },
+    {
+      "request": "full-development-r2/wire/request-25.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "f198f48cb96a4ea3a2981ee00667cee2c94a5758e5398f4ac638e027f8a8e139"
+    },
+    {
+      "request": "full-development-r2/wire/request-27.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "ad11a81801b600fc140af018d4fb9d017b5249a870df2731bc9daa7266e33065"
+    },
+    {
+      "request": "full-development-r2/wire/request-29.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "e6238a019e0edb0cf969efe9ae9923f9fa9fefda4d34e5e3dcfe9585e489df2b"
+    },
+    {
+      "request": "full-development-r2/wire/request-3.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "84e7692221fc493bbec0c2a1d8b21e053c85794da6feeb89a2c34996e144bc73"
+    },
+    {
+      "request": "full-development-r2/wire/request-31.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "a722059bd82fbf4fc3ae3d238238bae269205be2264310767ba6e7fe561810ef"
+    },
+    {
+      "request": "full-development-r2/wire/request-33.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "96a6051140e17e51ae7b967d020bad9a8cc46af2cf9050bbd12dd8f3015d10dd"
+    },
+    {
+      "request": "full-development-r2/wire/request-35.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "2b2203ba117333548dbf3d2777ea29075ab6b0d59b350b7738c9263dc08b19f4"
+    },
+    {
+      "request": "full-development-r2/wire/request-37.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "29a3264151a73388e805fb8438417f54cf6d0ddeb98a4347d43a44f624ad8224"
+    },
+    {
+      "request": "full-development-r2/wire/request-39.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "e83dfbbd48f9860dd2acd4e56028c64fe86710d4729c581271a39f88ad6b4739"
+    },
+    {
+      "request": "full-development-r2/wire/request-5.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "71ef41bb830aabfdf9d3e90f13220ff131e516f48accb8610e5ae5a759d32953"
+    },
+    {
+      "request": "full-development-r2/wire/request-7.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "b411603e9ab9110f81342ed5111ef02ad04a447424ba7cff0dad9a34cdcfd59f"
+    },
+    {
+      "request": "full-development-r2/wire/request-9.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "8e6b7e395ee81d086198698b029f788d4a12174f9733681991a7a3012b22a89d"
+    },
+    {
+      "request": "full-reserved-r1/wire/request-1.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "dad27c417ca02bcece156a7c492fd8302f7f43ff3acb16e0ebd8d7046db5014c"
+    },
+    {
+      "request": "full-reserved-r1/wire/request-11.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "62d6c31016e68538b145199ab18e4a14782af21f128789d74ef6997df4af31ef"
+    },
+    {
+      "request": "full-reserved-r1/wire/request-13.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "e8ef656d882fb859e043b1e40aa1acea451e3f1e8f54d73a707cda8a616b5cad"
+    },
+    {
+      "request": "full-reserved-r1/wire/request-15.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "32c646a65a00684cec8c6e93646a8e38e87b413a9472c2012f05620ebbfebf1f"
+    },
+    {
+      "request": "full-reserved-r1/wire/request-17.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "c7f1892754061643d9aba08b201607d99193ac5294bcefc67181c704e935c8db"
+    },
+    {
+      "request": "full-reserved-r1/wire/request-19.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "11dd1ed3bcb17e02b284ec98faf299ee7142cb15283cb7c51b059eaeac6dfba2"
+    },
+    {
+      "request": "full-reserved-r1/wire/request-21.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "e29727740fee4ba0699ddbb2e56bf7227fb39ff07e820028bd96e59f1f176e1c"
+    },
+    {
+      "request": "full-reserved-r1/wire/request-23.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "3ea4cb33448639f07b78188ecfc7872d1ff8d0487e808a4f73316c81cd4734b4"
+    },
+    {
+      "request": "full-reserved-r1/wire/request-25.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "f5d37a3b0758d0ce795a9f8909586e4d6e56df5cd87b2f6e4e09792aa5bda4f4"
+    },
+    {
+      "request": "full-reserved-r1/wire/request-27.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "003c13e7ea9017e4a6bc6565accdbdaa1090bc42d39bac46184d1f9d9d523f07"
+    },
+    {
+      "request": "full-reserved-r1/wire/request-29.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "25f90532221895b2b13483a8d75e68554ccdf7aea95f8d5a32f09625f0f42293"
+    },
+    {
+      "request": "full-reserved-r1/wire/request-3.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "a4609e07bab877c5c68228e23a8a5cd8e0b7fa66ead3c7ae20392498adaf1eaf"
+    },
+    {
+      "request": "full-reserved-r1/wire/request-31.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "32581f27b63f9349c3d4edb89dc407ed19427b931fdf0f90cd64087b032747ae"
+    },
+    {
+      "request": "full-reserved-r1/wire/request-33.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "6e163a20d007daecd7250658731806c89fae00ea6e6f59fd36bfde491aaf731f"
+    },
+    {
+      "request": "full-reserved-r1/wire/request-35.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "8be93126294a1517108eaeb462aabb087c0a533267e08e1f21442f7ea6899504"
+    },
+    {
+      "request": "full-reserved-r1/wire/request-37.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "4946720d902f2a3fde9eb4623acae9d15e7238d669b5d5aa356e4bc6dccf61a0"
+    },
+    {
+      "request": "full-reserved-r1/wire/request-39.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "6a543c4a4774aebed1f76c596cfd236d12134d06991e6c3a9874a6ad102d1713"
+    },
+    {
+      "request": "full-reserved-r1/wire/request-41.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "2983716931cf8940b9fbc376a2765d5299f1ce7656905c4dec0b305b66fa3e59"
+    },
+    {
+      "request": "full-reserved-r1/wire/request-43.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "a2121b71c5a2fdf38dd7ad8595703e04a84049d4aa07377d5c210ca35a53253d"
+    },
+    {
+      "request": "full-reserved-r1/wire/request-5.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "cfb3d9f25c6ab2c291ed46f50034f13528768babeffcec7d93a6c4af24d46325"
+    },
+    {
+      "request": "full-reserved-r1/wire/request-7.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "2867f3dc827e82fb036cf2fbf48ac659c413a8382bc4a1cc0e6274250997e3cd"
+    },
+    {
+      "request": "full-reserved-r1/wire/request-9.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "65d9994db2dc556e756bbf6113e09bdf21c8a1ca696a2fbbe2697332edbd3803"
+    },
+    {
+      "request": "full-reserved-r2/wire/request-1.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "cdde7e3dce78cedd9755d9b0e08781dfa2654d487607f3d7de90a3170047a55c"
+    },
+    {
+      "request": "full-reserved-r2/wire/request-11.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "0dfa0bf07390b1455310e352d08f1b8d3ccf2509cce04765bb2cf82afabd7d60"
+    },
+    {
+      "request": "full-reserved-r2/wire/request-13.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "8c0158a45a9bac9a2fcb328443afa765f0af80583a8a141ec1558a7501f1775a"
+    },
+    {
+      "request": "full-reserved-r2/wire/request-15.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "af00946787701381e6bf9fad73c585caa3879a6f54890c1ff5013b8843b3d656"
+    },
+    {
+      "request": "full-reserved-r2/wire/request-17.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "6eee712f9d8f5e30ae9c61574b16123f070918acab37001d7dca230fcee7d4c9"
+    },
+    {
+      "request": "full-reserved-r2/wire/request-19.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "ab10b8254edd3db77879274b690b817d6f76771d3386d25678fa70d68a3ac123"
+    },
+    {
+      "request": "full-reserved-r2/wire/request-21.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "6ff5ca9f3ea58823c87064c288523ee5e18ba8f919f0e82dcb41234ed8eec8e7"
+    },
+    {
+      "request": "full-reserved-r2/wire/request-23.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "5adac8bedf5a54727352a9b50144285068601b24a57e7f53a94ddbe0d5dece89"
+    },
+    {
+      "request": "full-reserved-r2/wire/request-25.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "8e9fc0c608dae0167d56a0952b3fbb02318035d4fd2102764f2cbe6708206bd9"
+    },
+    {
+      "request": "full-reserved-r2/wire/request-27.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "81c5ad1368f3ae754f12629a8b9177ca5ee6f5c0222bfbb6d1203a65cd0022fe"
+    },
+    {
+      "request": "full-reserved-r2/wire/request-29.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "f645a96218fecffff61243dc23984b80443731820f22a3b8fc5a82bbe0c67612"
+    },
+    {
+      "request": "full-reserved-r2/wire/request-3.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "a4efca942774f9a89c5aaeb1c69e3b741d7c1776b9ad652520d1dfc3d7072310"
+    },
+    {
+      "request": "full-reserved-r2/wire/request-31.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "cc51d9a809c27ac649e0d2aff0694d2ddc2e2ab09865cb09fb392c4aeb830f19"
+    },
+    {
+      "request": "full-reserved-r2/wire/request-33.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "5fa1d4cb6798e52b0c04249a0216013b57eeb1bbaa69b94b8854efb81ff23651"
+    },
+    {
+      "request": "full-reserved-r2/wire/request-35.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "6241caf8629b4602262c2e85b74fc30d558c29717e6eea5d3576e96add85a39e"
+    },
+    {
+      "request": "full-reserved-r2/wire/request-37.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "97d159cb6cebf4f4fee8bc0913f40fa6584f3dc647427fb16a241386b7985b2e"
+    },
+    {
+      "request": "full-reserved-r2/wire/request-39.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "f7c3450c0417c9ceb30f498cf51e8bf7af7fd47c1b7ae96337c0b296feef28bd"
+    },
+    {
+      "request": "full-reserved-r2/wire/request-5.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "f93948f08bd13af7caaaa230c983a1ab0c2226a63321a4245213e3cfe2afdbc4"
+    },
+    {
+      "request": "full-reserved-r2/wire/request-7.json",
+      "operation": "keep",
+      "explicit_text": true,
+      "text_is_null": true,
+      "sha256": "52fc420b0ce9a3e14001ae816b366ae00f17b8d2cff9e9a36bdb691509edad46"
+    },
+    {
+      "request": "full-reserved-r2/wire/request-9.json",
+      "operation": "replace",
+      "explicit_text": true,
+      "text_is_null": false,
+      "sha256": "06d79cfb19c7225be7775fbc21be26411051e10c01dc1677437b4dd8d8ccbd1d"
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+{
+  "action" : {
+    "actingSeat" : "north",
+    "boardID" : "08600350-B007-45F8-8730-2AE83A41384A",
+    "card" : "D6",
+    "controller" : "south",
+    "revision" : 1,
+    "snapshotID" : "08600350-B007-45F8-8730-2AE83A41384A:1:south"
+  },
+  "advice" : {
+    "plan" : {
+      "text" : "Win the diamond lead with dummy’s ace if available, then develop clubs for tricks while preserving entries; use the major-suit honors to stop the defenders from running a suit, and take safe overtricks only after the contract is secure.",
+      "update" : "replace"
+    },
+    "publicReason" : "With West leading the diamond queen, dummy should play the diamond six; South’s ace-king are winners, so preserve dummy’s diamond spots and let declarer win cheaply if possible.",
+    "selectedCard" : "D6"
+  },
+  "effectivePlan" : "Win the diamond lead with dummy’s ace if available, then develop clubs for tricks while preserving entries; use the major-suit honors to stop the defenders from running a suit, and take safe overtricks only after the contract is secure.",
+  "elapsedSeconds" : 10.377089023590088,
+  "identity" : {
+    "observedModel" : "gpt-6-luna",
+    "requestedEffort" : "medium",
+    "requestedModel" : "gpt-6-luna",
+    "runtimeVersion" : "codex-cli 0.160.0",
+    "threadID" : "01a14e26-17e1-7670-adba-e9e5a4b22d6a",
+    "turnID" : "01a14e26-241a-72a1-808c-ad4d68353df3"
+  },
+  "input" : "Contract: 3NT by South. Scoring: IMP. Vulnerability: neither.\nObjective: Normal IMP strategy, weighing contract risk and overtricks.\nDecision controller: South (declarer).\nActing hand: North (dummy).\nSouth (declarer): S A94 \/ H A63 \/ D AK \/ C AK864\nNorth (dummy): S 862 \/ H K74 \/ D 8653 \/ C Q72\nActual plays in order: West DQ.\nTricks won: declarer 0, defenders 0.\nAdditional public background: Auction and defensive methods are not provided.",
+  "instructions" : "Play declarer and dummy using the supplied decision-time information. Write in English and pursue the stated objective. selectedCard is the single card from the acting hand to play now; publicReason briefly explains it. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide an initial concrete plan before dummy's first play. Unknown cards remain unknown.",
+  "planAssociation" : {
+    "boardID" : "08600350-B007-45F8-8730-2AE83A41384A",
+    "controller" : "south",
+    "sourceSessionID" : "CEDD61F3-1641-47A7-BC3C-E5A3A499A95E",
+    "sourceSnapshotID" : "08600350-B007-45F8-8730-2AE83A41384A:1:south",
+    "text" : "Win the diamond lead with dummy’s ace if available, then develop clubs for tricks while preserving entries; use the major-suit honors to stop the defenders from running a suit, and take safe overtricks only after the contract is secure."
+  },
+  "rawOutput" : "{\"plan\":{\"text\":\"Win the diamond lead with dummy’s ace if available, then develop clubs for tricks while preserving entries; use the major-suit honors to stop the defenders from running a suit, and take safe overtricks only after the contract is secure.\",\"update\":\"replace\"},\"publicReason\":\"With West leading the diamond queen, dummy should play the diamond six; South’s ace-king are winners, so preserve dummy’s diamond spots and let declarer win cheaply if possible.\",\"selectedCard\":\"D6\"}",
+  "session" : {
+    "id" : "CEDD61F3-1641-47A7-BC3C-E5A3A499A95E",
+    "snapshotID" : "08600350-B007-45F8-8730-2AE83A41384A:1:south"
+  },
+  "snapshot" : {
+    "actingSeat" : "north",
+    "boardID" : "08600350-B007-45F8-8730-2AE83A41384A",
+    "contract" : {
+      "declarer" : "south",
+      "level" : 3,
+      "strain" : "noTrump"
+    },
+    "controller" : "south",
+    "currentTrick" : [
+      {
+        "card" : "DQ",
+        "seat" : "west",
+        "sequence" : 0
+      }
+    ],
+    "declarerTricks" : 0,
+    "defenderTricks" : 0,
+    "events" : [
+      {
+        "card" : "DQ",
+        "seat" : "west",
+        "sequence" : 0
+      }
+    ],
+    "hands" : [
+      {
+        "cards" : [
+          "SA",
+          "S9",
+          "S4",
+          "HA",
+          "H6",
+          "H3",
+          "DA",
+          "DK",
+          "CA",
+          "CK",
+          "C8",
+          "C6",
+          "C4"
+        ],
+        "seat" : "south"
+      },
+      {
+        "cards" : [
+          "S8",
+          "S6",
+          "S2",
+          "HK",
+          "H7",
+          "H4",
+          "D8",
+          "D6",
+          "D5",
+          "D3",
+          "CQ",
+          "C7",
+          "C2"
+        ],
+        "seat" : "north"
+      }
+    ],
+    "legalCards" : [
+      "D8",
+      "D6",
+      "D5",
+      "D3"
+    ],
+    "objective" : "Normal IMP strategy, weighing contract risk and overtricks.",
+    "revision" : 1,
+    "scoring" : "IMP",
+    "vulnerability" : "neither"
+  },
+  "wireContractVersion" : "stage1-legal-selectedCard-v3"
+}

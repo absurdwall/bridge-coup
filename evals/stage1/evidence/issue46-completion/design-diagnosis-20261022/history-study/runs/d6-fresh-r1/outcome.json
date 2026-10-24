@@ -1,0 +1,26 @@
+{
+  "id": "d6-fresh-r1",
+  "decision": 6,
+  "history": "fresh",
+  "repeat": 1,
+  "request": "/tmp/bridge46-design-diagnosis-20261022/requests/heart-full-r1.json",
+  "seed": null,
+  "exit_code": 0,
+  "raw_output": {
+    "plan": {
+      "update": "replace",
+      "text": "The planned SA stop is no longer available: South has already played SA, and North is void in spades. Discard low from North on this trick, preserving the heart ace and diamond honors. After the spade trick, seek entries to cash the heart and club honors and establish dummy's remaining diamonds; defenders' unseen cards and entries determine whether enough tricks remain for game."
+    },
+    "selectedCard": "C4",
+    "publicReason": "West already wins the spade trick, so discard the lowest club and preserve North's heart ace and diamond honors."
+  },
+  "identity": {
+    "observedModel": "gpt-6-luna",
+    "requestedEffort": "medium",
+    "requestedModel": "gpt-6-luna",
+    "runtimeVersion": "codex-cli 0.160.0",
+    "threadID": "01a163da-59e6-73b0-88aa-a10a9943386c",
+    "turnID": "01a163da-5a0c-7b60-aa9d-7c7b11cb0439"
+  },
+  "seconds": 8.608
+}

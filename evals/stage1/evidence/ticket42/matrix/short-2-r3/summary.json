@@ -1,0 +1,183 @@
+{
+  "id": "short-2-r3",
+  "case_id": "short-2",
+  "kind": "short",
+  "board": "boards/synthetic.json",
+  "decisions": 8,
+  "opponent_policy": "conserve-high",
+  "task_complete": true,
+  "legal_execution": "pass",
+  "quality": "fail",
+  "playing": {
+    "exit_code": 0,
+    "wall_seconds": 36.521
+  },
+  "grading": {
+    "exit_code": 0,
+    "grading_evidence_available": true
+  },
+  "coverage": {
+    "status": "pending",
+    "basis": "At least three actual decisions; absence of a newly disproved plan premise requires independent review."
+  },
+  "counts": {
+    "actual_events": 15,
+    "complete": false,
+    "tricks": [
+      3,
+      0
+    ],
+    "model_request_attempts": 8,
+    "actual_rpc_requests": 8,
+    "model_actions": 8,
+    "forced_actions": 0,
+    "driver_opponent_actions": 6,
+    "initial_controlled_actions": 0,
+    "initial_opponent_actions": 1,
+    "retries": 0
+  },
+  "wire": {
+    "upstream_request_attempts": 8,
+    "http_statuses": {
+      "200": 8
+    },
+    "transport_errors": [],
+    "missing_response_metadata": [],
+    "observed_response_models": [
+      "gpt-6-luna"
+    ]
+  },
+  "timing": {
+    "elapsedSeconds": 36.24256193637848,
+    "lastControlledActionSeconds": 36.241629004478455,
+    "environmentOverheadSeconds": 0.0434877872467041,
+    "initialRequestSeconds": 10.139904975891113,
+    "subsequentRequestSeconds": [
+      3.727707028388977,
+      3.859889030456543,
+      3.538827061653137,
+      3.7977449893951416,
+      3.7579469680786133,
+      3.4500640630722046,
+      3.926990032196045
+    ],
+    "failedRequestSeconds": null
+  },
+  "quality_counts": {
+    "pass": 3,
+    "fail": 4,
+    "uncertain": 1
+  },
+  "review_required": [
+    {
+      "id": "decision-0001",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "card ownership and physical route",
+          "fact": "North holds D8653; South holds DAK. Dummy cannot win the diamond lead.",
+          "explanation": "The plan invents a diamond ace in dummy and requires dummy to lead after a trick South must win. The selected D5 does not implement the stated winning play.",
+          "quotes": [
+            "Win West’s diamond lead with dummy’s ace",
+            "After taking the first trick, lead a low club from dummy toward South’s honors",
+            "dummy can win with the ace, preserving South’s king for control and entry options."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0002",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "winner identification",
+          "fact": "South holds both DA and DK, and either beats the current DQ.",
+          "explanation": "Calling the ace the lowest winning card is false.",
+          "quotes": [
+            "play the diamond ace, the lowest card that takes the trick"
+          ]
+        },
+        {
+          "dimension": "plan consistency",
+          "fact": "North played D5 and South is now winning with DA; North has no diamond ace.",
+          "explanation": "Keeping the plan retains an impossible initial winner and the resulting wrong-hand continuation without correcting either.",
+          "quotes": [
+            "Win West’s diamond lead with dummy’s ace",
+            "After taking the first trick, lead a low club from dummy toward South’s honors"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0003",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "action and plan consistency",
+          "fact": "South won the first trick with DA and now leads C4 toward North's CQ.",
+          "explanation": "The current action and reason describe a feasible club play, but the retained plan explicitly prescribes the opposite direction after the first trick and has not been corrected.",
+          "quotes": [
+            "After taking the first trick, lead a low club from dummy toward South’s honors",
+            "Lead a low club toward dummy’s queen to begin establishing the suit while preserving dummy’s heart king as an entry."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0005",
+      "mechanical": "pass",
+      "quality": "uncertain",
+      "overall": "uncertain",
+      "attribution": "pending_review",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "strategic continuation and plan consistency",
+          "fact": "North is on lead with C72 and HK74; South holds CAK86 and HA63. A direct club continuation is available, while H4 toward HA is also physically feasible.",
+          "explanation": "The answer delays the retained club continuation to cash a heart and preserves HK. This is not demonstrably a material strategic error from the supplied information, but the reason does not explain what testing hearts achieves or reconcile the change in sequence. Review is required.",
+          "quotes": [
+            "Lead a low heart from dummy toward South’s ace; this tests the suit while preserving dummy’s king as a potential later entry.",
+            "After taking the first trick, lead a low club from dummy toward South’s honors"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0007",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "lead ownership and action consistency",
+          "fact": "South won the preceding trick with HA and is on lead; HK belongs to North. The selected card is South's H3.",
+          "explanation": "Leading H3 toward HK is feasible, but the reason materially misidentifies the hand on lead and describes cashing a card that the acting hand does not hold.",
+          "quotes": [
+            "Cash the king of hearts while dummy is on lead; this secures a second heart trick before returning to the club plan."
+          ]
+        }
+      ]
+    }
+  ],
+  "plan_updates": {
+    "keep": 7,
+    "replace": 1,
+    "withdraw": 0
+  },
+  "failures": [],
+  "outcome": "fail"
+}

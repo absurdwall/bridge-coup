@@ -1,0 +1,27 @@
+FF
+======================================================================
+FAIL: test_saved_turn_rejects_completion_before_its_start_or_another_thread (test_evaluate.SavedDecisionTests.test_saved_turn_rejects_completion_before_its_start_or_another_thread) (defect='early_completion')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/bridge46-eval-binding/evals/stage1/tests/test_evaluate.py", line 194, in test_saved_turn_rejects_completion_before_its_start_or_another_thread
+    self.assertEqual(checks['output_evidence']['status'], 'fail')
+AssertionError: 'pass' != 'fail'
+- pass
++ fail
+
+
+======================================================================
+FAIL: test_saved_turn_rejects_completion_before_its_start_or_another_thread (test_evaluate.SavedDecisionTests.test_saved_turn_rejects_completion_before_its_start_or_another_thread) (defect='wrong_thread')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/bridge46-eval-binding/evals/stage1/tests/test_evaluate.py", line 194, in test_saved_turn_rejects_completion_before_its_start_or_another_thread
+    self.assertEqual(checks['output_evidence']['status'], 'fail')
+AssertionError: 'pass' != 'fail'
+- pass
++ fail
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.013s
+
+FAILED (failures=2)

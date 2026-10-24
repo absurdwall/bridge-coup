@@ -1,0 +1,128 @@
+{
+  "created_utc": "2026-10-18T16:39:49.827401+00:00",
+  "source_commit": "352d61f52cab8b38e27b76dcbd88ec4962861eb6",
+  "source_hashes": {
+    "Package.swift": "f509bf679813d80e9f01ff1fdae3b9d450fd4df43a83ea44ed7b4be1698f8256",
+    "Scripts/capture-playing-wire.py": "3ae9c13db5dd5f871af78239d82e7dbe4b4c36524c79a424da1189a425a0ebd0",
+    "Sources/BridgeCodex/CodexTransport.swift": "1b60b2926052dda01267fc29721e7c80c62eb671902a67b1304ef7fa9b73fd86",
+    "Sources/BridgeDomain/BridgeValues.swift": "0b73b23524760e07d6deec14d3f350e2df3540bf0ddc088f8f7943147c75eb40",
+    "Sources/BridgeDriver/BoardDriver.swift": "b83b26424dd179bdc45027ad4c026e405a73e962c7072335f4e980ded2feed90",
+    "Sources/BridgeEngine/BoardState.swift": "237ee3a8782e6a103034465779abac96f888b5ae1676e64e7e9fce16faff43a8",
+    "Sources/BridgeExpert/Expert.swift": "18947b19d3cf63dcc758d795f424b6b2110309d9c43f97458d8d512fa76b6f62",
+    "Sources/BridgePlayCLI/BridgePlayMain.swift": "5d2555f560c18a1e350beb2f89f353d600bb45530748610abf022e1ffbabda8f",
+    "evals/stage1/acceptance.py": "7f62d110990bedf5448090e0c805176c0422746e24fdc5c8820503005d8aaf6c",
+    "evals/stage1/corpus.py": "34e672d3821e62218bad8e2a6dac0ae57ae5d49b2fad9194e4d74c276de9a4ba",
+    "evals/stage1/corpus/boards/pavlicek-deep-finesse.json": "45db555b83a7f74ebd3cd843b043007c1ad27c6b1a6e7b33048b83fc34122580",
+    "evals/stage1/corpus/boards/reserved-acceptance.json": "446a1020cc7295d6e6d9f58adca1ff040dd1671f5d9a3664bba30cf5d8d53f03",
+    "evals/stage1/corpus/boards/synthetic.json": "b37080a2bc16df91dd1991ef60ec6487558a3fc1ee8f8352819747cfd953d077",
+    "evals/stage1/corpus/boards/walker-holdup-adapted.json": "1ee7dd3747426124dee7cd29f914aa8677818ad6558e2e5a327373cdacbea208",
+    "evals/stage1/corpus/communication-reachability.json": "0c2e605dcbd0cb5c93016e5bbc3838ccfef7e038cc78e8e22ac8844b5fd8d051",
+    "evals/stage1/corpus/frozen-sha256.json": "868c86f5029978ed5b15b19f80737b4301c04cf43caec4301adf805341061a8d",
+    "evals/stage1/corpus/manifest.json": "e749f821090242e3f2d7dcfec256743ca874bb0b4bef69f0c7d10a08e8247309",
+    "evals/stage1/corpus/synthetic-demonstration.json": "b5bb5702ac62f4bbdbe24863375c3c05c59a579157767d1715fbfde6519474a5",
+    "evals/stage1/evaluate.py": "87ccb2591590fbec2f058e70b58d03bb2100c3958552633786204195a848d739",
+    "evals/stage1/grader-config.toml": "8811a953948c9589fa876ecb4dc00f0c671861ee77798832dad0d2c72d1fb2c9",
+    "evals/stage1/grader-schema.json": "4110e3446c63739434ad925570137727c4ea61ded0b24d12a68330a127e4bf63",
+    "evals/stage1/rubric.txt": "e807d01437b52f7ec6e93261baa6ce0a389c064daf28b0be9b816fb70eca8e96"
+  },
+  "binary": "/Users/tingranwang/.codex/worktrees/stage1-integration/bridge-coup/.build/arm64-apple-macosx/debug/bridge-play",
+  "binary_sha256": "7e0b3036061dbe446f9c9afc90497031e9c8bd61c6dfd715bd403999ca65e157",
+  "codex": "/Users/tingranwang/.nvm/versions/node/v24.12.0/bin/codex",
+  "codex_sha256": "61b0194f3bb6534439c8d26a3ed57d0805f84b884588b761795323eeb92fcf70",
+  "runtime_version": "codex-cli 0.160.0",
+  "requested_play_model": "gpt-6-luna",
+  "requested_play_effort": "medium",
+  "requested_grader_model": "gpt-6.1-sol",
+  "requested_grader_effort": "medium",
+  "identity_limit": "Requested and observable runtime identities only; hidden service resolution is not independently established.",
+  "request_timeout_seconds": 180,
+  "run_timeout_seconds": 1800,
+  "grader_timeout_seconds": 600,
+  "mechanical_sole_legal": true,
+  "retry_policy": "No playing retries, substitutions or answer repair.",
+  "corpus_version": "stage1-finite-v2",
+  "rubric_version": "stage1-basic-v4",
+  "english_instructions": "Play declarer and dummy from the supplied decision-time information, in English, pursuing the stated objective. Card codes give suit S/H/D/C followed by rank; rank order is A K Q J T 9 8 7 6 5 4 3 2, high to low. A trick is won by its highest trump, or its highest card of the led suit when no trump is played. Form a concrete route using available winners, suit establishment, timing and entries; reassess it as actual play warrants. Derive publicReason and the single selectedCard to play now from the effective plan, current trick and remaining cards of the acting hand. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide the initial plan before dummy's first play. Unknown cards remain unknown.",
+  "schema_template": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "plan",
+      "publicReason",
+      "selectedCard"
+    ],
+    "properties": {
+      "selectedCard": {
+        "type": "string",
+        "pattern": "^[SHDC][2-9TJQKA]$"
+      },
+      "publicReason": {
+        "type": "string"
+      },
+      "plan": {
+        "anyOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "update",
+              "text"
+            ],
+            "properties": {
+              "update": {
+                "type": "string",
+                "enum": [
+                  "replace"
+                ]
+              },
+              "text": {
+                "type": "string",
+                "pattern": "\\S"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "update",
+              "text"
+            ],
+            "properties": {
+              "update": {
+                "type": "string",
+                "enum": [
+                  "keep"
+                ]
+              },
+              "text": {
+                "type": "null"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "update",
+              "text"
+            ],
+            "properties": {
+              "update": {
+                "type": "string",
+                "enum": [
+                  "withdraw"
+                ]
+              },
+              "text": {
+                "type": "null"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "schema_note": "Production appends the exact complete current Engine legal-choice enum, without ranking.",
+  "proxy_note": "All playing requests use the same unchanged-byte transparent provider-routing proxy; per-attempt ports and fresh runtime paths vary."
+}

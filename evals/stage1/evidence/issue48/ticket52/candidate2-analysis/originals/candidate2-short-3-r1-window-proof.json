@@ -1,0 +1,32 @@
+{
+  "scope": "Public-prefix eligibility and actual-record source; semantic judgment is in separate textual review, no hidden holdings/model call.",
+  "source_commit": "0a307cbde5498ed24b73da0d781cb9113ce92180",
+  "decision": "decision-0010",
+  "snapshot_revision": 18,
+  "decision_sha256": "c94368eb206acca90312721d08eedf6aaeed3c044083726ef415690481d84341",
+  "public_prefix_ends_at": {
+    "card": "CJ",
+    "seat": "west",
+    "sequence": 17
+  },
+  "defender_clubs_observed": {
+    "west": [
+      "C3",
+      "C9",
+      "CJ"
+    ],
+    "east": [
+      "C5",
+      "CT"
+    ]
+  },
+  "earlier_east_club_showouts": [],
+  "actual_execution_source": "model",
+  "actual_final_advice": "{\"plan\":{\"update\":\"keep\",\"text\":null},\"selectedCard\":\"C7\",\"publicReason\":\"Follow suit as the king removes the last opposing club; South’s remaining clubs are winners.\"}",
+  "coverage_only_later_first_showout": {
+    "card": "H2",
+    "seat": "east",
+    "sequence": 19
+  },
+  "limits": "Sole-card legality alone is not semantic evidence; no hidden owner was used. At previous two-round position CJ had no publicly known owner. Correct last-club/capture statement is independently assessed in review."
+}

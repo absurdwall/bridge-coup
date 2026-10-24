@@ -1,0 +1,31 @@
+[0/1] Planning build
+Building for debugging...
+[0/7] Write sources
+[1/7] Write swift-version--58304C5D6DBC2206.txt
+[3/7] Emitting module BridgeExpert
+[4/7] Compiling BridgeExpert Expert.swift
+[4/9] Write Objects.LinkFileList
+[5/11] Linking bridge-play
+[7/11] Compiling BridgePlayingTests PlayingCoreTests.swift
+[8/11] Emitting module BridgePlayingTests
+[8/11] Applying bridge-play
+[9/11] Write Objects.LinkFileList
+[10/11] Linking BridgeTeacherPackageTests
+Build complete! (2.12s)
+Test Suite 'Selected tests' started at 2026-10-18 03:21:48.340.
+Test Suite 'BridgeTeacherPackageTests.xctest' started at 2026-10-18 03:21:48.341.
+Test Suite 'PlayingCoreTests' started at 2026-10-18 03:21:48.341.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testOpeningLeadExposesDummyAndCurrentActionAppliesOnlyToItsSnapshot]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testOpeningLeadExposesDummyAndCurrentActionAppliesOnlyToItsSnapshot]' passed (0.001 seconds).
+Test Case '-[BridgePlayingTests.PlayingCoreTests testPublicExpertInitialDecisionKeepsFactsSeparateFromAdvice]' started.
+Test Case '-[BridgePlayingTests.PlayingCoreTests testPublicExpertInitialDecisionKeepsFactsSeparateFromAdvice]' passed (0.001 seconds).
+Test Suite 'PlayingCoreTests' passed at 2026-10-18 03:21:48.344.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.003 (0.003) seconds
+Test Suite 'BridgeTeacherPackageTests.xctest' passed at 2026-10-18 03:21:48.344.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.003 (0.003) seconds
+Test Suite 'Selected tests' passed at 2026-10-18 03:21:48.344.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.003 (0.004) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

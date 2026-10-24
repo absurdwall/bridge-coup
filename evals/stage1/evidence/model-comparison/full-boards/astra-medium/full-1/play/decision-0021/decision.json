@@ -1,0 +1,308 @@
+{
+  "action" : {
+    "actingSeat" : "south",
+    "boardID" : "CD4D38F1-DC65-4758-A9C1-256F8416551D",
+    "card" : "S4",
+    "controller" : "south",
+    "revision" : 42,
+    "snapshotID" : "CD4D38F1-DC65-4758-A9C1-256F8416551D:42:south"
+  },
+  "advice" : {
+    "plan" : {
+      "update" : "keep"
+    },
+    "publicReason" : "Play low: the nine cannot beat East’s ten. Ten tricks are already secured.",
+    "selectedCard" : "S4"
+  },
+  "effectivePlan" : "The planned ten tricks have been taken. Exit with a spade; no further winner is established.",
+  "elapsedSeconds" : 3.9336400032043457,
+  "identity" : {
+    "observedModel" : "gpt-6-astra",
+    "requestedEffort" : "medium",
+    "requestedModel" : "gpt-6-astra",
+    "runtimeVersion" : "codex-cli 0.160.0",
+    "threadID" : "01a15001-392b-7841-897e-12eb45ee7057",
+    "turnID" : "01a15002-c671-7982-93b9-a04a575492de"
+  },
+  "input" : "Decision snapshot: CD4D38F1-DC65-4758-A9C1-256F8416551D:42:south. Controller: South. Acting hand: South.\nPrevious suggestion actually executed: yes.\nCurrent action: South (declarer) plays third in the current trick; spades were led.\nLegal current choices: S9, S4.\nCurrent winning play so far: East ST.\nNew actual plays in order:\n40: North S6 (model).\n41: East ST (opponent).\nCurrent trick: North S6; East ST.\nTricks won: declarer 10, defenders 0.",
+  "instructions" : "Play declarer and dummy from the supplied decision-time information, in English, pursuing the stated objective. Card codes give suit S\/H\/D\/C followed by rank; rank order is A K Q J T 9 8 7 6 5 4 3 2, high to low. A trick is won by its highest trump, or its highest card of the led suit when no trump is played. Form a concrete route using available winners, suit establishment, timing and entries; reassess it as actual play warrants. Derive publicReason and the single selectedCard to play now from the effective plan, current trick and remaining cards of the acting hand. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide the initial plan before dummy's first play. Unknown cards remain unknown.",
+  "planAssociation" : {
+    "boardID" : "CD4D38F1-DC65-4758-A9C1-256F8416551D",
+    "controller" : "south",
+    "sourceSessionID" : "9C018DE7-81F6-4E74-A1D1-FECA82B30189",
+    "sourceSnapshotID" : "CD4D38F1-DC65-4758-A9C1-256F8416551D:40:south",
+    "text" : "The planned ten tricks have been taken. Exit with a spade; no further winner is established."
+  },
+  "rawOutput" : "{\"publicReason\":\"Play low: the nine cannot beat East’s ten. Ten tricks are already secured.\",\"plan\":{\"text\":null,\"update\":\"keep\"},\"selectedCard\":\"S4\"}",
+  "session" : {
+    "id" : "D7A93A18-0953-4DE0-9542-DD5302E731C1",
+    "snapshotID" : "CD4D38F1-DC65-4758-A9C1-256F8416551D:42:south"
+  },
+  "snapshot" : {
+    "actingSeat" : "south",
+    "boardID" : "CD4D38F1-DC65-4758-A9C1-256F8416551D",
+    "contract" : {
+      "declarer" : "south",
+      "level" : 3,
+      "strain" : "noTrump"
+    },
+    "controller" : "south",
+    "currentTrick" : [
+      {
+        "card" : "S6",
+        "seat" : "north",
+        "sequence" : 40
+      },
+      {
+        "card" : "ST",
+        "seat" : "east",
+        "sequence" : 41
+      }
+    ],
+    "currentWinningPlay" : {
+      "card" : "ST",
+      "seat" : "east",
+      "sequence" : 41
+    },
+    "declarerTricks" : 10,
+    "defenderTricks" : 0,
+    "events" : [
+      {
+        "card" : "DQ",
+        "seat" : "west",
+        "sequence" : 0
+      },
+      {
+        "card" : "D3",
+        "seat" : "north",
+        "sequence" : 1
+      },
+      {
+        "card" : "D4",
+        "seat" : "east",
+        "sequence" : 2
+      },
+      {
+        "card" : "DA",
+        "seat" : "south",
+        "sequence" : 3
+      },
+      {
+        "card" : "CA",
+        "seat" : "south",
+        "sequence" : 4
+      },
+      {
+        "card" : "C3",
+        "seat" : "west",
+        "sequence" : 5
+      },
+      {
+        "card" : "C2",
+        "seat" : "north",
+        "sequence" : 6
+      },
+      {
+        "card" : "C5",
+        "seat" : "east",
+        "sequence" : 7
+      },
+      {
+        "card" : "C4",
+        "seat" : "south",
+        "sequence" : 8
+      },
+      {
+        "card" : "C9",
+        "seat" : "west",
+        "sequence" : 9
+      },
+      {
+        "card" : "CQ",
+        "seat" : "north",
+        "sequence" : 10
+      },
+      {
+        "card" : "CT",
+        "seat" : "east",
+        "sequence" : 11
+      },
+      {
+        "card" : "C7",
+        "seat" : "north",
+        "sequence" : 12
+      },
+      {
+        "card" : "H2",
+        "seat" : "east",
+        "sequence" : 13
+      },
+      {
+        "card" : "CK",
+        "seat" : "south",
+        "sequence" : 14
+      },
+      {
+        "card" : "CJ",
+        "seat" : "west",
+        "sequence" : 15
+      },
+      {
+        "card" : "C8",
+        "seat" : "south",
+        "sequence" : 16
+      },
+      {
+        "card" : "D2",
+        "seat" : "west",
+        "sequence" : 17
+      },
+      {
+        "card" : "D5",
+        "seat" : "north",
+        "sequence" : 18
+      },
+      {
+        "card" : "S3",
+        "seat" : "east",
+        "sequence" : 19
+      },
+      {
+        "card" : "C6",
+        "seat" : "south",
+        "sequence" : 20
+      },
+      {
+        "card" : "H5",
+        "seat" : "west",
+        "sequence" : 21
+      },
+      {
+        "card" : "D6",
+        "seat" : "north",
+        "sequence" : 22
+      },
+      {
+        "card" : "S5",
+        "seat" : "east",
+        "sequence" : 23
+      },
+      {
+        "card" : "DK",
+        "seat" : "south",
+        "sequence" : 24
+      },
+      {
+        "card" : "DT",
+        "seat" : "west",
+        "sequence" : 25
+      },
+      {
+        "card" : "D8",
+        "seat" : "north",
+        "sequence" : 26
+      },
+      {
+        "card" : "D7",
+        "seat" : "east",
+        "sequence" : 27
+      },
+      {
+        "card" : "SA",
+        "seat" : "south",
+        "sequence" : 28
+      },
+      {
+        "card" : "SJ",
+        "seat" : "west",
+        "sequence" : 29
+      },
+      {
+        "card" : "S2",
+        "seat" : "north",
+        "sequence" : 30
+      },
+      {
+        "card" : "S7",
+        "seat" : "east",
+        "sequence" : 31
+      },
+      {
+        "card" : "HA",
+        "seat" : "south",
+        "sequence" : 32
+      },
+      {
+        "card" : "H9",
+        "seat" : "west",
+        "sequence" : 33
+      },
+      {
+        "card" : "H4",
+        "seat" : "north",
+        "sequence" : 34
+      },
+      {
+        "card" : "H8",
+        "seat" : "east",
+        "sequence" : 35
+      },
+      {
+        "card" : "H3",
+        "seat" : "south",
+        "sequence" : 36
+      },
+      {
+        "card" : "HT",
+        "seat" : "west",
+        "sequence" : 37
+      },
+      {
+        "card" : "HK",
+        "seat" : "north",
+        "sequence" : 38
+      },
+      {
+        "card" : "HJ",
+        "seat" : "east",
+        "sequence" : 39
+      },
+      {
+        "card" : "S6",
+        "seat" : "north",
+        "sequence" : 40
+      },
+      {
+        "card" : "ST",
+        "seat" : "east",
+        "sequence" : 41
+      }
+    ],
+    "hands" : [
+      {
+        "cards" : [
+          "S9",
+          "S4",
+          "H6"
+        ],
+        "seat" : "south"
+      },
+      {
+        "cards" : [
+          "S8",
+          "H7"
+        ],
+        "seat" : "north"
+      }
+    ],
+    "legalCards" : [
+      "S9",
+      "S4"
+    ],
+    "objective" : "Normal IMP strategy, weighing contract risk and overtricks.",
+    "revision" : 42,
+    "scoring" : "IMP",
+    "vulnerability" : "neither"
+  },
+  "wireContractVersion" : "stage1-plan-variants-v4"
+}

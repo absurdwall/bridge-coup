@@ -1,0 +1,26 @@
+# Independent saved-output adjudication — short-6-r3
+
+Frozen source `8266947`, adapted Walker corpus `stage1-finite-v1`, rubric `stage1-basic-v2`. Reviewed all 12 actual answers, visible snapshots/tricks, English event deltas, plan replacement and original cited grades. No future/full defender holdings, model/API call, regrade or evidence edit. No root/runtime failure. Raw grader: 6 pass / 6 fail, all with cited findings.
+
+**Proposed: 6 pass / 5 fail / 1 pending; overall quality FAIL.** The conditional wording in decision 7 remains disputed rather than hard-failed. Decisions 3/4 concern an active reversed route, not merely the completed opening king error.
+
+| Decision | Proposed | Independent basis |
+|---|---|---|
+| 1 | fail | West has led SK; North S87 must act and selects S7. “There is no dummy card to select yet” denies the real current decision, and the plan's win-with-king/immediate-dummy-lead route cannot happen: SK belongs to West and a South SA win leaves South on lead. |
+| 2 | fail | South SA correctly beats current SK, but `keep` retains the unavailable king winner/immediate dummy lead while that opening stage remains active. Current reason and retained route conflict. |
+| 3 | fail | South D2 toward North DKQJT9 is a sound current route. However the retained plan's active first-diamond instruction is North-to-South D5 after East follows low. South has already acted D2; that conditional would require a second South play on this same trick. This is a current route/turn mismatch beyond the old completed opening step. |
+| 4 | fail | At South D2-West D6, North D9 is a sound equivalent spot and its current reason accurately preserves the higher diamonds. The still-active retained North-lead/South-D5 branch remains incompatible with actual current order: East plays after North and South has already played. The plan is not replaced until decision 5. |
+| 5 | pass | East DA has actually appeared and East leads S6. South S3 legally preserves S9. The replacement removes the faulty initial route, aims to establish North diamonds, and retains real North HA entry. No unobserved void/location is asserted. |
+| 6 | pass | North's S8 actually won S6-S3-S2-S8, and DA is gone. DJ is a sure winner equivalent to DK/DQ/DT. Calling it “lowest” is a harmless spot-order slip (DT is lower but equivalent); it does not misstate who wins or consume a separate winner. |
+| 7 | pending | At North DJ-East D7, South D3 follows correctly. Every higher diamond is in North or has been played, so West cannot cover. But “unless West can cover it” is a known-inapplicable conditional guard, rather than an unconditional assertion of an opposing control. Retain the factual-uncertainty/severity dispute consistently with the guarded-language policy. |
+| 8 | pass | North C4 toward South CAJ6 is physically feasible; North retains HA and DKQT, South D54. Winning CA and returning through a low diamond retains sufficient actual transport. Different sequencing from a reference line is allowed. |
+| 9 | fail | Unlike a merely already-down concession, a concrete safe route exists here: three tricks won + CA + three remaining North diamond winners + three heart tricks = ten. South can win CA now, lead D4/D5 to North, cash DKQT, then take three heart tricks via HA and a low heart toward South KQJ. C6 instead concedes a club and permits a defender spade run. The four unseen opposing spades can legally be West QJT/East 5, consistent with every card seen: East can lead S5 through sole South S9 to West, supplying three spade tricks plus this club and the already lost DA. No actual hidden holding or optimal-defense oracle is assumed. |
+| 10 | pass | On East S5-South S9-West ST, North is truly spade-void. C5 discard retains known diamond winners and real HA entry. Earlier errors do not invalidate this new sound discard. |
+| 11 | pass | On West SQ, North remains spade-void and CT is a reasonable discard while both opposing club honors remain unseen. Retaining HA/DKQT is coherent, without claiming a known hidden club location. |
+| 12 | pass | On West SQ-North CT-East H2, South is genuinely spade-void. Discarding D4 retains D5 as a connection to North diamonds and keeps HKQJ/CAJ. Current holdings and action agree. |
+
+## Actual trigger coverage
+
+**The predeclared specific hold-up sequence is uncovered.** The model takes SA on the opening trick (sequence 3), then immediately starts diamonds D2-D6-D9-DA (4–7). There was no defender spade continuation before this establishment attempt. East's subsequent S6 return (8), South S3 (9), West S2 (10) and North S8 (11) gift a new dummy entry instead of sustaining the opening spade-pressure problem.
+
+A separate broad facet is observed: after the later voluntary club loss, East continues S5 and West wins ST, then leads SQ. That post-diamond/post-club spade pressure supports review of decision 9's concrete risk, but cannot substitute for the earlier hold-up/communication trigger. Neither East-void status nor a three-round spade distribution is inferred from the initial two rounds. The diamond attempt, actual DA response and subsequent control accounting are real limited evidence; they do not establish specialized hold-up success.

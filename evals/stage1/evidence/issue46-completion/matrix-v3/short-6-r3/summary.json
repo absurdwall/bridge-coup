@@ -1,0 +1,230 @@
+{
+  "id": "short-6-r3",
+  "case_id": "short-6",
+  "kind": "short",
+  "board": "boards/walker-holdup-adapted.json",
+  "decisions": 12,
+  "opponent_policy": "conserve-high",
+  "task_complete": true,
+  "legal_execution": "pass",
+  "quality": "fail",
+  "playing": {
+    "exit_code": 0,
+    "wall_seconds": 56.871
+  },
+  "grading": {
+    "exit_code": 0,
+    "grading_evidence_available": true
+  },
+  "coverage": {
+    "status": "uncovered",
+    "basis": "Actual pre-DA-loss hold-up, spade continuation, diamond response and later decision are required; communication meaning still needs independent review.",
+    "facets": {
+      "hold_up_before_diamond_ace_loss": false,
+      "spade_continuation_before_diamond_ace_loss": false,
+      "diamond_ace_defensive_response": true,
+      "later_controlled_decision": true
+    }
+  },
+  "counts": {
+    "actual_events": 28,
+    "complete": false,
+    "tricks": [
+      2,
+      5
+    ],
+    "model_request_attempts": 12,
+    "actual_rpc_requests": 12,
+    "model_actions": 12,
+    "forced_actions": 2,
+    "driver_opponent_actions": 13,
+    "initial_controlled_actions": 0,
+    "initial_opponent_actions": 1,
+    "retries": 0
+  },
+  "wire": {
+    "upstream_request_attempts": 12,
+    "http_statuses": {
+      "200": 12
+    },
+    "transport_errors": [],
+    "missing_response_metadata": [],
+    "observed_response_models": [
+      "gpt-6-luna"
+    ]
+  },
+  "timing": {
+    "elapsedSeconds": 56.55903708934784,
+    "lastControlledActionSeconds": 56.55674707889557,
+    "environmentOverheadSeconds": 0.11469197273254395,
+    "initialRequestSeconds": 10.89380693435669,
+    "subsequentRequestSeconds": [
+      5.5719170570373535,
+      4.523185968399048,
+      4.637234091758728,
+      4.500429034233093,
+      3.462043046951294,
+      3.0205899477005005,
+      3.448287010192871,
+      3.32847797870636,
+      4.399389982223511,
+      3.1510820388793945,
+      5.507902026176453
+    ],
+    "failedRequestSeconds": null
+  },
+  "quality_counts": {
+    "pass": 5,
+    "fail": 7,
+    "uncertain": 0
+  },
+  "review_required": [
+    {
+      "id": "decision-0005",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "established_winners",
+          "fact": "The replacement plan falsely denies that North's diamonds are established.",
+          "explanation": "The completed second trick records East playing DA. North now holds DKQJT, the four highest remaining diamonds, with HA available as an entry. Losing DA establishes these cards; it does not leave them needing further establishment.",
+          "quotes": [
+            "The first diamond finesse lost to East's DA, so North's remaining diamonds are not immediate established winners.",
+            "any diamonds that can be established after DA is gone."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0006",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "effective_plan_accuracy",
+          "fact": "Keeping the plan retains a material false assessment of the diamond winners.",
+          "explanation": "DA was played on the completed second trick, and North retains DKQJT and HA. These are established diamond winners with an available entry. The legal C4 discard does not correct the retained false advice.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "The first diamond finesse lost to East's DA, so North's remaining diamonds are not immediate established winners."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0007",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "effective_plan_accuracy",
+          "fact": "The retained plan continues to misidentify established diamonds as unestablished.",
+          "explanation": "North holds DKQJT, and completed play shows DA has gone. HA remains available to reach those winners. Discarding C5 is feasible, but keeping the plan preserves a material error about the main trick source.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "The first diamond finesse lost to East's DA, so North's remaining diamonds are not immediate established winners."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0008",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "effective_plan_accuracy",
+          "fact": "The legal diamond discard accompanies retained false advice about North's winners.",
+          "explanation": "South can discard D3 on SJ and still retains D54 opposite North's DKQJT. DA is already gone, so North's four diamonds are established; keeping the plan continues to deny that fact.",
+          "quotes": [
+            "Discard the lowest diamond, keeping South's heart honors and club honors intact.",
+            "The first diamond finesse lost to East's DA, so North's remaining diamonds are not immediate established winners."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0009",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "effective_plan_accuracy",
+          "fact": "Keeping the plan preserves the false diamond assessment.",
+          "explanation": "North's DKQJT are the highest remaining diamonds because DA was played on trick two. North also retains HA. The CT discard preserves those resources, but the active plan still incorrectly describes the diamonds as unestablished.",
+          "quotes": [
+            "Discard CT, preserving North's heart entry and diamond sequence.",
+            "The first diamond finesse lost to East's DA, so North's remaining diamonds are not immediate established winners."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0010",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "effective_plan_accuracy",
+          "fact": "The answer retains a material false statement about established winners.",
+          "explanation": "The authorized history shows DA has been played, and North still holds DKQJT with HA. These diamonds require access, not further establishment. Keeping the plan leaves the false assessment active regardless of the legal C6 discard.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "The first diamond finesse lost to East's DA, so North's remaining diamonds are not immediate established winners."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0011",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "effective_plan_accuracy",
+          "fact": "The retained plan still denies North's established diamond sequence.",
+          "explanation": "DA is recorded as played, while North retains DKQJT and HA. Discarding H3 preserves a feasible entry and the diamond winners, but keeping the plan preserves its material false claim.",
+          "quotes": [
+            "Discard H3, keeping North's heart ace and diamond sequence.",
+            "The first diamond finesse lost to East's DA, so North's remaining diamonds are not immediate established winners."
+          ]
+        }
+      ]
+    }
+  ],
+  "plan_updates": {
+    "keep": 8,
+    "replace": 4,
+    "withdraw": 0
+  },
+  "failures": [],
+  "outcome": "fail"
+}

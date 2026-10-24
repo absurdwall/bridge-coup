@@ -1,0 +1,15 @@
+# Final Standards/report fidelity — 6b87380
+
+Pinned report head `6b87380fc9082431140982e478511c0033fe79a8`, frozen source `1d0fae4e1b3044b31ebf9f47425645c5e545c985`. The delta consists only of new evidence/report files; no source or prior evidence changed. Read correction REVIEW, source review, root overlay, STOP, validation protocol and preservation proof. No tests, models, repository edits or GitHub operations performed.
+
+Independent read-only hashing matches all **22** frozen source/assets, the playing executable and Codex executable. All seven original Git trees (ticket37–42 evidence and calibration) exactly match `be0cad0`, independently confirming the stored preservation proof. Original failed answers, grades and reviewed overlays remain byte-identical.
+
+Final claims match the actual eight-request wire audit: one continuing thread; eight fresh turns/sessions; initial replacement-only and later joint variants; snapshot legal enums; authorized initial holdings and actual event deltas; observable Luna/medium; eight HTTP 200/completed/Luna metadata records. Tool catalog/opaque reasoning limits and the two historical unknown records remain disclosed. Source review's P3 README issue is recorded as resolved. Live schema acceptance is scoped to this sample, not broad reliability.
+
+**One P3 report wording correction:** in `evals/stage1/evidence/correction/REVIEW.md`, the Context/task bullet says “Both remaining hands, old plans/reasons and full history are not replayed by default.” Explicitly scope this to the application's **new continuation user message** and state that the runtime still supplies prior same-thread user/assistant and opaque reasoning history. The linked wire audit already explains this accurately; the summary should avoid an unqualified no-history claim.
+
+No other actionable Standards/report issue identified. Raw 2 pass/6 fail and reviewed 2 pass/2 fail/4 pending remain separate. STOP correctly applies after the completed eight-decision segment, not retroactively at decision 6. Remaining development attempts and the new final matrix were not executed. Historical 21 failed/one pending/zero accepted attempts are not combined with new results. Reports explicitly say Stage 1 is not accepted, PR draft, all issues open, no mergeable checkpoint or merge authorization. Review does not replace explicit user approval, and no issue closure or merge follows from resolving the wording above.
+
+## P3 resolution — ffa77dd
+
+Verified `6b87380...ffa77ddccf35e3f289280f66bda1b9f063ce9c43`: the only change is the Context/task bullet in correction REVIEW. It now explicitly distinguishes the application's new continuation user message from the actual runtime payload carrying prior same-thread user/assistant messages and opaque reasoning history. This matches the independently audited wire bytes. P3 resolved; zero remaining actionable Standards/report findings. No tests, models or GitHub operations performed. Spec acceptance remains blocked; resolving this report wording does not authorize merge or issue closure.

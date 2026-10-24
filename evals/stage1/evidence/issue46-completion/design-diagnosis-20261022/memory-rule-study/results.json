@@ -1,0 +1,208 @@
+{
+  "attempts": [
+    {
+      "id": "d12-control-r1",
+      "decision": 12,
+      "history": "full",
+      "variant": "control",
+      "repeat": 1,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/memory-rule-study/seed-d12-full.json",
+      "exit_code": 0,
+      "raw_output": {
+        "plan": {
+          "update": "keep",
+          "text": null
+        },
+        "selectedCard": "CJ",
+        "publicReason": "Follow with CJ on the losing club trick, preserving CA for a later chance to win."
+      },
+      "identity": {
+        "observedModel": "gpt-6-luna",
+        "requestedEffort": "medium",
+        "requestedModel": "gpt-6-luna",
+        "runtimeVersion": "codex-cli 0.160.0",
+        "threadID": "01a163e1-3c98-71e3-80e0-cb266eca6449",
+        "turnID": "01a163e1-3d57-74a2-ac0e-cb938c1b98ff"
+      },
+      "injection": {
+        "method": "thread/inject_items",
+        "accepted": true,
+        "error_code": null,
+        "error_message": "",
+        "item_count": 33
+      },
+      "seconds": 3.494
+    },
+    {
+      "id": "d12-memory-rule-r1",
+      "decision": 12,
+      "history": "full",
+      "variant": "memory-rule",
+      "repeat": 1,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-memory-rule.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/memory-rule-study/seed-d12-full.json",
+      "exit_code": 0,
+      "raw_output": {
+        "plan": {
+          "update": "keep",
+          "text": null
+        },
+        "selectedCard": "CJ",
+        "publicReason": "Overtake West’s CQ with CJ, taking this trick and gaining the lead to cash the established diamonds."
+      },
+      "identity": {
+        "observedModel": "gpt-6-luna",
+        "requestedEffort": "medium",
+        "requestedModel": "gpt-6-luna",
+        "runtimeVersion": "codex-cli 0.160.0",
+        "threadID": "01a163e1-49e7-7793-9f0a-d5d1f27cc5f9",
+        "turnID": "01a163e1-4ac0-7e40-acc7-39500f9225e2"
+      },
+      "injection": {
+        "method": "thread/inject_items",
+        "accepted": true,
+        "error_code": null,
+        "error_message": "",
+        "item_count": 33
+      },
+      "seconds": 2.611
+    },
+    {
+      "id": "d12-memory-rule-r2",
+      "decision": 12,
+      "history": "full",
+      "variant": "memory-rule",
+      "repeat": 2,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-memory-rule.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/memory-rule-study/seed-d12-full.json",
+      "exit_code": 0,
+      "raw_output": {
+        "plan": {
+          "update": "keep",
+          "text": null
+        },
+        "selectedCard": "CJ",
+        "publicReason": "Follow with CJ on this already-lost club trick, preserving CA for a later opportunity."
+      },
+      "identity": {
+        "observedModel": "gpt-6-luna",
+        "requestedEffort": "medium",
+        "requestedModel": "gpt-6-luna",
+        "runtimeVersion": "codex-cli 0.160.0",
+        "threadID": "01a163e1-5411-7660-8f1a-342a4ac118f6",
+        "turnID": "01a163e1-553c-7721-af98-1eb339224754"
+      },
+      "injection": {
+        "method": "thread/inject_items",
+        "accepted": true,
+        "error_code": null,
+        "error_message": "",
+        "item_count": 33
+      },
+      "seconds": 3.243
+    },
+    {
+      "id": "d12-control-r2",
+      "decision": 12,
+      "history": "full",
+      "variant": "control",
+      "repeat": 2,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/memory-rule-study/seed-d12-full.json",
+      "exit_code": 0,
+      "raw_output": {
+        "plan": {
+          "update": "replace",
+          "text": "Win the current club with South’s CA. Then cash dummy’s remaining diamond honors and the heart honors, aiming to recover as many tricks as possible; the defenders have already won five, so prioritize safe winners."
+        },
+        "selectedCard": "CA",
+        "publicReason": "South must follow clubs, and CA overtakes West’s CQ to win this trick."
+      },
+      "identity": {
+        "observedModel": "gpt-6-luna",
+        "requestedEffort": "medium",
+        "requestedModel": "gpt-6-luna",
+        "runtimeVersion": "codex-cli 0.160.0",
+        "threadID": "01a163e1-60b6-7851-8568-8393f3363db1",
+        "turnID": "01a163e1-617e-73c3-b1a2-84b49c043037"
+      },
+      "injection": {
+        "method": "thread/inject_items",
+        "accepted": true,
+        "error_code": null,
+        "error_message": "",
+        "item_count": 33
+      },
+      "seconds": 4.472
+    },
+    {
+      "id": "d12-control-r3",
+      "decision": 12,
+      "history": "full",
+      "variant": "control",
+      "repeat": 3,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-full-r1.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/memory-rule-study/seed-d12-full.json",
+      "exit_code": 0,
+      "raw_output": {
+        "plan": {
+          "update": "keep",
+          "text": null
+        },
+        "selectedCard": "CJ",
+        "publicReason": ""
+      },
+      "identity": {
+        "observedModel": "gpt-6-luna",
+        "requestedEffort": "medium",
+        "requestedModel": "gpt-6-luna",
+        "runtimeVersion": "codex-cli 0.160.0",
+        "threadID": "01a163e1-7237-7bd0-a19c-9c072c02dd8d",
+        "turnID": "01a163e1-731c-7220-aafe-421d4a7b1a1c"
+      },
+      "injection": {
+        "method": "thread/inject_items",
+        "accepted": true,
+        "error_code": null,
+        "error_message": "",
+        "item_count": 33
+      },
+      "seconds": 2.968
+    },
+    {
+      "id": "d12-memory-rule-r3",
+      "decision": 12,
+      "history": "full",
+      "variant": "memory-rule",
+      "repeat": 3,
+      "request": "/tmp/bridge46-design-diagnosis-20261022/requests/club-memory-rule.json",
+      "seed": "/tmp/bridge46-design-diagnosis-20261022/memory-rule-study/seed-d12-full.json",
+      "exit_code": 0,
+      "raw_output": {
+        "plan": {
+          "update": "keep",
+          "text": null
+        },
+        "selectedCard": "CJ",
+        "publicReason": "Discard the lower club honor under West’s CQ, retaining CA and preserving the diamond winners."
+      },
+      "identity": {
+        "observedModel": "gpt-6-luna",
+        "requestedEffort": "medium",
+        "requestedModel": "gpt-6-luna",
+        "runtimeVersion": "codex-cli 0.160.0",
+        "threadID": "01a163e1-7ddb-7142-9750-eebc8307deeb",
+        "turnID": "01a163e1-7ebc-74d1-b0a9-854ee66a5ae1"
+      },
+      "injection": {
+        "method": "thread/inject_items",
+        "accepted": true,
+        "error_code": null,
+        "error_message": "",
+        "item_count": 33
+      },
+      "seconds": 4.611
+    }
+  ]
+}

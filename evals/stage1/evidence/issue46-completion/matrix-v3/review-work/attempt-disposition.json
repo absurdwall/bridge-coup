@@ -1,0 +1,139 @@
+{
+  "candidate": "7129ffd352ee332c50b08db9d71a62d069afaaeb",
+  "rows": [
+    {
+      "id": "short-1-r1",
+      "original_outcome": "pass",
+      "independent_disposition": "pass",
+      "original_summary_unchanged": true
+    },
+    {
+      "id": "short-1-r2",
+      "original_outcome": "pass",
+      "independent_disposition": "pass",
+      "original_summary_unchanged": true
+    },
+    {
+      "id": "short-1-r3",
+      "original_outcome": "pass",
+      "independent_disposition": "pass",
+      "original_summary_unchanged": true
+    },
+    {
+      "id": "short-2-r1",
+      "original_outcome": "fail",
+      "independent_disposition": "fail",
+      "original_summary_unchanged": true
+    },
+    {
+      "id": "short-2-r2",
+      "original_outcome": "fail",
+      "independent_disposition": "fail",
+      "original_summary_unchanged": true
+    },
+    {
+      "id": "short-2-r3",
+      "original_outcome": "fail",
+      "independent_disposition": "fail",
+      "original_summary_unchanged": true
+    },
+    {
+      "id": "short-3-r1",
+      "original_outcome": "fail",
+      "independent_disposition": "fail",
+      "original_summary_unchanged": true
+    },
+    {
+      "id": "short-3-r2",
+      "original_outcome": "fail",
+      "independent_disposition": "fail",
+      "original_summary_unchanged": true
+    },
+    {
+      "id": "short-3-r3",
+      "original_outcome": "fail",
+      "independent_disposition": "fail",
+      "original_summary_unchanged": true
+    },
+    {
+      "id": "short-4-r1",
+      "original_outcome": "pending",
+      "independent_disposition": "pass",
+      "original_summary_unchanged": true
+    },
+    {
+      "id": "short-4-r2",
+      "original_outcome": "fail",
+      "independent_disposition": "fail",
+      "original_summary_unchanged": true
+    },
+    {
+      "id": "short-4-r3",
+      "original_outcome": "fail",
+      "independent_disposition": "fail",
+      "original_summary_unchanged": true
+    },
+    {
+      "id": "short-5-r1",
+      "original_outcome": "fail",
+      "independent_disposition": "fail",
+      "original_summary_unchanged": true
+    },
+    {
+      "id": "short-5-r2",
+      "original_outcome": "fail",
+      "independent_disposition": "pending",
+      "original_summary_unchanged": true
+    },
+    {
+      "id": "short-5-r3",
+      "original_outcome": "fail",
+      "independent_disposition": "fail",
+      "original_summary_unchanged": true
+    },
+    {
+      "id": "short-6-r1",
+      "original_outcome": "fail",
+      "independent_disposition": "fail",
+      "original_summary_unchanged": true
+    },
+    {
+      "id": "short-6-r2",
+      "original_outcome": "fail",
+      "independent_disposition": "fail",
+      "original_summary_unchanged": true
+    },
+    {
+      "id": "short-6-r3",
+      "original_outcome": "fail",
+      "independent_disposition": "fail",
+      "original_summary_unchanged": true
+    },
+    {
+      "id": "full-development-r1",
+      "original_outcome": "fail",
+      "independent_disposition": "fail",
+      "original_summary_unchanged": true
+    },
+    {
+      "id": "full-development-r2",
+      "original_outcome": "fail",
+      "independent_disposition": "fail",
+      "original_summary_unchanged": true
+    },
+    {
+      "id": "full-reserved-r1",
+      "original_outcome": "fail",
+      "independent_disposition": "fail",
+      "original_summary_unchanged": true
+    },
+    {
+      "id": "full-reserved-r2",
+      "original_outcome": "fail",
+      "independent_disposition": "fail",
+      "original_summary_unchanged": true
+    }
+  ],
+  "stage_disposition": "not accepted",
+  "basis": "REVIEW.md and individual independent reports. Pending is not pass. The basic short4 trigger is covered; post_two_honors remains false."
+}

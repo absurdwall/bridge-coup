@@ -1,0 +1,14 @@
+E
+======================================================================
+ERROR: test_only_three_short3_attempts_disable_mechanical_skip_with_original_bounds (test_candidate2_configuration.Candidate2ConfigurationTests.test_only_three_short3_attempts_disable_mechanical_skip_with_original_bounds)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tingranwang/.codex/worktrees/issue48-candidate2/bridge-coup/evals/stage1/tests/test_candidate2_configuration.py", line 17, in test_only_three_short3_attempts_disable_mechanical_skip_with_original_bounds
+    self.assertEqual([a['id'] for a in attempts if not a['mechanical_sole_legal']],
+                                                       ~^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'mechanical_sole_legal'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (errors=1)

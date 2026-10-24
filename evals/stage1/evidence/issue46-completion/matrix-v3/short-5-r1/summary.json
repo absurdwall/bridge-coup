@@ -1,0 +1,201 @@
+{
+  "id": "short-5-r1",
+  "case_id": "short-5",
+  "kind": "short",
+  "board": "boards/pavlicek-deep-finesse.json",
+  "decisions": 12,
+  "opponent_policy": "pavlicek-entry",
+  "task_complete": true,
+  "legal_execution": "pass",
+  "quality": "fail",
+  "playing": {
+    "exit_code": 0,
+    "wall_seconds": 60.054
+  },
+  "grading": {
+    "exit_code": 0,
+    "grading_evidence_available": true
+  },
+  "coverage": {
+    "status": "pending",
+    "basis": "Diamond attempt, retained North CA and later controlled decision observed; gift/entry meaning requires independent review."
+  },
+  "counts": {
+    "actual_events": 29,
+    "complete": false,
+    "tricks": [
+      4,
+      3
+    ],
+    "model_request_attempts": 12,
+    "actual_rpc_requests": 12,
+    "model_actions": 12,
+    "forced_actions": 1,
+    "driver_opponent_actions": 12,
+    "initial_controlled_actions": 2,
+    "initial_opponent_actions": 2,
+    "retries": 0
+  },
+  "wire": {
+    "upstream_request_attempts": 12,
+    "http_statuses": {
+      "200": 12
+    },
+    "transport_errors": [],
+    "missing_response_metadata": [],
+    "observed_response_models": [
+      "gpt-6-luna"
+    ]
+  },
+  "timing": {
+    "elapsedSeconds": 59.78769600391388,
+    "lastControlledActionSeconds": 59.785573959350586,
+    "environmentOverheadSeconds": 0.1277928352355957,
+    "initialRequestSeconds": 8.318554997444153,
+    "subsequentRequestSeconds": [
+      4.923556089401245,
+      4.729786992073059,
+      3.734002113342285,
+      5.882555961608887,
+      4.524667024612427,
+      5.678833961486816,
+      2.954148054122925,
+      4.612977981567383,
+      3.6241570711135864,
+      5.7201759815216064,
+      4.956486940383911
+    ],
+    "failedRequestSeconds": null
+  },
+  "quality_counts": {
+    "pass": 6,
+    "fail": 6,
+    "uncertain": 0
+  },
+  "review_required": [
+    {
+      "id": "decision-0001",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "play_order",
+          "fact": "The plan conditions North’s diamond honor choice on East’s subsequent play.",
+          "explanation": "On South’s D3 lead, play proceeds South–West–North–East. North must choose its card before observing East’s card, so the stated condition is unavailable.",
+          "quotes": [
+            "lead a low diamond from South toward North’s KQ, choosing the honor according to East’s play."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0002",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "plan_consistency",
+          "fact": "Keeping the plan retains an impossible current condition and conflicts with the selected spot card.",
+          "explanation": "South’s D3 and West’s D6 have been played; North acts before East. The retained plan calls for an honor chosen according to East’s play, whereas the answer selects D7 and preserves both honors.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "choosing the honor according to East’s play.",
+            "Play D7, keeping North’s KQ intact while taking the trick if East also plays low."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0007",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "winner_assessment",
+          "fact": "The replacement plan incorrectly makes all diamond tricks dependent on favorable falls.",
+          "explanation": "DA has just captured DK, and North holds DQ95. DQ is therefore a certain diamond winner, accessible through North’s CA; only the additional spot-card tricks depend on the remaining DJ and distribution. The restrictive condition materially misstates a needed trick source.",
+          "quotes": [
+            "North’s Q95 may provide tricks only if the remaining high diamonds fall favorably."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0008",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "effective_plan",
+          "fact": "Keeping the plan retains the incorrect conditional assessment of North’s diamonds.",
+          "explanation": "Although H3 legally follows under South’s HA, the retained advice says diamond tricks require favorable falls. With DA and DK already played, North’s DQ is an established winner and CA supplies access.",
+          "quotes": [
+            "\"update\":\"keep\"",
+            "North’s Q95 may provide tricks only if the remaining high diamonds fall favorably."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0009",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "play_order",
+          "fact": "The club finesse is explicitly conditioned on a play North cannot yet observe.",
+          "explanation": "On South’s C3 lead, West plays before North and East plays afterward. North cannot decide to finesse CT based on whether East plays low.",
+          "quotes": [
+            "Lead C3 toward North’s AT4 and finesse the ten if East plays low, aiming to develop club tricks."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decision-0010",
+      "mechanical": "pass",
+      "quality": "fail",
+      "overall": "fail",
+      "attribution": "product_error",
+      "evaluator_attribution": null,
+      "evaluator_error": null,
+      "findings": [
+        {
+          "dimension": "physical_route",
+          "fact": "North cannot use CA to capture East’s cover after playing CT.",
+          "explanation": "The current trick is South’s C3 followed by West’s C6. North now plays CT and East plays fourth; North cannot play a second card on that trick. An East honor over CT wins that trick.",
+          "quotes": [
+            "if East covers, North’s CA can take it."
+          ]
+        }
+      ]
+    }
+  ],
+  "plan_updates": {
+    "keep": 7,
+    "replace": 5,
+    "withdraw": 0
+  },
+  "failures": [],
+  "outcome": "fail"
+}

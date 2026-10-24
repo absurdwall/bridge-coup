@@ -1,0 +1,9 @@
+{
+  "completed_samples": 4,
+  "stopped_before_request": "luna-medium-plan-2",
+  "cause": "Coordinator and implementation crossed dispatch; guard prevents any further model call until slot released. Four completed samples preserved; no cancellation, no reroll.",
+  "remaining_predeclared": [
+    "luna-medium-plan-2",
+    "luna-medium-reason-2"
+  ]
+}

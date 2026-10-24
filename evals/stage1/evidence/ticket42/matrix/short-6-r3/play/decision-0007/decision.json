@@ -1,0 +1,178 @@
+{
+  "action" : {
+    "actingSeat" : "south",
+    "boardID" : "9F4FEE24-7A99-4CE8-8881-28F05DBD46C6",
+    "card" : "D3",
+    "controller" : "south",
+    "revision" : 14,
+    "snapshotID" : "9F4FEE24-7A99-4CE8-8881-28F05DBD46C6:14:south"
+  },
+  "advice" : {
+    "plan" : {
+      "update" : "keep"
+    },
+    "publicReason" : "Follow low from South, keeping the remaining diamond spots; dummy’s jack is currently winning unless West can cover it.",
+    "selectedCard" : "D3"
+  },
+  "effectivePlan" : "Establish dummy’s diamonds, preserving the heart ace as an entry. The opponents have taken one trick; reassess the diamond position after seeing West’s next play.",
+  "elapsedSeconds" : 3.740813970565796,
+  "identity" : {
+    "observedModel" : "gpt-6-luna",
+    "requestedEffort" : "medium",
+    "requestedModel" : "gpt-6-luna",
+    "runtimeVersion" : "codex-cli 0.160.0",
+    "threadID" : "01a14e34-d8e9-7c31-8fc3-55cc2b91665d",
+    "turnID" : "01a14e35-3ecb-70a0-a82c-970cb5c940da"
+  },
+  "input" : "Decision snapshot: 9F4FEE24-7A99-4CE8-8881-28F05DBD46C6:14:south. Controller: South. Acting hand: South.\nPrevious suggestion actually executed: yes.\nNew actual plays in order:\n12: North DJ (model).\n13: East D7 (opponent).\nCurrent trick: North DJ; East D7.\nTricks won: declarer 2, defenders 1.",
+  "instructions" : "Play declarer and dummy using the supplied decision-time information. Write in English and pursue the stated objective. selectedCard is the single card from the acting hand to play now; publicReason briefly explains it. A plan is advice, not an observed event. plan.update replace installs plan.text, keep retains the previous plan, and withdraw removes it; use null text for keep or withdraw. Provide an initial concrete plan before dummy's first play. Unknown cards remain unknown.",
+  "planAssociation" : {
+    "boardID" : "9F4FEE24-7A99-4CE8-8881-28F05DBD46C6",
+    "controller" : "south",
+    "sourceSessionID" : "4C5463AC-5896-4B7B-8910-F5B35AE47369",
+    "sourceSnapshotID" : "9F4FEE24-7A99-4CE8-8881-28F05DBD46C6:9:south",
+    "text" : "Establish dummy’s diamonds, preserving the heart ace as an entry. The opponents have taken one trick; reassess the diamond position after seeing West’s next play."
+  },
+  "rawOutput" : "{\"plan\":{\"text\":null,\"update\":\"keep\"},\"publicReason\":\"Follow low from South, keeping the remaining diamond spots; dummy’s jack is currently winning unless West can cover it.\",\"selectedCard\":\"D3\"}",
+  "session" : {
+    "id" : "9DC5460B-1817-4830-83AC-39037CEA5BFB",
+    "snapshotID" : "9F4FEE24-7A99-4CE8-8881-28F05DBD46C6:14:south"
+  },
+  "snapshot" : {
+    "actingSeat" : "south",
+    "boardID" : "9F4FEE24-7A99-4CE8-8881-28F05DBD46C6",
+    "contract" : {
+      "declarer" : "south",
+      "level" : 3,
+      "strain" : "noTrump"
+    },
+    "controller" : "south",
+    "currentTrick" : [
+      {
+        "card" : "DJ",
+        "seat" : "north",
+        "sequence" : 12
+      },
+      {
+        "card" : "D7",
+        "seat" : "east",
+        "sequence" : 13
+      }
+    ],
+    "declarerTricks" : 2,
+    "defenderTricks" : 1,
+    "events" : [
+      {
+        "card" : "SK",
+        "seat" : "west",
+        "sequence" : 0
+      },
+      {
+        "card" : "S7",
+        "seat" : "north",
+        "sequence" : 1
+      },
+      {
+        "card" : "S4",
+        "seat" : "east",
+        "sequence" : 2
+      },
+      {
+        "card" : "SA",
+        "seat" : "south",
+        "sequence" : 3
+      },
+      {
+        "card" : "D2",
+        "seat" : "south",
+        "sequence" : 4
+      },
+      {
+        "card" : "D6",
+        "seat" : "west",
+        "sequence" : 5
+      },
+      {
+        "card" : "D9",
+        "seat" : "north",
+        "sequence" : 6
+      },
+      {
+        "card" : "DA",
+        "seat" : "east",
+        "sequence" : 7
+      },
+      {
+        "card" : "S6",
+        "seat" : "east",
+        "sequence" : 8
+      },
+      {
+        "card" : "S3",
+        "seat" : "south",
+        "sequence" : 9
+      },
+      {
+        "card" : "S2",
+        "seat" : "west",
+        "sequence" : 10
+      },
+      {
+        "card" : "S8",
+        "seat" : "north",
+        "sequence" : 11
+      },
+      {
+        "card" : "DJ",
+        "seat" : "north",
+        "sequence" : 12
+      },
+      {
+        "card" : "D7",
+        "seat" : "east",
+        "sequence" : 13
+      }
+    ],
+    "hands" : [
+      {
+        "cards" : [
+          "S9",
+          "HK",
+          "HQ",
+          "HJ",
+          "D5",
+          "D4",
+          "D3",
+          "CA",
+          "CJ",
+          "C6"
+        ],
+        "seat" : "south"
+      },
+      {
+        "cards" : [
+          "HA",
+          "H4",
+          "H3",
+          "DK",
+          "DQ",
+          "DT",
+          "CT",
+          "C5",
+          "C4"
+        ],
+        "seat" : "north"
+      }
+    ],
+    "legalCards" : [
+      "D5",
+      "D4",
+      "D3"
+    ],
+    "objective" : "Normal IMP strategy, weighing contract risk and overtricks.",
+    "revision" : 14,
+    "scoring" : "IMP",
+    "vulnerability" : "neither"
+  },
+  "wireContractVersion" : "stage1-legal-selectedCard-v3"
+}

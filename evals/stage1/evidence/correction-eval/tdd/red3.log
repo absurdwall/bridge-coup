@@ -1,0 +1,16 @@
+..............F.
+======================================================================
+FAIL: test_v4_plan_variants_keep_replace_withdraw_use_the_same_saved_output_boundary (test_evaluate.SavedDecisionTests.test_v4_plan_variants_keep_replace_withdraw_use_the_same_saved_output_boundary)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/tingranwang/.codex/worktrees/stage1-correction-eval/bridge-coup/evals/stage1/tests/test_evaluate.py", line 26, in test_v4_plan_variants_keep_replace_withdraw_use_the_same_saved_output_boundary
+    self.assertEqual(evaluate.deterministic_checks(record)['structure']['status'], 'pass')
+AssertionError: 'fail' != 'pass'
+- fail
++ pass
+
+
+----------------------------------------------------------------------
+Ran 16 tests in 1.468s
+
+FAILED (failures=1)

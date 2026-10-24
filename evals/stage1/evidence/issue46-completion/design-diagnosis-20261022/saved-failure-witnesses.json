@@ -1,0 +1,45 @@
+{
+  "source": "/Users/tingranwang/.codex/worktrees/issue46-integration/bridge-coup/evals/stage1/evidence/issue46-completion/development-v4/short-6-r1",
+  "actual_same_turn_input_output_and_legality": "verified",
+  "scope": "Saved-output diagnosis only; a future live response needs new evidence.",
+  "witnesses": [
+    {
+      "id": "heart-count",
+      "authorized_hearts": {
+        "N": "A43",
+        "S": "KQJ"
+      },
+      "upper_bound_from_hand_lengths": 3,
+      "claimed_tricks": 4,
+      "exact_output_excerpt": "Cash the heart honors for four tricks",
+      "is_defect": true
+    },
+    {
+      "id": "club-winner",
+      "actual_plays": [
+        {
+          "card": "CQ",
+          "seat": "W"
+        },
+        {
+          "card": "H3",
+          "seat": "N"
+        },
+        {
+          "card": "C9",
+          "seat": "E"
+        }
+      ],
+      "south_clubs": "AJ",
+      "legal_cards": [
+        "CA",
+        "CJ"
+      ],
+      "selected_card": "CJ",
+      "current_highest_play": "CQ",
+      "higher_legal_card": "CA",
+      "exact_output_excerpt": "West’s winning CQ",
+      "is_defect": true
+    }
+  ]
+}

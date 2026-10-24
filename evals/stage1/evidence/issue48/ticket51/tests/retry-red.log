@@ -1,0 +1,115 @@
+Building for debugging...
+[0/26] /Users/tingranwang/.codex/worktrees/issue51-review-recovery/bridge-coup/.build/arm64-apple-macosx/debug/BridgeTeacherPackageTests.derived/runner.swift
+[1/26] Write sources
+[8/26] Write bridge-play-entitlement.plist
+[10/26] Write sources
+[12/26] Copying DeclarerInstructions.txt
+[12/26] Write BridgeTeacherMac-entitlement.plist
+[14/26] Write sources
+[15/26] Copying ReviewerInstructions.txt
+[15/26] Write sources
+[17/26] Write swift-version--58304C5D6DBC2206.txt
+[19/42] Compiling BridgeTeacherCore BridgePlaySession.swift
+[20/42] Compiling BridgeTeacherCore CodexModelSettings.swift
+[21/42] Emitting module BridgeTeacherCore
+[22/43] Compiling BridgeDomain BridgeValues.swift
+[23/43] Emitting module BridgeDomain
+[24/43] Compiling BridgeTeacherCore OriginalHandFacts.swift
+[25/43] Compiling BridgeTeacherCore KeyPlayAnalysis.swift
+[26/43] Compiling BridgeTeacherCore KeyPlayAnalysisWorkflow.swift
+[27/43] Compiling BridgeTeacherCore OriginalContractTableWorkflow.swift
+[28/43] Compiling BridgeTeacherCore AuctionRecord.swift
+[29/43] Compiling BridgeTeacherCore BridgeHand.swift
+[30/49] Compiling BridgeTeacherCore ScreenshotReviewWorkflow.swift
+[31/49] Compiling BridgeTeacherCore DeclarerPlanWorkflow.swift
+[32/49] Compiling BridgeTeacherCore DoubleDummyVerification.swift
+[33/49] Compiling BridgeTeacherCore ReviewSessionArchive.swift
+[34/49] Compiling BridgeTeacherCore PlayCardResultsWorkflow.swift
+[35/49] Compiling BridgeTeacherCore TeachingConversation.swift
+[36/49] Emitting module BridgeEngine
+[37/49] Compiling BridgeEngine BoardState.swift
+[38/74] Compiling BridgeExpert resource_bundle_accessor.swift
+[39/74] Compiling BridgeExpert PlayReview.swift
+[40/74] Compiling BridgeExpert Expert.swift
+[41/74] Emitting module BridgeExpert
+[42/79] Compiling BridgeDriver BoardDriver.swift
+[43/79] Emitting module BridgeDriver
+[44/79] Compiling BridgeCodex CodexReviewTransport.swift
+[45/79] Emitting module BridgeCodex
+[46/79] Compiling BridgeCodex CodexTransport.swift
+[47/88] Emitting module BridgePlayCLI
+[48/88] Compiling BridgePlayCLI BridgePlayMain.swift
+[48/88] Write Objects.LinkFileList
+[49/88] Linking bridge-play
+[50/88] Applying bridge-play
+[52/88] Compiling BridgeTeacherMac ContractGridNavigation.swift
+[53/89] Emitting module BridgeTeacherMac
+[54/89] Compiling BridgeTeacherMac CodexModelSelectionPreferences.swift
+[55/89] Compiling BridgeTeacherMac CodexRuntimeDiscovery.swift
+[56/89] Compiling BridgeTeacherMac OriginalContractTableView.swift
+[57/89] Compiling BridgeTeacherMac AnalysisMarkdownDocument.swift
+[58/89] Compiling BridgeTeacherMac AnalysisMarkdownView.swift
+[59/89] Compiling BridgeTeacherMac BridgeCoupUpdateView.swift
+[60/89] Compiling BridgeTeacherMac BridgeTeacherApplicationModel.swift
+[61/89] Compiling BridgeTeacherMac UpdateCheckWorkflow.swift
+[62/89] Compiling BridgeTeacherMac PlayWorkspaceView.swift
+[63/89] Compiling BridgeTeacherMac DoubleDummyVerificationView.swift
+[64/89] Compiling BridgeTeacherMac AuctionCallPresentation.swift
+[65/89] Compiling BridgeTeacherMac AuctionTableView.swift
+[66/89] Emitting module BridgeTeacherCoreTests
+[67/89] Compiling BridgeTeacherCoreTests AuctionRecordTests.swift
+[68/89] Compiling BridgeTeacherCoreTests CodexModelSettingsTests.swift
+[69/89] Compiling BridgeTeacherCoreTests DeclarerPlanRequestBuilderTests.swift
+[70/90] Compiling BridgeTeacherCoreTests OriginalContractTableWorkflowTests.swift
+[71/90] Compiling BridgeTeacherCoreTests DoubleDummySolverIntegrationTests.swift
+[72/90] Compiling BridgeTeacherCoreTests DoubleDummyVerificationTests.swift
+[73/90] Compiling BridgeTeacherCoreTests DeclarerPlanWorkflowTests.swift
+[74/90] Compiling BridgeTeacherCoreTests KeyPlayAnalysisTests.swift
+[75/90] Compiling BridgeTeacherCoreTests ReviewSessionArchiveTests.swift
+[76/90] Compiling BridgePlayingTests ReviewedDecisionTests.swift
+[77/90] Compiling BridgePlayingTests SnapshotInputTests.swift
+[78/90] Emitting module BridgePlayingTests
+[79/90] Compiling BridgePlayingTests FullBoardTests.swift
+[80/90] Compiling BridgePlayingTests PlanContractTests.swift
+[81/90] Compiling BridgePlayingTests PlayingCoreTests.swift
+[82/90] Compiling BridgePlayingTests ReviewRecoveryTests.swift
+/Users/tingranwang/.codex/worktrees/issue51-review-recovery/bridge-coup/Tests/BridgePlayingTests/ReviewRecoveryTests.swift:19:37: error: value of type 'ExpertSession' has no member 'requestEvidence'
+17 |         XCTAssertEqual(decision.reviewRounds?.count, 1)
+18 |         XCTAssertEqual(step.actualEvents.count, 2)
+19 |         let evidence = await expert.requestEvidence()
+   |                                     `- error: value of type 'ExpertSession' has no member 'requestEvidence'
+20 |         XCTAssertEqual(evidence.filter { $0.role == .reviewer }.map(\.technicalAttempt), [1, 2, 3, 4])
+21 |         XCTAssertEqual(evidence.filter { $0.role == .reviewer }.map(\.semanticRound), [1, 1, 1, 1])
+
+/Users/tingranwang/.codex/worktrees/issue51-review-recovery/bridge-coup/Tests/BridgePlayingTests/ReviewRecoveryTests.swift:20:54: error: cannot infer contextual base in reference to member 'reviewer'
+18 |         XCTAssertEqual(step.actualEvents.count, 2)
+19 |         let evidence = await expert.requestEvidence()
+20 |         XCTAssertEqual(evidence.filter { $0.role == .reviewer }.map(\.technicalAttempt), [1, 2, 3, 4])
+   |                                                      `- error: cannot infer contextual base in reference to member 'reviewer'
+21 |         XCTAssertEqual(evidence.filter { $0.role == .reviewer }.map(\.semanticRound), [1, 1, 1, 1])
+22 |     }
+
+/Users/tingranwang/.codex/worktrees/issue51-review-recovery/bridge-coup/Tests/BridgePlayingTests/ReviewRecoveryTests.swift:20:69: error: cannot infer key path type from context; consider explicitly specifying a root type
+18 |         XCTAssertEqual(step.actualEvents.count, 2)
+19 |         let evidence = await expert.requestEvidence()
+20 |         XCTAssertEqual(evidence.filter { $0.role == .reviewer }.map(\.technicalAttempt), [1, 2, 3, 4])
+   |                                                                     `- error: cannot infer key path type from context; consider explicitly specifying a root type
+21 |         XCTAssertEqual(evidence.filter { $0.role == .reviewer }.map(\.semanticRound), [1, 1, 1, 1])
+22 |     }
+
+/Users/tingranwang/.codex/worktrees/issue51-review-recovery/bridge-coup/Tests/BridgePlayingTests/ReviewRecoveryTests.swift:21:54: error: cannot infer contextual base in reference to member 'reviewer'
+19 |         let evidence = await expert.requestEvidence()
+20 |         XCTAssertEqual(evidence.filter { $0.role == .reviewer }.map(\.technicalAttempt), [1, 2, 3, 4])
+21 |         XCTAssertEqual(evidence.filter { $0.role == .reviewer }.map(\.semanticRound), [1, 1, 1, 1])
+   |                                                      `- error: cannot infer contextual base in reference to member 'reviewer'
+22 |     }
+23 | }
+
+/Users/tingranwang/.codex/worktrees/issue51-review-recovery/bridge-coup/Tests/BridgePlayingTests/ReviewRecoveryTests.swift:21:69: error: cannot infer key path type from context; consider explicitly specifying a root type
+19 |         let evidence = await expert.requestEvidence()
+20 |         XCTAssertEqual(evidence.filter { $0.role == .reviewer }.map(\.technicalAttempt), [1, 2, 3, 4])
+21 |         XCTAssertEqual(evidence.filter { $0.role == .reviewer }.map(\.semanticRound), [1, 1, 1, 1])
+   |                                                                     `- error: cannot infer key path type from context; consider explicitly specifying a root type
+22 |     }
+23 | }
+error: fatalError

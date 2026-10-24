@@ -1,0 +1,19 @@
+{
+  "scope": "Independent coordinator plus Spec review; all raw grader results remain unchanged. No acceptance credit.",
+  "high": {
+    "acceptable": 6,
+    "definite_severe": 0,
+    "pending": 2,
+    "pending_decisions": [6, 7],
+    "reason": "D6 impossible antecedent versus explicit factual assertion; D7 incorrect finesse characterization versus terminology. Severity remains unresolved. Pending is not a pass and does not qualify for an accepted-candidate full board."
+  },
+  "xhigh": {
+    "root_definite_error": "Initial route reuses North C2 after all three North clubs are consumed by CA, CK and CQ. The same plan is retained throughout eight decisions.",
+    "raw": {"pass": 0, "fail": 8, "uncertain": 0},
+    "spec_all_eight_review": "Root and Spec confirmed eight failed rows from one originating D1 route-consumption defect retained by D2-D8; these are not eight independent errors.",
+    "failed_rows": 8,
+    "originating_defects": 1,
+    "acceptance": "failed"
+  },
+  "consistency_revision": "../model-comparison/full-boards/adjudication-revision.json"
+}
