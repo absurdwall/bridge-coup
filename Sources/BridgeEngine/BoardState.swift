@@ -34,8 +34,12 @@ public struct BoardState: Sendable {
     public func legalCards() throws -> [Card] {
         guard let seat = actingSeat else { throw DomainError.finished }
         let holding = hands[seat]!
-        if let led = currentTrick.first?.card.suit {
-            let follows = holding.filter { $0.suit == led }
+        return Self.legalCards(in: holding, ledSuit: currentTrick.first?.card.suit)
+    }
+
+    public static func legalCards(in holding: [Card], ledSuit: Suit?) -> [Card] {
+        if let ledSuit {
+            let follows = holding.filter { $0.suit == ledSuit }
             if !follows.isEmpty { return follows }
         }
         return holding
@@ -59,9 +63,13 @@ public struct BoardState: Sendable {
 
     /// Basic trick rule shared with the environment policy; no strategic analysis.
     public func winningPlay(in trick: [PlayEvent]) -> PlayEvent? {
+        Self.winningPlay(in: trick, trump: contract.strain.trump)
+    }
+
+    public static func winningPlay(in trick: [PlayEvent], trump: Suit?) -> PlayEvent? {
         guard let led = trick.first?.card.suit else { return nil }
         func strength(_ card: Card) -> Int {
-            (card.suit == contract.strain.trump ? 200 : card.suit == led ? 100 : 0) + card.rank
+            (card.suit == trump ? 200 : card.suit == led ? 100 : 0) + card.rank
         }
         return trick.max { strength($0.card) < strength($1.card) }
     }

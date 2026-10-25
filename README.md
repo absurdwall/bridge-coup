@@ -22,6 +22,7 @@ open ".build/macos/Bridge Coup.app"
 - [第一版设计记录](DESIGN.md)
 - [设计访谈记录](DESIGN-NOTES.md)
 - [当前 Stage 1 有限验收与义务清单](docs/acceptance/stage1/README.md)
+- [外部牌局持续调用生产 Expert](docs/bridge-external.md)
 - [历史记录、原始证据及旧规格恢复](docs/archive/README.md)
 - [独立发布的历史边界](HISTORY-IMPORT.md)
 
