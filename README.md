@@ -16,6 +16,7 @@ open ".build/macos/Bridge Coup.app"
 
 ## 产品记录
 
+- [Daily Bridge — 新睿每日单副无人值守流程 spec（Issue #56，待审阅）](https://github.com/absurdwall/bridge-coup/issues/56)
 - [Bridge Coup 2.0 正式总 spec（Issue #33）](https://github.com/absurdwall/bridge-coup/issues/33)
 - [Bridge Coup 2.0 文档入口、原稿归档与章节对照](docs/bridge-2/README.md)
 - [领域词汇](CONTEXT.md)
