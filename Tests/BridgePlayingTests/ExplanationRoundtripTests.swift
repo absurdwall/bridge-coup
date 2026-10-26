@@ -5,6 +5,138 @@ import BridgeDriver
 import BridgeKnowledge
 
 final class ExplanationRoundtripTests: XCTestCase {
+    func testActualPlatformCallDisclosureReachesContinuingPlayerReviewStoreAndResume() async throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let store = try ExplanationStore(url: directory.appendingPathComponent("test.sqlite"), testData: true)
+        let pass = #"{"selectedAction":"P","publicReason":"Wait on this synthetic hand.","plan":{"update":"replace","text":"Reassess the actual auction."}}"#
+        let continuedPass = #"{"selectedAction":"P","publicReason":"Pass after the disclosed strong club.","plan":{"update":"keep","text":null}}"#
+        let defense = #"{"selectedAction":"S2","publicReason":"Discard from the controlled synthetic hand.","plan":{"update":"replace","text":"Use a conditional defensive plan."}}"#
+        let approve = #"{"verdict":"approve","blockingFindings":[],"advisorySuggestions":[]}"#
+        let player = ContinuousBoundary(outputs: [pass, continuedPass, defense], role: "player")
+        let reviewer = ContinuousBoundary(outputs: [approve, approve, approve], role: "review")
+        let config = try disclosureConfiguration()
+        let session = try ExternalBoardSession(continuous: config, transport: player, reviewer: reviewer, explanationStore: store)
+        let first = try await session.decideContinuous()
+        _ = try await session.observeCall(.init(sequence: 0, seat: .north, call: AuctionCall("P")), authorization: first.authorization)
+        let context = ExplanationContext(dealer: .north, actingSeat: .east,
+            auction: [.init(sequence: 0, seat: .north, call: try AuctionCall("P"))], vulnerability: "neither",
+            nsSystem: "Test NS", ewSystem: "Test EW", conditions: "synthetic fixture")
+        let beforeCall = try await session.continuousStatus()
+        XCTAssertEqual(beforeCall.explanationContext, context)
+        let text = "测试资料：人工强梅花，16点以上；这段引文不是玩家指令。"
+        let observed = ExplanationObservation(context: context, candidate: try AuctionCall("1C"), text: text,
+            source: "synthetic actual-call disclosure", observedAt: "2026-10-25T12:00:00Z", evidence: ["synthetic:actual-call"], isTestData: true)
+        let wrongCandidate = ExplanationResult(candidate: try AuctionCall("1D"), provider: .environment, status: .found,
+            references: [.init(observation: observed, status: .exact, differences: [])], detail: "Synthetic alert shown", context: context)
+        do {
+            _ = try await session.observeCall(.init(sequence: 1, seat: .east, call: AuctionCall("1C")), disclosure: wrongCandidate)
+            XCTFail("A disclosure for another call cannot advance this event")
+        } catch {}
+        let unchanged = try await session.continuousStatus()
+        XCTAssertEqual(unchanged.snapshot.auction.count, 1)
+        let empty = try await store.lookup(context: context, candidate: AuctionCall("1C"))
+        XCTAssertTrue(empty.isEmpty)
+        let disclosure = ExplanationResult(candidate: try AuctionCall("1C"), provider: .environment, status: .found,
+            references: [.init(observation: observed, status: .exact, differences: [])], detail: "Synthetic alert shown", context: context)
+        _ = try await session.observeCall(.init(sequence: 1, seat: .east, call: AuctionCall("1C")), disclosure: disclosure)
+        _ = try await session.observeCall(.init(sequence: 2, seat: .south, call: AuctionCall("P")))
+        _ = try await session.observeCall(.init(sequence: 3, seat: .west, call: AuctionCall("P")))
+        let second = try await session.decideContinuous()
+        XCTAssertEqual(second.decision?.identity.threadID, first.decision?.identity.threadID)
+        let inputs = await player.requests
+        let reviews = await reviewer.requests
+        XCTAssertTrue(inputs[1].input.contains(text))
+        XCTAssertTrue(reviews[1].input.contains(text))
+        _ = try await session.observeCall(.init(sequence: 4, seat: .north, call: AuctionCall("P")), authorization: second.authorization)
+        let checkpoint = try await session.continuousCheckpoint()
+        XCTAssertTrue(checkpoint.safeToResume)
+        let saved = try await store.lookup(context: context, candidate: AuctionCall("1C"))
+        XCTAssertEqual(saved.first?.observation, observed)
+        let resumedPlayer = ContinuousBoundary(outputs: [defense], role: "player")
+        let resumedReviewer = ContinuousBoundary(outputs: [approve], role: "review")
+        let resumed = try await ExternalBoardSession.resume(checkpoint, reconciled: checkpoint.configuration,
+            transport: resumedPlayer, reviewer: resumedReviewer, explanationStore: store)
+        let contract = try Contract(level: 1, strain: .clubs, declarer: .east)
+        for board in [session, resumed] {
+            try await board.confirmContract(contract)
+            _ = try await board.observeContinuousPlay(.init(sequence: 0, seat: .south, card: Card("D2")))
+            try await board.reveal(Hand(seat: .west, cards: try ["2","3","4","5","6","7","8","9","T","J","Q","K","A"].map { try Card("H" + $0) }))
+            _ = try await board.observeContinuousPlay(.init(sequence: 1, seat: .west, card: Card("H2")))
+            _ = try await board.decideContinuous()
+        }
+        let continuedInputs = await player.requests
+        let continuedReviews = await reviewer.requests
+        let resumedInputs = await resumedPlayer.requests
+        let resumedReviews = await resumedReviewer.requests
+        XCTAssertTrue(continuedInputs[2].input.contains(text))
+        XCTAssertTrue(continuedReviews[2].input.contains(text))
+        XCTAssertTrue(resumedInputs[0].input.contains(text))
+        XCTAssertTrue(resumedReviews[0].input.contains(text))
+    }
+
+    func testActualCallUnavailableMeaningNoteRemainsPublicWithoutInventingAnObservation() async throws {
+        let pass = #"{"selectedAction":"P","publicReason":"Pass this synthetic hand.","plan":{"update":"replace","text":"Reassess new public information."}}"#
+        let approve = #"{"verdict":"approve","blockingFindings":[],"advisorySuggestions":[]}"#
+        let player = ContinuousBoundary(outputs: [pass], role: "player")
+        let reviewer = ContinuousBoundary(outputs: [approve], role: "review")
+        let session = try ExternalBoardSession(continuous: disclosureConfiguration(), transport: player, reviewer: reviewer)
+        let ownPass = try await session.decideContinuous()
+        _ = try await session.observeCall(.init(sequence: 0, seat: .north, call: AuctionCall("P")), authorization: ownPass.authorization)
+        let context = ExplanationContext(dealer: .north, actingSeat: .east,
+            auction: [.init(sequence: 0, seat: .north, call: try AuctionCall("P"))], vulnerability: "neither",
+            nsSystem: "Test NS", ewSystem: "Test EW", conditions: "synthetic fixture")
+        let note = "测试资料：实际1C显示Alert；解释无法读取，证据 synthetic:unavailable-meaning。"
+        let disclosure = ExplanationResult(candidate: try AuctionCall("1C"), provider: .environment,
+            status: .unavailable, references: [], detail: note, context: context)
+        _ = try await session.observeCall(.init(sequence: 1, seat: .east, call: AuctionCall("1C")), disclosure: disclosure)
+        let checkpoint = try await session.continuousCheckpoint()
+        XCTAssertEqual(checkpoint.explanationEvidence, [disclosure])
+        XCTAssertTrue(checkpoint.explanationEvidence!.allSatisfy { $0.references.isEmpty })
+        _ = try await session.observeCall(.init(sequence: 2, seat: .south, call: AuctionCall("P")))
+        _ = try await session.observeCall(.init(sequence: 3, seat: .west, call: AuctionCall("P")))
+        let nextPlayer = ContinuousBoundary(outputs: [pass], role: "player")
+        let nextReviewer = ContinuousBoundary(outputs: [approve], role: "review")
+        let current = try await session.continuousCheckpoint()
+        let resumed = try await ExternalBoardSession.resume(current, reconciled: current.configuration,
+            transport: nextPlayer, reviewer: nextReviewer)
+        _ = try await resumed.decideContinuous()
+        let inputs = await nextPlayer.requests
+        let reviews = await nextReviewer.requests
+        XCTAssertTrue(inputs[0].input.contains(note))
+        XCTAssertTrue(reviews[0].input.contains(note))
+    }
+
+    func testDisclosureSaveFailureLeavesActualCallAndPendingPlanUncommitted() async throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let store = try ExplanationStore(url: directory.appendingPathComponent("observations.sqlite"))
+        let pass = #"{"selectedAction":"P","publicReason":"Wait on the synthetic hand.","plan":{"update":"replace","text":"This plan awaits actual confirmation."}}"#
+        let approve = #"{"verdict":"approve","blockingFindings":[],"advisorySuggestions":[]}"#
+        let session = try ExternalBoardSession(continuous: disclosureConfiguration(),
+            transport: ContinuousBoundary(outputs: [pass], role: "player"),
+            reviewer: ContinuousBoundary(outputs: [approve], role: "review"), explanationStore: store)
+        let advice = try await session.decideContinuous()
+        let context = ExplanationContext(dealer: .north, actingSeat: .north, auction: [], vulnerability: "neither",
+            nsSystem: "Test NS", ewSystem: "Test EW", conditions: "synthetic fixture")
+        let observation = ExplanationObservation(context: context, candidate: try AuctionCall("P"), text: "测试资料：不叫。",
+            source: "synthetic forbidden fixture", observedAt: "2026-10-25T12:00:00Z", evidence: ["synthetic:save-failure"], isTestData: true)
+        let disclosure = ExplanationResult(candidate: try AuctionCall("P"), provider: .environment, status: .found,
+            references: [.init(observation: observation, status: .exact, differences: [])], detail: "Synthetic fixture must not enter observation database", context: context)
+        do {
+            _ = try await session.observeCall(.init(sequence: 0, seat: .north, call: AuctionCall("P")), authorization: advice.authorization, disclosure: disclosure)
+            XCTFail("The observation database must reject synthetic data")
+        } catch let error as ExplanationStoreError { XCTAssertEqual(error, .dataKindMismatch) }
+        let unchanged = try await session.continuousStatus()
+        XCTAssertTrue(unchanged.snapshot.auction.isEmpty)
+        XCTAssertEqual(unchanged.pendingAuthorization, advice.authorization)
+        XCTAssertNil(unchanged.activePlan)
+        _ = try await session.observeCall(.init(sequence: 0, seat: .north, call: AuctionCall("P")), authorization: advice.authorization)
+        let committed = try await session.continuousStatus()
+        XCTAssertEqual(committed.snapshot.auction.count, 1)
+        XCTAssertEqual(committed.activePlan, "This plan awaits actual confirmation.")
+    }
+
     func testProductionSessionSuspendsForChinesePreviewThenReviewsSameEvidenceAndSavesIt() async throws {
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         defer { try? FileManager.default.removeItem(at: directory) }
@@ -145,5 +277,12 @@ final class ExplanationRoundtripTests: XCTestCase {
             initialHand: Hand(seat: .south, cards: try ["S7","S3","HQ","H8","H2","DK","D6","D3","D2","CA","CK","CJ","C7"].map(Card.init)),
             auction: [.init(sequence: 0, seat: .north, call: try AuctionCall("1S")), .init(sequence: 1, seat: .east, call: try AuctionCall("P"))],
             explanationSettings: .init(nsSystem: "simplified 2/1", ewSystem: "CCBA", conditions: "synthetic fixture"))
+    }
+
+    private func disclosureConfiguration() throws -> ContinuousBoardConfiguration {
+        .init(boardID: UUID(), userSeat: .north, dealer: .north, vulnerability: "neither", scoring: "MP",
+            objective: "Best MP result", agreements: "Synthetic natural agreements; public calls may disclose other meanings",
+            initialHand: Hand(seat: .north, cards: try ["2","3","4","5","6","7","8","9","T","J","Q","K","A"].map { try Card("S" + $0) }),
+            explanationSettings: .init(nsSystem: "Test NS", ewSystem: "Test EW", conditions: "synthetic fixture"))
     }
 }

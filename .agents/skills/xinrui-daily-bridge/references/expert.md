@@ -25,7 +25,7 @@ swift build --product bridge-external
 
 ## 叫牌、资料、执行
 
-1. 平台其他牌手的真实叫牌按序发 `observeCall`，不带授权。轮到用户座位才 `decide`。
+1. 收集实际叫品的公开资料，按下节与平台事件一起发 `observeCall`，不带授权；用户自己的叫品保留其精确授权。轮到用户座位才 `decide`。
 2. `kind: informationRequest` 按下节服务，回传后再次 `decide`；没有叫牌发生。
 3. `kind: advice` 读取 `value.actingSeat/selectedAction/authorization/source`。模型详情在 `value.decision`：当前 phase、公开理由／计划、rounds 中真实 reviewer verdict、executionDisposition 和 requestEvidence。保存候选与授权；提交前若核对资料，再走下节并放弃旧授权。
 4. 在新睿操作最终授权叫品，重新观察真实叫品、座位及顺序，再确认：
@@ -35,6 +35,14 @@ swift build --product bridge-external
 ```
 
 序号、座位、叫品均替换为本次事实。待确认建议、预览和点击不写入 auction。错误／重复／过期拒绝后先核对平台和 `status`，不改写事实凑成功。
+
+### 实际叫品公开资料
+
+每个实际叫品交给入口前，先读取其已公开 alert／解释并保留来源证据。复制入口尚未接纳该事件时的 `status.explanationContext`，与实际叫品一起填入 `callDisclosure`；完整协议见 checkout 的 `docs/bridge-external.md#实际叫品的公开解释`。搭档和对手的新公开说明也走此路径，不改写启动时的 agreements，也不伪造自己的候选查询。
+
+取得原文时按实际叫品保存 attributed found 观察；只有 alert 或无法读到含义时，填 unavailable、空 references，并在 detail 说明已见 alert、未知含义和证据。普通无说明可省略。入口接纳后，这些材料进入后续玩家与独立 reviewer 的同一依据并随基本接续保留。先收集再接纳事件，避免推进后把后来的解释配到错误前序；保存失败时保留原副和待确认状态，先核对原因。
+
+自己的候选解释若在提交前已取得，先走下节查询回传并重新 review；实际叫品的 disclosure 不追认旧 review 已见过后来资料。
 
 ### 解释预览与回传
 

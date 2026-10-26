@@ -199,7 +199,7 @@ actor ContinuousExpertSession {
                 let mayQuery = snapshot.phase == .bidding && work.informationRequests < 2
                 let request = PlayingRequest(instructions: PlayerInstructions.common, input: try text(work.envelope),
                     outputSchema: try outputSchema(choices: choices, initial: work.phaseInitial, mayQuery: mayQuery), timeoutSeconds: try seconds())
-                let reply = try await recorded(transport, request, role: .player, decision: work.id, candidate: nil, round: round, attempt: 1)
+                let reply = try await recordedReply(transport: transport, request: request, journal: journal, role: .player, decisionID: work.id, candidateID: nil, round: round, attempt: 1)
                 do {
                     try ExpertSession.validateIdentity(reply.identity)
                     guard reply.requestID == request.id,
@@ -240,7 +240,7 @@ actor ContinuousExpertSession {
                     let reviewRequest = PlayingRequest(instructions: PlayerInstructions.review(snapshot.phase), input: reviewInput, outputSchema: ExpertSession.reviewOutputSchema, timeoutSeconds: try seconds())
                     let reviewStart = Date()
                     do {
-                        let response = try await recorded(reviewer, reviewRequest, role: .reviewer, decision: work.id, candidate: candidateID, round: round, attempt: attempt)
+                        let response = try await recordedReply(transport: reviewer, request: reviewRequest, journal: journal, role: .reviewer, decisionID: work.id, candidateID: candidateID, round: round, attempt: attempt)
                         do {
                             try ExpertSession.validateIdentity(response.identity)
                             guard response.requestID == reviewRequest.id, response.identity.threadID != reply.identity.threadID,
@@ -291,24 +291,6 @@ actor ContinuousExpertSession {
         }
     }
     private func group(_ phase: BoardPhase) -> String { phase == .openingLead ? "defense" : phase.rawValue }
-    private func recorded(_ transport: any PlayingTransport, _ request: PlayingRequest, role: RequestEvidence.Role, decision: UUID, candidate: UUID?, round: Int, attempt: Int) async throws -> PlayingReply {
-        let started = Date(); let journal = journal
-        return try await boundedReply(transport: transport, request: request) { result, outcome in
-            let reply: PlayingReply?
-            switch result {
-            case .success(let value): reply = value
-            case .failure(let error):
-                if let failure = error as? PlayingTransportFailure, let identity = failure.identity {
-                    reply = PlayingReply(rawOutput: failure.rawOutput ?? "", identity: identity, requestID: request.id, usage: failure.usage)
-                } else { reply = nil }
-            }
-            await journal.append(RequestEvidence(role: role, requestID: request.id, decisionID: decision, candidateID: candidate,
-                semanticRound: round, technicalAttempt: attempt, instructions: request.instructions, input: request.input,
-                outputSchema: request.outputSchema, timeoutSeconds: request.timeoutSeconds, rawOutput: reply?.rawOutput,
-                identity: reply?.identity, replyRequestID: reply?.requestID, usage: reply?.usage,
-                elapsedSeconds: Date().timeIntervalSince(started), outcome: outcome, detail: reply == nil ? String(describing: result) : nil))
-        }
-    }
     private func parse(_ raw: String, choices: [String], initial: Bool) throws -> ContinuousAdvice {
         let data = Data(raw.utf8)
         guard let object = try JSONSerialization.jsonObject(with: data) as? [String:Any], (Set(object.keys) == ["selectedAction","publicReason","plan"] || Set(object.keys) == ["selectedAction","publicReason","plan","requestExplanations"]),

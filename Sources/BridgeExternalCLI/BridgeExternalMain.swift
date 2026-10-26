@@ -11,6 +11,7 @@ private struct Command: Decodable {
     let configuration: ExternalBoardConfiguration?
     let continuousConfiguration: ContinuousBoardConfiguration?
     let callEvent: AuctionEvent?
+    let callDisclosure: ExplanationResult?
     let contract: Contract?
     let hand: Hand?
     let checkpointPath: String?
@@ -182,7 +183,7 @@ private struct Command: Decodable {
             try emitValue(await session.continuousStatus(), kind: "status")
         case "observeCall":
             guard let event = command.callEvent else { throw CLIError.invalidCommand }
-            try emitValue(await session.observeCall(event, authorization: command.authorization), kind: "observed")
+            try emitValue(await session.observeCall(event, authorization: command.authorization, disclosure: command.callDisclosure), kind: "observed")
         case "observe":
             guard let event = command.event else { throw CLIError.invalidCommand }
             try emitValue(await session.observeContinuousPlay(event, authorization: command.authorization, automatic: command.automatic ?? false), kind: "observed")

@@ -260,7 +260,7 @@ public actor ExpertSession {
                 let playerStarted = Date()
                 let playerRequest = PlayingRequest(instructions: Self.instructions, input: playerInput, outputSchema: try Self.outputSchema(for: snapshot, initialPlan: previousSnapshot == nil), timeoutSeconds: try remainingRequestSeconds())
                 let reply: PlayingReply
-                do { reply = try await recordedReply(transport: transport, request: playerRequest, role: .player, decisionID: session.id, candidateID: nil, round: round, attempt: 1) }
+                do { reply = try await recordedReply(transport: transport, request: playerRequest, journal: journal, role: .player, decisionID: session.id, candidateID: nil, round: round, attempt: 1) }
                 catch { ended = true; throw ExpertFailure(category: error is PlayingBoundaryFailure || (error as? PlayingTransportFailure)?.fatal == true ? .identity : .runtime, input: playerInput, rawOutput: (error as? PlayingTransportFailure)?.rawOutput ?? "", detail: String(describing: error), elapsedSeconds: Date().timeIntervalSince(start)) }
                 let playerElapsed = Date().timeIntervalSince(playerStarted)
                 do {
@@ -316,7 +316,7 @@ public actor ExpertSession {
                     let request = PlayingRequest(instructions: Self.reviewerInstructions, input: reviewInput, outputSchema: Self.reviewOutputSchema, timeoutSeconds: try remainingRequestSeconds())
                     finalRequest = request
                     do {
-                        let received = try await recordedReply(transport: reviewer, request: request, role: .reviewer, decisionID: session.id, candidateID: candidate.candidateID, round: round, attempt: attempt)
+                        let received = try await recordedReply(transport: reviewer, request: request, journal: journal, role: .reviewer, decisionID: session.id, candidateID: candidate.candidateID, round: round, attempt: attempt)
                         do {
                             try Self.validateIdentity(received.identity)
                             guard !ended, received.requestID == request.id,
@@ -380,24 +380,6 @@ public actor ExpertSession {
             failure.reviewRounds = rounds
             failure.requestEvidence = await journal.read().filter { $0.decisionID == session.id }
             throw failure
-        }
-    }
-
-    private func recordedReply(transport: any PlayingTransport, request: PlayingRequest, role: RequestEvidence.Role, decisionID: UUID, candidateID: UUID?, round: Int, attempt: Int) async throws -> PlayingReply {
-        let start = Date()
-        let journal = self.journal
-        return try await boundedReply(transport: transport, request: request) { result, outcome in
-            let reply: PlayingReply?
-            let detail: String?
-            switch result {
-            case let .success(value): reply = value; detail = nil
-            case let .failure(error):
-                if let failure = error as? PlayingTransportFailure, let identity = failure.identity {
-                    reply = PlayingReply(rawOutput: failure.rawOutput ?? "", identity: identity, requestID: request.id, usage: failure.usage)
-                    detail = failure.detail
-                } else { reply = nil; detail = String(describing: error) }
-            }
-            await journal.append(RequestEvidence(role: role, requestID: request.id, decisionID: decisionID, candidateID: candidateID, semanticRound: round, technicalAttempt: attempt, instructions: request.instructions, input: request.input, outputSchema: request.outputSchema, timeoutSeconds: request.timeoutSeconds, rawOutput: reply?.rawOutput, identity: reply?.identity, replyRequestID: reply?.requestID, usage: reply?.usage, elapsedSeconds: Date().timeIntervalSince(start), outcome: outcome, detail: detail))
         }
     }
 

@@ -44,6 +44,23 @@ actor RequestJournal {
     func read() -> [RequestEvidence] { rows }
 }
 
+func recordedReply(transport: any PlayingTransport, request: PlayingRequest, journal: RequestJournal, role: RequestEvidence.Role, decisionID: UUID, candidateID: UUID?, round: Int, attempt: Int) async throws -> PlayingReply {
+    let start = Date()
+    return try await boundedReply(transport: transport, request: request) { result, outcome in
+        let reply: PlayingReply?
+        let detail: String?
+        switch result {
+        case let .success(value): reply = value; detail = nil
+        case let .failure(error):
+            if let failure = error as? PlayingTransportFailure, let identity = failure.identity {
+                reply = PlayingReply(rawOutput: failure.rawOutput ?? "", identity: identity, requestID: request.id, usage: failure.usage)
+                detail = failure.detail
+            } else { reply = nil; detail = String(describing: error) }
+        }
+        await journal.append(RequestEvidence(role: role, requestID: request.id, decisionID: decisionID, candidateID: candidateID, semanticRound: round, technicalAttempt: attempt, instructions: request.instructions, input: request.input, outputSchema: request.outputSchema, timeoutSeconds: request.timeoutSeconds, rawOutput: reply?.rawOutput, identity: reply?.identity, replyRequestID: reply?.requestID, usage: reply?.usage, elapsedSeconds: Date().timeIntervalSince(start), outcome: outcome, detail: detail))
+    }
+}
+
 /// Fatal adapter failures must not be disguised as a recoverable reviewer outage.
 public enum PlayingBoundaryFailure: Error, Sendable {
     case identity(String), sessionLost(String), state(String)
