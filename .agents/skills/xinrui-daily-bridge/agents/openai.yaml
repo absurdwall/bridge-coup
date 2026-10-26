@@ -1,4 +1,4 @@
 interface:
   display_name: "新睿每日单副"
-  short_description: "在新睿每日打一副，调用生产 Expert 并保存中文记录和两类总结"
+  short_description: "在新睿每日打一副，连续调用叫牌与打牌 Expert，回传解释并保存中文记录"
   default_prompt: "使用 $xinrui-daily-bridge 运行或接续一次每日单副任务，保存记录和总结。"

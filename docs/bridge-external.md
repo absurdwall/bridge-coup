@@ -8,7 +8,7 @@
 
 ## 连续流程（v3 / continuous-board-v7）
 
-构建和启动方式见下方旧版调用部分；保持 stdin 和进程打开。ready 输出协议
+构建和启动方式见下方“启动与调用”；保持 stdin 和进程打开。ready 输出协议
 `bridge-external-v3`，`supportedProtocols` 列出保留的 v1/v2 输入。使用 `continuousConfiguration` 启动；所有数组显式填写，
 `confirmedContract` 未确认时省略。下面是合成结构示例，实际使用替换为本副已核实事实：
 
@@ -63,31 +63,17 @@ thread 决策，否则先观察平台首攻。实际首攻之后，加入已曝�
 叫牌意图在进入打牌时不自动当成打法计划。相关公开分析由同一 thread 继续保留，
 先前推断可随事实修改。每个候选 reviewer 使用独立新会话及相同授权资料。
 
-所有指令阅读入口在 `Sources/BridgeExpert/Instructions/`：
-`PlayerCommon` + `Bidding/Declarer/Defense`，`ReviewCommon` +
-`ReviewBidding/ReviewDeclarer/ReviewDefense`。`Sources/BridgeExpert/ContinuousExpert.swift` 的 `PlayerInstructions` 装配完整 v6 字段适配。
-原做庄指导及原 reviewer 内容仅迁移，
-v6 增加协议适配说明；v5 继续原格式。`decision-REVISION.json` 和
-`request-evidence.json` 保存实际装配文本、输入、schema、公开输出和身份；
-`player/rpc.jsonl` 可核对 thread/start 与后续 turn/start。缺少必需指令直接失败。
+全部有效指令及协议适配的阅读入口见 [连续 Expert 指令与例子](continuous-expert-instructions.md)。
+`decision-REVISION.json` 和 `request-evidence.json` 保存实际装配文本、输入、schema、
+公开输出和身份；`player/rpc.jsonl` 可核对 thread/start 与后续 turn/start。
+缺少必需指令直接失败。
 
-基本接续沿用下方同副核对规则；v2 `resume` 使用 `continuousConfiguration` 和
+基本接续沿用下方同副核对规则；连续入口 `resume` 使用 `continuousConfiguration` 和
 `ContinuousExternalCheckpoint`，只恢复安全边界的公开事实、已确认计划及原绝对截止时间，
 不恢复旧授权，不重置失败或预算。私人证据目录必须在仓库外。
 自主工程检查、少量生产调用与后续联合逐份 instruction／逐例人工验收分别报告。
 
 ---
-
-# 旧版做庄调用（v1 / stage1-full-snapshot-v5）
-
-`bridge-external` 是与 app 无关的持续 JSON Lines 入口。它使用现有
-`ExpertSession`、`CodexPlayingTransport` 和独立 `CodexReviewTransport`，
-玩家与 reviewer 均保持生产 `gpt-6.1-sol / medium`，结构化协议和 ADR 0003
-的五轮语义 review、四次 reviewer 技术尝试及 contested 授权规则不变。
-
-外部调用者负责观察牌桌、提供合法可见事实、执行建议并确认实际结果。
-入口只跟踪公开事实，不控制新睿，不模拟对手，不提供叫牌、防守或 claim 决策。
-庄家是 controller；从明手出牌时 actingSeat 是明手，controller 仍是庄家。
 
 ## 按需叫品解释（v3）
 
@@ -186,10 +172,17 @@ Codex runtime 可执行文件；可参考 `Scripts/codex-runtime-identity.sh`。
 认证默认读取 `$CODEX_HOME/auth.json`，未设置时读取 `~/.codex/auth.json`；可用
 `--auth /ABSOLUTE/PATH/auth.json` 指定。认证文件不放入记录或证据目录。
 
-启动现为 v2 ready 响应，包含 `legacyProtocol: bridge-external-v1`。下列旧命令仍按 v5 原义处理。
+启动返回 v3 ready，supportedProtocols 列出 v1/v2/v3；下列旧命令仍按 v5 原义处理。
 之后 stdin 一行一个命令，stdout 一行一个响应。Computer Use 调用者可保留
 `exec_command` 的交互 session 并用 `write_stdin` 逐次发送命令。
 JSON 中 seat 使用 `north/east/south/west`，牌使用 `SA/HT/D2/CJ`，序号从 0 开始。
+
+## 旧版做庄调用（v1 / stage1-full-snapshot-v5）
+
+旧版 `configuration` 通过同一正式入口调用现有 `ExpertSession`、
+`CodexPlayingTransport` 和独立 `CodexReviewTransport`，保持其原做庄语义。
+它只处理已定约、已曝光的庄家／明手，不替代上方连续叫牌／防守入口。
+庄家是 controller；从明手出牌时 actingSeat 是明手。Claim 仍由外层承担。
 
 第一条 `start` 命令绑定一副：
 
