@@ -48,6 +48,7 @@ public struct ContinuousActualExecution: Codable, Sendable {
 }
 public struct ContinuousExternalStatus: Codable, Sendable {
     public let snapshot: ContinuousSnapshot
+    public let explanationContext: ExplanationContext?
     public let activePlan: String?
     public let pendingAuthorization: UUID?
     public let pendingExplanation: ExplanationRequest?
@@ -85,7 +86,9 @@ actor ContinuousExternalBoardSession {
         expert = ExpertSession(transport: transport, reviewer: reviewer); automaticDeadline = started.addingTimeInterval(1800)
     }
     func status() async throws -> ContinuousExternalStatus {
-        .init(snapshot: try board.snapshot(), activePlan: await expert.continuousPlan(), pendingAuthorization: pending?.authorization,
+        let snapshot = try board.snapshot()
+        return .init(snapshot: snapshot, explanationContext: snapshot.phase == .bidding ? context(snapshot) : nil,
+              activePlan: await expert.continuousPlan(), pendingAuthorization: pending?.authorization,
               pendingExplanation: pendingExplanation, reconstructed: reconstructed, stopped: stopped)
     }
     func checkpoint() async throws -> ContinuousExternalCheckpoint {
@@ -167,22 +170,12 @@ actor ContinuousExternalBoardSession {
         try available()
         guard let request = pendingExplanation, request.id == requestID, request.snapshotID == snapshotID,
               try board.snapshot().id == snapshotID else { throw ExplanationExchangeError.staleRequest }
-        guard results.count == request.candidates.count, Set(results.map(\.candidate)) == Set(request.candidates),
-              results.allSatisfy({ $0.provider == .environment && ($0.context == nil || $0.context == request.context) &&
-                  (($0.status == .found && !$0.references.isEmpty && $0.references.count <= 5) || ($0.status != .found && $0.references.isEmpty)) }) else { throw ExplanationExchangeError.invalidResult }
-        for result in results {
-            for reference in result.references {
-                guard reference.status == .exact, reference.differences.isEmpty,
-                      reference.observation.context == request.context, reference.observation.candidate == result.candidate else { throw ExplanationExchangeError.invalidResult }
-            }
+        guard results.count == request.candidates.count, Set(results.map(\.candidate)) == Set(request.candidates) else {
+            throw ExplanationExchangeError.invalidResult
         }
+        for result in results { try validateEnvironmentResult(result, context: request.context) }
         busy = true; defer { busy = false }
-        for result in results {
-            for reference in result.references {
-                guard let explanationStore else { throw ExplanationExchangeError.missingStore }
-                try await explanationStore.save(reference.observation)
-            }
-        }
+        for result in results { try await saveReferences(in: result) }
         let associated = results.map { ExplanationResult(candidate: $0.candidate, provider: $0.provider, status: $0.status,
             references: $0.references, detail: $0.detail, context: request.context) }
         let updated = explanationEvidence + request.localResults + associated
@@ -208,23 +201,70 @@ actor ContinuousExternalBoardSession {
             candidates: request.candidates, reason: request.reason, localResults: local)
     }
 
-    func observeCall(_ event: AuctionEvent, authorization: UUID?) async throws -> ContinuousActualExecution {
-        try available(); guard pendingExplanation == nil else { throw ExternalBoardError.pendingDecision }
-        busy = true; defer { busy = false }
-        let snapshot = try board.snapshot(); var next = board; try next.observeCall(event)
-        let source = try await authorize(snapshot: snapshot, seat: event.seat, action: event.call.description,
-            authorization: authorization, automatic: false)
-        let execution = ContinuousActualExecution(snapshotID: snapshot.id, call: event, play: nil, source: source, authorization: authorization)
-        board = next; executions.append(execution); return execution
+    private enum ObservedEvent {
+        case call(AuctionEvent)
+        case play(PlayEvent)
+    }
+
+    func observeCall(_ event: AuctionEvent, authorization: UUID?, disclosure: ExplanationResult? = nil) async throws -> ContinuousActualExecution {
+        try await confirm(.call(event), authorization: authorization, automatic: false, disclosure: disclosure)
     }
     func observePlay(_ event: PlayEvent, authorization: UUID?, automatic: Bool) async throws -> ContinuousActualExecution {
+        try await confirm(.play(event), authorization: authorization, automatic: automatic)
+    }
+    private func confirm(_ event: ObservedEvent, authorization: UUID?, automatic: Bool,
+                         disclosure: ExplanationResult? = nil) async throws -> ContinuousActualExecution {
         try available(); guard pendingExplanation == nil else { throw ExternalBoardError.pendingDecision }
         busy = true; defer { busy = false }
-        let snapshot = try board.snapshot(); var next = board; try next.observePlay(event)
-        let source = try await authorize(snapshot: snapshot, seat: event.seat, action: event.card.description,
+        let snapshot = try board.snapshot(); var next = board
+        let actual: (seat: Seat, action: String, call: AuctionEvent?, play: PlayEvent?)
+        switch event {
+        case let .call(value):
+            try next.observeCall(value)
+            actual = (value.seat, value.call.description, value, nil)
+        case let .play(value):
+            try next.observePlay(value)
+            actual = (value.seat, value.card.description, nil, value)
+        }
+        let source = try validatedSource(snapshot: snapshot, seat: actual.seat, action: actual.action,
             authorization: authorization, automatic: automatic)
-        let execution = ContinuousActualExecution(snapshotID: snapshot.id, call: nil, play: event, source: source, authorization: authorization)
-        board = next; executions.append(execution); return execution
+        if let disclosure {
+            guard let call = actual.call, disclosure.candidate == call.call, disclosure.context == context(snapshot),
+                  !disclosure.detail.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+                throw ExplanationExchangeError.invalidResult
+            }
+            try validateEnvironmentResult(disclosure, context: context(snapshot))
+            try await saveReferences(in: disclosure)
+            guard Date() < automaticDeadline else { stopped = true; throw ExpertSessionError.automaticBudgetExpired }
+        }
+        if board.isControlled(actual.seat), !automatic {
+            if let decision = pending?.decision {
+                try await expert.commit(decision); lastCommittedSnapshot = decision.snapshot; executions = []; hasUncommittedInformation = false
+            }
+            pending = nil
+        }
+        let execution = ContinuousActualExecution(snapshotID: snapshot.id, call: actual.call, play: actual.play,
+            source: source, authorization: authorization)
+        board = next; executions.append(execution)
+        if let disclosure { explanationEvidence.append(disclosure) }
+        return execution
+    }
+    private func validateEnvironmentResult(_ result: ExplanationResult, context: ExplanationContext) throws {
+        guard result.provider == .environment, result.context == nil || result.context == context,
+              (result.status == .found && !result.references.isEmpty && result.references.count <= 5) ||
+                (result.status != .found && result.references.isEmpty) else { throw ExplanationExchangeError.invalidResult }
+        for reference in result.references {
+            guard reference.status == .exact, reference.differences.isEmpty,
+                  reference.observation.context == context, reference.observation.candidate == result.candidate else {
+                throw ExplanationExchangeError.invalidResult
+            }
+        }
+    }
+    private func saveReferences(in result: ExplanationResult) async throws {
+        for reference in result.references {
+            guard let explanationStore else { throw ExplanationExchangeError.missingStore }
+            try await explanationStore.save(reference.observation)
+        }
     }
     func confirmContract(_ contract: Contract) throws { try available(); guard pending == nil, pendingExplanation == nil else { throw ExternalBoardError.pendingDecision }; try board.confirmContract(contract) }
     func reveal(_ hand: Hand) throws { try available(); guard pending == nil, pendingExplanation == nil else { throw ExternalBoardError.pendingDecision }; try board.reveal(hand); exposed.append(hand) }
@@ -234,7 +274,7 @@ actor ContinuousExternalBoardSession {
         guard !busy else { throw ExternalBoardError.pendingDecision }
         guard Date() < automaticDeadline else { stopped = true; throw ExpertSessionError.automaticBudgetExpired }
     }
-    private func authorize(snapshot: ContinuousSnapshot, seat: Seat, action: String, authorization: UUID?, automatic: Bool) async throws -> ActualExecution.Source {
+    private func validatedSource(snapshot: ContinuousSnapshot, seat: Seat, action: String, authorization: UUID?, automatic: Bool) throws -> ActualExecution.Source {
         if board.isControlled(seat) {
             if automatic {
                 guard snapshot.phase != .bidding, pending == nil, authorization == nil,
@@ -243,10 +283,7 @@ actor ContinuousExternalBoardSession {
             }
             guard let pending, pending.authorization == authorization, pending.snapshotID == snapshot.id,
                   pending.actingSeat == seat, pending.selectedAction == action else { throw ExternalBoardError.invalidAuthorization }
-            if let decision = pending.decision {
-                try await expert.commit(decision); lastCommittedSnapshot = decision.snapshot; executions = []; hasUncommittedInformation = false
-            }
-            self.pending = nil; return pending.source
+            return pending.source
         }
         guard pending == nil, authorization == nil, !automatic else { throw ExternalBoardError.invalidAuthorization }
         return .opponent

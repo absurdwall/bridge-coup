@@ -295,6 +295,34 @@ final class ContinuousBoardSessionTests: XCTestCase {
         XCTAssertNil(status.pendingAuthorization)
     }
 
+    func testPlayerTransportFailureRetainsPublicDiagnosticsWithObservedIdentity() async throws {
+        let identity = RuntimeIdentity(requestedModel: "gpt-6.1-sol", requestedEffort: "medium",
+            runtimeVersion: "recorded", observedModel: "gpt-6.1-sol", observedEffort: "medium",
+            threadID: "failed-player", turnID: "failed-turn")
+        let usage = TokenUsage(inputTokens: 31, cachedInputTokens: 0, outputTokens: 5,
+            reasoningOutputTokens: 2, totalTokens: 36)
+        let diagnostic = "Recorded upstream connection closed after a partial public reply"
+        let player = ContinuousTransportFailureBoundary(failure: PlayingTransportFailure(
+            detail: diagnostic, identity: identity, rawOutput: "partial public reply", usage: usage))
+        let board = try ExternalBoardSession(continuous: config(), transport: player,
+            reviewer: ContinuousBoundary(outputs: [approve], role: "review"))
+        do {
+            _ = try await board.decideContinuous()
+            XCTFail("A failed request cannot authorize an action")
+        } catch let failure as ExpertFailure {
+            let evidence = try XCTUnwrap(failure.requestEvidence.first)
+            XCTAssertEqual(evidence.detail, diagnostic)
+            XCTAssertEqual(evidence.rawOutput, "partial public reply")
+            XCTAssertEqual(evidence.identity, identity)
+            XCTAssertEqual(evidence.usage, usage)
+            XCTAssertEqual(evidence.outcome, .transportFailure)
+        }
+        let status = try await board.continuousStatus()
+        XCTAssertTrue(status.stopped)
+        XCTAssertNil(status.pendingAuthorization)
+        XCTAssertTrue(status.snapshot.auction.isEmpty)
+    }
+
     func testSafeResumeAfterSeveralDecisionsUsesOnlyExecutionSuffixSinceLatestDecision() async throws {
         let (board, _, _) = try session(config(), actions: [advice("P"), advice("P", plan: nil)])
         let first = try await board.decideContinuous()
@@ -357,4 +385,9 @@ private actor ContinuousWrongIdentityBoundary: PlayingTransport {
             runtimeVersion: "recorded", observedModel: "unexpected-model", observedEffort: "medium",
             threadID: "identity-test", turnID: UUID().uuidString), requestID: request.id)
     }
+}
+
+private struct ContinuousTransportFailureBoundary: PlayingTransport {
+    let failure: PlayingTransportFailure
+    func respond(to request: PlayingRequest) async throws -> PlayingReply { throw failure }
 }

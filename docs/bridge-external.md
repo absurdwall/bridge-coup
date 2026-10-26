@@ -32,6 +32,35 @@
 ```
 
 用户叫牌只能确认精确待执行候选；其他牌手行动作为平台事实输入，不需授权。
+
+### 实际叫品的公开解释
+
+观察搭档、对手或自己的实际叫品时，先收集该叫品已公开的 alert／解释，再发送
+`observeCall`。可选 `callDisclosure` 使用下文的 `ExplanationResult` 结构，
+`provider: environment`、`candidate` 必须是这次实际叫品；完整复制接纳该事件前
+`status.explanationContext`（包括前序 auction、行动者、发牌人、双方体系和条件）。
+它不需要先请求自己的候选解释，也不会重置玩家 thread。
+
+取得原文时使用 `status: found`，references 放一至五条 exact 观察，保留中文、
+来源、真实时间／未知版本、证据及 notes；每条 observation 的 context 和 candidate
+也须精确对应。只有 alert 或解释不可用时，用 `status: unavailable`、空 references，
+在 detail 记录实际看到的 alert、缺失含义、来源证据及不确定性，不生成解释原文。
+例如下面是不可用分支的结构示意，context 必须替换为完整实际对象：
+
+```json
+{"op":"observeCall","callEvent":{"sequence":1,"seat":"east","call":"1C"},"callDisclosure":{"candidate":"1C","provider":"environment","status":"unavailable","context":{"...":"完整复制此前status.explanationContext"},"references":[],"detail":"实际1C显示Alert；解释无法读取，来源及截图路径如实记录"}}
+```
+
+正常无公开说明可省略 callDisclosure。程序先检查真实事件、精确授权及 disclosure
+的前序上下文，再保存取得的观察；保存失败不会推进牌局或采纳／清除待确认计划。
+接纳的公开说明／缺失注记进入 explanationEvidence，供后续玩家、独立 reviewer、
+阶段交接及基本接续使用。取得的原文保存入同一观察库，注记不冒充已取得的解释。
+这条路径接纳实际叫品的来源陈述，不是提交前的候选查询；其含义仍须判断适用性。
+自己叫牌的解释若在提交前已取得，先用 inspectCalls／provideExplanations 更新依据并
+重新评审；callDisclosure 只补入实际发生后才取得的公开说明，不能追认旧 review 已见过它。
+
+### 核对定约与打牌角色
+
 叫牌结束后先与平台核对实际定约和庄家，再发送：
 
 ```json
