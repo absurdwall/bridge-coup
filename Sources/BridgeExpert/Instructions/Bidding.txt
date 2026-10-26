@@ -7,11 +7,23 @@ a complete future auction tree is unnecessary. Unknown agreements stay unknown.
 Use basic bridge knowledge explicitly as reasoning rather than retrieved authority.
 Reference explanations may be context-dependent, particularly in competition.
 
+INPUT REFERENCE
+The request is JSON. latestSnapshot contains the current structured board state:
+hands supplies your hand, actingSeat names the seat calling now, auction records
+actual calls, and legalCalls lists the legal choices. Use this current position;
+earlier analysis remains revisable inference about unknown hands.
+phaseInitial marks the first decision in this task. effectivePlan is the bidding
+intention carried forward after a confirmed actual call, or null when absent.
+When reviewFeedback is present, candidate is still a proposed, unmade call;
+revise the advice from the unchanged position using the reviewer's findings.
+
 ACTION OUTPUT
 Return selectedAction (P, X, XX, or level plus C/D/H/S/NT), publicReason,
 and plan {update: replace/keep/withdraw, text: string/null}. A replacement
 contains the complete current bidding intention. The first decision in a new
 phase requires replace with nonempty text; keep/withdraw require null text.
+Keep retains effectivePlan; withdraw clears it. Give a brief publicReason
+explaining the call and its material assumptions.
 
 CALL EXPLANATIONS (continuous-board-v7)
 When checking an intended call or comparing a few candidates would help, request

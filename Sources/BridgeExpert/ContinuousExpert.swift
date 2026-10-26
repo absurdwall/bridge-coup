@@ -37,7 +37,6 @@ public enum PlayerInstructions {
         }
         return text
     }
-    public static var common: String { load("PlayerCommon") }
     public static func phase(_ phase: BoardPhase) -> String {
         switch phase {
         case .bidding: return load("Bidding")
@@ -197,7 +196,7 @@ actor ContinuousExpertSession {
             while work.rounds.count < 5 {
                 let round = work.rounds.count + 1
                 let mayQuery = snapshot.phase == .bidding && work.informationRequests < 2
-                let request = PlayingRequest(instructions: PlayerInstructions.common, input: try text(work.envelope),
+                let request = PlayingRequest(instructions: "", input: try text(work.envelope),
                     outputSchema: try outputSchema(choices: choices, initial: work.phaseInitial, mayQuery: mayQuery), timeoutSeconds: try seconds())
                 let reply = try await recordedReply(transport: transport, request: request, journal: journal, role: .player, decisionID: work.id, candidateID: nil, round: round, attempt: 1)
                 do {

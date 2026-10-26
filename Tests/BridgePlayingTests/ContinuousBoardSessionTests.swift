@@ -129,6 +129,7 @@ final class ContinuousBoardSessionTests: XCTestCase {
         XCTAssertEqual(playerRequests.count, 2)
         XCTAssertEqual(reviewRequests.count, 2)
         for (index, request) in playerRequests.enumerated() {
+            XCTAssertTrue(request.instructions.isEmpty)
             let input = try XCTUnwrap(JSONSerialization.jsonObject(with: Data(request.input.utf8)) as? [String: Any])
             let snapshot = try XCTUnwrap(input["latestSnapshot"] as? [String: Any])
             let holdings = try XCTUnwrap(snapshot["hands"] as? [[String: Any]])
@@ -174,6 +175,7 @@ final class ContinuousBoardSessionTests: XCTestCase {
         XCTAssertEqual(defense.decision?.effectivePlan, "New defensive plan")
         let requests = await player.requests
         XCTAssertEqual(requests.count, 2)
+        XCTAssertTrue(requests.allSatisfy { $0.instructions.isEmpty })
         XCTAssertTrue(requests[0].input.contains("BIDDING TASK"))
         XCTAssertFalse(requests[0].input.contains("DEFENSE TASK"))
         XCTAssertTrue(requests[1].input.contains("DEFENSE TASK"))

@@ -4,11 +4,10 @@
 
 ## 先读实际装配
 
-连续入口为 `bridge-external-v3 / continuous-board-v7`，协议见 [外部调用](bridge-external.md)。同一玩家 thread 的基础指令为 PlayerCommon；每次 turn 的 `phase/currentPhaseGuidance` 指定当前任务。历史指导保留在会话中，但当前请求不拼入全部角色的完整内容。每个候选 reviewer 使用独立新 thread。
+连续入口为 `bridge-external-v3 / continuous-board-v7`，协议见 [外部调用](bridge-external.md)。同一玩家 thread 的 `baseInstructions` 为空，不加载共用玩家指令；每次 turn 的 `phase/currentPhaseGuidance` 指定当前任务。叫牌和防守各自包含所需的输入说明，做庄原文及其协议适配保持不变。历史指导保留在会话中，但当前请求不拼入全部角色的完整内容。每个候选 reviewer 使用独立新 thread。
 
 | 检查对象 | 单一源文件 | 生效位置 |
 |---|---|---|
-| 共用玩家原则 | [PlayerCommon](../Sources/BridgeExpert/Instructions/PlayerCommon.txt) | 玩家 thread/start 基础指令 |
 | 叫牌与解释请求 | [Bidding](../Sources/BridgeExpert/Instructions/Bidding.txt) | bidding 当前 turn 的 currentPhaseGuidance |
 | 做庄策略原文 | [Declarer](../Sources/BridgeExpert/Instructions/Declarer.txt) | declarer 当前指导，另有下述协议适配 |
 | 首攻／普通防守 | [Defense](../Sources/BridgeExpert/Instructions/Defense.txt) | openingLead、defense 当前指导 |
@@ -19,11 +18,11 @@
 
 [PlayerInstructions 装配代码](../Sources/BridgeExpert/ContinuousExpert.swift) 中的 `phase(.declarer)` 和 `review(.declarer)` 还分别附加 **CURRENT CONTINUOUS PROTOCOL ADAPTER** 与 **CURRENT CONTINUOUS REVIEW PROTOCOL ADAPTER**。它们也是有效指令，须一起检查：把原 v5 的 selectedCard、座位／手牌结构、current/effectivePlan 等引用映射到当前格式。原做庄策略和原 reviewer 正文迁移保留；适配不表示策略获得了新的广泛质量证明。旧 v1/v5 调用仍使用其原字段语义。
 
-当前源码通过公开 `PlayerInstructions.common/phase/review` 导出的完整阅读快照位于本机仓库外：
+首次实现版本 `3969760` 通过当时的 `PlayerInstructions.common/phase/review` 导出的阅读快照位于本机仓库外：
 
 [完整当前指令阅读快照](/Users/tingranwang/Documents/bridge-spec61-implementation-2026-10-25/ticket64/effective-instructions/READ-ME.md)
 
-该快照逐项包含共用玩家文本、四个阶段的当前指导、四个阶段完整 reviewer 指令和做庄适配原文；manifest 记录源 commit 与文件摘要。它是源码装配阅读材料，不冒充某次网络请求。修改指令后重新导出，并以实际请求证据核对。
+该历史快照包含当时的共用玩家文本、四个阶段的当前指导、四个阶段完整 reviewer 指令和做庄适配原文；manifest 记录源 commit 与文件摘要。联合检查已决定取消共用玩家指令，当前文本以上表源码为准。该快照及下述模型例子保留为修改前的证据，不代表修改后的实际请求或模型结果；后续样例须记录其实际版本。
 
 实际装配证据应从 decision.requestEvidence 与 player/rpc.jsonl 读：核对 thread/start 的 instructions、各 turn/start 的 phase/currentPhaseGuidance、授权 snapshot、动态合法行动 schema、公开返回，以及独立 review 的相同资料。计划／推断与程序接纳的事实分开；隐藏思维不收集。
 
