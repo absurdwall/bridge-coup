@@ -8,6 +8,10 @@ import BridgeDriver
 private struct Command: Decodable {
     let op: String
     let configuration: ExternalBoardConfiguration?
+    let continuousConfiguration: ContinuousBoardConfiguration?
+    let callEvent: AuctionEvent?
+    let contract: Contract?
+    let hand: Hand?
     let checkpointPath: String?
     let event: PlayEvent?
     let authorization: UUID?
@@ -40,10 +44,30 @@ private struct Command: Decodable {
         let authHome = ProcessInfo.processInfo.environment["CODEX_HOME"] ?? fm.homeDirectoryForCurrentUser.appendingPathComponent(".codex").path
         let auth = URL(fileURLWithPath: options["--auth"] ?? URL(fileURLWithPath: authHome).appendingPathComponent("auth.json").path)
         var session: ExternalBoardSession?
-        emit(["ok": true, "state": "ready", "protocol": "bridge-external-v1"])
+        var continuousMode = false
+        emit(["ok": true, "state": "ready", "protocol": "bridge-external-v2", "legacyProtocol": "bridge-external-v1"])
         while let line = readLine() {
             do {
                 let command = try JSONDecoder().decode(Command.self, from: Data(line.utf8))
+                if ["start", "resume"].contains(command.op), let configuration = command.continuousConfiguration {
+                    guard session == nil else { throw CLIError.invalidCommand }
+                    let player = try CodexPlayingTransport(executable: URL(fileURLWithPath: codexPath), authenticationFile: auth, evidenceDirectory: output.appendingPathComponent("player"))
+                    let reviewer = CodexReviewTransport(executable: URL(fileURLWithPath: codexPath), authenticationFile: auth, evidenceDirectory: output.appendingPathComponent("reviewer"))
+                    if command.op == "resume" {
+                        guard let path = command.checkpointPath else { throw CLIError.invalidCommand }
+                        let checkpoint = try JSONDecoder().decode(ContinuousExternalCheckpoint.self, from: Data(contentsOf: URL(fileURLWithPath: path)))
+                        session = try await ExternalBoardSession.resume(checkpoint, reconciled: configuration, transport: player, reviewer: reviewer)
+                    } else { session = try ExternalBoardSession(continuous: configuration, transport: player, reviewer: reviewer) }
+                    continuousMode = true
+                    try save(await session!.continuousCheckpoint(), to: output.appendingPathComponent("continuation.json"))
+                    try emitValue(await session!.continuousStatus(), kind: "status")
+                    continue
+                }
+                if continuousMode, let session {
+                    let shouldStop = try await continuous(command, session: session, output: output)
+                    if shouldStop { return }
+                    continue
+                }
                 switch command.op {
                 case "start", "resume":
                     guard session == nil, let configuration = command.configuration else { throw CLIError.invalidCommand }
@@ -99,7 +123,8 @@ private struct Command: Decodable {
                 }
             } catch {
                 if let session {
-                    try? await persist(session, output: output)
+                    if continuousMode { try? save(await session.continuousCheckpoint(), to: output.appendingPathComponent("continuation.json")) }
+                    else { try? await persist(session, output: output) }
                     try? save(await session.requestEvidence(), to: output.appendingPathComponent("request-evidence.json"))
                 }
                 if let failure = error as? ExpertFailure {
@@ -108,6 +133,37 @@ private struct Command: Decodable {
                 } else { emit(["ok": false, "error": String(describing: error)]) }
             }
         }
+    }
+
+    private static func continuous(_ command: Command, session: ExternalBoardSession, output: URL) async throws -> Bool {
+        switch command.op {
+        case "status", "checkpoint": try emitValue(await session.continuousStatus(), kind: "status")
+        case "decide":
+            var checkpoint = try await session.continuousCheckpoint(); checkpoint.safeToResume = false
+            try save(checkpoint, to: output.appendingPathComponent("continuation.json"))
+            let advice = try await session.decideContinuous()
+            if let decision = advice.decision { try save(decision, to: output.appendingPathComponent("decision-\(decision.snapshot.revision).json")) }
+            try emitValue(advice, kind: "advice")
+        case "observeCall":
+            guard let event = command.callEvent else { throw CLIError.invalidCommand }
+            try emitValue(await session.observeCall(event, authorization: command.authorization), kind: "observed")
+        case "observe":
+            guard let event = command.event else { throw CLIError.invalidCommand }
+            try emitValue(await session.observeContinuousPlay(event, authorization: command.authorization, automatic: command.automatic ?? false), kind: "observed")
+        case "confirmContract":
+            guard let contract = command.contract else { throw CLIError.invalidCommand }
+            try await session.confirmContract(contract); try emitValue(await session.continuousStatus(), kind: "status")
+        case "reveal":
+            guard let hand = command.hand else { throw CLIError.invalidCommand }
+            try await session.reveal(hand); try emitValue(await session.continuousStatus(), kind: "status")
+        case "stop":
+            try save(await session.continuousCheckpoint(), to: output.appendingPathComponent("continuation.json"))
+            emit(["ok": true, "state": "stopped"]); return true
+        default: throw CLIError.invalidCommand
+        }
+        try save(await session.continuousCheckpoint(), to: output.appendingPathComponent("continuation.json"))
+        try save(await session.requestEvidence(), to: output.appendingPathComponent("request-evidence.json"))
+        return false
     }
 
     static func persist(_ session: ExternalBoardSession, output: URL) async throws {
