@@ -1,4 +1,84 @@
-# 外部牌局调用生产做庄 Expert
+# 外部牌局连续调用生产 Expert
+
+`bridge-external` 是现有正式 JSON Lines 入口。v2 增加从叫牌开始的同副连续流程，
+保留 v1 做庄 `configuration` 的原义。两种配置不能在同一进程混用。
+生产玩家与独立 reviewer 仍为 `gpt-6.1-sol / medium`；最多五轮语义 review、
+每轮 reviewer 初次失败后最多三次技术重试。技术耗尽停止；关键事实不明的
+`uncertain` 保留原始 review 并停止请求澄清，不作为 contested 行动执行。
+
+## 连续流程（v2 / continuous-board-v6）
+
+构建和启动方式见下方旧版调用部分；保持 stdin 和进程打开。ready 输出协议
+`bridge-external-v2`。使用 `continuousConfiguration` 启动；所有数组显式填写，
+`confirmedContract` 未确认时省略。下面是合成结构示例，实际使用替换为本副已核实事实：
+
+```json
+{"op":"start","continuousConfiguration":{"boardID":"C703F834-5CB6-4998-A790-14586D6F026F","userSeat":"north","dealer":"north","vulnerability":"neither","scoring":"MP","objective":"Best expected MP result","agreements":"实际确认的双方体系及约定；未知项明确未知","initialHand":{"seat":"north","cards":["SA","SK","SQ","SJ","ST","S9","S8","S7","S6","S5","S4","S3","S2"]},"auction":[],"events":[],"revealedHands":[]}}
+{"op":"decide"}
+```
+
+`initialHand` 只包含用户本手十三张；`auction` 是从发牌人开始的完整实际叫牌，
+`P/X/XX` 表示 pass/double/redouble，普通叫品为 `1C` 至 `7NT`。
+程序计算当前合法叫品、结束、倍数和首次叫出最终花色的一方庄家。
+全 pass 的 `phase: finished` 正常结束，不创建定约或出牌快照。
+
+`decide` 返回 `authorization`、`snapshotID`、`actingSeat`、`selectedAction`、
+真实 `source` 及模型 `decision`（候选、有效计划、各轮独立 review、执行授权来源和
+完整 RequestEvidence）。建议不推进事实；操作后核实真实对应行动再确认：
+
+```json
+{"op":"observeCall","authorization":"RETURNED-UUID","callEvent":{"sequence":0,"seat":"north","call":"1S"}}
+{"op":"observeCall","callEvent":{"sequence":1,"seat":"east","call":"P"}}
+```
+
+用户叫牌只能确认精确待执行候选；其他牌手行动作为平台事实输入，不需授权。
+叫牌结束后先与平台核对实际定约和庄家，再发送：
+
+```json
+{"op":"confirmContract","contract":{"level":3,"strain":"noTrump","declarer":"east","doubling":"undoubled"}}
+```
+
+首攻 `phase: openingLead` 只提供本手和公开叫牌；用户是首攻者时由同一玩家
+thread 决策，否则先观察平台首攻。实际首攻之后，加入已曝光明手完整初始十三张：
+
+```json
+{"op":"observe","event":{"sequence":0,"seat":"south","card":"S5"},"authorization":"RETURNED-UUID"}
+{"op":"reveal","hand":{"seat":"west","cards":["ST","S7","S2","HK","H5","DA","D7","D6","CT","C9","C5","C4","C2"]}}
+```
+
+以上首攻和明手来自历史材料，只在实际对应局面复用；不能混入别的牌局。
+`reveal` 仅允许实际曝光明手；我方做庄时也允许取得需要控制的庄家本手。
+提供完整原始十三张以核对历史，程序移除已打牌。防守只控制用户一家，看得到明手
+不授予其控制权，搭档和庄家暗牌保持未知。我方任一家做庄时 controller 为实际
+庄家，控制庄家和明手。缺少必要曝光事实时先补事实，不能猜牌。
+
+后续仍用 `decide`、`observe`、`status`、`checkpoint`、`stop`。唯一合法牌的
+`automatic:true` 和建议返回 `source:forced` 保留原来的真实来源规则。
+角色和实际进展进入 snapshotID，旧叫牌授权不能用于出牌；错牌、重复、错座位和
+过期授权均拒绝。平台搭档行动也记 `opponent`，意思是外部非受控行动，并非敌方身份。
+
+玩家共用指令仅作 thread 基础；每次真实 turn 的输入携带 `phase`、
+`currentPhaseGuidance`、`phaseInitial`、`latestSnapshot` 和 `effectivePlan`。
+只有当前阶段完整指导进入当前请求；旧指导仍是同一 thread 的历史。
+叫牌意图在进入打牌时不自动当成打法计划。相关公开分析由同一 thread 继续保留，
+先前推断可随事实修改。每个候选 reviewer 使用独立新会话及相同授权资料。
+
+所有指令阅读入口在 `Sources/BridgeExpert/Instructions/`：
+`PlayerCommon` + `Bidding/Declarer/Defense`，`ReviewCommon` +
+`ReviewBidding/ReviewDeclarer/ReviewDefense`。`Sources/BridgeExpert/ContinuousExpert.swift` 的 `PlayerInstructions` 装配完整 v6 字段适配。
+原做庄指导及原 reviewer 内容仅迁移，
+v6 增加协议适配说明；v5 继续原格式。`decision-REVISION.json` 和
+`request-evidence.json` 保存实际装配文本、输入、schema、公开输出和身份；
+`player/rpc.jsonl` 可核对 thread/start 与后续 turn/start。缺少必需指令直接失败。
+
+基本接续沿用下方同副核对规则；v2 `resume` 使用 `continuousConfiguration` 和
+`ContinuousExternalCheckpoint`，只恢复安全边界的公开事实、已确认计划及原绝对截止时间，
+不恢复旧授权，不重置失败或预算。私人证据目录必须在仓库外。
+自主工程检查、少量生产调用与后续联合逐份 instruction／逐例人工验收分别报告。
+
+---
+
+# 旧版做庄调用（v1 / stage1-full-snapshot-v5）
 
 `bridge-external` 是与 app 无关的持续 JSON Lines 入口。它使用现有
 `ExpertSession`、`CodexPlayingTransport` 和独立 `CodexReviewTransport`，
@@ -23,7 +103,7 @@ Codex runtime 可执行文件；可参考 `Scripts/codex-runtime-identity.sh`。
 认证默认读取 `$CODEX_HOME/auth.json`，未设置时读取 `~/.codex/auth.json`；可用
 `--auth /ABSOLUTE/PATH/auth.json` 指定。认证文件不放入记录或证据目录。
 
-启动会输出 `{"ok":true,"state":"ready","protocol":"bridge-external-v1"}`。
+启动现为 v2 ready 响应，包含 `legacyProtocol: bridge-external-v1`。下列旧命令仍按 v5 原义处理。
 之后 stdin 一行一个命令，stdout 一行一个响应。Computer Use 调用者可保留
 `exec_command` 的交互 session 并用 `write_stdin` 逐次发送命令。
 JSON 中 seat 使用 `north/east/south/west`，牌使用 `SA/HT/D2/CJ`，序号从 0 开始。

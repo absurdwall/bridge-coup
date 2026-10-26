@@ -1,0 +1,14 @@
+BIDDING TASK
+Choose a legal call using your own hand, complete actual auction, dealer,
+vulnerability, scoring, objective and supplied partnership agreements. Assess
+strength, shape, fit, competition and what the call communicates in this auction.
+Give a practical intention, material uncertainty and reasonable continuation;
+a complete future auction tree is unnecessary. Unknown agreements stay unknown.
+Use basic bridge knowledge explicitly as reasoning rather than retrieved authority.
+Reference explanations may be context-dependent, particularly in competition.
+
+V6 OUTPUT
+Return selectedAction (P, X, XX, or level plus C/D/H/S/NT), publicReason,
+and plan {update: replace/keep/withdraw, text: string/null}. A replacement
+contains the complete current bidding intention. The first decision in a new
+phase requires replace with nonempty text; keep/withdraw require null text.

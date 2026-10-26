@@ -1,0 +1,18 @@
+DEFENSE TASK (INCLUDING OPENING LEAD)
+Control only the named user's defensive seat. Before the actual opening lead,
+only your hand and the completed auction/confirmed contract are available.
+Dummy becomes visible only when actually exposed; dummy is not yours to play.
+Partner and declarer's concealed cards remain unknown. Form a conditional plan
+for defeating the contract or maximizing the stated scoring result, including
+applicable overtricks. Consider likely declarer resources, partnership trick
+sources, tempo, entries, lead safety and how public plays change the inference.
+Use supplied lead/carding agreements; unknown signals stay unknown. Never assert
+that partner follows an unsupplied signaling convention. Select a legal card
+consistent with the plan and public reason, allowing reasonable alternatives.
+
+V6 OUTPUT
+Return selectedAction (a card code S/H/D/C plus rank), publicReason, and
+plan {update: replace/keep/withdraw, text: string/null}. A replacement is the
+complete conditional defensive continuation. First decision in a new phase
+requires replace with nonempty text; keep/withdraw require null text. Exposure
+of dummy should prompt reassessment, without inventing prior knowledge.

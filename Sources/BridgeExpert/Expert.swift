@@ -117,6 +117,7 @@ public struct ExpertFailure: Error, Sendable {
 /// The App-independent Expert entry: one board/controller owns one continuing transport.
 public actor ExpertSession {
     private let journal = RequestJournal()
+    private let continuous: ContinuousExpertSession
     private let transport: any PlayingTransport
     private let reviewer: any PlayingTransport
     private var pending: PendingDeclarerDecision?
@@ -135,7 +136,16 @@ public actor ExpertSession {
 
     public init(transport: any PlayingTransport, reviewer: any PlayingTransport) {
         self.transport = transport; self.reviewer = reviewer
+        continuous = ContinuousExpertSession(transport: transport, reviewer: reviewer)
     }
+
+    public func decide(_ snapshot: ContinuousSnapshot, automaticDeadline: Date) async throws -> ContinuousDecisionRecord {
+        try await continuous.decide(snapshot, deadline: automaticDeadline)
+    }
+    public func commit(_ decision: ContinuousDecisionRecord) async throws { try await continuous.commit(decision) }
+    public func continuousEvidence() async -> [RequestEvidence] { await continuous.evidence() }
+    public func continuousPlan() async -> String? { await continuous.plan() }
+    public func restoreContinuous(snapshot: ContinuousSnapshot?, plan: String?) async throws { try await continuous.restore(snapshot: snapshot, plan: plan) }
 
     /// New conversation from a reconciled, previously committed public position; no authorization is restored.
     public func restorePublicContinuation(after snapshot: DecisionSnapshot, activePlan: PlanAssociation?) throws {
@@ -421,7 +431,7 @@ public actor ExpertSession {
 
     /// One bundled source, loaded explicitly as the thread's base instructions.
     public static let instructions: String = {
-        guard let url = Bundle.module.url(forResource: "DeclarerInstructions", withExtension: "txt"),
+        guard let url = Bundle.module.url(forResource: "Declarer", withExtension: "txt"),
               let text = try? String(contentsOf: url, encoding: .utf8) else {
             preconditionFailure("Missing bundled declarer instructions")
         }

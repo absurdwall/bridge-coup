@@ -53,3 +53,11 @@
 **Contested play**: A declarer play released by the agreed execution policy while reviewer objections remain unresolved. Its authorization does not imply reviewer approval or establish bridge quality.
 
 **Semantic review round**: One valid approve, revise or uncertain judgment on a pending declarer proposal. A technical attempt that yields no valid judgment is not a semantic review round.
+
+### Continuous board roles
+
+**玩家连续会话（continuing player conversation）**：同一副牌持续的玩家模型对话，保留实际叫牌和公开分析；阶段变化不清空历史，工作推断始终可修正。
+
+**当前阶段（board phase）**：实际叫牌、首攻、做庄、防守或终局所确定的当前任务。首攻阶段明手尚未曝光；防守仅控制用户一家，做庄控制庄家与明手。
+
+**实际行动确认（actual action confirmation）**：对已观察到的叫牌或出牌的确认，与候选、review 和执行授权分别记录；预览和点击本身不建立牌局事实。
