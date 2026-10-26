@@ -43,7 +43,7 @@ public enum PlayerInstructions {
         case .bidding: return load("Bidding")
         case .declarer: return load("Declarer") + """
 
-V6 PROTOCOL ADAPTER (current format)
+CURRENT CONTINUOUS PROTOCOL ADAPTER (unchanged play action shape)
 The preceding strategic guidance is unchanged. Use this mapping for its v5
 input/output references: selectedAction replaces selectedCard, with the legal
 enum from the response schema. latestSnapshot is the current authorized position;
@@ -71,7 +71,7 @@ publicReason only. This adapter defines the current wire names for all examples.
         }
         let adapter = phase == .declarer ? """
 
-V6 REVIEW PROTOCOL ADAPTER
+CURRENT CONTINUOUS REVIEW PROTOCOL ADAPTER
 The preceding declarer strategy checks retain their meaning. candidate has
 selectedAction instead of selectedCard. latestSnapshot.legalCards replaces
 legalCurrentCards; effectivePlan is top-level, while proposedEffectivePlan is
@@ -86,7 +86,7 @@ current snapshot and candidate only; the original declarer examples use old name
     }
 }
 
-/// Internal v6 coordinator behind the existing ExpertSession production entry.
+/// Internal continuous-board coordinator behind the existing ExpertSession production entry.
 actor ContinuousExpertSession {
     let transport: any PlayingTransport
     let reviewer: any PlayingTransport
@@ -99,12 +99,26 @@ actor ContinuousExpertSession {
     var authorized: ContinuousDecisionRecord?
     var busy = false
     var ended = false
+    private struct Workflow {
+        let id: UUID
+        let snapshot: ContinuousSnapshot
+        let context: ExplanationContext
+        let start: Date
+        let deadline: Date
+        let phaseInitial: Bool
+        let plan: String?
+        var envelope: [String: Any]
+        var rounds: [ContinuousReviewRound] = []
+        var informationRequests = 0
+        var waiting: ExplanationRequest?
+    }
+    private var workflow: Workflow?
     init(transport: any PlayingTransport, reviewer: any PlayingTransport) { self.transport = transport; self.reviewer = reviewer }
 
     func commit(_ record: ContinuousDecisionRecord) throws {
         guard let authorized, authorized.id == record.id, authorized.snapshot == record.snapshot,
               authorized.advice == record.advice else { throw ExpertSessionError.invalidExecutionEvidence }
-        activePlan = authorized.effectivePlan; last = authorized.snapshot; self.authorized = nil
+        activePlan = authorized.effectivePlan; last = authorized.snapshot; self.authorized = nil; workflow = nil
     }
     func restore(snapshot: ContinuousSnapshot?, plan: String?) throws {
         guard last == nil, authorized == nil, !busy else { throw ExpertSessionError.invalidExecutionEvidence }
@@ -113,9 +127,29 @@ actor ContinuousExpertSession {
     func evidence() async -> [RequestEvidence] { await journal.read() }
     func plan() -> String? { activePlan }
 
-    func decide(_ snapshot: ContinuousSnapshot, deadline: Date) async throws -> ContinuousDecisionRecord {
-        guard !ended else { throw ExpertSessionError.endedSession }
-        guard !busy, authorized == nil else { throw ExpertSessionError.overlappingDecision }
+    func provideExplanations(requestID: UUID, evidence: [ExplanationResult]) throws {
+        guard !busy, var work = workflow, work.waiting?.id == requestID else { throw ExplanationExchangeError.staleRequest }
+        guard Date() < work.deadline else { ended = true; throw ExpertSessionError.automaticBudgetExpired }
+        work.envelope["explanationEvidence"] = try JSONSerialization.jsonObject(with: JSONEncoder().encode(evidence))
+        work.waiting = nil; workflow = work
+    }
+
+    func inspect(_ snapshot: ContinuousSnapshot, context: ExplanationContext, candidates: [AuctionCall], reason: String,
+                 deadline: Date, evidence: [ExplanationResult]) throws -> ExplanationRequest {
+        guard !ended, !busy else { throw ExpertSessionError.endedSession }
+        var work = try currentWorkflow(snapshot, context: context, deadline: deadline, evidence: evidence)
+        guard work.waiting == nil, work.rounds.count < 5 else { throw ExplanationExchangeError.exhaustedInformationBudget }
+        let request = try informationRequest(candidates: candidates, reason: reason, work: &work)
+        authorized = nil; workflow = work
+        return request
+    }
+
+    private func currentWorkflow(_ snapshot: ContinuousSnapshot, context: ExplanationContext, deadline: Date,
+                                 evidence: [ExplanationResult]) throws -> Workflow {
+        if let workflow {
+            guard snapshot == workflow.snapshot, context == workflow.context else { throw ExplanationExchangeError.staleRequest }
+            return workflow
+        }
         if let last {
             guard snapshot.boardID == last.boardID, snapshot.userSeat == last.userSeat,
                   snapshot.revision > last.revision, snapshot.auction.starts(with: last.auction),
@@ -125,27 +159,47 @@ actor ContinuousExpertSession {
         }
         guard snapshot.actingSeat != nil, snapshot.phase != .finished,
               !snapshot.legalCalls.isEmpty || !snapshot.legalCards.isEmpty else { throw DomainError.invalidController }
-        busy = true; defer { busy = false }
-        let id = UUID(); let start = Date()
         let phaseInitial = last == nil || group(last!.phase) != group(snapshot.phase)
         let plan = phaseInitial ? nil : activePlan
+        let encoder = JSONEncoder()
+        return Workflow(id: UUID(), snapshot: snapshot, context: context, start: Date(), deadline: deadline,
+            phaseInitial: phaseInitial, plan: plan, envelope: ["wireContractVersion": "continuous-board-v7", "phase": snapshot.phase.rawValue,
+                "phaseInitial": phaseInitial, "currentPhaseGuidance": PlayerInstructions.phase(snapshot.phase),
+                "latestSnapshot": try JSONSerialization.jsonObject(with: encoder.encode(snapshot)),
+                "effectivePlan": plan as Any? ?? NSNull(),
+                "explanationEvidence": try JSONSerialization.jsonObject(with: encoder.encode(evidence))])
+    }
+
+    private func informationRequest(candidates: [AuctionCall], reason: String, work: inout Workflow) throws -> ExplanationRequest {
+        guard work.snapshot.phase == .bidding, !candidates.isEmpty, candidates.count <= 3,
+              Set(candidates).count == candidates.count, candidates.allSatisfy(work.snapshot.legalCalls.contains),
+              !reason.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { throw ExplanationExchangeError.invalidRequest }
+        guard work.informationRequests < 2, Date() < work.deadline else { throw ExplanationExchangeError.exhaustedInformationBudget }
+        let request = ExplanationRequest(snapshotID: work.snapshot.id, context: work.context, candidates: candidates, reason: reason)
+        work.informationRequests += 1; work.waiting = request
+        return request
+    }
+
+    func decide(_ snapshot: ContinuousSnapshot, deadline: Date, context: ExplanationContext, evidence: [ExplanationResult]) async throws -> ContinuousDecisionRecord {
+        guard !ended else { throw ExpertSessionError.endedSession }
+        guard !busy, authorized == nil else { throw ExpertSessionError.overlappingDecision }
+        var work = try currentWorkflow(snapshot, context: context, deadline: deadline, evidence: evidence)
+        if let waiting = work.waiting { throw ExplanationRequestNeeded(request: waiting) }
+        busy = true; defer { busy = false }
         let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys]
-        let facts = try JSONSerialization.jsonObject(with: encoder.encode(snapshot))
-        var envelope: [String: Any] = ["wireContractVersion": "continuous-board-v6", "phase": snapshot.phase.rawValue,
-            "phaseInitial": phaseInitial, "currentPhaseGuidance": PlayerInstructions.phase(snapshot.phase),
-            "latestSnapshot": facts, "effectivePlan": plan as Any? ?? NSNull()]
-        var rounds: [ContinuousReviewRound] = []
         let choices = snapshot.phase == .bidding ? snapshot.legalCalls.map(\.description) : snapshot.legalCards.map(\.description)
-        let schema = try outputSchema(choices: choices, initial: phaseInitial)
         func text(_ object: Any) throws -> String { String(decoding: try JSONSerialization.data(withJSONObject: object, options: [.prettyPrinted,.sortedKeys]), as: UTF8.self) }
         func seconds() throws -> Double {
-            guard deadline.timeIntervalSinceNow > 0 else { throw ExpertSessionError.automaticBudgetExpired }
-            return min(180, deadline.timeIntervalSinceNow)
+            guard work.deadline.timeIntervalSinceNow > 0 else { throw ExpertSessionError.automaticBudgetExpired }
+            return min(180, work.deadline.timeIntervalSinceNow)
         }
         do {
-            for round in 1...5 {
-                let request = PlayingRequest(instructions: PlayerInstructions.common, input: try text(envelope), outputSchema: schema, timeoutSeconds: try seconds())
-                let reply = try await recorded(transport, request, role: .player, decision: id, candidate: nil, round: round, attempt: 1)
+            while work.rounds.count < 5 {
+                let round = work.rounds.count + 1
+                let mayQuery = snapshot.phase == .bidding && work.informationRequests < 2
+                let request = PlayingRequest(instructions: PlayerInstructions.common, input: try text(work.envelope),
+                    outputSchema: try outputSchema(choices: choices, initial: work.phaseInitial, mayQuery: mayQuery), timeoutSeconds: try seconds())
+                let reply = try await recorded(transport, request, role: .player, decision: work.id, candidate: nil, round: round, attempt: 1)
                 do {
                     try ExpertSession.validateIdentity(reply.identity)
                     guard reply.requestID == request.id,
@@ -156,17 +210,29 @@ actor ContinuousExpertSession {
                     throw PlayingBoundaryFailure.identity(String(describing: error))
                 }
                 previousIdentity = reply.identity; usedTurns.insert(reply.identity.turnID)
+                let requestedInformation: ExplanationRequest?
+                do {
+                    if let query = try query(reply.rawOutput, allowed: mayQuery) {
+                        requestedInformation = try informationRequest(candidates: query.candidates, reason: query.reason, work: &work)
+                    } else { requestedInformation = nil }
+                } catch {
+                    await journal.mark(request.id, .protocolFailure, detail: String(describing: error))
+                    throw ContinuousAdviceError.invalid
+                }
+                if let info = requestedInformation {
+                    await journal.mark(request.id, .valid); workflow = work
+                    throw ExplanationRequestNeeded(request: info)
+                }
                 let advice: ContinuousAdvice
-                do { advice = try parse(reply.rawOutput, choices: choices, initial: phaseInitial) }
+                do { advice = try parse(reply.rawOutput, choices: choices, initial: work.phaseInitial) }
                 catch { await journal.mark(request.id, .protocolFailure, detail: String(describing: error)); throw ContinuousAdviceError.invalid }
                 await journal.mark(request.id, .valid)
                 let effective: String?
-                switch advice.plan.update { case .keep: effective = plan; case .replace: effective = advice.plan.text; case .withdraw: effective = nil }
+                switch advice.plan.update { case .keep: effective = work.plan; case .replace: effective = advice.plan.text; case .withdraw: effective = nil }
                 let candidateID = UUID()
-                var reviewEnvelope = envelope
+                var reviewEnvelope = work.envelope
                 reviewEnvelope["candidate"] = try JSONSerialization.jsonObject(with: encoder.encode(advice))
                 reviewEnvelope["proposedEffectivePlan"] = effective as Any? ?? NSNull()
-                // A review is independent of prior review verdicts, though revision input retains them for the player.
                 reviewEnvelope.removeValue(forKey: "reviewFeedback")
                 let reviewInput = try text(reviewEnvelope)
                 var reviewRecord: ReviewRecord?
@@ -174,7 +240,7 @@ actor ContinuousExpertSession {
                     let reviewRequest = PlayingRequest(instructions: PlayerInstructions.review(snapshot.phase), input: reviewInput, outputSchema: ExpertSession.reviewOutputSchema, timeoutSeconds: try seconds())
                     let reviewStart = Date()
                     do {
-                        let response = try await recorded(reviewer, reviewRequest, role: .reviewer, decision: id, candidate: candidateID, round: round, attempt: attempt)
+                        let response = try await recorded(reviewer, reviewRequest, role: .reviewer, decision: work.id, candidate: candidateID, round: round, attempt: attempt)
                         do {
                             try ExpertSession.validateIdentity(response.identity)
                             guard response.requestID == reviewRequest.id, response.identity.threadID != reply.identity.threadID,
@@ -186,12 +252,9 @@ actor ContinuousExpertSession {
                         usedReviewerThreads.insert(response.identity.threadID)
                         let verdict: PlayReview
                         do { verdict = try ExpertSession.parseReview(response.rawOutput) }
-                        catch {
-                            await journal.mark(reviewRequest.id, .protocolFailure, detail: String(describing: error))
-                            throw ContinuousAdviceError.invalid
-                        }
+                        catch { await journal.mark(reviewRequest.id, .protocolFailure, detail: String(describing: error)); throw ContinuousAdviceError.invalid }
                         await journal.mark(reviewRequest.id, .valid)
-                        reviewRecord = ReviewRecord(requestID: reviewRequest.id, pendingDecisionID: id, candidateID: candidateID,
+                        reviewRecord = ReviewRecord(requestID: reviewRequest.id, pendingDecisionID: work.id, candidateID: candidateID,
                             instructions: reviewRequest.instructions, input: reviewInput, rawOutput: response.rawOutput, identity: response.identity, result: verdict, elapsedSeconds: Date().timeIntervalSince(reviewStart))
                         break
                     } catch {
@@ -201,29 +264,30 @@ actor ContinuousExpertSession {
                     }
                 }
                 guard let reviewRecord else { throw ExpertSessionError.endedSession }
-                rounds.append(.init(number: round, candidateID: candidateID, candidate: advice, playerIdentity: reply.identity, review: reviewRecord))
+                work.rounds.append(.init(number: round, candidateID: candidateID, candidate: advice, playerIdentity: reply.identity, review: reviewRecord))
                 if reviewRecord.result.verdict == .uncertain {
                     throw ExpertFailure(category: .needsInput, input: reviewInput, rawOutput: reviewRecord.rawOutput,
-                        detail: reviewRecord.result.advisorySuggestions.joined(separator: "\n"), elapsedSeconds: Date().timeIntervalSince(start))
+                        detail: reviewRecord.result.advisorySuggestions.joined(separator: "\n"), elapsedSeconds: Date().timeIntervalSince(work.start))
                 }
                 if reviewRecord.result.verdict == .approve || round == 5 {
                     _ = try seconds()
-                    let result = ContinuousDecisionRecord(id: id, wireContractVersion: "continuous-board-v6", snapshot: snapshot, advice: advice,
-                        effectivePlan: effective, identity: reply.identity, rounds: rounds,
-                        executionDisposition: reviewRecord.result.verdict == .approve ? .reviewApproved : .contested, elapsedSeconds: Date().timeIntervalSince(start),
-                        requestEvidence: await journal.read().filter { $0.decisionID == id })
-                    authorized = result; return result
+                    let result = ContinuousDecisionRecord(id: work.id, wireContractVersion: "continuous-board-v7", snapshot: snapshot, advice: advice,
+                        effectivePlan: effective, identity: reply.identity, rounds: work.rounds,
+                        executionDisposition: reviewRecord.result.verdict == .approve ? .reviewApproved : .contested, elapsedSeconds: Date().timeIntervalSince(work.start),
+                        requestEvidence: await journal.read().filter { $0.decisionID == work.id })
+                    authorized = result; workflow = work; return result
                 }
-                envelope["reviewFeedback"] = try JSONSerialization.jsonObject(with: encoder.encode(reviewRecord.result))
-                envelope["candidate"] = try JSONSerialization.jsonObject(with: encoder.encode(advice))
+                work.envelope["reviewFeedback"] = try JSONSerialization.jsonObject(with: encoder.encode(reviewRecord.result))
+                work.envelope["candidate"] = try JSONSerialization.jsonObject(with: encoder.encode(advice))
             }
             throw ExpertSessionError.endedSession
-        } catch {
+        } catch let needed as ExplanationRequestNeeded { throw needed }
+        catch {
             ended = true
-            let evidence = await journal.read().filter { $0.decisionID == id }
+            let evidence = await journal.read().filter { $0.decisionID == work.id }
             if var failure = error as? ExpertFailure { failure.requestEvidence = evidence; throw failure }
             let category: ExpertFailure.Category = error is PlayingBoundaryFailure || (error as? PlayingTransportFailure)?.fatal == true ? .identity : error is ContinuousAdviceError ? .invalidOutput : .runtime
-            throw ExpertFailure(category: category, input: (try? text(envelope)) ?? "", rawOutput: (error as? PlayingTransportFailure)?.rawOutput ?? evidence.last?.rawOutput ?? "", detail: String(describing: error), elapsedSeconds: Date().timeIntervalSince(start), requestEvidence: evidence)
+            throw ExpertFailure(category: category, input: (try? text(work.envelope)) ?? "", rawOutput: (error as? PlayingTransportFailure)?.rawOutput ?? evidence.last?.rawOutput ?? "", detail: String(describing: error), elapsedSeconds: Date().timeIntervalSince(work.start), requestEvidence: evidence)
         }
     }
     private func group(_ phase: BoardPhase) -> String { phase == .openingLead ? "defense" : phase.rawValue }
@@ -247,8 +311,9 @@ actor ContinuousExpertSession {
     }
     private func parse(_ raw: String, choices: [String], initial: Bool) throws -> ContinuousAdvice {
         let data = Data(raw.utf8)
-        guard let object = try JSONSerialization.jsonObject(with: data) as? [String:Any], Set(object.keys) == ["selectedAction","publicReason","plan"],
+        guard let object = try JSONSerialization.jsonObject(with: data) as? [String:Any], (Set(object.keys) == ["selectedAction","publicReason","plan"] || Set(object.keys) == ["selectedAction","publicReason","plan","requestExplanations"]),
               let p = object["plan"] as? [String:Any], Set(p.keys) == ["update","text"] else { throw ContinuousAdviceError.invalid }
+        if let queries = object["requestExplanations"] as? [String], !queries.isEmpty { throw ContinuousAdviceError.invalid }
         let result = try JSONDecoder().decode(ContinuousAdvice.self, from: data)
         guard choices.contains(result.selectedAction), !result.publicReason.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
               !initial || result.plan.update == .replace,
@@ -256,16 +321,26 @@ actor ContinuousExpertSession {
               result.plan.update == .replace || result.plan.text == nil else { throw ContinuousAdviceError.invalid }
         return result
     }
-    private func outputSchema(choices: [String], initial: Bool) throws -> String {
+    private func query(_ raw: String, allowed: Bool) throws -> (candidates: [AuctionCall], reason: String)? {
+        guard let object = try JSONSerialization.jsonObject(with: Data(raw.utf8)) as? [String: Any] else { throw ContinuousAdviceError.invalid }
+        guard object["selectedAction"] as? String == "REQUEST_EXPLANATIONS" else { return nil }
+        guard allowed, Set(object.keys) == ["selectedAction", "publicReason", "plan", "requestExplanations"],
+              let calls = object["requestExplanations"] as? [String], let reason = object["publicReason"] as? String,
+              let plan = object["plan"] as? [String: Any], Set(plan.keys) == ["update", "text"],
+              plan["update"] as? String == "keep", plan["text"] is NSNull else { throw ContinuousAdviceError.invalid }
+        return (try calls.map(AuctionCall.init), reason)
+    }
+    private func outputSchema(choices: [String], initial: Bool, mayQuery: Bool) throws -> String {
         var schema = try JSONSerialization.jsonObject(with: Data(ExpertSession.outputSchema.utf8)) as! [String:Any]
         var properties = schema["properties"] as! [String:Any]
-        properties.removeValue(forKey: "selectedCard"); properties["selectedAction"] = ["type":"string","enum":choices]
-        if initial {
+        properties.removeValue(forKey: "selectedCard"); properties["selectedAction"] = ["type":"string","enum":choices + (mayQuery ? ["REQUEST_EXPLANATIONS"] : [])]
+        if initial && !mayQuery {
             var plan = properties["plan"] as! [String:Any]
             plan["anyOf"] = (plan["anyOf"] as! [[String:Any]]).prefix(1).map { $0 }
             properties["plan"] = plan
         }
-        schema["properties"] = properties; schema["required"] = ["plan","selectedAction","publicReason"]
+        if mayQuery { properties["requestExplanations"] = ["type":"array", "items":["type":"string", "enum":choices], "maxItems":3] }
+        schema["properties"] = properties; schema["required"] = ["plan","selectedAction","publicReason"] + (mayQuery ? ["requestExplanations"] : [])
         return String(decoding: try JSONSerialization.data(withJSONObject: schema, options: [.sortedKeys]), as: UTF8.self)
     }
 }

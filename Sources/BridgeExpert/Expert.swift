@@ -139,9 +139,15 @@ public actor ExpertSession {
         continuous = ContinuousExpertSession(transport: transport, reviewer: reviewer)
     }
 
-    public func decide(_ snapshot: ContinuousSnapshot, automaticDeadline: Date) async throws -> ContinuousDecisionRecord {
-        try await continuous.decide(snapshot, deadline: automaticDeadline)
+    public func decide(_ snapshot: ContinuousSnapshot, automaticDeadline: Date, explanationContext: ExplanationContext? = nil, explanationEvidence: [ExplanationResult] = []) async throws -> ContinuousDecisionRecord {
+        let context = explanationContext ?? ExplanationContext(dealer: snapshot.dealer, actingSeat: snapshot.actingSeat ?? snapshot.userSeat,
+            auction: snapshot.auction, vulnerability: snapshot.vulnerability, nsSystem: "unknown", ewSystem: "unknown", conditions: snapshot.agreements)
+        return try await continuous.decide(snapshot, deadline: automaticDeadline, context: context, evidence: explanationEvidence)
     }
+    public func inspectCalls(_ snapshot: ContinuousSnapshot, context: ExplanationContext, candidates: [AuctionCall], reason: String, automaticDeadline: Date, evidence: [ExplanationResult]) async throws -> ExplanationRequest {
+        try await continuous.inspect(snapshot, context: context, candidates: candidates, reason: reason, deadline: automaticDeadline, evidence: evidence)
+    }
+    public func provideExplanations(requestID: UUID, evidence: [ExplanationResult]) async throws { try await continuous.provideExplanations(requestID: requestID, evidence: evidence) }
     public func commit(_ decision: ContinuousDecisionRecord) async throws { try await continuous.commit(decision) }
     public func continuousEvidence() async -> [RequestEvidence] { await continuous.evidence() }
     public func continuousPlan() async -> String? { await continuous.plan() }

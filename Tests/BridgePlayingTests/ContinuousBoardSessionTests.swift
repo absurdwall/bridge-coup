@@ -140,14 +140,14 @@ final class ContinuousBoardSessionTests: XCTestCase {
             if index == 0 { XCTAssertTrue(input["effectivePlan"] is NSNull) }
             else { XCTAssertEqual(input["effectivePlan"] as? String, dummy.decision?.effectivePlan) }
             let guidance = try XCTUnwrap(input["currentPhaseGuidance"] as? String)
-            XCTAssertTrue(guidance.contains("V6 PROTOCOL ADAPTER"))
+            XCTAssertTrue(guidance.contains("CURRENT CONTINUOUS PROTOCOL ADAPTER"))
             XCTAssertFalse(guidance.contains("DEFENSE TASK"))
             let schema = try XCTUnwrap(JSONSerialization.jsonObject(with: Data(request.outputSchema.utf8)) as? [String: Any])
             let properties = try XCTUnwrap(schema["properties"] as? [String: Any])
             XCTAssertNotNil(properties["selectedAction"])
             XCTAssertNil(properties["selectedCard"])
             let review = reviewRequests[index]
-            XCTAssertTrue(review.instructions.contains("V6 REVIEW PROTOCOL ADAPTER"))
+            XCTAssertTrue(review.instructions.contains("CURRENT CONTINUOUS REVIEW PROTOCOL ADAPTER"))
             XCTAssertFalse(review.instructions.contains("DEFENSE TASK"))
             let reviewInput = try XCTUnwrap(JSONSerialization.jsonObject(with: Data(review.input.utf8)) as? [String: Any])
             let candidate = try XCTUnwrap(reviewInput["candidate"] as? [String: Any])
