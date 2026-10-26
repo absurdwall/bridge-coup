@@ -117,6 +117,7 @@ public struct ExpertFailure: Error, Sendable {
 /// The App-independent Expert entry: one board/controller owns one continuing transport.
 public actor ExpertSession {
     private let journal = RequestJournal()
+    private let continuous: ContinuousExpertSession
     private let transport: any PlayingTransport
     private let reviewer: any PlayingTransport
     private var pending: PendingDeclarerDecision?
@@ -135,7 +136,22 @@ public actor ExpertSession {
 
     public init(transport: any PlayingTransport, reviewer: any PlayingTransport) {
         self.transport = transport; self.reviewer = reviewer
+        continuous = ContinuousExpertSession(transport: transport, reviewer: reviewer)
     }
+
+    public func decide(_ snapshot: ContinuousSnapshot, automaticDeadline: Date, explanationContext: ExplanationContext? = nil, explanationEvidence: [ExplanationResult] = []) async throws -> ContinuousDecisionRecord {
+        let context = explanationContext ?? ExplanationContext(dealer: snapshot.dealer, actingSeat: snapshot.actingSeat ?? snapshot.userSeat,
+            auction: snapshot.auction, vulnerability: snapshot.vulnerability, nsSystem: "unknown", ewSystem: "unknown", conditions: snapshot.agreements)
+        return try await continuous.decide(snapshot, deadline: automaticDeadline, context: context, evidence: explanationEvidence)
+    }
+    public func inspectCalls(_ snapshot: ContinuousSnapshot, context: ExplanationContext, candidates: [AuctionCall], reason: String, automaticDeadline: Date, evidence: [ExplanationResult]) async throws -> ExplanationRequest {
+        try await continuous.inspect(snapshot, context: context, candidates: candidates, reason: reason, deadline: automaticDeadline, evidence: evidence)
+    }
+    public func provideExplanations(requestID: UUID, evidence: [ExplanationResult]) async throws { try await continuous.provideExplanations(requestID: requestID, evidence: evidence) }
+    public func commit(_ decision: ContinuousDecisionRecord) async throws { try await continuous.commit(decision) }
+    public func continuousEvidence() async -> [RequestEvidence] { await continuous.evidence() }
+    public func continuousPlan() async -> String? { await continuous.plan() }
+    public func restoreContinuous(snapshot: ContinuousSnapshot?, plan: String?) async throws { try await continuous.restore(snapshot: snapshot, plan: plan) }
 
     /// New conversation from a reconciled, previously committed public position; no authorization is restored.
     public func restorePublicContinuation(after snapshot: DecisionSnapshot, activePlan: PlanAssociation?) throws {
@@ -244,7 +260,7 @@ public actor ExpertSession {
                 let playerStarted = Date()
                 let playerRequest = PlayingRequest(instructions: Self.instructions, input: playerInput, outputSchema: try Self.outputSchema(for: snapshot, initialPlan: previousSnapshot == nil), timeoutSeconds: try remainingRequestSeconds())
                 let reply: PlayingReply
-                do { reply = try await recordedReply(transport: transport, request: playerRequest, role: .player, decisionID: session.id, candidateID: nil, round: round, attempt: 1) }
+                do { reply = try await recordedReply(transport: transport, request: playerRequest, journal: journal, role: .player, decisionID: session.id, candidateID: nil, round: round, attempt: 1) }
                 catch { ended = true; throw ExpertFailure(category: error is PlayingBoundaryFailure || (error as? PlayingTransportFailure)?.fatal == true ? .identity : .runtime, input: playerInput, rawOutput: (error as? PlayingTransportFailure)?.rawOutput ?? "", detail: String(describing: error), elapsedSeconds: Date().timeIntervalSince(start)) }
                 let playerElapsed = Date().timeIntervalSince(playerStarted)
                 do {
@@ -300,7 +316,7 @@ public actor ExpertSession {
                     let request = PlayingRequest(instructions: Self.reviewerInstructions, input: reviewInput, outputSchema: Self.reviewOutputSchema, timeoutSeconds: try remainingRequestSeconds())
                     finalRequest = request
                     do {
-                        let received = try await recordedReply(transport: reviewer, request: request, role: .reviewer, decisionID: session.id, candidateID: candidate.candidateID, round: round, attempt: attempt)
+                        let received = try await recordedReply(transport: reviewer, request: request, journal: journal, role: .reviewer, decisionID: session.id, candidateID: candidate.candidateID, round: round, attempt: attempt)
                         do {
                             try Self.validateIdentity(received.identity)
                             guard !ended, received.requestID == request.id,
@@ -367,24 +383,6 @@ public actor ExpertSession {
         }
     }
 
-    private func recordedReply(transport: any PlayingTransport, request: PlayingRequest, role: RequestEvidence.Role, decisionID: UUID, candidateID: UUID?, round: Int, attempt: Int) async throws -> PlayingReply {
-        let start = Date()
-        let journal = self.journal
-        return try await boundedReply(transport: transport, request: request) { result, outcome in
-            let reply: PlayingReply?
-            let detail: String?
-            switch result {
-            case let .success(value): reply = value; detail = nil
-            case let .failure(error):
-                if let failure = error as? PlayingTransportFailure, let identity = failure.identity {
-                    reply = PlayingReply(rawOutput: failure.rawOutput ?? "", identity: identity, requestID: request.id, usage: failure.usage)
-                    detail = failure.detail
-                } else { reply = nil; detail = String(describing: error) }
-            }
-            await journal.append(RequestEvidence(role: role, requestID: request.id, decisionID: decisionID, candidateID: candidateID, semanticRound: round, technicalAttempt: attempt, instructions: request.instructions, input: request.input, outputSchema: request.outputSchema, timeoutSeconds: request.timeoutSeconds, rawOutput: reply?.rawOutput, identity: reply?.identity, replyRequestID: reply?.requestID, usage: reply?.usage, elapsedSeconds: Date().timeIntervalSince(start), outcome: outcome, detail: detail))
-        }
-    }
-
     private func snapshotInput(_ snapshot: DecisionSnapshot, initial: Bool) throws -> String {
         func seat(_ value: Seat) -> String { String(value.rawValue.prefix(1)).uppercased() }
         func play(_ event: PlayEvent) -> [String: String] { ["seat": seat(event.seat), "card": event.card.description] }
@@ -421,7 +419,7 @@ public actor ExpertSession {
 
     /// One bundled source, loaded explicitly as the thread's base instructions.
     public static let instructions: String = {
-        guard let url = Bundle.module.url(forResource: "DeclarerInstructions", withExtension: "txt"),
+        guard let url = Bundle.module.url(forResource: "Declarer", withExtension: "txt"),
               let text = try? String(contentsOf: url, encoding: .utf8) else {
             preconditionFailure("Missing bundled declarer instructions")
         }

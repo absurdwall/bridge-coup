@@ -118,7 +118,7 @@ extension ExpertSession {
     }
 
     public static let reviewerInstructions: String = {
-        guard let url = Bundle.module.url(forResource: "ReviewerInstructions", withExtension: "txt"),
+        guard let url = Bundle.module.url(forResource: "ReviewDeclarer", withExtension: "txt"),
               let text = try? String(contentsOf: url, encoding: .utf8) else { preconditionFailure("Missing bundled reviewer instructions") }
         return text
     }()

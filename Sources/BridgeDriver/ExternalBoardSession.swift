@@ -2,6 +2,7 @@ import Foundation
 import BridgeDomain
 import BridgeEngine
 import BridgeExpert
+import BridgeKnowledge
 
 public struct ExternalBoardConfiguration: Codable, Equatable, Sendable {
     public let boardID: UUID
@@ -53,7 +54,7 @@ public struct ExternalBoardCheckpoint: Codable, Sendable {
 public enum ExternalBoardError: Error { case pendingDecision, invalidAuthorization, stopped, reconciliationRequired, unsafeCheckpoint }
 
 /// An external table supplies actual events; this session never chooses or simulates defenders.
-public actor ExternalBoardSession {
+actor DeclarerExternalBoardSession {
     private var board: PublicBoardState
     private let configuration: ExternalBoardConfiguration
     private let expert: ExpertSession
@@ -81,7 +82,7 @@ public actor ExternalBoardSession {
     }
 
     public static func resume(_ checkpoint: ExternalBoardCheckpoint, reconciled: ExternalBoardConfiguration,
-                              transport: any PlayingTransport, reviewer: any PlayingTransport) async throws -> ExternalBoardSession {
+                              transport: any PlayingTransport, reviewer: any PlayingTransport) async throws -> DeclarerExternalBoardSession {
         guard checkpoint.safeToResume, checkpoint.automaticDeadline > Date(), reconciled == checkpoint.configuration else { throw ExternalBoardError.reconciliationRequired }
         let board = try reconciled.board()
         let expert = ExpertSession(transport: transport, reviewer: reviewer)
@@ -103,7 +104,7 @@ public actor ExternalBoardSession {
         } else {
             guard checkpoint.activePlan == nil else { throw ExternalBoardError.reconciliationRequired }
         }
-        return ExternalBoardSession(configuration: reconciled, board: board, expert: expert, checkpoint: checkpoint)
+        return DeclarerExternalBoardSession(configuration: reconciled, board: board, expert: expert, checkpoint: checkpoint)
     }
 
     public func checkpoint() async throws -> ExternalBoardCheckpoint {
@@ -175,4 +176,38 @@ public actor ExternalBoardSession {
     }
 
     public func requestEvidence() async -> [RequestEvidence] { await expert.requestEvidence() }
+}
+
+/// Versioned facade for the existing production external-board entry.
+public actor ExternalBoardSession {
+    private let declarer: DeclarerExternalBoardSession?
+    private let continuous: ContinuousExternalBoardSession?
+    public init(configuration: ExternalBoardConfiguration, transport: any PlayingTransport, reviewer: any PlayingTransport, started: Date = Date()) throws {
+        declarer = try DeclarerExternalBoardSession(configuration: configuration, transport: transport, reviewer: reviewer, started: started); continuous = nil
+    }
+    public init(continuous configuration: ContinuousBoardConfiguration, transport: any PlayingTransport, reviewer: any PlayingTransport, started: Date = Date(), explanationStore: ExplanationStore? = nil) throws {
+        continuous = try ContinuousExternalBoardSession(configuration: configuration, transport: transport, reviewer: reviewer, started: started, explanationStore: explanationStore); declarer = nil
+    }
+    private init(declarer: DeclarerExternalBoardSession) { self.declarer = declarer; continuous = nil }
+    private init(continuous: ContinuousExternalBoardSession) { self.continuous = continuous; declarer = nil }
+    public static func resume(_ checkpoint: ExternalBoardCheckpoint, reconciled: ExternalBoardConfiguration, transport: any PlayingTransport, reviewer: any PlayingTransport) async throws -> ExternalBoardSession {
+        ExternalBoardSession(declarer: try await DeclarerExternalBoardSession.resume(checkpoint, reconciled: reconciled, transport: transport, reviewer: reviewer))
+    }
+    public static func resume(_ checkpoint: ContinuousExternalCheckpoint, reconciled: ContinuousBoardConfiguration, transport: any PlayingTransport, reviewer: any PlayingTransport, explanationStore: ExplanationStore? = nil) async throws -> ExternalBoardSession {
+        ExternalBoardSession(continuous: try await ContinuousExternalBoardSession.resume(checkpoint, reconciled: reconciled, transport: transport, reviewer: reviewer, explanationStore: explanationStore))
+    }
+    public func status() async throws -> ExternalBoardStatus { guard let declarer else { throw ExternalBoardError.reconciliationRequired }; return try await declarer.status() }
+    public func checkpoint() async throws -> ExternalBoardCheckpoint { guard let declarer else { throw ExternalBoardError.reconciliationRequired }; return try await declarer.checkpoint() }
+    public func decide() async throws -> ExternalAdvice { guard let declarer else { throw ExternalBoardError.reconciliationRequired }; return try await declarer.decide() }
+    public func observe(_ event: PlayEvent, authorization: UUID? = nil, automatic: Bool = false) async throws -> ActualExecution { guard let declarer else { throw ExternalBoardError.reconciliationRequired }; return try await declarer.observe(event, authorization: authorization, automatic: automatic) }
+    public func continuousStatus() async throws -> ContinuousExternalStatus { guard let continuous else { throw ExternalBoardError.reconciliationRequired }; return try await continuous.status() }
+    public func continuousCheckpoint() async throws -> ContinuousExternalCheckpoint { guard let continuous else { throw ExternalBoardError.reconciliationRequired }; return try await continuous.checkpoint() }
+    public func decideContinuous() async throws -> ContinuousExternalAdvice { guard let continuous else { throw ExternalBoardError.reconciliationRequired }; return try await continuous.decide() }
+    public func inspectCalls(candidates: [AuctionCall], reason: String) async throws -> ExplanationRequest { guard let continuous else { throw ExternalBoardError.reconciliationRequired }; return try await continuous.inspectCalls(candidates: candidates, reason: reason) }
+    public func provideExplanations(requestID: UUID, snapshotID: String, results: [ExplanationResult]) async throws { guard let continuous else { throw ExternalBoardError.reconciliationRequired }; try await continuous.provideExplanations(requestID: requestID, snapshotID: snapshotID, results: results) }
+    public func observeCall(_ event: AuctionEvent, authorization: UUID? = nil, disclosure: ExplanationResult? = nil) async throws -> ContinuousActualExecution { guard let continuous else { throw ExternalBoardError.reconciliationRequired }; return try await continuous.observeCall(event, authorization: authorization, disclosure: disclosure) }
+    public func observeContinuousPlay(_ event: PlayEvent, authorization: UUID? = nil, automatic: Bool = false) async throws -> ContinuousActualExecution { guard let continuous else { throw ExternalBoardError.reconciliationRequired }; return try await continuous.observePlay(event, authorization: authorization, automatic: automatic) }
+    public func confirmContract(_ contract: Contract) async throws { guard let continuous else { throw ExternalBoardError.reconciliationRequired }; try await continuous.confirmContract(contract) }
+    public func reveal(_ hand: Hand) async throws { guard let continuous else { throw ExternalBoardError.reconciliationRequired }; try await continuous.reveal(hand) }
+    public func requestEvidence() async -> [RequestEvidence] { if let continuous { return await continuous.evidence() }; return await declarer!.requestEvidence() }
 }

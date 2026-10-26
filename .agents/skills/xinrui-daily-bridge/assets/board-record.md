@@ -9,22 +9,37 @@
 - 本次开始／结束平台进度：
 - Expert boardID（UUID）：
 - journal／附件绝对路径：
-- skill 路径、Bridge Coup checkout／commit、Codex runtime identity：
+- skill 路径、Bridge Coup checkout／commit、入口协议／wire版本、Codex runtime identity：
+- observationStore 实际路径、部署读回记录：
 - 日程 id、实际配置（每天 09:00 America/New_York）或手动同 skill 验收：
 - 与上次记录关系／同副接续来源：
 
 ## 决策时已知事实
 
 - 发牌人、局况、计分、正式战略目标：
-- 用户授权座位、体系／约定及来源：
+- 用户授权座位、NS／EW 实际体系、已知约定及各自来源／确认时间：
 - 最终定约、庄家、明手、倍数、角色：
-- 初始可见手牌（S / H / D / C，T 为十；已核对张数／唯一牌／HCP）：
+- 本手初始十三张（S / H / D / C，T 为十；已核对张数／唯一牌／HCP）：
+- 实际定约核对与 confirmContract；明手／我方庄家曝光时间、reveal 及证据：
+- 当前 phase、controller／acting seat、可见手牌与授权控制范围：
 - 尚未确认信息、缺失材料与推断（分别写明）：
 
-| 叫牌顺序 | 座位 | 实际叫品／alert | 显示的公开解释 | 决策来源与简短依据 | 观察证据 |
+| 叫牌 sequence | 座位 | 实际叫品／alert | 公开解释及来源 | production-expert／platform／forced | 候选／授权／实际确认及证据 |
 |---|---|---|---|---|---|
 
-完整保留 pass、double、redouble 和结束叫牌。解释与牌面冲突照实保留。
+完整保留 pass、double、redouble 和结束叫牌。预览不写为实际叫品；解释与牌面／竞叫条件冲突照实保留。旧体系记录不改标签。
+
+## 按需解释与资料依据
+
+| request ID／snapshotID | 候选与用途（模型请求／提交前核对／比较） | 完整前序叫牌、行动者、体系／局况条件 | knowledge／environment、found／noMatch／unavailable | 中文原文、来源／版本、观察时间／摄取时间、证据／观察 ID | 适用疑问、候选及同依据 review／新授权 |
+|---|---|---|---|---|---|
+
+- 本地精确／相关命中及条件差异；原资料引用，未命中明确记录：
+- 预览未提交的核对证据；资料返回前后实际位置是否一致：
+- 被撤销的旧授权、最终候选新授权及实际确认（未执行保持待确认）：
+- 库保存与回查证据；未知源版本／确切观察时间如实标注：
+
+显示过、保存过、重复出现或较新不自动成为双方约定。模型基本桥牌知识与检索命中分开；历史截图摄取时间不冒作原观察时刻。
 
 ## 实际公开牌序与来源
 
@@ -37,18 +52,20 @@
 |---|---|---|---|---|
 
 - 当前未完墩（墩号、首家、已打顺序）：
-- 两手余牌、当前 acting seat、观察时刻：
+- 当前可见各手余牌、当前 acting seat、观察时刻：
 - 历史面板对应墩号／当前桌面对应墩号：
 - 待确认候选／点击及原因：
 
 ## Expert 公开计划与执行
 
-| decision／公开事件数 | controller／acting seat | action／source | 计划操作与公开变化 | reviewer verdict | executionDisposition | 实际确认／耗时／证据 |
+| decision／candidate ID、snapshotID | phase／当前指令版本、controller／acting seat | call 或 card／source | 计划操作与公开变化 | 相关解释依据／reviewer verdict | executionDisposition／authorization | 实际确认／耗时／证据 |
 |---|---|---|---|---|---|---|
 
 - 初始公开计划与重要转折：
 - 原始请求／公开回复／review／runtime／耗时证据路径：
-- 未触发的能力与原因（例如防守／流局不使用做庄 Expert）：
+- 实际触发／未触发的叫牌、首攻、做庄、防守与解释能力及原因：
+- 玩家 thread 连续性、独立 reviewer 身份、阶段交接证据：
+- 自主检查范围与限制；联合逐份指令／逐例人工验收状态（未做保持待做）：
 - 请求失败、既有重试／限额及处理：
 
 ## Claim 与平台终局
@@ -85,12 +102,13 @@
 - 开始到平台确认、到归档退出的实际耗时；模型等待另列：
 - 读牌复核／重复观察／历史面板使用、误读及处理：
 - app 定位／失败点击／布局变化／临时处理：
-- 接口请求、review、claim、结果延迟等摩擦／失败与证据：
+- 接口请求、解释预览／本地查询、review、claim、结果延迟等摩擦／失败与证据：
 - 后续辅助工具／知识／评测候选及其事实依据：
 
 ## 保存读回、接续和退出
 
-- 最后确认时刻、赛事／牌号、当前状态／牌序／余牌：
+- 最后确认时刻、赛事／牌号、实际叫牌／phase／定约／曝光／牌序／可见余牌：
+- 待资料请求／已回传但未执行候选与对应预算状态：
 - 最新 continuation.json 绝对路径、safeToResume、绝对 deadline：
 - 原进程状态；新会话重建时的旧／新 evidence 路径及 reconstructed 标记：
 - 记录与当前牌桌核对结论；无法继续的缺口／原因：
