@@ -15,3 +15,11 @@ claim/evidence/requestedChange), and advisorySuggestions (strings). Revise has
 nonempty blockingFindings, other verdicts have none. Uncertain identifies its
 critical factual question in advisorySuggestions. Authorization and actual
 execution are separate; previous approval is not evidence for this candidate.
+
+explanationEvidence includes attributed observations and explicit provider misses,
+with their original auction context. Knowledge retrieval retains the original
+source and is not a new platform observation. Assess each explanation's context,
+system, conditions and exact/related status. A preview is not an actual call or an
+adopted agreement; a stored or newer observation is not automatically authoritative.
+The final candidate and this review use the same evidence. Normal empty Knowledge
+or unavailable previews are usable outcomes unless a truly critical fact is missing.

@@ -1,15 +1,15 @@
 # 外部牌局连续调用生产 Expert
 
-`bridge-external` 是现有正式 JSON Lines 入口。v2 增加从叫牌开始的同副连续流程，
+`bridge-external` 是现有正式 JSON Lines 入口。v3 增加按需解释往返与本地观察库；v2 增加从叫牌开始的同副连续流程，
 保留 v1 做庄 `configuration` 的原义。两种配置不能在同一进程混用。
 生产玩家与独立 reviewer 仍为 `gpt-6.1-sol / medium`；最多五轮语义 review、
 每轮 reviewer 初次失败后最多三次技术重试。技术耗尽停止；关键事实不明的
 `uncertain` 保留原始 review 并停止请求澄清，不作为 contested 行动执行。
 
-## 连续流程（v2 / continuous-board-v6）
+## 连续流程（v3 / continuous-board-v7）
 
 构建和启动方式见下方旧版调用部分；保持 stdin 和进程打开。ready 输出协议
-`bridge-external-v2`。使用 `continuousConfiguration` 启动；所有数组显式填写，
+`bridge-external-v3`，`supportedProtocols` 列出保留的 v1/v2 输入。使用 `continuousConfiguration` 启动；所有数组显式填写，
 `confirmedContract` 未确认时省略。下面是合成结构示例，实际使用替换为本副已核实事实：
 
 ```json
@@ -22,7 +22,7 @@
 程序计算当前合法叫品、结束、倍数和首次叫出最终花色的一方庄家。
 全 pass 的 `phase: finished` 正常结束，不创建定约或出牌快照。
 
-`decide` 返回 `authorization`、`snapshotID`、`actingSeat`、`selectedAction`、
+`decide` 返回 `kind: advice` 时包含 `authorization`、`snapshotID`、`actingSeat`、`selectedAction`、
 真实 `source` 及模型 `decision`（候选、有效计划、各轮独立 review、执行授权来源和
 完整 RequestEvidence）。建议不推进事实；操作后核实真实对应行动再确认：
 
@@ -88,6 +88,89 @@ v6 增加协议适配说明；v5 继续原格式。`decision-REVISION.json` 和
 外部调用者负责观察牌桌、提供合法可见事实、执行建议并确认实际结果。
 入口只跟踪公开事实，不控制新睿，不模拟对手，不提供叫牌、防守或 claim 决策。
 庄家是 controller；从明手出牌时 actingSeat 是明手，controller 仍是庄家。
+
+## 按需叫品解释（v3）
+
+启动时可加 `--observations /ABSOLUTE/PRIVATE/explanation-observations.sqlite`。
+默认库为 `~/Library/Application Support/BridgeCoup/explanation-observations.sqlite`；
+ready 的 `observationStore` 返回实际路径。多副／新进程使用同一私有文件即可回查，
+不把 SQLite 或截图放入 Git。初始库无内容，不导入 CCBA 书籍或模型记忆。
+
+`continuousConfiguration.explanationSettings` 可提供双方实际体系、查询条件及原手牌记录：
+
+```json
+{"nsSystem":"本次实际确认的NS体系","ewSystem":"本次实际确认的EW体系","conditions":"相关体系版本、竞叫或桌面条件；未知说明未知","handRecordReference":"/ABSOLUTE/PRIVATE/board-record.md"}
+```
+
+该对象只填实际资料，不能把旧简易二盖一记录改标 CCBA。省略时体系为 unknown，
+条件沿用 agreements；这类查询的匹配保守标为 related，不成为已核实约定。
+局况旋转归一化识别 neither/none/NS/EW/both 等常见值，未知值保留并标出差异。
+
+叫牌中的玩家可返回 `selectedAction: REQUEST_EXPLANATIONS`、最多三个合法候选的
+`requestExplanations`、说明用途的 `publicReason` 和 `plan: {update: keep, text: null}`。
+这不是叫品、计划采纳或执行授权。入口暂停并返回 `kind: informationRequest`，
+其中 value 含 id、snapshotID、完整 context、candidates、reason 和 localResults。
+每个候选先由本地程序查询有限观察；provider 为 knowledge，状态 found 或 noMatch。
+found 保留原观察来源，不能称为新睿新观察。每次决策最多两次资料请求，不增加五轮
+语义 review 上限，不重置 1800 秒绝对截止时间。玩家正常建议仍经过独立 review。
+
+调用者也能在提交前核对已建议的叫品，或比较另一个候选：
+
+```json
+{"op":"inspectCalls","candidates":["2C","2NT"],"reason":"核对准备采用的叫品并比较一个替代"}
+```
+
+此操作返回同样的 informationRequest，撤销当前旧授权但保留该决策的轮数。
+重新形成候选并 review 后会产生新的候选授权，即使选中同一个叫品也不能复用旧 ID。
+从请求资料到最终建议实际确认前 checkpoint 始终 unsafe；不接纳点击、预览或猜测来推进实际牌局。
+
+按请求的准确候选和 context 服务当前环境预览；保留原中文，不提交叫品。对每个
+候选回传一个 provider: environment 的结果；没有界面或资料也返回明确 unavailable。
+例如返回形状（UUID、上下文与文字必须替换为真实请求及观察）：
+
+```json
+{"op":"provideExplanations","explanationRequestID":"REQUEST-UUID","snapshotID":"EXACT-SNAPSHOT-ID","explanationResults":[{"candidate":"2C","provider":"environment","status":"unavailable","references":[],"detail":"本环境没有可用预览"}]}
+```
+
+有资料时 status 为 found，references 为一个或少量观察引用。每项为：
+
+```json
+{"status":"exact","differences":[],"observation":{"id":"STABLE-OBSERVATION-UUID","context":{"...":"完整复制本次请求context"},"candidate":"2C","text":"实际中文原文","source":"新睿未提交叫品预览","observedAt":"真实观察时间；历史截图确切时刻未知则如实注明","sourceVersion":"unknown","evidence":["/ABSOLUTE/PRIVATE/preview.png"],"notes":"适用疑问、摄取时间或后续注记","isTestData":false}}
+```
+
+上例 context 是说明占位，发送前必须复制请求的完整对象。它包括 dealer、actingSeat、
+实际 auction、vulnerability、nsSystem、ewSystem、conditions 和可选 handRecordReference。
+环境返回的候选、context、requestID、snapshotID 必须匹配；重复／过期回传被拒绝。
+found 必须有非空原文、出处、观察时间、版本（未知明确 unknown）和证据。
+每次新观察使用新 ID；相同 ID 仅允许原条目完全相同的幂等保存，不能覆盖原文。
+历史原图的观察时间与当前摄取时间分开说明，不以文件修改时间伪造观察时刻。
+
+入口保存实际取得的观察，回传成功后再 `decide`。玩家和当前独立 reviewer 接收
+同一 explanationEvidence；此前取得的带上下文来源也随角色交接及 safe resume 保留。
+预览文字“显示过”与“适用于当前局面”不同；观察／多次出现／新版本不自动成为约定。
+对话中的推断仍是推断。空库、noMatch 或 unavailable 是正常分支；只有真正关键的
+未决事实才需澄清／停止。外层每次行动前仍需核对牌桌实际状态，变化后不能盲用旧建议。
+
+离开新睿或尚未 start，也可通过同一 CLI 本地查回，不调用模型：
+
+```json
+{"op":"lookupExplanations","explanationContext":{"dealer":"north","actingSeat":"south","auction":[{"sequence":0,"seat":"north","call":"1S"},{"sequence":1,"seat":"east","call":"P"}],"vulnerability":"neither","nsSystem":"实际NS体系","ewSystem":"实际EW体系","conditions":"相关条件"},"candidate":"2C","limit":5}
+```
+
+返回 explanationLookup 数组，每项含 observation、status: exact/related 和 differences。
+exact 仅指上下文相符，仍是来源观察；不同条件／体系／局况标为 related。
+不同完整前缀不命中，不把相近竞叫自动继承为当前含义。座位纯轮转同时映射双方体系、
+局况及行动位置；Pass、X、XX、争叫和开叫位置完整保留。查询默认五条，上限二十条，
+仅向模型发送已请求的有限资料，不扫描或注入整个数据库。
+
+SQLite 使用已观察的 parent/call 前缀节点与索引，格式 bridge-explanations、版本 1；
+未知格式／版本拒绝打开，保存后可独立读回。多来源／版本按不同观察 ID 追加保留，
+不会自动挑最新一条为真。合成资料仅用于 testData=true 的独立临时测试库，生产 CLI
+使用真实观察库，拒绝混用。附件复用私有证据路径，不复制图片入数据库。
+
+信息请求与回传另保存 explanation-request-UUID.json、explanation-return-UUID.json。
+连续建议除 decision-REVISION.json 最新入口外，也按候选授权保存
+`decision-REVISION-AUTHORIZATION.json`，保留补查前后的候选和评审证据。
 
 ## 启动与调用
 
