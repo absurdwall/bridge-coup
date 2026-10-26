@@ -1,27 +1,25 @@
 # 每日任务配置
 
-本任务使用 Codex 桌面端正规 schedule task。用户选择：**每天 09:00，America/New_York**。平台赛事日期仍从新睿读取。每次调用本 skill，只处理一副，完成后返回结果和中文记录链接。日程不负责唤醒、解锁或登录。
+沿用现有 Codex 正规任务：**每天 09:00，America/New_York，每次一副**。平台赛事日期从新睿读取；日程不负责唤醒、解锁或登录。先读下列部署读回，再调用同一版本 skill／入口；不创建重复任务。
 
-以下为 2026-10-24 部署配置快照；日常执行读取此配置，不另建 schedule。正规日程已激活，当前状态以正规任务最新读回为准，见下列外部配置证据及读回路径；可变状态不作为本 skill 的固定执行要求。
-
-| 设置 | 值 |
+| 设置 | 持久路径／身份 |
 |---|---|
-| 时间 | 每天 09:00 America/New_York |
 | skill | `/Users/tingranwang/.codex/worktrees/daily-bridge-integration/bridge-coup/.agents/skills/xinrui-daily-bridge/SKILL.md` |
 | bridge_repository | `/Users/tingranwang/.codex/worktrees/daily-bridge-integration/bridge-coup` |
-| codex_runtime | `/Users/tingranwang/.nvm/versions/node/v24.12.0/bin/codex`；本轮读回 0.160.0，沿用生产模型配置 |
+| codex_runtime | `/Users/tingranwang/.nvm/versions/node/v24.12.0/bin/codex`；实际版本从本次入口 identity 记录 |
 | records | `/Users/tingranwang/Documents/xinrui-daily-bridge/` |
-| task id／名称 | `automation`；“新睿每日单副” |
+| 解释观察库 | 启动 ready 的 observationStore；默认 `~/Library/Application Support/BridgeCoup/explanation-observations.sqlite` |
+| task id／名称 | `automation`／“新睿每日单副” |
 | 类型／目标聊天 | thread heartbeat／`01a16c74-47e8-7bb1-988e-7a91adee00f3` |
-| 配置证据 | `/Users/tingranwang/Documents/bridge-daily-implementation-2026-10-24/schedule-config.md` |
+| 当前部署与构建读回 | `/Users/tingranwang/Documents/bridge-spec61-implementation-2026-10-25/deployment.md` |
 | 正规任务读回 | `/Users/tingranwang/.codex/automations/automation/automation.toml` |
 
-integration checkout 在 PR #60 等待用户批准合入期间保留，作为当前部署路径。合并或清理前，先更新正规日程与此处路径、核对能运行同一 skill／入口，再归档部署 checkout。缺少 checkout／runtime 时保存并报告配置缺失。后续启用或路径变化以正规任务的新读回同步状态。
+部署记录保存实际 checkout commit、构建与协议、原／新任务 prompt 及工具读回。可变状态以该记录和正规任务读回为准；本文件不把待切换分支、测试通过或 PR 状态当成实际部署。旧版配置证据仍在 `/Users/tingranwang/Documents/bridge-daily-implementation-2026-10-24/schedule-config.md`，用于历史核对。
 
-需要更新正规任务时，可用以下自然语言作为 prompt 主体，填入上表实际路径；现有任务优先更新：
+新副使用 `bridge-external-v3 / continuous-board-v7`：叫牌、首攻、做庄和防守由生产 Expert；外层收集事实、服务解释预览、执行并确认授权行动，负责 claim 与两类总结。旧 v1 未完成记录保持真实语义，先按同副接续规则核对，不能假造早期叫牌／玩家连续性。缺少 checkout／runtime／部署核对或桌面条件时保存并报告未完成。
 
-> 使用 $xinrui-daily-bridge（绝对路径 SKILL.md）运行一次每日单副任务。Bridge Coup checkout：实际绝对路径；Codex runtime：实际绝对路径；记录目录：实际绝对路径。按 skill 检查已有记录与平台同一赛事牌号，优先接续未完成牌；本赛事每日单副已完成或另一运行仍在操作时不再开牌。使用正式 bridge-external 入口；叫牌、防守、claim 和总结保持外层真实归因。以新睿显示的赛事日期为准，完成后停止，不开启下一副。遇到无法核对、登录／桌面条件不足或生产调用失败时保存现场并报告未完成。完成、失败或需要用户行动时返回简短状态与可打开的中文记录链接；状态未变化且无可行动事项时保持安静。
+更新部署时复用该持久 checkout，先验证新版本和资料往返，再切换现有任务，读回同一 skill／入口版本后才视为完成；旧版本及配置证据保留到切换完成。只用桌面端正规 automation 工具更新原任务，保留原名称、目标、每天 09:00 America/New_York、状态及通知偏好。Spec #61 已授权本轮切换；其他日程改动遵循用户授权。
 
-启用前把 skill 及随附 references/assets 放在持久且可发现的位置，核对 prompt 指向的同一版本和正式入口。已有日程优先更新，避免重复；配置／修改日程需有用户授权。只使用桌面端提供的正规 automation 工具，不生成自建 cron、守护进程或额外调度产品。
+任务 prompt 应指向上表绝对路径，并要求：核对已有记录与平台同一赛事牌号，优先接续原副；每日单副已完成或另一运行仍操作时不再开牌；所有已支持常规选择走同一生产入口；按需解释预览不提交，最终授权后操作并观察确认；资料缺失／失败保留原副和原因，不由外层代打冒充成功。以新睿赛事日期为准，完成后停止并退出，不开启下一副。完成、失败或需要用户行动时返回简短状态和中文记录链接；状态未变化且无可行动事项时保持安静。
 
-工程验收只安排最终一次完整真实单副，使用此同一 skill／入口；无需再开一副验证定时触发。若最终副为防守或全 pass，明确 Expert 未在该副触发，只允许用已有做庄公开局面补一次局部真实调用。不为抽中角色另开完整副。半小时左右是当前体验预期，不能为赶时间强制 claim。
+本轮自主检查使用已有公开局面、录制回复和少量真实生产调用，预览材料回放与新现场操作分别报告。不另设定时触发、真实宕机、多副／无 claim 或全角色实战门槛。全部有效指令与代表例子见 checkout 的 `docs/continuous-expert-instructions.md`；联合逐份、逐例人工验收待用户与助手共同完成。
